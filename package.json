@@ -1,0 +1,54 @@
+{
+  "name": "connect-rtc-js",
+  "version": "1.0.0",
+  "description": "Amazon Connect softphone library",
+  "license": "Amazon Software License",
+  "main": "./src/js/connect-rtc.js",
+  "authors": {
+    "name": "Amazon Web Services",
+    "email": "",
+    "url": "http://aws.amazon.com/"
+  },
+  "homepage": "https://github.com/aws/connect-rtc-js",
+  "contributors": [
+    "Yuliang Zhou <yuliangz@amazon.com>",
+    "Anil Kumar Vuta <anilvuta@amazon.com>"
+  ],
+  "scripts": {
+    "prepublish": "grunt build",
+    "test": "grunt && mocha --compilers js:babel-core/register test/unit"
+  },
+  "dependencies": {
+    "webrtc-adapter": "~2.0.5",
+    "uuid": "^3.0.1"
+  },
+  "engines": {
+    "npm": ">=3.10.0",
+    "node": ">=6.0.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "sinon": "^2.1.0",
+    "chromedriver": "^2.28.0",
+    "eslint-config-webrtc": "^1.0.0",
+    "faucet": "0.0.1",
+    "geckodriver": "^1.5.0",
+    "babelify": "^7.3.0",
+    "babel-preset-env": "^1.3.2",
+    "babel-polyfill": "^6.23.0",
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.0.0",
+    "grunt-cli": "^1.0.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify": "^2.2.1",
+    "grunt-eslint": "^19.0.0",
+    "grunt-githooks": "^0.6.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-watch": "~1.0.0",
+    "mocha": "^3.2.0",
+    "selenium-webdriver": "^3.3.0",
+    "tape": "^4.6.3",
+    "travis-multirunner": "^3.1.0"
+  }
+}

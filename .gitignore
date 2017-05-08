@@ -1,0 +1,11 @@
+browsers/
+firefox-*.tar.bz2
+.DS_Store
+.idea
+.vscode
+node_modules/
+out/
+validation-report.json
+validation-status.json
+npm-debug.log
+*~

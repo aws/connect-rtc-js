@@ -1,0 +1,61 @@
+<html>
+<head>
+    <title>LilyRTCJS demo</title>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script type="application/javascript" src="/out/connect-rtc-debug.js"></script>
+    <script type="application/javascript">
+    $( document ).ready(function() {
+        var audioElement = $('#remoteAudio')[0];
+
+        if(window.location.hash) {
+            $('#softphoneMediaInfo').val(decodeURIComponent(window.location.hash.substr(1)));
+        }
+
+        $('#makeCall').click(function () {
+            var mediaInfo = JSON.parse($('#softphoneMediaInfo').val());
+            var rtcConfig = mediaInfo.webcallConfig;
+            var session = new connect.RTCSession(rtcConfig.signalingEndpoint,
+                                                 rtcConfig.iceServers,
+                                                 mediaInfo.callContextToken,
+                                                 console);
+
+            session.remoteAudioElement = audioElement;
+            session.connect();
+
+            var statsCollector = setInterval(() => {
+                var collectTime = new Date();
+                Promise.all([session.getUserAudioStats(), session.getRemoteAudioStats()]).then((streamStats) => {
+                    console.log(collectTime, streamStats);
+                });
+            }, 2000);
+
+            $('#makeCall').prop('disabled', true);
+            $('#disconnectCall').prop('disabled', false);
+            $('#disconnectCall').click(function () {
+                if (session) {
+                    try {
+                        session.hangup();
+                    } finally {
+                        clearInterval(statsCollector);
+                        $('#makeCall').prop('disabled', false);
+                        $('#disconnectCall').prop('disabled', true);
+                        audioElement.muted = false;
+                    }
+                }
+            });
+        });
+    });
+    </script>
+
+    <h1>Amazon Connect RTC Demo</h1>
+    <p>See <a href="https://github.com/aws/amazon-connect-streams/blob/9acf8d23ee836382c29a21d691943e5001b1c907/src/softphone.js#L77">amazon-connect-streams</a> for how to get the softphone media info</p>
+    <p>Note: stringify the object returned by <b>contact.getAgentConnection().getSoftphoneMediaInfo()</b> before pasting it here</p>
+    <audio id='remoteAudio' autoplay></audio>
+    <input id='softphoneMediaInfo' type='text' style="width:80em;">
+    <br>
+    <button id='makeCall'>Call</button>
+    <button id='disconnectCall' disabled="true">Hangup</button>
+</body>
+</html>
