@@ -22,7 +22,7 @@ $(document).ready(function () {
             statsCollector = setInterval(() => {
                 var collectTime = new Date();
                 Promise.all([session.getUserAudioStats(), session.getRemoteAudioStats()]).then((streamStats) => {
-                    console.log(collectTime, streamStats);
+                    console.log(collectTime, JSON.stringify(streamStats));
                 });
             }, 2000);
         };

@@ -25,7 +25,11 @@ export function extractAudioStatsFromStats(timestamp, stats, streamType) {
                             // Chrome reports -1 when there is no packet loss
                             packetsLost = statsReport.packetsLost;
                         }
-                        callStats = new AudioRtpStats(timestamp, packetsLost, statsReport.packetsSent, audioLevel);
+                        var rttMs = null;
+                        if (typeof statsReport.googRtt !== 'undefined') {
+                            rttMs = statsReport.googRtt;
+                        }
+                        callStats = new AudioRtpStats(timestamp, packetsLost, statsReport.packetsSent, audioLevel, rttMs, null);
                     } else if (typeof statsReport.packetsReceived !== 'undefined' && streamType === 'audio_output') {
                         if (typeof statsReport.audioOutputLevel !== 'undefined') {
                             audioLevel = statsReport.audioOutputLevel;
@@ -34,7 +38,11 @@ export function extractAudioStatsFromStats(timestamp, stats, streamType) {
                             // Chrome reports -1 when there is no packet loss
                             packetsLost = statsReport.packetsLost;
                         }
-                        callStats = new AudioRtpStats(timestamp, packetsLost, statsReport.packetsReceived, audioLevel);
+                        var jbMs = null;
+                        if (typeof statsReport.googJitterBufferMs !== 'undefined') {
+                            jbMs = statsReport.googJitterBufferMs;
+                        }
+                        callStats = new AudioRtpStats(timestamp, packetsLost, statsReport.packetsReceived, audioLevel, null, jbMs);
                     }
                 } else if (statsReport.type === 'inboundrtp') {
                     //Firefox case. Firefox reports packetsLost parameter only in inboundrtp type, and doesn't report in outboundrtp type.
@@ -47,6 +55,8 @@ export function extractAudioStatsFromStats(timestamp, stats, streamType) {
                         if (statsReport.packetsLost > 0) {
                             packetsLost = statsReport.packetsLost;
                         }
+                        // no jb size in firefox
+                        // rtt is broken https://bugzilla.mozilla.org/show_bug.cgi?id=1241066
                         callStats = new AudioRtpStats(timestamp, packetsLost, statsReport.packetsReceived, audioLevel);
                     }
                 }
@@ -60,11 +70,13 @@ export function extractAudioStatsFromStats(timestamp, stats, streamType) {
 * Basic RTP statistics object, represents statistics of an audio or video stream.
 */
 class AudioRtpStats {
-    constructor(timestamp, packetsLost, packetsCount, audioLevel) {
+    constructor(timestamp, packetsLost, packetsCount, audioLevel, rttMilliseconds, jbMilliseconds) {
         this._timestamp = timestamp;
         this._packetsLost = packetsLost;
         this._packetsCount = packetsCount;
         this._audioLevel = audioLevel;
+        this._rttMilliseconds = rttMilliseconds;
+        this._jbMilliseconds = jbMilliseconds;
     }
     /** {number} number of packets sent to the channel */
     get packetsCount() {
@@ -87,5 +99,13 @@ class AudioRtpStats {
     /** Timestamp when stats are collected. */
     get timestamp() {
         return this._timestamp;
+    }
+    /** {number} Round trip time calculated with RTCP reports */
+    get rttMilliseconds() {
+        return this._rttMilliseconds;
+    }
+    /** {number} Browser/client side jitter buffer length */
+    get jbMilliseconds() {
+        return this._jbMilliseconds;
     }
 }
