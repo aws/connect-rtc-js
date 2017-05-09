@@ -8,7 +8,8 @@
  * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-import {IllegalParameters} from './exceptions';
+import { IllegalParameters } from './exceptions';
+import { splitSections, splitLines, parseRtpMap } from 'sdp';
 
 /**
  * All logging methods used by connect-rtc.
@@ -34,11 +35,11 @@ export function hitch() {
     var scope = args.shift();
     var method = args.shift();
 
-    if (! scope) {
+    if (!scope) {
         throw new IllegalParameters('utils.hitch(): scope is required!');
     }
 
-    if (! method) {
+    if (!method) {
         throw new IllegalParameters('utils.hitch(): method is required!');
     }
 
@@ -54,7 +55,7 @@ export function hitch() {
 
 export function wrapLogger(logger, callId, logCategory) {
     var _logger = {};
-    logMethods.forEach(function(logMethod) {
+    logMethods.forEach(function (logMethod) {
         if (!logger[logMethod]) {
             throw new Error('Logging method ' + logMethod + ' required');
         }
@@ -66,7 +67,7 @@ export function wrapLogger(logger, callId, logCategory) {
 export function closeStream(stream) {
     if (stream) {
         var tracks = stream.getTracks();
-        for (var i=0; i<tracks.length; i++) {
+        for (var i = 0; i < tracks.length; i++) {
             var track = tracks[i];
             try {
                 track.stop();
@@ -75,4 +76,27 @@ export function closeStream(stream) {
             }
         }
     }
+}
+
+/**
+ * Remove all codecs except the specified one from specified media type, return the new SDP.
+ * WARNING: This may return a bad SDP without any usable codec.
+ */
+export function forceCodec(sdp, mediaType, codec) {
+    var sections = splitSections(sdp);
+    for (var i = 1; i < sections.length; i++) {
+        if (sections[i].startsWith('m=' + mediaType)) {
+            sections[i] = splitLines(sections[i]).map(line => {
+                if (!line.startsWith('a=rtpmap')) {
+                    return line;
+                }
+                var codecName = parseRtpMap(line).name.toUpperCase();
+                if (codecName === 'TELEPHONE-EVENT' || codecName === codec.toUpperCase()) {
+                    return line;
+                }
+                return null;
+            }).filter(line => line !== null).join('\r\n');
+        }
+    }
+    return sections.map(section => section.trim()).join('\r\n');
 }
