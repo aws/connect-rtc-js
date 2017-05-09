@@ -62,3 +62,11 @@ export class CallNotFoundException extends Error {
         this.name = CallNotFoundExceptionName;
     }
 }
+
+export const UnknownSignalingErrorName = 'UnknownSignalingError';
+export class UnknownSignalingError extends Error {
+    constructor() {
+        super();
+        this.name = UnknownSignalingErrorName;
+    }
+}

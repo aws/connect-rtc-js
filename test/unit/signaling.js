@@ -10,7 +10,7 @@
 
 import RtcSignaling from '../../src/js/signaling';
 import { SignalingState, FailOnTimeoutState, PendingConnectState, PendingInviteState, PendingAnswerState, PendingAcceptState, PendingAcceptAckState, TalkingState, PendingReconnectState, PendingRemoteHangupState, PendingLocalHangupState, DisconnectedState, FailedState } from '../../src/js/signaling'; // eslint-disable-line no-unused-vars
-import { Timeout } from '../../src/js/exceptions';// eslint-disable-line no-unused-vars
+import { TimeoutExceptionName, UnknownSignalingErrorName } from '../../src/js/exceptions';
 import chai from 'chai';
 import sinon from 'sinon';
 
@@ -101,7 +101,7 @@ describe('signalingTest', () => {
         it('transit to Failed state with Timeout exception', (done) => {
             signaling.transit = (nextState) => {
                 chai.assert(nextState instanceof FailedState, 'next state should be FailedState');
-                chai.expect(nextState.exception.name).to.equal('Timeout');
+                chai.expect(nextState.exception.name).to.equal(TimeoutExceptionName);
                 done();
             };
             signaling.state = state;
@@ -204,7 +204,9 @@ describe('signalingTest', () => {
                 error: 'Oops'
             });
             chai.assert(signaling.transit.calledOnce);
-            chai.assert(signaling.transit.args[0][0] instanceof FailedState);
+            var nextState = signaling.transit.args[0][0];
+            chai.assert(nextState instanceof FailedState);
+            chai.expect(nextState.exception.name).to.eq(UnknownSignalingErrorName);
         });
 
         it('notifies and goes to pending accept state upon receiving success response', (done) => {

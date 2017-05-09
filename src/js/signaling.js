@@ -10,7 +10,7 @@
 
 import { hitch, wrapLogger } from './utils';
 import { MAX_INVITE_DELAY_MS, MAX_ACCEPT_BYE_DELAY_MS, DEFAULT_CONNECT_TIMEOUT_MS } from './rtc_const';
-import { UnsupportedOperation, Timeout, BusyException, CallNotFoundException } from './exceptions';
+import { UnsupportedOperation, Timeout, BusyException, CallNotFoundException, UnknownSignalingError } from './exceptions';
 
 var reqIdSeq = 1;
 
@@ -162,6 +162,8 @@ export class PendingAnswerState extends FailOnTimeoutState {
             return new BusyException(msg.error.message);
         } else if (msg.error && msg.error.code == 404) {
             return new CallNotFoundException(msg.error.message);
+        } else {
+            return new UnknownSignalingError();
         }
     }
 
