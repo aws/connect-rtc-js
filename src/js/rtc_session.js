@@ -7,7 +7,7 @@
  *
  * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
-import { hitch, wrapLogger, closeStream } from './utils';
+import { hitch, wrapLogger, closeStream, forceCodec } from './utils';
 import { SessionReport } from './session_report';
 import { DEFAULT_ICE_TIMEOUT_MS, DEFAULT_GUM_TIMEOUT_MS, RTC_ERRORS } from './rtc_const';
 import { UnsupportedOperation, IllegalParameters, IllegalState, GumTimeout, BusyExceptionName, CallNotFoundExceptionName } from './exceptions';
@@ -129,6 +129,9 @@ export class SetLocalSessionDescriptionState extends RTCSessionState {
         var self = this;
 
         // fix/modify SDP as needed here
+        if (self._forceAudioCodec) {
+            self._rtcSession._localSessionDescription.sdp = forceCodec(self._rtcSession._localSessionDescription.sdp, 'audio', self._forceAudioCodec);
+        }
 
         self.logger.info('LocalSD', self._rtcSession._localSessionDescription);
         self._rtcSession._pc.setLocalDescription(self._rtcSession._localSessionDescription).then(() => {
@@ -567,6 +570,9 @@ export default class RtcSession {
     set enableAudio(flag) {
         this._enableAudio = flag;
     }
+    set echoCancellation(flag) {
+        this._echoCancellation = flag;
+    }
     set enableVideo(flag) {
         this._enableVideo = flag;
     }
@@ -621,6 +627,16 @@ export default class RtcSession {
      */
     set gumTimeoutMillis(timeoutMillis) {
         this._gumTimeoutMillis = timeoutMillis;
+    }
+
+    /**
+     * connect-rtc-js initiate the handshaking with all browser supported codec by default, Amazon Connect service will choose the codec according to its preference setting.
+     * Setting this attribute will force connect-rtc-js to only use specified codec.
+     * WARNING: Setting this to unsupported codec will cause the failure of handshaking.
+     * Supported codecs: opus.
+     */
+    set forceAudioCodec(audioCodec) {
+        this._forceAudioCodec = audioCodec;
     }
 
     transit(nextState) {
@@ -780,7 +796,15 @@ export default class RtcSession {
         var mediaConstraints = {};
 
         if (self._enableAudio) {
-            mediaConstraints.audio = true;
+            var audioConstraints = {};
+            if (typeof self._echoCancellation !== 'undefined') {
+                audioConstraints.echoCancellation = !!self._echoCancellation;
+            }
+            if (Object.keys(audioConstraints).length > 0) {
+                mediaConstraints.audio = audioConstraints;
+            } else {
+                mediaConstraints.audio = true;
+            }
         } else {
             mediaConstraints.audio = false;
         }
