@@ -15,6 +15,9 @@
     "Anil Kumar Vuta <anilvuta@amazon.com>"
   ],
   "scripts": {
+    "preversion": "git stash && git checkout master && git pull && npm test | faucet && git checkout -B bumpVersion && grunt build && grunt copyForPublish && git add package.json release/* && git commit -m 'Add adapter artifacts' --allow-empty",
+    "version": "",
+    "postversion": "export GITTAG=\"echo $(git describe --abbrev=0 --tags | sed 's/^v//')\" && git push --force --set-upstream origin bumpVersion --follow-tags && git checkout gh-pages && git pull && cp out/connect-rtc-debug.js ./connect-rtc-debug-`$GITTAG`.js && cp out/connect-rtc.min.js ./connect-rtc-`$GITTAG`.min.js && ln -s connect-rtc-debug-`$GITTAG`.js connect-rtc-debug-latest.js && ln -s connect-rtc-`$GITTAG`.min.js connect-rtc-latest.min.js && git add connect-rtc*.js && git commit -m `$GITTAG` && git push --set-upstream origin gh-pages && git checkout master",
     "prepublish": "grunt build",
     "test": "grunt && mocha --compilers js:babel-core/register test/unit"
   },
