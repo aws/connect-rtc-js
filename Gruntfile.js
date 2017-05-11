@@ -20,8 +20,7 @@ module.exports = function (grunt) {
                 dest: './out/connect-rtc-debug.js',
                 options: {
                     browserifyOptions: {
-                        debug: true,
-                        standalone: 'connect'
+                        debug: true
                     },
                     transform: [["babelify", { "presets": ["env"] }]],
                 }
@@ -32,9 +31,6 @@ module.exports = function (grunt) {
                 ],
                 dest: './out/connect-rtc.js',
                 options: {
-                    browserifyOptions: {
-                        standalone: 'connect'
-                    },
                     transform: [["babelify", { "presets": ["env"] }]],
                 }
             }
