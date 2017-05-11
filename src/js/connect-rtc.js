@@ -48,6 +48,10 @@ import 'webrtc-adapter';
 import RtcSession from './rtc_session';
 import {RTC_ERRORS} from './rtc_const';
 
-export const RTCSession = RtcSession;
-export const RTCErrors = RTC_ERRORS;
+global.connect = global.connect || {};
+global.connect.RTCSession = RtcSession;
+global.connect.RTCErrors = RTC_ERRORS;
 
+global.lily = global.lily || {};
+global.lily.RTCSession = RtcSession;
+global.lily.RTCErrors = RTC_ERRORS;
