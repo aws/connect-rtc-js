@@ -17,6 +17,8 @@ $(document).ready(function () {
 
         session.remoteAudioElement = audioElement;
 
+        session.forceAudioCodec = 'OPUS';
+
         var statsCollector;
         session.onSessionConnected = () => {
             statsCollector = setInterval(() => {
