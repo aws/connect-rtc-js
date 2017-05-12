@@ -7,7 +7,7 @@
  *
  * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
-import { hitch, wrapLogger, closeStream, forceCodec, modifyOpusDtxParam } from './utils';
+import { hitch, wrapLogger, closeStream, SdpOptions, transformSdp } from './utils';
 import { SessionReport } from './session_report';
 import { DEFAULT_ICE_TIMEOUT_MS, DEFAULT_GUM_TIMEOUT_MS, RTC_ERRORS } from './rtc_const';
 import { UnsupportedOperation, IllegalParameters, IllegalState, GumTimeout, BusyExceptionName, CallNotFoundExceptionName } from './exceptions';
@@ -128,12 +128,14 @@ export class SetLocalSessionDescriptionState extends RTCSessionState {
     onEnter() {
         var self = this;
 
-        // fix/modify SDP as needed here
+        // fix/modify SDP as needed here, before setLocalDescription
         var localDescription = self._rtcSession._localSessionDescription;
+        var sdpOptions = new SdpOptions();
         if (self._rtcSession._forceAudioCodec) {
-            localDescription.sdp = forceCodec(localDescription.sdp, 'audio', self._rtcSession._forceAudioCodec);
+            sdpOptions.forceCodec['audio'] = self._rtcSession._forceAudioCodec;
         }
-        localDescription.sdp = modifyOpusDtxParam(localDescription.sdp, self._rtcSession._enableOpusDtx);
+        sdpOptions.enableOpusDtx = self._rtcSession._enableOpusDtx;
+        localDescription.sdp = transformSdp(localDescription.sdp, sdpOptions);
 
         self.logger.info('LocalSD', self._rtcSession._localSessionDescription);
         self._rtcSession._pc.setLocalDescription(self._rtcSession._localSessionDescription).then(() => {
