@@ -79,84 +79,117 @@ export function closeStream(stream) {
 }
 
 /**
- * Remove all codecs except the specified one from specified media type, return the new SDP.
- * WARNING: This may return a bad SDP without any usable codec.
+ * A parameter of transformSdp.
+ * This defines all the SDP options connect-rtc-js supports.
  */
-export function forceCodec(sdp, mediaType, targetCodec) {
-    var sections = splitSections(sdp);
-    for (var i = 1; i < sections.length; i++) {
-        if (getKind(sections[i]) === mediaType) {
-            var rtpParams = parseRtpParameters(sections[i]);
-            var targetCodecMap = rtpParams.codecs.filter(codec => codec.name.toUpperCase() === targetCodec.toUpperCase() || codec.name.toUpperCase() == 'TELEPHONE-EVENT')
-                .reduce((map, codec) => {
-                    map['' + codec.payloadType] = codec;
-                    return map;
-                }, {});
-            sections[i] = splitLines(sections[i]).map(line => {
-                if (line.startsWith('m=')) {
-                    return line.substring(0, line.indexOf('UDP/TLS/RTP/SAVPF ') + 'UDP/TLS/RTP/SAVPF '.length) + Object.keys(targetCodecMap).join(' ');
-                } else if (line.startsWith('a=rtpmap')) {
-                    var pt = parseRtpMap(line).payloadType;
-                    if (targetCodecMap[pt]) {
-                        return line;
-                    } else {
-                        return null;
-                    }
-                } else if (line.startsWith('a=fmtp:') || line.startsWith('a=rtcp-fb:')) {
-                    var pt = line.substring(line.indexOf(':') + 1, line.indexOf(' '));// eslint-disable-line no-redeclare
-                    if (targetCodecMap[pt]) {
-                        return line;
-                    } else {
-                        return null;
-                    }
-                } else {
-                    return line;
-                }
-            }).filter(line => line !== null).join('\r\n');
-        }
+export class SdpOptions {
+    constructor() {
+        this._forceCodec = {};
     }
-    return sections.map(section => section.trim()).join('\r\n') + '\r\n';
+
+    get enableOpusDtx() {
+        return this._enableOpusDtx;
+    }
+
+    /**
+     * By default transformSdp disables dtx for OPUS codec.
+     * Setting this to true would force it to turn on DTX.
+     */
+    set enableOpusDtx(flag) {
+        this._enableOpusDtx = flag;
+    }
+
+    /**
+     * A map from media type (audio/video) to codec (case insensitive).
+     * Add entry for force connect-rtc-js to use specified codec for certain media type.
+     * For example: sdpOptions.forceCodec['audio'] = 'opus';
+     */
+    get forceCodec() {
+        return this._forceCodec;
+    }
+
+    /**
+     * Test if given codec should be removed from SDP.
+     * @param mediaType audio|video
+     * @param codecName case insensitive
+     * @return TRUE - should remove
+     */
+    _shouldDeleteCodec(mediaType, codecName) {
+        var upperCaseCodecName = codecName.toUpperCase();
+        return this._forceCodec[mediaType] && upperCaseCodecName !== this._forceCodec[mediaType].toUpperCase() && upperCaseCodecName !== 'TELEPHONE-EVENT';
+    }
 }
 
 /**
- * Modify OPUS DTX parameter of SDP and return a new SDP.
- * This disables DTX by default and
+ * Modifies input SDP according to sdpOptions.
+ * See SdpOptions for available options.
  */
-export function modifyOpusDtxParam(sdp, enableDtx) {
+export function transformSdp(sdp, sdpOptions) {
     var sections = splitSections(sdp);
     for (var i = 1; i < sections.length; i++) {
-        if (getKind(sections[i]) === 'audio') {
-            var rtpParams = parseRtpParameters(sections[i]);
-            // a map from payload type to codec object, all OPUS
-            var opusCodecMap = rtpParams.codecs.filter(codec => codec.name.toUpperCase() === 'OPUS').reduce((map, codec) => {
-                map['' + codec.payloadType] = codec;
-                return map;
-            }, {});
-            sections[i] = splitLines(sections[i]).map(line => {
-                if (line.startsWith('a=rtpmap:')) {
-                    var rtpMap = parseRtpMap(line);
-                    var opusCodec = opusCodecMap[rtpMap.payloadType];
-                    if (opusCodec) {
-                        // modify opus parameter
-                        opusCodec.parameters.usedtx = enableDtx ? 1 : 0;
-                        // generate fmtp line immediately, we will remove original fmtp line once we see it
-                        return (line + "\r\n" + writeFmtp(opusCodec)).trim();
-                    } else {
-                        return line;
-                    }
-                } else if (line.startsWith('a=fmtp:')) {
-                    var pt = line.substring('a=fmtp:'.length, line.indexOf(' '));
-                    if (opusCodecMap[pt]) {
-                        // this is a line for OPUS, remove it because we already generated FMTP line for it when we process the rtpmap line
-                        return null;
-                    } else {
-                        return line;
-                    }
+        var mediaType = getKind(sections[i]);
+        var rtpParams = parseRtpParameters(sections[i]);
+        // a map from payload type (string) to codec object
+        var codecMap = rtpParams.codecs.reduce((map, codec) => {
+            map['' + codec.payloadType] = codec;
+            return map;
+        }, {});
+        sections[i] = splitLines(sections[i]).map(line => {
+            if (line.startsWith('m=')) {
+                // modify m= line if SdpOptions#forceCodec specifies codec for current media type
+                if (sdpOptions.forceCodec[mediaType]) {
+                    var targetCodecPts = Object.keys(codecMap).filter(pt => !sdpOptions._shouldDeleteCodec(mediaType, codecMap[pt].name));
+                    return line.substring(0, line.indexOf('UDP/TLS/RTP/SAVPF ') + 'UDP/TLS/RTP/SAVPF '.length) + targetCodecPts.join(' ');
                 } else {
                     return line;
                 }
-            }).filter(line => line !== null).join('\r\n');
-        }
+            } else if (line.startsWith('a=rtpmap:')) {
+                var rtpMap = parseRtpMap(line);
+                var currentCodec = codecMap[rtpMap.payloadType];
+
+                // remove this codec if SdpOptions#forceCodec specifies a different codec for current media type
+                if (sdpOptions._shouldDeleteCodec(mediaType, currentCodec.name)) {
+                    return null;
+                }
+                
+                // append a=fmtp line immediately if current codec is OPUS (to explicitly specify OPUS parameters)
+                if (currentCodec.name.toUpperCase() === 'OPUS') { 
+                    currentCodec.parameters.usedtx = sdpOptions.enableOpusDtx ? 1 : 0;
+                    // generate fmtp line immediately after rtpmap line, and remove original fmtp line once we see it
+                    return (line + "\r\n" + writeFmtp(currentCodec)).trim();
+                } else {
+                    return line;
+                }
+            } else if (line.startsWith('a=fmtp:')) {
+                var pt = line.substring('a=fmtp:'.length, line.indexOf(' '));
+                var currentCodec = codecMap[pt];// eslint-disable-line no-redeclare
+
+                // remove this codec if SdpOptions#forceCodec specifies a different codec for current media type
+                if (sdpOptions._shouldDeleteCodec(mediaType, currentCodec.name)) {
+                    return null;
+                }
+
+                if (currentCodec.name.toUpperCase() === 'OPUS') {
+                    // this is a line for OPUS, remove it because FMTP line is already generated when rtpmap line is processed
+                    return null;
+                } else {
+                    return line;
+                }
+            } else if (line.startsWith('a=rtcp-fb:')) {
+                var pt = line.substring(line.indexOf(':') + 1, line.indexOf(' '));// eslint-disable-line no-redeclare
+                var currentCodec = codecMap[pt];// eslint-disable-line no-redeclare
+
+                // remove this codec if SdpOptions#forceCodec specifies a different codec for current media type
+                if (sdpOptions._shouldDeleteCodec(mediaType, currentCodec.name)) {
+                    return null;
+                } else {
+                    return line;
+                }
+            } else {
+                return line;
+            }
+        }).filter(line => line !== null).join('\r\n');
+
     }
     return sections.map(section => section.trim()).join('\r\n') + '\r\n';
 }
