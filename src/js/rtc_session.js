@@ -13,7 +13,7 @@ import { DEFAULT_ICE_TIMEOUT_MS, DEFAULT_GUM_TIMEOUT_MS, RTC_ERRORS } from './rt
 import { UnsupportedOperation, IllegalParameters, IllegalState, GumTimeout, BusyExceptionName, CallNotFoundExceptionName } from './exceptions';
 import RtcSignaling from './signaling';
 import uuid from 'uuid/v4';
-import {extractAudioStatsFromStats} from './rtp-stats';
+import { extractAudioStatsFromStats } from './rtp-stats';
 
 export class RTCSessionState {
     constructor(rtcSession) {
@@ -715,12 +715,12 @@ export default class RtcSession {
             iceTransportPolicy: 'relay',
             bundlePolicy: 'balanced' //maybe 'max-compat', test stereo sound
         }, {
-            optional: [
-                {
-                    googDscp: true
-                }
-            ]
-        });
+                optional: [
+                    {
+                        googDscp: true
+                    }
+                ]
+            });
 
         self._pc.ontrack = hitch(self, self._ontrack);
         self._pc.onicecandidate = hitch(self, self._onIceCandidate);
@@ -737,9 +737,9 @@ export default class RtcSession {
         var timestamp = new Date();
         if (this._pc && this._pc.signalingState === 'stable' && this._remoteAudioStream) {
             var audioTracks = this._remoteAudioStream.getAudioTracks();
-            return this._pc.getStats(audioTracks[0]).then(function(stats){
-                        return extractAudioStatsFromStats(timestamp, stats, 'audio_output');
-                    });
+            return this._pc.getStats(audioTracks[0]).then(function (stats) {
+                return extractAudioStatsFromStats(timestamp, stats, 'audio_output');
+            });
         } else {
             return Promise.reject(new IllegalState());
         }
@@ -749,9 +749,9 @@ export default class RtcSession {
         var timestamp = new Date();
         if (this._pc && this._pc.signalingState === 'stable' && stream) {
             var audioTracks = stream.getAudioTracks();
-            return this._pc.getStats(audioTracks[0]).then(function(stats){
-                        return extractAudioStatsFromStats(timestamp, stats, 'audio_input');
-                    });
+            return this._pc.getStats(audioTracks[0]).then(function (stats) {
+                return extractAudioStatsFromStats(timestamp, stats, 'audio_input');
+            });
         } else {
             return Promise.reject(new IllegalState());
         }
@@ -809,9 +809,16 @@ export default class RtcSession {
 
         if (self._enableAudio) {
             var audioConstraints = {};
-            if (typeof self._echoCancellation !== 'undefined') {
-                audioConstraints.echoCancellation = !!self._echoCancellation;
-            }
+            audioConstraints.echoCancellation = false;
+            audioConstraints.googAutoGainControl = false;
+            audioConstraints.googAutoGainControl2 = false;
+            audioConstraints.googEchoCancellation = false;
+            audioConstraints.googEchoCancellation2 = false;
+            audioConstraints.googDAEchoCancellation = false;
+            audioConstraints.googNoiseSuppression = false;
+            audioConstraints.googNoiseSuppression2 = false;
+            audioConstraints.googHighpassFilter = false;
+            audioConstraints.googTypingNoiseDetection = false;
             if (Object.keys(audioConstraints).length > 0) {
                 mediaConstraints.audio = audioConstraints;
             } else {
