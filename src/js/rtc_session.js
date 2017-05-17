@@ -733,24 +733,40 @@ export default class RtcSession {
     hangup() {
         this._state.hangup();
     }
+    /**
+     * Get a promise of AudioRtpStats object for remote audio (from Amazon Connect to client).
+     * @return Rejected promise if failed to get AudioRtpStats. The promise is never resolved with null value.
+     */
     getRemoteAudioStats() {
         var timestamp = new Date();
         if (this._pc && this._pc.signalingState === 'stable' && this._remoteAudioStream) {
             var audioTracks = this._remoteAudioStream.getAudioTracks();
             return this._pc.getStats(audioTracks[0]).then(function(stats){
-                        return extractAudioStatsFromStats(timestamp, stats, 'audio_output');
+                        var rtcJsStats = extractAudioStatsFromStats(timestamp, stats, 'audio_output');
+                        if (!rtcJsStats) {
+                            throw new Error('Failed to extract AudioRtpStats from RTCStatsReport');
+                        }
+                        return rtcJsStats;
                     });
         } else {
             return Promise.reject(new IllegalState());
         }
     }
+    /**
+     * Get a promise of AudioRtpStats object for user audio (from client to Amazon Connect).
+     * @return Rejected promise if failed to get AudioRtpStats. The promise is never resolved with null value.
+     */
     getUserAudioStats() {
         var stream = this._userAudioStream || this._streamToBeClosed;
         var timestamp = new Date();
         if (this._pc && this._pc.signalingState === 'stable' && stream) {
             var audioTracks = stream.getAudioTracks();
             return this._pc.getStats(audioTracks[0]).then(function(stats){
-                        return extractAudioStatsFromStats(timestamp, stats, 'audio_input');
+                        var rtcJsStats = extractAudioStatsFromStats(timestamp, stats, 'audio_input');
+                        if (!rtcJsStats) {
+                            throw new Error('Failed to extract AudioRtpStats from RTCStatsReport');
+                        }
+                        return rtcJsStats;
                     });
         } else {
             return Promise.reject(new IllegalState());
