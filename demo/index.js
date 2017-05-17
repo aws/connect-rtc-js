@@ -7,7 +7,7 @@ $(document).ready(function () {
 
     $('#makeCall').click(function () {
         var mediaInfo = JSON.parse($('#softphoneMediaInfo').val());
-        var rtcConfig = mediaInfo.webcallConfig;
+        var rtcConfig = mediaInfo.webcallConfig || JSON.parse(mediaInfo.callConfigJson);//mediaInfo.webcallConfig is used internally by Amazon Connect team only
         var session = new connect.RTCSession(rtcConfig.signalingEndpoint,
             rtcConfig.iceServers,
             mediaInfo.callContextToken,
