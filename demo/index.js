@@ -25,8 +25,8 @@ $(document).ready(function () {
           session.remoteVideoElement = videoElement;
           // enable video with 480p requested.
           session.enableVideo = true;
-          session.videoWidth = 854;
-          session.videoHeight = 480;
+          session.maxVideoWidth = 480;
+          session.maxVideoHeight = 360;
         } else {
           $('#video-display')[0].style.display = 'none';
           session.remoteVideoElement = null;
