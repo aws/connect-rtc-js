@@ -597,6 +597,9 @@ export default class RtcSession {
     set minVideoWidth(width) {
         this._minVideoWidth = width;
     }
+    set idealVideoWidth(width) {
+        this._idealVideoWidth = width;
+    }
     set maxVideoHeight(height) {
         this._maxVideoHeight = height;
     }
@@ -606,13 +609,9 @@ export default class RtcSession {
     set idealVideoHeight(height) {
         this._idealVideoHeight = height;
     }
-    set videoWidth(width) {
-        this._videoWidth = width;
-    }
     set facingMode(mode) {
         this._facingMode = mode;
     }
-
     /**
      * Optional. RtcSession will grab input device if this is not specified.
      */
@@ -862,8 +861,8 @@ export default class RtcSession {
             var frameRateConstraints = {};
 
             //build video width constraints
-            if (typeof self._videoWidth !== 'undefined') {
-                widthConstraints.ideal = self._videoWidth;
+            if (typeof self._idealVideoWidth !== 'undefined') {
+                widthConstraints.ideal = self._idealVideoWidth;
             }
             if (typeof self._maxVideoWidth !== 'undefined') {
                 widthConstraints.max = self._maxVideoWidth;
