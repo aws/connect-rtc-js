@@ -423,9 +423,9 @@ export class FailedState extends CleanUpState {
 export default class RtcSession {
     /**
      * Build an AmazonConnect RTC session.
-     * @param {*} signalingUri
+     * @param {*} signalingUri 
      * @param {*} iceServers Array of ice servers
-     * @param {*} contactToken
+     * @param {*} contactToken 
      * @param {*} logger An object provides logging functions, such as console
      * @param {*} contactId Must be UUID, uniquely identifies the session.
      */
@@ -447,13 +447,6 @@ export default class RtcSession {
         } else {
             this._callId = contactId;
         }
-
-        //logging
-        console.log("signalingUri: " + JSON.stringify(signalingUri));
-        console.log("iceServers: " + JSON.stringify(iceServers));
-        console.log("contactToken: " + JSON.stringify(contactToken));
-        console.log("contactId: " + JSON.stringify(contactId));
-
         this._sessionReport = new SessionReport();
         this._signalingUri = signalingUri;
         this._iceServers = iceServers;
@@ -465,7 +458,6 @@ export default class RtcSession {
 
         this._enableAudio = true;
         this._enableVideo = false;
-        this._facingMode = 'user';
 
         this._onGumError =
             this._onGumSuccess =
@@ -594,9 +586,6 @@ export default class RtcSession {
     set minVideoFrameRate(frameRate) {
         this._minVideoFrameRate = frameRate;
     }
-    set videoFrameRate(frameRate) {
-        this._videoFrameRate = frameRate;
-    }
     set maxVideoWidth(width) {
         this._maxVideoWidth = width;
     }
@@ -609,16 +598,6 @@ export default class RtcSession {
     set minVideoHeight(height) {
         this._minVideoHeight = height;
     }
-    set videoHeight(height) {
-        this._videoHeight = height;
-    }
-    set videoWidth(width) {
-        this._videoWidth = width;
-    }
-    set facingMode(mode) {
-        this._facingMode = mode;
-    }
-
     /**
      * Optional. RtcSession will grab input device if this is not specified.
      */
@@ -773,8 +752,6 @@ export default class RtcSession {
             return Promise.reject(new IllegalState());
         }
     }
-
-
     /**
      * Get a promise of AudioRtpStats object for user audio (from client to Amazon Connect).
      * @return Rejected promise if failed to get AudioRtpStats. The promise is never resolved with null value.
@@ -795,7 +772,6 @@ export default class RtcSession {
             return Promise.reject(new IllegalState());
         }
     }
-
     _onIceCandidate(evt) {
         this._state.onIceCandidate(evt);
     }
@@ -863,62 +839,13 @@ export default class RtcSession {
 
         if (self._enableVideo) {
             var videoConstraints = {};
-            var widthConstraints = {};
-            var heightConstraints = {};
-            var frameRateConstraints = {};
-
-            //build video width constraints
-            if (typeof self._videoWidth !== 'undefined') {
-                widthConstraints.ideal = self._videoWidth;
-            }
-            if (typeof self._maxVideoWidth !== 'undefined') {
-                widthConstraints.max = self._maxVideoWidth;
-            }
-            if (typeof self._minVideoWidth !== 'undefined') {
-                widthConstraints.min = self._minVideoWidth;
-            }
-            // build video height constraints
-            if (typeof self._videoHeight !== 'undefined') {
-                heightConstraints.ideal = self._videoHeight;
-            }
-            if (typeof self._maxVideoHeight !== 'undefined') {
-                heightConstraints.max = self._maxVideoHeight;
-            }
-            if (typeof self._minVideoHeight !== 'undefined') {
-                heightConstraints.min = self._minVideoHeight;
-            }
-            if(Object.keys(widthConstraints).length > 0 && Object.keys(heightConstraints).length > 0) {
-                videoConstraints.width = widthConstraints;
-                videoConstraints.height = heightConstraints;
-            }
-            // build frame rate constraints
-            if (typeof self._videoFrameRate !== 'undefined') {
-                frameRateConstraints.ideal = self._videoFrameRate;
-            }
-            if (typeof self._minVideoFrameRate !== 'undefined') {
-                frameRateConstraints.min = self._minVideoFrameRate;
-            }
-            if (typeof self._maxVideoFrameRate !== 'undefined') {
-                frameRateConstraints.max = self._maxVideoFrameRate;
-            }
-            if(Object.keys(frameRateConstraints).length > 0) {
-                videoConstraints.frameRate = frameRateConstraints;
-            }
-
-            // build facing mode constraints
-            if(self._facingMode === 'user' || self._facingMode === "environment") {
-                videoConstraints.facingMode = self._facingMode;
-            } else {
-                self._facingMode = 'user';
-            }
-
-            // set video constraints
+            //TODO build video constraints
             if (Object.keys(videoConstraints).length > 0) {
                 mediaConstraints.video = videoConstraints;
             } else {
                 mediaConstraints.video = true;
             }
-            console.log("Video Constraints: " + JSON.stringify(videoConstraints));
+            //TODO facingMode : 'user' or 'environment'
         }
 
         return mediaConstraints;
