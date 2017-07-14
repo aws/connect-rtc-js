@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var audioElement = $('#remoteAudio')[0];
+    var videoElement = document.getElementById('remoteVideo');
 
     if (window.location.hash) {
         $('#softphoneMediaInfo').val(decodeURIComponent(window.location.hash.substr(1)));
@@ -17,12 +18,24 @@ $(document).ready(function () {
 
         session.remoteAudioElement = audioElement;
 
+        session.remoteVideoElement = videoElement;
+
         session.forceAudioCodec = 'OPUS';
+
+        // enable video with 480p requested.
+        session.enableVideo = true;
+
+        session.videoWidth = 854;
+
+        session.videoHeight = 480;
 
         var statsCollector;
         session.onSessionConnected = () => {
             statsCollector = setInterval(() => {
                 var collectTime = new Date();
+                Promise.all([session.getUserAudioStats(), session.getRemoteAudioStats()]).then((streamStats) => {
+                   console.log(collectTime, JSON.stringify(streamStats));
+                });
                 Promise.all([session.getUserAudioStats(), session.getRemoteAudioStats()]).then((streamStats) => {
                     console.log(collectTime, JSON.stringify(streamStats));
                 });
@@ -38,7 +51,7 @@ $(document).ready(function () {
         $('#makeCall').prop('disabled', true);
         $('#echoCancellationOption').prop('disabled', true);
         $('#disconnectCall').prop('disabled', false);
-        
+
         $('#disconnectCall').click(function () {
             if (session) {
                 try {

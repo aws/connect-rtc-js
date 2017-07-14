@@ -448,6 +448,12 @@ export default class RtcSession {
             this._callId = contactId;
         }
 
+        //logging
+        console.log("signalingUri: " + JSON.stringify(signalingUri));
+        console.log("iceServers: " + JSON.stringify(iceServers));
+        console.log("contactToken: " + JSON.stringify(contactToken));
+        console.log("contactId: " + JSON.stringify(contactId));
+
         this._sessionReport = new SessionReport();
         this._signalingUri = signalingUri;
         this._iceServers = iceServers;
@@ -603,8 +609,8 @@ export default class RtcSession {
     set minVideoHeight(height) {
         this._minVideoHeight = height;
     }
-    set idealVideoHeight(height) {
-        this._idealVideoHeight = height;
+    set videoHeight(height) {
+        this._videoHeight = height;
     }
     set videoWidth(width) {
         this._videoWidth = width;
@@ -872,8 +878,8 @@ export default class RtcSession {
                 widthConstraints.min = self._minVideoWidth;
             }
             // build video height constraints
-            if (typeof self._idealVideoHeight !== 'undefined') {
-                heightConstraints.ideal = self._idealVideoHeight;
+            if (typeof self._videoHeight !== 'undefined') {
+                heightConstraints.ideal = self._videoHeight;
             }
             if (typeof self._maxVideoHeight !== 'undefined') {
                 heightConstraints.max = self._maxVideoHeight;
@@ -900,10 +906,11 @@ export default class RtcSession {
             }
 
             // build facing mode constraints
-            if(self._facingMode !== 'user' && self._facingMode !== "environment") {
+            if(self._facingMode === 'user' || self._facingMode === "environment") {
+                videoConstraints.facingMode = self._facingMode;
+            } else {
                 self._facingMode = 'user';
             }
-            videoConstraints.facingMode = self._facingMode;
 
             // set video constraints
             if (Object.keys(videoConstraints).length > 0) {
@@ -911,6 +918,7 @@ export default class RtcSession {
             } else {
                 mediaConstraints.video = true;
             }
+            console.log("Video Constraints: " + JSON.stringify(videoConstraints));
         }
 
         return mediaConstraints;
