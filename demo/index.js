@@ -68,6 +68,26 @@ $(document).ready(function () {
             }
         });
 
+        $('#pause-local-video').click(function(){
+            if(session) {
+                if($('#pause-local-video').is(':checked'))
+                    session.pauseLocalVideo();
+                else {
+                    session.resumeLocalVideo();
+                }
+            }
+        });
+
+        $('#pause-remote-video').click(function(){
+            if(session) {
+                if($('#pause-remote-video').is(':checked'))
+                    session.pauseRemoteVideo();
+                else {
+                    session.resumeRemoteVideo();
+                }
+            }
+        });
+
         session.connect();
     });
 });

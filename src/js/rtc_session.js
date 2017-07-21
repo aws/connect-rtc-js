@@ -484,6 +484,38 @@ export default class RtcSession {
     get mediaStream() {
         return this._userAudioStream;
     }
+    pauseLocalVideo() {
+        if (this._streamToBeClosed) {
+            var videoTrack = this._streamToBeClosed.getTracks()[1];
+            if(videoTrack) {
+                videoTrack.enabled = false;
+            }
+        }
+    }
+    resumeLocalVideo() {
+        if (this._streamToBeClosed) {
+            var videoTrack = this._streamToBeClosed.getTracks()[1];
+            if(videoTrack) {
+                videoTrack.enabled = true;
+            }
+        }
+    }
+    pauseRemoteVideo() {
+        if (this._remoteVideoStream) {
+            var videoTrack = this._remoteVideoStream.getTracks()[1];
+            if(videoTrack) {
+                videoTrack.enabled = false;
+            }
+        }
+    }
+    resumeRemoteVideo() {
+        if (this._remoteVideoStream) {
+            var videoTrack = this._remoteVideoStream.getTracks()[1];
+            if(videoTrack) {
+                videoTrack.enabled = true;
+            }
+        }
+    }
     /**
      * Callback when gUM succeeds.
      * First param is RtcSession object.
@@ -802,6 +834,7 @@ export default class RtcSession {
         }
         if (evt.track.kind === 'video' && this._remoteVideoElement) {
             this._remoteVideoElement.srcObject = evt.streams[0];
+            this._remoteVideoStream = evt.streams[0];
         } else if (evt.track.kind === 'audio' && this._remoteAudioElement) {
             this._remoteAudioElement.srcObject = evt.streams[0];
             this._remoteAudioStream = evt.streams[0];

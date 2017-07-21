@@ -28,6 +28,14 @@
         <button id='makeCall'>Call</button>
         <button id='disconnectCall' disabled="true">Hangup</button>
     </div>
+    <div>
+        <input id="pause-local-video" name="pause-local-video" type="checkbox"/>
+        <label for="pause-local-video">Pause Local Video (remote peer will not be able to see you)</label>
+    </div>
+    <div>
+        <input id="pause-remote-video" name="pause-remote-video" type="checkbox"/>
+        <label for="pause-remote-video">Pause Remote Video (you will not be able to see the remote peer)</label>
+    </div>
     <div id='video-display' style="display: none">
         <p> Video Stream connected with the other side</p>
         <video id="remoteVideo" autoplay="" style="display: inline"></video>
