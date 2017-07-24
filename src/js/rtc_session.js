@@ -477,12 +477,17 @@ export default class RtcSession {
     get sessionReport() {
         return this._sessionReport;
     }
-
     get callId() {
         return this._callId;
     }
     get mediaStream() {
         return this._userAudioStream;
+    }
+    get localVideoStream() {
+        return this._streamToBeClosed;
+    }
+    get remoteVideoStream() {
+        return this._remoteVideoStream;
     }
     pauseLocalVideo() {
         if (this._streamToBeClosed) {
