@@ -1,6 +1,7 @@
 $(document).ready(function () {
     var audioElement = $('#remoteAudio')[0];
     var videoElement = $('#remoteVideo')[0];
+    var playFromFile = false;
 
     if (window.location.hash) {
         $('#softphoneMediaInfo').val(decodeURIComponent(window.location.hash.substr(1)));
@@ -13,7 +14,6 @@ $(document).ready(function () {
             rtcConfig.iceServers,
             mediaInfo.callContextToken,
             console);
-
         session.echoCancellation = $('#echoCancellationOption').is(':checked');
 
         session.remoteAudioElement = audioElement;
@@ -32,6 +32,17 @@ $(document).ready(function () {
           session.remoteVideoElement = null;
         }
 
+        if (playFromFile){
+            var fileToPlay = $('#fileInput')[0].files[0];
+            var audioToPlay = new Audio(URL.createObjectURL(fileToPlay));
+            var fileStream = audioToPlay.captureStream();
+            var context = new AudioContext();
+            var source = context.createMediaElementSource(audioToPlay);
+            var remote = context.createMediaStreamDestination();
+            source.connect(remote);
+            session.mediaStream = remote.stream;
+        }
+
         var statsCollector;
         session.onSessionConnected = () => {
             statsCollector = setInterval(() => {
@@ -40,6 +51,11 @@ $(document).ready(function () {
                     console.log(collectTime, JSON.stringify(streamStats));
                 });
             }, 2000);
+
+            if (playFromFile){
+                console.log("Playing file");
+                audioToPlay.play();
+            }
         };
         session.onSessionCompleted = () => {
             if (statsCollector) {
@@ -67,7 +83,9 @@ $(document).ready(function () {
                 }
             }
         });
-
         session.connect();
+    });
+    $('#playFile').click(function(){
+        playFromFile = true;
     });
 });
