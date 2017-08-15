@@ -461,6 +461,16 @@ export default class RtcSession {
         this._enableVideo = false;
         this._facingMode = 'user';
 
+        /**
+         * user may provide the stream to the RtcSession directly to connect to the other end.
+         * user may also acquire the stream from the local device.
+         * This flag is used to track where the stream is acquired.
+         * If it's acquired from local devices, then we must close the stream when the session ends.
+         * If it's provided by user (rather than local camera/microphone), then we should leave it open when the
+         * session ends.
+         */
+        this._userProvidedStream = false;
+
         this._onGumError =
             this._onGumSuccess =
             this._onLocalStreamAdded =
@@ -481,10 +491,9 @@ export default class RtcSession {
         return this._callId;
     }
     /**
-     * getMediaStream returns the client provided stream.
+     * getMediaStream returns the local stream, which may be acquired from local device or from user provided stream.
      * Rather than getting a stream by calling getUserMedia (which gets a stream from local device such as camera),
      * user could also provide the stream to the RtcSession directly to connect to the other end.
-     * This method returns the client provided stream.
      */
     get mediaStream() {
         return this._localStream;
@@ -690,6 +699,7 @@ export default class RtcSession {
      */
     set mediaStream(input) {
         this._localStream = input;
+        this._userProvidedStream = true;
     }
     /**
      * Needed, expect an audio element that can be used to play remote audio stream.
@@ -892,9 +902,10 @@ export default class RtcSession {
     }
     _stopSession() {
         try {
-            if (this._localStream) {
+            if (this._localStream && !this._userProvidedStream) {
                 closeStream(this._localStream);
                 this._localStream = null;
+                this._userProvidedStream = false;
             }
         } finally {
             try {
