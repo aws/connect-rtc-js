@@ -23,10 +23,10 @@ $(document).ready(function () {
         if ($('#enable-video')[0].checked) {
           $('#video-display')[0].style.display = 'block';
           session.remoteVideoElement = videoElement;
-          // enable video with 480p requested.
+          // enable video with 240p requested.
           session.enableVideo = true;
-          session.maxVideoWidth = 480;
-          session.maxVideoHeight = 360;
+          session.maxVideoWidth = 426;
+          session.maxVideoHeight = 240;
         } else {
           $('#video-display')[0].style.display = 'none';
           session.remoteVideoElement = null;
