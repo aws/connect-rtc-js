@@ -23,10 +23,10 @@ $(document).ready(function () {
         if ($('#enable-video')[0].checked) {
           $('#video-display')[0].style.display = 'block';
           session.remoteVideoElement = videoElement;
-          // enable video with 480p requested.
+          // enable video with 240p requested.
           session.enableVideo = true;
-          session.maxVideoWidth = 480;
-          session.maxVideoHeight = 360;
+          session.maxVideoWidth = 426;
+          session.maxVideoHeight = 240;
         } else {
           $('#video-display')[0].style.display = 'none';
           session.remoteVideoElement = null;
@@ -64,6 +64,46 @@ $(document).ready(function () {
                     $('#disconnectCall').prop('disabled', true);
                     audioElement.src = null;
                     videoElement.src = null;
+                }
+            }
+        });
+
+        $('#pause-local-video').click(function(){
+            if(session) {
+                if($('#pause-local-video').is(':checked'))
+                    session.pauseLocalVideo();
+                else {
+                    session.resumeLocalVideo();
+                }
+            }
+        });
+
+        $('#pause-remote-video').click(function(){
+            if(session) {
+                if($('#pause-remote-video').is(':checked'))
+                    session.pauseRemoteVideo();
+                else {
+                    session.resumeRemoteVideo();
+                }
+            }
+        });
+
+        $('#pause-local-audio').click(function(){
+            if(session) {
+                if($('#pause-local-audio').is(':checked'))
+                    session.pauseLocalAudio();
+                else {
+                    session.resumeLocalAudio();
+                }
+            }
+        });
+
+        $('#pause-remote-audio').click(function(){
+            if(session) {
+                if($('#pause-remote-audio').is(':checked'))
+                    session.pauseRemoteAudio();
+                else {
+                    session.resumeRemoteAudio();
                 }
             }
         });

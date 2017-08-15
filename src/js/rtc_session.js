@@ -75,7 +75,7 @@ export class GrabLocalMediaState extends RTCSessionState {
                 .then(stream => {
                     self._rtcSession._sessionReport.gumTimeMillis = Date.now() - startTime;
                     self._rtcSession._onGumSuccess(self._rtcSession);
-                    self._rtcSession._streamToBeClosed = stream;
+                    self._rtcSession._localStream = stream;
                     self._rtcSession._sessionReport.gumOtherFailure = false;
                     self._rtcSession._sessionReport.gumTimeoutFailure = false;
                     self.transit(new CreateOfferState(self._rtcSession));
@@ -107,7 +107,7 @@ export class GrabLocalMediaState extends RTCSessionState {
 export class CreateOfferState extends RTCSessionState {
     onEnter() {
         var self = this;
-        var stream = self._rtcSession._streamToBeClosed || self._rtcSession._userAudioStream;
+        var stream = self._rtcSession._localStream;
         self._rtcSession._pc.addStream(stream);
         self._rtcSession._onLocalStreamAdded(self._rtcSession, stream);
         self._rtcSession._pc.createOffer().then(rtcSessionDescription => {
@@ -461,6 +461,16 @@ export default class RtcSession {
         this._enableVideo = false;
         this._facingMode = 'user';
 
+        /**
+         * user may provide the stream to the RtcSession directly to connect to the other end.
+         * user may also acquire the stream from the local device.
+         * This flag is used to track where the stream is acquired.
+         * If it's acquired from local devices, then we must close the stream when the session ends.
+         * If it's provided by user (rather than local camera/microphone), then we should leave it open when the
+         * session ends.
+         */
+        this._userProvidedStream = false;
+
         this._onGumError =
             this._onGumSuccess =
             this._onLocalStreamAdded =
@@ -477,12 +487,83 @@ export default class RtcSession {
     get sessionReport() {
         return this._sessionReport;
     }
-
     get callId() {
         return this._callId;
     }
+    /**
+     * getMediaStream returns the local stream, which may be acquired from local device or from user provided stream.
+     * Rather than getting a stream by calling getUserMedia (which gets a stream from local device such as camera),
+     * user could also provide the stream to the RtcSession directly to connect to the other end.
+     */
     get mediaStream() {
-        return this._userAudioStream;
+        return this._localStream;
+    }
+    get remoteVideoStream() {
+        return this._remoteVideoStream;
+    }
+    pauseLocalVideo() {
+        if(this._localStream) {
+            var videoTrack = this._localStream.getVideoTracks()[0];
+            if(videoTrack) {
+                videoTrack.enabled = false;
+            }
+        }
+    }
+    resumeLocalVideo() {
+        if(this._localStream) {
+            var videoTrack = this._localStream.getVideoTracks()[0];
+            if(videoTrack) {
+                videoTrack.enabled = true;
+            }
+        }
+    }
+    pauseRemoteVideo() {
+        if (this._remoteVideoStream) {
+            var videoTrack = this._remoteVideoStream.getTracks()[1];
+            if(videoTrack) {
+                videoTrack.enabled = false;
+            }
+        }
+    }
+    resumeRemoteVideo() {
+        if (this._remoteVideoStream) {
+            var videoTrack = this._remoteVideoStream.getTracks()[1];
+            if(videoTrack) {
+                videoTrack.enabled = true;
+            }
+        }
+    }
+    pauseLocalAudio() {
+        if (this._localStream) {
+            var audioTrack = this._localStream.getAudioTracks()[0];
+            if(audioTrack) {
+                audioTrack.enabled = false;
+            }
+        }
+    }
+    resumeLocalAudio() {
+        if (this._localStream) {
+            var audioTrack = this._localStream.getAudioTracks()[0];
+            if(audioTrack) {
+                audioTrack.enabled = true;
+            }
+        }
+    }
+    pauseRemoteAudio() {
+        if (this._remoteAudioStream) {
+            var audioTrack = this._remoteAudioStream.getTracks()[0];
+            if(audioTrack) {
+                audioTrack.enabled = false;
+            }
+        }
+    }
+    resumeRemoteAudio() {
+        if (this._remoteAudioStream) {
+            var audioTrack = this._remoteAudioStream.getTracks()[0];
+            if(audioTrack) {
+                audioTrack.enabled = true;
+            }
+        }
     }
     /**
      * Callback when gUM succeeds.
@@ -614,9 +695,11 @@ export default class RtcSession {
     }
     /**
      * Optional. RtcSession will grab input device if this is not specified.
+     * Please note: this RtcSession class only support single audio track and/or single video track.
      */
     set mediaStream(input) {
-        this._userAudioStream = input;
+        this._localStream = input;
+        this._userProvidedStream = true;
     }
     /**
      * Needed, expect an audio element that can be used to play remote audio stream.
@@ -773,10 +856,9 @@ export default class RtcSession {
      * @return Rejected promise if failed to get AudioRtpStats. The promise is never resolved with null value.
      */
     getUserAudioStats() {
-        var stream = this._userAudioStream || this._streamToBeClosed;
         var timestamp = new Date();
-        if (this._pc && this._pc.signalingState === 'stable' && stream) {
-            var audioTracks = stream.getAudioTracks();
+        if (this._pc && this._pc.signalingState === 'stable' && this._localStream) {
+            var audioTracks = this._localStream.getAudioTracks();
             return this._pc.getStats(audioTracks[0]).then(function(stats){
                         var rtcJsStats = extractAudioStatsFromStats(timestamp, stats, 'audio_input');
                         if (!rtcJsStats) {
@@ -802,6 +884,7 @@ export default class RtcSession {
         }
         if (evt.track.kind === 'video' && this._remoteVideoElement) {
             this._remoteVideoElement.srcObject = evt.streams[0];
+            this._remoteVideoStream = evt.streams[0];
         } else if (evt.track.kind === 'audio' && this._remoteAudioElement) {
             this._remoteAudioElement.srcObject = evt.streams[0];
             this._remoteAudioStream = evt.streams[0];
@@ -819,9 +902,10 @@ export default class RtcSession {
     }
     _stopSession() {
         try {
-            if (this._streamToBeClosed) {
-                closeStream(this._streamToBeClosed);
-                this._streamToBeClosed = null;
+            if (this._localStream && !this._userProvidedStream) {
+                closeStream(this._localStream);
+                this._localStream = null;
+                this._userProvidedStream = false;
             }
         } finally {
             try {
