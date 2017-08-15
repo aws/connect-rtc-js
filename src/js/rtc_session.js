@@ -75,7 +75,7 @@ export class GrabLocalMediaState extends RTCSessionState {
                 .then(stream => {
                     self._rtcSession._sessionReport.gumTimeMillis = Date.now() - startTime;
                     self._rtcSession._onGumSuccess(self._rtcSession);
-                    self._rtcSession._streamToBeClosed = stream;
+                    self._rtcSession._localStream = stream;
                     self._rtcSession._sessionReport.gumOtherFailure = false;
                     self._rtcSession._sessionReport.gumTimeoutFailure = false;
                     self.transit(new CreateOfferState(self._rtcSession));
@@ -107,7 +107,7 @@ export class GrabLocalMediaState extends RTCSessionState {
 export class CreateOfferState extends RTCSessionState {
     onEnter() {
         var self = this;
-        var stream = self._rtcSession._streamToBeClosed || self._rtcSession._localStream;
+        var stream = self._rtcSession._localStream;
         self._rtcSession._pc.addStream(stream);
         self._rtcSession._onLocalStreamAdded(self._rtcSession, stream);
         self._rtcSession._pc.createOffer().then(rtcSessionDescription => {
@@ -489,29 +489,20 @@ export default class RtcSession {
     get mediaStream() {
         return this._localStream;
     }
-    /**
-     * getLocalVideoStream returns user's local video stream, which may come from local device such as camera,
-     * or from the client provided stream.
-     */
-    get localVideoStream() {
-        return this._streamToBeClosed || this._localStream;
-    }
     get remoteVideoStream() {
         return this._remoteVideoStream;
     }
     pauseLocalVideo() {
-        var stream = this._streamToBeClosed || this._localStream;
-        if(stream) {
-            var videoTrack = stream.getVideoTracks()[0];
+        if(this._localStream) {
+            var videoTrack = this._localStream.getVideoTracks()[0];
             if(videoTrack) {
                 videoTrack.enabled = false;
             }
         }
     }
     resumeLocalVideo() {
-        var stream = this._streamToBeClosed || this._localStream;
-        if(stream) {
-            var videoTrack = stream.getVideoTracks()[0];
+        if(this._localStream) {
+            var videoTrack = this._localStream.getVideoTracks()[0];
             if(videoTrack) {
                 videoTrack.enabled = true;
             }
@@ -534,18 +525,16 @@ export default class RtcSession {
         }
     }
     pauseLocalAudio() {
-        var stream = this._streamToBeClosed || this._localStream;
-        if (stream) {
-            var audioTrack = stream.getAudioTracks()[0];
+        if (this._localStream) {
+            var audioTrack = this._localStream.getAudioTracks()[0];
             if(audioTrack) {
                 audioTrack.enabled = false;
             }
         }
     }
     resumeLocalAudio() {
-        var stream = this._streamToBeClosed || this._localStream;
-        if (stream) {
-            var audioTrack = stream.getAudioTracks()[0];
+        if (this._localStream) {
+            var audioTrack = this._localStream.getAudioTracks()[0];
             if(audioTrack) {
                 audioTrack.enabled = true;
             }
@@ -697,6 +686,7 @@ export default class RtcSession {
     }
     /**
      * Optional. RtcSession will grab input device if this is not specified.
+     * Please note: this RtcSession class only support single audio track and/or single video track.
      */
     set mediaStream(input) {
         this._localStream = input;
@@ -856,10 +846,9 @@ export default class RtcSession {
      * @return Rejected promise if failed to get AudioRtpStats. The promise is never resolved with null value.
      */
     getUserAudioStats() {
-        var stream = this._localStream || this._streamToBeClosed;
         var timestamp = new Date();
-        if (this._pc && this._pc.signalingState === 'stable' && stream) {
-            var audioTracks = stream.getAudioTracks();
+        if (this._pc && this._pc.signalingState === 'stable' && this._localStream) {
+            var audioTracks = this._localStream.getAudioTracks();
             return this._pc.getStats(audioTracks[0]).then(function(stats){
                         var rtcJsStats = extractAudioStatsFromStats(timestamp, stats, 'audio_input');
                         if (!rtcJsStats) {
@@ -903,9 +892,9 @@ export default class RtcSession {
     }
     _stopSession() {
         try {
-            if (this._streamToBeClosed) {
-                closeStream(this._streamToBeClosed);
-                this._streamToBeClosed = null;
+            if (this._localStream) {
+                closeStream(this._localStream);
+                this._localStream = null;
             }
         } finally {
             try {
