@@ -418,13 +418,21 @@ export default class AmznRtcSignaling {
         return wsConnection;
     }
     _buildInviteUri() {
-        return this._buildUriBase() + '&contactCtx=' + encodeURIComponent(this._contactToken);
+        if (this._contactToken) {
+            return this._buildUriBase() + '&contactCtx=' + encodeURIComponent(this._contactToken);
+        } else {
+            return this._buildUriBase();
+        }
     }
     _buildReconnectUri() {
         return this._buildUriBase() + '&clientToken=' + encodeURIComponent(this._clientToken);
     }
     _buildUriBase() {
-        return this._signalingUri + '?callId=' + encodeURIComponent(this._callId);
+        var separator = '?';
+        if (this._signalingUri.indexOf(separator) > -1) {
+            separator = '&';
+        }
+        return this._signalingUri + separator + 'callId=' + encodeURIComponent(this._callId);
     }
     _onMessage(evt) {
         this.state.onRpcMsg(JSON.parse(evt.data));
