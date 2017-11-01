@@ -425,7 +425,7 @@ export default class RtcSession {
      * Build an AmazonConnect RTC session.
      * @param {*} signalingUri
      * @param {*} iceServers Array of ice servers
-     * @param {*} contactToken
+     * @param {*} contactToken A string representing the contact token (optional)
      * @param {*} logger An object provides logging functions, such as console
      * @param {*} contactId Must be UUID, uniquely identifies the session.
      */
@@ -435,9 +435,6 @@ export default class RtcSession {
         }
         if (!iceServers) {
             throw new IllegalParameters('iceServers required');
-        }
-        if (typeof contactToken !== 'string' || contactToken.trim().length === 0) {
-            throw new IllegalParameters('contactToken required');
         }
         if (typeof logger !== 'object') {
             throw new IllegalParameters('logger required');
