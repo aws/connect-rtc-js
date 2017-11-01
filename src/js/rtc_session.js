@@ -436,11 +436,6 @@ export default class RtcSession {
         if (!iceServers) {
             throw new IllegalParameters('iceServers required');
         }
-        if (typeof contactToken !== 'string' || contactToken.trim().length === 0) {
-            this._contactToken = null;
-        } else {
-            this._contactToken = contactToken;
-        }
         if (typeof logger !== 'object') {
             throw new IllegalParameters('logger required');
         }
@@ -453,6 +448,7 @@ export default class RtcSession {
         this._sessionReport = new SessionReport();
         this._signalingUri = signalingUri;
         this._iceServers = iceServers;
+        this._contactToken = contactToken;
         this._originalLogger = logger;
         this._logger = wrapLogger(this._originalLogger, this._callId, 'SESSION');
         this._iceTimeoutMillis = DEFAULT_ICE_TIMEOUT_MS;
