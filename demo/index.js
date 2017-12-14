@@ -36,7 +36,7 @@ $(document).ready(function () {
         session.onSessionConnected = () => {
             statsCollector = setInterval(() => {
                 var collectTime = new Date();
-                Promise.all([session.getUserAudioStats(), session.getRemoteAudioStats()]).then((streamStats) => {
+                Promise.all([session.getUserAudioStats(), session.getRemoteAudioStats(), session.getUserVideoStats(), session.getRemoteVideoStats()]).then((streamStats) => {
                     console.log(collectTime, JSON.stringify(streamStats));
                 });
             }, 2000);
