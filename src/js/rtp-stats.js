@@ -30,6 +30,7 @@ export function extractAudioStatsFromStats(timestamp, stats, streamType) {
                             rttMs = statsReport.googRtt;
                         }
                         callStats = new AudioRtpStats(timestamp, packetsLost, statsReport.packetsSent, audioLevel, rttMs, null);
+                        break;
                     } else if (typeof statsReport.packetsReceived !== 'undefined' && streamType === 'audio_output') {
                         if (typeof statsReport.audioOutputLevel !== 'undefined') {
                             audioLevel = statsReport.audioOutputLevel;
@@ -43,6 +44,7 @@ export function extractAudioStatsFromStats(timestamp, stats, streamType) {
                             jbMs = statsReport.googJitterBufferMs;
                         }
                         callStats = new AudioRtpStats(timestamp, packetsLost, statsReport.packetsReceived, audioLevel, null, jbMs);
+                        break;
                     }
                 } else if (statsReport.type === 'inboundrtp') {
                     //Firefox case. Firefox reports packetsLost parameter only in inboundrtp type, and doesn't report in outboundrtp type.
@@ -58,6 +60,7 @@ export function extractAudioStatsFromStats(timestamp, stats, streamType) {
                         // no jb size in firefox
                         // rtt is broken https://bugzilla.mozilla.org/show_bug.cgi?id=1241066
                         callStats = new AudioRtpStats(timestamp, packetsLost, statsReport.packetsReceived, audioLevel);
+                        break;
                     }
                 }
             }
