@@ -13,7 +13,7 @@ import { DEFAULT_ICE_TIMEOUT_MS, DEFAULT_GUM_TIMEOUT_MS, RTC_ERRORS } from './rt
 import { UnsupportedOperation, IllegalParameters, IllegalState, GumTimeout, BusyExceptionName, CallNotFoundExceptionName } from './exceptions';
 import RtcSignaling from './signaling';
 import uuid from 'uuid/v4';
-import {extractAudioStatsFromStats} from './rtp-stats';
+import {extractMediaStatsFromStats} from './rtp-stats';
 
 export class RTCSessionState {
     constructor(rtcSession) {
@@ -836,7 +836,7 @@ export default class RtcSession {
         if (this._pc && this._pc.signalingState === 'stable' && this._remoteAudioStream) {
             var audioTracks = this._remoteAudioStream.getAudioTracks();
             return this._pc.getStats(audioTracks[0]).then(function(stats){
-                        var rtcJsStats = extractAudioStatsFromStats(timestamp, stats, 'audio_output');
+                        var rtcJsStats = extractMediaStatsFromStats(timestamp, stats, 'audio_output');
                         if (!rtcJsStats) {
                             throw new Error('Failed to extract MediaRtpStats from RTCStatsReport');
                         }
@@ -857,7 +857,7 @@ export default class RtcSession {
         if (this._pc && this._pc.signalingState === 'stable' && this._localStream) {
             var audioTracks = this._localStream.getAudioTracks();
             return this._pc.getStats(audioTracks[0]).then(function(stats){
-                        var rtcJsStats = extractAudioStatsFromStats(timestamp, stats, 'audio_input');
+                        var rtcJsStats = extractMediaStatsFromStats(timestamp, stats, 'audio_input');
                         if (!rtcJsStats) {
                             throw new Error('Failed to extract MediaRtpStats from RTCStatsReport');
                         }
@@ -877,7 +877,7 @@ export default class RtcSession {
         if (this._pc && this._pc.signalingState === 'stable' && this._remoteVideoStream) {
             var videoTracks = this._remoteVideoStream.getVideoTracks();
             return this._pc.getStats(videoTracks[0]).then(function(stats) {
-                        var rtcJsStats = extractAudioStatsFromStats(timestamp, stats, 'video_output');
+                        var rtcJsStats = extractMediaStatsFromStats(timestamp, stats, 'video_output');
                         if (!rtcJsStats) {
                             throw new Error('Failed to extract MediaRtpStats from RTCStatsReport');
                         }
@@ -897,7 +897,7 @@ export default class RtcSession {
         if (this._pc && this._pc.signalingState === 'stable' && this._localStream) {
             var audioTracks = this._localStream.getVideoTracks();
             return this._pc.getStats(audioTracks[0]).then(function(stats){
-                        var rtcJsStats = extractAudioStatsFromStats(timestamp, stats, 'video_input');
+                        var rtcJsStats = extractMediaStatsFromStats(timestamp, stats, 'video_input');
                         if (!rtcJsStats) {
                             throw new Error('Failed to extract MediaRtpStats from RTCStatsReport');
                         }

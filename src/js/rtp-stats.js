@@ -3,7 +3,7 @@
 * Chrome reports all stream stats in statsReports whereas firefox reports only single stream stats in report
 * StreamType is passed only to pull right stream stats audio_input or audio_output.
 */
-export function extractAudioStatsFromStats(timestamp, stats, streamType) {
+export function extractMediaStatsFromStats(timestamp, stats, streamType) {
     var callStats = null;
     if (!stats) {
         return callStats;
