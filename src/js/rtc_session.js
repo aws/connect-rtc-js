@@ -13,7 +13,7 @@ import { DEFAULT_ICE_TIMEOUT_MS, DEFAULT_GUM_TIMEOUT_MS, RTC_ERRORS } from './rt
 import { UnsupportedOperation, IllegalParameters, IllegalState, GumTimeout, BusyExceptionName, CallNotFoundExceptionName } from './exceptions';
 import RtcSignaling from './signaling';
 import uuid from 'uuid/v4';
-import {extractAudioStatsFromStats} from './rtp-stats';
+import {extractMediaStatsFromStats} from './rtp-stats';
 
 export class RTCSessionState {
     constructor(rtcSession) {
@@ -828,17 +828,17 @@ export default class RtcSession {
         this._state.hangup();
     }
     /**
-     * Get a promise of AudioRtpStats object for remote audio (from Amazon Connect to client).
-     * @return Rejected promise if failed to get AudioRtpStats. The promise is never resolved with null value.
+     * Get a promise of MediaRtpStats object for remote audio (from Amazon Connect to client).
+     * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
      */
     getRemoteAudioStats() {
         var timestamp = new Date();
         if (this._pc && this._pc.signalingState === 'stable' && this._remoteAudioStream) {
             var audioTracks = this._remoteAudioStream.getAudioTracks();
             return this._pc.getStats(audioTracks[0]).then(function(stats){
-                        var rtcJsStats = extractAudioStatsFromStats(timestamp, stats, 'audio_output');
+                        var rtcJsStats = extractMediaStatsFromStats(timestamp, stats, 'audio_output');
                         if (!rtcJsStats) {
-                            throw new Error('Failed to extract AudioRtpStats from RTCStatsReport');
+                            throw new Error('Failed to extract MediaRtpStats from RTCStatsReport');
                         }
                         return rtcJsStats;
                     });
@@ -849,17 +849,57 @@ export default class RtcSession {
 
 
     /**
-     * Get a promise of AudioRtpStats object for user audio (from client to Amazon Connect).
-     * @return Rejected promise if failed to get AudioRtpStats. The promise is never resolved with null value.
+     * Get a promise of MediaRtpStats object for user audio (from client to Amazon Connect).
+     * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
      */
     getUserAudioStats() {
         var timestamp = new Date();
         if (this._pc && this._pc.signalingState === 'stable' && this._localStream) {
             var audioTracks = this._localStream.getAudioTracks();
             return this._pc.getStats(audioTracks[0]).then(function(stats){
-                        var rtcJsStats = extractAudioStatsFromStats(timestamp, stats, 'audio_input');
+                        var rtcJsStats = extractMediaStatsFromStats(timestamp, stats, 'audio_input');
                         if (!rtcJsStats) {
-                            throw new Error('Failed to extract AudioRtpStats from RTCStatsReport');
+                            throw new Error('Failed to extract MediaRtpStats from RTCStatsReport');
+                        }
+                        return rtcJsStats;
+                    });
+        } else {
+            return Promise.reject(new IllegalState());
+        }
+    }
+
+    /**
+     * Get a promise of MediaRtpStats object for user video (from client to Amazon Connect).
+     * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
+     */
+    getRemoteVideoStats() {
+        var timestamp = new Date();
+        if (this._pc && this._pc.signalingState === 'stable' && this._remoteVideoStream) {
+            var videoTracks = this._remoteVideoStream.getVideoTracks();
+            return this._pc.getStats(videoTracks[0]).then(function(stats) {
+                        var rtcJsStats = extractMediaStatsFromStats(timestamp, stats, 'video_output');
+                        if (!rtcJsStats) {
+                            throw new Error('Failed to extract MediaRtpStats from RTCStatsReport');
+                        }
+                        return rtcJsStats;
+            });
+        } else {
+            return Promise.reject(new IllegalState());
+        }
+    }
+
+    /**
+     * Get a promise of MediaRtpStats object for user video (from client to Amazon Connect).
+     * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
+     */
+    getUserVideoStats() {
+        var timestamp = new Date();
+        if (this._pc && this._pc.signalingState === 'stable' && this._localStream) {
+            var audioTracks = this._localStream.getVideoTracks();
+            return this._pc.getStats(audioTracks[0]).then(function(stats){
+                        var rtcJsStats = extractMediaStatsFromStats(timestamp, stats, 'video_input');
+                        if (!rtcJsStats) {
+                            throw new Error('Failed to extract MediaRtpStats from RTCStatsReport');
                         }
                         return rtcJsStats;
                     });
