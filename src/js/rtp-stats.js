@@ -29,7 +29,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                         if (typeof statsReport.googRtt !== 'undefined') {
                             rttMs = statsReport.googRtt;
                         }
-                        callStats = new MediaRtpStats(timestamp, packetsLost, statsReport.packetsSent, audioLevel, rttMs, null);
+                        callStats = new MediaRtpStats(timestamp, packetsLost, statsReport.packetsSent, audioLevel, rttMs, null, statsReport.bytesSent);
                         break;
                     } else if (typeof statsReport.packetsReceived !== 'undefined' && statsReport.mediaType == 'audio' && streamType === 'audio_output') {
                         if (typeof statsReport.audioOutputLevel !== 'undefined') {
@@ -43,7 +43,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                         if (typeof statsReport.googJitterBufferMs !== 'undefined') {
                             jbMs = statsReport.googJitterBufferMs;
                         }
-                        callStats = new MediaRtpStats(timestamp, packetsLost, statsReport.packetsReceived, audioLevel, null, jbMs);
+                        callStats = new MediaRtpStats(timestamp, packetsLost, statsReport.packetsReceived, audioLevel, null, jbMs, null, statsReport.bytesReceived);
                         break;
                     } else if (typeof statsReport.packetsSent !== 'undefined' && statsReport.mediaType == 'video' && streamType === 'video_input') {
                         if (typeof statsReport.packetsLost !== 'undefined' && statsReport.packetsLost > 0) {
