@@ -24,7 +24,10 @@ In the [gh-pages branch](https://github.com/aws/connect-rtc-js/tree/gh-pages) pr
     3. Click **demo** folder
 
 ## Amazon Connect StreamJS integration ##
-1. Load connect-rtc-js along with amazon-connect-streams
+In a typical [amazon-connect-streams](https://github.com/aws/amazon-connect-streams) integration, connect-rtc-js is not required on parent page. Softphone call handling is done by embedded CCP.
+
+However the following steps could further customize softphone experience.
+1. Load connect-rtc-js along with amazon-connect-streams on parent page
 2. Following [amazon-connect-streams instructions](https://github.com/aws/amazon-connect-streams/blob/master/README.md) to initialize CCP
 3. Replace the softphone parameter (within the second parameter of ***connect.core.initCCP()***) with
     `allowFramedSoftphone: false`
@@ -32,3 +35,10 @@ In the [gh-pages branch](https://github.com/aws/connect-rtc-js/tree/gh-pages) pr
 4. Add this line after initCCP
     `connect.core.initSoftphoneManager({allowFramedSoftphone: true});`
     This would allow your page to handle softphone call with the connect-rtc-js loaded by your page. ***allowFramedSoftphone*** is necessary if your page also lives in a frame, otherwise you can remove that parameter.
+5. Add this HTML element to your web page
+    `<audio id="remote-audio" autoplay></audio>`
+    amazon-connect-streams library will look for this element and inject it into connect-rtc-js so that connect-rtc-js can play downstream audio through this element.
+6. Customize it (some ideas below)
+    * Customize audio device for `remote-audio` element
+    * Look at all the documented APIs in [RtcSession](https://github.com/aws/connect-rtc-js/blob/master/src/js/rtc_session.js) class, modify [softphone.js](https://github.com/aws/amazon-connect-streams/blob/master/src/softphone.js) as you need
+    * Revert step 4, add your own glue layer between amazon-connect-streams and connect-rtc-js (use [softphone.js](https://github.com/aws/amazon-connect-streams/blob/master/src/softphone.js) as a template)
