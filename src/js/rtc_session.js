@@ -819,7 +819,7 @@ export default class RtcSession {
         self._pc.ontrack = hitch(self, self._ontrack);
         self._pc.onicecandidate = hitch(self, self._onIceCandidate);
         self._pc.oniceconnectionstatechange = function(e) {
-            onIceStateChange(self._pc, e);
+            self.onIceStateChange(self._pc, e);
         };
 
         self.transit(new GrabLocalMediaState(self));
@@ -856,7 +856,7 @@ export default class RtcSession {
      * @param event The ice state change event as per "oniceconnectionstatechange".
      */
     onIceStateChange(pc, event) {
-        trace(pc + 'ICE state: ' + pc.iceConnectionState);
+        this._logger.trace(pc + 'ICE state: ' + pc.iceConnectionState);
         this._logger.info('ICE state change event: ', event);
     }
 

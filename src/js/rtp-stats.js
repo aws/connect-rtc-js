@@ -15,6 +15,8 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
             if (statsReport) {
                 var packetsLost = 0;
                 var audioLevel = null;
+		var rttMs = null;
+		var jbMs = null;
                 if (statsReport.type === 'ssrc') {
                     //chrome, opera case. chrome reports stats for all streams, not just the stream passed in.
                     if (typeof statsReport.packetsSent !== 'undefined' && statsReport.mediaType == 'audio' && streamType === 'audio_input') {
@@ -25,7 +27,6 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                             // Chrome reports -1 when there is no packet loss
                             packetsLost = statsReport.packetsLost;
                         }
-                        var rttMs = null;
                         if (typeof statsReport.googRtt !== 'undefined') {
                             rttMs = statsReport.googRtt;
                         }
@@ -39,7 +40,6 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                             // Chrome reports -1 when there is no packet loss
                             packetsLost = statsReport.packetsLost;
                         }
-                        var jbMs = null;
                         if (typeof statsReport.googJitterBufferMs !== 'undefined') {
                             jbMs = statsReport.googJitterBufferMs;
                         }
@@ -50,7 +50,6 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                             // Chrome reports -1 when there is no packet loss
                             packetsLost = statsReport.packetsLost;
                         }
-                        var rttMs = null;
                         if (typeof statsReport.googRtt !== 'undefined') {
                             rttMs = statsReport.googRtt;
                         }
@@ -65,7 +64,6 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                             // Chrome reports -1 when there is no packet loss
                             packetsLost = statsReport.packetsLost;
                         }
-                        var jbMs = null;
                         if (typeof statsReport.googJitterBufferMs !== 'undefined') {
                             jbMs = statsReport.googJitterBufferMs;
                         }
