@@ -123,6 +123,9 @@ export class SdpOptions {
 /**
  * Modifies input SDP according to sdpOptions.
  * See SdpOptions for available options.
+ * @param sdp original SDP
+ * @param sdpOptions defines changes to be applied to SDP
+ * @returns a map with 'sdp' containing the transformed SDP and 'mLines' containing the number of m lines in SDP
  */
 export function transformSdp(sdp, sdpOptions) {
     var sections = splitSections(sdp);
@@ -191,5 +194,8 @@ export function transformSdp(sdp, sdpOptions) {
         }).filter(line => line !== null).join('\r\n');
 
     }
-    return sections.map(section => section.trim()).join('\r\n') + '\r\n';
+    return {
+        sdp: sections.map(section => section.trim()).join('\r\n') + '\r\n',
+        mLines: sections.length - 1 // first section is session description, the rest are media descriptions
+    };
 }

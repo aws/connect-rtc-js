@@ -14,6 +14,7 @@ import { UnsupportedOperation, IllegalParameters, IllegalState, GumTimeout, Busy
 import RtcSignaling from './signaling';
 import uuid from 'uuid/v4';
 import {extractMediaStatsFromStats} from './rtp-stats';
+import { parseCandidate } from 'sdp';
 
 export class RTCSessionState {
     constructor(rtcSession) {
@@ -135,7 +136,9 @@ export class SetLocalSessionDescriptionState extends RTCSessionState {
             sdpOptions.forceCodec['audio'] = self._rtcSession._forceAudioCodec;
         }
         sdpOptions.enableOpusDtx = self._rtcSession._enableOpusDtx;
-        localDescription.sdp = transformSdp(localDescription.sdp, sdpOptions);
+
+        var transformedSdp = transformSdp(localDescription.sdp, sdpOptions);
+        localDescription.sdp = transformedSdp.sdp;
 
         self.logger.info('LocalSD', self._rtcSession._localSessionDescription);
         self._rtcSession._pc.setLocalDescription(self._rtcSession._localSessionDescription).then(() => {
@@ -143,7 +146,7 @@ export class SetLocalSessionDescriptionState extends RTCSessionState {
             self._rtcSession._sessionReport.initializationTimeMillis = initializationTime;
             self._rtcSession._onSessionInitialized(self._rtcSession, initializationTime);
             self._rtcSession._sessionReport.setLocalDescriptionFailure = false;
-            self.transit(new ConnectSignalingAndIceCollectionState(self._rtcSession));
+            self.transit(new ConnectSignalingAndIceCollectionState(self._rtcSession, transformedSdp.mLines));
         }).catch(e => {
             self.logger.error('SetLocalDescription failed', e);
             self._rtcSession._sessionReport.setLocalDescriptionFailure = true;
@@ -154,11 +157,23 @@ export class SetLocalSessionDescriptionState extends RTCSessionState {
         return "SetLocalSessionDescriptionState";
     }
 }
+
+/**
+ * Kick off signaling connection. Wait until signaling connects and ICE collection (which already started in previous state) completes.
+ * ICE collection times out after user specified amount of time (default to DEFAULT_ICE_TIMEOUT_MS) in case user has complex network environment that blackholes STUN/TURN requests. In this case at least one candidate is required to move forward.
+ * ICE collection could also wrap up before timeout if it's determined that RTP candidates from same TURN server have been collected for all m lines.
+ */
 export class ConnectSignalingAndIceCollectionState extends RTCSessionState {
-    constructor(rtcSession) {
+    /**
+     * Create ConnectSignalingAndIceCollectionState object.
+     * @param {RtcSession} rtcSession 
+     * @param {number} mLines Number of m lines in SDP
+     */
+    constructor(rtcSession, mLines) {
         super(rtcSession);
         this._iceCandidates = [];
         this._iceCandidateFoundationsMap = {};
+        this._mLines = mLines;
     }
     onEnter() {
         var self = this;
@@ -166,7 +181,7 @@ export class ConnectSignalingAndIceCollectionState extends RTCSessionState {
         setTimeout(() => {
             if (self._isCurrentState() && !self._iceCompleted) {
                 self.logger.warn('ICE collection timed out');
-                self.reportIceCompleted(true);
+                self._reportIceCompleted(true);
             }
         }, self._rtcSession._iceTimeoutMillis);
         self._rtcSession._createSignalingChannel().connect();
@@ -190,34 +205,39 @@ export class ConnectSignalingAndIceCollectionState extends RTCSessionState {
     }
     onIceCandidate(evt) {
         var candidate = evt.candidate;
-        this.logger.log('onicecandidate', candidate);
+        this.logger.log('onicecandidate ' + JSON.stringify(candidate));
         if (candidate) {
             this._iceCandidates.push(this._createLocalCandidate(candidate));
+            
             if (!this._iceCompleted) {
                 this._checkCandidatesSufficient(candidate);
             }
 
         } else {
-            this.reportIceCompleted(false);
+            this._reportIceCompleted(false);
         }
     }
     _checkCandidatesSufficient(candidate) {
-        //check if we collected both candidates from single media server by checking the same foundation collected twice
-        //meaning both RTP and RTCP candidates are collected.
-        var candidateAttributesString = candidate.candidate || "";
-        var candidateAttributes = candidateAttributesString.split(" ");
-        var candidateFoundation = candidateAttributes[0];
-        var transportSP = candidateAttributes[1];
-        if (candidateFoundation && transportSP) {
-            var transportSPsList = this._iceCandidateFoundationsMap[candidateFoundation] || [];
-            if (transportSPsList.length > 0 && !transportSPsList.includes(transportSP)) {
-                this.reportIceCompleted(false);
+        //check if we collected sufficient candidates from single media server to start the call
+        var candidateObj = parseCandidate(candidate.candidate);
+        if (candidateObj.component != 1) {
+            return;
+        }
+        var candidateFoundation = candidateObj.foundation;
+        var candidateMLineIndex = candidate.sdpMLineIndex;
+        if (candidateFoundation && candidateMLineIndex >= 0 && candidateMLineIndex < this._mLines) {
+            var mIndexList = this._iceCandidateFoundationsMap[candidateFoundation] || [];
+            if (!mIndexList.includes(candidateMLineIndex)) {
+                mIndexList.push(candidateMLineIndex);
             }
-            transportSPsList.push(transportSP);
-            this._iceCandidateFoundationsMap[candidateFoundation] = transportSPsList;
+            this._iceCandidateFoundationsMap[candidateFoundation] = mIndexList;
+
+            if (this._mLines == mIndexList.length) {
+                this._reportIceCompleted(false);
+            }
         }
     }
-    reportIceCompleted(isTimeout) {
+    _reportIceCompleted(isTimeout) {
         this._rtcSession._sessionReport.iceCollectionTimeMillis = Date.now() - this._startTime;
         this._iceCompleted = true;
         this._rtcSession._onIceCollectionComplete(this._rtcSession, isTimeout, this._iceCandidates.length);
@@ -807,7 +827,8 @@ export default class RtcSession {
         self._pc = self._createPeerConnection({
             iceServers: self._iceServers,
             iceTransportPolicy: 'relay',
-            bundlePolicy: 'balanced' //maybe 'max-compat', test stereo sound
+            rtcpMuxPolicy: 'require',
+            bundlePolicy: 'balanced'
         }, {
             optional: [
                 {
