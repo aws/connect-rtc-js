@@ -36,9 +36,14 @@ $(document).ready(function () {
         session.onSessionConnected = () => {
             statsCollector = setInterval(() => {
                 var collectTime = new Date();
-                Promise.all([session.getUserAudioStats(), session.getRemoteAudioStats(), session.getUserVideoStats(), session.getRemoteVideoStats()]).then((streamStats) => {
-                    console.log(collectTime, JSON.stringify(streamStats));
+                Promise.all([session.getUserAudioStats(), session.getRemoteAudioStats()]).then((streamStats) => {
+                    console.log(collectTime + " Audio statistics : " + JSON.stringify(streamStats));
                 });
+                if ($('#enable-video')[0].checked) {
+                    Promise.all([session.getUserVideoStats(), session.getRemoteVideoStats()]).then((streamStats) => {
+                        console.log(collectTime + " Video statistics : " + JSON.stringify(streamStats));
+                    });
+                }
             }, 2000);
         };
         session.onSessionCompleted = () => {
