@@ -53,6 +53,10 @@ $(document).ready(function () {
             }
         };
 
+        session.onSessionDestroyed = (s, report) => {
+            console.log('Session report : ' + JSON.stringify(report));
+        };
+
         $('#makeCall').prop('disabled', true);
         $('#echoCancellationOption').prop('disabled', true);
         $('#enable-video').prop('disabled', true);

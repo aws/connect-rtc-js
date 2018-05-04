@@ -686,7 +686,8 @@ describe('RTC session', () => {
             session = {
                 _logger: console,
                 _stopSession: sinon.spy(),
-                _sessionReport: {}
+                _sessionReport: {},
+                _onSessionDestroyed: sinon.spy()
             };
             state = new CleanUpState(session);
             session._state = state;
@@ -696,6 +697,7 @@ describe('RTC session', () => {
             state.onEnter();
 
             chai.expect(session._stopSession.calledOnce).to.be.true;
+            chai.expect(session._onSessionDestroyed.calledOnce).to.be.true;
         });
     });
 
@@ -714,7 +716,8 @@ describe('RTC session', () => {
             session = {
                 _logger: console,
                 _stopSession: sinon.spy(),
-                _sessionReport: {}
+                _sessionReport: {},
+                _onSessionDestroyed: sinon.spy()
             };
             state = new DisconnectedState(session);
             session._state = state;
@@ -724,6 +727,7 @@ describe('RTC session', () => {
             state.onEnter();
 
             chai.expect(session._stopSession.calledOnce).to.be.true;
+            chai.expect(session._onSessionDestroyed.calledOnce).to.be.true;
         });
     });
 
@@ -743,7 +747,8 @@ describe('RTC session', () => {
                 _logger: console,
                 _stopSession: sinon.spy(),
                 _onSessionFailed: sinon.spy(),
-                _sessionReport: {}
+                _sessionReport: {},
+                _onSessionDestroyed: sinon.spy()
             };
             state = new FailedState(session);
             session._state = state;
@@ -754,6 +759,7 @@ describe('RTC session', () => {
 
             chai.expect(session._stopSession.calledOnce).to.be.true;
             chai.expect(session._onSessionFailed.calledOnce).to.be.true;
+            chai.expect(session._onSessionDestroyed.calledOnce).to.be.true;
         });
     });
 });

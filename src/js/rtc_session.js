@@ -17,6 +17,10 @@ import {extractMediaStatsFromStats} from './rtp-stats';
 import { parseCandidate } from 'sdp';
 
 export class RTCSessionState {
+    /**
+     * 
+     * @param {RtcSession} rtcSession 
+     */
     constructor(rtcSession) {
         this._rtcSession = rtcSession;
     }
@@ -56,6 +60,8 @@ export class RTCSessionState {
     }
     onSignalingFailed(e) {// eslint-disable-line no-unused-vars
         throw new UnsupportedOperation('onSignalingFailed not implemented by ' + this.name);
+    }
+    onIceStateChange(evt) {// eslint-disable-line no-unused-vars
     }
 }
 export class GrabLocalMediaState extends RTCSessionState {
@@ -395,6 +401,12 @@ export class TalkingState extends RTCSessionState {
         this._rtcSession._signalingChannel.hangup();
         this.transit(new DisconnectedState(this._rtcSession));
     }
+    onIceStateChange(evt) {
+        if (evt.currentTarget.iceConnectionState == 'disconnected') {
+            this.logger.info('Lost ICE connection');
+            this._rtcSession._sessionReport.iceConnectionsLost += 1;
+        }
+    }
     onExit() {
         this._rtcSession._sessionReport.talkingTimeMillis = Date.now() - this._startTime;
         this._rtcSession._detachMedia();
@@ -409,15 +421,14 @@ export class CleanUpState extends RTCSessionState {
     onEnter() {
         this._startTime = Date.now();
         this._rtcSession._stopSession();
+        this._rtcSession._sessionReport.cleanupTimeMillis = Date.now() - this._startTime;
+        this._rtcSession._onSessionDestroyed(this._rtcSession, this._rtcSession._sessionReport);
     }
     get name() {
         return "CleanUpState";
     }
     hangup() {
         //do nothing, already at the end of lifecycle
-    }
-    onExit() {
-        this._rtcSession._sessionReport.cleanupTimeMillis = Date.now() - this._startTime;
     }
 }
 export class DisconnectedState extends CleanUpState {
@@ -431,9 +442,9 @@ export class FailedState extends CleanUpState {
         this._failureReason = failureReason;
     }
     onEnter() {
-        super.onEnter();
         this._rtcSession._sessionReport.sessionEndTime = new Date();
         this._rtcSession._onSessionFailed(this._rtcSession, this._failureReason);
+        super.onEnter();
     }
     get name() {
         return "FailedState";
@@ -498,7 +509,8 @@ export default class RtcSession {
             this._onSignalingStarted =
             this._onSessionConnected =
             this._onRemoteStreamAdded =
-            this._onSessionCompleted = () => {
+            this._onSessionCompleted =
+            this._onSessionDestroyed = () => {
             };
     }
     get sessionReport() {
@@ -664,11 +676,19 @@ export default class RtcSession {
         this._onRemoteStreamAdded = handler;
     }
     /**
-     * Callback when the hangup is acked
+     * Callback when the hangup is initiated (implies the call was successfully established).
      * First param is RtcSession object.
      */
     set onSessionCompleted(handler) {
         this._onSessionCompleted = handler;
+    }
+    /**
+     * Callback after session is cleaned up, no matter if the call was successfully established or not.
+     * First param is RtcSession object.
+     * Second param is SessionReport object.
+     */
+    set onSessionDestroyed(handler) {
+        this._onSessionDestroyed = handler;
     }
 
     set enableAudio(flag) {
@@ -839,9 +859,7 @@ export default class RtcSession {
 
         self._pc.ontrack = hitch(self, self._ontrack);
         self._pc.onicecandidate = hitch(self, self._onIceCandidate);
-        self._pc.oniceconnectionstatechange = function(e) {
-            self.onIceStateChange(self._pc, e);
-        };
+        self._pc.oniceconnectionstatechange = hitch(self, self._onIceStateChange);
 
         self.transit(new GrabLocalMediaState(self));
     }
@@ -871,15 +889,7 @@ export default class RtcSession {
         }
     }
 
-    /**
-     * Log when the ice state changes, for diagnostic purposes.
-     * @param pc The peer connection state object.
-     * @param event The ice state change event as per "oniceconnectionstatechange".
-     */
-    onIceStateChange(pc, event) {
-        this._logger.trace(pc + 'ICE state: ' + pc.iceConnectionState);
-        this._logger.info('ICE state change event: ', event);
-    }
+
 
     /**
      * Get a promise of MediaRtpStats object for user audio (from client to Amazon Connect).
@@ -944,6 +954,11 @@ export default class RtcSession {
     _onIceCandidate(evt) {
         this._state.onIceCandidate(evt);
     }
+
+    _onIceStateChange(evt) {
+        this._state.onIceStateChange(evt);
+    }
+
     /**
      * Attach remote media stream to web element.
      */

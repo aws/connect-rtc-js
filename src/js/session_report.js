@@ -15,7 +15,7 @@ export class SessionReport {
      */
     constructor() {
         this._sessionStartTime = null;
-        this.sessionEndTime = null;
+        this._sessionEndTime = null;
         this._gumTimeMillis = null;
         this._initializationTimeMillis = null;
         this._iceCollectionTimeMillis = null;
@@ -23,6 +23,7 @@ export class SessionReport {
         this._handshakingTimeMillis = null;
         this._preTalkingTimeMillis = null;
         this._talkingTimeMillis = null;
+        this._iceConnectionsLost = 0;
         this._cleanupTimeMillis = null;
         this._iceCollectionFailure = null;
         this._signallingConnectionFailure = null;
@@ -62,7 +63,7 @@ export class SessionReport {
         return this._initializationTimeMillis;
     }
     /**
-     * Time spent on ICECollection in millis
+     * Time spent on ICECollection in millis.
      */
     get iceCollectionTimeMillis() {
         return this._iceCollectionTimeMillis;
@@ -86,10 +87,16 @@ export class SessionReport {
         return this._handshakingTimeMillis;
     }
     /**
-     *  Times spent in Talking state in millis
+     *  Times spent in Talking state in millis.
      */
     get talkingTimeMillis() {
         return this._talkingTimeMillis;
+    }
+    /**
+     * How many times the RTCSession has lost ICE connection in talking state.
+     */
+    get iceConnectionsLost() {
+        return this._iceConnectionsLost;
     }
     /**
      * Times spent in Cleanup state in millis
@@ -197,6 +204,9 @@ export class SessionReport {
     }
     set talkingTimeMillis(value) {
         this._talkingTimeMillis = value;
+    }
+    set iceConnectionsLost(value) {
+        this._iceConnectionsLost = value;
     }
     set cleanupTimeMillis(value) {
         this._cleanupTimeMillis = value;
