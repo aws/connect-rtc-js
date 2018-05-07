@@ -300,7 +300,7 @@ describe('RTC session', () => {
                 },
                 _sessionReport: {}
             };
-            state = new ConnectSignalingAndIceCollectionState(session);
+            state = new ConnectSignalingAndIceCollectionState(session, 2);//2 m lines
             state._createLocalCandidate = (initDict) => initDict;
             session._state = state;
         });
@@ -367,7 +367,7 @@ describe('RTC session', () => {
             chai.expect(session.transit.called).to.be.false;
         });
 
-        it('stops ICE collection earlier when all candidates are collected for one candidate foudation', () => {
+        it('stops ICE collection earlier when RTP candidates of all m lines are collected for one candidate foudation', () => {
             session.transit = sinon.spy();
 
             state.onIceCandidate({
@@ -377,6 +377,9 @@ describe('RTC session', () => {
                     sdpMid: 'audio'
                 }
             });
+
+            chai.expect(session._onIceCollectionComplete.calledOnce).to.be.false;
+
             state.onIceCandidate({
                 candidate: {
                     candidate: 'candidate:3517520453 2 udp 41885694 172.22.116.70 56719 typ relay raddr 0.0.0.0 rport 0 generation 0 ufrag dRi5 network-id 3 network-cost 50',
@@ -385,9 +388,19 @@ describe('RTC session', () => {
                 }
             });
 
+            chai.expect(session._onIceCollectionComplete.calledOnce).to.be.false;
+
+            state.onIceCandidate({
+                candidate: {
+                    candidate: 'candidate:3517520453 1 udp 41885695 172.22.116.70 59377 typ relay raddr 0.0.0.0 rport 0 generation 0 ufrag dRi5 network-id 3 network-cost 50',
+                    sdpMLineIndex: 1,
+                    sdpMid: 'video'
+                }
+            });
+
             chai.expect(session._onIceCollectionComplete.calledOnce).to.be.true;
             chai.expect(session._onIceCollectionComplete.args[0][1]).to.be.false;
-            chai.expect(session._onIceCollectionComplete.args[0][2]).to.eq(2);
+            chai.expect(session._onIceCollectionComplete.args[0][2]).to.eq(3);
             chai.expect(session.transit.called).to.be.false;
         });
 
@@ -673,7 +686,8 @@ describe('RTC session', () => {
             session = {
                 _logger: console,
                 _stopSession: sinon.spy(),
-                _sessionReport: {}
+                _sessionReport: {},
+                _onSessionDestroyed: sinon.spy()
             };
             state = new CleanUpState(session);
             session._state = state;
@@ -683,6 +697,7 @@ describe('RTC session', () => {
             state.onEnter();
 
             chai.expect(session._stopSession.calledOnce).to.be.true;
+            chai.expect(session._onSessionDestroyed.calledOnce).to.be.true;
         });
     });
 
@@ -701,7 +716,8 @@ describe('RTC session', () => {
             session = {
                 _logger: console,
                 _stopSession: sinon.spy(),
-                _sessionReport: {}
+                _sessionReport: {},
+                _onSessionDestroyed: sinon.spy()
             };
             state = new DisconnectedState(session);
             session._state = state;
@@ -711,6 +727,7 @@ describe('RTC session', () => {
             state.onEnter();
 
             chai.expect(session._stopSession.calledOnce).to.be.true;
+            chai.expect(session._onSessionDestroyed.calledOnce).to.be.true;
         });
     });
 
@@ -730,7 +747,8 @@ describe('RTC session', () => {
                 _logger: console,
                 _stopSession: sinon.spy(),
                 _onSessionFailed: sinon.spy(),
-                _sessionReport: {}
+                _sessionReport: {},
+                _onSessionDestroyed: sinon.spy()
             };
             state = new FailedState(session);
             session._state = state;
@@ -741,6 +759,7 @@ describe('RTC session', () => {
 
             chai.expect(session._stopSession.calledOnce).to.be.true;
             chai.expect(session._onSessionFailed.calledOnce).to.be.true;
+            chai.expect(session._onSessionDestroyed.calledOnce).to.be.true;
         });
     });
 });
