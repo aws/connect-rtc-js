@@ -1,6 +1,6 @@
 {
   "name": "connect-rtc-js",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "Amazon Connect softphone library",
   "license": "Amazon Software License",
   "main": "./src/js/connect-rtc.js",
