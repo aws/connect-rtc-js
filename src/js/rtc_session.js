@@ -18,8 +18,8 @@ import { parseCandidate } from 'sdp';
 
 export class RTCSessionState {
     /**
-     * 
-     * @param {RtcSession} rtcSession 
+     *
+     * @param {RtcSession} rtcSession
      */
     constructor(rtcSession) {
         this._rtcSession = rtcSession;
@@ -177,7 +177,7 @@ export class SetLocalSessionDescriptionState extends RTCSessionState {
 export class ConnectSignalingAndIceCollectionState extends RTCSessionState {
     /**
      * Create ConnectSignalingAndIceCollectionState object.
-     * @param {RtcSession} rtcSession 
+     * @param {RtcSession} rtcSession
      * @param {number} mLines Number of m lines in SDP
      */
     constructor(rtcSession, mLines) {
@@ -219,7 +219,7 @@ export class ConnectSignalingAndIceCollectionState extends RTCSessionState {
         this.logger.log('onicecandidate ' + JSON.stringify(candidate));
         if (candidate) {
             this._iceCandidates.push(this._createLocalCandidate(candidate));
-            
+
             if (!this._iceCompleted) {
                 this._checkCandidatesSufficient(candidate);
             }
@@ -274,6 +274,7 @@ export class ConnectSignalingAndIceCollectionState extends RTCSessionState {
         return "ConnectSignalingAndIceCollectionState";
     }
 }
+
 export class InviteAnswerState extends RTCSessionState {
     constructor(rtcSession, iceCandidates) {
         super(rtcSession);

@@ -14,6 +14,8 @@ import { UnsupportedOperation, Timeout, BusyException, CallNotFoundException, Un
 
 var reqIdSeq = 1;
 
+var CONNECT_MAX_RETRIES = 3;
+
 /**
  * Abstract signaling state class.
  */
@@ -23,6 +25,7 @@ export class SignalingState {
      */
     constructor(signaling) {
         this._signaling = signaling;
+        this._createTime = new Date().getTime();
     }
     setStateTimeout(timeoutMs) {
         setTimeout(hitch(this, this._onTimeoutChecked), timeoutMs);
@@ -79,7 +82,7 @@ export class SignalingState {
 export class FailOnTimeoutState extends SignalingState {
     constructor(signaling, timeoutMs) {
         super(signaling);
-        this._stateTimeoutMs = timeoutMs;
+        this._timeoutMs = timeoutMs;
     }
     onEnter() {
         this.setStateTimeout(this._stateTimeoutMs);
@@ -92,14 +95,23 @@ export class FailOnTimeoutState extends SignalingState {
     }
 }
 export class PendingConnectState extends FailOnTimeoutState {
-    constructor(signaling, timeoutMs) {
+    constructor(signaling, timeoutMs, initialStartTimeIn, retriesIn) {
         super(signaling, timeoutMs);
+        this._initialStartTime = initialStartTimeIn || new Date().getTime();
+        this._retries = retriesIn || 0;
     }
     onOpen() {
         this.transit(new PendingInviteState(this._signaling));
     }
     channelDown() {
-        this.transit(new FailedState(this._signaling, new Error('channelDown')));
+        var now = new Date().getTime();
+        var untilTimeoutMs = (this._initialStartTime + this._timeoutMs) - now;
+        if (untilTimeoutMs > 0 && ++this._retries < CONNECT_MAX_RETRIES) {
+            this._signaling._connect();
+            this.transit(new PendingConnectState(this._signaling, untilTimeoutMs, this._initialStartTime, this._retries));
+        } else {
+            this.transit(new FailedState(this._signaling, new Error('channelDown')));
+        }
     }
     get name() {
         return "PendingConnectState";
@@ -393,8 +405,11 @@ export default class AmznRtcSignaling {
         return this._state;
     }
     connect() {
-        this._wss = this._connectWebSocket(this._buildInviteUri());
+        this._connect();
         this.transit(new PendingConnectState(this, this._connectTimeoutMs));
+    }
+    _connect() {
+        this._wss = this._connectWebSocket(this._buildInviteUri());
     }
     transit(nextState) {
         try {
