@@ -291,11 +291,24 @@ describe('RTC session', () => {
         var state;
 
         beforeEach(() => {
+            var retryContext = {
+                current: 0,
+                max: 3
+            };
+
             session = {
                 _logger: console,
                 _createSignalingChannel: sinon.stub(),
                 _onIceCollectionComplete: sinon.spy(),
                 _onSignalingConnected: sinon.spy(),
+                retry: function(state) {
+                    if (++retryContext.current < retryContext.max) {
+                        this.transit(state);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
                 _pc: {
                 },
                 _sessionReport: {}
@@ -305,13 +318,17 @@ describe('RTC session', () => {
             session._state = state;
         });
 
-        it('transits to failed state when signaling connection fails', () => {
+        it('transits to failed state when signaling connection fails three times', () => {
             session.transit = sinon.spy();
 
             state.onSignalingFailed();
-
-            chai.expect(session.transit.calledOnce).to.be.true;
-            chai.expect(session.transit.args[0][0]).to.be.instanceof(FailedState);
+            state.onSignalingFailed();
+            state.onSignalingFailed();
+            
+            chai.expect(session.transit.calledThrice).to.be.true;
+            chai.expect(session.transit.args[0][0]).to.be.instanceof(ConnectSignalingAndIceCollectionState);
+            chai.expect(session.transit.args[1][0]).to.be.instanceof(ConnectSignalingAndIceCollectionState);
+            chai.expect(session.transit.args[2][0]).to.be.instanceof(FailedState);
         });
 
         it('transits to failed state when ICE collection times out', (done) => {

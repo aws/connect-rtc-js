@@ -18,8 +18,8 @@ import { parseCandidate } from 'sdp';
 
 export class RTCSessionState {
     /**
-     * 
-     * @param {RtcSession} rtcSession 
+     *
+     * @param {RtcSession} rtcSession
      */
     constructor(rtcSession) {
         this._rtcSession = rtcSession;
@@ -172,7 +172,7 @@ export class SetLocalSessionDescriptionState extends RTCSessionState {
 export class ConnectSignalingAndIceCollectionState extends RTCSessionState {
     /**
      * Create ConnectSignalingAndIceCollectionState object.
-     * @param {RtcSession} rtcSession 
+     * @param {RtcSession} rtcSession
      * @param {number} mLines Number of m lines in SDP
      */
     constructor(rtcSession, mLines) {
@@ -201,10 +201,12 @@ export class ConnectSignalingAndIceCollectionState extends RTCSessionState {
         this._checkAndTransit();
     }
     onSignalingFailed(e) {
-        this._rtcSession._sessionReport.signallingConnectTimeMillis = Date.now() - this._startTime;
-        this.logger.error('Failed connecting to signaling server', e);
-        this._rtcSession._sessionReport.signallingConnectionFailure = true;
-        this.transit(new FailedState(this._rtcSession, RTC_ERRORS.SIGNALLING_CONNECTION_FAILURE));
+        if (! this._rtcSession.retry(this)) {
+            this._rtcSession._sessionReport.signallingConnectTimeMillis = Date.now() - this._startTime;
+            this.logger.error('Failed connecting to signaling server', e);
+            this._rtcSession._sessionReport.signallingConnectionFailure = true;
+            this.transit(new FailedState(this._rtcSession, RTC_ERRORS.SIGNALLING_CONNECTION_FAILURE));
+        }
     }
     _createLocalCandidate(initDict) {
         return new RTCIceCandidate(initDict);
@@ -214,7 +216,7 @@ export class ConnectSignalingAndIceCollectionState extends RTCSessionState {
         this.logger.log('onicecandidate ' + JSON.stringify(candidate));
         if (candidate) {
             this._iceCandidates.push(this._createLocalCandidate(candidate));
-            
+
             if (!this._iceCompleted) {
                 this._checkCandidatesSufficient(candidate);
             }
@@ -269,6 +271,7 @@ export class ConnectSignalingAndIceCollectionState extends RTCSessionState {
         return "ConnectSignalingAndIceCollectionState";
     }
 }
+
 export class InviteAnswerState extends RTCSessionState {
     constructor(rtcSession, iceCandidates) {
         super(rtcSession);
@@ -512,6 +515,9 @@ export default class RtcSession {
             this._onSessionCompleted =
             this._onSessionDestroyed = () => {
             };
+
+        this._retryCounts = {};
+        this._retryCounts['ConnectSignalingAndIceCollectionState'] = {current: 0, max: 3};
     }
     get sessionReport() {
         return this._sessionReport;
@@ -783,6 +789,22 @@ export default class RtcSession {
      */
     set enableOpusDtx(flag) {
         this._enableOpusDtx = flag;
+    }
+
+    retry(state) {
+        if (state.name in this._retryCounts) {
+            var retryCount = this._retryCounts[state.name];
+            retryCount.current++;
+            if (retryCount.current >= retryCount.max) {
+                return false;
+            } else {
+                this._logger.info('RETRY ' + retryCount.current + ': ' + state.name);
+                this.transit(state);
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 
     transit(nextState) {
