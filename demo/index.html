@@ -25,6 +25,22 @@
     <label for="enable-video">Enable Video</label>
     </div>
     <div>
+        <label>Set Audio Codec</label>
+        <select id="forced-audio-codec">
+            <option value="NONE">None</option>
+            <option value="OPUS">OPUS</option>
+        </select>
+    </div>
+    <div>
+        <label>Set Video Codec</label>
+        <select id="forced-video-codec">
+            <option value="NONE">None</option>
+            <option value="VP8">VP8</option>
+            <option value="VP9">VP9</option>
+            <option value="H264">H.264</option>
+        </select>
+    </div>
+    <div>
         <button id='makeCall'>Call</button>
         <button id='disconnectCall' disabled="true">Hangup</button>
     </div>

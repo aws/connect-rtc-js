@@ -20,6 +20,12 @@ $(document).ready(function () {
 
         session.forceAudioCodec = 'OPUS';
 
+        // Set video codec if it presents
+        var forceVideoCodec = $('#forced-video-codec option:selected').val();
+        if (forceVideoCodec !== 'NONE') {
+            session.forceVideoCodec = forceVideoCodec;
+        }
+
         if ($('#enable-video')[0].checked) {
           $('#video-display')[0].style.display = 'block';
           session.remoteVideoElement = videoElement;

@@ -138,8 +138,13 @@ export class SetLocalSessionDescriptionState extends RTCSessionState {
         // fix/modify SDP as needed here, before setLocalDescription
         var localDescription = self._rtcSession._localSessionDescription;
         var sdpOptions = new SdpOptions();
+        // Set audio codec.
         if (self._rtcSession._forceAudioCodec) {
             sdpOptions.forceCodec['audio'] = self._rtcSession._forceAudioCodec;
+        }
+        // Set video codec.
+        if (self._rtcSession._forceVideoCodec) {
+            sdpOptions.forceCodec['video'] = self._rtcSession._forceVideoCodec;
         }
         sdpOptions.enableOpusDtx = self._rtcSession._enableOpusDtx;
 
@@ -771,10 +776,20 @@ export default class RtcSession {
      * connect-rtc-js initiate the handshaking with all browser supported codec by default, Amazon Connect service will choose the codec according to its preference setting.
      * Setting this attribute will force connect-rtc-js to only use specified codec.
      * WARNING: Setting this to unsupported codec will cause the failure of handshaking.
-     * Supported codecs: opus.
+     * Supported audio codecs: opus.
      */
     set forceAudioCodec(audioCodec) {
         this._forceAudioCodec = audioCodec;
+    }
+
+    /**
+     * connect-rtc-js initiate the handshaking with all browser supported codec by default, Amazon Connect service will choose the codec according to its preference setting.
+     * Setting this attribute will force connect-rtc-js to only use specified codec.
+     * WARNING: Setting this to unsupported codec will cause the failure of handshaking.
+     * Supported video codecs: VP8, VP9, H264.
+     */
+    set forceVideoCodec(videoCodec) {
+        this._forceVideoCodec = videoCodec;
     }
 
     /**
