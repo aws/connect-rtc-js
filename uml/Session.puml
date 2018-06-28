@@ -8,7 +8,6 @@ CreateOffer --> Failed
 SetLocalSessionDescription --> CollectSignalingAndIceCollection
 SetLocalSessionDescription --> Failed
 CollectSignalingAndIceCollection --> InviteAnswer
-CollectSignalingAndIceCollection --> CollectSignalingAndIceCollection : RETRY
 CollectSignalingAndIceCollection --> Failed
 InviteAnswer --> Accept
 InviteAnswer --> Failed
