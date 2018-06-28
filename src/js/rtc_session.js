@@ -201,12 +201,10 @@ export class ConnectSignalingAndIceCollectionState extends RTCSessionState {
         this._checkAndTransit();
     }
     onSignalingFailed(e) {
-        if (! this._rtcSession.retry(this)) {
-            this._rtcSession._sessionReport.signallingConnectTimeMillis = Date.now() - this._startTime;
-            this.logger.error('Failed connecting to signaling server', e);
-            this._rtcSession._sessionReport.signallingConnectionFailure = true;
-            this.transit(new FailedState(this._rtcSession, RTC_ERRORS.SIGNALLING_CONNECTION_FAILURE));
-        }
+        this._rtcSession._sessionReport.signallingConnectTimeMillis = Date.now() - this._startTime;
+        this.logger.error('Failed connecting to signaling server', e);
+        this._rtcSession._sessionReport.signallingConnectionFailure = true;
+        this.transit(new FailedState(this._rtcSession, RTC_ERRORS.SIGNALLING_CONNECTION_FAILURE));
     }
     _createLocalCandidate(initDict) {
         return new RTCIceCandidate(initDict);
@@ -515,9 +513,6 @@ export default class RtcSession {
             this._onSessionCompleted =
             this._onSessionDestroyed = () => {
             };
-
-        this._retryCounts = {};
-        this._retryCounts['ConnectSignalingAndIceCollectionState'] = {current: 0, max: 3};
     }
     get sessionReport() {
         return this._sessionReport;
@@ -789,22 +784,6 @@ export default class RtcSession {
      */
     set enableOpusDtx(flag) {
         this._enableOpusDtx = flag;
-    }
-
-    retry(state) {
-        if (state.name in this._retryCounts) {
-            var retryCount = this._retryCounts[state.name];
-            retryCount.current++;
-            if (retryCount.current >= retryCount.max) {
-                return false;
-            } else {
-                this._logger.info('RETRY ' + retryCount.current + ': ' + state.name);
-                this.transit(state);
-                return true;
-            }
-        } else {
-            return false;
-        }
     }
 
     transit(nextState) {

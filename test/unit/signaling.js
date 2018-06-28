@@ -120,17 +120,53 @@ describe('signalingTest', () => {
         var state;
 
         beforeEach(() => {
-            signaling = {};
-            state = new PendingConnectState(signaling, 1);
+            var retryContext = {current: 0, max: 3};
+            signaling = {
+                transit:        sinon.spy(),
+                retry:          function(state) {
+                    if (++retryContext.current < retryContext.max) {
+                        this.transit(state);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                _connect:       sinon.spy()
+            };
+            state = new PendingConnectState(signaling, 500);
         });
 
-        it('transit to pending invite once WSS is open', (done) => {
-            signaling.transit = (nextState) => {
-                if (nextState instanceof PendingInviteState) {
-                    done();
-                }
-            };
+        it('transit to pending invite once WSS is open', () => {
             state.onOpen();
+            chai.expect(signaling.transit.calledOnce).to.be.true;
+            chai.expect(signaling.transit.args[0][0]).to.be.instanceof(PendingInviteState);
+        });
+
+        it('retries three times if channelDown occurs before timeout', () => {
+            state.channelDown();
+            state.channelDown();
+            state.channelDown();
+
+            chai.expect(signaling.transit.calledThrice).to.be.true;
+            chai.expect(signaling._connect.calledTwice).to.be.true;
+            chai.assert(signaling.transit.args[0][0] == state);
+            chai.assert(signaling.transit.args[1][0] == state);
+            chai.expect(signaling.transit.args[2][0]).to.be.instanceof(FailedState);
+        });
+
+        it('doesn\'t attempt to retry if the timeout has elapsed', (done) => {
+            state.channelDown();
+
+            setTimeout(function() {
+                state.channelDown();
+
+                chai.expect(signaling.transit.calledTwice).to.be.true;
+                chai.expect(signaling._connect.calledOnce).to.be.true;
+                chai.assert(signaling.transit.args[0][0] == state);
+                chai.expect(signaling.transit.args[1][0]).to.be.instanceof(FailedState);
+                done();
+
+            }, 1000);
         });
     });
 

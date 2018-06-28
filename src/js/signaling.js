@@ -23,6 +23,7 @@ export class SignalingState {
      */
     constructor(signaling) {
         this._signaling = signaling;
+        this._createTime = new Date().getTime();
     }
     setStateTimeout(timeoutMs) {
         setTimeout(hitch(this, this._onTimeoutChecked), timeoutMs);
@@ -42,6 +43,9 @@ export class SignalingState {
     }
     transit(newState) {
         this._signaling.transit(newState);
+    }
+    retry() {
+        return this._signaling.retry(this);
     }
     onExit() {
     }
@@ -79,7 +83,7 @@ export class SignalingState {
 export class FailOnTimeoutState extends SignalingState {
     constructor(signaling, timeoutMs) {
         super(signaling);
-        this._stateTimeoutMs = timeoutMs;
+        this._timeoutMs = timeoutMs;
     }
     onEnter() {
         this.setStateTimeout(this._stateTimeoutMs);
@@ -99,7 +103,12 @@ export class PendingConnectState extends FailOnTimeoutState {
         this.transit(new PendingInviteState(this._signaling));
     }
     channelDown() {
-        this.transit(new FailedState(this._signaling, new Error('channelDown')));
+        var now = new Date().getTime();
+        if (this._createTime + this._timeoutMs > now && this.retry()) {
+            this._signaling._connect();
+        } else {
+            this.transit(new FailedState(this._signaling, new Error('channelDown')));
+        }
     }
     get name() {
         return "PendingConnectState";
@@ -364,6 +373,9 @@ export default class AmznRtcSignaling {
             this._disconnectedHandler =
             this._failedHandler = function noOp() {
             };
+
+        this._retryCounts = {};
+        this._retryCounts['PendingConnectState'] = {current: 0, max: 3};
     }
     get callId() {
         return this._callId;
@@ -393,8 +405,11 @@ export default class AmznRtcSignaling {
         return this._state;
     }
     connect() {
-        this._wss = this._connectWebSocket(this._buildInviteUri());
+        this._connect();
         this.transit(new PendingConnectState(this, this._connectTimeoutMs));
+    }
+    _connect() {
+        this._wss = this._connectWebSocket(this._buildInviteUri());
     }
     transit(nextState) {
         try {
@@ -407,6 +422,21 @@ export default class AmznRtcSignaling {
             if (this._state.onEnter) {
                 this._state.onEnter();
             }
+        }
+    }
+    retry(state) {
+        if (state.name in this._retryCounts) {
+            var retryCount = this._retryCounts[state.name];
+            retryCount.current++;
+            if (retryCount.current >= retryCount.max) {
+                return false;
+            } else {
+                this._logger.info('RETRY ' + retryCount.current + ': ' + state.name);
+                this.transit(state);
+                return true;
+            }
+        } else {
+            return false;
         }
     }
     _connectWebSocket(uri) {

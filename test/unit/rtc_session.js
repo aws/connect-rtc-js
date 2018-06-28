@@ -322,13 +322,9 @@ describe('RTC session', () => {
             session.transit = sinon.spy();
 
             state.onSignalingFailed();
-            state.onSignalingFailed();
-            state.onSignalingFailed();
             
-            chai.expect(session.transit.calledThrice).to.be.true;
-            chai.expect(session.transit.args[0][0]).to.be.instanceof(ConnectSignalingAndIceCollectionState);
-            chai.expect(session.transit.args[1][0]).to.be.instanceof(ConnectSignalingAndIceCollectionState);
-            chai.expect(session.transit.args[2][0]).to.be.instanceof(FailedState);
+            chai.expect(session.transit.calledOnce).to.be.true;
+            chai.expect(session.transit.args[0][0]).to.be.instanceof(FailedState);
         });
 
         it('transits to failed state when ICE collection times out', (done) => {
