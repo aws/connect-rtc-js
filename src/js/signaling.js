@@ -14,6 +14,8 @@ import { UnsupportedOperation, Timeout, BusyException, CallNotFoundException, Un
 
 var reqIdSeq = 1;
 
+var CONNECT_MAX_RETRIES = 3;
+
 /**
  * Abstract signaling state class.
  */
@@ -43,9 +45,6 @@ export class SignalingState {
     }
     transit(newState) {
         this._signaling.transit(newState);
-    }
-    retry() {
-        return this._signaling.retry(this);
     }
     onExit() {
     }
@@ -96,16 +95,20 @@ export class FailOnTimeoutState extends SignalingState {
     }
 }
 export class PendingConnectState extends FailOnTimeoutState {
-    constructor(signaling, timeoutMs) {
+    constructor(signaling, timeoutMs, initialStartTimeIn, retriesIn) {
         super(signaling, timeoutMs);
+        this._initialStartTime = initialStartTimeIn || new Date().getTime();
+        this._retries = retriesIn || 0;
     }
     onOpen() {
         this.transit(new PendingInviteState(this._signaling));
     }
     channelDown() {
         var now = new Date().getTime();
-        if (this._createTime + this._timeoutMs > now && this.retry()) {
+        var untilTimeoutMs = (this._initialStartTime + this._timeoutMs) - now;
+        if (untilTimeoutMs > 0 && ++this._retries < CONNECT_MAX_RETRIES) {
             this._signaling._connect();
+            this.transit(new PendingConnectState(this._signaling, untilTimeoutMs, this._initialStartTime, this._retries));
         } else {
             this.transit(new FailedState(this._signaling, new Error('channelDown')));
         }
@@ -373,9 +376,6 @@ export default class AmznRtcSignaling {
             this._disconnectedHandler =
             this._failedHandler = function noOp() {
             };
-
-        this._retryCounts = {};
-        this._retryCounts['PendingConnectState'] = {current: 0, max: 3};
     }
     get callId() {
         return this._callId;
@@ -422,21 +422,6 @@ export default class AmznRtcSignaling {
             if (this._state.onEnter) {
                 this._state.onEnter();
             }
-        }
-    }
-    retry(state) {
-        if (state.name in this._retryCounts) {
-            var retryCount = this._retryCounts[state.name];
-            retryCount.current++;
-            if (retryCount.current >= retryCount.max) {
-                return false;
-            } else {
-                this._logger.info('RETRY ' + retryCount.current + ': ' + state.name);
-                this.transit(state);
-                return true;
-            }
-        } else {
-            return false;
         }
     }
     _connectWebSocket(uri) {

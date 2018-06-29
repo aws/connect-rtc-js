@@ -120,17 +120,8 @@ describe('signalingTest', () => {
         var state;
 
         beforeEach(() => {
-            var retryContext = {current: 0, max: 3};
             signaling = {
                 transit:        sinon.spy(),
-                retry:          function(state) {
-                    if (++retryContext.current < retryContext.max) {
-                        this.transit(state);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                },
                 _connect:       sinon.spy()
             };
             state = new PendingConnectState(signaling, 500);
@@ -146,11 +137,11 @@ describe('signalingTest', () => {
             state.channelDown();
             state.channelDown();
             state.channelDown();
-
+            
             chai.expect(signaling.transit.calledThrice).to.be.true;
             chai.expect(signaling._connect.calledTwice).to.be.true;
-            chai.assert(signaling.transit.args[0][0] == state);
-            chai.assert(signaling.transit.args[1][0] == state);
+            chai.expect(signaling.transit.args[0][0]).to.be.instanceof(PendingConnectState);
+            chai.expect(signaling.transit.args[1][0]).to.be.instanceof(PendingConnectState);
             chai.expect(signaling.transit.args[2][0]).to.be.instanceof(FailedState);
         });
 
@@ -162,7 +153,7 @@ describe('signalingTest', () => {
 
                 chai.expect(signaling.transit.calledTwice).to.be.true;
                 chai.expect(signaling._connect.calledOnce).to.be.true;
-                chai.assert(signaling.transit.args[0][0] == state);
+                chai.expect(signaling.transit.args[0][0]).to.be.instanceof(PendingConnectState);
                 chai.expect(signaling.transit.args[1][0]).to.be.instanceof(FailedState);
                 done();
 
