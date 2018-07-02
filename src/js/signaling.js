@@ -85,7 +85,7 @@ export class FailOnTimeoutState extends SignalingState {
         this._timeoutMs = timeoutMs;
     }
     onEnter() {
-        this.setStateTimeout(this._stateTimeoutMs);
+        this.setStateTimeout(this._timeoutMs);
     }
     onTimeout() {
         this.transit(new FailedState(this._signaling, new Timeout()));
