@@ -885,6 +885,7 @@ export default class RtcSession {
     hangup() {
         this._state.hangup();
     }
+
     /**
      * Get a promise of MediaRtpStats object for remote audio (from Amazon Connect to client).
      * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
@@ -904,8 +905,6 @@ export default class RtcSession {
             return Promise.reject(new IllegalState());
         }
     }
-
-
 
     /**
      * Get a promise of MediaRtpStats object for user audio (from client to Amazon Connect).
