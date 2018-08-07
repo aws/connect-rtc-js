@@ -887,10 +887,10 @@ export default class RtcSession {
     }
 
     /**
-     * Get a promise of MediaRtpStats object for remote audio (from Amazon Connect to client).
+     * Get a promise of two MediaRtpStats objects for remote and user audio (from Amazon Connect to client).
      * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
      */
-    getRemoteAudioStats() {
+    getAudioStats() {
         var timestamp = new Date();
         var self = this;
         if (this._pc && this._pc.signalingState === 'stable' && this._remoteAudioStream) {
@@ -916,8 +916,24 @@ export default class RtcSession {
                             remoteStats.rttMilliseconds = localStats.rttMilliseconds;
                         }
 
-                        return remoteStats;
+                        return {remote: remoteStats, user: localStats};
                     });
+        } else {
+            return Promise.reject(new IllegalState());
+        }
+
+    }
+
+    /**
+     * Get a promise of MediaRtpStats object for remote audio (from Amazon Connect to client).
+     * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
+     */
+    getRemoteAudioStats() {
+        var timestamp = new Date();
+        if (this._pc && this._pc.signalingState === 'stable' && this._remoteAudioStream) {
+            return this.getAudioStats().then(function(stats) {
+                return stats.remote;
+            });
         } else {
             return Promise.reject(new IllegalState());
         }
