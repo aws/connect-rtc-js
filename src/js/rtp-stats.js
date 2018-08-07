@@ -82,14 +82,14 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
         }
     }
 
-    return extractedStats ? new MediaRtpStats(extractedStats) : null;
+    return extractedStats ? new MediaRtpStats(extractedStats, statsReport.type, streamType) : null;
 }
 
 /**
 * Basic RTP statistics object, represents statistics of an audio or video stream.
 */
 class MediaRtpStats {
-    constructor(paramsIn) {
+    constructor(paramsIn, statsReportType, streamType) {
         var params = paramsIn || {};
 
         this._timestamp = params.timestamp || new Date().getTime();
@@ -104,6 +104,8 @@ class MediaRtpStats {
         this._framesDecoded = params.framesDecoded || 0;
         this._frameRateSent = params.frameRateSent || null;
         this._frameRateReceived = params.frameRateReceived || null;
+        this._statsReportType = statsReportType || "unknown";
+        this._streamType = streamType || "unknown";
     }
 
     /** {number} number of packets sent to the channel */
