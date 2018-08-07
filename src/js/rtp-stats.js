@@ -16,7 +16,7 @@ var when_defined = function(v, alternativeIn) {
 export function extractMediaStatsFromStats(timestamp, stats, streamType) {
     var extractedStats = null;
 
-    for (var key : stats) {
+    for (var key in stats) {
         var statsReport = stats[key];
         if (statsReport) {
             if (statsReport.type === 'ssrc') {

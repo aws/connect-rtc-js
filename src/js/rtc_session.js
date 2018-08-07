@@ -892,6 +892,7 @@ export default class RtcSession {
      */
     getRemoteAudioStats() {
         var timestamp = new Date();
+        var self = this;
         if (this._pc && this._pc.signalingState === 'stable' && this._remoteAudioStream) {
             var audioTracks = this._remoteAudioStream.getAudioTracks();
             return this._pc.getStats(audioTracks[0]).then(function(stats){
@@ -900,6 +901,22 @@ export default class RtcSession {
                             throw new Error('Failed to extract MediaRtpStats from RTCStatsReport');
                         }
                         return rtcJsStats;
+
+                    }).then(function(rtcJsStats) {
+                        // In Chrome, RTT is only provided for the 'audio_input' stream.  Merge that value
+                        // into this result so that integrators will not have to source RTT from different
+                        // legs in different browsers themselves.
+                        return Promise.all([rtcJsStats, self.getUserAudioStats()]);
+
+                    }).then(function(dualStatsTuple) {
+                        var remoteStats = dualStatsTuple[0];
+                        var localStats = dualStatsTuple[1];
+
+                        if (typeof(localStats.rttMilliseconds) !== 'undefined') {
+                            remoteStats.rttMilliseconds = localStats.rttMilliseconds;
+                        }
+
+                        return remoteStats;
                     });
         } else {
             return Promise.reject(new IllegalState());
