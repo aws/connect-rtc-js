@@ -162,4 +162,12 @@ class MediaRtpStats {
     get frameRateReceived() {
         return this._frameRateReceived;
     }
+    /** {string} the type of the stats report */
+    get statsReportType() {
+        return this._statsReportType;
+    }
+    /** {string} the type of the stream */
+    get streamType() {
+        return this._streamType;
+    }
 }
