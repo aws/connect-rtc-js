@@ -891,49 +891,51 @@ export default class RtcSession {
      * media type of 'video' and 'audio'.
      * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
      */
-    getStats() {
+    async getStats() {
         var timestamp = new Date();
-        var self = this;
+
+        var impl = async (stream, streamType) => {
+            var tracks = [];
+
+            if (! stream) {
+                return [];
+            }
+
+            switch(streamType) {
+            case 'audio_input':
+            case 'audio_output':
+                tracks = stream.getAudioTracks();
+                break;
+            case 'video_input':
+            case 'video_output':
+                tracks = stream.getVideoTracks();
+                break;
+            default:
+                throw new Error('Unsupported stream type while trying to get stats: ' + streamType);
+            }
+
+            return await Promise.all(tracks.map(async (track) => {
+                var rawStats = await this._pc.getStats(track);
+                var digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
+                if (! digestedStats) {
+                    throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
+                }
+                return digestedStats;
+            }));
+        };
 
         if (this._pc && this._pc.signalingState === 'stable') {
+            return {
+                audio: {
+                    input:  await impl(this._remoteAudioStream, 'audio_input'),
+                    output: await impl(this._localStream, 'audio_output')
+                },
 
-            var extractMediaStatsImpl = function(streamType, statsList) {
-                var mediaStatsList = statsList.map(extractMediaStatsFromStats(timestamp, statsList, streamType));
-                mediaStatsList.forEach(function(mediaStats) {
-                    if (!rtcJsStats) {
-                        throw new Error('Failed to extract MediaRtpStats from RTCStatsReport');
-                    }
-                });
+                video: {
+                    input:  await impl(this._remoteVideoStream, 'video_input'),
+                    output: await impl(this._localStream, 'audio_output')
+                }
             };
-
-            var audioInputPromises = this._remoteAudioStream ? Promise.all(this._remoteAudioStream.getAudioTracks().map(this._pc.getStats))
-                : Promise.all([[]]);
-            var audioOutputPromises = this._localStream ? Promise.all(this._localStream.getAudioTracks().map(this._pc.getStats))
-                : Promise.all([[]]);
-            var videoInputPromises = this._remoteAudioStream ? Promise.all(this._remoteVideoStream.getVideoTracks().map(this._pc.getStats))
-                : Promise.all([[]]);
-            var videoOutputPromises = this._localStream ? Promise.all(this._localStream.getVideoTracks().map(this._pc.getStats))
-                : Promise.all([[]]);
-
-            Promise.all([
-                audioInputPromises.then(extractMediaStatsImpl.bind('audio_input')),
-                audioOutputPromises.then(extractMediaStatsImpl.bind('audio_output')),
-                videoInputPromisees.then(extractMediaStatsImpl.bind('video_input')),
-                videoOutputPromises.then(extractMediastatsImpl.bind('video_output'))
-
-            ]).then(function(allStats) {
-                return {
-                    audio: {
-                        input: allStats[0],
-                        output: allStats[1]
-                    },
-                    input: {
-                        input: allStats[2],
-                        output: allStats[3]
-                    }
-                };
-            });
-
         } else {
             return Promise.reject(new IllegalState());
         }
@@ -946,7 +948,7 @@ export default class RtcSession {
      * @deprecated in favor of getStats()
      */
     getRemoteAudioStats() {
-        return getStats().then(function(stats) {
+        return this.getStats().then(function(stats) {
             if (stats.audio.output.length > 0) {
                 return stats.audio.output[0];
             } else {
@@ -961,7 +963,7 @@ export default class RtcSession {
      * @deprecated in favor of getStats()
      */
     getUserAudioStats() {
-        return getStats().then(function(stats) {
+        return this.getStats().then(function(stats) {
             if (stats.audio.input.length > 0) {
                 return stats.audio.input[0];
             } else {
@@ -976,7 +978,7 @@ export default class RtcSession {
      * @deprecated in favor of getStats()
      */
     getRemoteVideoStats() {
-        return getStats().then(function(stats) {
+        return this.getStats().then(function(stats) {
             if (stats.video.output.length > 0) {
                 return stats.video.output[0];
             } else {
@@ -991,7 +993,7 @@ export default class RtcSession {
      * @deprecated in favor of getStats()
      */
     getUserVideoStats() {
-        return getStats().then(function(stats) {
+        return this.getStats().then(function(stats) {
             if (stats.video.input.length > 0) {
                 return stats.video.input[0];
             } else {
