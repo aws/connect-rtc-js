@@ -49,8 +49,8 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                 } else if (typeof statsReport.packetsReceived !== 'undefined' && statsReport.mediaType == 'video' && streamType === 'video_output') {
                     extractedStats = {
                         timestamp:          timestamp,
-                        packetsCount:        statsReport.packetsSent,
-                        bytesSent:          statsReport.bytesSent,
+                        packetsCount:       statsReport.packetsSent,
+                        bytesReceived:      statsReport.bytesReceived,
                         packetsLost:        is_defined(statsReport.packetsLost) ? Math.max(0, statsReport.packetsLost) : 0,
                         frameRateReceived:  when_defined(statsReport.googFrameRateReceived),
                         procMilliseconds:   is_defined(statsReport.googCurrentDelayMs),
