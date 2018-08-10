@@ -7,7 +7,7 @@
  *
  * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
-import { hitch, wrapLogger, closeStream, SdpOptions, transformSdp } from './utils';
+import { hitch, wrapLogger, closeStream, SdpOptions, transformSdp, is_defined, when_defined } from './utils';
 import { SessionReport } from './session_report';
 import { DEFAULT_ICE_TIMEOUT_MS, DEFAULT_GUM_TIMEOUT_MS, RTC_ERRORS } from './rtc_const';
 import { UnsupportedOperation, IllegalParameters, IllegalState, GumTimeout, BusyExceptionName, CallNotFoundExceptionName } from './exceptions';
@@ -925,7 +925,7 @@ export default class RtcSession {
         };
 
         if (this._pc && this._pc.signalingState === 'stable') {
-            return {
+            var statsResult = {
                 audio: {
                     input:  await impl(this._remoteAudioStream, 'audio_input'),
                     output: await impl(this._localStream, 'audio_output')
@@ -936,6 +936,29 @@ export default class RtcSession {
                     output: await impl(this._localStream, 'audio_output')
                 }
             };
+
+            // For consistency's sake, coalesce rttMilliseconds into the output for audio and video.
+            var rttReducer = (acc, stats) => {
+                if (is_defined(stats.rttMilliseconds) && (acc === null || stats.rttMilliseconds > acc)) {
+                    acc = stats.rttMilliseconds;
+                }
+                stats.rttMilliseconds = null;
+                return acc;
+            };
+
+            var audioInputRttMilliseconds = statsResult.audio.input.reduce(rttReducer, null);
+            var videoInputRttMilliseconds = statsResult.video.input.reduce(rttReducer, null);
+
+            if (audioInputRttMilliseconds !== null) {
+                statsResult.audio.output.forEach((stats) => { stats.rttMilliseconds = audioInputRttMilliseconds; }); 
+            }
+
+            if (videoInputRttMilliseconds !== null) {
+                statsResult.video.output.forEach((stats) => { stats.rttMilliseconds = videoInputRttMilliseconds; }); 
+            }
+
+            return statsResult;
+
         } else {
             return Promise.reject(new IllegalState());
         }

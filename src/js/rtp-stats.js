@@ -4,15 +4,7 @@
 * StreamType is passed only to pull right stream stats audio_input or audio_output.
 */
 
-var is_defined = function(v) {
-    return typeof v !== 'undefined';
-};
-
-var when_defined = function(v, alternativeIn) {
-    var alternative = is_defined(alternativeIn) ? alternativeIn : null;
-    return is_defined(v) ? v : alternative;
-};
-
+import { is_defined, when_defined } from './utils';
 export function extractMediaStatsFromStats(timestamp, stats, streamType) {
     var extractedStats = null;
 
@@ -74,7 +66,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                         packetsLost:        statsReport.packetsLost,
                         packetsCount:       statsReport.packetsReceived,
                         audioLevel:         when_defined(statsReport.audioInputLevel),
-                        rttMilliseconds:    when_defined(statsReport.roundTripTime),
+                        rttMilliseconds:    streamType === 'audio_ouptut' || streamType === 'video_output' ? when_defined(statsReport.roundTripTime) : null,
                         jbMilliseconds:     streamType === 'audio_output' || streamType === 'video_output' ? when_defined(statsReport.jitter, 0) * 1000 : null
                     };
                 }
@@ -104,8 +96,8 @@ class MediaRtpStats {
         this._framesDecoded     = when_defined(params.framesDecoded);
         this._frameRateSent     = when_defined(params.frameRateSent);
         this._frameRateReceived = when_defined(params.frameRateReceived);
-        this._statsReportType   = statsReportType || "unknown";
-        this._streamType        = streamType || "unknown";
+        this._statsReportType   = statsReportType || params._statsReportType || "unknown";
+        this._streamType        = streamType || params.streamType || "unknown";
     }
 
     /** {number} number of packets sent to the channel */
@@ -133,6 +125,9 @@ class MediaRtpStats {
     /** {number} Round trip time calculated with RTCP reports */
     get rttMilliseconds() {
         return this._rttMilliseconds;
+    }
+    set rttMilliseconds(ms) {
+        this._rttMilliseconds = ms;
     }
     /** {number} Browser/client side jitter buffer length */
     get jbMilliseconds() {
