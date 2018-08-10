@@ -199,3 +199,13 @@ export function transformSdp(sdp, sdpOptions) {
         mLines: sections.length - 1 // first section is session description, the rest are media descriptions
     };
 }
+
+export function is_defined(v) {
+    return typeof v !== 'undefined';
+}
+
+export function when_defined(v, alternativeIn) {
+    var alternative = is_defined(alternativeIn) ? alternativeIn : null;
+    return is_defined(v) ? v : alternative;
+}
+

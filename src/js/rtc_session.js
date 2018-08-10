@@ -7,7 +7,7 @@
  *
  * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
-import { hitch, wrapLogger, closeStream, SdpOptions, transformSdp } from './utils';
+import { hitch, wrapLogger, closeStream, SdpOptions, transformSdp, is_defined, when_defined } from './utils';
 import { SessionReport } from './session_report';
 import { DEFAULT_ICE_TIMEOUT_MS, DEFAULT_GUM_TIMEOUT_MS, RTC_ERRORS } from './rtc_const';
 import { UnsupportedOperation, IllegalParameters, IllegalState, GumTimeout, BusyExceptionName, CallNotFoundExceptionName } from './exceptions';
@@ -885,87 +885,145 @@ export default class RtcSession {
     hangup() {
         this._state.hangup();
     }
+
     /**
-     * Get a promise of MediaRtpStats object for remote audio (from Amazon Connect to client).
+     * Get a promise containing an object with two named lists of audio stats, one for each channel on each
+     * media type of 'video' and 'audio'.
      * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
      */
-    getRemoteAudioStats() {
+    async getStats() {
         var timestamp = new Date();
-        if (this._pc && this._pc.signalingState === 'stable' && this._remoteAudioStream) {
-            var audioTracks = this._remoteAudioStream.getAudioTracks();
-            return this._pc.getStats(audioTracks[0]).then(function(stats){
-                        var rtcJsStats = extractMediaStatsFromStats(timestamp, stats, 'audio_output');
-                        if (!rtcJsStats) {
-                            throw new Error('Failed to extract MediaRtpStats from RTCStatsReport');
-                        }
-                        return rtcJsStats;
-                    });
+
+        var impl = async (stream, streamType) => {
+            var tracks = [];
+
+            if (! stream) {
+                return [];
+            }
+
+            switch(streamType) {
+            case 'audio_input':
+            case 'audio_output':
+                tracks = stream.getAudioTracks();
+                break;
+            case 'video_input':
+            case 'video_output':
+                tracks = stream.getVideoTracks();
+                break;
+            default:
+                throw new Error('Unsupported stream type while trying to get stats: ' + streamType);
+            }
+
+            return await Promise.all(tracks.map(async (track) => {
+                var rawStats = await this._pc.getStats(track);
+                var digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
+                if (! digestedStats) {
+                    throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
+                }
+                return digestedStats;
+            }));
+        };
+
+        if (this._pc && this._pc.signalingState === 'stable') {
+            var statsResult = {
+                audio: {
+                    input:  await impl(this._remoteAudioStream, 'audio_input'),
+                    output: await impl(this._localStream, 'audio_output')
+                },
+
+                video: {
+                    input:  await impl(this._remoteVideoStream, 'video_input'),
+                    output: await impl(this._localStream, 'video_output')
+                }
+            };
+
+            // For consistency's sake, coalesce rttMilliseconds into the output for audio and video.
+            var rttReducer = (acc, stats) => {
+                if (stats.rttMilliseconds !== null && (acc === null || stats.rttMilliseconds > acc)) {
+                    acc = stats.rttMilliseconds;
+                }
+                stats._rttMilliseconds = null;
+                return acc;
+            };
+
+            var audioInputRttMilliseconds = statsResult.audio.input.reduce(rttReducer, null);
+            var videoInputRttMilliseconds = statsResult.video.input.reduce(rttReducer, null);
+
+            if (audioInputRttMilliseconds !== null) {
+                statsResult.audio.output.forEach((stats) => { stats._rttMilliseconds = audioInputRttMilliseconds; }); 
+            }
+
+            if (videoInputRttMilliseconds !== null) {
+                statsResult.video.output.forEach((stats) => { stats._rttMilliseconds = videoInputRttMilliseconds; }); 
+            }
+
+            return statsResult;
+
         } else {
             return Promise.reject(new IllegalState());
         }
+
     }
 
-
+    /**
+     * Get a promise of MediaRtpStats object for remote audio (from Amazon Connect to client).
+     * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
+     * @deprecated in favor of getStats()
+     */
+    getRemoteAudioStats() {
+        return this.getStats().then(function(stats) {
+            if (stats.audio.output.length > 0) {
+                return stats.audio.output[0];
+            } else {
+                return Promise.reject(new IllegalState());
+            }
+        });
+    }
 
     /**
      * Get a promise of MediaRtpStats object for user audio (from client to Amazon Connect).
      * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
+     * @deprecated in favor of getStats()
      */
     getUserAudioStats() {
-        var timestamp = new Date();
-        if (this._pc && this._pc.signalingState === 'stable' && this._localStream) {
-            var audioTracks = this._localStream.getAudioTracks();
-            return this._pc.getStats(audioTracks[0]).then(function(stats){
-                        var rtcJsStats = extractMediaStatsFromStats(timestamp, stats, 'audio_input');
-                        if (!rtcJsStats) {
-                            throw new Error('Failed to extract MediaRtpStats from RTCStatsReport');
-                        }
-                        return rtcJsStats;
-                    });
-        } else {
-            return Promise.reject(new IllegalState());
-        }
+        return this.getStats().then(function(stats) {
+            if (stats.audio.input.length > 0) {
+                return stats.audio.input[0];
+            } else {
+                return Promise.reject(new IllegalState());
+            }
+        });
     }
 
     /**
      * Get a promise of MediaRtpStats object for user video (from client to Amazon Connect).
      * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
+     * @deprecated in favor of getStats()
      */
     getRemoteVideoStats() {
-        var timestamp = new Date();
-        if (this._pc && this._pc.signalingState === 'stable' && this._remoteVideoStream) {
-            var videoTracks = this._remoteVideoStream.getVideoTracks();
-            return this._pc.getStats(videoTracks[0]).then(function(stats) {
-                        var rtcJsStats = extractMediaStatsFromStats(timestamp, stats, 'video_output');
-                        if (!rtcJsStats) {
-                            throw new Error('Failed to extract MediaRtpStats from RTCStatsReport');
-                        }
-                        return rtcJsStats;
-            });
-        } else {
-            return Promise.reject(new IllegalState());
-        }
+        return this.getStats().then(function(stats) {
+            if (stats.video.output.length > 0) {
+                return stats.video.output[0];
+            } else {
+                return Promise.reject(new IllegalState());
+            }
+        });
     }
 
     /**
      * Get a promise of MediaRtpStats object for user video (from client to Amazon Connect).
      * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
+     * @deprecated in favor of getStats()
      */
     getUserVideoStats() {
-        var timestamp = new Date();
-        if (this._pc && this._pc.signalingState === 'stable' && this._localStream) {
-            var audioTracks = this._localStream.getVideoTracks();
-            return this._pc.getStats(audioTracks[0]).then(function(stats){
-                        var rtcJsStats = extractMediaStatsFromStats(timestamp, stats, 'video_input');
-                        if (!rtcJsStats) {
-                            throw new Error('Failed to extract MediaRtpStats from RTCStatsReport');
-                        }
-                        return rtcJsStats;
-                    });
-        } else {
-            return Promise.reject(new IllegalState());
-        }
-    }
+        return this.getStats().then(function(stats) {
+            if (stats.video.input.length > 0) {
+                return stats.video.input[0];
+            } else {
+                return Promise.reject(new IllegalState());
+            }
+        });
+   }
 
     _onIceCandidate(evt) {
         this._state.onIceCandidate(evt);
