@@ -933,7 +933,7 @@ export default class RtcSession {
 
                 video: {
                     input:  await impl(this._remoteVideoStream, 'video_input'),
-                    output: await impl(this._localStream, 'audio_output')
+                    output: await impl(this._localStream, 'video_output')
                 }
             };
 
