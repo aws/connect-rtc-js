@@ -24,7 +24,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                 if (is_defined(statsReport.packetsSent) && statsReport.mediaType == 'audio' && streamType === 'audio_input') {
                     extractedStats = {
                         timestamp:          timestamp,
-                        packetsSent:        statsReport.packetsSent,
+                        packetsCount:       statsReport.packetsSent,
                         bytesSent:          statsReport.bytesSent,
                         audioLevel:         when_defined(statsReport.audioInputLevel),
                         packetsLost:        is_defined(statsReport.packetsLost) ? Math.max(0, statsReport.packetsLost) : 0,
@@ -35,7 +35,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                 } else if (is_defined(statsReport.packetsReceived) && statsReport.mediaType == 'audio' && streamType === 'audio_output') {
                     extractedStats = {
                         timestamp:          timestamp,
-                        packetsReceived:    statsReport.packetsReceived,
+                        packetsCount:       statsReport.packetsReceived,
                         bytesReceived:      statsReport.bytesReceived,
                         audioLevel:         when_defined(statsReport.audioOutputLevel),
                         packetsLost:        is_defined(statsReport.packetsLost) ? Math.max(0, statsReport.packetsLost) : 0,
@@ -46,7 +46,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                 } else if (is_defined(statsReport.packetsSent) && statsReport.mediaType == 'video' && streamType === 'video_input') {
                     extractedStats = {
                         timestamp:          timestamp,
-                        packetsSent:        statsReport.packetsSent,
+                        packetsCount:       statsReport.packetsSent,
                         bytesSent:          statsReport.bytesSent,
                         packetsLost:        is_defined(statsReport.packetsLost) ? Math.max(0, statsReport.packetsLost) : 0,
                         rttMilliseconds:    when_defined(statsReport.googRtt),
@@ -57,7 +57,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                 } else if (typeof statsReport.packetsReceived !== 'undefined' && statsReport.mediaType == 'video' && streamType === 'video_output') {
                     extractedStats = {
                         timestamp:          timestamp,
-                        packetsSent:        statsReport.packetsSent,
+                        packetsCount:        statsReport.packetsSent,
                         bytesSent:          statsReport.bytesSent,
                         packetsLost:        is_defined(statsReport.packetsLost) ? Math.max(0, statsReport.packetsLost) : 0,
                         frameRateReceived:  when_defined(statsReport.googFrameRateReceived),
@@ -72,7 +72,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                 if (is_defined(statsReport.packetsLost) && is_defined(statsReport.packetsReceived)) {
                     extractedStats = {
                         packetsLost:        statsReport.packetsLost,
-                        packetsReceived:    statsReport.packetsReceived,
+                        packetsCount:       statsReport.packetsReceived,
                         audioLevel:         when_defined(statsReport.audioInputLevel),
                         rttMilliseconds:    when_defined(statsReport.mozRtt),
                         jbMilliseconds:     when_defined(statsReport.jitter)
@@ -92,20 +92,20 @@ class MediaRtpStats {
     constructor(paramsIn, statsReportType, streamType) {
         var params = paramsIn || {};
 
-        this._timestamp = params.timestamp || new Date().getTime();
-        this._packetsLost = params.packetsLost || 0;
-        this._packetsCount = params.packetsCount || 0;
-        this._audioLevel = params.audioLevel || 0;
-        this._rttMilliseconds = params.rttMilliseconds || null;
-        this._jbMilliseconds = params.jbMilliseconds || null;
-        this._bytesSent = params.bytesSent || 0;
-        this._bytesReceived = params.bytesReceived || 0;
-        this._framesEncoded = params.framesEncoded || 0;
-        this._framesDecoded = params.framesDecoded || 0;
-        this._frameRateSent = params.frameRateSent || null;
-        this._frameRateReceived = params.frameRateReceived || null;
-        this._statsReportType = statsReportType || "unknown";
-        this._streamType = streamType || "unknown";
+        this._timestamp         = params.timestamp || new Date().getTime();
+        this._packetsLost       = when_defined(params.packetsLost);
+        this._packetsCount      = when_defined(params.packetsCount);
+        this._audioLevel        = when_defined(params.audioLevel);
+        this._rttMilliseconds   = when_defined(params.rttMilliseconds);
+        this._jbMilliseconds    = when_defined(params.jbMilliseconds);
+        this._bytesSent         = when_defined(params.bytesSent);
+        this._bytesReceived     = when_defined(params.bytesReceived);
+        this._framesEncoded     = when_defined(params.framesEncoded);
+        this._framesDecoded     = when_defined(params.framesDecoded);
+        this._frameRateSent     = when_defined(params.frameRateSent);
+        this._frameRateReceived = when_defined(params.frameRateReceived);
+        this._statsReportType   = statsReportType || "unknown";
+        this._streamType        = streamType || "unknown";
     }
 
     /** {number} number of packets sent to the channel */
