@@ -74,8 +74,8 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                         packetsLost:        statsReport.packetsLost,
                         packetsCount:       statsReport.packetsReceived,
                         audioLevel:         when_defined(statsReport.audioInputLevel),
-                        rttMilliseconds:    when_defined(statsReport.mozRtt),
-                        jbMilliseconds:     when_defined(statsReport.jitter)
+                        rttMilliseconds:    when_defined(statsReport.roundTripTime),
+                        jbMilliseconds:     streamType === 'audio_output' || streamType === 'video_output' ? when_defined(statsReport.jitter, 0) * 1000 : null
                     };
                 }
             }
