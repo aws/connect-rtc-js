@@ -939,10 +939,10 @@ export default class RtcSession {
 
             // For consistency's sake, coalesce rttMilliseconds into the output for audio and video.
             var rttReducer = (acc, stats) => {
-                if (is_defined(stats.rttMilliseconds) && (acc === null || stats.rttMilliseconds > acc)) {
+                if (stats.rttMilliseconds !== null && (acc === null || stats.rttMilliseconds > acc)) {
                     acc = stats.rttMilliseconds;
                 }
-                stats.rttMilliseconds = null;
+                stats._rttMilliseconds = null;
                 return acc;
             };
 
@@ -950,11 +950,11 @@ export default class RtcSession {
             var videoInputRttMilliseconds = statsResult.video.input.reduce(rttReducer, null);
 
             if (audioInputRttMilliseconds !== null) {
-                statsResult.audio.output.forEach((stats) => { stats.rttMilliseconds = audioInputRttMilliseconds; }); 
+                statsResult.audio.output.forEach((stats) => { stats._rttMilliseconds = audioInputRttMilliseconds; }); 
             }
 
             if (videoInputRttMilliseconds !== null) {
-                statsResult.video.output.forEach((stats) => { stats.rttMilliseconds = videoInputRttMilliseconds; }); 
+                statsResult.video.output.forEach((stats) => { stats._rttMilliseconds = videoInputRttMilliseconds; }); 
             }
 
             return statsResult;

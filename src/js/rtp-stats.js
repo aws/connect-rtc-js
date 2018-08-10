@@ -126,9 +126,6 @@ class MediaRtpStats {
     get rttMilliseconds() {
         return this._rttMilliseconds;
     }
-    set rttMilliseconds(ms) {
-        this._rttMilliseconds = ms;
-    }
     /** {number} Browser/client side jitter buffer length */
     get jbMilliseconds() {
         return this._jbMilliseconds;
