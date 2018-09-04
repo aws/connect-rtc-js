@@ -703,6 +703,9 @@ export default class RtcSession {
     set echoCancellation(flag) {
         this._echoCancellation = flag;
     }
+    set echoCancellationType(type) {
+        this._echoCancellationType = type;
+    }
     set enableVideo(flag) {
         this._enableVideo = flag;
     }
@@ -1087,6 +1090,9 @@ export default class RtcSession {
             var audioConstraints = {};
             if (typeof self._echoCancellation !== 'undefined') {
                 audioConstraints.echoCancellation = !!self._echoCancellation;
+            }
+            if (typeof self._echoCancellationType !== 'undefined') {
+                audioConstraints.echoCancellationType = self._echoCancellationType;
             }
             if (Object.keys(audioConstraints).length > 0) {
                 mediaConstraints.audio = audioConstraints;
