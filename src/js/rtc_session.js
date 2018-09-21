@@ -898,9 +898,9 @@ export default class RtcSession {
         var timestamp = new Date();
 
         var impl = async (stream, streamType) => {
-            var tracks = [];
+            let tracks = [];
 
-            if (! stream) {
+            if (!stream) {
                 return [];
             }
 
@@ -913,13 +913,16 @@ export default class RtcSession {
             case 'video_output':
                 tracks = stream.getVideoTracks();
                 break;
+            case 'video_bandwidth':
+                tracks = stream.getVideoTracks();
+                break;
             default:
                 throw new Error('Unsupported stream type while trying to get stats: ' + streamType);
             }
 
             return await Promise.all(tracks.map(async (track) => {
-                var rawStats = await this._pc.getStats(track);
-                var digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
+                const rawStats = await this._pc.getStats(track);
+                const digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
                 if (! digestedStats) {
                     throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
                 }
@@ -936,8 +939,10 @@ export default class RtcSession {
 
                 video: {
                     input:  await impl(this._remoteVideoStream, 'video_input'),
-                    output: await impl(this._localStream, 'video_output')
-                }
+                    output: await impl(this._localStream, 'video_output'),
+                    // Choose either stream as the underlying data is the same
+                    bandwidth: await impl(this._remoteVideoStream || this._localStream, 'video_bandwidth'),
+                },
             };
 
             // For consistency's sake, coalesce rttMilliseconds into the output for audio and video.
