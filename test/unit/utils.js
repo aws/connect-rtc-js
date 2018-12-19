@@ -50,6 +50,7 @@ describe('transformSdp', () => {
         "a=ssrc:2534193841 mslabel:idv6kIIdFJ9x3alklN0n3uNGmI8xgFecIJkt\r\n" +
         "a=ssrc:2534193841 label:d26be488-17a9-4f63-85b4-bdcf9754bb9b\r\n";
 
+
     // transformed with default SdpOptions
     var defaultOutput = "v=0\r\n" +
         "o=- 6968650397182970779 2 IN IP4 127.0.0.1\r\n" +
@@ -117,7 +118,7 @@ describe('transformSdp', () => {
         "a=ssrc:2534193841 mslabel:idv6kIIdFJ9x3alklN0n3uNGmI8xgFecIJkt\r\n" +
         "a=ssrc:2534193841 label:d26be488-17a9-4f63-85b4-bdcf9754bb9b\r\n";
 
-    it('Override audio codec to opus', () => {
+    it('Override audio codec to                                                                                                                                                                                                          opus', () => {
         var sdpOptions = new SdpOptions();
         sdpOptions.forceCodec['audio'] = 'opus';
         chai.expect(transformSdp(inputSdp, sdpOptions).sdp).to.eq(expectedSdpWithOnlyOpus);
@@ -287,5 +288,77 @@ describe('transformSdp', () => {
         var sdpOptions = new SdpOptions();
         var result = transformSdp(audioVideoSdp, sdpOptions);
         chai.expect(result.mLines).to.eq(2);
+    });
+
+
+    var inputSdpUnencrypted = "v=0\r\n" +
+        "o=- 6620764343933944878 2 IN IP4 127.0.0.1\r\n" +
+        "s=-\r\n" +
+        "t=0 0\r\n" +
+        "a=group:BUNDLE audio\r\n" +
+        "a=msid-semantic: WMS epPgfieKqbbeLwL2l9ulykxiVs3EMcKcvtnu\r\n" +
+        "m=audio 9 RTP/AVPF 111 103 104 9 0 8 106 105 13 110 112 113 126\r\n" +
+        "c=IN IP4 0.0.0.0\r\n" +
+        "a=rtcp:9 IN IP4 0.0.0.0\r\n" +
+        "a=ice-ufrag:Y3ri\r\n" +
+        "a=ice-pwd:G95asCJENMnUeWx2dMhpi/ht\r\n" +
+        "a=ice-options:trickle\r\n" +
+        "a=mid:audio\r\n" +
+        "a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level\r\n" +
+        "a=sendrecv\r\n" +
+        "a=rtcp-mux\r\n" +
+        "a=rtpmap:111 opus/48000/2\r\n" +
+        "a=fmtp:111 minptime=10;useinbandfec=1;usedtx=0\r\n" +
+        "a=rtcp-fb:111 transport-cc\r\n" +
+        "a=rtpmap:103 ISAC/16000\r\n" +
+        "a=rtpmap:104 ISAC/32000\r\n" +
+        "a=rtpmap:9 G722/8000\r\n" +
+        "a=rtpmap:0 PCMU/8000\r\n" +
+        "a=rtpmap:8 PCMA/8000\r\n" +
+        "a=rtpmap:106 CN/32000\r\n" +
+        "a=rtpmap:105 CN/16000\r\n" +
+        "a=rtpmap:13 CN/8000\r\n" +
+        "a=rtpmap:110 telephone-event/48000\r\n" +
+        "a=rtpmap:112 telephone-event/32000\r\n" +
+        "a=rtpmap:113 telephone-event/16000\r\n" +
+        "a=rtpmap:126 telephone-event/8000\r\n" +
+        "a=ssrc:2494980608 cname:5kX24X9Mu/D2Pcca\r\n" +
+        "a=ssrc:2494980608 msid:epPgfieKqbbeLwL2l9ulykxiVs3EMcKcvtnu b8c6be2c-1869-4fb6-b05e-ceefefcb6d2c\r\n" +
+        "a=ssrc:2494980608 mslabel:epPgfieKqbbeLwL2l9ulykxiVs3EMcKcvtnu\r\n" +
+        "a=ssrc:2494980608 label:b8c6be2c-1869-4fb6-b05e-ceefefcb6d2c\r\n";
+
+    var outputSdpUnencryptedOpusOnly = "v=0\r\n" +
+        "o=- 6620764343933944878 2 IN IP4 127.0.0.1\r\n" +
+        "s=-\r\n" +
+        "t=0 0\r\n" +
+        "a=group:BUNDLE audio\r\n" +
+        "a=msid-semantic: WMS epPgfieKqbbeLwL2l9ulykxiVs3EMcKcvtnu\r\n" +
+        "m=audio 9 RTP/AVPF 110 111 112 113 126\r\n" +
+        "c=IN IP4 0.0.0.0\r\n" +
+        "a=rtcp:9 IN IP4 0.0.0.0\r\n" +
+        "a=ice-ufrag:Y3ri\r\n" +
+        "a=ice-pwd:G95asCJENMnUeWx2dMhpi/ht\r\n" +
+        "a=ice-options:trickle\r\n" +
+        "a=mid:audio\r\n" +
+        "a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level\r\n" +
+        "a=sendrecv\r\n" +
+        "a=rtcp-mux\r\n" +
+        "a=rtpmap:111 opus/48000/2\r\n" +
+        "a=fmtp:111 minptime=10;useinbandfec=1;usedtx=0\r\n" +
+        "a=rtcp-fb:111 transport-cc\r\n" +
+        "a=rtpmap:110 telephone-event/48000\r\n" +
+        "a=rtpmap:112 telephone-event/32000\r\n" +
+        "a=rtpmap:113 telephone-event/16000\r\n" +
+        "a=rtpmap:126 telephone-event/8000\r\n" +
+        "a=ssrc:2494980608 cname:5kX24X9Mu/D2Pcca\r\n" +
+        "a=ssrc:2494980608 msid:epPgfieKqbbeLwL2l9ulykxiVs3EMcKcvtnu b8c6be2c-1869-4fb6-b05e-ceefefcb6d2c\r\n" +
+        "a=ssrc:2494980608 mslabel:epPgfieKqbbeLwL2l9ulykxiVs3EMcKcvtnu\r\n" +
+        "a=ssrc:2494980608 label:b8c6be2c-1869-4fb6-b05e-ceefefcb6d2c\r\n";
+
+    it('Properly handles SDP with unencrypted RTP', () => {
+        var sdpOptions = new SdpOptions();
+        sdpOptions.forceCodec['audio'] = 'opus';
+        var result = transformSdp(inputSdpUnencrypted, sdpOptions);
+        chai.expect(result.sdp).to.eq(outputSdpUnencryptedOpusOnly);
     });
 });
