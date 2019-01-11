@@ -142,7 +142,7 @@ export function transformSdp(sdp, sdpOptions) {
                 // modify m= line if SdpOptions#forceCodec specifies codec for current media type
                 if (sdpOptions.forceCodec[mediaType]) {
                     var targetCodecPts = Object.keys(codecMap).filter(pt => !sdpOptions._shouldDeleteCodec(mediaType, codecMap[pt].name));
-                    return line.substring(0, line.indexOf('UDP/TLS/RTP/SAVPF ') + 'UDP/TLS/RTP/SAVPF '.length) + targetCodecPts.join(' ');
+                    return /.*RTP\/S?AVPF? /.exec(line) + targetCodecPts.join(' ');
                 } else {
                     return line;
                 }
