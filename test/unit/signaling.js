@@ -9,20 +9,45 @@
  */
 
 import RtcSignaling from '../../src/js/signaling';
-import { SignalingState, FailOnTimeoutState, PendingConnectState, PendingInviteState, PendingAnswerState, PendingAcceptState, PendingAcceptAckState, TalkingState, PendingReconnectState, PendingRemoteHangupState, PendingLocalHangupState, DisconnectedState, FailedState } from '../../src/js/signaling'; // eslint-disable-line no-unused-vars
-import { TimeoutExceptionName, UnknownSignalingErrorName } from '../../src/js/exceptions';
+import {
+    SignalingState,
+    FailOnTimeoutState,
+    PendingConnectState,
+    PendingInviteState,
+    PendingAnswerState,
+    PendingAcceptState,
+    PendingAcceptAckState,
+    TalkingState,
+    PendingReconnectState,
+    PendingRemoteHangupState,
+    PendingLocalHangupState,
+    DisconnectedState,
+    FailedState
+} from '../../src/js/signaling'; // eslint-disable-line no-unused-vars
+import {
+    TimeoutExceptionName,
+    UnknownSignalingErrorName
+} from '../../src/js/exceptions';
 import chai from 'chai';
 import sinon from 'sinon';
 
 describe('signalingTest', () => {
     describe('signalingObject', () => {
-        var signaling = new RtcSignaling('call Id', 'https://myserver.com/rtc', 'co{n"t=a:c,t&T"ok}en', console, 4000);
+        var signaling = new RtcSignaling(
+            'call Id',
+            'https://myserver.com/rtc',
+            'co{n"t=a:c,t&T"ok}en',
+            console,
+            4000
+        );
         it('can be created and initialized', () => {
             chai.expect(signaling.callId).to.equal('call Id');
         });
 
         it('builds correct WSS URL with escaping', () => {
-            chai.expect(signaling._buildInviteUri()).to.equal('https://myserver.com/rtc?callId=call%20Id&contactCtx=co%7Bn%22t%3Da%3Ac%2Ct%26T%22ok%7Den');
+            chai.expect(signaling._buildInviteUri()).to.equal(
+                'https://myserver.com/rtc?callId=call%20Id&contactCtx=co%7Bn%22t%3Da%3Ac%2Ct%26T%22ok%7Den'
+            );
         });
 
         it('throws exit exception after calling enter on state transition', () => {
@@ -31,9 +56,11 @@ describe('signalingTest', () => {
                 onExit: initStateExit
             });
             var nextStateEnter = sinon.stub.throws(2);
-            chai.expect(() => signaling.transit({
-                onEnter: nextStateEnter
-            })).to.throw(1);
+            chai.expect(() =>
+                signaling.transit({
+                    onEnter: nextStateEnter
+                })
+            ).to.throw(1);
         });
     });
 
@@ -52,31 +79,37 @@ describe('signalingTest', () => {
             signalingState = new SignalingState(signaling);
         });
 
-        it('could tell it\'s not current state', () => {
+        it("could tell it's not current state", () => {
             signaling.state = null;
             chai.expect(signalingState.isCurrentState).to.equal(false);
         });
 
-        it('could tell it\'s current state', () => {
+        it("could tell it's current state", () => {
             signaling.state = signalingState;
             chai.expect(signalingState.isCurrentState).to.equal(true);
         });
 
-        it('calls timeout handler if it\'s current state', () => {
+        it("calls timeout handler if it's current state", () => {
             signaling.state = signalingState;
             signalingState.onTimeout = sinon.spy();
             signalingState._onTimeoutChecked();
-            chai.assert(signalingState.onTimeout.called, 'onTimeout should have been called');
+            chai.assert(
+                signalingState.onTimeout.called,
+                'onTimeout should have been called'
+            );
         });
 
-        it('skips calling timeout handler if it\'s not current state', () => {
+        it("skips calling timeout handler if it's not current state", () => {
             signaling.state = null;
             signalingState.onTimeout = sinon.spy();
             signalingState._onTimeoutChecked();
-            chai.assert(!signalingState.onTimeout.called, 'onTimeout should have not been called');
+            chai.assert(
+                !signalingState.onTimeout.called,
+                'onTimeout should have not been called'
+            );
         });
 
-        it('could schedule timeout', (done) => {
+        it('could schedule timeout', done => {
             signaling.state = signalingState;
             signalingState.onTimeout = done;
             signalingState.setStateTimeout(1);
@@ -98,10 +131,15 @@ describe('signalingTest', () => {
             state = new FailOnTimeoutState(signaling, 1);
         });
 
-        it('transit to Failed state with Timeout exception', (done) => {
-            signaling.transit = (nextState) => {
-                chai.assert(nextState instanceof FailedState, 'next state should be FailedState');
-                chai.expect(nextState.exception.name).to.equal(TimeoutExceptionName);
+        it('transit to Failed state with Timeout exception', done => {
+            signaling.transit = nextState => {
+                chai.assert(
+                    nextState instanceof FailedState,
+                    'next state should be FailedState'
+                );
+                chai.expect(nextState.exception.name).to.equal(
+                    TimeoutExceptionName
+                );
                 done();
             };
             signaling.state = state;
@@ -121,8 +159,8 @@ describe('signalingTest', () => {
 
         beforeEach(() => {
             signaling = {
-                transit:        sinon.spy(),
-                _connect:       sinon.spy()
+                transit: sinon.spy(),
+                _connect: sinon.spy()
             };
             state = new PendingConnectState(signaling, 500);
         });
@@ -130,22 +168,30 @@ describe('signalingTest', () => {
         it('transit to pending invite once WSS is open', () => {
             state.onOpen();
             chai.expect(signaling.transit.calledOnce).to.be.true;
-            chai.expect(signaling.transit.args[0][0]).to.be.instanceof(PendingInviteState);
+            chai.expect(signaling.transit.args[0][0]).to.be.instanceof(
+                PendingInviteState
+            );
         });
 
         it('retries three times if channelDown occurs before timeout', () => {
             state.channelDown();
             state.channelDown();
             state.channelDown();
-            
+
             chai.expect(signaling.transit.calledThrice).to.be.true;
             chai.expect(signaling._connect.calledTwice).to.be.true;
-            chai.expect(signaling.transit.args[0][0]).to.be.instanceof(PendingConnectState);
-            chai.expect(signaling.transit.args[1][0]).to.be.instanceof(PendingConnectState);
-            chai.expect(signaling.transit.args[2][0]).to.be.instanceof(FailedState);
+            chai.expect(signaling.transit.args[0][0]).to.be.instanceof(
+                PendingConnectState
+            );
+            chai.expect(signaling.transit.args[1][0]).to.be.instanceof(
+                PendingConnectState
+            );
+            chai.expect(signaling.transit.args[2][0]).to.be.instanceof(
+                FailedState
+            );
         });
 
-        it('doesn\'t attempt to retry if the timeout has elapsed', (done) => {
+        it("doesn't attempt to retry if the timeout has elapsed", done => {
             state.channelDown();
 
             setTimeout(function() {
@@ -153,10 +199,13 @@ describe('signalingTest', () => {
 
                 chai.expect(signaling.transit.calledTwice).to.be.true;
                 chai.expect(signaling._connect.calledOnce).to.be.true;
-                chai.expect(signaling.transit.args[0][0]).to.be.instanceof(PendingConnectState);
-                chai.expect(signaling.transit.args[1][0]).to.be.instanceof(FailedState);
+                chai.expect(signaling.transit.args[0][0]).to.be.instanceof(
+                    PendingConnectState
+                );
+                chai.expect(signaling.transit.args[1][0]).to.be.instanceof(
+                    FailedState
+                );
                 done();
-
             }, 1000);
         });
     });
@@ -176,7 +225,7 @@ describe('signalingTest', () => {
             state = new PendingInviteState(signaling);
         });
 
-        it('sends connected event to signaling object on enter', (done) => {
+        it('sends connected event to signaling object on enter', done => {
             signaling._connectedHandler = done;
             state.onEnter();
         });
@@ -197,7 +246,9 @@ describe('signalingTest', () => {
             chai.assert.equal(1, inviteRequest.params.candidates.length);
             chai.assert.equal('cand1', inviteRequest.params.candidates[0]);
             chai.assert.isNotNull(inviteRequest.id);
-            chai.assert(signaling.transit.args[0][0] instanceof PendingAnswerState);
+            chai.assert(
+                signaling.transit.args[0][0] instanceof PendingAnswerState
+            );
         });
     });
 
@@ -233,10 +284,12 @@ describe('signalingTest', () => {
             chai.assert(signaling.transit.calledOnce);
             var nextState = signaling.transit.args[0][0];
             chai.assert(nextState instanceof FailedState);
-            chai.expect(nextState.exception.name).to.eq(UnknownSignalingErrorName);
+            chai.expect(nextState.exception.name).to.eq(
+                UnknownSignalingErrorName
+            );
         });
 
-        it('notifies and goes to pending accept state upon receiving success response', (done) => {
+        it('notifies and goes to pending accept state upon receiving success response', done => {
             signaling._logger = {
                 log: sinon.spy()
             };
@@ -255,7 +308,9 @@ describe('signalingTest', () => {
                 }
             });
             chai.assert(signaling.transit.calledOnce);
-            chai.assert(signaling.transit.args[0][0] instanceof PendingAcceptState);
+            chai.assert(
+                signaling.transit.args[0][0] instanceof PendingAcceptState
+            );
         });
     });
 
@@ -287,7 +342,9 @@ describe('signalingTest', () => {
             chai.assert.isNotNull(acceptReq.params);
             chai.assert.isNotNull(acceptReq.id);
             chai.assert(signaling.transit.calledOnce);
-            chai.assert(signaling.transit.args[0][0] instanceof PendingAcceptAckState);
+            chai.assert(
+                signaling.transit.args[0][0] instanceof PendingAcceptAckState
+            );
         });
     });
 
@@ -353,7 +410,7 @@ describe('signalingTest', () => {
             state = new TalkingState(signaling);
         });
 
-        it('notify handshake completion on enter', (done) => {
+        it('notify handshake completion on enter', done => {
             signaling._handshakedHandler = done;
             state.onEnter();
         });
@@ -371,7 +428,9 @@ describe('signalingTest', () => {
             chai.assert.isNotNull(hangupReq.params);
             chai.assert.isNotNull(hangupReq.id);
             chai.assert(signaling.transit.calledOnce);
-            chai.assert(signaling.transit.args[0][0] instanceof PendingRemoteHangupState);
+            chai.assert(
+                signaling.transit.args[0][0] instanceof PendingRemoteHangupState
+            );
         });
 
         it('responds to server hangup', () => {
@@ -383,7 +442,9 @@ describe('signalingTest', () => {
                 id: 10
             });
             chai.assert(signaling.transit.calledOnce);
-            chai.assert(signaling.transit.args[0][0] instanceof PendingLocalHangupState);
+            chai.assert(
+                signaling.transit.args[0][0] instanceof PendingLocalHangupState
+            );
         });
 
         it('responds to token renewal', () => {
@@ -404,7 +465,9 @@ describe('signalingTest', () => {
             state.channelDown();
             chai.assert(signaling._reconnect.calledOnce);
             chai.assert(signaling.transit.calledOnce);
-            chai.assert(signaling.transit.args[0][0] instanceof PendingReconnectState);
+            chai.assert(
+                signaling.transit.args[0][0] instanceof PendingReconnectState
+            );
         });
     });
 
@@ -454,7 +517,9 @@ describe('signalingTest', () => {
                 result: {}
             });
             chai.assert(signaling.transit.calledOnce);
-            chai.assert(signaling.transit.args[0][0] instanceof DisconnectedState);
+            chai.assert(
+                signaling.transit.args[0][0] instanceof DisconnectedState
+            );
         });
     });
 
@@ -473,7 +538,7 @@ describe('signalingTest', () => {
             state = new PendingLocalHangupState(signaling, 8);
         });
 
-        it('notifies remote hangup on enter', (done) => {
+        it('notifies remote hangup on enter', done => {
             signaling._remoteHungupHandler = done;
             state.onEnter();
         });
@@ -490,10 +555,11 @@ describe('signalingTest', () => {
             chai.assert.equal(8, hangupResp.id);
             chai.assert.isNotNull(hangupResp.result);
             chai.assert(signaling.transit.calledOnce);
-            chai.assert(signaling.transit.args[0][0] instanceof DisconnectedState);
+            chai.assert(
+                signaling.transit.args[0][0] instanceof DisconnectedState
+            );
         });
     });
-
 
     describe('DisconnectedState', () => {
         /**
@@ -510,7 +576,7 @@ describe('signalingTest', () => {
             state = new DisconnectedState(signaling);
         });
 
-        it('notifies disconnected on enter', (done) => {
+        it('notifies disconnected on enter', done => {
             signaling._wss = {
                 close: sinon.spy()
             };
@@ -535,7 +601,7 @@ describe('signalingTest', () => {
             state = new FailedState(signaling);
         });
 
-        it('notifies failure on enter', (done) => {
+        it('notifies failure on enter', done => {
             signaling._wss = {
                 close: sinon.spy()
             };

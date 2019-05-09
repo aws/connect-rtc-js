@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         uglify: {
@@ -14,24 +14,20 @@ module.exports = function (grunt) {
         },
         browserify: {
             connectRtcGlobalObjectDebug: {
-                src: [
-                    './src/js/connect-rtc.js'
-                ],
+                src: ['./src/js/connect-rtc.js'],
                 dest: './out/connect-rtc-debug.js',
                 options: {
                     browserifyOptions: {
                         debug: true
                     },
-                    transform: [["babelify", { "presets": ["env"] }]],
+                    transform: [['babelify', { presets: ['env'] }]]
                 }
             },
             connectRtcGlobalObject: {
-                src: [
-                    './src/js/connect-rtc.js'
-                ],
+                src: ['./src/js/connect-rtc.js'],
                 dest: './out/connect-rtc.js',
                 options: {
-                    transform: [["babelify", { "presets": ["env"] }]],
+                    transform: [['babelify', { presets: ['env'] }]]
                 }
             }
         },

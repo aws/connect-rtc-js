@@ -8,7 +8,7 @@
  * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-import {RTCSession, RTCErrors} from '../../src/js/connect-rtc';
+import { RTCSession, RTCErrors } from '../../src/js/connect-rtc';
 import chai from 'chai';
 
 describe('Bundled JS', () => {
