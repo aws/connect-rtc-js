@@ -867,7 +867,8 @@ export default class RtcSession {
             iceServers: self._iceServers,
             iceTransportPolicy: 'relay',
             rtcpMuxPolicy: 'require',
-            bundlePolicy: 'balanced'
+            bundlePolicy: 'balanced',
+            sdpSemantics: 'plan-b'
         }, {
             optional: [
                 {
