@@ -1,0 +1,7 @@
+# Ignore list:
+/*
+# Except list:
+!/src/**/*.js
+!/*.js
+!/demo
+!/test

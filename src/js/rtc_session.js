@@ -68,7 +68,7 @@ export class GrabLocalMediaState extends RTCSessionState {
     onEnter() {
         var self = this;
         var startTime = Date.now();
-        if (self._rtcSession._userAudioStream) {
+        if (self._rtcSession._localStream) {
             self.transit(new CreateOfferState(self._rtcSession));
         } else {
             var gumTimeoutPromise = new Promise((resolve, reject) => {
@@ -703,6 +703,9 @@ export default class RtcSession {
     set echoCancellation(flag) {
         this._echoCancellation = flag;
     }
+    set echoCancellationType(type) {
+        this._echoCancellationType = type;
+    }
     set enableVideo(flag) {
         this._enableVideo = flag;
     }
@@ -896,9 +899,9 @@ export default class RtcSession {
         var timestamp = new Date();
 
         var impl = async (stream, streamType) => {
-            var tracks = [];
+            let tracks = [];
 
-            if (! stream) {
+            if (!stream) {
                 return [];
             }
 
@@ -911,13 +914,16 @@ export default class RtcSession {
             case 'video_output':
                 tracks = stream.getVideoTracks();
                 break;
+            case 'video_bandwidth':
+                tracks = stream.getVideoTracks();
+                break;
             default:
                 throw new Error('Unsupported stream type while trying to get stats: ' + streamType);
             }
 
             return await Promise.all(tracks.map(async (track) => {
-                var rawStats = await this._pc.getStats(track);
-                var digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
+                const rawStats = await this._pc.getStats(track);
+                const digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
                 if (! digestedStats) {
                     throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
                 }
@@ -934,8 +940,10 @@ export default class RtcSession {
 
                 video: {
                     input:  await impl(this._remoteVideoStream, 'video_input'),
-                    output: await impl(this._localStream, 'video_output')
-                }
+                    output: await impl(this._localStream, 'video_output'),
+                    // Choose either stream as the underlying data is the same
+                    bandwidth: await impl(this._remoteVideoStream || this._localStream, 'video_bandwidth'),
+                },
             };
 
             // For consistency's sake, coalesce rttMilliseconds into the output for audio and video.
@@ -964,6 +972,16 @@ export default class RtcSession {
             return Promise.reject(new IllegalState());
         }
 
+    }
+    /**
+     * Get a promise containing raw object all RTCPeerConnection stats.
+     * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
+     */
+    async getStatsRaw() {
+        if (this._pc && this._pc.signalingState === 'stable') {
+            return await this._pc.getStats(null);
+        }
+        return Promise.reject(new IllegalState());
     }
 
     /**
@@ -1088,6 +1106,9 @@ export default class RtcSession {
             var audioConstraints = {};
             if (typeof self._echoCancellation !== 'undefined') {
                 audioConstraints.echoCancellation = !!self._echoCancellation;
+            }
+            if (typeof self._echoCancellationType !== 'undefined') {
+                audioConstraints.echoCancellationType = self._echoCancellationType;
             }
             if (Object.keys(audioConstraints).length > 0) {
                 mediaConstraints.audio = audioConstraints;

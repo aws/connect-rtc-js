@@ -19,7 +19,13 @@
     "version": "",
     "postversion": "export GITTAG=\"echo $(git describe --abbrev=0 --tags | sed 's/^v//')\" && git push --force --set-upstream origin bumpVersion --follow-tags && git checkout gh-pages && git pull && cp out/connect-rtc-debug.js ./connect-rtc-debug-`$GITTAG`.js && cp out/connect-rtc.min.js ./connect-rtc-`$GITTAG`.min.js && ln -fs connect-rtc-debug-`$GITTAG`.js connect-rtc-debug-latest.js && ln -fs connect-rtc-`$GITTAG`.min.js connect-rtc-latest.min.js && git add connect-rtc*.js && git commit -m `$GITTAG` && git push --set-upstream origin gh-pages && git checkout master",
     "prepublish": "grunt build",
+    "pretty": "prettier --write \"**/*.*\"",
     "test": "grunt && mocha --compilers js:babel-core/register test/unit"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "dependencies": {
     "webrtc-adapter": "~2.0.5",
@@ -30,8 +36,8 @@
     "node": ">=6.0.0"
   },
   "devDependencies": {
-    "babel-polyfill": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.3.2",
     "babelify": "^7.3.0",
     "chai": "^3.5.0",
@@ -49,7 +55,10 @@
     "grunt-contrib-watch": "^1.1.0",
     "grunt-eslint": "^21.0.0",
     "grunt-githooks": "^0.6.0",
+    "husky": "^2.2.0",
     "mocha": "^3.2.0",
+    "prettier": "^1.17.0",
+    "pretty-quick": "^1.10.0",
     "selenium-webdriver": "^3.3.0",
     "sinon": "^2.1.0",
     "tape": "^4.6.3",

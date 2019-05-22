@@ -9,7 +9,19 @@
  */
 
 import RtcSession from '../../src/js/rtc_session';
-import { RTCSessionState, GrabLocalMediaState, CreateOfferState, SetLocalSessionDescriptionState, ConnectSignalingAndIceCollectionState, InviteAnswerState, AcceptState, TalkingState, CleanUpState, DisconnectedState, FailedState } from '../../src/js/rtc_session';
+import {
+    RTCSessionState,
+    GrabLocalMediaState,
+    CreateOfferState,
+    SetLocalSessionDescriptionState,
+    ConnectSignalingAndIceCollectionState,
+    InviteAnswerState,
+    AcceptState,
+    TalkingState,
+    CleanUpState,
+    DisconnectedState,
+    FailedState
+} from '../../src/js/rtc_session';
 import { RTC_ERRORS } from '../../src/js/rtc_const';
 import { BusyException, CallNotFoundException } from '../../src/js/exceptions';
 import chai from 'chai';
@@ -17,14 +29,19 @@ import sinon from 'sinon';
 
 describe('RTC session', () => {
     describe('session object', () => {
-        var session = new RtcSession('wss://amazon-connect-rtc-server.amazonaws.com/', [], 'contactToken', console);
+        var session = new RtcSession(
+            'wss://amazon-connect-rtc-server.amazonaws.com/',
+            [],
+            'contactToken',
+            console
+        );
 
         it('builds audio constraints by default', () => {
             var constraints = session._buildMediaConstraints();
             chai.expect(!!constraints.audio).to.be.true;
         });
 
-        it('generates contact ID when it\'s not provided through constructor', () => {
+        it("generates contact ID when it's not provided through constructor", () => {
             chai.expect(session.callId).to.match(/^[-A-Fa-f0-9]{36}$/);
         });
     });
@@ -45,7 +62,7 @@ describe('RTC session', () => {
             state = new RTCSessionState(session);
         });
 
-        it('executs transit only if it\'s current state', () => {
+        it("executs transit only if it's current state", () => {
             session._state = state;
             session.transit = sinon.spy();
             var nextState = {};
@@ -54,7 +71,7 @@ describe('RTC session', () => {
             chai.assert(session.transit.calledWith(nextState));
         });
 
-        it('skips transit if it\'s not current state', () => {
+        it("skips transit if it's not current state", () => {
             session._state = null;
             session.transit = sinon.spy();
             var nextState = {};
@@ -88,36 +105,39 @@ describe('RTC session', () => {
             chai.assert(session.transit.args[0][0] instanceof CreateOfferState);
         });
 
-        it('notifies gum error and go to failed state if gUM times out', (done) => {
+        it('notifies gum error and go to failed state if gUM times out', done => {
             session._logger = console;
             session._gumTimeoutMillis = 0;
             session._sessionReport = {};
             session._state = state;
-            session._buildMediaConstraints = () => { };
+            session._buildMediaConstraints = () => {};
             session._onGumError = sinon.spy();
-            session.transit = (nextState) => {
+            session.transit = nextState => {
                 chai.assert(session._onGumError.calledOnce);
                 chai.assert(session._onGumError.calledWith(session));
                 chai.assert(nextState instanceof FailedState);
                 done();
             };
             state._gUM = sinon.stub();
-            state._gUM.returns(new Promise(() => { }));
+            state._gUM.returns(new Promise(() => {}));
             state.onEnter();
         });
 
-        it('notifies gum error and go to failed state if gUM fast fails', (done) => {
+        it('notifies gum error and go to failed state if gUM fast fails', done => {
             session._logger = console;
             session._gumTimeoutMillis = 2000;
             session._sessionReport = {};
             session._state = state;
-            session._buildMediaConstraints = () => { };
+            session._buildMediaConstraints = () => {};
             session._onGumError = sinon.spy();
-            session.transit = (nextState) => {
+            session.transit = nextState => {
                 chai.assert(session._onGumError.calledOnce);
                 chai.assert(session._onGumError.calledWith(session));
                 chai.assert(nextState instanceof FailedState);
-                chai.assert.equal(RTC_ERRORS.GUM_OTHER_FAILURE, nextState._failureReason);
+                chai.assert.equal(
+                    RTC_ERRORS.GUM_OTHER_FAILURE,
+                    nextState._failureReason
+                );
                 done();
             };
             state._gUM = sinon.stub();
@@ -125,14 +145,14 @@ describe('RTC session', () => {
             state.onEnter();
         });
 
-        it('notifies gum success and go to create offer state if gUM succeeds within time limit', (done) => {
+        it('notifies gum success and go to create offer state if gUM succeeds within time limit', done => {
             session._logger = console;
             session._gumTimeoutMillis = 2000;
             session._sessionReport = {};
             session._state = state;
-            session._buildMediaConstraints = () => { };
+            session._buildMediaConstraints = () => {};
             session._onGumSuccess = sinon.spy();
-            session.transit = (nextState) => {
+            session.transit = nextState => {
                 chai.assert(session._onGumSuccess.calledOnce);
                 chai.assert(session._onGumSuccess.calledWith(session));
                 chai.assert(nextState instanceof CreateOfferState);
@@ -169,10 +189,12 @@ describe('RTC session', () => {
             session._state = state;
         });
 
-        it('transits to set local description state when offer created', (done) => {
+        it('transits to set local description state when offer created', done => {
             session._pc.createOffer.returns(Promise.resolve('desc'));
-            session.transit = (nextState) => {
-                chai.assert(nextState instanceof SetLocalSessionDescriptionState);
+            session.transit = nextState => {
+                chai.assert(
+                    nextState instanceof SetLocalSessionDescriptionState
+                );
                 chai.assert.equal('desc', session._localSessionDescription);
                 done();
             };
@@ -181,9 +203,9 @@ describe('RTC session', () => {
             chai.assert(session._pc.addStream.calledOnce);
         });
 
-        it('transits to failed state when offer creation failed', (done) => {
+        it('transits to failed state when offer creation failed', done => {
             session._pc.createOffer.returns(Promise.reject('testFailure'));
-            session.transit = (nextState) => {
+            session.transit = nextState => {
                 chai.expect(nextState).to.be.instanceof(FailedState);
                 chai.expect(session._localSessionDescription).to.be.undefined;
                 done();
@@ -195,42 +217,43 @@ describe('RTC session', () => {
     });
 
     describe('SetLocalSessionDescriptionState', () => {
-        var sdp = "v=0\r\n" +
-            "o=- 6968650397182970779 2 IN IP4 127.0.0.1\r\n" +
-            "s=-\r\n" +
-            "t=0 0\r\n" +
-            "a=group:BUNDLE audio\r\n" +
-            "a=msid-semantic: WMS idv6kIIdFJ9x3alklN0n3uNGmI8xgFecIJkt\r\n" +
-            "m=audio 9 UDP/TLS/RTP/SAVPF 111 103 104 9 0 8 106 105 13 110 112 113 126\r\n" +
-            "c=IN IP4 0.0.0.0\r\n" +
-            "a=rtcp:9 IN IP4 0.0.0.0\r\n" +
-            "a=ice-ufrag:E4/X\r\n" +
-            "a=ice-pwd:34ijxBABGSaclsOpfc9E042R\r\n" +
-            "a=fingerprint:sha-256 26:40:A1:3C:7E:67:75:2F:1B:21:B9:54:68:07:E8:CE:E5:9C:28:2A:E8:D4:36:26:04:C5:5B:0C:04:43:37:CF\r\n" +
-            "a=setup:actpass\r\n" +
-            "a=mid:audio\r\n" +
-            "a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level\r\n" +
-            "a=sendrecv\r\n" +
-            "a=rtcp-mux\r\n" +
-            "a=rtpmap:111 opus/48000/2\r\n" +
-            "a=rtcp-fb:111 transport-cc\r\n" +
-            "a=fmtp:111 minptime=10;useinbandfec=1\r\n" +
-            "a=rtpmap:103 ISAC/16000\r\n" +
-            "a=rtpmap:104 ISAC/32000\r\n" +
-            "a=rtpmap:9 G722/8000\r\n" +
-            "a=rtpmap:0 PCMU/8000\r\n" +
-            "a=rtpmap:8 PCMA/8000\r\n" +
-            "a=rtpmap:106 CN/32000\r\n" +
-            "a=rtpmap:105 CN/16000\r\n" +
-            "a=rtpmap:13 CN/8000\r\n" +
-            "a=rtpmap:110 telephone-event/48000\r\n" +
-            "a=rtpmap:112 telephone-event/32000\r\n" +
-            "a=rtpmap:113 telephone-event/16000\r\n" +
-            "a=rtpmap:126 telephone-event/8000\r\n" +
-            "a=ssrc:2534193841 cname:NsEUa3X+NJbQmyyN\r\n" +
-            "a=ssrc:2534193841 msid:idv6kIIdFJ9x3alklN0n3uNGmI8xgFecIJkt d26be488-17a9-4f63-85b4-bdcf9754bb9b\r\n" +
-            "a=ssrc:2534193841 mslabel:idv6kIIdFJ9x3alklN0n3uNGmI8xgFecIJkt\r\n" +
-            "a=ssrc:2534193841 label:d26be488-17a9-4f63-85b4-bdcf9754bb9b";
+        var sdp =
+            'v=0\r\n' +
+            'o=- 6968650397182970779 2 IN IP4 127.0.0.1\r\n' +
+            's=-\r\n' +
+            't=0 0\r\n' +
+            'a=group:BUNDLE audio\r\n' +
+            'a=msid-semantic: WMS idv6kIIdFJ9x3alklN0n3uNGmI8xgFecIJkt\r\n' +
+            'm=audio 9 UDP/TLS/RTP/SAVPF 111 103 104 9 0 8 106 105 13 110 112 113 126\r\n' +
+            'c=IN IP4 0.0.0.0\r\n' +
+            'a=rtcp:9 IN IP4 0.0.0.0\r\n' +
+            'a=ice-ufrag:E4/X\r\n' +
+            'a=ice-pwd:34ijxBABGSaclsOpfc9E042R\r\n' +
+            'a=fingerprint:sha-256 26:40:A1:3C:7E:67:75:2F:1B:21:B9:54:68:07:E8:CE:E5:9C:28:2A:E8:D4:36:26:04:C5:5B:0C:04:43:37:CF\r\n' +
+            'a=setup:actpass\r\n' +
+            'a=mid:audio\r\n' +
+            'a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level\r\n' +
+            'a=sendrecv\r\n' +
+            'a=rtcp-mux\r\n' +
+            'a=rtpmap:111 opus/48000/2\r\n' +
+            'a=rtcp-fb:111 transport-cc\r\n' +
+            'a=fmtp:111 minptime=10;useinbandfec=1\r\n' +
+            'a=rtpmap:103 ISAC/16000\r\n' +
+            'a=rtpmap:104 ISAC/32000\r\n' +
+            'a=rtpmap:9 G722/8000\r\n' +
+            'a=rtpmap:0 PCMU/8000\r\n' +
+            'a=rtpmap:8 PCMA/8000\r\n' +
+            'a=rtpmap:106 CN/32000\r\n' +
+            'a=rtpmap:105 CN/16000\r\n' +
+            'a=rtpmap:13 CN/8000\r\n' +
+            'a=rtpmap:110 telephone-event/48000\r\n' +
+            'a=rtpmap:112 telephone-event/32000\r\n' +
+            'a=rtpmap:113 telephone-event/16000\r\n' +
+            'a=rtpmap:126 telephone-event/8000\r\n' +
+            'a=ssrc:2534193841 cname:NsEUa3X+NJbQmyyN\r\n' +
+            'a=ssrc:2534193841 msid:idv6kIIdFJ9x3alklN0n3uNGmI8xgFecIJkt d26be488-17a9-4f63-85b4-bdcf9754bb9b\r\n' +
+            'a=ssrc:2534193841 mslabel:idv6kIIdFJ9x3alklN0n3uNGmI8xgFecIJkt\r\n' +
+            'a=ssrc:2534193841 label:d26be488-17a9-4f63-85b4-bdcf9754bb9b';
 
         /**
          * @type {RtcSession}
@@ -258,20 +281,26 @@ describe('RTC session', () => {
             session._state = state;
         });
 
-        it('transits to signaling state when local description is set', (done) => {
+        it('transits to signaling state when local description is set', done => {
             session._pc.setLocalDescription.returns(Promise.resolve());
-            session.transit = (nextState) => {
-                chai.expect(session._onSessionInitialized.calledOnce).to.be.true;
-                chai.expect(nextState).to.be.instanceof(ConnectSignalingAndIceCollectionState);
+            session.transit = nextState => {
+                chai.expect(session._onSessionInitialized.calledOnce).to.be
+                    .true;
+                chai.expect(nextState).to.be.instanceof(
+                    ConnectSignalingAndIceCollectionState
+                );
                 done();
             };
             state.onEnter();
         });
 
-        it('transits to failed state when set local description failed', (done) => {
-            session._pc.setLocalDescription.returns(Promise.reject('testFailure'));
-            session.transit = (nextState) => {
-                chai.expect(session._onSessionInitialized.calledOnce).to.be.false;
+        it('transits to failed state when set local description failed', done => {
+            session._pc.setLocalDescription.returns(
+                Promise.reject('testFailure')
+            );
+            session.transit = nextState => {
+                chai.expect(session._onSessionInitialized.calledOnce).to.be
+                    .false;
                 chai.expect(nextState).to.be.instanceof(FailedState);
                 done();
             };
@@ -296,12 +325,11 @@ describe('RTC session', () => {
                 _createSignalingChannel: sinon.stub(),
                 _onIceCollectionComplete: sinon.spy(),
                 _onSignalingConnected: sinon.spy(),
-                _pc: {
-                },
+                _pc: {},
                 _sessionReport: {}
             };
-            state = new ConnectSignalingAndIceCollectionState(session, 2);//2 m lines
-            state._createLocalCandidate = (initDict) => initDict;
+            state = new ConnectSignalingAndIceCollectionState(session, 2); //2 m lines
+            state._createLocalCandidate = initDict => initDict;
             session._state = state;
         });
 
@@ -311,18 +339,24 @@ describe('RTC session', () => {
             state.onSignalingFailed();
 
             chai.expect(session.transit.calledOnce).to.be.true;
-            chai.expect(session.transit.args[0][0]).to.be.instanceof(FailedState);
+            chai.expect(session.transit.args[0][0]).to.be.instanceof(
+                FailedState
+            );
         });
 
-        it('transits to failed state when ICE collection times out', (done) => {
+        it('transits to failed state when ICE collection times out', done => {
             var sig = { connect: sinon.spy() };
             session._createSignalingChannel.returns(sig);
             session._iceTimeoutMillis = 1;
-            session.transit = (nextState) => {
+            session.transit = nextState => {
                 chai.expect(sig.connect.calledOnce).to.be.true;
-                chai.expect(session._onIceCollectionComplete.calledOnce).to.be.true;
-                chai.expect(session._onIceCollectionComplete.args[0][1]).to.be.true;
-                chai.expect(session._onIceCollectionComplete.args[0][2]).to.eq(0);
+                chai.expect(session._onIceCollectionComplete.calledOnce).to.be
+                    .true;
+                chai.expect(session._onIceCollectionComplete.args[0][1]).to.be
+                    .true;
+                chai.expect(session._onIceCollectionComplete.args[0][2]).to.eq(
+                    0
+                );
                 chai.expect(nextState).to.be.instanceof(FailedState);
                 done();
             };
@@ -335,9 +369,12 @@ describe('RTC session', () => {
             state.onIceCandidate({});
 
             chai.expect(session._onIceCollectionComplete.calledOnce).to.be.true;
-            chai.expect(session._onIceCollectionComplete.args[0][1]).to.be.false;
+            chai.expect(session._onIceCollectionComplete.args[0][1]).to.be
+                .false;
             chai.expect(session._onIceCollectionComplete.args[0][2]).to.eq(0);
-            chai.expect(session.transit.args[0][0]).to.be.instanceof(FailedState);
+            chai.expect(session.transit.args[0][0]).to.be.instanceof(
+                FailedState
+            );
         });
 
         it('keeps waiting for ICE collection when signaling gets connected', () => {
@@ -354,7 +391,8 @@ describe('RTC session', () => {
 
             state.onIceCandidate({
                 candidate: {
-                    candidate: 'candidate:3517520453 1 udp 41885695 172.22.116.70 59345 typ relay raddr 0.0.0.0 rport 0 generation 0 ufrag dRi5 network-id 3 network-cost 50',
+                    candidate:
+                        'candidate:3517520453 1 udp 41885695 172.22.116.70 59345 typ relay raddr 0.0.0.0 rport 0 generation 0 ufrag dRi5 network-id 3 network-cost 50',
                     sdpMLineIndex: 0,
                     sdpMid: 'audio'
                 }
@@ -362,7 +400,8 @@ describe('RTC session', () => {
             state.onIceCandidate({});
 
             chai.expect(session._onIceCollectionComplete.calledOnce).to.be.true;
-            chai.expect(session._onIceCollectionComplete.args[0][1]).to.be.false;
+            chai.expect(session._onIceCollectionComplete.args[0][1]).to.be
+                .false;
             chai.expect(session._onIceCollectionComplete.args[0][2]).to.eq(1);
             chai.expect(session.transit.called).to.be.false;
         });
@@ -372,34 +411,40 @@ describe('RTC session', () => {
 
             state.onIceCandidate({
                 candidate: {
-                    candidate: 'candidate:3517520453 1 udp 41885695 172.22.116.70 59345 typ relay raddr 0.0.0.0 rport 0 generation 0 ufrag dRi5 network-id 3 network-cost 50',
+                    candidate:
+                        'candidate:3517520453 1 udp 41885695 172.22.116.70 59345 typ relay raddr 0.0.0.0 rport 0 generation 0 ufrag dRi5 network-id 3 network-cost 50',
                     sdpMLineIndex: 0,
                     sdpMid: 'audio'
                 }
             });
 
-            chai.expect(session._onIceCollectionComplete.calledOnce).to.be.false;
+            chai.expect(session._onIceCollectionComplete.calledOnce).to.be
+                .false;
 
             state.onIceCandidate({
                 candidate: {
-                    candidate: 'candidate:3517520453 2 udp 41885694 172.22.116.70 56719 typ relay raddr 0.0.0.0 rport 0 generation 0 ufrag dRi5 network-id 3 network-cost 50',
+                    candidate:
+                        'candidate:3517520453 2 udp 41885694 172.22.116.70 56719 typ relay raddr 0.0.0.0 rport 0 generation 0 ufrag dRi5 network-id 3 network-cost 50',
                     sdpMLineIndex: 0,
                     sdpMid: 'audio'
                 }
             });
 
-            chai.expect(session._onIceCollectionComplete.calledOnce).to.be.false;
+            chai.expect(session._onIceCollectionComplete.calledOnce).to.be
+                .false;
 
             state.onIceCandidate({
                 candidate: {
-                    candidate: 'candidate:3517520453 1 udp 41885695 172.22.116.70 59377 typ relay raddr 0.0.0.0 rport 0 generation 0 ufrag dRi5 network-id 3 network-cost 50',
+                    candidate:
+                        'candidate:3517520453 1 udp 41885695 172.22.116.70 59377 typ relay raddr 0.0.0.0 rport 0 generation 0 ufrag dRi5 network-id 3 network-cost 50',
                     sdpMLineIndex: 1,
                     sdpMid: 'video'
                 }
             });
 
             chai.expect(session._onIceCollectionComplete.calledOnce).to.be.true;
-            chai.expect(session._onIceCollectionComplete.args[0][1]).to.be.false;
+            chai.expect(session._onIceCollectionComplete.args[0][1]).to.be
+                .false;
             chai.expect(session._onIceCollectionComplete.args[0][2]).to.eq(3);
             chai.expect(session.transit.called).to.be.false;
         });
@@ -409,7 +454,8 @@ describe('RTC session', () => {
 
             state.onIceCandidate({
                 candidate: {
-                    candidate: 'candidate:3517520453 1 udp 41885695 172.22.116.70 59345 typ relay raddr 0.0.0.0 rport 0 generation 0 ufrag dRi5 network-id 3 network-cost 50',
+                    candidate:
+                        'candidate:3517520453 1 udp 41885695 172.22.116.70 59345 typ relay raddr 0.0.0.0 rport 0 generation 0 ufrag dRi5 network-id 3 network-cost 50',
                     sdpMLineIndex: 0,
                     sdpMid: 'audio'
                 }
@@ -420,7 +466,9 @@ describe('RTC session', () => {
             chai.expect(session.transit.calledOnce).to.be.true;
             chai.expect(session._onSignalingConnected.calledOnce).to.be.true;
             chai.expect(session._onIceCollectionComplete.calledOnce).to.be.true;
-            chai.expect(session.transit.args[0][0]).to.be.instanceof(InviteAnswerState);
+            chai.expect(session.transit.args[0][0]).to.be.instanceof(
+                InviteAnswerState
+            );
         });
     });
 
@@ -438,9 +486,7 @@ describe('RTC session', () => {
         var candidates;
 
         beforeEach(() => {
-            candidates = [
-                'cand1'
-            ];
+            candidates = ['cand1'];
             session = {
                 _logger: console,
                 _localSessionDescription: {
@@ -459,10 +505,17 @@ describe('RTC session', () => {
         it('notifies signaling started and invites on enter', () => {
             state.onEnter();
 
-            chai.expect(session._onSignalingStarted.calledOnce, 'should have sent session event').to.be.true;
+            chai.expect(
+                session._onSignalingStarted.calledOnce,
+                'should have sent session event'
+            ).to.be.true;
             chai.expect(session._signalingChannel.invite.calledOnce).to.be.true;
-            chai.expect(session._signalingChannel.invite.args[0][0]).to.be.eq('sdp');
-            chai.expect(session._signalingChannel.invite.args[0][1]).to.be.eql(candidates);
+            chai.expect(session._signalingChannel.invite.args[0][0]).to.be.eq(
+                'sdp'
+            );
+            chai.expect(session._signalingChannel.invite.args[0][1]).to.be.eql(
+                candidates
+            );
         });
 
         it('transits to AcceptState when signaling answer is received', () => {
@@ -472,9 +525,13 @@ describe('RTC session', () => {
             state.onSignalingAnswered('remoteSdp', remoteCandidates);
 
             chai.expect(session.transit.calledOnce).to.be.true;
-            chai.expect(session.transit.args[0][0]).to.be.instanceof(AcceptState);
+            chai.expect(session.transit.args[0][0]).to.be.instanceof(
+                AcceptState
+            );
             chai.expect(session.transit.args[0][0]._sdp).to.be.eq('remoteSdp');
-            chai.expect(session.transit.args[0][0]._candidates).to.be.eql(remoteCandidates);
+            chai.expect(session.transit.args[0][0]._candidates).to.be.eql(
+                remoteCandidates
+            );
         });
 
         it('transits to FailedState when handshaking fails', () => {
@@ -483,18 +540,28 @@ describe('RTC session', () => {
             state.onSignalingFailed('unknown');
 
             chai.expect(session.transit.calledOnce).to.be.true;
-            chai.expect(session.transit.args[0][0]).to.be.instanceof(FailedState);
-            chai.expect(session.transit.args[0][0]._failureReason).to.be.eql(RTC_ERRORS.SIGNALLING_HANDSHAKE_FAILURE);
+            chai.expect(session.transit.args[0][0]).to.be.instanceof(
+                FailedState
+            );
+            chai.expect(session.transit.args[0][0]._failureReason).to.be.eql(
+                RTC_ERRORS.SIGNALLING_HANDSHAKE_FAILURE
+            );
         });
 
         it('transits to FailedState with USER_BUSY error code when handshaking fails with BusyException', () => {
             session.transit = sinon.spy();
 
-            state.onSignalingFailed(new BusyException('Agent already connected'));
+            state.onSignalingFailed(
+                new BusyException('Agent already connected')
+            );
 
             chai.expect(session.transit.calledOnce).to.be.true;
-            chai.expect(session.transit.args[0][0]).to.be.instanceof(FailedState);
-            chai.expect(session.transit.args[0][0]._failureReason).to.be.eql(RTC_ERRORS.USER_BUSY);
+            chai.expect(session.transit.args[0][0]).to.be.instanceof(
+                FailedState
+            );
+            chai.expect(session.transit.args[0][0]._failureReason).to.be.eql(
+                RTC_ERRORS.USER_BUSY
+            );
         });
 
         it('transits to FailedState with CALL_NOT_FOUND error code when handshaking fails with CallNotFoundException', () => {
@@ -503,8 +570,12 @@ describe('RTC session', () => {
             state.onSignalingFailed(new CallNotFoundException('No such call'));
 
             chai.expect(session.transit.calledOnce).to.be.true;
-            chai.expect(session.transit.args[0][0]).to.be.instanceof(FailedState);
-            chai.expect(session.transit.args[0][0]._failureReason).to.be.eql(RTC_ERRORS.CALL_NOT_FOUND);
+            chai.expect(session.transit.args[0][0]).to.be.instanceof(
+                FailedState
+            );
+            chai.expect(session.transit.args[0][0]._failureReason).to.be.eql(
+                RTC_ERRORS.CALL_NOT_FOUND
+            );
         });
     });
 
@@ -522,9 +593,7 @@ describe('RTC session', () => {
         var candidates;
 
         beforeEach(() => {
-            candidates = [
-                'cand1'
-            ];
+            candidates = ['cand1'];
             session = {
                 _logger: console,
                 _stopSession: sinon.spy(),
@@ -537,8 +606,8 @@ describe('RTC session', () => {
             state = new AcceptState(session, 'remoteSdp', candidates);
             session._state = state;
 
-            state._createSessionDescription = (initDict) => initDict;
-            state._createRemoteCandidate = (initDict) => initDict;
+            state._createSessionDescription = initDict => initDict;
+            state._createRemoteCandidate = initDict => initDict;
         });
 
         it('transits to FailedState if invalid remote SDP is received', () => {
@@ -549,7 +618,9 @@ describe('RTC session', () => {
             state.onEnter();
 
             chai.expect(session.transit.calledOnce).to.be.true;
-            chai.expect(session.transit.args[0][0]).to.be.instanceof(FailedState);
+            chai.expect(session.transit.args[0][0]).to.be.instanceof(
+                FailedState
+            );
         });
 
         it('transits to FailedState if no valid candidate is received', () => {
@@ -560,11 +631,13 @@ describe('RTC session', () => {
             state.onEnter();
 
             chai.expect(session.transit.calledOnce).to.be.true;
-            chai.expect(session.transit.args[0][0]).to.be.instanceof(FailedState);
+            chai.expect(session.transit.args[0][0]).to.be.instanceof(
+                FailedState
+            );
         });
 
-        it('transits to FailedState if setRemoteDescription fails', (done) => {
-            session.transit = (nextState) => {
+        it('transits to FailedState if setRemoteDescription fails', done => {
+            session.transit = nextState => {
                 chai.expect(session._stopSession.calledOnce).to.be.true;
                 chai.expect(nextState).to.be.instanceof(FailedState);
                 done();
@@ -574,8 +647,8 @@ describe('RTC session', () => {
             state.onEnter();
         });
 
-        it('transits to FailedState if addIceCandidate fails', (done) => {
-            session.transit = (nextState) => {
+        it('transits to FailedState if addIceCandidate fails', done => {
+            session.transit = nextState => {
                 chai.expect(session._stopSession.calledOnce).to.be.true;
                 chai.expect(nextState).to.be.instanceof(FailedState);
                 done();
@@ -596,7 +669,7 @@ describe('RTC session', () => {
             chai.expect(session.transit.called).to.be.false;
         });
 
-        it('waits for setting remote info after handshake completes', (done) => {
+        it('waits for setting remote info after handshake completes', done => {
             session.transit = sinon.spy();
             session._pc.setRemoteDescription.returns(Promise.resolve('Good'));
             session._pc.addIceCandidate.returns(Promise.resolve('Good'));
@@ -605,7 +678,7 @@ describe('RTC session', () => {
 
             chai.expect(session.transit.called).to.be.false;
 
-            session.transit = (nextState) => {
+            session.transit = nextState => {
                 chai.expect(nextState).to.be.instanceof(TalkingState);
                 done();
             };
@@ -652,7 +725,9 @@ describe('RTC session', () => {
 
             chai.expect(session._signalingChannel.hangup.calledOnce).to.be.true;
             chai.expect(session.transit.calledOnce).to.be.true;
-            chai.expect(session.transit.args[0][0]).to.be.instanceof(DisconnectedState);
+            chai.expect(session.transit.args[0][0]).to.be.instanceof(
+                DisconnectedState
+            );
         });
 
         it('hangs up signaling when hangup is requested by client', () => {
@@ -660,7 +735,9 @@ describe('RTC session', () => {
 
             chai.expect(session._signalingChannel.hangup.calledOnce).to.be.true;
             chai.expect(session.transit.calledOnce).to.be.true;
-            chai.expect(session.transit.args[0][0]).to.be.instanceof(DisconnectedState);
+            chai.expect(session.transit.args[0][0]).to.be.instanceof(
+                DisconnectedState
+            );
         });
 
         it('detachs media and reports session end on exit', () => {

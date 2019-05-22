@@ -1,69 +1,112 @@
 <html>
+    <head>
+        <title>connect-rtc-js demo</title>
+    </head>
 
-<head>
-    <title>connect-rtc-js demo</title>
-</head>
+    <body>
+        <script
+            src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"
+        ></script>
+        <script
+            type="application/javascript"
+            src="/out/connect-rtc-debug.js"
+        ></script>
+        <script type="application/javascript" src="./index.js"></script>
 
-<body>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-        crossorigin="anonymous"></script>
-    <script type="application/javascript" src="/out/connect-rtc-debug.js"></script>
-    <script type="application/javascript" src="./index.js"></script>
-
-    <h1>Amazon Connect RTC Demo</h1>
-    <p>See <a href="https://github.com/aws/amazon-connect-streams/blob/9acf8d23ee836382c29a21d691943e5001b1c907/src/softphone.js#L77">amazon-connect-streams</a> for how to get the softphone media info</p>
-    <p>Note: stringify the object returned by <b>contact.getAgentConnection().getSoftphoneMediaInfo()</b> before pasting it
-        here
-    </p>
-    <audio id='remoteAudio' autoplay></audio>
-    <input id='softphoneMediaInfo' type='text' style="width:80em;">
-    <br>
-    <label><input type="checkbox" id="echoCancellationOption" checked="true">Enable echo cancellation</label>
-    <br>
-    <div>
-    <input id="enable-video" name="enable-video" type="checkbox"/>
-    <label for="enable-video">Enable Video</label>
-    </div>
-    <div>
-        <label>Set Audio Codec</label>
-        <select id="forced-audio-codec">
-            <option value="NONE">None</option>
-            <option value="OPUS">OPUS</option>
-        </select>
-    </div>
-    <div>
-        <label>Set Video Codec</label>
-        <select id="forced-video-codec">
-            <option value="NONE">None</option>
-            <option value="VP8">VP8</option>
-            <option value="VP9">VP9</option>
-            <option value="H264">H.264</option>
-        </select>
-    </div>
-    <div>
-        <button id='makeCall'>Call</button>
-        <button id='disconnectCall' disabled="true">Hangup</button>
-    </div>
-    <div>
-        <input id="pause-local-audio" name="pause-local-audio" type="checkbox"/>
-        <label for="pause-local-audio">Pause Local Audio (remote peer won't hear you)</label>
-    </div>
-    <div>
-        <input id="pause-remote-audio" name="pause-remote-audio" type="checkbox"/>
-        <label for="pause-remote-audio">Pause Remote Audio (you won't hear the remote peer)</label>
-    </div>
-    <div>
-        <input id="pause-local-video" name="pause-local-video" type="checkbox"/>
-        <label for="pause-local-video">Pause Local Video (remote peer won't see you)</label>
-    </div>
-    <div>
-        <input id="pause-remote-video" name="pause-remote-video" type="checkbox"/>
-        <label for="pause-remote-video">Pause Remote Video (you won't see the remote peer)</label>
-    </div>
-    <div id='video-display' style="display: none">
-        <p> Video Stream connected with the other side</p>
-        <video id="remoteVideo" autoplay="" style="display: inline"></video>
-    </div>
-</body>
-
+        <h1>Amazon Connect RTC Demo</h1>
+        <p>
+            See
+            <a
+                href="https://github.com/aws/amazon-connect-streams/blob/9acf8d23ee836382c29a21d691943e5001b1c907/src/softphone.js#L77"
+                >amazon-connect-streams</a
+            >
+            for how to get the softphone media info
+        </p>
+        <p>
+            Note: stringify the object returned by
+            <b>contact.getAgentConnection().getSoftphoneMediaInfo()</b> before
+            pasting it here
+        </p>
+        <audio id="remoteAudio" autoplay></audio>
+        <input id="softphoneMediaInfo" type="text" style="width:80em;" />
+        <br />
+        <label
+            ><input
+                type="checkbox"
+                id="echoCancellationOption"
+                checked="true"
+            />Enable echo cancellation</label
+        >
+        <br />
+        <div>
+            <input id="enable-video" name="enable-video" type="checkbox" />
+            <label for="enable-video">Enable Video</label>
+        </div>
+        <div>
+            <label>Set Audio Codec</label>
+            <select id="forced-audio-codec">
+                <option value="NONE">None</option>
+                <option value="OPUS">OPUS</option>
+            </select>
+        </div>
+        <div>
+            <label>Set Video Codec</label>
+            <select id="forced-video-codec">
+                <option value="NONE">None</option>
+                <option value="VP8">VP8</option>
+                <option value="VP9">VP9</option>
+                <option value="H264">H.264</option>
+            </select>
+        </div>
+        <div>
+            <button id="makeCall">Call</button>
+            <button id="disconnectCall" disabled="true">Hangup</button>
+        </div>
+        <div>
+            <input
+                id="pause-local-audio"
+                name="pause-local-audio"
+                type="checkbox"
+            />
+            <label for="pause-local-audio"
+                >Pause Local Audio (remote peer won't hear you)</label
+            >
+        </div>
+        <div>
+            <input
+                id="pause-remote-audio"
+                name="pause-remote-audio"
+                type="checkbox"
+            />
+            <label for="pause-remote-audio"
+                >Pause Remote Audio (you won't hear the remote peer)</label
+            >
+        </div>
+        <div>
+            <input
+                id="pause-local-video"
+                name="pause-local-video"
+                type="checkbox"
+            />
+            <label for="pause-local-video"
+                >Pause Local Video (remote peer won't see you)</label
+            >
+        </div>
+        <div>
+            <input
+                id="pause-remote-video"
+                name="pause-remote-video"
+                type="checkbox"
+            />
+            <label for="pause-remote-video"
+                >Pause Remote Video (you won't see the remote peer)</label
+            >
+        </div>
+        <div id="video-display" style="display: none">
+            <p>Video Stream connected with the other side</p>
+            <video id="remoteVideo" autoplay="" style="display: inline"></video>
+        </div>
+    </body>
 </html>
