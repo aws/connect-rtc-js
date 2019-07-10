@@ -218,10 +218,11 @@ export class ConnectSignalingAndIceCollectionState extends RTCSessionState {
         var candidate = evt.candidate;
         this.logger.log('onicecandidate ' + JSON.stringify(candidate));
         if (candidate) {
-            this._iceCandidates.push(this._createLocalCandidate(candidate));
-
-            if (!this._iceCompleted) {
-                this._checkCandidatesSufficient(candidate);
+            if (candidate.candidate) {
+                this._iceCandidates.push(this._createLocalCandidate(candidate));
+                if (!this._iceCompleted) {
+                    this._checkCandidatesSufficient(candidate);
+                }
             }
 
         } else {
