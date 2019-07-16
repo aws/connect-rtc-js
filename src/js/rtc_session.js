@@ -917,12 +917,32 @@ export default class RtcSession {
             }
 
             return await Promise.all(tracks.map(async (track) => {
-                var rawStats = await this._pc.getStats(track);
-                var digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
-                if (! digestedStats) {
-                    throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
+                // get legacy stats report as a promise
+                if (navigator.webkitGetUserMedia) {
+                    var self = this;
+                    var legacyStats = new Promise(function(resolve) {
+                        self._pc.getStats(function(rawStats) {
+                            var digestedStats = extractMediaStatsFromStats(timestamp, rawStats.result(), streamType);
+                            if (! digestedStats) {
+                                throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
+                            }
+                            resolve(digestedStats);
+                        }, track);
+                    });
+                    return legacyStats.then(function(result) {
+                        return result;
+                    });
                 }
-                return digestedStats;
+                // get standardized report
+                else {
+                    return this._pc.getStats(track).then(rawStats => {
+                        var digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
+                        if (! digestedStats) {
+                            throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
+                        }
+                        return digestedStats;
+                    });
+                }
             }));
         };
 
