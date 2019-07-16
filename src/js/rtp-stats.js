@@ -21,7 +21,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                         packetsCount:       parseInt(statsReport.stat('packetsSent')),
                         bytesSent:          parseInt(statsReport.stat('bytesSent')),
                         audioLevel:         when_defined(parseInt(statsReport.stat('audioInputLevel'))),
-                        packetsLost:        is_defined(statsReport.stat('packetsLost')) ? Math.max(0, parseInt(statsReport.stat('packetsLost'))) : 0,
+                        packetsLost:        is_defined(statsReport.stat('packetsLost')) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
                         procMilliseconds:   is_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
                         rttMilliseconds:    when_defined(parseInt(statsReport.stat('googRtt'))),
                         jbMilliseconds:     when_defined(parseInt(statsReport.stat('googJitterReceived')))
@@ -33,7 +33,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                         packetsCount:       parseInt(statsReport.stat('packetsReceived')),
                         bytesReceived:      parseInt(statsReport.stat('bytesReceived')),
                         audioLevel:         when_defined(parseInt(statsReport.stat('audioOutputLevel'))),
-                        packetsLost:        is_defined(parseInt(statsReport.stat('packetsLost'))) ? Math.max(0, parseInt(statsReport.stat('packetsLost'))) : 0,
+                        packetsLost:        is_defined(parseInt(statsReport.stat('packetsLost'))) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
                         procMilliseconds:   is_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
                         jbMilliseconds:     when_defined(parseInt(statsReport.stat('googJitterReceived')))
                     };
@@ -44,7 +44,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                         packetsCount:       parseInt(statsReport.stat('packetsSent')),
                         bytesSent:          parseInt(statsReport.stat('bytesSent')),
                         audioLevel:         when_defined(parseInt(statsReport.stat('audioInputLevel'))),
-                        packetsLost:        is_defined(statsReport.stat('packetsLost')) ? Math.max(0, parseInt(statsReport.stat('packetsLost'))) : 0,
+                        packetsLost:        is_defined(statsReport.stat('packetsLost')) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
                         procMilliseconds:   is_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
                         frameRateSent:      when_defined(parseFloat(statsReport.stat('googFrameRateSent')))
                     };
@@ -54,7 +54,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                         timestamp:          timestamp,
                         packetsCount:       parseInt(statsReport.stat('packetsSent')),
                         bytesReceived:      parseInt(statsReport.stat('bytesReceived')),
-                        packetsLost:        is_defined(parseInt(statsReport.stat('packetsLost'))) ? Math.max(0, parseInt(statsReport.stat('packetsLost'))) : 0,
+                        packetsLost:        is_defined(parseInt(statsReport.stat('packetsLost'))) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
                         frameRateReceived:  when_defined(parseFloat(stat('statsReport.googFrameRateReceived'))),
                         procMilliseconds:   is_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
                         jbMilliseconds:     when_defined(parseInt(statsReport.stat('googJitterReceived')))
