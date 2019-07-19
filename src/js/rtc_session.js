@@ -495,6 +495,7 @@ export default class RtcSession {
         this._enableAudio = true;
         this._enableVideo = false;
         this._facingMode = 'user';
+        this._legacyStatsReportSupport = false;
 
         /**
          * user may provide the stream to the RtcSession directly to connect to the other end.
@@ -879,6 +880,7 @@ export default class RtcSession {
         self._pc.onicecandidate = hitch(self, self._onIceCandidate);
         self._pc.oniceconnectionstatechange = hitch(self, self._onIceStateChange);
 
+        self._isLegacyStatsReportSupported();
         self.transit(new GrabLocalMediaState(self));
     }
     accept() {
@@ -886,6 +888,21 @@ export default class RtcSession {
     }
     hangup() {
         this._state.hangup();
+    }
+
+    /**
+     * Check if the getStats API for retrieving legacy stats report is supported
+     */
+    _isLegacyStatsReportSupported() {
+        var self = this;
+        self._pc.getStats(function() {
+            self._legacyStatsReportSupport = true;
+        }).catch(function(e) {
+            // TypeError if browser does not support legacy stats report
+            if (e instanceof TypeError) {
+                self._legacyStatsReportSupport = false;
+            }
+        });
     }
 
     /**
@@ -918,7 +935,7 @@ export default class RtcSession {
 
             return await Promise.all(tracks.map(async (track) => {
                 // get legacy stats report as a promise
-                if (navigator.webkitGetUserMedia) {
+                if (this._legacyStatsReportSupport) {
                     var self = this;
                     var legacyStats = new Promise(function(resolve) {
                         self._pc.getStats(function(rawStats) {
@@ -932,10 +949,8 @@ export default class RtcSession {
                     return legacyStats.then(function(result) {
                         return result;
                     });
-                }
-                // get standardized report
-                else {
-                    return this._pc.getStats(track).then(rawStats => {
+                } else { // get standardized report
+                    return this._pc.getStats().then(function(rawStats) {
                         var digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
                         if (! digestedStats) {
                             throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
