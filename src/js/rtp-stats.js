@@ -22,7 +22,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                         bytesSent:          parseInt(statsReport.stat('bytesSent')),
                         audioLevel:         when_defined(parseInt(statsReport.stat('audioInputLevel'))),
                         packetsLost:        is_defined(statsReport.stat('packetsLost')) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
-                        procMilliseconds:   is_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
+                        procMilliseconds:   when_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
                         rttMilliseconds:    when_defined(parseInt(statsReport.stat('googRtt'))),
                         jbMilliseconds:     when_defined(parseInt(statsReport.stat('googJitterReceived')))
                     };
@@ -34,7 +34,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                         bytesReceived:      parseInt(statsReport.stat('bytesReceived')),
                         audioLevel:         when_defined(parseInt(statsReport.stat('audioOutputLevel'))),
                         packetsLost:        is_defined(parseInt(statsReport.stat('packetsLost'))) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
-                        procMilliseconds:   is_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
+                        procMilliseconds:   when_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
                         jbMilliseconds:     when_defined(parseInt(statsReport.stat('googJitterReceived')))
                     };
 
@@ -45,7 +45,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                         bytesSent:          parseInt(statsReport.stat('bytesSent')),
                         packetsLost:        is_defined(statsReport.stat('packetsLost')) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
                         rttMilliseconds:    when_defined(parseInt(statsReport.stat('googRtt'))),
-                        procMilliseconds:   is_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
+                        procMilliseconds:   when_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
                         frameRateSent:      when_defined(parseFloat(statsReport.stat('googFrameRateSent')))
                     };
 
@@ -56,7 +56,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                         bytesReceived:      parseInt(statsReport.stat('bytesReceived')),
                         packetsLost:        is_defined(parseInt(statsReport.stat('packetsLost'))) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
                         frameRateReceived:  when_defined(parseFloat(statsReport.stat('statsReport.googFrameRateReceived'))),
-                        procMilliseconds:   is_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
+                        procMilliseconds:   when_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
                         jbMilliseconds:     when_defined(parseInt(statsReport.stat('googJitterReceived')))
                     };
 
@@ -116,6 +116,7 @@ class MediaRtpStats {
         this._packetsLost       = when_defined(params.packetsLost);
         this._packetsCount      = when_defined(params.packetsCount);
         this._audioLevel        = when_defined(params.audioLevel);
+        this._procMilliseconds  = when_defined(params.procMilliseconds);
         this._rttMilliseconds   = when_defined(params.rttMilliseconds);
         this._jbMilliseconds    = when_defined(params.jbMilliseconds);
         this._bytesSent         = when_defined(params.bytesSent);
@@ -150,11 +151,15 @@ class MediaRtpStats {
     get timestamp() {
         return this._timestamp;
     }
+    /** {number} Processing delay calculated by time to process packet header */
+    get procMilliseconds() {
+        return this._procMilliseconds
+    }
     /** {number} Round trip time calculated with RTCP reports */
     get rttMilliseconds() {
         return this._rttMilliseconds;
     }
-    /** {number} Browser/client side jitter buffer length */
+    /** {number} Statistical variance of RTP data packet inter-arrival time */
     get jbMilliseconds() {
         return this._jbMilliseconds;
     }

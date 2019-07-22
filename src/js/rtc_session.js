@@ -880,7 +880,9 @@ export default class RtcSession {
         self._pc.onicecandidate = hitch(self, self._onIceCandidate);
         self._pc.oniceconnectionstatechange = hitch(self, self._onIceStateChange);
 
-        self._isLegacyStatsReportSupported();
+        self._isLegacyStatsReportSupported(function(result) {
+            self._legacyStatsReportSupport = result;
+        });
         self.transit(new GrabLocalMediaState(self));
     }
     accept() {
@@ -893,14 +895,13 @@ export default class RtcSession {
     /**
      * Check if the getStats API for retrieving legacy stats report is supported
      */
-    _isLegacyStatsReportSupported() {
-        var self = this;
-        self._pc.getStats(function() {
-            self._legacyStatsReportSupport = true;
+    _isLegacyStatsReportSupported(callback) {
+        this._pc.getStats(function() {
+            callback(true);
         }).catch(function(e) {
             // TypeError if browser does not support legacy stats report
             if (e instanceof TypeError) {
-                self._legacyStatsReportSupport = false;
+                callback(false);
             }
         });
     }
@@ -937,7 +938,7 @@ export default class RtcSession {
                 // get legacy stats report as a promise
                 if (this._legacyStatsReportSupport) {
                     var self = this;
-                    var legacyStats = new Promise(function(resolve) {
+                    return new Promise(function(resolve) {
                         self._pc.getStats(function(rawStats) {
                             var digestedStats = extractMediaStatsFromStats(timestamp, rawStats.result(), streamType);
                             if (! digestedStats) {
@@ -945,9 +946,6 @@ export default class RtcSession {
                             }
                             resolve(digestedStats);
                         }, track);
-                    });
-                    return legacyStats.then(function(result) {
-                        return result;
                     });
                 } else { // get standardized report
                     return this._pc.getStats().then(function(rawStats) {
