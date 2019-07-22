@@ -7,7 +7,7 @@
  *
  * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
-import { hitch, wrapLogger, closeStream, SdpOptions, transformSdp } from './utils';
+import { hitch, wrapLogger, closeStream, SdpOptions, transformSdp, isLegacyStatsReportSupported } from './utils';
 import { SessionReport } from './session_report';
 import { DEFAULT_ICE_TIMEOUT_MS, DEFAULT_GUM_TIMEOUT_MS, RTC_ERRORS } from './rtc_const';
 import { UnsupportedOperation, IllegalParameters, IllegalState, GumTimeout, BusyExceptionName, CallNotFoundExceptionName } from './exceptions';
@@ -880,30 +880,16 @@ export default class RtcSession {
         self._pc.onicecandidate = hitch(self, self._onIceCandidate);
         self._pc.oniceconnectionstatechange = hitch(self, self._onIceStateChange);
 
-        self._isLegacyStatsReportSupported(function(result) {
+        isLegacyStatsReportSupported(self._pc).then(result => {
             self._legacyStatsReportSupport = result;
+            self.transit(new GrabLocalMediaState(self));
         });
-        self.transit(new GrabLocalMediaState(self));
     }
     accept() {
         throw new UnsupportedOperation('accept does not go through signaling channel at this moment');
     }
     hangup() {
         this._state.hangup();
-    }
-
-    /**
-     * Check if the getStats API for retrieving legacy stats report is supported
-     */
-    _isLegacyStatsReportSupported(callback) {
-        this._pc.getStats(function() {
-            callback(true);
-        }).catch(function(e) {
-            // TypeError if browser does not support legacy stats report
-            if (e instanceof TypeError) {
-                callback(false);
-            }
-        });
     }
 
     /**
