@@ -216,11 +216,9 @@ export function isLegacyStatsReportSupported(pc) {
     return new Promise(function(resolve) {
         pc.getStats(function() {
             resolve(true);
-        }).catch(function(e) {
-            // TypeError if browser does not support legacy stats report
-            if (e instanceof TypeError) {
-                resolve(false);
-            }
+        }).catch(function() {
+            // Exception thrown if browser does not support legacy stats report
+            resolve(false);
         });
     });
 }
