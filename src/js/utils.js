@@ -209,3 +209,17 @@ export function when_defined(v, alternativeIn) {
     return is_defined(v) ? v : alternative;
 }
 
+/**
+ * Check if the getStats API for retrieving legacy stats report is supported
+ */
+export function isLegacyStatsReportSupported(pc) {
+    return new Promise(function(resolve) {
+        pc.getStats(function() {
+            resolve(true);
+        }).catch(function() {
+            // Exception thrown if browser does not support legacy stats report
+            resolve(false);
+        });
+    });
+}
+

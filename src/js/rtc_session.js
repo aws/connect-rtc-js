@@ -7,7 +7,7 @@
  *
  * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
-import { hitch, wrapLogger, closeStream, SdpOptions, transformSdp } from './utils';
+import { hitch, wrapLogger, closeStream, SdpOptions, transformSdp, isLegacyStatsReportSupported } from './utils';
 import { SessionReport } from './session_report';
 import { DEFAULT_ICE_TIMEOUT_MS, DEFAULT_GUM_TIMEOUT_MS, RTC_ERRORS } from './rtc_const';
 import { UnsupportedOperation, IllegalParameters, IllegalState, GumTimeout, BusyExceptionName, CallNotFoundExceptionName } from './exceptions';
@@ -495,6 +495,7 @@ export default class RtcSession {
         this._enableAudio = true;
         this._enableVideo = false;
         this._facingMode = 'user';
+        this._legacyStatsReportSupport = false;
 
         /**
          * user may provide the stream to the RtcSession directly to connect to the other end.
@@ -879,7 +880,10 @@ export default class RtcSession {
         self._pc.onicecandidate = hitch(self, self._onIceCandidate);
         self._pc.oniceconnectionstatechange = hitch(self, self._onIceStateChange);
 
-        self.transit(new GrabLocalMediaState(self));
+        isLegacyStatsReportSupported(self._pc).then(result => {
+            self._legacyStatsReportSupport = result;
+            self.transit(new GrabLocalMediaState(self));
+        });
     }
     accept() {
         throw new UnsupportedOperation('accept does not go through signaling channel at this moment');
@@ -917,12 +921,27 @@ export default class RtcSession {
             }
 
             return await Promise.all(tracks.map(async (track) => {
-                var rawStats = await this._pc.getStats(track);
-                var digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
-                if (! digestedStats) {
-                    throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
+                // get legacy stats report as a promise
+                if (this._legacyStatsReportSupport) {
+                    var self = this;
+                    return new Promise(function(resolve) {
+                        self._pc.getStats(function(rawStats) {
+                            var digestedStats = extractMediaStatsFromStats(timestamp, rawStats.result(), streamType);
+                            if (! digestedStats) {
+                                throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
+                            }
+                            resolve(digestedStats);
+                        }, track);
+                    });
+                } else { // get standardized report
+                    return this._pc.getStats().then(function(rawStats) {
+                        var digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
+                        if (! digestedStats) {
+                            throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
+                        }
+                        return digestedStats;
+                    });
                 }
-                return digestedStats;
             }));
         };
 
