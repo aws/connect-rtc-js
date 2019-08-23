@@ -26,6 +26,11 @@ export const DEFAULT_ICE_TIMEOUT_MS = 8000;
 export const DEFAULT_GUM_TIMEOUT_MS = 10000;
 
 /**
+ * Timeout waiting for ice reconnection in case of ice state change to failed or disconnected state
+ */
+export const MAX_ICE_RECONNECT_MS = 300*1000;
+
+/**
  * RTC error names.
  */
 export const RTC_ERRORS = {
