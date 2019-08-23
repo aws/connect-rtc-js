@@ -5785,11 +5785,7 @@ global.connect = global.connect || {}; /**
                                         * @license
                                         * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
                                         *
-                                        * Licensed under the Amazon Software License (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
-                                        *
-                                        *   http://aws.amazon.com/asl/
-                                        *
-                                        * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
+                                        * SPDX-License-Identifier: Apache-2.0
                                         */
 /**
  * @license
@@ -5848,11 +5844,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
- * Licensed under the Amazon Software License (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
- *
- *   http://aws.amazon.com/asl/
- *
- * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 var TimeoutExceptionName = exports.TimeoutExceptionName = 'Timeout';
 
@@ -5999,11 +5991,7 @@ Object.defineProperty(exports, "__esModule", {
 /**
  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
- * Licensed under the Amazon Software License (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
- *
- *   http://aws.amazon.com/asl/
- *
- * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 /**
@@ -6110,11 +6098,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
- * Licensed under the Amazon Software License (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
- *
- *   http://aws.amazon.com/asl/
- *
- * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 var RTCSessionState = exports.RTCSessionState = function () {
     /**
@@ -7975,11 +7959,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
- * Licensed under the Amazon Software License (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
- *
- *   http://aws.amazon.com/asl/
- *
- * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 var SessionReport = exports.SessionReport = function () {
@@ -8331,11 +8311,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var reqIdSeq = 1; /**
                    * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
                    *
-                   * Licensed under the Amazon Software License (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
-                   *
-                   *   http://aws.amazon.com/asl/
-                   *
-                   * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
+                   * SPDX-License-Identifier: Apache-2.0
                    */
 
 var CONNECT_MAX_RETRIES = 3;
@@ -9119,11 +9095,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
- * Licensed under the Amazon Software License (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
- *
- *   http://aws.amazon.com/asl/
- *
- * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 var logMethods = ['log', 'info', 'warn', 'error'];
