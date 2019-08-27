@@ -25,6 +25,12 @@ export const DEFAULT_ICE_TIMEOUT_MS = 8000;
  */
 export const DEFAULT_GUM_TIMEOUT_MS = 10000;
 
+export const SOFTPHONE_ROUTE_KEY = "aws/softphone";
+
+export const INVITE_METHOD_NAME = "invite";
+export const ACCEPT_METHOD_NAME = "accept";
+export const BYE_METHOD_NAME = "bye";
+
 /**
  * RTC error names.
  */
