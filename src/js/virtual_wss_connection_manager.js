@@ -12,6 +12,9 @@ export default class VirtualWssConnectionManager {
     _initializeWebSocketEventListeners() {
         this._wssManager.subscribeTopics([SOFTPHONE_ROUTE_KEY]);
         this._unSubscribe = this._wssManager.onMessage(SOFTPHONE_ROUTE_KEY, hitch(this, this._webSocketManagerOnMessage));
+        setTimeout(() => {
+            this._onOpen();
+        }, 0);
     }
 
     _webSocketManagerOnMessage(event) {
@@ -29,7 +32,7 @@ export default class VirtualWssConnectionManager {
     }
 
     set onopen(callBack) {
-        setTimeout(callBack, 0);
+        this._onOpen = callBack;
     }
 
     send(webSocketPayload) {
