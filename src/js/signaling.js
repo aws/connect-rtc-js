@@ -5,9 +5,10 @@
  */
 
 import { hitch, wrapLogger } from './utils';
-import { MAX_INVITE_DELAY_MS, MAX_ACCEPT_BYE_DELAY_MS, DEFAULT_CONNECT_TIMEOUT_MS } from './rtc_const';
+import { MAX_INVITE_DELAY_MS, MAX_ACCEPT_BYE_DELAY_MS, DEFAULT_CONNECT_TIMEOUT_MS, INVITE_METHOD_NAME, ACCEPT_METHOD_NAME, BYE_METHOD_NAME } from './rtc_const';
 import { UnsupportedOperation, Timeout, BusyException, CallNotFoundException, UnknownSignalingError } from './exceptions';
 import uuid from 'uuid/v4';
+import VirtualWssConnectionManager from "./virtual_wss_connection_manager";
 
 var CONNECT_MAX_RETRIES = 3;
 
@@ -118,19 +119,19 @@ export class PendingInviteState extends SignalingState {
             resolve();
         });
     }
-    invite(sdp, iceCandidates, callContextToken) {
+    invite(sdp, iceCandidates) {
         var self = this;
         var inviteId = uuid();
 
         var inviteParams = {
             sdp: sdp,
             candidates: iceCandidates,
-            callContextToken
+            callContextToken : self._signaling._contactToken
         };
         self.logger.log('Sending SDP', sdp);
         self._signaling._wss.send(JSON.stringify({
             jsonrpc: '2.0',
-            method: 'invite',
+            method: INVITE_METHOD_NAME,
             params: inviteParams,
             id: inviteId
         }));
@@ -191,7 +192,7 @@ export class PendingAcceptState extends SignalingState {
         var acceptId = uuid();
         this._signaling._wss.send(JSON.stringify({
             jsonrpc: '2.0',
-            method: 'accept',
+            method: ACCEPT_METHOD_NAME,
             params: {},
             id: acceptId
         }));
@@ -231,20 +232,19 @@ export class TalkingState extends SignalingState {
             resolve();
         });
     }
-    hangup(callContextToken) {
+    hangup() {
         var byeId = uuid();
         this._signaling._wss.send(JSON.stringify({
             jsonrpc: '2.0',
-            method: 'bye',
-            params: {callContextToken},
+            method: BYE_METHOD_NAME,
+            params: {callContextToken: this._signaling._contactToken},
             id: byeId
         }));
         this.transit(new PendingRemoteHangupState(this._signaling, byeId));
     }
     onRpcMsg(msg) {
-        if (msg.method === 'bye') {
-            console.log("ignoring bye messages for testing purpose");
-            // this.transit(new PendingLocalHangupState(this._signaling, msg.id));
+        if (msg.method === BYE_METHOD_NAME) {
+            this.transit(new PendingLocalHangupState(this._signaling, msg.id));
         } else if (msg.method === 'renewClientToken') {
             this._signaling._clientToken = msg.params.clientToken;
         }
@@ -277,7 +277,7 @@ export class PendingRemoteHangupState extends FailOnTimeoutState {
         this._byeId = byeId;
     }
     onRpcMsg(msg) {
-        if (msg.id === this._byeId || msg.method === 'bye') {
+        if (msg.id === this._byeId || msg.method === BYE_METHOD_NAME) {
             this.transit(new DisconnectedState(this._signaling));
         }
     }
@@ -360,14 +360,15 @@ export class FailedState extends SignalingState {
 }
 
 export default class AmznRtcSignaling {
-    constructor(callId, signalingUri, contactToken, logger, connectTimeoutMs, virtualWssManager) {
+    constructor(callId, signalingUri, contactToken, logger, connectTimeoutMs, connectionId, wssManager) {
         this._callId = callId;
         this._connectTimeoutMs = connectTimeoutMs || DEFAULT_CONNECT_TIMEOUT_MS;
         this._autoAnswer = true;
         this._signalingUri = signalingUri;
         this._contactToken = contactToken;
         this._logger = wrapLogger(logger, callId, 'SIGNALING');
-        this._virtualWssManager = virtualWssManager;
+        this._connectionId = connectionId;
+        this._wssManager = wssManager;
 
         //empty event handlers
         this._connectedHandler =
@@ -405,16 +406,12 @@ export default class AmznRtcSignaling {
     get state() {
         return this._state;
     }
+
     connect() {
-        if (this._virtualWssManager) {
-            this._wss = this._virtualWssManager;
-            this._wss.onMessage(hitch(this,this._onMessage));
-            this.transit(new PendingInviteState(this));
-        } else {
-            this._connect();
-            this.transit(new PendingConnectState(this, this._connectTimeoutMs));
-        }
+        this._connect();
+        this.transit(new PendingConnectState(this, this._connectTimeoutMs));
     }
+
     _connect() {
         this._wss = this._connectWebSocket(this._buildInviteUri());
     }
@@ -432,7 +429,12 @@ export default class AmznRtcSignaling {
         }
     }
     _connectWebSocket(uri) {
-        var wsConnection = new WebSocket(uri);
+        let wsConnection;
+        if (this._wssManager) {
+            wsConnection = new VirtualWssConnectionManager(this._logger, this._connectionId, this._wssManager);
+        }else {
+            wsConnection = new WebSocket(uri);
+        }
         wsConnection.onopen = hitch(this, this._onOpen);
         wsConnection.onmessage = hitch(this, this._onMessage);
         wsConnection.onerror = hitch(this, this._onError);
@@ -473,12 +475,12 @@ export default class AmznRtcSignaling {
         this._wss = this._connectWebSocket(this._buildReconnectUri());
     }
     invite(sdp, iceCandidates) {
-        this.state.invite(sdp, iceCandidates, this._contactToken);
+        this.state.invite(sdp, iceCandidates);
     }
     accept() {
         this.state.accept();
     }
     hangup() {
-        this.state.hangup(this._contactToken);
+        this.state.hangup();
     }
 }

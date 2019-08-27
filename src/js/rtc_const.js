@@ -25,10 +25,11 @@ export const DEFAULT_ICE_TIMEOUT_MS = 8000;
  */
 export const DEFAULT_GUM_TIMEOUT_MS = 10000;
 
-/**
- * Timeout waiting for ice reconnection in case of ice state change to failed or disconnected state
- */
-export const MAX_ICE_RECONNECT_MS = 300*1000;
+export const SOFTPHONE_ROUTE_KEY = "aws/softphone";
+
+export const INVITE_METHOD_NAME = "invite";
+export const ACCEPT_METHOD_NAME = "accept";
+export const BYE_METHOD_NAME = "bye";
 
 /**
  * RTC error names.

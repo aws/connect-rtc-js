@@ -5,13 +5,12 @@
  */
 import { hitch, wrapLogger, closeStream, SdpOptions, transformSdp, isLegacyStatsReportSupported } from './utils';
 import { SessionReport } from './session_report';
-import { DEFAULT_ICE_TIMEOUT_MS, DEFAULT_GUM_TIMEOUT_MS, RTC_ERRORS, MAX_ICE_RECONNECT_MS } from './rtc_const';
+import { DEFAULT_ICE_TIMEOUT_MS, DEFAULT_GUM_TIMEOUT_MS, RTC_ERRORS } from './rtc_const';
 import { UnsupportedOperation, IllegalParameters, IllegalState, GumTimeout, BusyExceptionName, CallNotFoundExceptionName } from './exceptions';
 import RtcSignaling from './signaling';
 import uuid from 'uuid/v4';
 import {extractMediaStatsFromStats} from './rtp-stats';
 import { parseCandidate } from 'sdp';
-import VirtualWssConnectionManager from './virtual_wss_connection_manager';
 
 export class RTCSessionState {
     /**
@@ -410,12 +409,6 @@ export class TalkingState extends RTCSessionState {
         if (evt.currentTarget.iceConnectionState == 'disconnected') {
             this.logger.info('Lost ICE connection');
             this._rtcSession._sessionReport.iceConnectionsLost += 1;
-        } else if (evt.currentTarget.iceConnectionState == 'failed') {
-            this.logger.info('Lost ICE connection');
-            this._timerknock = setTimeout(hitch(this._rtcSession, this._rtcSession.hangup), MAX_ICE_RECONNECT_MS);
-        }
-        if (this._timerknock && evt.currentTarget.iceConnectionState != 'failed') {
-            clearTimeout(this._timerknock);
         }
     }
     onExit() {
@@ -486,9 +479,8 @@ export default class RtcSession {
         } else {
             this._callId = contactId;
         }
-        if (wssManager) {
-            this._virtualWssManager = new VirtualWssConnectionManager(logger, connectionId, wssManager);
-        }
+        this._connectionId = connectionId;
+        this._wssManager = wssManager;
         this._sessionReport = new SessionReport();
         this._signalingUri = signalingUri;
         this._iceServers = iceServers;
@@ -825,7 +817,7 @@ export default class RtcSession {
     }
 
     _createSignalingChannel() {
-        var signalingChannel = new RtcSignaling(this._callId, this._signalingUri, this._contactToken, this._originalLogger, this._signalingConnectTimeout, this._virtualWssManager);
+        var signalingChannel = new RtcSignaling(this._callId, this._signalingUri, this._contactToken, this._originalLogger, this._signalingConnectTimeout, this._connectionId, this._wssManager);
         signalingChannel.onConnected = hitch(this, this._signalingConnected);
         signalingChannel.onAnswered = hitch(this, this._signalingAnswered);
         signalingChannel.onHandshaked = hitch(this, this._signalingHandshaked);

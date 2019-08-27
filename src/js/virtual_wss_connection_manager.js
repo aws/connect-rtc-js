@@ -1,21 +1,20 @@
 import {hitch} from './utils';
+import {SOFTPHONE_ROUTE_KEY} from './rtc_const'
 
 export default class VirtualWssConnectionManager {
-
     constructor(logger, connectionId, wssManager) {
-        this._softphoeRouteKey = "aws/softphone";
         this._logger = logger;
         this._connectionId = connectionId;
         this._wssManager = wssManager
-        this.initializeWebSocketEventListeners();
+        this._initializeWebSocketEventListeners();
     }
 
-    initializeWebSocketEventListeners() {
-        this._wssManager.subscribeTopics([this._softphoeRouteKey]);
-        this._unSubscribe = this._wssManager.onMessage(this._softphoeRouteKey, hitch(this, this.webSocketManagerOnMessage));
+    _initializeWebSocketEventListeners() {
+        this._wssManager.subscribeTopics([SOFTPHONE_ROUTE_KEY]);
+        this._unSubscribe = this._wssManager.onMessage(SOFTPHONE_ROUTE_KEY, hitch(this, this._webSocketManagerOnMessage));
     }
 
-    webSocketManagerOnMessage(event) {
+    _webSocketManagerOnMessage(event) {
         let content;
         if (event.content) {
             content = JSON.parse(event.content);
@@ -25,14 +24,18 @@ export default class VirtualWssConnectionManager {
         }
     }
 
-    onMessage(messageCallback) {
-        this._onMessage = messageCallback;
+    set onmessage(callBack) {
+        this._onMessage = callBack;
+    }
+
+    set onopen(callBack) {
+        setTimeout(callBack, 0);
     }
 
     send(webSocketPayload) {
         const payload = {};
         try {
-            payload.topic = this._softphoeRouteKey;
+            payload.topic = SOFTPHONE_ROUTE_KEY;
             payload.connectionId = this._connectionId;
             payload.jsonRpcMsg = JSON.parse(webSocketPayload);
             this._wssManager.sendMessage(payload);
