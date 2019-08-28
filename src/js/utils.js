@@ -153,7 +153,7 @@ export function transformSdp(sdp, sdpOptions) {
                 
                 // append a=fmtp line immediately if current codec is OPUS (to explicitly specify OPUS parameters)
                 if (currentCodec.name.toUpperCase() === 'OPUS') { 
-                    currentCodec.parameters.usedtx = sdpOptions.enableOpusDtx ? 1 : 0;
+                    currentCodec.parameters.usedtx = sdpOptions.enableOpusDtx ? "1" : "0";
                     // generate fmtp line immediately after rtpmap line, and remove original fmtp line once we see it
                     return (line + "\r\n" + writeFmtp(currentCodec)).trim();
                 } else {
