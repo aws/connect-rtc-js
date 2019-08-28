@@ -1,11 +1,7 @@
 /**
  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
- * Licensed under the Amazon Software License (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
- *
- *   http://aws.amazon.com/asl/
- *
- * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 import { IllegalParameters } from './exceptions';
@@ -207,5 +203,19 @@ export function is_defined(v) {
 export function when_defined(v, alternativeIn) {
     var alternative = is_defined(alternativeIn) ? alternativeIn : null;
     return is_defined(v) ? v : alternative;
+}
+
+/**
+ * Check if the getStats API for retrieving legacy stats report is supported
+ */
+export function isLegacyStatsReportSupported(pc) {
+    return new Promise(function(resolve) {
+        pc.getStats(function() {
+            resolve(true);
+        }).catch(function() {
+            // Exception thrown if browser does not support legacy stats report
+            resolve(false);
+        });
+    });
 }
 

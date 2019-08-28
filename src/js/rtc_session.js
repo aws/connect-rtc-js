@@ -1,13 +1,9 @@
 /**
  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
- * Licensed under the Amazon Software License (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
- *
- *   http://aws.amazon.com/asl/
- *
- * or in the "LICENSE" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
-import { hitch, wrapLogger, closeStream, SdpOptions, transformSdp } from './utils';
+import { hitch, wrapLogger, closeStream, SdpOptions, transformSdp, isLegacyStatsReportSupported } from './utils';
 import { SessionReport } from './session_report';
 import { DEFAULT_ICE_TIMEOUT_MS, DEFAULT_GUM_TIMEOUT_MS, RTC_ERRORS } from './rtc_const';
 import { UnsupportedOperation, IllegalParameters, IllegalState, GumTimeout, BusyExceptionName, CallNotFoundExceptionName } from './exceptions';
@@ -218,10 +214,11 @@ export class ConnectSignalingAndIceCollectionState extends RTCSessionState {
         var candidate = evt.candidate;
         this.logger.log('onicecandidate ' + JSON.stringify(candidate));
         if (candidate) {
-            this._iceCandidates.push(this._createLocalCandidate(candidate));
-
-            if (!this._iceCompleted) {
-                this._checkCandidatesSufficient(candidate);
+            if (candidate.candidate) {
+                this._iceCandidates.push(this._createLocalCandidate(candidate));
+                if (!this._iceCompleted) {
+                    this._checkCandidatesSufficient(candidate);
+                }
             }
 
         } else {
@@ -392,6 +389,7 @@ export class AcceptState extends RTCSessionState {
     }
 }
 export class TalkingState extends RTCSessionState {
+
     onEnter() {
         this._startTime = Date.now();
         this._rtcSession._sessionReport.preTalkingTimeMillis = this._startTime - this._rtcSession._connectTimeStamp;
@@ -466,7 +464,7 @@ export default class RtcSession {
      * @param {*} logger An object provides logging functions, such as console
      * @param {*} contactId Must be UUID, uniquely identifies the session.
      */
-    constructor(signalingUri, iceServers, contactToken, logger, contactId) {
+    constructor(signalingUri, iceServers, contactToken, logger, contactId, connectionId, wssManager) {
         if (typeof signalingUri !== 'string' || signalingUri.trim().length === 0) {
             throw new IllegalParameters('signalingUri required');
         }
@@ -481,7 +479,8 @@ export default class RtcSession {
         } else {
             this._callId = contactId;
         }
-
+        this._connectionId = connectionId;
+        this._wssManager = wssManager;
         this._sessionReport = new SessionReport();
         this._signalingUri = signalingUri;
         this._iceServers = iceServers;
@@ -494,7 +493,7 @@ export default class RtcSession {
         this._enableAudio = true;
         this._enableVideo = false;
         this._facingMode = 'user';
-
+        this._legacyStatsReportSupport = false;
         /**
          * user may provide the stream to the RtcSession directly to connect to the other end.
          * user may also acquire the stream from the local device.
@@ -696,7 +695,6 @@ export default class RtcSession {
     set onSessionDestroyed(handler) {
         this._onSessionDestroyed = handler;
     }
-
     set enableAudio(flag) {
         this._enableAudio = flag;
     }
@@ -765,14 +763,12 @@ export default class RtcSession {
     set iceTimeoutMillis(timeoutMillis) {
         this._iceTimeoutMillis = timeoutMillis;
     }
-
     /**
      * Override the default GUM timeout time limit.
      */
     set gumTimeoutMillis(timeoutMillis) {
         this._gumTimeoutMillis = timeoutMillis;
     }
-
     /**
      * connect-rtc-js initiate the handshaking with all browser supported codec by default, Amazon Connect service will choose the codec according to its preference setting.
      * Setting this attribute will force connect-rtc-js to only use specified codec.
@@ -821,7 +817,7 @@ export default class RtcSession {
     }
 
     _createSignalingChannel() {
-        var signalingChannel = new RtcSignaling(this._callId, this._signalingUri, this._contactToken, this._originalLogger, this._signalingConnectTimeout);
+        var signalingChannel = new RtcSignaling(this._callId, this._signalingUri, this._contactToken, this._originalLogger, this._signalingConnectTimeout, this._connectionId, this._wssManager);
         signalingChannel.onConnected = hitch(this, this._signalingConnected);
         signalingChannel.onAnswered = hitch(this, this._signalingAnswered);
         signalingChannel.onHandshaked = hitch(this, this._signalingHandshaked);
@@ -878,7 +874,10 @@ export default class RtcSession {
         self._pc.onicecandidate = hitch(self, self._onIceCandidate);
         self._pc.oniceconnectionstatechange = hitch(self, self._onIceStateChange);
 
-        self.transit(new GrabLocalMediaState(self));
+        isLegacyStatsReportSupported(self._pc).then(result => {
+            self._legacyStatsReportSupport = result;
+            self.transit(new GrabLocalMediaState(self));
+        });
     }
     accept() {
         throw new UnsupportedOperation('accept does not go through signaling channel at this moment');
@@ -898,42 +897,57 @@ export default class RtcSession {
         var impl = async (stream, streamType) => {
             var tracks = [];
 
-            if (! stream) {
+            if (!stream) {
                 return [];
             }
 
-            switch(streamType) {
-            case 'audio_input':
-            case 'audio_output':
-                tracks = stream.getAudioTracks();
-                break;
-            case 'video_input':
-            case 'video_output':
-                tracks = stream.getVideoTracks();
-                break;
-            default:
-                throw new Error('Unsupported stream type while trying to get stats: ' + streamType);
+            switch (streamType) {
+                case 'audio_input':
+                case 'audio_output':
+                    tracks = stream.getAudioTracks();
+                    break;
+                case 'video_input':
+                case 'video_output':
+                    tracks = stream.getVideoTracks();
+                    break;
+                default:
+                    throw new Error('Unsupported stream type while trying to get stats: ' + streamType);
             }
 
-            return await Promise.all(tracks.map(async (track) => {
-                var rawStats = await this._pc.getStats(track);
-                var digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
-                if (! digestedStats) {
-                    throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
+            return await Promise.all(tracks.map(async(track) => {
+                // get legacy stats report as a promise
+                if (this._legacyStatsReportSupport) {
+                    var self = this;
+                    return new Promise(function(resolve) {
+                        self._pc.getStats(function(rawStats) {
+                            var digestedStats = extractMediaStatsFromStats(timestamp, rawStats.result(), streamType);
+                            if (!digestedStats) {
+                                throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
+                            }
+                            resolve(digestedStats);
+                        }, track);
+                    });
+                } else { // get standardized report
+                    return this._pc.getStats().then(function(rawStats) {
+                        var digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
+                        if (!digestedStats) {
+                            throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
+                        }
+                        return digestedStats;
+                    });
                 }
-                return digestedStats;
             }));
         };
 
         if (this._pc && this._pc.signalingState === 'stable') {
             var statsResult = {
                 audio: {
-                    input:  await impl(this._remoteAudioStream, 'audio_input'),
+                    input: await impl(this._remoteAudioStream, 'audio_input'),
                     output: await impl(this._localStream, 'audio_output')
                 },
 
                 video: {
-                    input:  await impl(this._remoteVideoStream, 'video_input'),
+                    input: await impl(this._remoteVideoStream, 'video_input'),
                     output: await impl(this._localStream, 'video_output')
                 }
             };
@@ -951,11 +965,11 @@ export default class RtcSession {
             var videoInputRttMilliseconds = statsResult.video.input.reduce(rttReducer, null);
 
             if (audioInputRttMilliseconds !== null) {
-                statsResult.audio.output.forEach((stats) => { stats._rttMilliseconds = audioInputRttMilliseconds; }); 
+                statsResult.audio.output.forEach((stats) => { stats._rttMilliseconds = audioInputRttMilliseconds; });
             }
 
             if (videoInputRttMilliseconds !== null) {
-                statsResult.video.output.forEach((stats) => { stats._rttMilliseconds = videoInputRttMilliseconds; }); 
+                statsResult.video.output.forEach((stats) => { stats._rttMilliseconds = videoInputRttMilliseconds; });
             }
 
             return statsResult;
@@ -1024,7 +1038,7 @@ export default class RtcSession {
                 return Promise.reject(new IllegalState());
             }
         });
-   }
+    }
 
     _onIceCandidate(evt) {
         this._state.onIceCandidate(evt);
