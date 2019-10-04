@@ -31,6 +31,27 @@ export const INVITE_METHOD_NAME = "invite";
 export const ACCEPT_METHOD_NAME = "accept";
 export const BYE_METHOD_NAME = "bye";
 
+export const RTC_PEER_CONNECTION_CONFIG = {
+    iceTransportPolicy: 'relay',
+    rtcpMuxPolicy: 'require',
+    bundlePolicy: 'balanced',
+    sdpSemantics: 'plan-b'
+};
+
+export const RTC_PEER_CONNECTION_OPTIONAL_CONFIG = {
+    optional: [
+        {
+            googDscp: true
+        }
+    ]
+};
+
+export const DEFAULT_ICE_CANDIDATE_POOL_SIZE = 1;
+
+export const RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS = 60*60*1000;
+
+export const CHROME_SUPPORTED_VERSION = 59;
+
 /**
  * RTC error names.
  */

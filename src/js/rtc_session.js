@@ -3,14 +3,27 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-import { hitch, wrapLogger, closeStream, SdpOptions, transformSdp, isLegacyStatsReportSupported } from './utils';
-import { SessionReport } from './session_report';
-import { DEFAULT_ICE_TIMEOUT_MS, DEFAULT_GUM_TIMEOUT_MS, RTC_ERRORS } from './rtc_const';
-import { UnsupportedOperation, IllegalParameters, IllegalState, GumTimeout, BusyExceptionName, CallNotFoundExceptionName } from './exceptions';
+import {closeStream, hitch, isLegacyStatsReportSupported, SdpOptions, transformSdp, wrapLogger} from './utils';
+import {SessionReport} from './session_report';
+import {
+    DEFAULT_GUM_TIMEOUT_MS,
+    DEFAULT_ICE_TIMEOUT_MS,
+    RTC_ERRORS,
+    RTC_PEER_CONNECTION_CONFIG,
+    RTC_PEER_CONNECTION_OPTIONAL_CONFIG
+} from './rtc_const';
+import {
+    BusyExceptionName,
+    CallNotFoundExceptionName,
+    GumTimeout,
+    IllegalParameters,
+    IllegalState,
+    UnsupportedOperation
+} from './exceptions';
 import RtcSignaling from './signaling';
 import uuid from 'uuid/v4';
 import {extractMediaStatsFromStats} from './rtp-stats';
-import { parseCandidate } from 'sdp';
+import {parseCandidate} from 'sdp';
 
 export class RTCSessionState {
     /**
@@ -847,29 +860,20 @@ export default class RtcSession {
     }
     _signalingDisconnected() {
     }
-    _createPeerConnection(configuration) {
-        return new RTCPeerConnection(configuration);
+    _createPeerConnection(configuration, optionalConfiguration) {
+        return new RTCPeerConnection(configuration, optionalConfiguration);
     }
-    connect() {
+    connect(pc) {
         var self = this;
         var now = new Date();
         self._sessionReport.sessionStartTime = now;
         self._connectTimeStamp = now.getTime();
-
-        self._pc = self._createPeerConnection({
-            iceServers: self._iceServers,
-            iceTransportPolicy: 'relay',
-            rtcpMuxPolicy: 'require',
-            bundlePolicy: 'balanced',
-            sdpSemantics: 'plan-b'
-        }, {
-            optional: [
-                {
-                    googDscp: true
-                }
-            ]
-        });
-
+        if (pc) {
+            self._pc = pc;
+        } else {
+            RTC_PEER_CONNECTION_CONFIG.iceServers = self._iceServers;
+            self._pc = self._createPeerConnection(RTC_PEER_CONNECTION_CONFIG, RTC_PEER_CONNECTION_OPTIONAL_CONFIG);
+        }
         self._pc.ontrack = hitch(self, self._ontrack);
         self._pc.onicecandidate = hitch(self, self._onIceCandidate);
         self._pc.oniceconnectionstatechange = hitch(self, self._onIceStateChange);

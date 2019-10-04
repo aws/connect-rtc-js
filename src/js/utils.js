@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IllegalParameters } from './exceptions';
-import { splitSections, splitLines, parseRtpMap, getKind, parseRtpParameters, writeFmtp } from 'sdp';
+import {IllegalParameters} from './exceptions';
+import {getKind, parseRtpMap, parseRtpParameters, splitLines, splitSections, writeFmtp} from 'sdp';
 
 /**
  * All logging methods used by connect-rtc.
@@ -219,3 +219,19 @@ export function isLegacyStatsReportSupported(pc) {
     });
 }
 
+/**
+ * Determine if the given value is a callable function type.
+ * Borrowed from Underscore.js.
+ */
+export function isFunction(obj) {
+    return !!(obj && obj.constructor && obj.call && obj.apply);
+}
+
+/**
+ * Asserts that a premise is true.
+ */
+export function assertTrue(premise, message) {
+    if (!premise) {
+        throw new Error(message);
+    }
+}
