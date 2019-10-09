@@ -10,8 +10,8 @@ import {
 
 export default class RtcPeerConnectionFactory {
 
-    //transportHandle must be a callback function which should return a promise which is going to return the iceServers
-    //publishError must be a callback function which will publish the passed error message to client browser
+    //transportHandle must be a callback function which should return a promise which is going to return the iceServers. Please refer https://www.w3.org/TR/webrtc/#rtciceserver-dictionary for iceServer example
+    //publishError(errorType, errorMessage) must be a callback function which will publish the passed error message to client browser
     constructor(logger, wssManager, clientId, transportHandle, publishError) {
         assertTrue(isFunction(transportHandle), 'transportHandle must be a function');
         assertTrue(isFunction(publishError), 'publishError must be a function');
@@ -41,7 +41,7 @@ export default class RtcPeerConnectionFactory {
             } else if (content.jsonRpcMsg.method === "quotaBreached") {
                 this._logger.log("Number of active sessions are more then allowed limit for the client " + this._clientId);
                 this._closeRTCPeerConnection();
-                this._publishError("multiple_softphone_active_sessions", "Number of active sessions are more then allowed limit.", "");
+                this._publishError("multiple_softphone_active_sessions", "Number of active sessions are more then allowed limit.");
             }
         }
     }
@@ -85,7 +85,7 @@ export default class RtcPeerConnectionFactory {
     }
 
     _createRtcPeerConnection(iceServers) {
-        var rtcPeerConnectionConfig = RTC_PEER_CONNECTION_CONFIG;
+        var rtcPeerConnectionConfig = JSON.parse(JSON.stringify(RTC_PEER_CONNECTION_CONFIG));
         rtcPeerConnectionConfig.iceServers = iceServers;
         rtcPeerConnectionConfig.iceCandidatePoolSize = DEFAULT_ICE_CANDIDATE_POOL_SIZE;
         return new RTCPeerConnection(rtcPeerConnectionConfig, RTC_PEER_CONNECTION_OPTIONAL_CONFIG);
