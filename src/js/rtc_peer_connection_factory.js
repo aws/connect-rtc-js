@@ -57,13 +57,14 @@ export default class RtcPeerConnectionFactory {
     get(iceServers) {
         var self = this;
         var pc = self._pc;
-        if (!self._browserSupported || self._pc == null) {
-            pc = self._createRtcPeerConnection(iceServers);
-        }
         setTimeout(() => {
             self._pc = null;
             self._requestPeerConnection();
         }, 0);
+
+        if (pc == null) {
+            pc = self._createRtcPeerConnection(iceServers);
+        }
         if (self._idleRtcPeerConnectionTimerId) {
             clearTimeout(self._idleRtcPeerConnectionTimerId);
         }
