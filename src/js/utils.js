@@ -12,6 +12,8 @@ import {getKind, parseRtpMap, parseRtpParameters, splitLines, splitSections, wri
  */
 var logMethods = ['log', 'info', 'warn', 'error'];
 
+var userAgent = navigator.userAgent;
+
 /**
 * Binds the given instance object as the context for
 * the method provided.
@@ -233,5 +235,18 @@ export function isFunction(obj) {
 export function assertTrue(premise, message) {
     if (!premise) {
         throw new Error(message);
+    }
+}
+
+export function isChromeBrowser(){
+    return userAgent.indexOf("Chrome") !== -1;
+}
+
+export function getChromeBrowserVersion(){
+    var chromeVersion = userAgent.substring(userAgent.indexOf("Chrome")+7);
+    if (chromeVersion) {
+        return parseFloat(chromeVersion);
+    } else {
+        return -1;
     }
 }

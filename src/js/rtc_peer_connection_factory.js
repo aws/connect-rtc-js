@@ -1,4 +1,4 @@
-import {assertTrue, hitch, isFunction} from './utils';
+import {assertTrue, getChromeBrowserVersion, hitch, isChromeBrowser, isFunction} from './utils';
 import {
     CHROME_SUPPORTED_VERSION,
     DEFAULT_ICE_CANDIDATE_POOL_SIZE,
@@ -24,8 +24,7 @@ export default class RtcPeerConnectionFactory {
     }
 
     _isBrowserSupported() {
-        global.connect = global.connect || {};
-        return global.connect.isChromeBrowser() && global.connect.getChromeBrowserVersion() >= CHROME_SUPPORTED_VERSION
+        return isChromeBrowser() && getChromeBrowserVersion() >= CHROME_SUPPORTED_VERSION
     }
 
     //This will handle the idleConnection and quota limits notification from the server
