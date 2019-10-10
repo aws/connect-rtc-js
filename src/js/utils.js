@@ -4,13 +4,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IllegalParameters } from './exceptions';
-import { splitSections, splitLines, parseRtpMap, getKind, parseRtpParameters, writeFmtp } from 'sdp';
+import {IllegalParameters} from './exceptions';
+import {getKind, parseRtpMap, parseRtpParameters, splitLines, splitSections, writeFmtp} from 'sdp';
 
 /**
  * All logging methods used by connect-rtc.
  */
 var logMethods = ['log', 'info', 'warn', 'error'];
+
+var userAgent = navigator.userAgent;
 
 /**
 * Binds the given instance object as the context for
@@ -219,3 +221,32 @@ export function isLegacyStatsReportSupported(pc) {
     });
 }
 
+/**
+ * Determine if the given value is a callable function type.
+ * Borrowed from Underscore.js.
+ */
+export function isFunction(obj) {
+    return !!(obj && obj.constructor && obj.call && obj.apply);
+}
+
+/**
+ * Asserts that a premise is true.
+ */
+export function assertTrue(premise, message) {
+    if (!premise) {
+        throw new Error(message);
+    }
+}
+
+export function isChromeBrowser(){
+    return userAgent.indexOf("Chrome") !== -1;
+}
+
+export function getChromeBrowserVersion(){
+    var chromeVersion = userAgent.substring(userAgent.indexOf("Chrome")+7);
+    if (chromeVersion) {
+        return parseFloat(chromeVersion);
+    } else {
+        return -1;
+    }
+}
