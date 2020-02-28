@@ -2,6 +2,7 @@ import {assertTrue, getChromeBrowserVersion, hitch, isChromeBrowser, isFunction}
 import {
     CHROME_SUPPORTED_VERSION,
     DEFAULT_ICE_CANDIDATE_POOL_SIZE,
+    NETWORK_CONNECTIVITY_CHECK_INTERVAL_MS,
     RTC_PEER_CONNECTION_CONFIG,
     RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS,
     RTC_PEER_CONNECTION_OPTIONAL_CONFIG,
@@ -23,6 +24,7 @@ export default class RtcPeerConnectionFactory {
         this._browserSupported = this._isBrowserSupported();
         this._initializeWebSocketEventListeners();
         this._requestPeerConnection();
+        this._networkConnectivityChecker();
     }
 
     _isBrowserSupported() {
@@ -82,6 +84,17 @@ export default class RtcPeerConnectionFactory {
                 function (reason) {
                 });
         }
+    }
+
+    _networkConnectivityChecker() {
+        var self = this;
+        setInterval(function () {
+            if (!navigator.onLine && self._pc) {
+                self._logger.log("Network offline. Cleaning up early connection");
+                self._pc.close();
+                self._pc = null;
+            }
+        }, NETWORK_CONNECTIVITY_CHECK_INTERVAL_MS);
     }
 
     _createRtcPeerConnection(iceServers) {
