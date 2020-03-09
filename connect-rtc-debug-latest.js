@@ -1,1 +1,1 @@
-connect-rtc-debug-1.1.5.js
+connect-rtc-debug-1.1.6.js
