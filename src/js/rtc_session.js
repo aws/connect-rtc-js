@@ -159,8 +159,10 @@ export class SetLocalSessionDescriptionState extends RTCSessionState {
 
         var transformedSdp = transformSdp(localDescription.sdp, sdpOptions);
         localDescription.sdp = transformedSdp.sdp;
+        localDescription.sdp += 'a=ptime:20\r\n';
 
         self.logger.info('LocalSD', self._rtcSession._localSessionDescription);
+
         self._rtcSession._pc.setLocalDescription(self._rtcSession._localSessionDescription).then(() => {
             var initializationTime = Date.now() - self._rtcSession._connectTimeStamp;
             self._rtcSession._sessionReport.initializationTimeMillis = initializationTime;
