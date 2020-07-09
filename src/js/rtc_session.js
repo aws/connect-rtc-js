@@ -159,6 +159,9 @@ export class SetLocalSessionDescriptionState extends RTCSessionState {
 
         var transformedSdp = transformSdp(localDescription.sdp, sdpOptions);
         localDescription.sdp = transformedSdp.sdp;
+        localDescription.sdp += 'a=ptime:20\r\n';
+        localDescription.sdp += 'a=maxptime:20\r\n';
+        localDescription.sdp = localDescription.sdp.replace("minptime=10", "minptime=20");
 
         self.logger.info('LocalSD', self._rtcSession._localSessionDescription);
         self._rtcSession._pc.setLocalDescription(self._rtcSession._localSessionDescription).then(() => {
