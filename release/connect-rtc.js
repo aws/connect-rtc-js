@@ -338,7 +338,7 @@ module.exports = function (it) {
 };
 
 },{}],32:[function(require,module,exports){
-var core = module.exports = { version: '2.6.9' };
+var core = module.exports = { version: '2.6.11' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 },{}],33:[function(require,module,exports){
@@ -5025,22 +5025,76 @@ SDPUtils.writeDtlsParameters = function(params, setupType) {
   });
   return sdp;
 };
+
+// Parses a=crypto lines into
+//   https://rawgit.com/aboba/edgertc/master/msortc-rs4.html#dictionary-rtcsrtpsdesparameters-members
+SDPUtils.parseCryptoLine = function(line) {
+  var parts = line.substr(9).split(' ');
+  return {
+    tag: parseInt(parts[0], 10),
+    cryptoSuite: parts[1],
+    keyParams: parts[2],
+    sessionParams: parts.slice(3),
+  };
+};
+
+SDPUtils.writeCryptoLine = function(parameters) {
+  return 'a=crypto:' + parameters.tag + ' ' +
+    parameters.cryptoSuite + ' ' +
+    (typeof parameters.keyParams === 'object'
+      ? SDPUtils.writeCryptoKeyParams(parameters.keyParams)
+      : parameters.keyParams) +
+    (parameters.sessionParams ? ' ' + parameters.sessionParams.join(' ') : '') +
+    '\r\n';
+};
+
+// Parses the crypto key parameters into
+//   https://rawgit.com/aboba/edgertc/master/msortc-rs4.html#rtcsrtpkeyparam*
+SDPUtils.parseCryptoKeyParams = function(keyParams) {
+  if (keyParams.indexOf('inline:') !== 0) {
+    return null;
+  }
+  var parts = keyParams.substr(7).split('|');
+  return {
+    keyMethod: 'inline',
+    keySalt: parts[0],
+    lifeTime: parts[1],
+    mkiValue: parts[2] ? parts[2].split(':')[0] : undefined,
+    mkiLength: parts[2] ? parts[2].split(':')[1] : undefined,
+  };
+};
+
+SDPUtils.writeCryptoKeyParams = function(keyParams) {
+  return keyParams.keyMethod + ':'
+    + keyParams.keySalt +
+    (keyParams.lifeTime ? '|' + keyParams.lifeTime : '') +
+    (keyParams.mkiValue && keyParams.mkiLength
+      ? '|' + keyParams.mkiValue + ':' + keyParams.mkiLength
+      : '');
+};
+
+// Extracts all SDES paramters.
+SDPUtils.getCryptoParameters = function(mediaSection, sessionpart) {
+  var lines = SDPUtils.matchPrefix(mediaSection + sessionpart,
+    'a=crypto:');
+  return lines.map(SDPUtils.parseCryptoLine);
+};
+
 // Parses ICE information from SDP media section or sessionpart.
 // FIXME: for consistency with other functions this should only
 //   get the ice-ufrag and ice-pwd lines as input.
 SDPUtils.getIceParameters = function(mediaSection, sessionpart) {
-  var lines = SDPUtils.splitLines(mediaSection);
-  // Search in session part, too.
-  lines = lines.concat(SDPUtils.splitLines(sessionpart));
-  var iceParameters = {
-    usernameFragment: lines.filter(function(line) {
-      return line.indexOf('a=ice-ufrag:') === 0;
-    })[0].substr(12),
-    password: lines.filter(function(line) {
-      return line.indexOf('a=ice-pwd:') === 0;
-    })[0].substr(10)
+  var ufrag = SDPUtils.matchPrefix(mediaSection + sessionpart,
+    'a=ice-ufrag:')[0];
+  var pwd = SDPUtils.matchPrefix(mediaSection + sessionpart,
+    'a=ice-pwd:')[0];
+  if (!(ufrag && pwd)) {
+    return null;
+  }
+  return {
+    usernameFragment: ufrag.substr(12),
+    password: pwd.substr(10),
   };
-  return iceParameters;
 };
 
 // Serializes ICE parameters to SDP.
@@ -5498,14 +5552,16 @@ function bytesToUuid(buf, offset) {
   var i = offset || 0;
   var bth = byteToHex;
   // join used to fix memory issue caused by concatenation: https://bugs.chromium.org/p/v8/issues/detail?id=3175#c4
-  return ([bth[buf[i++]], bth[buf[i++]], 
-	bth[buf[i++]], bth[buf[i++]], '-',
-	bth[buf[i++]], bth[buf[i++]], '-',
-	bth[buf[i++]], bth[buf[i++]], '-',
-	bth[buf[i++]], bth[buf[i++]], '-',
-	bth[buf[i++]], bth[buf[i++]],
-	bth[buf[i++]], bth[buf[i++]],
-	bth[buf[i++]], bth[buf[i++]]]).join('');
+  return ([
+    bth[buf[i++]], bth[buf[i++]],
+    bth[buf[i++]], bth[buf[i++]], '-',
+    bth[buf[i++]], bth[buf[i++]], '-',
+    bth[buf[i++]], bth[buf[i++]], '-',
+    bth[buf[i++]], bth[buf[i++]], '-',
+    bth[buf[i++]], bth[buf[i++]],
+    bth[buf[i++]], bth[buf[i++]],
+    bth[buf[i++]], bth[buf[i++]]
+  ]).join('');
 }
 
 module.exports = bytesToUuid;
@@ -8464,6 +8520,14 @@ var _rtc_session2 = _interopRequireDefault(_rtc_session);
 
 var _rtc_const = require('./rtc_const');
 
+var _rtc_peer_connection_factory = require('./rtc_peer_connection_factory');
+
+var _rtc_peer_connection_factory2 = _interopRequireDefault(_rtc_peer_connection_factory);
+
+var _v = require('uuid/v4');
+
+var _v2 = _interopRequireDefault(_v);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -8511,13 +8575,15 @@ global.connect = global.connect || {}; /**
 
 global.connect.RTCSession = _rtc_session2.default;
 global.connect.RTCErrors = _rtc_const.RTC_ERRORS;
+global.connect.RtcPeerConnectionFactory = _rtc_peer_connection_factory2.default;
+global.connect.uuid = _v2.default;
 
 global.lily = global.lily || {};
 global.lily.RTCSession = _rtc_session2.default;
 global.lily.RTCErrors = _rtc_const.RTC_ERRORS;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./rtc_const":135,"./rtc_session":136,"webrtc-adapter":121}],134:[function(require,module,exports){
+},{"./rtc_const":135,"./rtc_peer_connection_factory":136,"./rtc_session":137,"uuid/v4":120,"webrtc-adapter":121}],134:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8719,6 +8785,27 @@ var INVITE_METHOD_NAME = exports.INVITE_METHOD_NAME = "invite";
 var ACCEPT_METHOD_NAME = exports.ACCEPT_METHOD_NAME = "accept";
 var BYE_METHOD_NAME = exports.BYE_METHOD_NAME = "bye";
 
+var RTC_PEER_CONNECTION_CONFIG = exports.RTC_PEER_CONNECTION_CONFIG = {
+  iceTransportPolicy: 'relay',
+  rtcpMuxPolicy: 'require',
+  bundlePolicy: 'balanced',
+  sdpSemantics: 'plan-b'
+};
+
+var RTC_PEER_CONNECTION_OPTIONAL_CONFIG = exports.RTC_PEER_CONNECTION_OPTIONAL_CONFIG = {
+  optional: [{
+    googDscp: true
+  }]
+};
+
+var DEFAULT_ICE_CANDIDATE_POOL_SIZE = exports.DEFAULT_ICE_CANDIDATE_POOL_SIZE = 1;
+
+var RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS = exports.RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS = 60 * 60 * 1000;
+
+var NETWORK_CONNECTIVITY_CHECK_INTERVAL_MS = exports.NETWORK_CONNECTIVITY_CHECK_INTERVAL_MS = 250;
+
+var CHROME_SUPPORTED_VERSION = exports.CHROME_SUPPORTED_VERSION = 59;
+
 /**
  * RTC error names.
  */
@@ -8738,6 +8825,153 @@ var RTC_ERRORS = exports.RTC_ERRORS = {
 };
 
 },{}],136:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _utils = require('./utils');
+
+var _rtc_const = require('./rtc_const');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var RtcPeerConnectionFactory = function () {
+
+    //transportHandle must be a callback function which should return a promise which is going to return the iceServers. Please refer https://www.w3.org/TR/webrtc/#rtciceserver-dictionary for iceServer example
+    //publishError(errorType, errorMessage) must be a callback function which will publish the passed error message to client browser
+    function RtcPeerConnectionFactory(logger, wssManager, clientId, transportHandle, publishError) {
+        (0, _classCallCheck3.default)(this, RtcPeerConnectionFactory);
+
+        (0, _utils.assertTrue)((0, _utils.isFunction)(transportHandle), 'transportHandle must be a function');
+        (0, _utils.assertTrue)((0, _utils.isFunction)(publishError), 'publishError must be a function');
+        this._logger = logger;
+        this._clientId = clientId;
+        this._wssManager = wssManager;
+        this._requestIceAccess = transportHandle;
+        this._publishError = publishError;
+        this._browserSupported = this._isBrowserSupported();
+        this._initializeWebSocketEventListeners();
+        this._requestPeerConnection();
+        this._networkConnectivityChecker();
+    }
+
+    (0, _createClass3.default)(RtcPeerConnectionFactory, [{
+        key: '_isBrowserSupported',
+        value: function _isBrowserSupported() {
+            return (0, _utils.isChromeBrowser)() && (0, _utils.getChromeBrowserVersion)() >= _rtc_const.CHROME_SUPPORTED_VERSION;
+        }
+
+        //This will handle the idleConnection and quota limits notification from the server
+
+    }, {
+        key: '_webSocketManagerOnMessage',
+        value: function _webSocketManagerOnMessage(event) {
+            var content = void 0;
+            if (event.content) {
+                content = JSON.parse(event.content);
+            }
+            if (content && this._clientId === content.clientId) {
+                if (content.jsonRpcMsg.method === "idleConnection") {
+                    this._clearIdleRtcPeerConnection();
+                } else if (content.jsonRpcMsg.method === "quotaBreached") {
+                    this._logger.log("Number of active sessions are more then allowed limit for the client " + this._clientId);
+                    this._closeRTCPeerConnection();
+                    this._publishError("multiple_softphone_active_sessions", "Number of active sessions are more then allowed limit.");
+                }
+            }
+        }
+    }, {
+        key: '_initializeWebSocketEventListeners',
+        value: function _initializeWebSocketEventListeners() {
+            this._wssManager.subscribeTopics([_rtc_const.SOFTPHONE_ROUTE_KEY]);
+            this._unSubscribe = this._wssManager.onMessage(_rtc_const.SOFTPHONE_ROUTE_KEY, (0, _utils.hitch)(this, this._webSocketManagerOnMessage));
+        }
+
+        // This method will create and return new peer connection if browser is not supporting early ice collection.
+        // For the supported browser, this method will request for new peerConnection after returning the existing peerConnection
+
+    }, {
+        key: 'get',
+        value: function get(iceServers) {
+            var self = this;
+            var pc = self._pc;
+            self._pc = null;
+            if (pc == null) {
+                pc = self._createRtcPeerConnection(iceServers);
+            }
+            if (self._idleRtcPeerConnectionTimerId) {
+                clearTimeout(self._idleRtcPeerConnectionTimerId);
+                self._idleRtcPeerConnectionTimerId = null;
+            }
+            setTimeout(function () {
+                self._requestPeerConnection();
+            }, 0);
+            return pc;
+        }
+    }, {
+        key: '_requestPeerConnection',
+        value: function _requestPeerConnection() {
+            var self = this;
+            if (self._browserSupported) {
+                self._requestIceAccess().then(function (response) {
+                    self._pc = self._createRtcPeerConnection(response);
+                    self._idleRtcPeerConnectionTimerId = setTimeout((0, _utils.hitch)(self, self._clearIdleRtcPeerConnection), _rtc_const.RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS);
+                },
+                // eslint-disable-next-line no-unused-vars
+                function (reason) {});
+            }
+        }
+    }, {
+        key: '_networkConnectivityChecker',
+        value: function _networkConnectivityChecker() {
+            var self = this;
+            setInterval(function () {
+                if (!navigator.onLine && self._pc) {
+                    self._logger.log("Network offline. Cleaning up early connection");
+                    self._pc.close();
+                    self._pc = null;
+                }
+            }, _rtc_const.NETWORK_CONNECTIVITY_CHECK_INTERVAL_MS);
+        }
+    }, {
+        key: '_createRtcPeerConnection',
+        value: function _createRtcPeerConnection(iceServers) {
+            var rtcPeerConnectionConfig = JSON.parse(JSON.stringify(_rtc_const.RTC_PEER_CONNECTION_CONFIG));
+            rtcPeerConnectionConfig.iceServers = iceServers;
+            rtcPeerConnectionConfig.iceCandidatePoolSize = _rtc_const.DEFAULT_ICE_CANDIDATE_POOL_SIZE;
+            return new RTCPeerConnection(rtcPeerConnectionConfig, _rtc_const.RTC_PEER_CONNECTION_OPTIONAL_CONFIG);
+        }
+    }, {
+        key: '_clearIdleRtcPeerConnection',
+        value: function _clearIdleRtcPeerConnection() {
+            this._logger.log("session is idle from long time. closing the peer connection for client " + this._clientId);
+            this._closeRTCPeerConnection();
+        }
+    }, {
+        key: '_closeRTCPeerConnection',
+        value: function _closeRTCPeerConnection() {
+            if (this._pc) {
+                this._pc.close();
+                this._pc = null;
+            }
+        }
+    }]);
+    return RtcPeerConnectionFactory;
+}();
+
+exports.default = RtcPeerConnectionFactory;
+
+},{"./rtc_const":135,"./utils":141,"babel-runtime/helpers/classCallCheck":10,"babel-runtime/helpers/createClass":11}],137:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -9007,6 +9241,9 @@ var SetLocalSessionDescriptionState = exports.SetLocalSessionDescriptionState = 
 
             var transformedSdp = (0, _utils.transformSdp)(localDescription.sdp, sdpOptions);
             localDescription.sdp = transformedSdp.sdp;
+            localDescription.sdp += 'a=ptime:20\r\n';
+            localDescription.sdp += 'a=maxptime:20\r\n';
+            localDescription.sdp = localDescription.sdp.replace("minptime=10", "minptime=20");
 
             self.logger.info('LocalSD', self._rtcSession._localSessionDescription);
             self._rtcSession._pc.setLocalDescription(self._rtcSession._localSessionDescription).then(function () {
@@ -9656,29 +9893,22 @@ var RtcSession = function () {
         value: function _signalingDisconnected() {}
     }, {
         key: '_createPeerConnection',
-        value: function _createPeerConnection(configuration) {
-            return new RTCPeerConnection(configuration);
+        value: function _createPeerConnection(configuration, optionalConfiguration) {
+            return new RTCPeerConnection(configuration, optionalConfiguration);
         }
     }, {
         key: 'connect',
-        value: function connect() {
+        value: function connect(pc) {
             var self = this;
             var now = new Date();
             self._sessionReport.sessionStartTime = now;
             self._connectTimeStamp = now.getTime();
-
-            self._pc = self._createPeerConnection({
-                iceServers: self._iceServers,
-                iceTransportPolicy: 'relay',
-                rtcpMuxPolicy: 'require',
-                bundlePolicy: 'balanced',
-                sdpSemantics: 'plan-b'
-            }, {
-                optional: [{
-                    googDscp: true
-                }]
-            });
-
+            if (pc) {
+                self._pc = pc;
+            } else {
+                _rtc_const.RTC_PEER_CONNECTION_CONFIG.iceServers = self._iceServers;
+                self._pc = self._createPeerConnection(_rtc_const.RTC_PEER_CONNECTION_CONFIG, _rtc_const.RTC_PEER_CONNECTION_OPTIONAL_CONFIG);
+            }
             self._pc.ontrack = (0, _utils.hitch)(self, self._ontrack);
             self._pc.onicecandidate = (0, _utils.hitch)(self, self._onIceCandidate);
             self._pc.oniceconnectionstatechange = (0, _utils.hitch)(self, self._onIceStateChange);
@@ -10421,7 +10651,7 @@ var RtcSession = function () {
 
 exports.default = RtcSession;
 
-},{"./exceptions":134,"./rtc_const":135,"./rtp-stats":137,"./session_report":138,"./signaling":139,"./utils":140,"babel-runtime/helpers/asyncToGenerator":9,"babel-runtime/helpers/classCallCheck":10,"babel-runtime/helpers/createClass":11,"babel-runtime/helpers/get":12,"babel-runtime/helpers/inherits":13,"babel-runtime/helpers/possibleConstructorReturn":14,"babel-runtime/helpers/typeof":15,"babel-runtime/regenerator":16,"sdp":117,"uuid/v4":120}],137:[function(require,module,exports){
+},{"./exceptions":134,"./rtc_const":135,"./rtp-stats":138,"./session_report":139,"./signaling":140,"./utils":141,"babel-runtime/helpers/asyncToGenerator":9,"babel-runtime/helpers/classCallCheck":10,"babel-runtime/helpers/createClass":11,"babel-runtime/helpers/get":12,"babel-runtime/helpers/inherits":13,"babel-runtime/helpers/possibleConstructorReturn":14,"babel-runtime/helpers/typeof":15,"babel-runtime/regenerator":16,"sdp":117,"uuid/v4":120}],138:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -10689,7 +10919,7 @@ var MediaRtpStats = function () {
     return MediaRtpStats;
 }();
 
-},{"./utils":140,"babel-runtime/helpers/classCallCheck":10,"babel-runtime/helpers/createClass":11}],138:[function(require,module,exports){
+},{"./utils":141,"babel-runtime/helpers/classCallCheck":10,"babel-runtime/helpers/createClass":11}],139:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11027,7 +11257,7 @@ var SessionReport = exports.SessionReport = function () {
     return SessionReport;
 }();
 
-},{"babel-runtime/helpers/classCallCheck":10,"babel-runtime/helpers/createClass":11}],139:[function(require,module,exports){
+},{"babel-runtime/helpers/classCallCheck":10,"babel-runtime/helpers/createClass":11}],140:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11836,7 +12066,7 @@ var AmznRtcSignaling = function () {
 
 exports.default = AmznRtcSignaling;
 
-},{"./exceptions":134,"./rtc_const":135,"./utils":140,"./virtual_wss_connection_manager":141,"babel-runtime/helpers/classCallCheck":10,"babel-runtime/helpers/createClass":11,"babel-runtime/helpers/inherits":13,"babel-runtime/helpers/possibleConstructorReturn":14,"uuid/v4":120}],140:[function(require,module,exports){
+},{"./exceptions":134,"./rtc_const":135,"./utils":141,"./virtual_wss_connection_manager":142,"babel-runtime/helpers/classCallCheck":10,"babel-runtime/helpers/createClass":11,"babel-runtime/helpers/inherits":13,"babel-runtime/helpers/possibleConstructorReturn":14,"uuid/v4":120}],141:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11859,6 +12089,10 @@ exports.transformSdp = transformSdp;
 exports.is_defined = is_defined;
 exports.when_defined = when_defined;
 exports.isLegacyStatsReportSupported = isLegacyStatsReportSupported;
+exports.isFunction = isFunction;
+exports.assertTrue = assertTrue;
+exports.isChromeBrowser = isChromeBrowser;
+exports.getChromeBrowserVersion = getChromeBrowserVersion;
 
 var _exceptions = require('./exceptions');
 
@@ -12106,7 +12340,38 @@ function isLegacyStatsReportSupported(pc) {
     });
 }
 
-},{"./exceptions":134,"babel-runtime/helpers/classCallCheck":10,"babel-runtime/helpers/createClass":11,"sdp":117}],141:[function(require,module,exports){
+/**
+ * Determine if the given value is a callable function type.
+ * Borrowed from Underscore.js.
+ */
+function isFunction(obj) {
+    return !!(obj && obj.constructor && obj.call && obj.apply);
+}
+
+/**
+ * Asserts that a premise is true.
+ */
+function assertTrue(premise, message) {
+    if (!premise) {
+        throw new Error(message);
+    }
+}
+
+function isChromeBrowser() {
+    return navigator.userAgent.indexOf("Chrome") !== -1;
+}
+
+function getChromeBrowserVersion() {
+    var userAgent = navigator.userAgent;
+    var chromeVersion = userAgent.substring(userAgent.indexOf("Chrome") + 7);
+    if (chromeVersion) {
+        return parseFloat(chromeVersion);
+    } else {
+        return -1;
+    }
+}
+
+},{"./exceptions":134,"babel-runtime/helpers/classCallCheck":10,"babel-runtime/helpers/createClass":11,"sdp":117}],142:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -12194,4 +12459,4 @@ var VirtualWssConnectionManager = function () {
 
 exports.default = VirtualWssConnectionManager;
 
-},{"./rtc_const":135,"./utils":140,"babel-runtime/helpers/classCallCheck":10,"babel-runtime/helpers/createClass":11}]},{},[133]);
+},{"./rtc_const":135,"./utils":141,"babel-runtime/helpers/classCallCheck":10,"babel-runtime/helpers/createClass":11}]},{},[133]);
