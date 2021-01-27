@@ -40,7 +40,6 @@ export default class RtcPeerConnectionFactory {
         if (content && this._clientId === content.clientId) {
             if (content.jsonRpcMsg.method === "idleConnection") {
                 this._clearIdleRtcPeerConnection();
-                this._requestPeerConnection();
             } else if (content.jsonRpcMsg.method === "quotaBreached") {
                 this._logger.log("Number of active sessions are more then allowed limit for the client " + this._clientId);
                 this._closeRTCPeerConnection();
