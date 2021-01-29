@@ -78,7 +78,7 @@ export default class RtcPeerConnectionFactory {
         if (self._browserSupported) {
             self._requestIceAccess().then(function (response) {
                     self._pc = self._createRtcPeerConnection(response);
-                    self._idleRtcPeerConnectionTimerId = setTimeout(hitch(self, self._clearIdleRtcPeerConnection), RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS);
+                    self._idleRtcPeerConnectionTimerId = setTimeout(hitch(self, self._refreshRtcPeerConnection), RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS);
                 },
                 // eslint-disable-next-line no-unused-vars
                 function (reason) {
@@ -107,6 +107,12 @@ export default class RtcPeerConnectionFactory {
     _clearIdleRtcPeerConnection() {
         this._logger.log("session is idle from long time. closing the peer connection for client " + this._clientId);
         this._closeRTCPeerConnection();
+    }
+
+    _refreshRtcPeerConnection() {
+        this._clearIdleRtcPeerConnection();
+        this._logger.log("refreshing peer connection for client " + this._clientId);
+        this._requestPeerConnection();
     }
 
     _closeRTCPeerConnection() {
