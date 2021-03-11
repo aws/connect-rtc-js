@@ -283,7 +283,7 @@ describe('signalingTest', () => {
             chai.assert.isNotNull(acceptReq.params);
             chai.assert.isNotNull(acceptReq.id);
             chai.assert(signaling.transit.calledOnce);
-            chai.assert(signaling.transit.args[0][0] instanceof PendingAcceptAckState);
+            chai.assert(signaling.transit.args[0][0] instanceof TalkingState);
         });
     });
 
