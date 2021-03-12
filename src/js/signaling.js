@@ -189,6 +189,16 @@ export class PendingAcceptState extends SignalingState {
         }
     }
     accept() {
+        this.sendAcceptRequest();
+        this.transit(new TalkingState(this._signaling));
+    }
+    channelDown() {
+        this.transit(new FailedState(this._signaling));
+    }
+    get name() {
+        return "PendingAcceptState";
+    }
+    async sendAcceptRequest() {
         var acceptId = uuid();
         this._signaling._wss.send(JSON.stringify({
             jsonrpc: '2.0',
@@ -196,13 +206,6 @@ export class PendingAcceptState extends SignalingState {
             params: {},
             id: acceptId
         }));
-        this.transit(new PendingAcceptAckState(this._signaling, acceptId));
-    }
-    channelDown() {
-        this.transit(new FailedState(this._signaling));
-    }
-    get name() {
-        return "PendingAcceptState";
     }
 }
 export class PendingAcceptAckState extends FailOnTimeoutState {
