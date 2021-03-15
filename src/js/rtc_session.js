@@ -871,9 +871,12 @@ export default class RtcSession {
         var now = new Date();
         self._sessionReport.sessionStartTime = now;
         self._connectTimeStamp = now.getTime();
-        if (pc) {
+        if (pc && pc.signalingState != 'closed') {
             self._pc = pc;
         } else {
+            if (pc) {
+                pc.close();
+            }
             RTC_PEER_CONNECTION_CONFIG.iceServers = self._iceServers;
             self._pc = self._createPeerConnection(RTC_PEER_CONNECTION_CONFIG, RTC_PEER_CONNECTION_OPTIONAL_CONFIG);
         }
