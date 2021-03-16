@@ -876,6 +876,7 @@ export default class RtcSession {
         } else {
             if (pc) {
                 pc.close();
+                pc = null;
             }
             RTC_PEER_CONNECTION_CONFIG.iceServers = self._iceServers;
             self._pc = self._createPeerConnection(RTC_PEER_CONNECTION_CONFIG, RTC_PEER_CONNECTION_OPTIONAL_CONFIG);
