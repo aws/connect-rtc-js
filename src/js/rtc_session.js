@@ -80,22 +80,30 @@ export class GrabLocalMediaState extends RTCSessionState {
         if (self._rtcSession._userAudioStream) {
             self.transit(new CreateOfferState(self._rtcSession));
         } else {
-            var gumTimeoutPromise = new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    reject(new GumTimeout('Local media has not been initialized yet.'));
-                }, self._rtcSession._gumTimeoutMillis);
-            });
-            var sessionGumPromise = self._gUM(self._rtcSession._buildMediaConstraints());
+            if (self._rtcSession.mediaStream) {
+                self._rtcSession._sessionReport.gumTimeMillis = Date.now() - startTime;
+                self._rtcSession._onGumSuccess(self._rtcSession);
+                self._rtcSession._localStream = self._rtcSession.mediaStream;
+                self._rtcSession._sessionReport.gumOtherFailure = false;
+                self._rtcSession._sessionReport.gumTimeoutFailure = false;
+                self.transit(new CreateOfferState(self._rtcSession));
+            } else {
+                var gumTimeoutPromise = new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        reject(new GumTimeout('Local media has not been initialized yet.'));
+                    }, self._rtcSession._gumTimeoutMillis);
+                });
+                var sessionGumPromise = self._gUM(self._rtcSession._buildMediaConstraints());
 
-            Promise.race([sessionGumPromise, gumTimeoutPromise])
-                .then(stream => {
-                    self._rtcSession._sessionReport.gumTimeMillis = Date.now() - startTime;
-                    self._rtcSession._onGumSuccess(self._rtcSession);
-                    self._rtcSession._localStream = stream;
-                    self._rtcSession._sessionReport.gumOtherFailure = false;
-                    self._rtcSession._sessionReport.gumTimeoutFailure = false;
-                    self.transit(new CreateOfferState(self._rtcSession));
-                }).catch(e => {
+                Promise.race([sessionGumPromise, gumTimeoutPromise])
+                    .then(stream => {
+                        self._rtcSession._sessionReport.gumTimeMillis = Date.now() - startTime;
+                        self._rtcSession._onGumSuccess(self._rtcSession);
+                        self._rtcSession._localStream = stream;
+                        self._rtcSession._sessionReport.gumOtherFailure = false;
+                        self._rtcSession._sessionReport.gumTimeoutFailure = false;
+                        self.transit(new CreateOfferState(self._rtcSession));
+                    }).catch(e => {
                     self._rtcSession._sessionReport.gumTimeMillis = Date.now() - startTime;
                     var errorReason;
                     if (e instanceof GumTimeout) {
@@ -111,6 +119,7 @@ export class GrabLocalMediaState extends RTCSessionState {
                     self._rtcSession._onGumError(self._rtcSession);
                     self.transit(new FailedState(self._rtcSession, errorReason));
                 });
+            }
         }
     }
     get name() {
