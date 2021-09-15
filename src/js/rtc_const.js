@@ -34,8 +34,7 @@ export const BYE_METHOD_NAME = "bye";
 export const RTC_PEER_CONNECTION_CONFIG = {
     iceTransportPolicy: 'relay',
     rtcpMuxPolicy: 'require',
-    bundlePolicy: 'balanced',
-    sdpSemantics: 'plan-b'
+    bundlePolicy: 'balanced'
 };
 
 export const RTC_PEER_CONNECTION_OPTIONAL_CONFIG = {
