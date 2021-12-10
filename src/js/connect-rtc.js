@@ -44,12 +44,14 @@ import 'webrtc-adapter';
 import RtcSession from './rtc_session';
 import {RTC_ERRORS} from './rtc_const';
 import RtcPeerConnectionFactory from './rtc_peer_connection_factory'
+import {checkMediaEndpointConnection} from './utils';
 import uuid from 'uuid/v4';
 
 global.connect = global.connect || {};
 global.connect.RTCSession = RtcSession;
 global.connect.RTCErrors = RTC_ERRORS;
 global.connect.RtcPeerConnectionFactory = RtcPeerConnectionFactory;
+global.connect.checkMediaEndpointConnection = checkMediaEndpointConnection;
 global.connect.uuid = uuid;
 
 global.lily = global.lily || {};
