@@ -871,7 +871,7 @@ export default class RtcSession {
         var now = new Date();
         self._sessionReport.sessionStartTime = now;
         self._connectTimeStamp = now.getTime();
-        if (pc && pc.signalingState != 'closed') {
+        if (pc && pc.iceConnectionState != 'closed' && pc.iceConnectionState != 'failed' && pc.iceConnectionState != 'disconnected') {
             self._pc = pc;
         } else {
             if (pc) {
