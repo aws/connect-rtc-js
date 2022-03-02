@@ -24,7 +24,12 @@ export default class RtcPeerConnectionFactory {
         this._browserSupported = this._isBrowserSupported();
         this._peerConnectionRequestInFlight = false;
         this._initializeWebSocketEventListeners();
-        this._requestPeerConnection();
+        if (this._browserSupported) {
+            this._peerConnectionRequestInFlight = true;
+            this._requestPeerConnection();
+        } else {
+            this._peerConnectionRequestInFlight = false;
+        }
         this._networkConnectivityChecker();
     }
 
@@ -67,11 +72,10 @@ export default class RtcPeerConnectionFactory {
             clearTimeout(self._idleRtcPeerConnectionTimerId);
             self._idleRtcPeerConnectionTimerId = null;
         }
-        if (!self._peerConnectionRequestInFlight) {
+        if (!self._peerConnectionRequestInFlight && self._browserSupported) {
             self._peerConnectionRequestInFlight = true;
             setTimeout(() => {
                 self._requestPeerConnection();
-                self._peerConnectionRequestInFlight = false;
             }, 0);
         }
         return pc;
@@ -80,15 +84,15 @@ export default class RtcPeerConnectionFactory {
 
     _requestPeerConnection() {
         var self = this;
-        if (self._browserSupported) {
-            self._requestIceAccess().then(function (response) {
-                    self._pc = self._createRtcPeerConnection(response);
-                    self._idleRtcPeerConnectionTimerId = setTimeout(hitch(self, self._refreshRtcPeerConnection), RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS);
-                },
-                // eslint-disable-next-line no-unused-vars
-                function (reason) {
-                });
-        }
+        self._requestIceAccess().then(function (response) {
+                self._pc = self._createRtcPeerConnection(response);
+                self._peerConnectionRequestInFlight = false;
+                self._idleRtcPeerConnectionTimerId = setTimeout(hitch(self, self._refreshRtcPeerConnection), RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS);
+            },
+            // eslint-disable-next-line no-unused-vars
+            function (reason) {
+                self._peerConnectionRequestInFlight = false;
+        });
     }
 
     _networkConnectivityChecker() {
@@ -120,7 +124,6 @@ export default class RtcPeerConnectionFactory {
         if (!this._peerConnectionRequestInFlight) {
             this._peerConnectionRequestInFlight = true;
             this._requestPeerConnection();
-            this._peerConnectionRequestInFlight = false;
         }
     }
 

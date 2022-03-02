@@ -11,14 +11,14 @@ import sinon from 'sinon';
 describe('RTC Peer Connection Factory', () => {
     sinon.stub(RtcPeerConnectionFactory.prototype, '_initializeWebSocketEventListeners').returns({});
     sinon.stub(RtcPeerConnectionFactory.prototype, '_networkConnectivityChecker').returns({});
-    sinon.stub(RtcPeerConnectionFactory.prototype, '_isBrowserSupported').returns({});
+    sinon.stub(RtcPeerConnectionFactory.prototype, '_isBrowserSupported').returns(true);
     sinon.stub(RtcPeerConnectionFactory.prototype, '_createRtcPeerConnection').returns({});
     var requestPeerConnectionStub = sinon.stub(RtcPeerConnectionFactory.prototype, '_requestPeerConnection').returns({});
 
     var pcFactory = new RtcPeerConnectionFactory(console, null, null, sinon.stub(), sinon.stub());
 
-    it('check _peerConnectionRequestInFlight initializes to false', () => {
-        chai.assert.isFalse(pcFactory._peerConnectionRequestInFlight);
+    it('check _peerConnectionRequestInFlight initializes to true', () => {
+        chai.assert.isTrue(pcFactory._peerConnectionRequestInFlight);
         chai.assert(requestPeerConnectionStub.calledOnce);
     });
 
