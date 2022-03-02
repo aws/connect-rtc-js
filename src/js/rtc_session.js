@@ -77,7 +77,7 @@ export class GrabLocalMediaState extends RTCSessionState {
     onEnter() {
         var self = this;
         var startTime = Date.now();
-        if (self._rtcSession._userAudioStream) {
+        if (self._rtcSession._userProvidedStream) {
             self.transit(new CreateOfferState(self._rtcSession));
         } else {
             var gumTimeoutPromise = new Promise((resolve, reject) => {

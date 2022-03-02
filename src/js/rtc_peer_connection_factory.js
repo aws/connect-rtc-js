@@ -22,6 +22,7 @@ export default class RtcPeerConnectionFactory {
         this._requestIceAccess = transportHandle;
         this._publishError = publishError;
         this._browserSupported = this._isBrowserSupported();
+        this._peerConnectionRequestInFlight = false;
         this._initializeWebSocketEventListeners();
         this._requestPeerConnection();
         this._networkConnectivityChecker();
@@ -66,9 +67,13 @@ export default class RtcPeerConnectionFactory {
             clearTimeout(self._idleRtcPeerConnectionTimerId);
             self._idleRtcPeerConnectionTimerId = null;
         }
-        setTimeout(() => {
-            self._requestPeerConnection();
-        }, 0);
+        if (!self._peerConnectionRequestInFlight) {
+            self._peerConnectionRequestInFlight = true;
+            setTimeout(() => {
+                self._requestPeerConnection();
+                self._peerConnectionRequestInFlight = false;
+            }, 0);
+        }
         return pc;
     }
 
@@ -112,7 +117,11 @@ export default class RtcPeerConnectionFactory {
     _refreshRtcPeerConnection() {
         this._clearIdleRtcPeerConnection();
         this._logger.log("refreshing peer connection for client " + this._clientId);
-        this._requestPeerConnection();
+        if (!this._peerConnectionRequestInFlight) {
+            this._peerConnectionRequestInFlight = true;
+            this._requestPeerConnection();
+            this._peerConnectionRequestInFlight = false;
+        }
     }
 
     _closeRTCPeerConnection() {
