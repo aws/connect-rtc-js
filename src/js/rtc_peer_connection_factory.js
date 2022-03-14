@@ -66,9 +66,7 @@ export default class RtcPeerConnectionFactory {
             clearTimeout(self._idleRtcPeerConnectionTimerId);
             self._idleRtcPeerConnectionTimerId = null;
         }
-        setTimeout(() => {
-            self._requestPeerConnection();
-        }, 0);
+        self._requestPeerConnection();
         return pc;
     }
 
