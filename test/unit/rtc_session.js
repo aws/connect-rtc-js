@@ -77,7 +77,7 @@ describe('RTC session', () => {
 
         it('skips gUM call if user media stream is already provided', () => {
             session._state = state;
-            session._userProvidedStream = true;
+            session._isUserProvidedStream = true;
             session.transit = sinon.spy();
             session._gUM = sinon.spy();
             state.onEnter();

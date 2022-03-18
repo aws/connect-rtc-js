@@ -62,12 +62,17 @@ export default class RtcPeerConnectionFactory {
         if (pc == null) {
             pc = self._createRtcPeerConnection(iceServers);
         }
+        self.clearIdleRtcPeerConnectionTimerId();
+        self._requestPeerConnection();
+        return pc;
+    }
+
+    clearIdleRtcPeerConnectionTimerId() {
+        var self = this;
         if (self._idleRtcPeerConnectionTimerId) {
             clearTimeout(self._idleRtcPeerConnectionTimerId);
             self._idleRtcPeerConnectionTimerId = null;
         }
-        self._requestPeerConnection();
-        return pc;
     }
 
     _requestPeerConnection() {
@@ -110,6 +115,7 @@ export default class RtcPeerConnectionFactory {
     }
 
     _refreshRtcPeerConnection() {
+        this._idleRtcPeerConnectionTimerId = null;
         this._clearIdleRtcPeerConnection();
         this._logger.log("refreshing peer connection for client " + this._clientId);
         this._requestPeerConnection();

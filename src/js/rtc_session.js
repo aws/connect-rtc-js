@@ -77,7 +77,7 @@ export class GrabLocalMediaState extends RTCSessionState {
     onEnter() {
         var self = this;
         var startTime = Date.now();
-        if (self._rtcSession._userProvidedStream) {
+        if (self._rtcSession._isUserProvidedStream) {
             self.transit(new CreateOfferState(self._rtcSession));
         } else {
             var gumTimeoutPromise = new Promise((resolve, reject) => {
@@ -518,7 +518,7 @@ export default class RtcSession {
          * If it's provided by user (rather than local camera/microphone), then we should leave it open when the
          * session ends.
          */
-        this._userProvidedStream = false;
+        this._isUserProvidedStream = false;
 
         this._onGumError =
             this._onGumSuccess =
@@ -756,7 +756,7 @@ export default class RtcSession {
      */
     set mediaStream(input) {
         this._localStream = input;
-        this._userProvidedStream = true;
+        this._isUserProvidedStream = true;
     }
     /**
      * Needed, expect an audio element that can be used to play remote audio stream.
@@ -1087,10 +1087,10 @@ export default class RtcSession {
     }
     _stopSession() {
         try {
-            if (this._localStream && !this._userProvidedStream) {
+            if (this._localStream && !this._isUserProvidedStream) {
                 closeStream(this._localStream);
                 this._localStream = null;
-                this._userProvidedStream = false;
+                this._isUserProvidedStream = false;
             }
         } finally {
             try {
