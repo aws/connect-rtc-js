@@ -77,10 +77,12 @@ describe('RTC session', () => {
 
         it('skips gUM call if user media stream is already provided', () => {
             session._state = state;
-            session._userAudioStream = {};
+            session._isUserProvidedStream = true;
             session.transit = sinon.spy();
+            session._gUM = sinon.spy();
             state.onEnter();
             chai.assert(session.transit.calledOnce);
+            chai.assert(session._gUM.notCalled);
             chai.assert(session.transit.args[0][0] instanceof CreateOfferState);
         });
 

@@ -62,26 +62,31 @@ export default class RtcPeerConnectionFactory {
         if (pc == null) {
             pc = self._createRtcPeerConnection(iceServers);
         }
+        self.clearIdleRtcPeerConnectionTimerId();
+        self._requestPeerConnection();
+        return pc;
+    }
+
+    clearIdleRtcPeerConnectionTimerId() {
+        var self = this;
         if (self._idleRtcPeerConnectionTimerId) {
             clearTimeout(self._idleRtcPeerConnectionTimerId);
             self._idleRtcPeerConnectionTimerId = null;
         }
-        setTimeout(() => {
-            self._requestPeerConnection();
-        }, 0);
-        return pc;
     }
-
 
     _requestPeerConnection() {
         var self = this;
-        if (self._browserSupported) {
+        if (!self._peerConnectionRequestInFlight && self._browserSupported) {
+            self._peerConnectionRequestInFlight = true;
             self._requestIceAccess().then(function (response) {
                     self._pc = self._createRtcPeerConnection(response);
+                    self._peerConnectionRequestInFlight = false;
                     self._idleRtcPeerConnectionTimerId = setTimeout(hitch(self, self._refreshRtcPeerConnection), RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS);
                 },
                 // eslint-disable-next-line no-unused-vars
                 function (reason) {
+                    self._peerConnectionRequestInFlight = false;
                 });
         }
     }
@@ -110,6 +115,7 @@ export default class RtcPeerConnectionFactory {
     }
 
     _refreshRtcPeerConnection() {
+        this._idleRtcPeerConnectionTimerId = null;
         this._clearIdleRtcPeerConnection();
         this._logger.log("refreshing peer connection for client " + this._clientId);
         this._requestPeerConnection();
