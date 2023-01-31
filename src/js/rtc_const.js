@@ -70,3 +70,22 @@ export const RTC_ERRORS = {
      GUM_OTHER_FAILURE : 'GUM Other Failure',
      CALL_NOT_FOUND: 'Call Not Found'
 };
+
+export const ICE_CONNECTION_STATE = {
+    NEW : 'new',
+    CHECKING : 'checking',
+    CONNECTED : 'connected',
+    COMPLETED : 'completed',
+    FAILED : 'failed',
+    DISCONNECTED : 'disconnected',
+    CLOSED : 'closed'
+};
+
+export const PEER_CONNECTION_STATE = {
+    NEW : 'new',
+    CONNECTING : 'connecting',
+    CONNECTED : 'connected',
+    FAILED : 'failed',
+    DISCONNECTED : 'disconnected',
+    CLOSED : 'closed'
+};
