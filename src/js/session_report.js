@@ -33,6 +33,7 @@ export class SessionReport {
         this._noRemoteIceCandidateFailure = null;
         this._setRemoteDescriptionFailure = null;
         this._streamStats = [];
+        this._rtcJsVersion = "1.1.17"
     }
     /**
      *Timestamp when RTCSession started.
@@ -173,7 +174,13 @@ export class SessionReport {
     get streamStats() {
         return this._streamStats;
     }
-
+    /**
+     * get current connect-rtc-js version
+     */
+    get rtcJsVersion() {
+        return this._rtcJsVersion;
+    }
+    
     set sessionStartTime(value) {
         this._sessionStartTime = value;
     }
@@ -242,5 +249,8 @@ export class SessionReport {
     }
     set streamStats(value) {
         this._streamStats = value;
+    }
+    set rtcJsVersion(value) {
+        this._rtcJsVersion = value;
     }
 }
