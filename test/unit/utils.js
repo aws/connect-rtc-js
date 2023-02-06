@@ -28,6 +28,7 @@ describe('transformSdp', () => {
         "a=rtcp-mux\r\n" +
         "a=rtpmap:111 opus/48000/2\r\n" +
         "a=rtcp-fb:111 transport-cc\r\n" +
+        "a=rtcp-fb:* transport-cc\r\n" +
         "a=fmtp:111 minptime=10;useinbandfec=1\r\n" +
         "a=rtpmap:103 ISAC/16000\r\n" +
         "a=rtpmap:104 ISAC/32000\r\n" +
@@ -68,6 +69,7 @@ describe('transformSdp', () => {
         "a=rtpmap:111 opus/48000/2\r\n" +
         "a=fmtp:111 minptime=10;useinbandfec=1;usedtx=0\r\n" +
         "a=rtcp-fb:111 transport-cc\r\n" +
+        "a=rtcp-fb:* transport-cc\r\n" +
         "a=rtpmap:103 ISAC/16000\r\n" +
         "a=rtpmap:104 ISAC/32000\r\n" +
         "a=rtpmap:9 G722/8000\r\n" +
@@ -105,6 +107,7 @@ describe('transformSdp', () => {
         "a=rtpmap:111 opus/48000/2\r\n" +
         "a=fmtp:111 minptime=10;useinbandfec=1;usedtx=0\r\n" +
         "a=rtcp-fb:111 transport-cc\r\n" +
+        "a=rtcp-fb:* transport-cc\r\n" +
         "a=rtpmap:110 telephone-event/48000\r\n" +
         "a=rtpmap:112 telephone-event/32000\r\n" +
         "a=rtpmap:113 telephone-event/16000\r\n" +
@@ -147,6 +150,7 @@ describe('transformSdp', () => {
         "a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level\r\n" +
         "a=sendrecv\r\n" +
         "a=rtcp-mux\r\n" +
+        "a=rtcp-fb:* transport-cc\r\n" +
         "a=rtpmap:0 PCMU/8000\r\n" +
         "a=rtpmap:110 telephone-event/48000\r\n" +
         "a=rtpmap:112 telephone-event/32000\r\n" +
@@ -183,6 +187,7 @@ describe('transformSdp', () => {
         "a=rtpmap:111 opus/48000/2\r\n" +
         "a=fmtp:111 minptime=10;useinbandfec=1;usedtx=1\r\n" +
         "a=rtcp-fb:111 transport-cc\r\n" +
+        "a=rtcp-fb:* transport-cc\r\n" +
         "a=rtpmap:103 ISAC/16000\r\n" +
         "a=rtpmap:104 ISAC/32000\r\n" +
         "a=rtpmap:9 G722/8000\r\n" +
