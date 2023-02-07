@@ -66,7 +66,24 @@ module.exports = function (grunt) {
                     protocol: 'https'
                 }
             }
-        }
+        },
+        replace: {
+            dist: {
+              options: {
+                patterns: [
+                  {
+                    match: 'RTC_JS_VERSION',
+                    replacement: '<%= pkg.version %>'
+                  }
+                ]
+              },
+              files: [
+                {
+                  expand: true, flatten: true, src: ['out/*.js'], dest: 'out/'
+                }
+              ]
+            }
+          }
     });
 
     grunt.loadNpmTasks('grunt-githooks');
@@ -76,8 +93,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-watch');
-
-    grunt.registerTask('default', ['eslint', 'browserify', 'uglify']);
+    grunt.loadNpmTasks('grunt-replace');
+    grunt.registerTask('default', ['eslint', 'browserify','replace', 'uglify']);
     grunt.registerTask('lint', ['eslint']);
     grunt.registerTask('build', ['browserify', 'uglify']);
     grunt.registerTask('copyForPublish', ['copy']);

@@ -33,7 +33,7 @@ export class SessionReport {
         this._noRemoteIceCandidateFailure = null;
         this._setRemoteDescriptionFailure = null;
         this._streamStats = [];
-        this._rtcJsVersion = "1.1.17"
+        this._rtcJsVersion = "@@RTC_JS_VERSION"
     }
     /**
      *Timestamp when RTCSession started.
