@@ -1,6 +1,6 @@
 {
   "name": "connect-rtc-js",
-  "version": "1.1.16",
+  "version": "1.1.17",
   "description": "Amazon Connect softphone library",
   "license": "Apache-2.0",
   "main": "./src/js/connect-rtc.js",
@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "preversion": "git stash && git checkout master && git pull && npm test && git checkout -B bumpVersion",
-    "version": "grunt build && grunt copyForPublish && git add package.json release/* && git commit -m 'Add connect-rtc-js artifacts' --allow-empty",
+    "version": "grunt build && grunt copyForPublish && git add package.json release/* ",
     "postversion": "export GITTAG=\"echo $(git describe --abbrev=0 --tags | sed 's/^v//')\" && git push --force --set-upstream origin bumpVersion --follow-tags && git checkout gh-pages && git pull && cp out/connect-rtc-debug.js ./connect-rtc-debug-`$GITTAG`.js && cp out/connect-rtc.min.js ./connect-rtc-`$GITTAG`.min.js && ln -fs connect-rtc-debug-`$GITTAG`.js connect-rtc-debug-latest.js && ln -fs connect-rtc-`$GITTAG`.min.js connect-rtc-latest.min.js && git add connect-rtc*.js && git commit -m `$GITTAG` && git push --set-upstream origin gh-pages && git checkout master",
     "prepublish": "grunt build",
     "test": "grunt && mocha --compilers js:babel-core/register test/unit"
@@ -43,7 +43,7 @@
     "eslint-config-webrtc": "^1.0.0",
     "faucet": "0.0.1",
     "geckodriver": "^1.12.1",
-    "grunt": "^1.4.1",
+    "grunt": "^1.5.3",
     "grunt-browserify": "^5.3.0",
     "grunt-cli": "^1.0.0",
     "grunt-contrib-clean": "^1.0.0",
