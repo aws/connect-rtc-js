@@ -147,12 +147,12 @@ export function transformSdp(sdp, sdpOptions) {
                 var currentCodec = codecMap[rtpMap.payloadType];
 
                 // remove this codec if SdpOptions#forceCodec specifies a different codec for current media type
-                if (sdpOptions._shouldDeleteCodec(mediaType, currentCodec.name)) {
+                if (is_defined(currentCodec) && sdpOptions._shouldDeleteCodec(mediaType, currentCodec.name)) {
                     return null;
                 }
                 
                 // append a=fmtp line immediately if current codec is OPUS (to explicitly specify OPUS parameters)
-                if (currentCodec.name.toUpperCase() === 'OPUS') { 
+                if (is_defined(currentCodec) && currentCodec.name.toUpperCase() === 'OPUS') { 
                     currentCodec.parameters.usedtx = sdpOptions.enableOpusDtx ? "1" : "0";
                     // generate fmtp line immediately after rtpmap line, and remove original fmtp line once we see it
                     return (line + "\r\n" + writeFmtp(currentCodec)).trim();
@@ -164,11 +164,11 @@ export function transformSdp(sdp, sdpOptions) {
                 var currentCodec = codecMap[pt];// eslint-disable-line no-redeclare
 
                 // remove this codec if SdpOptions#forceCodec specifies a different codec for current media type
-                if (sdpOptions._shouldDeleteCodec(mediaType, currentCodec.name)) {
+                if (is_defined(currentCodec) && sdpOptions._shouldDeleteCodec(mediaType, currentCodec.name)) {
                     return null;
                 }
 
-                if (currentCodec.name.toUpperCase() === 'OPUS') {
+                if (is_defined(currentCodec) && currentCodec.name.toUpperCase() === 'OPUS') {
                     // this is a line for OPUS, remove it because FMTP line is already generated when rtpmap line is processed
                     return null;
                 } else {
@@ -176,13 +176,17 @@ export function transformSdp(sdp, sdpOptions) {
                 }
             } else if (line.startsWith('a=rtcp-fb:')) {
                 var pt = line.substring(line.indexOf(':') + 1, line.indexOf(' '));// eslint-disable-line no-redeclare
-                var currentCodec = codecMap[pt];// eslint-disable-line no-redeclare
-
-                // remove this codec if SdpOptions#forceCodec specifies a different codec for current media type
-                if (sdpOptions._shouldDeleteCodec(mediaType, currentCodec.name)) {
-                    return null;
-                } else {
+                if (pt === '*') { //always allow wildcard in rtc-fb
                     return line;
+                } else {
+                    var currentCodec = codecMap[pt];// eslint-disable-line no-redeclare
+
+                    // remove this codec if SdpOptions#forceCodec specifies a different codec for current media type
+                    if (is_defined(currentCodec) && sdpOptions._shouldDeleteCodec(mediaType, currentCodec.name)) {
+                        return null;
+                    } else {
+                        return line;
+                    }
                 }
             } else {
                 return line;
