@@ -94,9 +94,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-replace');
-    grunt.registerTask('default', ['eslint', 'browserify','replace', 'uglify']);
+    grunt.registerTask('default', ['eslint', 'browserify', 'replace', 'uglify']);
     grunt.registerTask('lint', ['eslint']);
-    grunt.registerTask('build', ['browserify', 'uglify']);
+    grunt.registerTask('build', ['browserify', 'replace', 'uglify']);
     grunt.registerTask('copyForPublish', ['copy']);
     grunt.registerTask('demo', ['build', 'connect', 'watch']);
 };
