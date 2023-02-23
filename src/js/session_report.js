@@ -21,7 +21,7 @@ export class SessionReport {
         this._talkingTimeMillis = null;
         this._iceConnectionsLost = 0;
         this._iceConnectionsFailed = null;
-        this._connectionFailed = null;
+        this._peerConnectionFailed = null;
         this._cleanupTimeMillis = null;
         this._iceCollectionFailure = null;
         this._signallingConnectionFailure = null;
@@ -98,16 +98,16 @@ export class SessionReport {
         return this._iceConnectionsLost;
     }
     /**
-     * Tells if the RTCSession has failed ICE connection in talking state.
+     * Tells if the RTCSession has failed RTCPeerConnection.iceConnectionState
      */
     get iceConnectionsFailed() {
         return this._iceConnectionsFailed;
     }
     /**
-     * Tells if the RTCSession has failed Peer connection in talking state.
+     * Tells if the RTCSession has failed RTCPeerConnection.connectionState
      */
-    get connectionFailed() {
-        return this._connectionFailed;
+    get peerConnectionFailed() {
+        return this._peerConnectionFailed;
     }
     /**
      * Times spent in Cleanup state in millis
@@ -228,8 +228,8 @@ export class SessionReport {
     set iceConnectionsFailed(value) {
         this._iceConnectionsFailed = value;
     }
-    set connectionFailed(value) {
-        this._connectionFailed = value;
+    set peerConnectionFailed(value) {
+        this._peerConnectionFailed = value;
     }
     set cleanupTimeMillis(value) {
         this._cleanupTimeMillis = value;

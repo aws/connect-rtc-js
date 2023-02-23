@@ -435,11 +435,11 @@ export class TalkingState extends RTCSessionState {
         }
     }
 
-    onConnectionStateChange() {
+    onPeerConnectionStateChange() {
         this.logger.info('Peer Connection State: ', this._rtcSession._pc.connectionState);
 
         if (this._rtcSession._pc.connectionState == PEER_CONNECTION_STATE.FAILED) {
-            this._rtcSession._sessionReport.connectionFailed = true;
+            this._rtcSession._sessionReport.peerConnectionFailed = true;
         }
     }
 
@@ -899,7 +899,7 @@ export default class RtcSession {
         }
         self._pc.ontrack = hitch(self, self._ontrack);
         self._pc.onicecandidate = hitch(self, self._onIceCandidate);
-        self._pc.onconnectionstatechange = hitch(self, self._onConnectionStateChange);
+        self._pc.onconnectionstatechange = hitch(self, self._onPeerConnectionStateChange);
         self._pc.oniceconnectionstatechange = hitch(self, self._onIceStateChange);
 
         isLegacyStatsReportSupported(self._pc).then(result => {
@@ -1072,8 +1072,8 @@ export default class RtcSession {
         this._state.onIceCandidate(evt);
     }
 
-    _onConnectionStateChange() {
-        this._state.onConnectionStateChange();
+    _onPeerConnectionStateChange() {
+        this._state.onPeerConnectionStateChange();
     }
 
     _onIceStateChange(evt) {
