@@ -10,7 +10,9 @@ import {
     DEFAULT_ICE_TIMEOUT_MS,
     RTC_ERRORS,
     RTC_PEER_CONNECTION_CONFIG,
-    RTC_PEER_CONNECTION_OPTIONAL_CONFIG
+    RTC_PEER_CONNECTION_OPTIONAL_CONFIG,
+    ICE_CONNECTION_STATE,
+    PEER_CONNECTION_STATE
 } from './rtc_const';
 import {
     BusyExceptionName,
@@ -422,11 +424,25 @@ export class TalkingState extends RTCSessionState {
         this.transit(new DisconnectedState(this._rtcSession));
     }
     onIceStateChange(evt) {
-        if (evt.currentTarget.iceConnectionState == 'disconnected') {
+        this.logger.info('ICE Connection State: ', evt.currentTarget.iceConnectionState);
+
+        if (evt.currentTarget.iceConnectionState == ICE_CONNECTION_STATE.DISCONNECTED) {
             this.logger.info('Lost ICE connection');
             this._rtcSession._sessionReport.iceConnectionsLost += 1;
         }
+        if (evt.currentTarget.iceConnectionState == ICE_CONNECTION_STATE.FAILED) {
+            this._rtcSession._sessionReport.iceConnectionsFailed = true;
+        }
     }
+
+    onPeerConnectionStateChange() {
+        this.logger.info('Peer Connection State: ', this._rtcSession._pc.connectionState);
+
+        if (this._rtcSession._pc.connectionState == PEER_CONNECTION_STATE.FAILED) {
+            this._rtcSession._sessionReport.peerConnectionFailed = true;
+        }
+    }
+
     onExit() {
         this._rtcSession._sessionReport.talkingTimeMillis = Date.now() - this._startTime;
         this._rtcSession._detachMedia();
@@ -883,6 +899,7 @@ export default class RtcSession {
         }
         self._pc.ontrack = hitch(self, self._ontrack);
         self._pc.onicecandidate = hitch(self, self._onIceCandidate);
+        self._pc.onconnectionstatechange = hitch(self, self._onPeerConnectionStateChange);
         self._pc.oniceconnectionstatechange = hitch(self, self._onIceStateChange);
 
         isLegacyStatsReportSupported(self._pc).then(result => {
@@ -1053,6 +1070,10 @@ export default class RtcSession {
 
     _onIceCandidate(evt) {
         this._state.onIceCandidate(evt);
+    }
+
+    _onPeerConnectionStateChange() {
+        this._state.onPeerConnectionStateChange();
     }
 
     _onIceStateChange(evt) {
