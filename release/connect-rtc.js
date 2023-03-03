@@ -8823,6 +8823,25 @@ var RTC_ERRORS = exports.RTC_ERRORS = {
   CALL_NOT_FOUND: 'Call Not Found'
 };
 
+var ICE_CONNECTION_STATE = exports.ICE_CONNECTION_STATE = {
+  NEW: 'new',
+  CHECKING: 'checking',
+  CONNECTED: 'connected',
+  COMPLETED: 'completed',
+  FAILED: 'failed',
+  DISCONNECTED: 'disconnected',
+  CLOSED: 'closed'
+};
+
+var PEER_CONNECTION_STATE = exports.PEER_CONNECTION_STATE = {
+  NEW: 'new',
+  CONNECTING: 'connecting',
+  CONNECTED: 'connected',
+  FAILED: 'failed',
+  DISCONNECTED: 'disconnected',
+  CLOSED: 'closed'
+};
+
 },{}],136:[function(require,module,exports){
 'use strict';
 
@@ -9607,9 +9626,23 @@ var TalkingState = exports.TalkingState = function (_RTCSessionState7) {
     }, {
         key: 'onIceStateChange',
         value: function onIceStateChange(evt) {
-            if (evt.currentTarget.iceConnectionState == 'disconnected') {
+            this.logger.info('ICE Connection State: ', evt.currentTarget.iceConnectionState);
+
+            if (evt.currentTarget.iceConnectionState == _rtc_const.ICE_CONNECTION_STATE.DISCONNECTED) {
                 this.logger.info('Lost ICE connection');
                 this._rtcSession._sessionReport.iceConnectionsLost += 1;
+            }
+            if (evt.currentTarget.iceConnectionState == _rtc_const.ICE_CONNECTION_STATE.FAILED) {
+                this._rtcSession._sessionReport.iceConnectionsFailed = true;
+            }
+        }
+    }, {
+        key: 'onPeerConnectionStateChange',
+        value: function onPeerConnectionStateChange() {
+            this.logger.info('Peer Connection State: ', this._rtcSession._pc.connectionState);
+
+            if (this._rtcSession._pc.connectionState == _rtc_const.PEER_CONNECTION_STATE.FAILED) {
+                this._rtcSession._sessionReport.peerConnectionFailed = true;
             }
         }
     }, {
@@ -9930,6 +9963,7 @@ var RtcSession = function () {
             }
             self._pc.ontrack = (0, _utils.hitch)(self, self._ontrack);
             self._pc.onicecandidate = (0, _utils.hitch)(self, self._onIceCandidate);
+            self._pc.onconnectionstatechange = (0, _utils.hitch)(self, self._onPeerConnectionStateChange);
             self._pc.oniceconnectionstatechange = (0, _utils.hitch)(self, self._onIceStateChange);
 
             (0, _utils.isLegacyStatsReportSupported)(self._pc).then(function (result) {
@@ -10220,6 +10254,11 @@ var RtcSession = function () {
         key: '_onIceCandidate',
         value: function _onIceCandidate(evt) {
             this._state.onIceCandidate(evt);
+        }
+    }, {
+        key: '_onPeerConnectionStateChange',
+        value: function _onPeerConnectionStateChange() {
+            this._state.onPeerConnectionStateChange();
         }
     }, {
         key: '_onIceStateChange',
@@ -10980,6 +11019,8 @@ var SessionReport = exports.SessionReport = function () {
         this._preTalkingTimeMillis = null;
         this._talkingTimeMillis = null;
         this._iceConnectionsLost = 0;
+        this._iceConnectionsFailed = null;
+        this._peerConnectionFailed = null;
         this._cleanupTimeMillis = null;
         this._iceCollectionFailure = null;
         this._signallingConnectionFailure = null;
@@ -10993,7 +11034,7 @@ var SessionReport = exports.SessionReport = function () {
         this._noRemoteIceCandidateFailure = null;
         this._setRemoteDescriptionFailure = null;
         this._streamStats = [];
-        this._rtcJsVersion = "1.1.17";
+        this._rtcJsVersion = "1.1.18";
     }
     /**
      *Timestamp when RTCSession started.
@@ -11114,11 +11155,35 @@ var SessionReport = exports.SessionReport = function () {
             return this._iceConnectionsLost;
         }
         /**
-         * Times spent in Cleanup state in millis
+         * Tells if the RTCSession has failed RTCPeerConnection.iceConnectionState
          */
         ,
         set: function set(value) {
             this._iceConnectionsLost = value;
+        }
+    }, {
+        key: "iceConnectionsFailed",
+        get: function get() {
+            return this._iceConnectionsFailed;
+        }
+        /**
+         * Tells if the RTCSession has failed RTCPeerConnection.connectionState
+         */
+        ,
+        set: function set(value) {
+            this._iceConnectionsFailed = value;
+        }
+    }, {
+        key: "peerConnectionFailed",
+        get: function get() {
+            return this._peerConnectionFailed;
+        }
+        /**
+         * Times spent in Cleanup state in millis
+         */
+        ,
+        set: function set(value) {
+            this._peerConnectionFailed = value;
         }
     }, {
         key: "cleanupTimeMillis",
