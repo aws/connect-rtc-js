@@ -10,3 +10,5 @@ validation-status.json
 npm-debug.log
 *~.travis.yml
 package-lock.json
+coverage/
+.nyc_output/

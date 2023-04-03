@@ -23,7 +23,7 @@
     "version": "grunt build && grunt copyForPublish && git add package.json release/* ",
     "postversion": "export GITTAG=\"echo $(git describe --abbrev=0 --tags | sed 's/^v//')\" && git push --force --set-upstream origin bumpVersion --follow-tags && git checkout gh-pages && git pull && cp out/connect-rtc-debug.js ./connect-rtc-debug-`$GITTAG`.js && cp out/connect-rtc.min.js ./connect-rtc-`$GITTAG`.min.js && ln -fs connect-rtc-debug-`$GITTAG`.js connect-rtc-debug-latest.js && ln -fs connect-rtc-`$GITTAG`.min.js connect-rtc-latest.min.js && git add connect-rtc*.js && git commit -m `$GITTAG` && git push --set-upstream origin gh-pages && git checkout master",
     "prepublish": "grunt build",
-    "test": "grunt && mocha --compilers js:babel-core/register test/unit"
+    "test": "grunt && nyc --reporter=html mocha --compilers js:babel-core/register test/unit"
   },
   "dependencies": {
     "uuid": "^3.0.1",
@@ -55,6 +55,7 @@
     "grunt-githooks": "^0.6.0",
     "grunt-replace": "^2.0.2",
     "mocha": "^3.2.0",
+    "nyc": "^15.1.0",
     "selenium-webdriver": "^3.3.0",
     "sinon": "^2.1.0",
     "tape": "^4.6.3",

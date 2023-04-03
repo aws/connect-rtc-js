@@ -946,11 +946,11 @@ export default class RtcSession {
                 // get legacy stats report as a promise
                 if (this._legacyStatsReportSupport) {
                     var self = this;
-                    return new Promise(function(resolve) {
+                    return new Promise(function(resolve, reject) {
                         self._pc.getStats(function(rawStats) {
                             var digestedStats = extractMediaStatsFromStats(timestamp, rawStats.result(), streamType);
                             if (!digestedStats) {
-                                throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
+                                reject(new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType));
                             }
                             resolve(digestedStats);
                         }, track);
