@@ -10048,11 +10048,11 @@ var RtcSession = function () {
                                                                                 }
 
                                                                                 self = _this11;
-                                                                                return _context.abrupt('return', new Promise(function (resolve) {
+                                                                                return _context.abrupt('return', new Promise(function (resolve, reject) {
                                                                                     self._pc.getStats(function (rawStats) {
                                                                                         var digestedStats = (0, _rtpStats.extractMediaStatsFromStats)(timestamp, rawStats.result(), streamType);
                                                                                         if (!digestedStats) {
-                                                                                            throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
+                                                                                            reject(new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType));
                                                                                         }
                                                                                         resolve(digestedStats);
                                                                                     }, track);
@@ -11034,7 +11034,7 @@ var SessionReport = exports.SessionReport = function () {
         this._noRemoteIceCandidateFailure = null;
         this._setRemoteDescriptionFailure = null;
         this._streamStats = [];
-        this._rtcJsVersion = "1.1.18";
+        this._rtcJsVersion = "1.1.19";
     }
     /**
      *Timestamp when RTCSession started.
