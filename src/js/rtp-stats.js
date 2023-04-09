@@ -15,7 +15,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
             if (statsReport.type === 'ssrc') {
                 reportType = statsReport.type;
                 // Legacy report. Legacy report names stats with google specific names.
-                if (parseInt(statsReport.stat('packetsSent')) && statsReport.stat('mediaType') == 'audio' && streamType === 'audio_output') {
+                if (parseInt(statsReport.stat('packetsSent')) >= 0 && statsReport.stat('mediaType') == 'audio' && streamType === 'audio_output') {
                     extractedStats = {
                         timestamp:          timestamp,
                         packetsCount:       parseInt(statsReport.stat('packetsSent')),
@@ -27,7 +27,7 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                         jbMilliseconds:     when_defined(parseInt(statsReport.stat('googJitterReceived')))
                     };
 
-                } else if (parseInt(statsReport.stat('packetsReceived')) && statsReport.stat('mediaType') == 'audio' && streamType === 'audio_input') {
+                } else if (parseInt(statsReport.stat('packetsReceived')) >= 0 && statsReport.stat('mediaType') == 'audio' && streamType === 'audio_input') {
                     extractedStats = {
                         timestamp:          timestamp,
                         packetsCount:       parseInt(statsReport.stat('packetsReceived')),
