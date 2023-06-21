@@ -942,28 +942,16 @@ export default class RtcSession {
                     throw new Error('Unsupported stream type while trying to get stats: ' + streamType);
             }
 
-            return await Promise.all(tracks.map(async(track) => {
-                // get legacy stats report as a promise
-                if (this._legacyStatsReportSupport) {
-                    var self = this;
-                    return new Promise(function(resolve, reject) {
-                        self._pc.getStats(function(rawStats) {
-                            var digestedStats = extractMediaStatsFromStats(timestamp, rawStats.result(), streamType);
-                            if (!digestedStats) {
-                                reject(new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType));
-                            }
-                            resolve(digestedStats);
-                        }, track);
-                    });
-                } else { // get standardized report
-                    return this._pc.getStats().then(function(rawStats) {
-                        var digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
-                        if (!digestedStats) {
-                            throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
-                        }
-                        return digestedStats;
-                    });
-                }
+            return await Promise.all(tracks.map(async () => {
+                // get standardized report
+                return this._pc.getStats().then(function (rawStats) {
+                    var digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
+                    if (!digestedStats) {
+                        throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
+                    }
+                    return digestedStats;
+                });
+
             }));
         };
 
