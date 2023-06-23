@@ -60,27 +60,29 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
                     };
 
                 }
-            // Standardized report for input stream stats
             } else if (statsReport.type === 'inbound-rtp' && streamType === 'audio_input') {
+                // inbound-rtp: Stats for stream from Voice to CCP, as seen on the browser
                 reportType = statsReport.type;
                 extractedStats = {
                     timestamp: timestamp,
                     packetsLost: statsReport.packetsLost,
+                    // packetsCount: number of packet received by CCP, as seen on the browser
                     packetsCount: statsReport.packetsReceived,
                     jbMilliseconds: Math.floor(when_defined(statsReport.jitter, 0) * 1000),
+                    // Multiplying audioLevel by 32768 aligns its value with the legacy getStats API.
                     audioLevel: is_defined(statsReport.audioLevel) ? Math.floor(statsReport.audioLevel * 32768) : null
                 };
-                // Standardized report for packets sent
             } else if (statsReport.type === 'outbound-rtp' && streamType === 'audio_output') {
-                // outbound-rtp report can appear either before or after extractedStats object is created
+                // outbound-rtp: Stats for stream from CCP to Voice, as seen on the browser
                 extractedStats = extractedStats || {};
+                // packetsCount: number of packet sent by CCP, as seen on the browser
                 extractedStats.packetsCount = statsReport.packetsSent;
-                // Standardized report for output audio level
             } else if (statsReport.type === 'media-source' && streamType === 'audio_output') {
                 extractedStats = extractedStats || {};
+                // Multiplying audioLevel by 32768 aligns its value with the legacy getStats API.
                 extractedStats.audioLevel = is_defined(statsReport.audioLevel) ? Math.floor(statsReport.audioLevel * 32768) : null;
-                // Standardized report for remaining output stream stats
             } else if (statsReport.type === 'remote-inbound-rtp' && streamType === 'audio_output') {
+                // remote-inbound-rtp: Stats for stream from CCP to Voice, as seen on Voice
                 reportType = statsReport.type;
                 extractedStats = extractedStats || {};
                 extractedStats.timestamp=timestamp;
