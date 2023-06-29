@@ -8,96 +8,38 @@ import { is_defined, when_defined } from './utils';
 export function extractMediaStatsFromStats(timestamp, stats, streamType) {
     var extractedStats = null;
     var reportType = null;
-    var packetsSent = null;
 
     stats.forEach(statsReport => {
         if (statsReport) {
-            if (statsReport.type === 'ssrc') {
-                reportType = statsReport.type;
-                // Legacy report. Legacy report names stats with google specific names.
-                if (parseInt(statsReport.stat('packetsSent')) && statsReport.stat('mediaType') == 'audio' && streamType === 'audio_output') {
-                    extractedStats = {
-                        timestamp:          timestamp,
-                        packetsCount:       parseInt(statsReport.stat('packetsSent')),
-                        bytesSent:          parseInt(statsReport.stat('bytesSent')),
-                        audioLevel:         when_defined(parseInt(statsReport.stat('audioInputLevel'))),
-                        packetsLost:        is_defined(statsReport.stat('packetsLost')) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
-                        procMilliseconds:   when_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
-                        rttMilliseconds:    when_defined(parseInt(statsReport.stat('googRtt'))),
-                        jbMilliseconds:     when_defined(parseInt(statsReport.stat('googJitterReceived')))
-                    };
-
-                } else if (parseInt(statsReport.stat('packetsReceived')) && statsReport.stat('mediaType') == 'audio' && streamType === 'audio_input') {
-                    extractedStats = {
-                        timestamp:          timestamp,
-                        packetsCount:       parseInt(statsReport.stat('packetsReceived')),
-                        bytesReceived:      parseInt(statsReport.stat('bytesReceived')),
-                        audioLevel:         when_defined(parseInt(statsReport.stat('audioOutputLevel'))),
-                        packetsLost:        is_defined(parseInt(statsReport.stat('packetsLost'))) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
-                        procMilliseconds:   when_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
-                        jbMilliseconds:     when_defined(parseInt(statsReport.stat('googJitterReceived')))
-                    };
-
-                } else if (is_defined(statsReport.packetsSent) && statsReport.mediaType == 'video' && streamType === 'video_input') {
-                    extractedStats = {
-                        timestamp:          timestamp,
-                        packetsCount:       parseInt(statsReport.stat('packetsSent')),
-                        bytesSent:          parseInt(statsReport.stat('bytesSent')),
-                        packetsLost:        is_defined(statsReport.stat('packetsLost')) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
-                        rttMilliseconds:    when_defined(parseInt(statsReport.stat('googRtt'))),
-                        procMilliseconds:   when_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
-                        frameRateSent:      when_defined(parseFloat(statsReport.stat('googFrameRateSent')))
-                    };
-
-                } else if (typeof statsReport.packetsReceived !== 'undefined' && statsReport.mediaType == 'video' && streamType === 'video_output') {
-                    extractedStats = {
-                        timestamp:          timestamp,
-                        packetsCount:       parseInt(statsReport.stat('packetsSent')),
-                        bytesReceived:      parseInt(statsReport.stat('bytesReceived')),
-                        packetsLost:        is_defined(parseInt(statsReport.stat('packetsLost'))) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
-                        frameRateReceived:  when_defined(parseFloat(statsReport.stat('statsReport.googFrameRateReceived'))),
-                        procMilliseconds:   when_defined(parseInt(statsReport.stat('googCurrentDelayMs'))),
-                        jbMilliseconds:     when_defined(parseInt(statsReport.stat('googJitterReceived')))
-                    };
-
-                }
-            // Standardized report for input stream stats
-            } else if (statsReport.type === 'inbound-rtp' && !statsReport.isRemote && (streamType === 'audio_input' || streamType === 'video_input')) {
+            if (statsReport.type === 'inbound-rtp' && streamType === 'audio_input') {
+                // inbound-rtp: Stats for stream from Server to CCP, as seen on the browser
                 reportType = statsReport.type;
                 extractedStats = {
-                    timestamp:          timestamp,
-                    packetsLost:        statsReport.packetsLost,
-                    packetsCount:       statsReport.packetsReceived,
-                    jbMilliseconds:     when_defined(statsReport.jitter, 0) * 1000
+                    timestamp: timestamp,
+                    packetsLost: statsReport.packetsLost,
+                    // packetsCount: number of packet received by CCP, as seen on the browser
+                    packetsCount: statsReport.packetsReceived,
+                    jbMilliseconds: Math.floor(when_defined(statsReport.jitter, 0) * 1000),
+                    // Multiplying audioLevel by 32768 aligns its value with the legacy getStats API.
+                    audioLevel: is_defined(statsReport.audioLevel) ? Math.floor(statsReport.audioLevel * 32768) : null
                 };
-            // Standardized report for packets sent
-            } else if (statsReport.type === 'outbound-rtp' && !statsReport.isRemote && (streamType === 'audio_output' || streamType === 'video_output')) {
-                // outbound-rtp report can appear either before or after extractedStats object is created
-                if(extractedStats && !extractedStats.packetsCount) {
-                    extractedStats.packetsCount = statsReport.packetsSent;
-                } else {
-                    packetsSent = statsReport.packetsSent;
-                }
-            // Standardized report for remaining output stream stats
-            } else if (statsReport.type === 'remote-inbound-rtp' && (streamType === 'audio_output' || streamType === 'video_output')) {
+            } else if (statsReport.type === 'outbound-rtp' && streamType === 'audio_output') {
+                // outbound-rtp: Stats for stream from CCP to Server, as seen on the browser
+                extractedStats = extractedStats || {};
+                // packetsCount: number of packet sent by CCP, as seen on the browser
+                extractedStats.packetsCount = statsReport.packetsSent;
+            } else if (statsReport.type === 'media-source' && streamType === 'audio_output') {
+                extractedStats = extractedStats || {};
+                // Multiplying audioLevel by 32768 aligns its value with the legacy getStats API.
+                extractedStats.audioLevel = is_defined(statsReport.audioLevel) ? Math.floor(statsReport.audioLevel * 32768) : null;
+            } else if (statsReport.type === 'remote-inbound-rtp' && streamType === 'audio_output') {
+                // remote-inbound-rtp: Stats for stream from CCP to Server, as seen on Server side
                 reportType = statsReport.type;
-                extractedStats = {
-                    timestamp:          timestamp,
-                    packetsLost:        statsReport.packetsLost,
-                    packetsCount:       packetsSent,
-                    rttMilliseconds:    Number.isInteger(statsReport.roundTripTime) ? statsReport.roundTripTime : is_defined(statsReport.roundTripTime) ? statsReport.roundTripTime * 1000 : null,
-                    jbMilliseconds:     when_defined(statsReport.jitter, 0) * 1000
-                };
-            // Case for Firefox 65 and below for getting remaining output stream stats
-            } else if (statsReport.type === 'inbound-rtp' && statsReport.isRemote && (streamType === 'audio_output' || streamType === 'video_output')) {
-                reportType = statsReport.type;
-                extractedStats = {
-                    timestamp:          timestamp,
-                    packetsLost:        statsReport.packetsLost,
-                    packetsCount:       packetsSent,
-                    rttMilliseconds:    Number.isInteger(statsReport.roundTripTime) ? statsReport.roundTripTime : is_defined(statsReport.roundTripTime) ? statsReport.roundTripTime * 1000 : null,
-                    jbMilliseconds:     when_defined(statsReport.jitter, 0) * 1000
-                };
+                extractedStats = extractedStats || {};
+                extractedStats.timestamp = timestamp;
+                extractedStats.packetsLost = statsReport.packetsLost;
+                extractedStats.rttMilliseconds = is_defined(statsReport.roundTripTime) ? Math.floor(statsReport.roundTripTime * 1000) : null;
+                extractedStats.jbMilliseconds = Math.floor(when_defined(statsReport.jitter, 0) * 1000);
             }
         }
     });
