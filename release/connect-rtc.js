@@ -10035,50 +10035,26 @@ var RtcSession = function () {
 
                                                     case 11:
                                                         _context2.next = 13;
-                                                        return Promise.all(tracks.map(function () {
-                                                            var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(track) {
-                                                                var self;
-                                                                return _regenerator2.default.wrap(function _callee$(_context) {
-                                                                    while (1) {
-                                                                        switch (_context.prev = _context.next) {
-                                                                            case 0:
-                                                                                if (!_this11._legacyStatsReportSupport) {
-                                                                                    _context.next = 5;
-                                                                                    break;
+                                                        return Promise.all(tracks.map((0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+                                                            return _regenerator2.default.wrap(function _callee$(_context) {
+                                                                while (1) {
+                                                                    switch (_context.prev = _context.next) {
+                                                                        case 0:
+                                                                            return _context.abrupt('return', _this11._pc.getStats().then(function (rawStats) {
+                                                                                var digestedStats = (0, _rtpStats.extractMediaStatsFromStats)(timestamp, rawStats, streamType);
+                                                                                if (!digestedStats) {
+                                                                                    throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
                                                                                 }
+                                                                                return digestedStats;
+                                                                            }));
 
-                                                                                self = _this11;
-                                                                                return _context.abrupt('return', new Promise(function (resolve, reject) {
-                                                                                    self._pc.getStats(function (rawStats) {
-                                                                                        var digestedStats = (0, _rtpStats.extractMediaStatsFromStats)(timestamp, rawStats.result(), streamType);
-                                                                                        if (!digestedStats) {
-                                                                                            reject(new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType));
-                                                                                        }
-                                                                                        resolve(digestedStats);
-                                                                                    }, track);
-                                                                                }));
-
-                                                                            case 5:
-                                                                                return _context.abrupt('return', _this11._pc.getStats().then(function (rawStats) {
-                                                                                    var digestedStats = (0, _rtpStats.extractMediaStatsFromStats)(timestamp, rawStats, streamType);
-                                                                                    if (!digestedStats) {
-                                                                                        throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
-                                                                                    }
-                                                                                    return digestedStats;
-                                                                                }));
-
-                                                                            case 6:
-                                                                            case 'end':
-                                                                                return _context.stop();
-                                                                        }
+                                                                        case 1:
+                                                                        case 'end':
+                                                                            return _context.stop();
                                                                     }
-                                                                }, _callee, _this11);
-                                                            }));
-
-                                                            return function (_x3) {
-                                                                return _ref3.apply(this, arguments);
-                                                            };
-                                                        }()));
+                                                                }
+                                                            }, _callee, _this11);
+                                                        }))));
 
                                                     case 13:
                                                         return _context2.abrupt('return', _context2.sent);
@@ -10733,92 +10709,38 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function extractMediaStatsFromStats(timestamp, stats, streamType) {
     var extractedStats = null;
     var reportType = null;
-    var packetsSent = null;
 
     stats.forEach(function (statsReport) {
         if (statsReport) {
-            if (statsReport.type === 'ssrc') {
-                reportType = statsReport.type;
-                // Legacy report. Legacy report names stats with google specific names.
-                if (parseInt(statsReport.stat('packetsSent')) && statsReport.stat('mediaType') == 'audio' && streamType === 'audio_output') {
-                    extractedStats = {
-                        timestamp: timestamp,
-                        packetsCount: parseInt(statsReport.stat('packetsSent')),
-                        bytesSent: parseInt(statsReport.stat('bytesSent')),
-                        audioLevel: (0, _utils.when_defined)(parseInt(statsReport.stat('audioInputLevel'))),
-                        packetsLost: (0, _utils.is_defined)(statsReport.stat('packetsLost')) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
-                        procMilliseconds: (0, _utils.when_defined)(parseInt(statsReport.stat('googCurrentDelayMs'))),
-                        rttMilliseconds: (0, _utils.when_defined)(parseInt(statsReport.stat('googRtt'))),
-                        jbMilliseconds: (0, _utils.when_defined)(parseInt(statsReport.stat('googJitterReceived')))
-                    };
-                } else if (parseInt(statsReport.stat('packetsReceived')) && statsReport.stat('mediaType') == 'audio' && streamType === 'audio_input') {
-                    extractedStats = {
-                        timestamp: timestamp,
-                        packetsCount: parseInt(statsReport.stat('packetsReceived')),
-                        bytesReceived: parseInt(statsReport.stat('bytesReceived')),
-                        audioLevel: (0, _utils.when_defined)(parseInt(statsReport.stat('audioOutputLevel'))),
-                        packetsLost: (0, _utils.is_defined)(parseInt(statsReport.stat('packetsLost'))) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
-                        procMilliseconds: (0, _utils.when_defined)(parseInt(statsReport.stat('googCurrentDelayMs'))),
-                        jbMilliseconds: (0, _utils.when_defined)(parseInt(statsReport.stat('googJitterReceived')))
-                    };
-                } else if ((0, _utils.is_defined)(statsReport.packetsSent) && statsReport.mediaType == 'video' && streamType === 'video_input') {
-                    extractedStats = {
-                        timestamp: timestamp,
-                        packetsCount: parseInt(statsReport.stat('packetsSent')),
-                        bytesSent: parseInt(statsReport.stat('bytesSent')),
-                        packetsLost: (0, _utils.is_defined)(statsReport.stat('packetsLost')) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
-                        rttMilliseconds: (0, _utils.when_defined)(parseInt(statsReport.stat('googRtt'))),
-                        procMilliseconds: (0, _utils.when_defined)(parseInt(statsReport.stat('googCurrentDelayMs'))),
-                        frameRateSent: (0, _utils.when_defined)(parseFloat(statsReport.stat('googFrameRateSent')))
-                    };
-                } else if (typeof statsReport.packetsReceived !== 'undefined' && statsReport.mediaType == 'video' && streamType === 'video_output') {
-                    extractedStats = {
-                        timestamp: timestamp,
-                        packetsCount: parseInt(statsReport.stat('packetsSent')),
-                        bytesReceived: parseInt(statsReport.stat('bytesReceived')),
-                        packetsLost: (0, _utils.is_defined)(parseInt(statsReport.stat('packetsLost'))) ? Math.max(0, statsReport.stat('packetsLost')) : 0,
-                        frameRateReceived: (0, _utils.when_defined)(parseFloat(statsReport.stat('statsReport.googFrameRateReceived'))),
-                        procMilliseconds: (0, _utils.when_defined)(parseInt(statsReport.stat('googCurrentDelayMs'))),
-                        jbMilliseconds: (0, _utils.when_defined)(parseInt(statsReport.stat('googJitterReceived')))
-                    };
-                }
-                // Standardized report for input stream stats
-            } else if (statsReport.type === 'inbound-rtp' && !statsReport.isRemote && (streamType === 'audio_input' || streamType === 'video_input')) {
+            if (statsReport.type === 'inbound-rtp' && streamType === 'audio_input') {
+                // inbound-rtp: Stats for stream from Server to CCP, as seen on the browser
                 reportType = statsReport.type;
                 extractedStats = {
                     timestamp: timestamp,
                     packetsLost: statsReport.packetsLost,
+                    // packetsCount: number of packet received by CCP, as seen on the browser
                     packetsCount: statsReport.packetsReceived,
-                    jbMilliseconds: (0, _utils.when_defined)(statsReport.jitter, 0) * 1000
+                    jbMilliseconds: Math.floor((0, _utils.when_defined)(statsReport.jitter, 0) * 1000),
+                    // Multiplying audioLevel by 32768 aligns its value with the legacy getStats API.
+                    audioLevel: (0, _utils.is_defined)(statsReport.audioLevel) ? Math.floor(statsReport.audioLevel * 32768) : null
                 };
-                // Standardized report for packets sent
-            } else if (statsReport.type === 'outbound-rtp' && !statsReport.isRemote && (streamType === 'audio_output' || streamType === 'video_output')) {
-                // outbound-rtp report can appear either before or after extractedStats object is created
-                if (extractedStats && !extractedStats.packetsCount) {
-                    extractedStats.packetsCount = statsReport.packetsSent;
-                } else {
-                    packetsSent = statsReport.packetsSent;
-                }
-                // Standardized report for remaining output stream stats
-            } else if (statsReport.type === 'remote-inbound-rtp' && (streamType === 'audio_output' || streamType === 'video_output')) {
+            } else if (statsReport.type === 'outbound-rtp' && streamType === 'audio_output') {
+                // outbound-rtp: Stats for stream from CCP to Server, as seen on the browser
+                extractedStats = extractedStats || {};
+                // packetsCount: number of packet sent by CCP, as seen on the browser
+                extractedStats.packetsCount = statsReport.packetsSent;
+            } else if (statsReport.type === 'media-source' && streamType === 'audio_output') {
+                extractedStats = extractedStats || {};
+                // Multiplying audioLevel by 32768 aligns its value with the legacy getStats API.
+                extractedStats.audioLevel = (0, _utils.is_defined)(statsReport.audioLevel) ? Math.floor(statsReport.audioLevel * 32768) : null;
+            } else if (statsReport.type === 'remote-inbound-rtp' && streamType === 'audio_output') {
+                // remote-inbound-rtp: Stats for stream from CCP to Server, as seen on Server side
                 reportType = statsReport.type;
-                extractedStats = {
-                    timestamp: timestamp,
-                    packetsLost: statsReport.packetsLost,
-                    packetsCount: packetsSent,
-                    rttMilliseconds: Number.isInteger(statsReport.roundTripTime) ? statsReport.roundTripTime : (0, _utils.is_defined)(statsReport.roundTripTime) ? statsReport.roundTripTime * 1000 : null,
-                    jbMilliseconds: (0, _utils.when_defined)(statsReport.jitter, 0) * 1000
-                };
-                // Case for Firefox 65 and below for getting remaining output stream stats
-            } else if (statsReport.type === 'inbound-rtp' && statsReport.isRemote && (streamType === 'audio_output' || streamType === 'video_output')) {
-                reportType = statsReport.type;
-                extractedStats = {
-                    timestamp: timestamp,
-                    packetsLost: statsReport.packetsLost,
-                    packetsCount: packetsSent,
-                    rttMilliseconds: Number.isInteger(statsReport.roundTripTime) ? statsReport.roundTripTime : (0, _utils.is_defined)(statsReport.roundTripTime) ? statsReport.roundTripTime * 1000 : null,
-                    jbMilliseconds: (0, _utils.when_defined)(statsReport.jitter, 0) * 1000
-                };
+                extractedStats = extractedStats || {};
+                extractedStats.timestamp = timestamp;
+                extractedStats.packetsLost = statsReport.packetsLost;
+                extractedStats.rttMilliseconds = (0, _utils.is_defined)(statsReport.roundTripTime) ? Math.floor(statsReport.roundTripTime * 1000) : null;
+                extractedStats.jbMilliseconds = Math.floor((0, _utils.when_defined)(statsReport.jitter, 0) * 1000);
             }
         }
     });
@@ -11034,7 +10956,7 @@ var SessionReport = exports.SessionReport = function () {
         this._noRemoteIceCandidateFailure = null;
         this._setRemoteDescriptionFailure = null;
         this._streamStats = [];
-        this._rtcJsVersion = "1.1.19";
+        this._rtcJsVersion = "1.1.20";
     }
     /**
      *Timestamp when RTCSession started.
