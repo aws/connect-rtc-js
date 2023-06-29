@@ -9,7 +9,7 @@ import chai from 'chai';
 describe('extractMediaStatsFromStats', () => {
     describe('standardized get stats', () => {
         var stats = [
-            // Stats for audio from voice service to CCP, captured when voice service send it
+            // Stats for audio from server to CCP, captured when server send it
             {
                 "id": "ROA4171501808",
                 "timestamp": 1687299157770,
@@ -26,7 +26,7 @@ describe('extractMediaStatsFromStats', () => {
                 "roundTripTimeMeasurements": 0,
                 "totalRoundTripTime": 0
             },
-            // Stats for audio from voice service to CCP, captured when CCP received it
+            // Stats for audio from server to CCP, captured when CCP received it
             {
                 "id": "IT01A4171501808",
                 "timestamp": 1687299158258.1821,
@@ -63,7 +63,7 @@ describe('extractMediaStatsFromStats', () => {
                 "totalSamplesReceived": 1058880,
                 "trackIdentifier": "b0494352-1a3c-4487-9fda-d0cd2b2c3856"
             },
-            // Stats for audio from CCP to voice service, captured when CCP send it
+            // Stats for audio from CCP to server, captured when CCP send it
             {
                 "id": "OT01A4095073787",
                 "timestamp": 1687299158258.1821,
@@ -98,7 +98,7 @@ describe('extractMediaStatsFromStats', () => {
                 "totalAudioEnergy": 0.0023679653318673887,
                 "totalSamplesDuration": 22.090000000000654
             },
-            // Stats for audio from CCP to voice service, captured when voice service receive it
+            // Stats for audio from CCP to server, captured when server receive it
             {
                 "id": "RIA4095073787",
                 "timestamp": 1687299157770,
