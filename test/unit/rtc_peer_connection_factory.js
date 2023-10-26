@@ -11,13 +11,12 @@ import sinon, {sandbox} from 'sinon';
 import {RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS} from "../../src/js/rtc_const";
 import StandardStrategy from "../../src/js/strategies/StandardStrategy";
 import CitrixVDIStrategy from "../../src/js/strategies/CitrixVDIStrategy";
-import * as utils from "../../src/js/utils";
 
 describe('RTC Peer Connection Factory', () => {
 
     sinon.stub(RtcPeerConnectionFactory.prototype, '_initializeWebSocketEventListeners').returns({});
     sinon.stub(RtcPeerConnectionFactory.prototype, '_networkConnectivityChecker').returns({});
-    sinon.stub(RtcPeerConnectionFactory.prototype, '_isBrowserSupported').returns(true);
+    sinon.stub(RtcPeerConnectionFactory.prototype, '_isEarlyMediaConnectionSupported').returns(true);
     var createPeerConnectionStub = sinon.stub(RtcPeerConnectionFactory.prototype, '_createRtcPeerConnection').returns({});
     var requestAccessStub = sinon.stub().resolves('iceServer');
 
@@ -83,14 +82,14 @@ describe('RTC Peer Connection Factory', () => {
         });
 
         it('uses CitrixVDIStrategy', async () => {
-            sandbox.stub(utils, 'isCitrixWebRTCSupported').returns(true);
+            sandbox.stub(window.CitrixWebRTC, 'isFeatureOn').returns(true);
             global.connect.getLog = sandbox.stub();
             new RtcPeerConnectionFactory(console, null, null, requestAccessStub, sandbox.stub(), new CitrixVDIStrategy());
             chai.assert(console.log.calledWith('CitrixVDIStrategy initialized'));
         });
 
         it('throws error when isCitrixWebRTCSupported returns false', async () => {
-            sandbox.stub(utils, 'isCitrixWebRTCSupported').returns(false);
+            sandbox.stub(window.CitrixWebRTC, 'isFeatureOn').returns(false);
             chai.expect(() => {
                 new RtcPeerConnectionFactory(console, null, null, requestAccessStub, sandbox.stub(), new CitrixVDIStrategy());
             }).to.throw('Citrix WebRTC redirection feature is NOT supported!');

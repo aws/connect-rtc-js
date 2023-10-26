@@ -26,16 +26,16 @@ export default class RtcPeerConnectionFactory {
         this._wssManager = wssManager;
         this._requestIceAccess = transportHandle;
         this._publishError = publishError;
-        this._browserSupported = this._isBrowserSupported();
+        this._earlyMediaConnectionSupported = this._isEarlyMediaConnectionSupported();
         this._initializeWebSocketEventListeners();
         this._requestPeerConnection();
         this._networkConnectivityChecker();
 
-        this._logger.log("RTC.js is using " + strategy.getName());
+        this._logger.log("RTC.js is using " + strategy.getStrategyName());
     }
 
-    _isBrowserSupported() {
-        this._strategy._isBrowserSupported();
+    _isEarlyMediaConnectionSupported() {
+        this._strategy._isEarlyMediaConnectionSupported();
     }
 
     //This will handle the idleConnection and quota limits notification from the server
@@ -84,7 +84,7 @@ export default class RtcPeerConnectionFactory {
 
     _requestPeerConnection() {
         var self = this;
-        if (!self._peerConnectionRequestInFlight && self._browserSupported) {
+        if (!self._peerConnectionRequestInFlight && self._earlyMediaConnectionSupported) {
             self._peerConnectionRequestInFlight = true;
             self._requestIceAccess().then(function (response) {
                     self._pc = self._createRtcPeerConnection(response);

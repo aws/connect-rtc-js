@@ -254,10 +254,6 @@ export function getChromeBrowserVersion(){
     }
 }
 
-export function isCitrixWebRTCSupported() {
-    return window.CitrixWebRTC.isFeatureOn("webrtc1.0");
-}
-
 export function getRedactedSdp(sdp) {
     // pattern to find and redact the value after 'a=ice-pwd:'
     var pattern = /a=ice-pwd:[^\r\n]*/;

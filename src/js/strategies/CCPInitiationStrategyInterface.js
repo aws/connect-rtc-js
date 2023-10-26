@@ -4,32 +4,54 @@ export default class CCPInitiationStrategyInterface {
         console.log("CCPInitiationStrategyInterface initialized");
     }
 
-    getName(){}
+    getStrategyName(){
+        console.error("getStrategyName needs to be overridden");
+    }
 
     // the following functions are rtc_peer_connection_factory related functions
     // check if the browser supports early media connection
-    _isBrowserSupported(){}
-
-    _createRtcPeerConnection() {}
-
-    // the following functions are rtc_session related functions
-    _guM() {}
-
-    createOfferStateOnEnter() {
-
+    _isEarlyMediaConnectionSupported(){
+        console.error("_isEarlyMediaConnectionSupported needs to be overridden");
     }
 
-    acceptStateOnEnter() {}
+    _createRtcPeerConnection() {
+        console.error("_createRtcPeerConnection needs to be overridden");
+    }
 
-    onIceStateChange() {}
+    // the following functions are rtc_session related functions
+    _guM() {
+        console.error("_guM needs to be overridden");
+    }
 
-    onPeerConnectionStateChange() {}
+    addStream() {
+        console.error("addStream needs to be overridden");
+    }
 
-    _createPeerConnection() {}
+    setRemoteDescription() {
+        console.error("setRemoteDescription needs to be overridden");
+    }
 
-    connect() {}
+    onIceStateChange() {
+        console.error("onIceStateChange needs to be overridden");
+    }
 
-    _ontrack() {}
+    onPeerConnectionStateChange() {
+        console.error("onPeerConnectionStateChange needs to be overridden");
+    }
 
-    _buildMediaConstraints() {}
+    _createPeerConnection() {
+        console.error("_createPeerConnection needs to be overridden");
+    }
+
+    connect() {
+        console.error("connect needs to be overridden");
+    }
+
+    _ontrack() {
+        console.error("_ontrack needs to be overridden");
+    }
+
+    _buildMediaConstraints() {
+        console.error("_buildMediaConstraints needs to be overridden");
+    }
 }

@@ -1,22 +1,25 @@
 import CCPInitiationStrategyInterface from "./CCPInitiationStrategyInterface";
-import {hitch, isCitrixWebRTCSupported} from "../utils";
+import {hitch} from "../utils";
 import {FailedState} from "../rtc_session";
 import {RTC_ERRORS} from "../rtc_const";
 import "@citrix/ucsdk/CitrixWebRTC";
 
 export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
+
     constructor() {
         super();
-        if (!isCitrixWebRTCSupported()) {
+        if (!window.CitrixWebRTC.isFeatureOn("webrtc1.0")) {
             throw new Error('Citrix WebRTC redirection feature is NOT supported!');
         }
-        window.getCitrixWebrtcRedir = function() {
+        window.getCitrixWebrtcRedir = function () {
             const registryValue = Promise.resolve(1);
-            return new Promise(function(resolve, reject) {
+            return new Promise(function (resolve, reject) {
                 //retrieve registry value internally
                 registryValue.then((v) => {
-                    resolve(v); }).catch(() => {
-                    reject(); })
+                    resolve(v);
+                }).catch(() => {
+                    reject();
+                })
             })
         }
         window.CitrixWebRTC.initLog(global.connect.getLog());
@@ -25,7 +28,7 @@ export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
 
     // the following functions are rtc_peer_connection_factory related functions
     // check if the browser supports early media connection
-    _isBrowserSupported(){
+    _isEarlyMediaConnectionSupported() {
         // Citrix WebRTC SDK doesn't support early media connection
         return false;
     }
@@ -39,35 +42,28 @@ export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
         return window.CitrixWebRTC.getUserMedia(constraints);
     }
 
-    createOfferStateOnEnter(_pc, stream) {
+    addStream(_pc, stream) {
         stream.getTracks().forEach(track => {
             _pc.addTransceiver(track, {});
         });
     }
 
-    acceptStateOnEnter(self, rtcSession) {
-        console.log(`ConnectRTC - rtc_session - AcceptState - rtcSession._pc.setRemoteDescription`);
-
-        const answerSessionDescription = self._createSessionDescription({ type: 'answer', sdp: self._sdp });
-        console.log(`ConnectRTC - rtc_session - AcceptState - answerSessionDescription: `, answerSessionDescription);
+    setRemoteDescription(self, rtcSession) {
+        const answerSessionDescription = self._createSessionDescription({type: 'answer', sdp: self._sdp});
 
         rtcSession._pc.setRemoteDescription(answerSessionDescription, () => {
-            console.log(`ConnectRTC - rtc_session - AcceptState - rtcSession._pc.setRemoteDescription - success`);
             var remoteCandidatePromises = Promise.all(self._candidates.map(function (candidate) {
                 var remoteCandidate = self._createRemoteCandidate(candidate);
                 self.logger.info('Adding remote candidate', remoteCandidate);
-                console.log(`ConnectRTC - rtc_session - AcceptState - rtcSession._pc.setRemoteDescription - Adding remote candidate - remoteCandidate`, remoteCandidate);
                 return rtcSession._pc.addIceCandidate(remoteCandidate);
             }));
             remoteCandidatePromises.catch(reason => {
-                console.log(`ConnectRTC - rtc_session - AcceptState - rtcSession._pc.setRemoteDescription - Adding remote candidate - failed`, reason);
                 self.logger.warn('Error adding remote candidate', reason);
             });
             rtcSession._sessionReport.setRemoteDescriptionFailure = false;
             self._remoteDescriptionSet = true;
             self._checkAndTransit();
-        }, (error) => {
-            console.error(`ConnectRTC - rtc_session - AcceptState - setRemoteDescription - error:`, error);
+        }, () => {
             rtcSession._stopSession();
             rtcSession._sessionReport.setRemoteDescriptionFailure = true;
             self.transit(new FailedState(rtcSession, RTC_ERRORS.SET_REMOTE_DESCRIPTION_FAILURE));
@@ -91,15 +87,10 @@ export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
     }
 
     _ontrack(self, evt) {
-        console.log('ConnectRTC - rtc_session - RtcSession - _onaddstream:', evt);
-
         const remoteStream = evt.stream.clone();
 
         const audioTracks = evt.stream.getAudioTracks();
-        console.log('ConnectRTC - rtc_session - RtcSession - _onaddstream - audioTracks:', audioTracks);
-
         if (audioTracks !== undefined && audioTracks.length > 0) {
-            console.log("ConnectRTC - rtc_session - RtcSession - _onaddstream - remoteStream " + remoteStream);
             self._remoteAudioStream = remoteStream;
             self._remoteAudioElement.srcObject = remoteStream;
         }
@@ -111,7 +102,6 @@ export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
             if (typeof self._echoCancellation !== 'undefined') {
                 audioConstraints.echoCancellation = !!self._echoCancellation;
             }
-            console.log("ConnectRTC - GUM - buildMediaConstraints - window.audio_input: " + window.audio_input);
             if (window.audio_input) {
                 audioConstraints.deviceId = window.audio_input;
             }
@@ -125,7 +115,7 @@ export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
         }
     }
 
-    getName() {
+    getStrategyName() {
         return 'CitrixVDIStrategy';
     }
 }

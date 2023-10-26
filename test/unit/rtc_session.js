@@ -13,7 +13,6 @@ import chai from 'chai';
 import sinon, {sandbox} from 'sinon';
 import StandardStrategy from "../../src/js/strategies/StandardStrategy";
 import CitrixVDIStrategy from "../../src/js/strategies/CitrixVDIStrategy";
-import * as utils from "../../src/js/utils";
 
 describe('RTC session', () => {
     describe('session object', () => {
@@ -40,14 +39,14 @@ describe('RTC session', () => {
             });
 
             it('uses CitrixVDIStrategy', async () => {
-                sandbox.stub(utils, 'isCitrixWebRTCSupported').returns(true);
+                sandbox.stub(window.CitrixWebRTC, 'isFeatureOn').returns(true);
                 global.connect.getLog = sandbox.stub();
                 new RtcSession('wss://amazon-connect-rtc-server.amazonaws.com/', [], 'contactToken', console, null, null, null, new CitrixVDIStrategy());
                 chai.assert(console.log.calledWith('CitrixVDIStrategy initialized'));
             });
 
             it('throws error when isCitrixWebRTCSupported returns false', async () => {
-                sandbox.stub(utils, 'isCitrixWebRTCSupported').returns(false);
+                sandbox.stub(window.CitrixWebRTC, 'isFeatureOn').returns(false);
                 chai.expect(() => {
                     new RtcSession('wss://amazon-connect-rtc-server.amazonaws.com/', [], 'contactToken', console, null, null, null, new CitrixVDIStrategy());
                 }).to.throw('Citrix WebRTC redirection feature is NOT supported!');

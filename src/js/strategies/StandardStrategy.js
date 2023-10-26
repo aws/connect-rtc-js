@@ -11,7 +11,7 @@ export default class StandardStrategy extends CCPInitiationStrategyInterface {
 
     // the following functions are rtc_peer_connection_factory related functions
     // check if the browser supports early media connection
-    _isBrowserSupported(){
+    _isEarlyMediaConnectionSupported(){
         return isChromeBrowser() && getChromeBrowserVersion() >= CHROME_SUPPORTED_VERSION;
     }
 
@@ -24,11 +24,11 @@ export default class StandardStrategy extends CCPInitiationStrategyInterface {
         return navigator.mediaDevices.getUserMedia(constraints);
     }
 
-    createOfferStateOnEnter(_pc, stream) {
+    addStream(_pc, stream) {
         _pc.addStream(stream);
     }
 
-    acceptStateOnEnter(self, rtcSession) {
+    setRemoteDescription(self, rtcSession) {
         var setRemoteDescriptionPromise = rtcSession._pc.setRemoteDescription(self._createSessionDescription({
             type: 'answer',
             sdp: self._sdp
@@ -103,7 +103,7 @@ export default class StandardStrategy extends CCPInitiationStrategyInterface {
         }
     }
 
-    getName() {
+    getStrategyName() {
         return 'StandardStrategy';
     }
 }

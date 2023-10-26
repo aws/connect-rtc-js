@@ -128,7 +128,7 @@ export class CreateOfferState extends RTCSessionState {
     onEnter() {
         var self = this;
         var stream = self._rtcSession._localStream;
-        self._rtcSession._strategy.createOfferStateOnEnter(self._rtcSession._pc, stream);
+        self._rtcSession._strategy.addStream(self._rtcSession._pc, stream);
         self._rtcSession._onLocalStreamAdded(self._rtcSession, stream);
         self._rtcSession._pc.createOffer().then(rtcSessionDescription => {
             self._rtcSession._localSessionDescription = rtcSessionDescription;
@@ -363,7 +363,7 @@ export class AcceptState extends RTCSessionState {
 
         rtcSession._sessionReport.invalidRemoteSDPFailure = false;
         rtcSession._sessionReport.noRemoteIceCandidateFailure = false;
-        self._rtcSession._strategy.acceptStateOnEnter(self, rtcSession);
+        self._rtcSession._strategy.setRemoteDescription(self, rtcSession);
     }
     onSignalingHandshaked() {
         this._rtcSession._sessionReport.handshakingTimeMillis = Date.now() - this._rtcSession._signallingConnectTimestamp;
