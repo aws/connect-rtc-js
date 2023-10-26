@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
+import './test-setup'
 import {RTCSession, RTCErrors} from '../../src/js/connect-rtc';
 import chai from 'chai';
 

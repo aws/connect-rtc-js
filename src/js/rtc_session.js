@@ -26,6 +26,8 @@ import RtcSignaling from './signaling';
 import uuid from 'uuid/v4';
 import {extractMediaStatsFromStats} from './rtp-stats';
 import {parseCandidate} from 'sdp';
+import CCPInitiationStrategyInterface from "./strategies/CCPInitiationStrategyInterface";
+import StandardStrategy from "./strategies/StandardStrategy";
 
 export class RTCSessionState {
     /**
@@ -119,14 +121,14 @@ export class GrabLocalMediaState extends RTCSessionState {
         return "GrabLocalMediaState";
     }
     _gUM(constraints) {
-        return navigator.mediaDevices.getUserMedia(constraints);
+        return this._rtcSession._strategy._gUM(constraints);
     }
 }
 export class CreateOfferState extends RTCSessionState {
     onEnter() {
         var self = this;
         var stream = self._rtcSession._localStream;
-        self._rtcSession._pc.addStream(stream);
+        self._rtcSession._strategy.createOfferStateOnEnter(self._rtcSession._pc, stream);
         self._rtcSession._onLocalStreamAdded(self._rtcSession, stream);
         self._rtcSession._pc.createOffer().then(rtcSessionDescription => {
             self._rtcSession._localSessionDescription = rtcSessionDescription;
@@ -361,32 +363,7 @@ export class AcceptState extends RTCSessionState {
 
         rtcSession._sessionReport.invalidRemoteSDPFailure = false;
         rtcSession._sessionReport.noRemoteIceCandidateFailure = false;
-        var setRemoteDescriptionPromise = rtcSession._pc.setRemoteDescription(self._createSessionDescription({
-            type: 'answer',
-            sdp: self._sdp
-        }));
-        setRemoteDescriptionPromise.catch(e => {
-            self.logger.error('SetRemoteDescription failed', e);
-        });
-        setRemoteDescriptionPromise.then(() => {
-            var remoteCandidatePromises = Promise.all(self._candidates.map(function (candidate) {
-                var remoteCandidate = self._createRemoteCandidate(candidate);
-                self.logger.info('Adding remote candidate', remoteCandidate);
-                return rtcSession._pc.addIceCandidate(remoteCandidate);
-            }));
-            remoteCandidatePromises.catch(reason => {
-                self.logger.warn('Error adding remote candidate', reason);
-            });
-            return remoteCandidatePromises;
-        }).then(() => {
-            rtcSession._sessionReport.setRemoteDescriptionFailure = false;
-            self._remoteDescriptionSet = true;
-            self._checkAndTransit();
-        }).catch(() => {
-            rtcSession._stopSession();
-            rtcSession._sessionReport.setRemoteDescriptionFailure = true;
-            self.transit(new FailedState(rtcSession, RTC_ERRORS.SET_REMOTE_DESCRIPTION_FAILURE));
-        });
+        self._rtcSession._strategy.acceptStateOnEnter(self, rtcSession);
     }
     onSignalingHandshaked() {
         this._rtcSession._sessionReport.handshakingTimeMillis = Date.now() - this._rtcSession._signallingConnectTimestamp;
@@ -424,21 +401,23 @@ export class TalkingState extends RTCSessionState {
         this.transit(new DisconnectedState(this._rtcSession));
     }
     onIceStateChange(evt) {
-        this.logger.info('ICE Connection State: ', evt.currentTarget.iceConnectionState);
+        var iceState = this._rtcSession._strategy.onIceStateChange(evt, this._rtcSession._pc);
+        this.logger.info('ICE Connection State: ', iceState);
 
-        if (evt.currentTarget.iceConnectionState == ICE_CONNECTION_STATE.DISCONNECTED) {
+        if (iceState == ICE_CONNECTION_STATE.DISCONNECTED) {
             this.logger.info('Lost ICE connection');
             this._rtcSession._sessionReport.iceConnectionsLost += 1;
         }
-        if (evt.currentTarget.iceConnectionState == ICE_CONNECTION_STATE.FAILED) {
+        if (iceState == ICE_CONNECTION_STATE.FAILED) {
             this._rtcSession._sessionReport.iceConnectionsFailed = true;
         }
     }
 
     onPeerConnectionStateChange() {
-        this.logger.info('Peer Connection State: ', this._rtcSession._pc.connectionState);
+        var peerConnectionState = this._rtcSession._strategy.onPeerConnectionStateChange(this._rtcSession._pc);
+        this.logger.info('Peer Connection State: ', peerConnectionState);
 
-        if (this._rtcSession._pc.connectionState == PEER_CONNECTION_STATE.FAILED) {
+        if (peerConnectionState == PEER_CONNECTION_STATE.FAILED) {
             this._rtcSession._sessionReport.peerConnectionFailed = true;
         }
     }
@@ -496,7 +475,10 @@ export default class RtcSession {
      * @param {*} logger An object provides logging functions, such as console
      * @param {*} contactId Must be UUID, uniquely identifies the session.
      */
-    constructor(signalingUri, iceServers, contactToken, logger, contactId, connectionId, wssManager) {
+    constructor(signalingUri, iceServers, contactToken, logger, contactId, connectionId, wssManager, strategy = new StandardStrategy()) {
+        if (!(strategy instanceof CCPInitiationStrategyInterface)) {
+            throw new Error('Expected a strategy of type CCPInitiationStrategyInterface');
+        }
         if (typeof signalingUri !== 'string' || signalingUri.trim().length === 0) {
             throw new IllegalParameters('signalingUri required');
         }
@@ -511,6 +493,7 @@ export default class RtcSession {
         } else {
             this._callId = contactId;
         }
+        this._strategy = strategy;
         this._connectionId = connectionId;
         this._wssManager = wssManager;
         this._sessionReport = new SessionReport();
@@ -537,18 +520,18 @@ export default class RtcSession {
         this._isUserProvidedStream = false;
 
         this._onGumError =
-            this._onGumSuccess =
-            this._onLocalStreamAdded =
-            this._onSessionFailed =
-            this._onSessionInitialized =
-            this._onSignalingConnected =
-            this._onIceCollectionComplete =
-            this._onSignalingStarted =
-            this._onSessionConnected =
-            this._onRemoteStreamAdded =
-            this._onSessionCompleted =
-            this._onSessionDestroyed = () => {
-            };
+        this._onGumSuccess =
+        this._onLocalStreamAdded =
+        this._onSessionFailed =
+        this._onSessionInitialized =
+        this._onSignalingConnected =
+        this._onIceCollectionComplete =
+        this._onSignalingStarted =
+        this._onSessionConnected =
+        this._onRemoteStreamAdded =
+        this._onSessionCompleted =
+        this._onSessionDestroyed = () => {
+        };
     }
     get sessionReport() {
         return this._sessionReport;
@@ -880,7 +863,7 @@ export default class RtcSession {
     _signalingDisconnected() {
     }
     _createPeerConnection(configuration, optionalConfiguration) {
-        return new RTCPeerConnection(configuration, optionalConfiguration);
+        return this._strategy._createPeerConnection(configuration, optionalConfiguration);
     }
     connect(pc) {
         var self = this;
@@ -897,7 +880,7 @@ export default class RtcSession {
             RTC_PEER_CONNECTION_CONFIG.iceServers = self._iceServers;
             self._pc = self._createPeerConnection(RTC_PEER_CONNECTION_CONFIG, RTC_PEER_CONNECTION_OPTIONAL_CONFIG);
         }
-        self._pc.ontrack = hitch(self, self._ontrack);
+        self._strategy.connect(self);
         self._pc.onicecandidate = hitch(self, self._onIceCandidate);
         self._pc.onconnectionstatechange = hitch(self, self._onPeerConnectionStateChange);
         self._pc.oniceconnectionstatechange = hitch(self, self._onIceStateChange);
@@ -1072,17 +1055,7 @@ export default class RtcSession {
      * Attach remote media stream to web element.
      */
     _ontrack(evt) {
-        if (evt.streams.length > 1) {
-            this._logger.warn('Found more than 1 streams for ' + evt.track.kind + ' track ' + evt.track.id + ' : ' +
-                evt.streams.map(stream => stream.id).join(','));
-        }
-        if (evt.track.kind === 'video' && this._remoteVideoElement) {
-            this._remoteVideoElement.srcObject = evt.streams[0];
-            this._remoteVideoStream = evt.streams[0];
-        } else if (evt.track.kind === 'audio' && this._remoteAudioElement) {
-            this._remoteAudioElement.srcObject = evt.streams[0];
-            this._remoteAudioStream = evt.streams[0];
-        }
+        this._strategy._ontrack(this, evt);
         this._onRemoteStreamAdded(this, evt.streams[0]);
     }
     _detachMedia() {
@@ -1118,19 +1091,7 @@ export default class RtcSession {
         var self = this;
         var mediaConstraints = {};
 
-        if (self._enableAudio) {
-            var audioConstraints = {};
-            if (typeof self._echoCancellation !== 'undefined') {
-                audioConstraints.echoCancellation = !!self._echoCancellation;
-            }
-            if (Object.keys(audioConstraints).length > 0) {
-                mediaConstraints.audio = audioConstraints;
-            } else {
-                mediaConstraints.audio = true;
-            }
-        } else {
-            mediaConstraints.audio = false;
-        }
+        self._strategy._buildMediaConstraints(self, mediaConstraints);
 
         if (self._enableVideo) {
             var videoConstraints = {};

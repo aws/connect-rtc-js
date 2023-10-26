@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { hitch, wrapLogger } from './utils';
+import { getRedactedSdp, hitch, wrapLogger} from './utils';
 import { MAX_INVITE_DELAY_MS, MAX_ACCEPT_BYE_DELAY_MS, DEFAULT_CONNECT_TIMEOUT_MS, INVITE_METHOD_NAME, ACCEPT_METHOD_NAME, BYE_METHOD_NAME } from './rtc_const';
 import { UnsupportedOperation, Timeout, BusyException, CallNotFoundException, UnknownSignalingError } from './exceptions';
 import uuid from 'uuid/v4';
@@ -128,7 +128,7 @@ export class PendingInviteState extends SignalingState {
             candidates: iceCandidates,
             callContextToken : self._signaling._contactToken
         };
-        self.logger.log('Sending SDP', sdp);
+        self.logger.log('Sending SDP', getRedactedSdp(sdp));
         self._signaling._wss.send(JSON.stringify({
             jsonrpc: '2.0',
             method: INVITE_METHOD_NAME,
@@ -156,7 +156,7 @@ export class PendingAnswerState extends FailOnTimeoutState {
                 this.transit(new FailedState(this._signaling, self.translateInviteError(msg)));
             } else {
                 new Promise(function notifyAnswered(resolve) {
-                    self.logger.log('Received SDP', msg.result.sdp);
+                    self.logger.log('Received SDP', getRedactedSdp(msg.result.sdp));
                     self._signaling._answeredHandler(msg.result.sdp, msg.result.candidates);
                     resolve();
                 });
@@ -375,12 +375,12 @@ export default class AmznRtcSignaling {
 
         //empty event handlers
         this._connectedHandler =
-            this._answeredHandler =
-            this._handshakedHandler =
-            this._reconnectedHandler =
-            this._remoteHungupHandler =
-            this._disconnectedHandler =
-            this._failedHandler = function noOp() {};
+        this._answeredHandler =
+        this._handshakedHandler =
+        this._reconnectedHandler =
+        this._remoteHungupHandler =
+        this._disconnectedHandler =
+        this._failedHandler = function noOp() {};
     }
     get callId() {
         return this._callId;

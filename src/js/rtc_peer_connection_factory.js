@@ -1,6 +1,5 @@
-import {assertTrue, getChromeBrowserVersion, hitch, isChromeBrowser, isFunction} from './utils';
+import {assertTrue, hitch, isFunction} from './utils';
 import {
-    CHROME_SUPPORTED_VERSION,
     DEFAULT_ICE_CANDIDATE_POOL_SIZE,
     NETWORK_CONNECTIVITY_CHECK_INTERVAL_MS,
     RTC_PEER_CONNECTION_CONFIG,
@@ -8,14 +7,20 @@ import {
     RTC_PEER_CONNECTION_OPTIONAL_CONFIG,
     SOFTPHONE_ROUTE_KEY
 } from './rtc_const'
+import CCPInitiationStrategyInterface from "./strategies/CCPInitiationStrategyInterface";
+import StandardStrategy from "./strategies/StandardStrategy";
 
 export default class RtcPeerConnectionFactory {
 
     //transportHandle must be a callback function which should return a promise which is going to return the iceServers. Please refer https://www.w3.org/TR/webrtc/#rtciceserver-dictionary for iceServer example
     //publishError(errorType, errorMessage) must be a callback function which will publish the passed error message to client browser
-    constructor(logger, wssManager, clientId, transportHandle, publishError) {
+    constructor(logger, wssManager, clientId, transportHandle, publishError, strategy = new StandardStrategy()) {
+        if (!(strategy instanceof CCPInitiationStrategyInterface)) {
+            throw new Error('Expected a strategy of type CCPInitiationStrategyInterface');
+        }
         assertTrue(isFunction(transportHandle), 'transportHandle must be a function');
         assertTrue(isFunction(publishError), 'publishError must be a function');
+        this._strategy = strategy;
         this._logger = logger;
         this._clientId = clientId;
         this._wssManager = wssManager;
@@ -25,10 +30,12 @@ export default class RtcPeerConnectionFactory {
         this._initializeWebSocketEventListeners();
         this._requestPeerConnection();
         this._networkConnectivityChecker();
+
+        this._logger.log("RTC.js is using " + strategy.getName());
     }
 
     _isBrowserSupported() {
-        return isChromeBrowser() && getChromeBrowserVersion() >= CHROME_SUPPORTED_VERSION
+        this._strategy._isBrowserSupported();
     }
 
     //This will handle the idleConnection and quota limits notification from the server
@@ -106,7 +113,7 @@ export default class RtcPeerConnectionFactory {
         var rtcPeerConnectionConfig = JSON.parse(JSON.stringify(RTC_PEER_CONNECTION_CONFIG));
         rtcPeerConnectionConfig.iceServers = iceServers;
         rtcPeerConnectionConfig.iceCandidatePoolSize = DEFAULT_ICE_CANDIDATE_POOL_SIZE;
-        return new RTCPeerConnection(rtcPeerConnectionConfig, RTC_PEER_CONNECTION_OPTIONAL_CONFIG);
+        return this._strategy._createRtcPeerConnection(rtcPeerConnectionConfig, RTC_PEER_CONNECTION_OPTIONAL_CONFIG);
     }
 
     _clearIdleRtcPeerConnection() {

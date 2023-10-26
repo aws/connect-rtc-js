@@ -194,7 +194,7 @@ export class SessionReport {
     get rtcJsVersion() {
         return this._rtcJsVersion;
     }
-    
+
     set sessionStartTime(value) {
         this._sessionStartTime = value;
     }
