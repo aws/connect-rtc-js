@@ -1,3 +1,7 @@
+/**
+ * By using the Citrix ucsdk (https://www.npmjs.com/package/@citrix/ucsdk), you are accepting the Citrix Developer Terms of Use  located here: https://www.cloud.com/terms-of-use.
+ */
+
 import CCPInitiationStrategyInterface from "./CCPInitiationStrategyInterface";
 import {hitch} from "../utils";
 import {FailedState} from "../rtc_session";

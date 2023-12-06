@@ -1,0 +1,33 @@
+** CitrixWEBRTC.js; version 2.0.5 -- https://www.npmjs.com/package/@citrix/ucsdk
+
+CITRIX READY PARTNER DEVELOPER MATERIALS REDISTRIBUTION LICENSE AGREEMENT
+
+Copyright (c) 2023. Cloud Software Group, Inc. All Rights Reserved.
+
+By using these Redistributable Materials, you agree to the following terms and conditions:
+
+“Redistributable Materials” means the Cloud Software Group, Inc. (“Cloud Software Group”)
+Developer Materials made available to you subject to this Citrix Ready Partner Developer Materials
+Redistribution License Agreement (“this Agreement”) including the Cloud Software Group
+Developer Terms of Use (https://www.cloud.com/legal), which is incorporated by reference
+as if fully set forth in this Agreement.
+
+You agree that you are a current member of the Citrix Ready Partner Program (see
+https://www.citrix.com/partner-programs/citrix-ready) and are currently bound by a Citrix Ready
+Partner Program Agreement (“Partner Agreement”). If you are not a current member of the Citrix Ready
+Partner Program or are not bound by the Partner Agreement, you may not use the Redistributable Materials.
+
+Except as provided below, the Redistributable Materials are licensed to you as Developer Materials
+pursuant to the Cloud Software Group Developer Terms of Use. In the event of any conflict between
+the terms contained in this Agreement and the Cloud Software Group Developer Terms of Use,
+the terms contained in this Agreement shall prevail. Any capitalized term that is not defined in this
+Agreement (including, but not limited to,“Developer Materials” and “Application”) shall have
+the meaning ascribed to it in the Cloud Software Group Developer Terms of Use.
+
+Notwithstanding section 2.14 of the Cloud Software Group Developer Terms of Use, Cloud Software
+Group hereby grants you a limited, non-transferable, non-exclusive license to redistribute the
+Redistributable Materials solely in unmodified executable format and solely as incorporated into
+your Application in a manner consistent with any Developer Documentation, on the following conditions:
+(i) you do not remove any copyright notices from the Redistributable Materials; and
+(ii) you ensure that any users of your Application affirmatively accept the Cloud Software Group
+Developer Terms of Use (https://www.cloud.com/legal)as a condition of using the Redistributable Materials.

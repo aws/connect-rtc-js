@@ -26,7 +26,7 @@
     "test": "grunt && nyc --reporter=html mocha --compilers js:babel-core/register test/unit"
   },
   "dependencies": {
-    "@citrix/ucsdk": "^2.0.4",
+    "@citrix/ucsdk": "^2.0.5",
     "uuid": "^3.0.1",
     "webrtc-adapter": "^6.4.0"
   },
