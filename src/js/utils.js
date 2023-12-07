@@ -13,19 +13,19 @@ import {getKind, parseRtpMap, parseRtpParameters, splitLines, splitSections, wri
 var logMethods = ['log', 'info', 'warn', 'error'];
 
 /**
-* Binds the given instance object as the context for
-* the method provided.
-*
-* @param scope The instance object to be set as the scope
-*    of the function.
-* @param method The method to be encapsulated.
-*
-* All other arguments, if any, are bound to the method
-* invocation inside the closure.
-*
-* @return A closure encapsulating the invocation of the
-*    method provided in context of the given instance.
-*/
+ * Binds the given instance object as the context for
+ * the method provided.
+ *
+ * @param scope The instance object to be set as the scope
+ *    of the function.
+ * @param method The method to be encapsulated.
+ *
+ * All other arguments, if any, are bound to the method
+ * invocation inside the closure.
+ *
+ * @return A closure encapsulating the invocation of the
+ *    method provided in context of the given instance.
+ */
 export function hitch() {
     var args = Array.prototype.slice.call(arguments);
     var scope = args.shift();
@@ -150,9 +150,9 @@ export function transformSdp(sdp, sdpOptions) {
                 if (is_defined(currentCodec) && sdpOptions._shouldDeleteCodec(mediaType, currentCodec.name)) {
                     return null;
                 }
-                
+
                 // append a=fmtp line immediately if current codec is OPUS (to explicitly specify OPUS parameters)
-                if (is_defined(currentCodec) && currentCodec.name.toUpperCase() === 'OPUS') { 
+                if (is_defined(currentCodec) && currentCodec.name.toUpperCase() === 'OPUS') {
                     currentCodec.parameters.usedtx = sdpOptions.enableOpusDtx ? "1" : "0";
                     // generate fmtp line immediately after rtpmap line, and remove original fmtp line once we see it
                     return (line + "\r\n" + writeFmtp(currentCodec)).trim();
@@ -252,4 +252,12 @@ export function getChromeBrowserVersion(){
     } else {
         return -1;
     }
+}
+
+export function getRedactedSdp(sdp) {
+    // pattern to find and redact the value after 'a=ice-pwd:'
+    var pattern = /a=ice-pwd:[^\r\n]*/;
+
+    // Use the replace method to redact the value with '[redacted]'
+    return sdp.replace(pattern, 'a=ice-pwd:[redacted]');
 }

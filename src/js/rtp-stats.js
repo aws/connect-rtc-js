@@ -1,8 +1,8 @@
 /**
-* Extract rtp stats of specified stream from RTCStatsReport
-* Chrome reports all stream stats in statsReports whereas firefox reports only single stream stats in report
-* StreamType is passed only to pull right stream stats audio_input or audio_output.
-*/
+ * Extract rtp stats of specified stream from RTCStatsReport
+ * Chrome reports all stream stats in statsReports whereas firefox reports only single stream stats in report
+ * StreamType is passed only to pull right stream stats audio_input or audio_output.
+ */
 
 import { is_defined, when_defined } from './utils';
 export function extractMediaStatsFromStats(timestamp, stats, streamType) {
@@ -48,8 +48,8 @@ export function extractMediaStatsFromStats(timestamp, stats, streamType) {
 }
 
 /**
-* Basic RTP statistics object, represents statistics of an audio or video stream.
-*/
+ * Basic RTP statistics object, represents statistics of an audio or video stream.
+ */
 class MediaRtpStats {
     constructor(paramsIn, statsReportType, streamType) {
         var params = paramsIn || {};
@@ -84,8 +84,8 @@ class MediaRtpStats {
         return this._packetsCount > 0 ? this._packetsLost / this._packetsCount : 0;
     }
     /** Audio volume level
-    * Currently firefox doesn't provide audio level in rtp stats.
-    */
+     * Currently firefox doesn't provide audio level in rtp stats.
+     */
     get audioLevel() {
         return this._audioLevel;
     }

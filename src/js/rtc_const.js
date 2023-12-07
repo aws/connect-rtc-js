@@ -34,13 +34,19 @@ export const BYE_METHOD_NAME = "bye";
 export const RTC_PEER_CONNECTION_CONFIG = {
     iceTransportPolicy: 'relay',
     rtcpMuxPolicy: 'require',
-    bundlePolicy: 'balanced'
+    bundlePolicy: 'balanced',
+    sdpSemantics: 'unified',
+    enableDtlsSrtp: true
 };
 
 export const RTC_PEER_CONNECTION_OPTIONAL_CONFIG = {
     optional: [
         {
             googDscp: true
+
+        },
+        {
+            DtlsSrtpKeyAgreement: true
         }
     ]
 };
@@ -57,18 +63,18 @@ export const CHROME_SUPPORTED_VERSION = 59;
  * RTC error names.
  */
 export const RTC_ERRORS = {
-     ICE_COLLECTION_TIMEOUT : 'Ice Collection Timeout',
-     USER_BUSY : 'User Busy',
-     SIGNALLING_CONNECTION_FAILURE : 'Signalling Connection Failure',
-     SIGNALLING_HANDSHAKE_FAILURE : 'Signalling Handshake Failure',
-     SET_REMOTE_DESCRIPTION_FAILURE : 'Set Remote Description Failure',
-     CREATE_OFFER_FAILURE : 'Create Offer Failure',
-     SET_LOCAL_DESCRIPTION_FAILURE : 'Set Local Description Failure',
-     INVALID_REMOTE_SDP : 'Invalid Remote SDP',
-     NO_REMOTE_ICE_CANDIDATE : 'No Remote ICE Candidate',
-     GUM_TIMEOUT_FAILURE : 'GUM Timeout Failure',
-     GUM_OTHER_FAILURE : 'GUM Other Failure',
-     CALL_NOT_FOUND: 'Call Not Found'
+    ICE_COLLECTION_TIMEOUT : 'Ice Collection Timeout',
+    USER_BUSY : 'User Busy',
+    SIGNALLING_CONNECTION_FAILURE : 'Signalling Connection Failure',
+    SIGNALLING_HANDSHAKE_FAILURE : 'Signalling Handshake Failure',
+    SET_REMOTE_DESCRIPTION_FAILURE : 'Set Remote Description Failure',
+    CREATE_OFFER_FAILURE : 'Create Offer Failure',
+    SET_LOCAL_DESCRIPTION_FAILURE : 'Set Local Description Failure',
+    INVALID_REMOTE_SDP : 'Invalid Remote SDP',
+    NO_REMOTE_ICE_CANDIDATE : 'No Remote ICE Candidate',
+    GUM_TIMEOUT_FAILURE : 'GUM Timeout Failure',
+    GUM_OTHER_FAILURE : 'GUM Other Failure',
+    CALL_NOT_FOUND: 'Call Not Found'
 };
 
 export const ICE_CONNECTION_STATE = {

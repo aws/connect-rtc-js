@@ -1,0 +1,280 @@
+** CitrixWebRTC.js; version 2.0.5 -- https://www.npmjs.com/package/@citrix/ucsdk
+
+Cloud Software Group Developer Terms of Use
+Last Revised: Nov. 7, 2023
+These Developer Terms of Use (“Agreement”) (formerly, the Citrix API Terms of Use) describe the terms
+and conditions under which you (and, if applicable, your agents, employees, contractors and any entity
+you represent) (collectively, “you”), may access and use the Developer Materials that are made available
+by Cloud Software Group. The official and current version of the Agreement can be reviewed by visiting
+https://developer-docs.cloud.com and will supersede all previous versions.
+By using the Developer Materials, you agree to be bound by the terms of this Agreement. You may use
+the Developer Materials only in compliance with this Agreement and only if you have the power to form
+a contract with Cloud Software Group and are not barred under any applicable laws from doing so. If you
+are using the Developer Materials on behalf of an entity, you are agreeing to this Agreement on behalf of
+that entity and acknowledge and agree that you have the authority to bind that entity to the terms of
+this Agreement. IF YOU CANNOT OR DO NOT AGREE TO BE BOUND BY THE TERMS OF THIS AGREEMENT
+OR ANY UPDATED TERMS TO THIS AGREEMENT, YOU MAY NOT USE THE DEVELOPER MATERIALS.
+1. DEFINITIONS
+As used in this Agreement, the following defined terms shall apply:
+1.1. Application means any software application, product, service, tool or website that you develop, own
+or operate to interact with the Products or otherwise incorporate Developer Materials.
+1.2. Cloud Software Group means Cloud Software Group, Inc., or, for applicable customers, the providing
+Cloud Software Group entity specified at the Cloud Software Group Providing Entities list.
+1.3. Cloud Software Group APIs means any form of application programming interface that Cloud
+Software Group makes available in its software-as-a-service Products.
+1.4. Cloud Software Group Marks means any name, logo or mark belonging to Cloud Software Group
+and/or its subsidiaries and affiliates.
+1.5. Confidential Information means any information of or relating to Cloud Software Group that
+becomes known to you through disclosure, observation or otherwise, and that is either: (1) designated
+as confidential by Cloud Software Group, (2) by its nature would be generally deemed to be confidential
+information or (3) not generally known or readily ascertainable to the public, including without limitation
+nonpublic information regarding the Developer Materials, the Products or Cloud Software Group
+applications, products, data, ideas, inventions, features, software, techniques, technology, source and
+object code, trade secrets, and business and financial information.
+1.6. Developer Materials means the materials that Cloud Software Group provides for developers,
+partners, or others creating Applications and/or integrating Products or Product features into their
+products or services, including without limitation, the Cloud Software Group APIs, software development
+kits (SDKs), tools, libraries, components, executables, code, test instances or environments, development
+platforms, and any related developer documentation or sample code. Developer Materials includes the
+materials available at the Product download portal at https://www.citrix.com/downloads/.
+1.7. Products means Cloud Software Group products or Cloud Software Group software-as-a-service
+offerings, whether generally available or otherwise, including any components provided with them, and
+updates.
+2. LICENSES AND RESTRICTIONS
+2.1. Developer License. Subject to the terms and conditions of this Agreement, Cloud Software Group
+grants to you a limited, revocable, non-exclusive, non-sublicensable, non-transferable license to access
+and use the Developer Materials (i) to develop, test and support your Application, and (ii) to enable end
+users of your Application to connect to and communicate with the applicable Products. Your use,
+through your Application or otherwise, of the Products, such as through the Cloud Software Group APIs,
+is also subject to the terms of Cloud Software Group’s End-User Agreement (“EUA”) or other license, as
+applicable and amended from time to time.
+2.2. Cloud Software Group Marks License. Subject to the terms and conditions of this Agreement, Cloud
+Software Group grants you a limited, revocable, non-exclusive, non-sublicensable, non-transferable
+license to display the applicable Cloud Software Group Marks as permitted by the Cloud Software Group
+Trademark & Copyright Guidelines, and solely as necessary to enable end users of your Application to
+connect to and communicate with the applicable Products in furtherance of the license granted in
+section 2.1.
+2.3. Accounts. To access portions of the Developer Materials or certain resources, you may be asked to
+provide certain registration details or other information. All information you provide must be accurate,
+current, and complete. You are solely responsible for all activities identified with your access and
+registration. Cloud Software Group has the absolute right to disable any user account or password, at
+any time, for any reason, including, if in our sole discretion we believe that you have failed to comply
+with any provision of this Agreement.
+2.4. Competition. You shall not access and/or use the Developer Materials directly or indirectly for
+competitive benchmarking or other competitive analysis, except and only to the extent that applicable
+law expressly permits, despite this limitation.
+2.5. Developer Documentation. Your use of the Cloud Software Group APIs or any other Developer
+Materials shall comply with any technical or other documentation provided as part of the Developer
+Materials, all of which is expressly incorporated into this Agreement by reference.
+2.6. End User Data Collection and Privacy. You must maintain an end user agreement and privacy policy
+for your Application, which is prominently identified or located where end users download or access
+your Application. Your policy must at a minimum meet applicable legal standards and describe the
+collection, use, storage and sharing of data in clear, understandable and accurate terms. You must
+indicate to end users that Cloud Software Group will treat any information submitted to the Products in
+accordance with its own Privacy Policy and its EUA (or other applicable product license or service
+agreement). Your policy may not otherwise conflict with these terms. In addition, you shall use
+industry-standard security practices to collect, process, transmit and maintain any end-user data. You
+must promptly notify Cloud Software Group in writing of any breaches of your policy or your systems
+that impact or may impact customers or users of the Products.
+2.7. Feedback. You grant Cloud Software Group and its subsidiaries and affiliates a royalty-free, global,
+transferrable, sublicensable, irrevocable, and perpetual license to use and create derivative works based
+on any feedback, comments, functionality, code, features, enhancement requests, recommendations, or
+suggestions that you provide to Cloud Software Group relating to the Developer Materials or the
+Products. You further agree that Cloud Software Group may freely use, modify, distribute, or
+commercialize such submissions without any payment or obligation to you.
+2.8. Illegal or Harmful Purposes. You shall not access and/or use the Developer Materials for fraudulent
+or illegal purposes, or for any other purpose that may be harmful (in Cloud Software Group’s sole
+discretion) to Cloud Software Group, its Products or any end user, or to otherwise communicate any
+message or material that is deemed harassing, threatening, indecent, obscene, infringing, slanderous or
+otherwise unlawful including, to communicate any message or material that comprises any unsolicited
+mass distribution of junk mail, advertising or spam, or that violates the Cloud Software Group Privacy
+Policy.
+2.9. Independent Development. You understand and acknowledge that Cloud Software Group may from
+time to time independently create applications, products or services that are similar to or competitive
+with your Applications, products or services, and nothing in this Agreement shall be construed as
+restricting or preventing Cloud Software Group from creating and fully exploiting such Cloud Software
+Group-created applications, products or services, without any obligation to you.
+2.10. Misrepresentation and Masking Identity. You shall not misrepresent, remove, hide or mask your
+identity when using the Cloud Software Group APIs.
+2.11. Notices. You shall not remove any legal, copyright, trademark, confidentiality, or other proprietary
+rights notices contained in or on materials you receive pursuant to this Agreement, including but not
+limited to the Developer Materials and the Cloud Software Group Marks.
+2.12. Promotional and Marketing Use. You agree that Cloud Software Group may use screenshots or
+other content from your Application for promotional and marketing purposes and grant Cloud Software
+Group all rights related to this use.
+2.13. Representations. Neither you nor your employees or representatives shall make any
+representations with respect to Cloud Software Group, the Products or this Agreement, or display the
+Cloud Software Group Marks in a manner that could reasonably imply an endorsement, relationship,
+affiliation, or sponsorship between you and/or a third party and Cloud Software Group.
+2.14. Resale and Commercial Use. Unless you are separately and expressly authorized by Cloud Software
+Group in writing, you shall not market, offer to sell, sell and/or otherwise resell the Developer Materials
+or the Products to any third party. Please contact Cloud Software Group at copyright@cloud.com for any
+questions related to this section.
+2.15. Reverse Engineering. You may not modify, distribute, prepare derivative works of, reverse engineer,
+reverse assemble, disassemble, decompile or otherwise attempt to decipher any code used in the
+Developer Materials, the Products and/or any other aspect of Cloud Software Group technology, except
+and only to the extent that applicable law expressly permits, despite this limitation.
+2.16. Security. You shall properly configure your networks, operating systems, Applications, and the
+software of your computer systems to generally accepted Internet industry standards as required to
+securely access and use the Cloud Software Group APIs and other applicable Developer Materials.
+2.17. Test Instances. Cloud Software Group may offer test instances or environments, trials, or demos
+(collectively, “Test Instances”) as part of the Developer Materials, and you may use these Test Instances
+solely to develop and test your Application, subject to the other terms of this Agreement. These Test
+Instances are designed for short-term, temporary use and may be reset at any time without notice. You
+should not upload data or content to the Test Instances that is sensitive or confidential, or that you do
+not have intellectual property rights to use and upload.
+2.18. Usage. You shall not access and/or use the Cloud Software Group APIs or other Developer
+Materials in a manner that exceeds a reasonable request volume or constitutes excessive or abusive
+usage, overburdens, impairs or materially disrupts the networks, security systems, Products and/or
+websites of Cloud Software Group, or interferes with another party’s use of the Products, the extent and
+reasonableness of which shall be determined by Cloud Software Group in its sole discretion. In the event
+of any violation of this section, Cloud Software Group reserves the right to limit, suspend or block your
+use of the Developer Materials. Cloud Software Group may also set such usage limitations from time to
+time as it deems appropriate in its sole discretion.
+3. PROPRIETARY RIGHTS
+Except for the limited use rights expressly granted in this Agreement, Cloud Software Group owns or
+retains all right, title or interest in or to Developer Materials, the Cloud Software Group Marks, the
+Products, or any related intellectual property rights.
+4. CHANGES
+Cloud Software Group may modify this Agreement in its sole discretion at any time (with or without
+notice to you). By accessing or using the Developer Materials, you agree to be bound to the most current
+version of this Agreement. Cloud Software Group may also, in its sole discretion and at any time (with or
+without notice to you), change, suspend or discontinue the Developer Materials. Such changes may
+include, without limitation, removing or limiting access to specific APIs, requiring fees or setting and
+enforcing limits on your use of additions to the Developer Materials. We may also impose limits on
+certain features and services or restrict your access to some or all of the Developer Materials. We may
+release subsequent versions of the Developer Materials and require that you use those subsequent
+versions, at your sole cost and expense.
+5. TERM AND TERMINATION
+5.1. Term. This Agreement will be effective during your use of the Developer Materials.
+5.2. Termination. Cloud Software Group may, in its sole discretion and at any time, suspend or terminate
+your rights under this Agreement to access or use the Developer Materials or display the Cloud Software
+Group Marks, including by terminating access to the Cloud Software Group APIs or other Developer
+Materials with or without any prior notice. You may terminate this Agreement for any reason or no
+reason, with or without notice to Cloud Software Group, by ceasing all access and use of the Developer
+Materials. Any termination of this Agreement will also immediately terminate the licenses granted to
+you. Upon termination of this Agreement, you will immediately discontinue all access and use of the
+Developer Materials, delete any cached or stored content that was permitted by the cache header and
+otherwise cease to display the Cloud Software Group Marks. Neither party shall be liable for any
+damages resulting from a termination of this Agreement in accordance with this section; provided,
+however, the termination of this Agreement shall not affect any claim arising prior to such termination.
+Sections 3 and 5 through 10 shall survive termination.
+6. CONFIDENTIALITY
+Unless expressly authorized in writing by Cloud Software Group, you shall not disclose to any third party
+any Confidential Information of Cloud Software Group, nor use such Confidential Information in any
+manner other than to perform your obligations under this Agreement. The foregoing restrictions do not
+apply to any information that (i) is publicly disclosed through no fault of your own, (ii) is already lawfully
+in your possession and not subject to a confidentiality obligation to Cloud Software Group, (iii) becomes
+known to you from a third party having an apparent bona fide right to disclose the information, or (iv) is
+Confidential Information that you are obligated to produce pursuant to an order of a court of competent
+jurisdiction or a valid administrative subpoena, provided you supply Cloud Software Group with timely
+notice of such court order or subpoena. Furthermore, you will also keep strictly confidential all
+passwords, keys, and/or other access information related to the Cloud Software Group APIs, test
+instances, developer portal, and other applicable Developer Materials.
+7. WARRANTIES
+You hereby warrant to Cloud Software Group that you have all necessary authority to enter into and
+perform your obligations under this Agreement without the consent of any third party or breach of any
+contract or agreement with any third party, and that the use by others of your Applications, products or
+services shall not violate the rights of any third party (e.g., copyright, patent, trademark or other
+proprietary rights) or any applicable law or regulation.
+YOU HEREBY ACKNOWLEDGE AND AGREE THAT THE DEVELOPER MATERIALS ARE PROVIDED BY CLOUD
+SOFTWARE GROUP ON AN “AS IS” BASIS, AND YOUR ACCESS TO AND/OR USE OF THE DEVELOPER
+MATERIALS IS AT YOUR SOLE RISK. TO THE EXTENT PERMITTED BY APPLICABLE LAW, CLOUD SOFTWARE
+GROUP EXPRESSLY DISCLAIMS AND YOU RECEIVE NO REPRESENTATIONS OR WARRANTIES OF ANY KIND,
+WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO, ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT OR SATISFACTORY
+QUALITY. CLOUD SOFTWARE GROUP MAKES NO WARRANTY THAT ANY OF THE DEVELOPER MATERIALS
+WILL MEET YOUR REQUIREMENTS, PROVIDE ANY DESIRED RESULTS, BE UNINTERRUPTED, ERROR FREE
+OR THAT ANY DEFECTS WILL BE CORRECTED. CLOUD SOFTWARE GROUP SHALL NOT HAVE ANY
+OBLIGATION TO SUPPORT OR MAINTAIN THE DEVELOPER MATERIALS. NO INFORMATION OR ADVICE,
+WHETHER ORAL OR WRITTEN, OBTAINED BY YOU FROM CLOUD SOFTWARE GROUP OR THROUGH THE
+DEVELOPER MATERIALS SHALL CREATE ANY WARRANTY NOT EXPRESSLY MADE HEREIN. Some
+jurisdictions do not allow the exclusion of certain warranties and conditions, so some of the above
+exclusions may not apply to you.
+8. LIMITATION ON LIABILITY
+IN NO EVENT SHALL CLOUD SOFTWARE GROUP BE LIABLE FOR ANY INDIRECT, SPECIAL, CONSEQUENTIAL
+OR INCIDENTAL LOSS, EXEMPLARY OR OTHER DAMAGES RELATED TO THIS AGREEMENT, WHETHER
+DIRECT OR INDIRECT, NO MATTER THE THEORY OF LIABILITY AND REGARDLESS OF WHETHER CLOUD
+SOFTWARE GROUP KNEW OR SHOULD HAVE KNOWN, INCLUDING BUT NOT LIMITED TO: (i) LOSS OF
+DATA, (ii) LOSS OF INCOME, (iii) LOSS OF OPPORTUNITY, (iv) LOST PROFITS, OR (v) COSTS OF RECOVERY.
+TO THE EXTENT PERMITTED BY APPLICABLE LAW, CLOUD SOFTWARE GROUP’S TOTAL CUMULATIVE
+LIABILITY HEREUNDER FOR ANY AND ALL CLAIMS, IS LIMITED TO $50.00. SOME JURISDICTIONS DO NOT
+ALLOW LIMITATION OR EXCLUSION OF LIABILITY FOR INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO
+SOME OF THE ABOVE LIMITATIONS MAY NOT APPLY TO YOU. ANY CLAIM ARISING OUT OF THIS
+AGREEMENT MUST BE BROUGHT BY YOU WITHIN ONE YEAR AFTER THE OCCURRENCE OF THE EVENT
+GIVING RISE TO SUCH CLAIM OR SUCH CLAIM IS PERMANENTLY BARRED.
+9. INDEMNIFICATION
+You agree to hold harmless and indemnify Cloud Software Group, it subsidiaries and its affiliates, and
+their respective directors, officers, agents, employees, consultants, agents and partners, from and
+against any and all third party claims arising from or in any way related to your use of the Developer
+Materials, any violation of this Agreement by you, or any other actions related to your use of the
+Developer Materials or Cloud Software Group Marks including any liability or expense arising from
+claims, losses, damages (actual or consequential), suits, judgments, litigation costs and reasonable
+attorneys’ fees, of every kind and nature.
+10. ADDITIONAL TERMS
+10.1. Assignment. You may not assign your rights or delegate your duties under this Agreement either in
+whole or in part, by operation of law or otherwise and any such attempted assignment or delegation
+shall be void.
+10.2. Choice of Law and Location for Resolving Disputes. If you are entering into these terms from a
+European Union member country, United Kingdom, Norway, Switzerland, Japan, India or Australia, then
+the Agreement is governed by the laws of Ireland and subject to the exclusive jurisdiction of the courts
+of Ireland. Otherwise, these terms are governed by the laws of the State of Florida and you agree that
+you must institute any suit, action, or proceeding arising out of these terms in the state or federal courts
+located in Broward County, Florida. You hereby waive any objection that you may have to Company
+instituting any suit, action, or proceeding arising out of these terms in the state or federal courts located
+in Broward County, Florida, and you hereby irrevocably consents to the personal jurisdiction of any such
+court in any such suit, action, or proceeding. The United Nations Convention on Contracts for the
+International Sale of Goods and the Uniform Computer Information Transactions Act do not apply to
+these terms.
+10.3. Compliance with Laws. Both parties agree to comply with all applicable local, state, national and
+foreign laws, rules, and regulations, including, but not limited to, all applicable export and import laws
+and regulations, in connection with their performance, access and/or use of the Developer Materials
+under this Agreement. Notwithstanding the preceding sentence, Cloud Software Group does not
+guarantee that the Developer Materials shall be appropriate and/or available for use in any particular
+location and you are responsible for compliance with local laws to the extent applicable.
+10.4. Conflict. In the event of any conflict between the content of this Agreement and the documents
+incorporated by reference, this Agreement shall control with respect to your use of the Developer
+Materials.
+10.5. Entire Agreement. This Agreement sets forth the entire agreement and understanding of the
+parties relating to the subject matter hereof and supersedes all prior and contemporaneous oral and
+written agreements and understandings with respect to the same. Except as expressly stated in this
+Agreement, no waiver or amendment of any term or condition of this Agreement shall be valid or
+binding on either party unless agreed to in writing by both parties.
+10.6. Force Majeure. Neither party will be responsible for any delay, interruption or other failure to
+perform under this Agreement due to acts beyond its reasonable control (e.g., natural disasters, acts of
+war, geo-political events/decrees, labor strikes, failure of media or utility carrier/providers), but only for
+so long as such conditions persist.
+10.7. High-Risk Use. You hereby acknowledge and agree that the Developer Materials are not designed
+or intended for access and/or use in or during a high-risk activity including, but not limited to: (1)
+medical procedures; (2) online control of aircraft, air traffic, aircraft navigation, or aircraft
+communications; or (3) the design, construction, operation, or maintenance of any nuclear facility. Cloud
+Software Group hereby expressly disclaims any express or implied warranty of fitness for such purposes
+and Cloud Software Group shall have no liability in any form related to your use of a Cloud Software
+Group API in any such high-risk activity. Cloud Software Group makes no representations that the
+Developer Materials satisfy the requirements of the Health Insurance Portability and Accountability Act,
+as amended, regarding the processing of protected health information.
+10.8. Notice. Cloud Software Group may provide you with notice via email, regular mail, or postings on
+the Cloud Software Group website and you agree to receive such communications.
+10.9. No Waiver. The failure of either party in any one or more instance(s) to insist upon strict
+performance of any of the terms of this Agreement will not be construed as a waiver or relinquishment
+of the right to assert or rely upon any such term(s) in the future.
+10.10. Privacy. Cloud Software Group use of any information provided by you is set forth in the Cloud
+Software Group Privacy Policy. You understand and agree that Cloud Software Group may access,
+preserve or disclose your information if required to do so by law, to address or prevent fraud, abuse, or
+illegal activity.
+10.11. Relationship of the Parties. You and Cloud Software Group are independent contractors. This
+Agreement does not create a partnership, franchise, joint venture, agency, fiduciary or employment
+relationship between the parties and no person or entity that is not a party to this Agreement will be
+deemed a third-party beneficiary hereto.
+10.12. Remedies. You acknowledge that your breach of this Agreement may cause irreparable harm to
+Cloud Software Group, the extent of which would be difficult to ascertain or calculate. Accordingly, you
+agree that, in addition to any other remedies to which Cloud Software Group may be legally entitled,
+Cloud Software Group shall have the right to seek immediate injunctive relief, in any court of competent
+jurisdiction, without the obligation of posting a bond or showing irreparable harm, in the event of a
+breach of this Agreement by you or by any of your officers, employees, consultants or other agents.
+10.13. Severability. If any provision of this Agreement is declared by a court of competent jurisdiction to
+be invalid, illegal, or unenforceable, such provision shall be severed from this Agreement and the other
+provisions shall remain in full force and effect.
+10.14. Third Party Services. You are responsible for any third party services or software that you use or
+access with any of the Products, and acknowledge that you are governed by their respective terms.
+Cloud Software Group shall have no obligations or liability for any third party services or software.

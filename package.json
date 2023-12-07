@@ -25,7 +25,9 @@
     "prepublish": "grunt build",
     "test": "grunt && nyc --reporter=html mocha --compilers js:babel-core/register test/unit"
   },
+  "_ucsdk_upgrade_note" : "Please follow the instruction here(https://tiny.amazon.com/18mszf5px/quipaTMFStep) to upgrade @citrix/ucsdk",
   "dependencies": {
+    "@citrix/ucsdk": "2.0.5",
     "uuid": "^3.0.1",
     "webrtc-adapter": "^6.4.0"
   },
