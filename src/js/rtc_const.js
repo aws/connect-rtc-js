@@ -35,7 +35,7 @@ export const RTC_PEER_CONNECTION_CONFIG = {
     iceTransportPolicy: 'relay',
     rtcpMuxPolicy: 'require',
     bundlePolicy: 'balanced',
-    sdpSemantics: 'unified',
+    sdpSemantics: 'unified-plan',
     enableDtlsSrtp: true
 };
 
