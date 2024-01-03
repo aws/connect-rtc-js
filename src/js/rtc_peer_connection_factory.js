@@ -35,7 +35,7 @@ export default class RtcPeerConnectionFactory {
     }
 
     _isEarlyMediaConnectionSupported() {
-        this._strategy._isEarlyMediaConnectionSupported();
+        return this._strategy._isEarlyMediaConnectionSupported();
     }
 
     //This will handle the idleConnection and quota limits notification from the server
