@@ -4,8 +4,6 @@
 **connect-rtc.js** provides softphone support to AmazonConnect customers when they choose to directly integrate with AmazonConnect API and not using AmazonConnect web application.
 It implements Amazon Connect WebRTC signaling protocol and integrates with browser WebRTC APIs to provide a simple contact session interface which can be integrated with [Amazon Connect StreamJS](https://github.com/aws/amazon-connect-streams) seemlessly.
 
-> The Amazon Connect Softphone Team (the team responsible for development of **connect-rtc.js**) is hiring!  Do you want to help build the next generation of web-based communication services?  Do you have what it takes to be an Amazonian? We are hiring engineers at all levels - find out more [here](https://www.amazon.jobs/jobs/1749402?no_int_redir=1)
-
 ## Usage ##
 ### Prebuilt releases
 In the [gh-pages branch](https://github.com/aws/connect-rtc-js/tree/gh-pages) prebuilt ready to use files can be downloaded/linked directly.
