@@ -6,38 +6,40 @@ import CCPInitiationStrategyInterface from "./CCPInitiationStrategyInterface";
 import {hitch} from "../utils";
 import {FailedState} from "../rtc_session";
 import {RTC_ERRORS} from "../rtc_const";
-import "@citrix/ucsdk/CitrixWebRTC";
+
+
 
 export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
 
-    constructor() {
+    constructor(useRealCitrix = true) {
         super();
+        if(useRealCitrix){
+            require("@citrix/ucsdk/CitrixWebRTC");
+        }
+        console.log("CitrixVDIStrategy initializing");
+        this.initCitrixWebRTC();
+        this.initGetCitrixWebrtcRedir();
+        this.initLog();
+    }
+
+    initCitrixWebRTC() {
         window.CitrixWebRTC.setVMEventCallback((event) => {
-            console.log('setVMEventCallback notification received with event: ' + event);
-            if (event['event'] === 'vdiClientConnected') {
+            if (event.event === 'vdiClientConnected') {
                 if (!window.CitrixWebRTC.isFeatureOn("webrtc1.0")) {
                     throw new Error('Citrix WebRTC redirection feature is NOT supported!');
-                } else {
-                    console.log("CitrixVDIStrategy initialized");
                 }
-
-            } else if (event['event'] === 'vdiClientDisconnected') {
+                console.log("CitrixVDIStrategy initialized");
+            } else if (event.event === 'vdiClientDisconnected') {
                 console.log("vdiClientDisconnected");
             }
         });
         window.CitrixWebRTC.initUCSDK("AmazonConnect");
+    }
+    initGetCitrixWebrtcRedir() {
+        window.getCitrixWebrtcRedir = () => Promise.resolve(1);
+    }
 
-        window.getCitrixWebrtcRedir = function () {
-            const registryValue = Promise.resolve(1);
-            return new Promise(function (resolve, reject) {
-                //retrieve registry value internally
-                registryValue.then((v) => {
-                    resolve(v);
-                }).catch(() => {
-                    reject();
-                })
-            })
-        }
+    initLog() {
         window.CitrixWebRTC.initLog(global.connect.getLog());
     }
 
