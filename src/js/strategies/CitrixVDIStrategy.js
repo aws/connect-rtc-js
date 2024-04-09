@@ -90,7 +90,7 @@ export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
     }
 
     onPeerConnectionStateChange(_pc) {
-        return _pc.connectionState;
+        return _pc.connectionState_;
     }
 
     _createPeerConnection(configuration, optionalConfiguration) {
