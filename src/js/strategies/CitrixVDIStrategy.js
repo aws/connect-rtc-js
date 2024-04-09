@@ -12,9 +12,21 @@ export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
 
     constructor() {
         super();
-        if (!window.CitrixWebRTC.isFeatureOn("webrtc1.0")) {
-            throw new Error('Citrix WebRTC redirection feature is NOT supported!');
-        }
+        window.CitrixWebRTC.setVMEventCallback((event) => {
+            console.log('setVMEventCallback notification received with event: ' + event);
+            if (event['event'] === 'vdiClientConnected') {
+                if (!window.CitrixWebRTC.isFeatureOn("webrtc1.0")) {
+                    throw new Error('Citrix WebRTC redirection feature is NOT supported!');
+                } else {
+                    console.log("CitrixVDIStrategy initialized");
+                }
+
+            } else if (event['event'] === 'vdiClientDisconnected') {
+                console.log("vdiClientDisconnected");
+            }
+        });
+        window.CitrixWebRTC.initUCSDK("AmazonConnect");
+
         window.getCitrixWebrtcRedir = function () {
             const registryValue = Promise.resolve(1);
             return new Promise(function (resolve, reject) {
@@ -27,7 +39,6 @@ export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
             })
         }
         window.CitrixWebRTC.initLog(global.connect.getLog());
-        console.log("CitrixVDIStrategy initialized");
     }
 
     // the following functions are rtc_peer_connection_factory related functions
@@ -79,7 +90,7 @@ export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
     }
 
     onPeerConnectionStateChange(_pc) {
-        return _pc.connectionState_;
+        return _pc.connectionState;
     }
 
     _createPeerConnection(configuration, optionalConfiguration) {
