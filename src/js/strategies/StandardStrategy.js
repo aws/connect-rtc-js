@@ -1,6 +1,6 @@
 import CCPInitiationStrategyInterface from "./CCPInitiationStrategyInterface";
 import {CHROME_SUPPORTED_VERSION, RTC_ERRORS} from "../rtc_const";
-import {getChromeBrowserVersion, hitch, isChromeBrowser} from "../utils";
+import {getChromeBrowserVersion, isChromeBrowser} from "../utils";
 import {FailedState} from "../rtc_session";
 
 export default class StandardStrategy extends CCPInitiationStrategyInterface {
@@ -67,10 +67,6 @@ export default class StandardStrategy extends CCPInitiationStrategyInterface {
 
     _createPeerConnection(configuration, optionalConfiguration) {
         return new RTCPeerConnection(configuration, optionalConfiguration);
-    }
-
-    connect(self) {
-        self._pc.ontrack = hitch(self, self._ontrack);
     }
 
     _ontrack(self, evt) {

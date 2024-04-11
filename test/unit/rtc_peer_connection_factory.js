@@ -7,10 +7,9 @@
 import './test-setup';
 import RtcPeerConnectionFactory from '../../src/js/rtc_peer_connection_factory';
 import chai from 'chai';
-import sinon, {sandbox} from 'sinon';
+import sinon from 'sinon';
 import {RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS} from "../../src/js/rtc_const";
 import StandardStrategy from "../../src/js/strategies/StandardStrategy";
-import CitrixVDIStrategy from "../../src/js/strategies/CitrixVDIStrategy";
 
 describe('RTC Peer Connection Factory', () => {
 
@@ -73,27 +72,5 @@ describe('RTC Peer Connection Factory', () => {
             pcFactory.clearIdleRtcPeerConnectionTimerId();
             chai.assert.isNull(pcFactory._idleRtcPeerConnectionTimerId);
         });
-    });
-
-    describe('CitrixStrategy', () => {
-
-        afterEach(() => {
-            sandbox.restore();
-        });
-
-        it('uses CitrixVDIStrategy', async () => {
-            sandbox.stub(window.CitrixWebRTC, 'isFeatureOn').returns(true);
-            global.connect.getLog = sandbox.stub();
-            new RtcPeerConnectionFactory(console, null, null, requestAccessStub, sandbox.stub(), new CitrixVDIStrategy());
-            chai.assert(console.log.calledWith('CitrixVDIStrategy initialized'));
-        });
-
-        it('throws error when isCitrixWebRTCSupported returns false', async () => {
-            sandbox.stub(window.CitrixWebRTC, 'isFeatureOn').returns(false);
-            chai.expect(() => {
-                new RtcPeerConnectionFactory(console, null, null, requestAccessStub, sandbox.stub(), new CitrixVDIStrategy());
-            }).to.throw('Citrix WebRTC redirection feature is NOT supported!');
-        });
-
     });
 });

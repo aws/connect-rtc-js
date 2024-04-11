@@ -3,31 +3,41 @@
  */
 
 import CCPInitiationStrategyInterface from "./CCPInitiationStrategyInterface";
-import {hitch} from "../utils";
 import {FailedState} from "../rtc_session";
 import {RTC_ERRORS} from "../rtc_const";
-import "@citrix/ucsdk/CitrixWebRTC";
 
 export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
 
-    constructor() {
+    constructor(useRealCitrix = true) {
         super();
-        if (!window.CitrixWebRTC.isFeatureOn("webrtc1.0")) {
-            throw new Error('Citrix WebRTC redirection feature is NOT supported!');
+        if(useRealCitrix){
+            require("@citrix/ucsdk/CitrixWebRTC");
         }
-        window.getCitrixWebrtcRedir = function () {
-            const registryValue = Promise.resolve(1);
-            return new Promise(function (resolve, reject) {
-                //retrieve registry value internally
-                registryValue.then((v) => {
-                    resolve(v);
-                }).catch(() => {
-                    reject();
-                })
-            })
-        }
+        console.log("CitrixVDIStrategy initializing");
+        this.initCitrixWebRTC();
+        this.initGetCitrixWebrtcRedir();
+        this.initLog();
+    }
+
+    initCitrixWebRTC() {
+        window.CitrixWebRTC.setVMEventCallback((event) => {
+            if (event.event === 'vdiClientConnected') {
+                if (!window.CitrixWebRTC.isFeatureOn("webrtc1.0")) {
+                    throw new Error('Citrix WebRTC redirection feature is NOT supported!');
+                }
+                console.log("CitrixVDIStrategy initialized");
+            } else if (event.event === 'vdiClientDisconnected') {
+                console.log("vdiClientDisconnected");
+            }
+        });
+        window.CitrixWebRTC.initUCSDK("AmazonConnect");
+    }
+    initGetCitrixWebrtcRedir() {
+        window.getCitrixWebrtcRedir = () => Promise.resolve(1);
+    }
+
+    initLog() {
         window.CitrixWebRTC.initLog(global.connect.getLog());
-        console.log("CitrixVDIStrategy initialized");
     }
 
     // the following functions are rtc_peer_connection_factory related functions
@@ -86,18 +96,20 @@ export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
         return new window.CitrixWebRTC.CitrixPeerConnection(configuration, optionalConfiguration);
     }
 
-    connect(self) {
-        self._pc.onaddstream = hitch(self, self._ontrack);
-    }
-
     _ontrack(self, evt) {
-        const remoteStream = evt.stream.clone();
-
-        const audioTracks = evt.stream.getAudioTracks();
-        if (audioTracks !== undefined && audioTracks.length > 0) {
-            self._remoteAudioStream = remoteStream;
-            self._remoteAudioElement.srcObject = remoteStream;
+        window.CitrixWebRTC.mapAudioElement(self._remoteAudioElement);
+        if (evt.streams.length > 1) {
+            self._logger.warn('Found more than 1 streams for ' + evt.track.kind + ' track ' + evt.track.id + ' : ' +
+                evt.streams.map(stream => stream.id).join(','));
         }
+        if (evt.track.kind === 'video' && self._remoteVideoElement) {
+            self._remoteVideoElement.srcObject = evt.streams[0];
+            self._remoteVideoStream = evt.streams[0];
+        } else if (evt.track.kind === 'audio' && self._remoteAudioElement) {
+            self._remoteAudioElement.srcObject = evt.streams[0];
+            self._remoteAudioStream = evt.streams[0];
+        }
+        self._remoteAudioElement.play();
     }
 
     _buildMediaConstraints(self, mediaConstraints) {

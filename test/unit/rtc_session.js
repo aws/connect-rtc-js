@@ -10,9 +10,8 @@ import { RTCSessionState, GrabLocalMediaState, CreateOfferState, SetLocalSession
 import { RTC_ERRORS } from '../../src/js/rtc_const';
 import { BusyException, CallNotFoundException } from '../../src/js/exceptions';
 import chai from 'chai';
-import sinon, {sandbox} from 'sinon';
+import sinon from 'sinon';
 import StandardStrategy from "../../src/js/strategies/StandardStrategy";
-import CitrixVDIStrategy from "../../src/js/strategies/CitrixVDIStrategy";
 
 describe('RTC session', () => {
     describe('session object', () => {
@@ -32,26 +31,6 @@ describe('RTC session', () => {
                 chai.expect(session.callId).to.match(/^[-A-Fa-f0-9]{36}$/);
             });
         });
-
-        describe('CitrixVDIStrategy', () => {
-            afterEach(() => {
-                sandbox.restore();
-            });
-
-            it('uses CitrixVDIStrategy', async () => {
-                sandbox.stub(window.CitrixWebRTC, 'isFeatureOn').returns(true);
-                global.connect.getLog = sandbox.stub();
-                new RtcSession('wss://amazon-connect-rtc-server.amazonaws.com/', [], 'contactToken', console, null, null, null, new CitrixVDIStrategy());
-                chai.assert(console.log.calledWith('CitrixVDIStrategy initialized'));
-            });
-
-            it('throws error when isCitrixWebRTCSupported returns false', async () => {
-                sandbox.stub(window.CitrixWebRTC, 'isFeatureOn').returns(false);
-                chai.expect(() => {
-                    new RtcSession('wss://amazon-connect-rtc-server.amazonaws.com/', [], 'contactToken', console, null, null, null, new CitrixVDIStrategy());
-                }).to.throw('Citrix WebRTC redirection feature is NOT supported!');
-            });
-        })
     });
 
     describe('RTCSessionState', () => {
