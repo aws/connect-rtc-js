@@ -3,7 +3,6 @@
  */
 
 import CCPInitiationStrategyInterface from "./CCPInitiationStrategyInterface";
-import {hitch} from "../utils";
 import {FailedState} from "../rtc_session";
 import {RTC_ERRORS} from "../rtc_const";
 
