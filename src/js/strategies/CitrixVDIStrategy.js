@@ -7,8 +7,6 @@ import {hitch} from "../utils";
 import {FailedState} from "../rtc_session";
 import {RTC_ERRORS} from "../rtc_const";
 
-
-
 export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
 
     constructor(useRealCitrix = true) {
@@ -99,18 +97,20 @@ export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
         return new window.CitrixWebRTC.CitrixPeerConnection(configuration, optionalConfiguration);
     }
 
-    connect(self) {
-        self._pc.onaddstream = hitch(self, self._ontrack);
-    }
-
     _ontrack(self, evt) {
-        const remoteStream = evt.stream.clone();
-
-        const audioTracks = evt.stream.getAudioTracks();
-        if (audioTracks !== undefined && audioTracks.length > 0) {
-            self._remoteAudioStream = remoteStream;
-            self._remoteAudioElement.srcObject = remoteStream;
+        window.CitrixWebRTC.mapAudioElement(self._remoteAudioElement);
+        if (evt.streams.length > 1) {
+            self._logger.warn('Found more than 1 streams for ' + evt.track.kind + ' track ' + evt.track.id + ' : ' +
+                evt.streams.map(stream => stream.id).join(','));
         }
+        if (evt.track.kind === 'video' && self._remoteVideoElement) {
+            self._remoteVideoElement.srcObject = evt.streams[0];
+            self._remoteVideoStream = evt.streams[0];
+        } else if (evt.track.kind === 'audio' && self._remoteAudioElement) {
+            self._remoteAudioElement.srcObject = evt.streams[0];
+            self._remoteAudioStream = evt.streams[0];
+        }
+        self._remoteAudioElement.play();
     }
 
     _buildMediaConstraints(self, mediaConstraints) {

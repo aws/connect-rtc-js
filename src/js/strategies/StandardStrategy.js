@@ -69,10 +69,6 @@ export default class StandardStrategy extends CCPInitiationStrategyInterface {
         return new RTCPeerConnection(configuration, optionalConfiguration);
     }
 
-    connect(self) {
-        self._pc.ontrack = hitch(self, self._ontrack);
-    }
-
     _ontrack(self, evt) {
         if (evt.streams.length > 1) {
             self._logger.warn('Found more than 1 streams for ' + evt.track.kind + ' track ' + evt.track.id + ' : ' +
