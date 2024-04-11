@@ -22,60 +22,35 @@ describe('CitrixVDIStrategy', () => {
         delete global.connect;
     });
 
-    describe('constructor', () => {
-        it('should initialize CitrixWebRTC, getCitrixWebrtcRedir, and logging', () => {
-            const instance = new CitrixVDIStrategy(false);
+    it('should initialize CitrixWebRTC, getCitrixWebrtcRedir, and logging successfully', () => {
+        const instance = new CitrixVDIStrategy(false);
+        global.window.CitrixWebRTC.isFeatureOn= sandbox.stub().returns(true);
+        chai.expect(global.window.CitrixWebRTC.setVMEventCallback).to.have.been.calledOnce;
+        chai.expect(global.window.getCitrixWebrtcRedir).to.be.a('function');
+        chai.expect(global.window.CitrixWebRTC.initLog).to.have.been.calledOnce;
 
-            chai.expect(global.window.CitrixWebRTC.setVMEventCallback).to.have.been.calledOnce;
-            chai.expect(global.window.getCitrixWebrtcRedir).to.be.a('function');
-            chai.expect(global.window.CitrixWebRTC.initLog).to.have.been.calledOnce;
+        const callback = global.window.CitrixWebRTC.setVMEventCallback.getCall(0).args[0];
+        callback({ event: 'vdiClientConnected' });
+        chai.assert(console.log.calledWith('CitrixVDIStrategy initialized'));
+
+        callback({ event: 'vdiClientDisconnected' });
+        chai.assert(console.log.calledWith('vdiClientDisconnected'));
+
+        chai.expect(global.window.getCitrixWebrtcRedir).to.be.a('function');
+        global.window.getCitrixWebrtcRedir().then((result) => {
+            chai.expect(result).to.equal(1);
         });
+
+        chai.assert(global.window.CitrixWebRTC.initLog.calledWith(global.connect.getLog()));
     });
 
-    describe('initCitrixWebRTC', () => {
-        it('should throw an error if WebRTC redirection feature is not supported', () => {
-            const instance = new CitrixVDIStrategy(false);
-            global.window.CitrixWebRTC.isFeatureOn.returns(false);
-
-            const callback = global.window.CitrixWebRTC.setVMEventCallback.getCall(0).args[0];
-            chai.expect(() => callback({ event: 'vdiClientConnected' })).to.throw(
-                'Citrix WebRTC redirection feature is NOT supported!'
-            );
-        });
-
-        it('should log "CitrixVDIStrategy initialized" if WebRTC redirection feature is supported', () => {
-            const instance = new CitrixVDIStrategy(false);
-            global.window.CitrixWebRTC.isFeatureOn.returns(true);
-
-            const callback = global.window.CitrixWebRTC.setVMEventCallback.getCall(0).args[0];
-            callback({ event: 'vdiClientConnected' });
-            chai.assert(console.log.calledWith('CitrixVDIStrategy initialized'));
-        });
-
-        it('should log "vdiClientDisconnected" on vdiClientDisconnected event', () => {
-            const instance = new CitrixVDIStrategy(false);
-
-            const callback = global.window.CitrixWebRTC.setVMEventCallback.getCall(0).args[0];
-            callback({ event: 'vdiClientDisconnected' });
-            chai.assert(console.log.calledWith('vdiClientDisconnected'));
-        });
+    it('should throw an error if WebRTC redirection feature is not supported', () => {
+        const instance = new CitrixVDIStrategy(false);
+        global.window.CitrixWebRTC.isFeatureOn= sandbox.stub().returns(false);
+        const callback = global.window.CitrixWebRTC.setVMEventCallback.getCall(0).args[0];
+        chai.expect(() => callback({ event: 'vdiClientConnected' })).to.throw(
+            'Citrix WebRTC redirection feature is NOT supported!'
+        );
     });
 
-    describe('initGetCitrixWebrtcRedir', () => {
-        it('should set window.getCitrixWebrtcRedir to a function that resolves with 1', () => {
-            const instance = new CitrixVDIStrategy(false);
-
-            chai.expect(global.window.getCitrixWebrtcRedir).to.be.a('function');
-            return global.window.getCitrixWebrtcRedir().then((result) => {
-                chai.expect(result).to.equal(1);
-            });
-        });
-    });
-
-    describe('initLog', () => {
-        it('should initialize logging with connect.getLog()', () => {
-            const instance = new CitrixVDIStrategy(false);
-            chai.assert(global.window.CitrixWebRTC.initLog.calledWith(global.connect.getLog()));
-        });
-    });
 });
