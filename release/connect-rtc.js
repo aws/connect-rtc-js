@@ -8,486 +8,668 @@
 
 
 
-var $jscomp={scope:{},getGlobal:function(d){return"undefined"!=typeof window&&window===d?d:"undefined"!=typeof global?global:d}};$jscomp.global=$jscomp.getGlobal(this);$jscomp.initSymbol=function(){$jscomp.global.Symbol||($jscomp.global.Symbol=$jscomp.Symbol);$jscomp.initSymbol=function(){}};$jscomp.symbolCounter_=0;$jscomp.Symbol=function(d){return"jscomp_symbol_"+d+$jscomp.symbolCounter_++};
-$jscomp.initSymbolIterator=function(){$jscomp.initSymbol();$jscomp.global.Symbol.iterator||($jscomp.global.Symbol.iterator=$jscomp.global.Symbol("iterator"));$jscomp.initSymbolIterator=function(){}};$jscomp.makeIterator=function(d){$jscomp.initSymbolIterator();if(d[$jscomp.global.Symbol.iterator])return d[$jscomp.global.Symbol.iterator]();var e=0;return{next:function(){return e==d.length?{done:!0}:{done:!1,value:d[e++]}}}};
-$jscomp.arrayFromIterator=function(d){for(var e,k=[];!(e=d.next()).done;)k.push(e.value);return k};$jscomp.arrayFromIterable=function(d){return d instanceof Array?d:$jscomp.arrayFromIterator($jscomp.makeIterator(d))};
-$jscomp.inherits=function(d,e){function k(){}k.prototype=e.prototype;d.prototype=new k;d.prototype.constructor=d;for(var b in e)if($jscomp.global.Object.defineProperties){var a=$jscomp.global.Object.getOwnPropertyDescriptor(e,b);a&&$jscomp.global.Object.defineProperty(d,b,a)}else d[b]=e[b]};$jscomp.array=$jscomp.array||{};$jscomp.array.done_=function(){return{done:!0,value:void 0}};
-$jscomp.array.arrayIterator_=function(d,e){d instanceof String&&(d=String(d));var k=0;$jscomp.initSymbol();$jscomp.initSymbolIterator();var b={},a=(b.next=function(){if(k<d.length){var b=k++;return{value:e(b,d[b]),done:!1}}a.next=$jscomp.array.done_;return $jscomp.array.done_()},b[Symbol.iterator]=function(){return a},b);return a};
-$jscomp.array.findInternal_=function(d,e,k){d instanceof String&&(d=String(d));for(var b=d.length,a=0;a<b;a++){var c=d[a];if(e.call(k,c,a,d))return{i:a,v:c}}return{i:-1,v:void 0}};
-$jscomp.array.from=function(d,e,k){e=void 0===e?function(a){return a}:e;var b=[];$jscomp.initSymbol();$jscomp.initSymbolIterator();if(d[Symbol.iterator]){$jscomp.initSymbol();$jscomp.initSymbolIterator();d=d[Symbol.iterator]();for(var a;!(a=d.next()).done;)b.push(e.call(k,a.value))}else{a=d.length;for(var c=0;c<a;c++)b.push(e.call(k,d[c]))}return b};$jscomp.array.of=function(d){for(var e=[],k=0;k<arguments.length;++k)e[k-0]=arguments[k];return $jscomp.array.from(e)};
-$jscomp.array.entries=function(){return $jscomp.array.arrayIterator_(this,function(d,e){return[d,e]})};$jscomp.array.entries$install=function(){Array.prototype.entries||(Array.prototype.entries=$jscomp.array.entries)};$jscomp.array.keys=function(){return $jscomp.array.arrayIterator_(this,function(d){return d})};$jscomp.array.keys$install=function(){Array.prototype.keys||(Array.prototype.keys=$jscomp.array.keys)};$jscomp.array.values=function(){return $jscomp.array.arrayIterator_(this,function(d,e){return e})};
-$jscomp.array.values$install=function(){Array.prototype.values||(Array.prototype.values=$jscomp.array.values)};$jscomp.array.copyWithin=function(d,e,k){var b=this.length;d=Number(d);e=Number(e);k=Number(null!=k?k:b);if(d<e)for(k=Math.min(k,b);e<k;)e in this?this[d++]=this[e++]:(delete this[d++],e++);else for(k=Math.min(k,b+e-d),d+=k-e;k>e;)--k in this?this[--d]=this[k]:delete this[d];return this};$jscomp.array.copyWithin$install=function(){Array.prototype.copyWithin||(Array.prototype.copyWithin=$jscomp.array.copyWithin)};
-$jscomp.array.fill=function(d,e,k){null!=k&&d.length||(k=this.length||0);k=Number(k);for(e=Number((void 0===e?0:e)||0);e<k;e++)this[e]=d;return this};$jscomp.array.fill$install=function(){Array.prototype.fill||(Array.prototype.fill=$jscomp.array.fill)};$jscomp.array.find=function(d,e){return $jscomp.array.findInternal_(this,d,e).v};$jscomp.array.find$install=function(){Array.prototype.find||(Array.prototype.find=$jscomp.array.find)};
-$jscomp.array.findIndex=function(d,e){return $jscomp.array.findInternal_(this,d,e).i};$jscomp.array.findIndex$install=function(){Array.prototype.findIndex||(Array.prototype.findIndex=$jscomp.array.findIndex)};$jscomp.Map=function(d){d=void 0===d?[]:d;this.data_={};this.head_=$jscomp.Map.createHead_();this.size=0;if(d){d=$jscomp.makeIterator(d);for(var e=d.next();!e.done;e=d.next())e=e.value,this.set(e[0],e[1])}};
-$jscomp.Map.checkBrowserConformance_=function(){var d=$jscomp.global.Map;if(!d||!d.prototype.entries||!Object.seal)return!1;try{var e=Object.seal({x:4}),k=new d($jscomp.makeIterator([[e,"s"]]));if("s"!=k.get(e)||1!=k.size||k.get({x:4})||k.set({x:4},"t")!=k||2!=k.size)return!1;var b=k.entries(),a=b.next();if(a.done||a.value[0]!=e||"s"!=a.value[1])return!1;a=b.next();return a.done||4!=a.value[0].x||"t"!=a.value[1]||!b.next().done?!1:!0}catch(c){return!1}};
-$jscomp.Map.createHead_=function(){var d={};return d.previous=d.next=d.head=d};$jscomp.Map.getId_=function(d){if(!(d instanceof Object))return String(d);$jscomp.Map.key_ in d||d instanceof Object&&Object.isExtensible&&Object.isExtensible(d)&&$jscomp.Map.defineProperty_(d,$jscomp.Map.key_,++$jscomp.Map.index_);return $jscomp.Map.key_ in d?d[$jscomp.Map.key_]:" "+d};
-$jscomp.Map.prototype.set=function(d,e){var k=this.maybeGetEntry_(d),b=k.id,a=k.list,k=k.entry;a||(a=this.data_[b]=[]);k?k.value=e:(k={next:this.head_,previous:this.head_.previous,head:this.head_,key:d,value:e},a.push(k),this.head_.previous.next=k,this.head_.previous=k,this.size++);return this};
-$jscomp.Map.prototype["delete"]=function(d){var e=this.maybeGetEntry_(d);d=e.id;var k=e.list,b=e.index;return(e=e.entry)&&k?(k.splice(b,1),k.length||delete this.data_[d],e.previous.next=e.next,e.next.previous=e.previous,e.head=null,this.size--,!0):!1};$jscomp.Map.prototype.clear=function(){this.data_={};this.head_=this.head_.previous=$jscomp.Map.createHead_();this.size=0};$jscomp.Map.prototype.has=function(d){return!!this.maybeGetEntry_(d).entry};
-$jscomp.Map.prototype.get=function(d){return(d=this.maybeGetEntry_(d).entry)&&d.value};$jscomp.Map.prototype.maybeGetEntry_=function(d){var e=$jscomp.Map.getId_(d),k=this.data_[e];if(k)for(var b=0;b<k.length;b++){var a=k[b];if(d!==d&&a.key!==a.key||d===a.key)return{id:e,list:k,index:b,entry:a}}return{id:e,list:k,index:-1,entry:void 0}};$jscomp.Map.prototype.entries=function(){return this.iter_(function(d){return[d.key,d.value]})};$jscomp.Map.prototype.keys=function(){return this.iter_(function(d){return d.key})};
-$jscomp.Map.prototype.values=function(){return this.iter_(function(d){return d.value})};$jscomp.Map.prototype.forEach=function(d,e){for(var k=$jscomp.makeIterator(this.entries()),b=k.next();!b.done;b=k.next())b=b.value,d.call(e,b[1],b[0],this)};
-$jscomp.Map.prototype.iter_=function(d){var e=this,k=this.head_;$jscomp.initSymbol();$jscomp.initSymbolIterator();var b={};return b.next=function(){if(k){for(;k.head!=e.head_;)k=k.previous;for(;k.next!=k.head;)return k=k.next,{done:!1,value:d(k)};k=null}return{done:!0,value:void 0}},b[Symbol.iterator]=function(){return this},b};$jscomp.Map.index_=0;$jscomp.Map.defineProperty_=Object.defineProperty?function(d,e,k){Object.defineProperty(d,e,{value:String(k)})}:function(d,e,k){d[e]=String(k)};
+var $jscomp={scope:{},getGlobal:function(e){return"undefined"!=typeof window&&window===e?e:"undefined"!=typeof global?global:e}};$jscomp.global=$jscomp.getGlobal(this);$jscomp.initSymbol=function(){$jscomp.global.Symbol||($jscomp.global.Symbol=$jscomp.Symbol);$jscomp.initSymbol=function(){}};$jscomp.symbolCounter_=0;$jscomp.Symbol=function(e){return"jscomp_symbol_"+e+$jscomp.symbolCounter_++};
+$jscomp.initSymbolIterator=function(){$jscomp.initSymbol();$jscomp.global.Symbol.iterator||($jscomp.global.Symbol.iterator=$jscomp.global.Symbol("iterator"));$jscomp.initSymbolIterator=function(){}};$jscomp.makeIterator=function(e){$jscomp.initSymbolIterator();if(e[$jscomp.global.Symbol.iterator])return e[$jscomp.global.Symbol.iterator]();var l=0;return{next:function(){return l==e.length?{done:!0}:{done:!1,value:e[l++]}}}};
+$jscomp.arrayFromIterator=function(e){for(var l,p=[];!(l=e.next()).done;)p.push(l.value);return p};$jscomp.arrayFromIterable=function(e){return e instanceof Array?e:$jscomp.arrayFromIterator($jscomp.makeIterator(e))};
+$jscomp.inherits=function(e,l){function p(){}p.prototype=l.prototype;e.prototype=new p;e.prototype.constructor=e;for(var b in l)if($jscomp.global.Object.defineProperties){var a=$jscomp.global.Object.getOwnPropertyDescriptor(l,b);a&&$jscomp.global.Object.defineProperty(e,b,a)}else e[b]=l[b]};$jscomp.array=$jscomp.array||{};$jscomp.array.done_=function(){return{done:!0,value:void 0}};
+$jscomp.array.arrayIterator_=function(e,l){e instanceof String&&(e=String(e));var p=0;$jscomp.initSymbol();$jscomp.initSymbolIterator();var b={},a=(b.next=function(){if(p<e.length){var b=p++;return{value:l(b,e[b]),done:!1}}a.next=$jscomp.array.done_;return $jscomp.array.done_()},b[Symbol.iterator]=function(){return a},b);return a};
+$jscomp.array.findInternal_=function(e,l,p){e instanceof String&&(e=String(e));for(var b=e.length,a=0;a<b;a++){var c=e[a];if(l.call(p,c,a,e))return{i:a,v:c}}return{i:-1,v:void 0}};
+$jscomp.array.from=function(e,l,p){l=void 0===l?function(a){return a}:l;var b=[];$jscomp.initSymbol();$jscomp.initSymbolIterator();if(e[Symbol.iterator]){$jscomp.initSymbol();$jscomp.initSymbolIterator();e=e[Symbol.iterator]();for(var a;!(a=e.next()).done;)b.push(l.call(p,a.value))}else{a=e.length;for(var c=0;c<a;c++)b.push(l.call(p,e[c]))}return b};$jscomp.array.of=function(e){for(var l=[],p=0;p<arguments.length;++p)l[p-0]=arguments[p];return $jscomp.array.from(l)};
+$jscomp.array.entries=function(){return $jscomp.array.arrayIterator_(this,function(e,l){return[e,l]})};$jscomp.array.entries$install=function(){Array.prototype.entries||(Array.prototype.entries=$jscomp.array.entries)};$jscomp.array.keys=function(){return $jscomp.array.arrayIterator_(this,function(e){return e})};$jscomp.array.keys$install=function(){Array.prototype.keys||(Array.prototype.keys=$jscomp.array.keys)};$jscomp.array.values=function(){return $jscomp.array.arrayIterator_(this,function(e,l){return l})};
+$jscomp.array.values$install=function(){Array.prototype.values||(Array.prototype.values=$jscomp.array.values)};$jscomp.array.copyWithin=function(e,l,p){var b=this.length;e=Number(e);l=Number(l);p=Number(null!=p?p:b);if(e<l)for(p=Math.min(p,b);l<p;)l in this?this[e++]=this[l++]:(delete this[e++],l++);else for(p=Math.min(p,b+l-e),e+=p-l;p>l;)--p in this?this[--e]=this[p]:delete this[e];return this};$jscomp.array.copyWithin$install=function(){Array.prototype.copyWithin||(Array.prototype.copyWithin=$jscomp.array.copyWithin)};
+$jscomp.array.fill=function(e,l,p){null!=p&&e.length||(p=this.length||0);p=Number(p);for(l=Number((void 0===l?0:l)||0);l<p;l++)this[l]=e;return this};$jscomp.array.fill$install=function(){Array.prototype.fill||(Array.prototype.fill=$jscomp.array.fill)};$jscomp.array.find=function(e,l){return $jscomp.array.findInternal_(this,e,l).v};$jscomp.array.find$install=function(){Array.prototype.find||(Array.prototype.find=$jscomp.array.find)};
+$jscomp.array.findIndex=function(e,l){return $jscomp.array.findInternal_(this,e,l).i};$jscomp.array.findIndex$install=function(){Array.prototype.findIndex||(Array.prototype.findIndex=$jscomp.array.findIndex)};$jscomp.Map=function(e){e=void 0===e?[]:e;this.data_={};this.head_=$jscomp.Map.createHead_();this.size=0;if(e){e=$jscomp.makeIterator(e);for(var l=e.next();!l.done;l=e.next())l=l.value,this.set(l[0],l[1])}};
+$jscomp.Map.checkBrowserConformance_=function(){var e=$jscomp.global.Map;if(!e||!e.prototype.entries||!Object.seal)return!1;try{var l=Object.seal({x:4}),p=new e($jscomp.makeIterator([[l,"s"]]));if("s"!=p.get(l)||1!=p.size||p.get({x:4})||p.set({x:4},"t")!=p||2!=p.size)return!1;var b=p.entries(),a=b.next();if(a.done||a.value[0]!=l||"s"!=a.value[1])return!1;a=b.next();return a.done||4!=a.value[0].x||"t"!=a.value[1]||!b.next().done?!1:!0}catch(c){return!1}};
+$jscomp.Map.createHead_=function(){var e={};return e.previous=e.next=e.head=e};$jscomp.Map.getId_=function(e){if(!(e instanceof Object))return String(e);$jscomp.Map.key_ in e||e instanceof Object&&Object.isExtensible&&Object.isExtensible(e)&&$jscomp.Map.defineProperty_(e,$jscomp.Map.key_,++$jscomp.Map.index_);return $jscomp.Map.key_ in e?e[$jscomp.Map.key_]:" "+e};
+$jscomp.Map.prototype.set=function(e,l){var p=this.maybeGetEntry_(e),b=p.id,a=p.list,p=p.entry;a||(a=this.data_[b]=[]);p?p.value=l:(p={next:this.head_,previous:this.head_.previous,head:this.head_,key:e,value:l},a.push(p),this.head_.previous.next=p,this.head_.previous=p,this.size++);return this};
+$jscomp.Map.prototype["delete"]=function(e){var l=this.maybeGetEntry_(e);e=l.id;var p=l.list,b=l.index;return(l=l.entry)&&p?(p.splice(b,1),p.length||delete this.data_[e],l.previous.next=l.next,l.next.previous=l.previous,l.head=null,this.size--,!0):!1};$jscomp.Map.prototype.clear=function(){this.data_={};this.head_=this.head_.previous=$jscomp.Map.createHead_();this.size=0};$jscomp.Map.prototype.has=function(e){return!!this.maybeGetEntry_(e).entry};
+$jscomp.Map.prototype.get=function(e){return(e=this.maybeGetEntry_(e).entry)&&e.value};$jscomp.Map.prototype.maybeGetEntry_=function(e){var l=$jscomp.Map.getId_(e),p=this.data_[l];if(p)for(var b=0;b<p.length;b++){var a=p[b];if(e!==e&&a.key!==a.key||e===a.key)return{id:l,list:p,index:b,entry:a}}return{id:l,list:p,index:-1,entry:void 0}};$jscomp.Map.prototype.entries=function(){return this.iter_(function(e){return[e.key,e.value]})};$jscomp.Map.prototype.keys=function(){return this.iter_(function(e){return e.key})};
+$jscomp.Map.prototype.values=function(){return this.iter_(function(e){return e.value})};$jscomp.Map.prototype.forEach=function(e,l){for(var p=$jscomp.makeIterator(this.entries()),b=p.next();!b.done;b=p.next())b=b.value,e.call(l,b[1],b[0],this)};
+$jscomp.Map.prototype.iter_=function(e){var l=this,p=this.head_;$jscomp.initSymbol();$jscomp.initSymbolIterator();var b={};return b.next=function(){if(p){for(;p.head!=l.head_;)p=p.previous;for(;p.next!=p.head;)return p=p.next,{done:!1,value:e(p)};p=null}return{done:!0,value:void 0}},b[Symbol.iterator]=function(){return this},b};$jscomp.Map.index_=0;$jscomp.Map.defineProperty_=Object.defineProperty?function(e,l,p){Object.defineProperty(e,l,{value:String(p)})}:function(e,l,p){e[l]=String(p)};
 $jscomp.Map.Entry_=function(){};$jscomp.Map.ASSUME_NO_NATIVE=!1;$jscomp.Map$install=function(){$jscomp.initSymbol();$jscomp.initSymbolIterator();!$jscomp.Map.ASSUME_NO_NATIVE&&$jscomp.Map.checkBrowserConformance_()?$jscomp.Map=$jscomp.global.Map:($jscomp.initSymbol(),$jscomp.initSymbolIterator(),$jscomp.Map.prototype[Symbol.iterator]=$jscomp.Map.prototype.entries,$jscomp.initSymbol(),$jscomp.Map.key_=Symbol("map-id-key"));$jscomp.Map$install=function(){}};$jscomp.math=$jscomp.math||{};
-$jscomp.math.clz32=function(d){d=Number(d)>>>0;if(0===d)return 32;var e=0;0===(d&4294901760)&&(d<<=16,e+=16);0===(d&4278190080)&&(d<<=8,e+=8);0===(d&4026531840)&&(d<<=4,e+=4);0===(d&3221225472)&&(d<<=2,e+=2);0===(d&2147483648)&&e++;return e};$jscomp.math.imul=function(d,e){d=Number(d);e=Number(e);var k=d&65535,b=e&65535;return k*b+((d>>>16&65535)*b+k*(e>>>16&65535)<<16>>>0)|0};$jscomp.math.sign=function(d){d=Number(d);return 0===d||isNaN(d)?d:0<d?1:-1};
-$jscomp.math.log10=function(d){return Math.log(d)/Math.LN10};$jscomp.math.log2=function(d){return Math.log(d)/Math.LN2};$jscomp.math.log1p=function(d){d=Number(d);if(.25>d&&-.25<d){for(var e=d,k=1,b=d,a=0,c=1;a!=b;)e*=d,c*=-1,b=(a=b)+c*e/++k;return b}return Math.log(1+d)};$jscomp.math.expm1=function(d){d=Number(d);if(.25>d&&-.25<d){for(var e=d,k=1,b=d,a=0;a!=b;)e*=d/++k,b=(a=b)+e;return b}return Math.exp(d)-1};$jscomp.math.cosh=function(d){d=Number(d);return(Math.exp(d)+Math.exp(-d))/2};
-$jscomp.math.sinh=function(d){d=Number(d);return 0===d?d:(Math.exp(d)-Math.exp(-d))/2};$jscomp.math.tanh=function(d){d=Number(d);if(0===d)return d;var e=Math.exp(2*-Math.abs(d)),e=(1-e)/(1+e);return 0>d?-e:e};$jscomp.math.acosh=function(d){d=Number(d);return Math.log(d+Math.sqrt(d*d-1))};$jscomp.math.asinh=function(d){d=Number(d);if(0===d)return d;var e=Math.log(Math.abs(d)+Math.sqrt(d*d+1));return 0>d?-e:e};
-$jscomp.math.atanh=function(d){d=Number(d);return($jscomp.math.log1p(d)-$jscomp.math.log1p(-d))/2};
-$jscomp.math.hypot=function(d,e,k){for(var b=[],a=2;a<arguments.length;++a)b[a-2]=arguments[a];d=Number(d);e=Number(e);for(var c=Math.max(Math.abs(d),Math.abs(e)),I=$jscomp.makeIterator(b),a=I.next();!a.done;a=I.next())c=Math.max(c,Math.abs(a.value));if(1E100<c||1E-100>c){d/=c;e/=c;I=d*d+e*e;b=$jscomp.makeIterator(b);for(a=b.next();!a.done;a=b.next())a=a.value,a=Number(a)/c,I+=a*a;return Math.sqrt(I)*c}c=d*d+e*e;b=$jscomp.makeIterator(b);for(a=b.next();!a.done;a=b.next())a=a.value,a=Number(a),c+=
-a*a;return Math.sqrt(c)};$jscomp.math.trunc=function(d){d=Number(d);if(isNaN(d)||Infinity===d||-Infinity===d||0===d)return d;var e=Math.floor(Math.abs(d));return 0>d?-e:e};$jscomp.math.cbrt=function(d){if(0===d)return d;d=Number(d);var e=Math.pow(Math.abs(d),1/3);return 0>d?-e:e};$jscomp.number=$jscomp.number||{};$jscomp.number.isFinite=function(d){return"number"!==typeof d?!1:!isNaN(d)&&Infinity!==d&&-Infinity!==d};
-$jscomp.number.isInteger=function(d){return $jscomp.number.isFinite(d)?d===Math.floor(d):!1};$jscomp.number.isNaN=function(d){return"number"===typeof d&&isNaN(d)};$jscomp.number.isSafeInteger=function(d){return $jscomp.number.isInteger(d)&&Math.abs(d)<=$jscomp.number.MAX_SAFE_INTEGER};$jscomp.number.EPSILON=Math.pow(2,-52);$jscomp.number.MAX_SAFE_INTEGER=9007199254740991;$jscomp.number.MIN_SAFE_INTEGER=-9007199254740991;$jscomp.object=$jscomp.object||{};
-$jscomp.object.assign=function(d,e){for(var k=[],b=1;b<arguments.length;++b)k[b-1]=arguments[b];k=$jscomp.makeIterator(k);for(b=k.next();!b.done;b=k.next())if(b=b.value)for(var a in b)Object.prototype.hasOwnProperty.call(b,a)&&(d[a]=b[a]);return d};$jscomp.object.is=function(d,e){return d===e?0!==d||1/d===1/e:d!==d&&e!==e};$jscomp.Set=function(d){d=void 0===d?[]:d;this.map_=new $jscomp.Map;if(d){d=$jscomp.makeIterator(d);for(var e=d.next();!e.done;e=d.next())this.add(e.value)}this.size=this.map_.size};
-$jscomp.Set.checkBrowserConformance_=function(){var d=$jscomp.global.Set;if(!d||!d.prototype.entries||!Object.seal)return!1;var e=Object.seal({x:4}),d=new d($jscomp.makeIterator([e]));if(d.has(e)||1!=d.size||d.add(e)!=d||1!=d.size||d.add({x:4})!=d||2!=d.size)return!1;var d=d.entries(),k=d.next();if(k.done||k.value[0]!=e||k.value[1]!=e)return!1;k=d.next();return k.done||k.value[0]==e||4!=k.value[0].x||k.value[1]!=k.value[0]?!1:d.next().done};
-$jscomp.Set.prototype.add=function(d){this.map_.set(d,d);this.size=this.map_.size;return this};$jscomp.Set.prototype["delete"]=function(d){d=this.map_["delete"](d);this.size=this.map_.size;return d};$jscomp.Set.prototype.clear=function(){this.map_.clear();this.size=0};$jscomp.Set.prototype.has=function(d){return this.map_.has(d)};$jscomp.Set.prototype.entries=function(){return this.map_.entries()};$jscomp.Set.prototype.values=function(){return this.map_.values()};
-$jscomp.Set.prototype.forEach=function(d,e){var k=this;this.map_.forEach(function(b){return d.call(e,b,b,k)})};$jscomp.Set.ASSUME_NO_NATIVE=!1;$jscomp.Set$install=function(){!$jscomp.Set.ASSUME_NO_NATIVE&&$jscomp.Set.checkBrowserConformance_()?$jscomp.Set=$jscomp.global.Set:($jscomp.Map$install(),$jscomp.initSymbol(),$jscomp.initSymbolIterator(),$jscomp.Set.prototype[Symbol.iterator]=$jscomp.Set.prototype.values);$jscomp.Set$install=function(){}};$jscomp.string=$jscomp.string||{};
-$jscomp.string.noRegExp_=function(d,e){if(d instanceof RegExp)throw new TypeError("First argument to String.prototype."+e+" must not be a regular expression");};
-$jscomp.string.fromCodePoint=function(d){for(var e=[],k=0;k<arguments.length;++k)e[k-0]=arguments[k];for(var k="",e=$jscomp.makeIterator(e),b=e.next();!b.done;b=e.next()){b=b.value;b=+b;if(0>b||1114111<b||b!==Math.floor(b))throw new RangeError("invalid_code_point "+b);65535>=b?k+=String.fromCharCode(b):(b-=65536,k+=String.fromCharCode(b>>>10&1023|55296),k+=String.fromCharCode(b&1023|56320))}return k};
-$jscomp.string.repeat=function(d){var e=this.toString();if(0>d||1342177279<d)throw new RangeError("Invalid count value");d|=0;for(var k="";d;)if(d&1&&(k+=e),d>>>=1)e+=e;return k};$jscomp.string.repeat$install=function(){String.prototype.repeat||(String.prototype.repeat=$jscomp.string.repeat)};
-$jscomp.string.codePointAt=function(d){var e=this.toString(),k=e.length;d=Number(d)||0;if(0<=d&&d<k){d|=0;var b=e.charCodeAt(d);if(55296>b||56319<b||d+1===k)return b;d=e.charCodeAt(d+1);return 56320>d||57343<d?b:1024*(b-55296)+d+9216}};$jscomp.string.codePointAt$install=function(){String.prototype.codePointAt||(String.prototype.codePointAt=$jscomp.string.codePointAt)};
-$jscomp.string.includes=function(d,e){e=void 0===e?0:e;$jscomp.string.noRegExp_(d,"includes");return-1!==this.toString().indexOf(d,e)};$jscomp.string.includes$install=function(){String.prototype.includes||(String.prototype.includes=$jscomp.string.includes)};
-$jscomp.string.startsWith=function(d,e){e=void 0===e?0:e;$jscomp.string.noRegExp_(d,"startsWith");var k=this.toString();d+="";for(var b=k.length,a=d.length,c=Math.max(0,Math.min(e|0,k.length)),I=0;I<a&&c<b;)if(k[c++]!=d[I++])return!1;return I>=a};$jscomp.string.startsWith$install=function(){String.prototype.startsWith||(String.prototype.startsWith=$jscomp.string.startsWith)};
-$jscomp.string.endsWith=function(d,e){$jscomp.string.noRegExp_(d,"endsWith");var k=this.toString();d+="";void 0===e&&(e=k.length);for(var b=Math.max(0,Math.min(e|0,k.length)),a=d.length;0<a&&0<b;)if(k[--b]!=d[--a])return!1;return 0>=a};$jscomp.string.endsWith$install=function(){String.prototype.endsWith||(String.prototype.endsWith=$jscomp.string.endsWith)};
-(function(d,e){"object"===typeof exports&&"object"===typeof module?module.exports=e():"function"===typeof define&&define.amd?define([],e):"object"===typeof exports?exports.CitrixWebRTC=e():d.CitrixWebRTC=e()})(self,function(){return function(){function d(b){var a=k[b];if(void 0!==a)return a.exports;a=k[b]={exports:{}};e[b].call(a.exports,a,a.exports,d);return a.exports}var e={945:function(b,a,c){var d=this&&this.__extends||function(){var a=function(b,c){a=Object.setPrototypeOf||{__proto__:[]}instanceof
-Array&&function(a,b){a.__proto__=b}||function(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c])};return a(b,c)};return function(b,c){function d(){this.constructor=b}a(b,c);b.prototype=null===c?Object.create(c):(d.prototype=c.prototype,new d)}}();Object.defineProperty(a,"__esModule",{value:!0});var n=c(658),E=c(550),m=c(851),p=c(946);b=function(a){function b(){var c=a.call(this,null,E.class_id_t.AudioElement,0,n.ProxyMode.Local)||this;c.sinkId_="";c.srcObject_=null;return c}d(b,a);b.prototype.setSinkId=
-function(a){var b=this;m.logger.log(this.user_friendly_id()+".setSinkId: set sinkId to "+a);return new Promise(function(c,d){b.waitUntilConnected("AudioElement.sinkId").then(function(){var d=b.remoteInvoke(!0,E.method_id_AudioElement_t.sinkId,a);p.getRedirector().getFeatureValue(E.FEATURE_ms_teams_pstn)||(b.sinkId_=a,c());return d}).then(function(){m.logger.log(b.user_friendly_id()+".setSinkId: success! resolving...");b.sinkId_=a;c()})["catch"](function(a){a=b.logRemoteInvokeError(a,".sinkId setter: failed to connect!");
-d(a)})})};Object.defineProperty(b.prototype,"sinkId",{get:function(){return this.sinkId_},set:function(a){this.setSinkId(a)},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"srcObject",{get:function(){return this.srcObject_},set:function(a){var b=this;m.logger.log(this.user_friendly_id()+".srcObject: set srcObject to "+JSON.stringify(a));if(a!==this.srcObject_){this.srcObject_=a;var c=null!==a&&void 0!==a?a.id:"null";this.waitUntilConnected("AudioElement.srcObject").then(function(){return b.remoteInvoke(!0,
-E.method_id_AudioElement_t.srcObject,c)}).then(function(){m.logger.log(b.user_friendly_id()+".srcObject setter: remote success!")})["catch"](function(a){b.logRemoteInvokeError(a,".srcObject setter: failed to connect!")})}},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"src",{get:function(){return this.src_},set:function(a){var b=this;m.logger.log(this.user_friendly_id()+".src: set src to "+a);this.src_=a;this.waitUntilConnected("AudioElement.src").then(function(){b.remoteInvoke(!0,
-E.method_id_AudioElement_t.src,a)})["catch"](function(a){b.logRemoteInvokeError(a,".src setter: failed to connect!")})},enumerable:!0,configurable:!0});b.prototype.play=function(){var a=this;m.logger.log(this.user_friendly_id()+".play() called.");return new Promise(function(b,c){a.toggleAudio(!0);a.waitUntilConnected("AudioElement.play").then(function(){a.remoteInvoke(!1,E.method_id_AudioElement_t.play,[]).then(function(){b()})["catch"](function(b){a.logRemoteInvokeError(b,".play: failed to remote!");
-c()})})["catch"](function(b){a.logRemoteInvokeError(b,".play: failed to connect!");c()})})};b.prototype.pause=function(){var a=this;m.logger.log(this.user_friendly_id()+".pause() called.");return new Promise(function(b,c){a.toggleAudio(!1);a.waitUntilConnected("AudioElement.pause").then(function(){a.remoteInvoke(!1,E.method_id_AudioElement_t.pause,[]).then(function(){b()})["catch"](function(b){a.logRemoteInvokeError(b,".pause: failed to remote!");c()})})["catch"](function(b){a.logRemoteInvokeError(b,
-".pause: failed to connect!");c()})})};b.prototype.toggleAudio=function(a){this.srcObject_&&(m.logger.log(this.user_friendly_id()+".toggleAudio() toggle audio tracks:"+a),this.srcObject_.toggleAudio(a))};b.prototype.dispose=function(){m.logger.log(this.user_friendly_id()+".dispose()");this.src_=this.sinkId_="";this.srcObject_=null;this.release()};return b}(n.ProxyObject);a.AudioElement=b},9:function(b,a,c){var d=this&&this.__extends||function(){var a=function(b,c){a=Object.setPrototypeOf||{__proto__:[]}instanceof
-Array&&function(a,b){a.__proto__=b}||function(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c])};return a(b,c)};return function(b,c){function d(){this.constructor=b}a(b,c);b.prototype=null===c?Object.create(c):(d.prototype=c.prototype,new d)}}();Object.defineProperty(a,"__esModule",{value:!0});var n=c(550),E=c(946),m=c(658),p=c(851);(function(a){a[a.Webrpc=0]="Webrpc";a[a.WebrtcCodecs=1]="WebrtcCodecs";a[a.Receiver=2]="Receiver";a[a.Vda=3]="Vda";a[a.Endpoint=4]="Endpoint";a[a.TypeScript=5]="TypeScript";
-a[a.Max=6]="Max"})(a.VersionType||(a.VersionType={}));b=function(a){function b(){return a.call(this,null,n.class_id_t.EngineControl,0,m.ProxyMode.Local)||this}d(b,a);b.prototype.bind=function(){p.logger.log(this.user_friendly_id()+".bind() called.");this.reconstructor(null,n.class_id_t.EngineControl,0)};b.prototype.syncBarrier=function(){var a=this;p.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.waitUntilConnected("EngineControl.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,
-n.method_id_EngineControl_t.version,{major:0,minor:0,revision:0,build:0}),a.remoteInvoke(!1,n.method_id_EngineControl_t.feature_flags,[])])}).then(function(b){p.logger.log(a.user_friendly_id()+"received webrpc version and supported feature list.");b=b.map(function(b){return a.param0(b)});a.version_=b[0];a.features_=b[1];E.getRedirector().setFeatures(a.features_);b=[];for(var c=0,f=a.features_;c<f.length;c++){var d=f[c];"ms_teams_desktop_sharing"===d.name&&d.value?b.push(a.remoteInvoke(!1,n.method_id_EngineControl_t.version_info,
-[])):"ms_teams_osinfo"===d.name&&d.value?b.push(a.remoteInvoke(!1,n.method_id_EngineControl_t.osinfo,{family:"",version:"",architecture:"",distro:"",edition:""})):"ms_teams_endpoint_id"===d.name&&d.value&&b.push(a.remoteInvoke(!1,n.method_id_EngineControl_t.endpoint_id,{machine_id:"",user_id:""}))}if(0<b.length)return Promise.all(b)}).then(function(c){if(void 0===c)p.logger.log(a.user_friendly_id()+"release-1905 client.");else{p.logger.log(a.user_friendly_id()+"release-1906 or later client: received detailed client version list.");
-for(var d=0;d<c.length;d++){var f=c[d];f.hdr.proc.iid==n.class_id_t.EngineControl&&f.hdr.proc.methodid==n.method_id_EngineControl_t.version_info?a.versions_=a.param0(f):f.hdr.proc.iid==n.class_id_t.EngineControl&&f.hdr.proc.methodid==n.method_id_EngineControl_t.osinfo?a.osinfo_=a.param0(f):f.hdr.proc.iid==n.class_id_t.EngineControl&&f.hdr.proc.methodid==n.method_id_EngineControl_t.endpoint_id&&(a.endpointid_=a.param0(f))}}b(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,"failure to retrieve version/feature related client info.");
-c(b)})})};return b}(m.ProxyObject);a.EngineControl=b},368:function(b,a,c){Object.defineProperty(a,"__esModule",{value:!0});var d=c(851),n=c(946);b=function(){function a(){var b=this;this.running_=!1;this.elements_=[];this.clipRects=new Set;this.wheelEventHandler=function(a){setTimeout(function(){b.updateAll()},10)};this.keyupEventHandler=function(a){"Tab"!=a.code&&"ArrowUp"!=a.code&&"ArrowDown"!=a.code&&"ArrowLeft"!=a.code&&"ArrowRight"!=a.code&&"PageUp"!=a.code&&"PageDown"!=a.code&&"Home"!=a.code&&
-"End"!=a.code||b.updateAll()};a.sendOverlayInfo();this.observer_=new MutationObserver(function(a){b.updateAll()})}a.sendOverlayInfo=function(){var a=window.getWindowHandleAsHex;if(void 0===a||null===a)d.logger.log("FrameTracker.sendOverlayInfo: getWindowHandle method is undefined or null");else{var b=n.getRedirector();Promise.all([a(),b.startRedirection(!1,"sendOverlayInfo")]).then(function(a){d.logger.log("FrameTracker.sendOverlayInfo: set window handle: "+a[0]);b.WSSendObject({v:"overlay",command:"window",
-windowHandle:a[0]})})}};a.prototype.rectanglesIntersect=function(a,b){return a.x<b.x+b.width&&a.x+a.width>b.x&&a.y<b.y+b.height&&a.y+a.height>b.y?!0:!1};a.prototype.intersectingRect=function(a,b){var c=Math.max(a.left,b.left),d=Math.max(a.top,b.top);return new DOMRect(c,d,Math.min(a.right,b.right)-c,Math.min(a.bottom,b.bottom)-d)};a.prototype.pedigreeCount=function(a,b){for(var c=0,d=a.parentElement;null!=d&&d!=b;)c++,d=d.parentElement;return{isAncestor:null!=d,pedigree:c}};a.prototype.selectTopmost=
-function(a,b){var c=a.getBoundingClientRect(),d=b.getBoundingClientRect(),c=this.intersectingRect(c,d),d=document.elementFromPoint(c.left+c.width/2,c.top+c.height/2);if(d==a)return a;if(d==b)return b;c=this.pedigreeCount(a,d);d=this.pedigreeCount(b,d);if(c.isAncestor&&d.isAncestor){if(c.pedigree<d.pedigree)return a;if(d.pedigree<c.pedigree)return b}else{if(c.isAncestor)return a;if(d.isAncestor)return b}};a.prototype.checkOverlappingVideos=function(a){var b=this,c=a.target.getBoundingClientRect();
-a.overlaps.forEach(function(b){a.target.remoteVideoElement.removeClipRect(b.rect)});a.overlaps=[];this.elements_.forEach(function(d){if(d!=a){var n=d.overlaps.map(function(a){return a.element}).indexOf(a.target);-1!=n&&(n=d.overlaps.splice(n,1)[0],d.target.remoteVideoElement.removeClipRect(n.rect));n=d.target.getBoundingClientRect();if(b.rectanglesIntersect(c,n)){var v=b.selectTopmost(a.target,d.target);v==a.target?(d.overlaps.push({element:a.target,rect:c}),d.target.remoteVideoElement.addClipRect(c)):
-v==d.target&&(a.overlaps.push({element:d.target,rect:n}),a.target.remoteVideoElement.addClipRect(n))}}})};a.prototype.updateAll=function(){var a=this;this.elements_.forEach(function(b){var c=b.target.getBoundingClientRect();if(void 0!==c){var d=b.clientRect;if(void 0===d||d.x!==c.x||d.y!==c.y||d.width!==c.width||d.height!==c.height)b.clientRect=c,b.callback(c),a.checkOverlappingVideos(b)}})};a.prototype.track=function(a,b){var c=this,g=a.getBoundingClientRect();d.logger.log("Track element frame",
-a,JSON.stringify(g));console.log(a);this.elements_.push({target:a,clientRect:void 0,callback:b,overlaps:[]});try{d.logger.log("[HdxWebRTC.js] Initializing occlusion for new videoElement"),this.clipRects.forEach(function(b){c.applyOcclusion(a,JSON.parse(b))})}catch(n){d.logger.log("[HdxWebRTC.js] addOcclusionInit failed! "+n)}this.running_||(d.logger.log("Start FrameTracker observer..."),this.observer_.observe(document.body,{attributes:!0,childList:!0,subtree:!0}),window.addEventListener("wheel",this.wheelEventHandler),
-window.addEventListener("keyup",this.keyupEventHandler),this.running_=!0);this.updateAll()};a.prototype.untrack=function(a){d.logger.log("Untrack element frame",a);var b=-1;this.elements_.forEach(function(c,d){c.target===a&&(b=d)});0<=b&&(this.elements_.splice(b,1),0===this.elements_.length&&(d.logger.log("Stop FrameTracker observer..."),this.observer_.disconnect(),window.removeEventListener("wheel",this.wheelEventHandler),window.removeEventListener("keyup",this.keyupEventHandler),this.running_=!1))};
-a.prototype.applyOcclusion=function(a,b){var c=a.getBoundingClientRect();this.rectanglesIntersect(b,c)&&void 0!==a.remoteVideoElement&&a.remoteVideoElement.addClipRect(b)};a.prototype.addOcclusion=function(a){var b=this;d.logger.log("[HdxWebRTC.js] Adding occlusion "+JSON.stringify(a));d.logger.log("[HdxWebRTC.js] Tracking '"+this.elements_.length+"' elements.");this.clipRects.add(JSON.stringify(a));this.elements_.forEach(function(c){b.applyOcclusion(c.target,a)})};a.prototype.removeOcclusion=function(a){d.logger.log("[HdxWebRTC.js] Removing occlusion "+
-JSON.stringify(a));d.logger.log("[HdxWebRTC.js] Tracking '"+this.elements_.length+"' elements.");this.clipRects["delete"](JSON.stringify(a));this.elements_.forEach(function(b){void 0!==b.target.remoteVideoElement&&b.target.remoteVideoElement.removeClipRect(a)})};return a}();a.FrameTracker=b},247:function(b,a){Object.defineProperty(a,"__esModule",{value:!0});var c=function(){function a(b){this.parent_=this.object_=null;this.children_=[];this.object_=b}a.prototype.addChild=function(a){a.parent_!=this&&
-(a.parent_=this,this.children_.push(a))};a.prototype.removeChild=function(a){var b=this.children_.indexOf(a);this.children_.splice(b,1);a.parent_=null};return a}(),d=function(){function a(){this.root_=new c(null)}a.prototype.trackObject=function(a,b){void 0===b&&(b=null);if(null===this.findNode(a,this.root_)){var d=this.findNode(b,this.root_),n=new c(a);d?d.addChild(n):this.root_.addChild(n)}};a.prototype.releaseObject=function(a){a=this.findNode(a,this.root_);if(null===a||a===this.root_)return!1;
-this.destroyNodeObjectRecurse(a);a.parent_.removeChild(a);return!0};a.prototype.destroyNodeObjectRecurse=function(a){for(var b=0,c=a.children_;b<c.length;b++)this.destroyNodeObjectRecurse(c[b]);a.object_.destroy()};a.prototype.setParent=function(a,b){var c=this.findNode(a,this.root_);if(null===c)return!1;var d=this.findNode(b,this.root_);if(null===d)return!1;if(c.parent_===d)return!0;c.parent_.removeChild(c);d.addChild(c);return!0};a.prototype.reset=function(){this.root_.children_=[]};a.prototype.findNode=
-function(a,b){if(b.object_===a)return b;for(var c=null,d=0,g=b.children_;d<g.length&&(c=this.findNode(a,g[d]),null===c);d++);return c};return a}();a.GC=d;a.gc=new d},946:function(b,a,c){Object.defineProperty(a,"__esModule",{value:!0});var d=c(658),n=c(851),E=c(550),m=c(545),p=c(394),l=c(509),g=function(){return function(a,b,c,d,g,n,t){this.resolve=a;this.reject=b;this.iid=c;this.oid=d;this.cbid=g;this.oneShot=n;this.mid=t}}(),e;(function(a){a[a.rpc_status_success=0]="rpc_status_success";a[a.rpc_status_unspecified_error=
-1]="rpc_status_unspecified_error";a[a.rpc_status_unexpected=2]="rpc_status_unexpected";a[a.rpc_status_index_out_of_bounds=3]="rpc_status_index_out_of_bounds";a[a.rpc_status_missing_parameter=4]="rpc_status_missing_parameter";a[a.rpc_status_missing_return_value=5]="rpc_status_missing_return_value";a[a.rpc_status_invalid_object=6]="rpc_status_invalid_object";a[a.rpc_status_user_exception=7]="rpc_status_user_exception";a[a.rpc_status_system_error=8]="rpc_status_system_error"})(e=a.WebrpcStatusCode||
-(a.WebrpcStatusCode={}));var v;(function(a){a[a.NotRedirected=0]="NotRedirected";a[a.Connecting=1]="Connecting";a[a.Binding=2]="Binding";a[a.Redirected=3]="Redirected"})(v=a.RedirectionStatus||(a.RedirectionStatus={}));b=function(){function a(){this.pingactive=!1;this.status=v.NotRedirected;this.reqs=[];this.cbs=[];this.deferredActions=[];this.telemetry_=new p.Telemetry;this.screenshare_=new l.ScreenShareUtil;this.stateChangeNotifcations=[];this.vdafeatures_=[]}Object.defineProperty(a.prototype,"telemetry",
-{get:function(){return this.telemetry_},enumerable:!0,configurable:!0});Object.defineProperty(a.prototype,"screenshare",{get:function(){return this.screenshare_},enumerable:!0,configurable:!0});a.prototype.stopAppshare=function(){var a=window.stopAppshare;a&&a()};a.prototype.setRemoteSessionInfoCb=function(a){this.remoteSessionInfoCb=a};a.prototype.setFeatures=function(a){this.features=a;this.screenshare.onInitComplete()};a.prototype.getFeatureValue=function(a){var b=this.features.find(function(b){return b.name===
-a});return void 0!==b?b.value:!1};a.prototype.onRedirectionComplete=function(){for(;this.deferredActions&&0<this.deferredActions.length;)this.deferredActions.shift().post(this.status==v.Redirected)};a.prototype.connectToService=function(){n.logger.log("Redirection status: Connecting...");this.status=v.Connecting;return new Promise(function(a,b){var c=new WebSocket("wss://127.0.0.1:9002");c.onopen=function(){a(c)};c.onerror=function(a){n.logger.log("websocket connection error: "+a.type);b(a)}})};a.prototype.waitUntilRedirected=
-function(a){var b=this;return new Promise(function(c,d){b.status==v.Redirected?c():0>=a?d():setTimeout(function(){n.logger.log("waitUntilRedirected() timeout. count="+a);b.status!=v.Redirected?b.waitUntilRedirected(--a).then(function(){c()})["catch"](function(){d()}):c()},2E3)})};a.prototype.handleRemoteSessionInfo=function(){var a=this;n.logger.log("handleRemoteSessionInfo called.");var b=this;b.remoteSessionInfoCb?b.remoteSessionInfoCb().then(function(c){n.logger.log("remoteSessionInfo success! info:"+
-JSON.stringify(c));n.logger.log("Redirection status: Redirected");b.status=v.Redirected;b.pingConnectionEnd();(0,window.onVdiClientConnected)();a.telemetry.SendTelemetryInit();b.onRedirectionComplete()})["catch"](function(){n.logger.log("remoteSessionInfo failure!");b.suspendRedirection(!0);b.onRedirectionComplete()}):(n.logger.log("remoteSessionInfoCb is invalid!"),b.suspendRedirection(!0),b.onRedirectionComplete())};a.prototype.startRedirection=function(a,b){var c=this,g=window.onVdiClientDisconnected;
-return new Promise(function(t,z){c.status!=v.Redirected?(n.logger.log("Attempting to start redirection: "+b),!1===a?c.deferredActions.push(new d.deferred_action(t,z,b)):c.connectToService().then(function(a){n.logger.log("Redirection status: Binding...");c.status=v.Binding;c.websocket=a;c.websocket.onmessage=function(a){c.onWSMessage(a)};c.websocket.onclose=function(a){c.onWSClose(a)};t();c.handleRemoteSessionInfo()})["catch"](function(a){n.logger.log("Unable to connect to websocket service!");z();
-c.suspendRedirection(!0);c.onRedirectionComplete();g(!0)})):(n.logger.log("Redirection already started."),t())})};a.prototype.suspendRedirection=function(a){var b=this;n.logger.log("Suspending redirection.");(0,window.onVdiClientDisconnected)(!1);var c=!1;a=window.getCitrixMSTeamsRedir;var d=window.getCitrixWebrtcRedir,g;a?g=a:d&&(g=d);g&&g().then(function(a){n.logger.log("sucesss on disconnect"+a);"1"==a&&(c=!0,n.logger.log("Reg key exists while disconnecting"));b.status===v.Redirected&&1==c&&(n.logger.log("Calling ping not normal disconnect"),
-b.pingConnectionBegin(!1));n.logger.log("Redirection status: NotRedirected");b.status=v.NotRedirected})["catch"](function(){n.logger.log("Failure to Read MS Teams redir Reg Key, not retrying...")});this.dispatchStateChangeNotifications()};a.prototype.onWSOpen=function(){};a.prototype.onWSClose=function(a){n.logger.log("disconnected from websocket service.");try{this.suspendRedirection(!0)}catch(b){n.logger.log("suspendRedirection(): exception closing WebSocket: "+b.message)}};a.prototype.onWSError=
-function(){try{this.suspendRedirection(!0)}catch(a){n.logger.log("suspendRedirection(): exception on WebSocket error: "+a.message)}};a.prototype.WSSendObjectWrapper=function(a,b,c,d){var g=!0;b!=E.class_id_t.EngineControl||c!=E.method_id_EngineControl_t.ctor&&c!=E.method_id_EngineControl_t.version&&c!=E.method_id_EngineControl_t.feature_flags||(g=!1);var t=!0;if(g&&(t=!1,void 0!=this.features))for(var g=0,r=this.features;g<r.length;g++){var q=r[g];if(!0===q.value&&q.name==a){t=!0;break}}return 1==
-t?this.WSSendObject(d):Promise.reject("Cannot invoke method that is not supported by webrpc: iid("+b+") mid("+c+")")};a.prototype.WSSendObject=function(a){var b=this;return new Promise(function(c,d){if("webrtc"==a.v){var t=a.hdr.proc.iid,z=a.hdr.proc.methodid,r=a.objref.oid;a.hdr.destroy||(t=new g(c,d,t,r,0,!0,z),b.reqs.push(t));t=JSON.stringify(a);n.logger.trace("WSSendObject: >>> "+E.WebrpcClassLibInfoUtil.composeClassInfoData(a)+" "+t);try{b.websocket.send(t)}catch(q){n.logger.log("WSSendObject(): exception: "+
-q.message),d(q.message)}}else if("overlay"==a.v){t=JSON.stringify(a);n.logger.log("HDXMS: SendOverlayData: >>> "+t+"'");try{b.websocket.send(t)}catch(q){n.logger.log("WSSendObject(): exception: "+q.message),d(q.message)}}else if("telemetry"==a.v){t=JSON.stringify(a);n.logger.log("HDXMS: SendTelemetryData: >>> "+t+"'");try{b.websocket.send(t)}catch(q){n.logger.log("WSSendObject(): exception: "+q.message),d(q.message)}}else if("appsharing"==a.v){t=JSON.stringify(a);n.logger.log("HDXMS: SendScreenSharingData: >>> "+
-t+"'");try{b.websocket.send(t)}catch(q){n.logger.log("WSSendObject(): exception: "+q.message),d(q.message)}}else n.logger.log("HDXMS: Unknown protocol: '"+JSON.stringify(a)+"'")})};a.prototype.webrpcStatusCodeToName=function(a){switch(a){case e.rpc_status_success:a="rpc_status_success";break;case e.rpc_status_unspecified_error:a="rpc_status_unspecified_error";break;case e.rpc_status_unexpected:a="rpc_status_unexpected";break;case e.rpc_status_index_out_of_bounds:a="rpc_status_index_out_of_bounds";
-break;case e.rpc_status_missing_parameter:a="rpc_status_missing_parameter";break;case e.rpc_status_missing_return_value:a="rpc_status_missing_return_value";break;case e.rpc_status_invalid_object:a="rpc_status_invalid_object";break;case e.rpc_status_user_exception:a="rpc_status_user_exception";break;case e.rpc_status_system_error:a="rpc_status_system_error";break;default:a="unknown"}return a};a.prototype.parceWebrpcError=function(a,b){void 0===a&&(a=b&&0<b.length?b[0].category||b[0].code||b[0].message?
-e.rpc_status_system_error:e.rpc_status_user_exception:e.rpc_status_unspecified_error);var c;switch(a){case e.rpc_status_unspecified_error:case e.rpc_status_unexpected:case e.rpc_status_index_out_of_bounds:case e.rpc_status_missing_parameter:case e.rpc_status_missing_return_value:case e.rpc_status_invalid_object:c=new DOMException(this.webrpcStatusCodeToName(a),this.webrpcStatusCodeToName(a));break;case e.rpc_status_user_exception:c=b&&0<b.length?new DOMException(b[0],this.webrpcStatusCodeToName(a)):
-new DOMException(this.webrpcStatusCodeToName(a),this.webrpcStatusCodeToName(a));break;case e.rpc_status_system_error:if(b&&0<b.length){c=Object.create(DOMException);var d={value:null,writable:!0,enumerable:!1,Configurable:!0};d.value=b[0].category;Object.defineProperty(c,"name",d);d.value=b[0].code;Object.defineProperty(c,"code",d);d.value=b[0].message;Object.defineProperty(c,"message",d)}else c=new DOMException(this.webrpcStatusCodeToName(a),this.webrpcStatusCodeToName(a))}return c};a.prototype.onWSMessage=
-function(a){var b=a.data,c;try{c=JSON.parse(b)}catch(q){console.log("invalid JSON!!!");console.log(q);console.log(b);return}if("webrtc"==c.v){n.logger.trace("onWSMessage: <<< "+E.WebrpcClassLibInfoUtil.composeClassInfoData(c)+" "+b);var d=c.hdr.proc.iid,g=c.hdr.proc.methodid,t=c.objref.oid;a=c.status;if(c.hdr.msg_type==m.WsJsonUtil.getMsgType(m.ws_msg_type_t.reply))b=this.reqs.findIndex(function(a){return a.iid==d&&a.oid==t&&a.mid==g}),0<=b?0==a?this.reqs.splice(b,1).shift().resolve(c):(c=this.parceWebrpcError(a,
-c.params),this.reqs.splice(b,1).shift().reject(c)):(n.logger.log("HDXMS didnt find this one. (reqs)"),n.logger.log(this.reqs));else if(c.hdr.msg_type==m.WsJsonUtil.getMsgType(m.ws_msg_type_t.event_req)){var r=c.func.id,b=this.cbs.findIndex(function(a){return a.iid==d&&a.oid==t&&a.cbid==r>>16});0<=b?(0==(r&65535)?this.cbs[b].resolve(c):(c=this.parceWebrpcError(a,c.params),this.cbs[b].reject(c)),1==this.cbs[b].oneShot&&this.cbs.splice(b,1)):(n.logger.log("HDXMS didnt find this one. (cbs)"),n.logger.log(this.cbs))}else n.logger.log("HDXMS Received bogus message: "+
-b+"'")}else if("telemetry"==c.v)0==c.status&&(a=c.hdr.command,2==(a&2147483647)&&(b=c.hdr.id,this.telemetry.onInitialized(b),n.logger.log("Telemetry init response received")));else if("features"==c.v){a=c.features;if("feature-support"==c.command)for(n.logger.log("features capabilities received, features:"+a),this.vdafeatures_=a,b=0;b<a.length;b++)if(a[b]===E.FEATURE_vda_app_sharing)this.screenshare.onInitialized(!0);this.clientViewportMode_=c.client_viewport_mode;n.logger.log("features client_viewport_mode value: "+
-this.clientViewportMode_)}else"appsharing"==c.v?(a=c.status,0==a?(a=c.hdr.command,b=c.hdr.id,(a&2147483647)==l.sshare_cmd.GetSources?(n.logger.log("appsharing GetSources response received"),this.screenshare.onGetSources(b,c.data)):(a&2147483647)==l.sshare_cmd.SetActive?(n.logger.log("appsharing SetActive response received"),this.screenshare.onSetActive(b,c.data)):(a&2147483647)==l.sshare_cmd.TopologyChanged?(n.logger.log("appsharing Window topology changed cmd received"),this.screenshare.onToplogyChanged()):
-(n.logger.log("invalid command reply:"+a),this.screenshare.onError(b))):(n.logger.log("invalid status reply:"+a),b=c.hdr.id,this.screenshare.onError(b))):n.logger.log("HDXMS: Unknown protocol: "+b+"'")};a.prototype.clearReqs=function(){n.logger.log("clearReqs()");this.reqs.forEach(function(a,b){a.reject()});this.reqs=[]};a.prototype.registerHandler=function(a,b,c){a=new g(c.resolve.bind(c),c.reject.bind(c),a,b,c.id,c.oneShot,0);this.cbs.push(a)};a.prototype.unregisterHandler=function(a,b,c){var d=
-this.cbs.findIndex(function(d){return d.iid==a&&d.oid==b&&d.cbid==c});0<=d?this.cbs.splice(d,1):(n.logger.log("HDXMS Didnt find this callback in the list!"),console.log(this.cbs))};a.prototype.isRedirected=function(){return this.status===v.Redirected||this.status===v.Binding||this.status===v.Connecting};a.prototype.isConnected=function(){return this.status==v.Redirected};a.prototype.isPingActive=function(){return this.pingactive};a.prototype.pingConnectionBegin=function(a){n.logger.log("Started timer");
-this.pingactive=!0;var b=window.onVdiClientDisconnectedTimer;1==a?(n.logger.log("checking if we are connected..."),b()):this.conntimer=setTimeout(function(){n.logger.log("checking if we are connected...");b()},15E3)};a.prototype.pingConnectionEnd=function(){this.pingactive=!1;clearTimeout(this.conntimer)};a.prototype.SendTelemetryData_Speaker=function(a){this.telemetry.SendTelemetryData(p.tel_cmd.Data,p.tel_key_SpeakerDeviceUsed,a,0)};a.prototype.registerStateChangeNotification=function(a){this.stateChangeNotifcations.push(a)};
-a.prototype.unregisterStateChangeNotification=function(a){this.stateChangeNotifcations=this.stateChangeNotifcations.filter(function(b){return b!=a})};a.prototype.dispatchStateChangeNotifications=function(){this.stateChangeNotifcations.forEach(function(a){a()})};a.prototype.vdabufferNoLimit=function(){for(var a=!1,b=0,c=this.vdafeatures_;b<c.length;b++)if(c[b]===E.FEATURE_vda_service_no_buffer_limit){a=!0;break}return a};Object.defineProperty(a.prototype,"clientViewportMode",{get:function(){return this.clientViewportMode_||
-"unknown"},enumerable:!0,configurable:!0});return a}();a.HdxMediaStream=b;var t=new b;a.getRedirector=function(){return t}},985:function(b,a,c){var d=this&&this.__extends||function(){var a=function(b,c){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c])};return a(b,c)};return function(b,c){function d(){this.constructor=b}a(b,c);b.prototype=null===c?Object.create(c):(d.prototype=c.prototype,new d)}}();
-Object.defineProperty(a,"__esModule",{value:!0});var n=c(658),e=c(550),m=c(851);b=function(a){function b(c,d,n){for(var t=[],z=3;z<arguments.length;z++)t[z-3]=arguments[z];return a.apply(this,[c,e.class_id_t.RTCIceCandidate,d,n,null].concat(t))||this}d(b,a);Object.defineProperty(b.prototype,"candidate",{get:function(){return this.candidate_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"sdpMid",{get:function(){return this.sdpMid_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,
-"sdpMLineIndex",{get:function(){return this.sdpMLineIndex_},enumerable:!0,configurable:!0});b.prototype.syncBarrier=function(){var a=this;m.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.waitUntilConnected("IceCandidate.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,e.method_id_RTCIceCandidate_t.candidate,""),a.remoteInvoke(!1,e.method_id_RTCIceCandidate_t.sdpMid,""),a.remoteInvoke(!1,e.method_id_RTCIceCandidate_t.sdpMLineIndex,
-0)])}).then(function(c){c=c.map(function(b){return a.param0(b)});a.candidate_=c[0];a.sdpMid_=c[1];a.sdpMLineIndex_=c[2];b(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier failed!");c(b)})})};return b}(n.ProxyObject);a.IceCandidate=b;b=function(a){function b(c,d){return a.call(this,c,e.class_id_t.RTCIceCandidatePair,d,n.ProxyMode.Remote)||this}d(b,a);Object.defineProperty(b.prototype,"local",{get:function(){return this.local_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,
-"remote",{get:function(){return this.remote_},enumerable:!0,configurable:!0});b.prototype.syncBarrier=function(){var a=this;m.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.waitUntilConnected("IceCandidatePair.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,e.method_id_RTCIceCandidatePair_t.local,{}),a.remoteInvoke(!1,e.method_id_RTCIceCandidatePair_t.remote,{})])}).then(function(c){c=c.map(function(b){return a.param0(b)});a.local_=
-c[0];a.remote_=c[1];b(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier failed!");c(b)})})};return b}(n.ProxyObject);a.IceCandidatePair=b},851:function(b,a){Object.defineProperty(a,"__esModule",{value:!0});var c=function(){function a(b){this.tracing=!1;this.mslogger_=void 0;this.tag=b;this.enabled=!0}a.prototype.setMSLogger=function(a){this.mslogger_=a};a.prototype.log=function(){for(var a=[],b=0;b<arguments.length;b++)a[b]=arguments[b];this.enabled&&(void 0!=this.mslogger_?this.mslogger_.info(this.tag+
-" "+a):console.log(this.tag+" "+a))};a.prototype.trace=function(){for(var a=[],b=0;b<arguments.length;b++)a[b]=arguments[b];this.tracing&&this.log.apply(this,a)};return a}();a.Logger=c;a.logger=new c("[HdxWebRTC.js]");a.logger.enabled=!0},360:function(b,a,c){var d=this&&this.__extends||function(){var a=function(b,c){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,b){for(var h in b)b.hasOwnProperty(h)&&(a[h]=b[h])};return a(b,c)};return function(b,
-c){function q(){this.constructor=b}a(b,c);b.prototype=null===c?Object.create(c):(q.prototype=c.prototype,new q)}}(),n=this&&this.__awaiter||function(a,b,c,q){return new (c||(c=Promise))(function(d,f){function w(a){try{y(q.next(a))}catch(b){f(b)}}function r(a){try{y(q["throw"](a))}catch(b){f(b)}}function y(a){a.done?d(a.value):(new c(function(b){b(a.value)})).then(w,r)}y((q=q.apply(a,b||[])).next())})},e=this&&this.__generator||function(a,b){function c(a){return function(b){return q([a,b])}}function q(c){if(f)throw new TypeError("Generator is already executing.");
-for(;d;)try{if(f=1,w&&(r=c[0]&2?w["return"]:c[0]?w["throw"]||((r=w["return"])&&r.call(w),0):w.next)&&!(r=r.call(w,c[1])).done)return r;if(w=0,r)c=[c[0]&2,r.value];switch(c[0]){case 0:case 1:r=c;break;case 4:return d.label++,{value:c[1],done:!1};case 5:d.label++;w=c[1];c=[0];continue;case 7:c=d.ops.pop();d.trys.pop();continue;default:if(!(r=d.trys,r=0<r.length&&r[r.length-1])&&(6===c[0]||2===c[0])){d=0;continue}if(3===c[0]&&(!r||c[1]>r[0]&&c[1]<r[3]))d.label=c[1];else if(6===c[0]&&d.label<r[1])d.label=
-r[1],r=c;else if(r&&d.label<r[2])d.label=r[2],d.ops.push(c);else{r[2]&&d.ops.pop();d.trys.pop();continue}}c=b.call(a,d)}catch(J){c=[6,J],w=0}finally{f=r=0}if(c[0]&5)throw c[1];return{value:c[0]?c[1]:void 0,done:!0}}var d={label:0,sent:function(){if(r[0]&1)throw r[1];return r[1]},trys:[],ops:[]},f,w,r,y;$jscomp.initSymbol();$jscomp.initSymbol();$jscomp.initSymbolIterator();return y={next:c(0),"throw":c(1),"return":c(2)},"function"===typeof Symbol&&(y[Symbol.iterator]=function(){return this}),y};Object.defineProperty(a,
-"__esModule",{value:!0});var m=c(946),p=c(144),l=c(589),g=c(658),k=c(985),v=c(377),t=c(650),z=c(24),u=c(550),f=c(851),A=c(517),x=c(394),D=function(a){function b(h,c,q){h=a.call(this,h,u.class_id_t.RTCIceCandidateEvent,c,g.ProxyMode.Remote)||this;h.target=q;h.type="icecandidate";return h}d(b,a);Object.defineProperty(b.prototype,"candidate",{get:function(){return this.candidate_},enumerable:!0,configurable:!0});b.prototype.syncBarrier=function(){var a=this;f.logger.log(this.user_friendly_id()+".syncBarrier() called.");
-return new Promise(function(b,h){a.waitUntilConnected(a.user_friendly_id()+".syncBarrier").then(function(){return a.remoteInvoke(!1,u.method_id_RTCIceCandidateEvent_t.candidate,{oid:0})}).then(function(b){b=a.param0(b);return!1===b.is_null?(new k.IceCandidate(a,b.oid,g.ProxyMode.Remote)).syncBarrier():Promise.resolve(null)}).then(function(h){f.logger.log(a.user_friendly_id()+".onicecandidate: icecandidate available!");a.candidate_=h;b(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".onicecandidate() failed!");
-h(b)})})};return b}(g.ProxyObject);a.IceCandidateEvent=D;var C=function(){function a(b){this.state_="new";this.candidates_=[];this.pc_=b}a.prototype.pushState=function(a){f.logger.log(this.pc_.user_friendly_id()+".onicegatheringstatechange: new state is "+a);this.state_=a;"gathering"==this.state_?(this.candidates_=[],this.postUpdate()):this.processRemaining()};a.prototype.addIceCandidate=function(a){var b=this;this.candidates_.push(a);a.syncBarrier().then(function(a){f.logger.log(b.pc_.user_friendly_id()+
-".onicecandidate: icecandidate available!");return Promise.all([b.pc_.updateSdpDescription(!0),Promise.resolve(a)])}).then(function(a){b.postIceCandidate(a[1])})};a.prototype.postIceCandidate=function(a){f.logger.log(this.pc_.user_friendly_id()+".onicecandidate: posting ice candidate now!");if(null!=this.pc_.onicecandidate)this.pc_.onicecandidate(a);else f.logger.log(this.pc_.user_friendly_id()+"onicecandidate is NULL!!!");this.candidates_.shift();this.processRemaining()};a.prototype.postUpdate=function(){f.logger.log(this.pc_.user_friendly_id()+
-".onicegatheringstatechange: posting event now!");var a=new w("onicegatheringstatechange",this.pc_);this.pc_.onicegatheringstatechange(a)};a.prototype.processRemaining=function(){0==this.candidates_.length&&"complete"==this.state_?(this.pc_.onicecandidate({candidate:null,target:this}),this.postUpdate()):f.logger.log(this.pc_.user_friendly_id()+".onicecandidate: candidates remaining=["+this.candidates_.map(function(a){return a.object_id()})+"], state="+this.state_)};return a}(),r=function(){return function(a,
-b){this.sdp=b;this.type=a}}();a.SessionDescriptionInit=r;var q=function(a){function b(h,c,q){for(var d=[],w=3;w<arguments.length;w++)d[w-3]=arguments[w];return a.apply(this,[h,u.class_id_t.RTCSessionDescription,c,q,null].concat(d))||this}d(b,a);b.prototype.toJSON=function(){return{type:this.type_,sdp:this.sdp_}};Object.defineProperty(b.prototype,"sdp",{get:function(){return this.sdp_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"type",{get:function(){return this.type_},enumerable:!0,
-configurable:!0});b.prototype.syncBarrier=function(){var a=this;f.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,h){a.waitUntilConnected(a.user_friendly_id()+".syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,u.method_id_RTCSessionDescription_t.type,0),a.remoteInvoke(!1,u.method_id_RTCSessionDescription_t.sdp,"")])}).then(function(h){a.type_=a.convertType(a.param0(h[0]));a.sdp_=a.param0(h[1]);b(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,
-".syncBarrier() failed!");h(b)})})};b.prototype.convertType=function(a){return 0==a?"offer":1==a?"pranswer":2==a?"answer":"rollback"};b.convertC2H=function(a){return"offer"==a?0:"pranswer"==a?1:"answer"==a?2:3};return b}(g.ProxyObject);a.SessionDescription=q;var w=function(){return function(a,b){this.type=a;this.target=b}}(),B=function(){return function(){}}(),y=function(){function a(b,c){this.local=b;this.remote=c}Object.defineProperty(a.prototype,"active",{get:function(){var a=!1;if(1==this.local||
-1==this.remote)a=!0;return a},enumerable:!0,configurable:!0});return a}();b=function(a){function b(c){var h=a.call(this,null,u.class_id_t.RTCPeerConnection,0,g.ProxyMode.Local,null,void 0!=c?c:{},{})||this;h.timeerstarted_=!1;h.firsttimeremoteoffer_=!1;h.firststable_=!1;h.firsttimelocaloffer_=!1;h.audiocall_=new y(!1,!1);h.videocall_=new y(!1,!1);h.screensharingcall_=new y(!1,!1);h.conferencecall_=!1;h.incomingcall_=!1;h.outgoingcall_=!1;c&&c.sdpSemantics&&(h.sdpSemantics_=c.sdpSemantics);f.logger.log(h.user_friendly_id()+
-".constructor sdpSemantics="+h.sdpSemantics_);if(!u.BUILD_TYPE_SDK&&h.isUnified()&&!m.getRedirector().getFeatureValue(u.FEATURE_ms_teams_webrtc_1dot0))throw new DOMException("CWA client does not support unified sdpSemantic","createPeerConnection");h.pendingtransceiver_=!1;h.deferredOfferAnswers=[];h.localStreams=[];h.remoteStreams=[];h.onaddstream_=null;h.signalingState_="stable";h.iceConnectionState_="new";h.iceGatheringState_="new";h.iceQ_=new C(h);h.receivers_=[];h.senders_=[];h.transceivers_=
-[];h.registerStateChangeNotification(h.onStateChange);h.localdatachannel_=null;h.remotedatachannel_=null;return h}d(b,a);b.prototype.dumpSdp=function(a){f.logger.log(this.user_friendly_id()+".dumpSdp");a&&(f.logger.log(this.user_friendly_id()+"  -- type: "+a.type),f.logger.log(this.user_friendly_id()+"  -- sdp: "+a.sdp))};Object.defineProperty(b.prototype,"localDescription",{get:function(){f.logger.log(this.user_friendly_id()+".get_localDescription() called.");return this.localDescription_},set:function(a){f.logger.log(this.user_friendly_id()+
-".set_localDescription() called.");this.localDescription_=a},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"remoteDescription",{get:function(){f.logger.log(this.user_friendly_id()+".get_remoteDescription() called.");return this.remoteDescription_},set:function(a){f.logger.log(this.user_friendly_id()+".get_remoteDescription() called.");this.remoteDescription_=a},enumerable:!0,configurable:!0});b.prototype.isUnified=function(){return"unified"==this.sdpSemantics_||"unified-plan"==
-this.sdpSemantics_};b.prototype.onStateChange=function(){var a=new w("iceconnectionstatechange",this);if(this.oniceconnectionstatechange_)this.oniceconnectionstatechange_(a)};b.prototype.addIceCandidate=function(a){var b=this;f.logger.log(this.user_friendly_id()+".addIceCandidate() called.");this.waitUntilConnected(this.user_friendly_id()+".addIceCandidate").then(function(){var c={candidate:a.candidate,sdpMid:a.sdpMid,sdpMLineIndex:a.sdpMLineIndex};if(void 0==c.candidate||null==c.candidate)c.candidate=
-"";void 0==c.sdpMid&&(c.sdpMid=null);void 0==c.sdpMLineIndex&&(c.sdpMLineIndex=null);return(new k.IceCandidate(b,0,g.ProxyMode.Local,c)).syncBarrier()}).then(function(a){return b.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.addIceCandidate,{oid:a.object_id()},{})}).then(function(){f.logger.log(b.user_friendly_id()+".addIceCandidate() success.");return b.updateSdpDescription(!1)}).then(function(){f.logger.log(b.user_friendly_id()+".addIceCandidate() - sync remote sdp success.")})["catch"](function(a){b.logRemoteInvokeError(a,
-".addIceCandidate() failed!")})};Object.defineProperty(b.prototype,"onicecandidate",{get:function(){return this.onicecandidate_},set:function(a){var b=this;f.logger.log(this.user_friendly_id()+".set_onicecandidate() called.");this.onicecandidate_=a;this.waitUntilConnected(this.user_friendly_id()+".onicecandidate").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),u.method_id_RTCPeerConnection_t.onicecandidate);c.then(function(a){f.logger.log(b.user_friendly_id()+".onicecandidate callback received!!!");
-a=new D(b,b.param0(a).oid,b);null!=b.iceQ_&&b.iceQ_.addIceCandidate(a)});return b.remoteInvoke(!0,u.method_id_RTCPeerConnection_t.onicecandidate,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,".set_onicecandidate() failed!")})},enumerable:!0,configurable:!0});b.prototype.convertIceConnectionState=function(a){return 0==a?"new":1==a?"checking":2==a?"connected":3==a?"completed":4==a?"failed":5==a?"disconnected":"closed"};b.prototype.convertConnectionState=function(a){if(0!=a){if(1==a)return"connecting";
-if(2==a)return"connected";if(3==a)return"disconnected";if(4==a)return"failed";if(5==a)return"closed"}return"new"};Object.defineProperty(b.prototype,"onconnectionstatechange",{get:function(){return this.onconnectionstatechange_},set:function(a){var b=this;f.logger.log(this.user_friendly_id()+".set_onconnectionstatechange() called.");this.onconnectionstatechange_=a;this.waitUntilConnected(this.user_friendly_id()+".onconnectionstatechange").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),
-u.method_id_RTCPeerConnection_t.onconnectionstatechange);c.then(function(a){f.logger.log(b.user_friendly_id()+".onconnectionstatechange(): success callback received!!!");b.connectionState_=b.convertConnectionState(b.param0(a));f.logger.log(b.user_friendly_id()+" connectionState=:"+b.connectionState_);a=new w("connectionstatechange",b);b.onconnectionstatechange_(a)});return b.remoteInvoke(!0,u.method_id_RTCPeerConnection_t.onconnectionstatechange,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,
-".set_onconnectionstatechange() failed!")})},enumerable:!0,configurable:!0});b.prototype.get_connectionState=function(){f.logger.log(this.user_friendly_id()+".get_connectionState() called, value = "+this.connectionState_);return this.isRedirected()?this.connectionState_:"failed"};Object.defineProperty(b.prototype,"oniceconnectionstatechange",{get:function(){return this.oniceconnectionstatechange_},set:function(a){var b=this;f.logger.log(this.user_friendly_id()+".set_oniceconnectionstatechange() called.");
-this.oniceconnectionstatechange_=a;this.waitUntilConnected(this.user_friendly_id()+".oniceconnectionstatechange").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),u.method_id_RTCPeerConnection_t.oniceconnectionstatechange);c.then(function(a){f.logger.log(b.user_friendly_id()+".oniceconnectionstatechange(): success callback received!!!");b.iceConnectionState_=b.convertIceConnectionState(b.param0(a));a=new w("iceconnectionstatechange",b);b.oniceconnectionstatechange_(a)});return b.remoteInvoke(!0,
-u.method_id_RTCPeerConnection_t.oniceconnectionstatechange,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,".set_oniceconnectionstatechange() failed!")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"iceConnectionState",{get:function(){f.logger.log(this.user_friendly_id()+".get_iceConnectionState() called, value = "+this.iceConnectionState_);return this.isRedirected()?this.iceConnectionState_:"failed"},enumerable:!0,configurable:!0});b.prototype.convertIceGatheringState=
-function(a){return 0==a?"new":1==a?"gathering":"complete"};Object.defineProperty(b.prototype,"onicegatheringstatechange",{get:function(){return this.onicegatheringstatechange_},set:function(a){var b=this;f.logger.log(this.user_friendly_id()+".set_onicegatheringstatechange() called.");this.onicegatheringstatechange_=a;this.waitUntilConnected(this.user_friendly_id()+".onicegatheringstatechange").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),u.method_id_RTCPeerConnection_t.onicegatheringstatechange);
-c.then(function(a){f.logger.log(b.user_friendly_id()+".onicegatheringstatechange(): callback received!!!");b.iceGatheringState_=b.convertIceGatheringState(b.param0(a));null!=b.iceQ_&&b.iceQ_.pushState(b.iceGatheringState_)});return b.remoteInvoke(!0,u.method_id_RTCPeerConnection_t.onicegatheringstatechange,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,".set_onicegatheringstatechange() failed!")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"iceGatheringState",{get:function(){f.logger.log(this.user_friendly_id()+
-".get_iceGatheringState() called, value = "+this.iceGatheringState_);return this.iceGatheringState_},enumerable:!0,configurable:!0});b.prototype.convertSignalState=function(a){return 0==a?"stable":1==a?"have-local-offer":2==a?"have-local-pranswer":3==a?"have-remote-offer":4==a?"have-remote-pranswer":"closed"};b.prototype.TelemtryReadings_=function(){"have-local-offer"==this.signalingState_&&0==this.firsttimelocaloffer_&&0==this.firsttimeremoteoffer_&&(this.outgoingcallstart_=(new Date).getTime(),
-0==this.outgoingcall_&&(this.SendTelemetryData(x.tel_key_PerfCallState,x.tel_CallState.active,1),this.SendTelemetryData(x.tel_key_PerfCallDirection,x.tel_CallDirection.outgoing,1),this.outgoingcall_=!0),this.firsttimelocaloffer_=!0);"have-remote-offer"==this.signalingState_&&0==this.firsttimeremoteoffer_&&0==this.firsttimelocaloffer_&&(this.incomingcallstart_=(new Date).getTime(),0==this.incomingcall_&&(this.SendTelemetryData(x.tel_key_PerfCallState,x.tel_CallState.active,1),this.SendTelemetryData(x.tel_key_PerfCallDirection,
-x.tel_CallDirection.incoming,1),this.incomingcall_=!0),this.firsttimeremoteoffer_=!0);"stable"==this.signalingState_&&0==this.firststable_&&(this.callstartTime_=(new Date).getTime(),this.firststable_=this.timeerstarted_=!0);if("stable"==this.signalingState_){for(var a=0,b=this.localStreams;a<b.length;a++){var c=b[a];1<=c.getAudioTracks().length&&0==this.audiocall_.local&&(this.SendTelemetryData(x.tel_key_PerfCallType,x.tel_CallType.audio,1),this.audiocall_.local=!0);c=c.getVideoTracks();if(1<=c.length)for(var h=
-0,q=c;h<q.length;h++)c=q[h],1==c.getSettings().deviceId.includes("display")?0==this.screensharingcall_.local&&(this.SendTelemetryData(x.tel_key_PerfCallType,x.tel_CallType.dshare,1),this.screensharingcall_.local=!0):0==this.videocall_.local&&(this.SendTelemetryData(x.tel_key_PerfCallType,x.tel_CallType.video,1),this.videocall_.local=!0)}a=0;for(b=this.remoteStreams;a<b.length;a++)if(c=b[a],1<=c.getAudioTracks().length&&0==this.audiocall_.remote&&(this.SendTelemetryData(x.tel_key_PerfCallType,x.tel_CallType.audio,
-1),this.audiocall_.remote=!0),h=c.getVideoTracks(),1<=h.length)for(c=0;c<h.length;c++)1==h[c].id.includes("applicationsharingVideo")?0==this.screensharingcall_.remote&&(this.SendTelemetryData(x.tel_key_PerfCallType,x.tel_CallType.dshare,1),this.screensharingcall_.remote=!0):0==this.videocall_.remote&&(this.SendTelemetryData(x.tel_key_PerfCallType,x.tel_CallType.video,1),this.videocall_.remote=!0);2<this.getReceivers().length&&0==this.conferencecall_&&(this.SendTelemetryData(x.tel_key_PerfCallType,
-x.tel_CallType.multi,1),this.conferencecall_=!0)}};Object.defineProperty(b.prototype,"onsignalingstatechange",{set:function(a){var b=this;f.logger.log(this.user_friendly_id()+".set_onsignalingstatechange() called.");this.onsignalingstatechange_=a;this.waitUntilConnected(this.user_friendly_id()+".onsignalingstatechanged").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),u.method_id_RTCPeerConnection_t.onsignalingstatechange);c.then(function(a){f.logger.log(b.user_friendly_id()+".onsignalingstatechange(): callback received!!!");
-b.signalingState_=b.convertSignalState(b.param0(a));a=new w("onsignalingstatechange",b);b.onsignalingstatechange_(a);b.TelemtryReadings_()});return b.remoteInvoke(!0,u.method_id_RTCPeerConnection_t.onsignalingstatechange,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,".set_onsignalingstatechange() failed!")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onsignalingstatechanged",{get:function(){return this.onsignalingstatechange_},enumerable:!0,configurable:!0});
-Object.defineProperty(b.prototype,"ontrack",{get:function(){return this.ontrack_},set:function(a){var b=this;f.logger.log(this.user_friendly_id()+".set_ontrack() called.");this.ontrack_=a;this.waitUntilConnected(this.user_friendly_id()+".ontrack").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),u.method_id_RTCPeerConnection_t.ontrack);c.then(function(a){return n(b,void 0,void 0,function(){var b,c,h,q,d,w,J,F,r,K,y,z=this;return e(this,function(n){f.logger.log(this.user_friendly_id()+
-".ontrack(): callback received!!!");b=new B;c=[];h=this.param0(a);void 0!=h.track&&!1===h.track.is_null&&(f.logger.log(this.user_friendly_id()+" adding a RemoteMediaTrack with oid:"+h.track.oid),q=new p.RemoteMediaTrack(this,h.track.oid),c.push(q.syncBarrier()));b.track=q;void 0!=h.receiver&&!1===h.receiver.is_null&&(d=this.receivers_.find(function(a){return a.object_id()===h.receiver.oid}),void 0===d&&(f.logger.log(this.user_friendly_id()+" adding a RtpReceiver with oid:"+h.receiver.oid),d=new l.RtpReceiver(this,
-h.receiver.oid,g.ProxyMode.Remote,this.isUnified(),q)),c.push(d.syncBarrier()));b.receiver=d;t.RemoteSession.isFeatureWebrtc1dot0Supported()&&void 0!=h.transceiver&&!1===h.transceiver.is_null&&(w=this.transceivers_.find(function(a){return a.object_id()===h.transceiver.oid}),void 0===w&&(f.logger.log(this.user_friendly_id()+" adding a RtpTransceiver with oid:"+h.transceiver.oid),w=new v.RtpTransceiver(this,h.transceiver.oid,g.ProxyMode.Remote,this.isUnified(),"inactive",d),this.transceivers_.push(w)),
-c.push(w.syncBarrier()));b.transceiver=w;b.streams=[];if(void 0!=h.streams)for(J=function(a){var h=F.remoteStreams.find(function(b){return!1===a.is_null&&b.object_id()===a.oid});void 0===h&&(f.logger.log(F.user_friendly_id()+" adding a RemoteStream with oid:"+a.oid),h=new p.RemoteStream(F,a.oid,g.ProxyMode.Remote),F.remoteStreams.push(h));c.push(h.syncBarrier());b.streams.push(h)},F=this,r=0,K=h.streams;r<K.length;r++)y=K[r],J(y);f.logger.log(this.user_friendly_id()+".ontrack(): .prop.syncBarrier start");
-Promise.all(c).then(function(){f.logger.log(z.user_friendly_id()+".ontrack(): notified!!! with evt: "+b);for(var a=0,c=b.streams;a<c.length;a++)c[a].toggleAudio(!1);z.ontrack_(b)})["catch"](function(a){z.logRemoteInvokeError(a,".ontrack(): .prop.syncBarrier failed.")});return[2]})})});return b.remoteInvoke(!0,u.method_id_RTCPeerConnection_t.ontrack,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,".set_ontrack(): failed.")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,
-"signalingState",{get:function(){f.logger.log(this.user_friendly_id()+".get_signalingState() called, value = "+this.signalingState_);return this.signalingState_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onnegotiationneeded",{get:function(){return this.onnegotiationneeded_},set:function(a){var b=this;f.logger.log(this.user_friendly_id()+".set_onnegotiationneeded() called.");this.onnegotiationneeded_=a;this.waitUntilConnected(this.user_friendly_id()+".onnegotiationneeded").then(function(){var c=
-b.registerCallbacks(!1,b.isNullCallback(a),u.method_id_RTCPeerConnection_t.onnegotiationneeded);c.then(function(){f.logger.log(b.user_friendly_id()+".onnegotiationneeded(): callback received!!!");var a=new w("negotiationneeded",b);b.onnegotiationneeded_(a)});return b.remoteInvoke(!0,u.method_id_RTCPeerConnection_t.onnegotiationneeded,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,".set_onnegotiationneeded(): failed.")})},enumerable:!0,configurable:!0});b.prototype.dumpConstraints=function(a){f.logger.log(this.user_friendly_id()+
-"constraints: "+a);void 0!==a&&0!==Object.keys(a).length||f.logger.log(this.user_friendly_id()+"constraints either undefined or empty!");a&&(f.logger.log(this.user_friendly_id()+"  -- video: "+a.offerToReceiveVideo),f.logger.log(this.user_friendly_id()+"  -- audio: "+a.offerToReceiveAudio),f.logger.log(this.user_friendly_id()+"  -- iceRestart: "+a.iceRestart),f.logger.log(this.user_friendly_id()+"  -- voiceActivityDetection: "+a.voiceActivityDetection))};b.prototype.fix_constraints=function(a){this.dumpConstraints(a);
-var b={};this.isUnified()||(b={audio:!0,video:!0});a&&(void 0!==a.video&&(b.video=a.offerToReceiveVideo),void 0!==a.audio&&(b.audio=a.offerToReceiveAudio),void 0!==a.iceRestart&&(b.iceRestart=a.iceRestart),void 0!==a.voiceActivityDetection&&(b.voiceActivityDetection=a.voiceActivityDetection));return b};b.prototype.createOffer=function(a,b,c){f.logger.log(this.user_friendly_id()+".createOffer() called.",JSON.stringify(a));return this.isUnified()?void 0==a?this.createOffer_v2():a?this.createOffer_v2(a):
-this.createOffer_v1(a,b,c):this.createOffer_v1(a,b,c)};b.prototype.createOffer_v2=function(a){var b=this;f.logger.log(this.user_friendly_id()+".createOffer_v2() called.",JSON.stringify(a));return new Promise(function(c,h){b.createOffer_v1(function(a){f.logger.log(b.user_friendly_id()+".createOffer_v2(): got sdp!!!");a=new r(a.type,a.sdp);c(a)},function(a){void 0!=a&&(a=b.logRemoteInvokeError(a,".createOffer_v2() failed."),h(a))},a)})};b.prototype.createOffer_v1=function(a,b,c){var h=this;f.logger.log(this.user_friendly_id()+
-".createOffer_v1().",JSON.stringify(c));var d=[this.waitUntilConnected(this.user_friendly_id()+".createOffer_v1"),this.waitTransceiverReady(this.user_friendly_id()+".createOffer_v1")];Promise.all(d).then(function(){var a=h.registerCallbacks(!0,!1,u.method_id_RTCPeerConnection_t.createOffer);h.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.createOffer,a.success,a.fail,h.fix_constraints(c));return a.prom()}).then(function(a){f.logger.log(h.user_friendly_id()+".createOffer_v1(): success callback received!!!");
-return(new q(h,h.param0(a).oid,g.ProxyMode.Remote)).syncBarrier()}).then(function(b){a&&a(b)})["catch"](function(a){void 0!=a&&(a=h.logRemoteInvokeError(a,".createOffer_v1() failed."),b&&b(a))})};b.prototype.createAnswer=function(a,b,c){f.logger.log(this.user_friendly_id()+".createAnswer() called.",JSON.stringify(a));return this.isUnified()?void 0==a?this.createAnswer_v2():a?this.createAnswer_v2(a):this.createAnswer_v1(a,b,c):this.createAnswer_v1(a,b,c)};b.prototype.createAnswer_v2=function(a){var b=
-this;f.logger.log(this.user_friendly_id()+".createAnswer_v2() called.",JSON.stringify(a));return new Promise(function(c,h){b.createAnswer_v1(function(a){f.logger.log(b.user_friendly_id()+".createAnswer_v2(): got sdp!!!");a=new r(a.type,a.sdp);c(a)},function(a){void 0!=a&&(a=b.logRemoteInvokeError(a,".createAnswer_v2() failed."),h(a))},a)})};b.prototype.createAnswer_v1=function(a,b,c){var h=this;f.logger.log(this.user_friendly_id()+".createAnswer_v1() called.",JSON.stringify(c));var d=[this.waitUntilConnected(this.user_friendly_id()+
-".createAnswer_v1"),this.waitTransceiverReady(this.user_friendly_id()+".createAnswer_v1")];Promise.all(d).then(function(){var a=h.registerCallbacks(!0,!1,u.method_id_RTCPeerConnection_t.createAnswer);h.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.createAnswer,a.success,a.fail,h.fix_constraints(c),{});return a.prom()}).then(function(a){f.logger.log(h.user_friendly_id()+".createAnswer_v1(): success callback received!!!");return(new q(h,h.param0(a).oid,g.ProxyMode.Remote)).syncBarrier()}).then(function(b){a&&
-a(b)})["catch"](function(a){a=h.logRemoteInvokeError(a,".createAnswer_v1() failed.");b&&b(a.message)})};b.prototype.updateSdpDescription=function(a){return n(this,void 0,void 0,function(){var b,c,h,d=this;return e(this,function(w){switch(w.label){case 0:return f.logger.log(this.user_friendly_id()+".updateSdpDescription() called."),1!=a?[3,2]:[4,this.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.localDescription,{oid:this.object_id()})];case 1:return b=w.sent(),[3,4];case 2:return[4,this.remoteInvoke(!1,
-u.method_id_RTCPeerConnection_t.remoteDescription,{oid:this.object_id()})];case 3:b=w.sent(),w.label=4;case 4:return c=new q(this,this.param0(b).oid,g.ProxyMode.Remote),[4,c.syncBarrier()["catch"](function(a){d.logRemoteInvokeError(a,"sdp.syncBarrier() failed!");return null})];case 5:return h=w.sent(),1==a?this.localDescription_=h:this.remoteDescription_=h,[2]}})})};b.prototype.setLocalDescription=function(a,b,c){f.logger.log(this.user_friendly_id()+".setLocalDescription() called.",JSON.stringify(a));
-if(a instanceof r)return this.setLocalDescription_v2(a);if(a instanceof RTCSessionDescription&&b)return this.setLocalDescription_v1(a,b,c);b=void 0;a?b=new r(a.type,a.sdp):(f.logger.log(this.user_friendly_id()+".setLocalDescription() empty param1, setting sdp type to rollback"),a=void 0,a="have-remote-offer"==this.signalingState_?"answer":"have-local-pranswer"==this.signalingState_||"have-remote-pranswer"==this.signalingState_?"pranswer":"offer",b=new r(a,""));return this.setLocalDescription_v2(b)};
-b.prototype.setLocalDescription_v2=function(a){var b=this;f.logger.log(this.user_friendly_id()+".setLocalDescription_v2() called.",JSON.stringify(a));return new Promise(function(c,h){b.waitUntilConnected(b.user_friendly_id()+".setLocalDescription_v2").then(function(){return(new q(b,0,g.ProxyMode.Local,{type:q.convertC2H(a.type),sdp:a.sdp})).syncBarrier()}).then(function(d){var w=b.registerCallbacks(!0,!1,u.method_id_RTCPeerConnection_t.setLocalDescription_v2),r={type:q.convertC2H(a.type),sdp:a.sdp};
-b.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.setLocalDescription_v2,r,w.success,w.fail);w.prom().then(function(){f.logger.log(b.user_friendly_id()+".setLocalDescription_v2(): success callback received!!!");b.localDescription_=d;f.logger.log(b.user_friendly_id()+".setLocalDescription_v2(): updated localDescription_");b.isUnified();Promise.all([]).then(function(){f.logger.log(b.user_friendly_id()+".setLocalDescription_v2() success.");c()})["catch"](function(a){a=b.logRemoteInvokeError(a,".prop.setLocalDescription_v2() failed!");
-h(a)})})["catch"](function(a){a=b.logRemoteInvokeError(a,"setLocalDescription_v2() error callback received!");h(a)})})["catch"](function(a){a=b.logRemoteInvokeError(a,".setLocalDescription_v2() failed.");h(a)})})};b.prototype.setLocalDescription_v1=function(a,b,c){var h=this;f.logger.log(this.user_friendly_id()+".setLocalDescription_v1() called.");this.waitUntilConnected(this.user_friendly_id()+".setLocalDescription_v1").then(function(){return(new q(h,0,g.ProxyMode.Local,{type:q.convertC2H(a.type),
-sdp:a.sdp})).syncBarrier()}).then(function(a){var q=h.registerCallbacks(!0,!1,u.method_id_RTCPeerConnection_t.setLocalDescription);h.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.setLocalDescription,{oid:a.object_id()},q.success,q.fail);q.prom().then(function(){f.logger.log(h.user_friendly_id()+".setLocalDescription_v1(): success callback received!!!");h.localDescription_=a;f.logger.log(h.user_friendly_id()+".setLocalDescription_v1(): updated localDescription_");h.isUnified();Promise.all([]).then(function(){f.logger.log(h.user_friendly_id()+
-".setLocalDescription_v1() success.");b&&b()})["catch"](function(a){a=h.logRemoteInvokeError(a,".prop.setLocalDescription_v1() failed.");c&&c(a.message)})})["catch"](function(a){a=h.logRemoteInvokeError(a,".setLocalDescription_v1() error callback received.");c&&c(a.message)})})["catch"](function(a){a=h.logRemoteInvokeError(a,".setLocalDescription_v1() failed.");c&&c(a.message)})};b.prototype.setRemoteDescription=function(a,b,c){f.logger.log(this.user_friendly_id()+".setRemoteDescription() called.",
-JSON.stringify(a));if(a instanceof r)return this.setRemoteDescription_v2(a);if(a instanceof RTCSessionDescription&&b)return this.setRemoteDescription_v1(a,b,c);b=void 0;a?b=new r(a.type,a.sdp):(f.logger.log(this.user_friendly_id()+".setRemoteDescription() empty param1, setting sdp type to rollback"),a=void 0,a="have-remote-offer"==this.signalingState_?"answer":"have-local-pranswer"==this.signalingState_||"have-remote-pranswer"==this.signalingState_?"pranswer":"offer",b=new r(a,""));return this.setRemoteDescription_v2(b)};
-b.prototype.setRemoteDescription_v2=function(a){var b=this;f.logger.log(this.user_friendly_id()+".setRemoteDescription_v2() called.",JSON.stringify(a));return new Promise(function(c,h){b.waitUntilConnected(b.user_friendly_id()+".setRemoteDescription_v2").then(function(){return(new q(b,0,g.ProxyMode.Local,{type:q.convertC2H(a.type),sdp:a.sdp})).syncBarrier()}).then(function(d){var w=b.registerCallbacks(!0,!1,u.method_id_RTCPeerConnection_t.setRemoteDescription_v2),r={type:q.convertC2H(a.type),sdp:a.sdp};
-b.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.setRemoteDescription_v2,r,w.success,w.fail);w.prom().then(function(){f.logger.log(b.user_friendly_id()+".setRemoteDescription_v2(): success callback received!!!");b.remoteDescription_=d;f.logger.log(b.user_friendly_id()+".setRemoteDescription_v2(): updated remoteDescription_");var a=[];b.isUnified()?a.push(b.getTransceiversAsync()):a.push(b.getSendersAsync());Promise.all(a).then(function(){f.logger.log(b.user_friendly_id()+".setRemoteDescription_v2(): success.");
-c()})["catch"](function(a){a=b.logRemoteInvokeError(a,".prop.setRemoteDescription_v2() failed.");h(a)})})["catch"](function(a){a=b.logRemoteInvokeError(a,".setRemoteDescription_v2() error callback received.");h(a)})})["catch"](function(a){a=b.logRemoteInvokeError(a,".setRemoteDescription_v2() failed.");h(a)})})};b.prototype.setRemoteDescription_v1=function(a,b,c){var h=this;f.logger.log(this.user_friendly_id()+".setRemoteDescription_v1() called.");this.waitUntilConnected(this.user_friendly_id()+".setRemoteDescription_v1").then(function(){return(new q(h,
-0,g.ProxyMode.Local,{type:q.convertC2H(a.type),sdp:a.sdp})).syncBarrier()}).then(function(a){var q=h.registerCallbacks(!0,!1,u.method_id_RTCPeerConnection_t.setRemoteDescription);h.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.setRemoteDescription,{oid:a.object_id()},q.success,q.fail);q.prom().then(function(){f.logger.log(h.user_friendly_id()+".setRemoteDescription_v1(): success callback received!!!");h.remoteDescription_=a;f.logger.log(h.user_friendly_id()+".setRemoteDescription_v1(): updated remoteDescription_");
-var q=[];h.isUnified()?q.push(h.getTransceiversAsync()):q.push(h.getSendersAsync());Promise.all(q).then(function(){f.logger.log(h.user_friendly_id()+".setRemoteDescription_v1(): success.");b&&b()})["catch"](function(a){a=h.logRemoteInvokeError(a,".prop.setRemoteDescription_v1() failed.");c&&c(a.message)})})})["catch"](function(a){a=h.logRemoteInvokeError(a,".setRemoteDescription_v1() failed.");c&&c(a.message)})};b.prototype.getLocalStreams=function(){f.logger.log("PeerConnection.getLocalStreams() called. [oid="+
-this.object_id()+"]");for(var a=0,b=this.localStreams;a<b.length;a++)f.logger.log(JSON.stringify(b[a]));return this.localStreams};b.prototype.getRemoteStreams=function(){f.logger.log(this.user_friendly_id()+".getRemoteStreams() called.");for(var a=0,b=this.remoteStreams;a<b.length;a++)f.logger.log(JSON.stringify(b[a]));return this.remoteStreams};b.prototype.addTrack=function(a,b){var c=this;f.logger.log(this.user_friendly_id()+".addTrack() called: "+JSON.stringify(b));var h=[];if(b instanceof p.RemoteStream)h.push(b.id),
-this.localStreams.push(b);else for(var q=0;q<b.length;q++)h.push(b[q].id),this.localStreams.push(b[q]);var d=new l.RtpSender(this,0,g.ProxyMode.Pseudo,this.isUnified());this.senders_.push(d);this.waitUntilConnected(this.user_friendly_id()+".addTrack").then(function(){return c.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.addTrack,{oid:a.object_id()},h)}).then(function(a){f.logger.log(c.user_friendly_id()+".addTrack() success with oid: "+c.param0(a).oid);d.bind(c,c.param0(a).oid);d.syncBarrier().then(function(){f.logger.log(c.user_friendly_id()+
-"sender.syncBarrier(): success");c.isUnified()&&c.getTransceiversAsync()})["catch"](function(a){c.logRemoteInvokeError(a,"sender.syncBarrier() failed!")})})["catch"](function(a){c.logRemoteInvokeError(a,"addTrack() failed!")});f.logger.log(this.user_friendly_id()+".addTrack() returning: "+d);return d};b.prototype.removeTrack=function(a){var b=this;f.logger.log(this.user_friendly_id()+".removeTrack() called.");for(var c=0;c<this.senders_.length;c++)this.senders_[c]==a&&this.senders_.splice(c,1);this.waitUntilConnected(this.user_friendly_id()+
-".removeTrack").then(function(){return b.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.removeTrack,{oid:a.object_id()})}).then(function(){f.logger.log(b.user_friendly_id()+".removeTrack() success.");b.isUnified()&&b.getTransceiversAsync()})["catch"](function(a){b.logRemoteInvokeError(a,"removeTrack() failed!")})};b.prototype.addStream=function(a){var b=this;f.logger.log(this.user_friendly_id()+".addStream() called: "+JSON.stringify(a));this.localStreams.push(a);this.waitUntilConnected(this.user_friendly_id()+
-".addStream").then(function(){return b.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.addStream,{oid:a.object_id()},{})}).then(function(){f.logger.log(b.user_friendly_id()+".addStream() success.")})["catch"](function(a){b.logRemoteInvokeError(a,"addStream() failed.")})};b.prototype.removeStream=function(a){var b=this;f.logger.log(this.user_friendly_id()+".removeStream() called: "+JSON.stringify(a));for(var c=0;c<this.localStreams.length;c++)this.localStreams[c]==a&&this.localStreams.splice(c,1);
-this.waitUntilConnected(this.user_friendly_id()+".removeStream").then(function(){return b.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.removeStream,{oid:a.object_id()})}).then(function(){f.logger.log(b.user_friendly_id()+".removeStream() success.")})["catch"](function(a){b.logRemoteInvokeError(a,"removeStream() failed.")})};Object.defineProperty(b.prototype,"onaddstream",{get:function(){return this.onaddstream_},set:function(a){var b=this;f.logger.log(this.user_friendly_id()+".set_onaddstream() called.");
-this.onaddstream_=a;this.waitUntilConnected(this.user_friendly_id()+".onaddstream").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),u.method_id_RTCPeerConnection_t.onaddstream);c.then(function(a){(new p.RemoteStreamEvent(b,b.param0(a).oid)).syncBarrier().then(function(a){f.logger.log(b.user_friendly_id()+".onaddstream callback received!");void 0===b.remoteStreams.find(function(b){return void 0!=a.stream&&b.object_id()===a.stream.object_id()})&&b.remoteStreams.push(a.stream);void 0!=
-b.onaddstream_&&(f.logger.log(b.user_friendly_id()+".onaddstream notified!!! "+a.stream.id),b.onaddstream_(a))})});return b.remoteInvoke(!0,u.method_id_RTCPeerConnection_t.onaddstream,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,"set_onaddstream() failed!")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onremovestream",{get:function(){return this.onremovestream_},set:function(a){var b=this;f.logger.log(this.user_friendly_id()+".set_onremovestream() called.");this.onremovestream_=
-a;this.waitUntilConnected(this.user_friendly_id()+".onremovestream").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),u.method_id_RTCPeerConnection_t.onremovestream);c.then(function(a){(new p.RemoteStreamEvent(b,b.param0(a).oid)).syncBarrier().then(function(a){f.logger.log(b.user_friendly_id()+".onremovestream callback received! "+a.stream.id);var c=b.remoteStreams.findIndex(function(b){return b.id==a.stream.id});0<=c&&b.remoteStreams.splice(c,1);b.onremovestream_(a)})});return b.remoteInvoke(!0,
-u.method_id_RTCPeerConnection_t.onremovestream,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,"set_onremovestream() failed!")})},enumerable:!0,configurable:!0});b.prototype.getStats=function(a){var b=this;return new Promise(function(c,h){var q=this;b.isRedirected()?b.waitUntilConnected(b.user_friendly_id()+".getStats").then(function(){var h=b.registerCallbacks(!0,!1,u.method_id_RTCPeerConnection_t.getStats);h.then(function(b){void 0!==b.params&&0!==b.params.length&&(a?(a(A.StatsReport.fromJSON(JSON.parse(b.params[0]))),
-c()):c(A.StatsReport.toRTCStatsReport(JSON.parse(b.params[0]))))});return a?b.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.getStats,h.success):b.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.getStats_v2,h.success)})["catch"](function(a){q&&(a=q.logRemoteInvokeError(a,".getStats() failed!"),h(a))}):(a({}),c())})};b.prototype.SendTelemetryData=function(a,b,c){m.getRedirector().telemetry.SendTelemetryData(x.tel_cmd.Data,a,b,c)};b.prototype.MillisecondstoDisplayformat_=function(a){var b,c;c=Math.floor(a/
-1E3);b=Math.floor(c/60);a=Math.floor(b/60);f.logger.log(Math.floor(a/24)+":"+a%24+":"+b%60+":"+c%60)};b.prototype.CalculateCallDurationandType_=function(){if(1==this.timeerstarted_){this.timeerstarted_=!1;this.callendTime_=(new Date).getTime();var a=this.callendTime_-this.callstartTime_;this.MillisecondstoDisplayformat_(a);a=Math.round(a/1E3);f.logger.log("Call Duration "+a);1==this.conferencecall_?this.SendTelemetryData(x.tel_key_ConferenceCallDuration,a,1):(1==this.audiocall_.active&&this.SendTelemetryData(x.tel_key_AudioCallDuration,
-a,1),1==this.videocall_.active&&this.SendTelemetryData(x.tel_key_VideoCallDuration,a,1),1==this.screensharingcall_.active&&this.SendTelemetryData(x.tel_key_ScreensharingCallDuration,a,1));var b;1==this.firsttimelocaloffer_&&(b=this.callstartTime_-this.outgoingcallstart_);1==this.firsttimeremoteoffer_&&(b=this.callstartTime_-this.incomingcallstart_);this.MillisecondstoDisplayformat_(b);b=Math.round(b/1E3);f.logger.log("Call Establish Time "+b);1==this.incomingcall_?this.SendTelemetryData(x.tel_key_CallEstIncoming,
-b,1):1==this.outgoingcall_&&this.SendTelemetryData(x.tel_key_CallEstOutgoing,b,1);this.SendTelemetryData(x.tel_key_PerfCallState,x.tel_CallState.idle,1)}};b.prototype.close=function(){var a=this;f.logger.log(this.user_friendly_id()+".close() called.");this.CalculateCallDurationandType_();this.unregisterStateChangeNotification(this.onStateChange);this.onnegotiationneeded=this.onsignalingstatechange=this.onicegatheringstatechange=this.oniceconnectionstatechange=this.onicecandidate=this.onaddstream=
-null;this.waitUntilConnected(this.user_friendly_id()+".close").then(function(){return a.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.close)}).then(function(){a.iceQ_=null;a.release();f.logger.log(a.user_friendly_id()+".close() success.")})["catch"](function(b){a.logRemoteInvokeError(b,".close() failed.");a.iceQ_=null;a.release()})};b.prototype.createDTMFSender=function(a){f.logger.log(this.user_friendly_id()+".createDTMFSender() called.");var b,c=this.senders_;if(void 0===c||0===c.length)c=this.getSenders();
-void 0!=c&&(c=c.find(function(b){return b.track.id===a.id}),void 0!=c&&(f.logger.log(this.user_friendly_id()+" returning RtpSender with oid:"+c.object_id()),b=c.dtmf));return b};b.prototype.getSenders=function(){var a=this;f.logger.log(this.user_friendly_id()+".getSenders() called. ");if(this.isUnified()){for(var b=[],c=0,h=this.transceivers_;c<h.length;c++)b.push(h[c].sender);this.senders_=b}else this.getSendersAsync().then(function(){f.logger.log(a.user_friendly_id()+".getSenders() success.")})["catch"](function(b){a.logRemoteInvokeError(b,
-".getSenders() failed!")});f.logger.log(this.user_friendly_id()+".getSenders() returning:"+this.senders_.length+" items");return this.senders_};b.prototype.getSendersAsync=function(){var a=this;f.logger.log(this.user_friendly_id()+".getSendersAsync() called. "+this.senders_);return new Promise(function(b,c){a.waitUntilConnected(a.user_friendly_id()+".getSendersAsync").then(function(){f.logger.log(a.user_friendly_id()+".getSendersAsync invoking remote");return a.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.getSenders,
-[])}).then(function(c){f.logger.log(a.user_friendly_id()+".getSendersAsync remote success");var h=[],q=[];c.params[0].forEach(function(b){var c=a.senders_.find(function(a){return a.object_id()===b.oid});void 0===c&&(f.logger.log(a.user_friendly_id()+" adding a RtpSender with oid:"+b.oid),c=new l.RtpSender(a,b.oid,g.ProxyMode.Remote,a.isUnified()),q.push(c.syncBarrier()));h.push(c)});Promise.all(q).then(function(){a.senders_=h;f.logger.log(a.user_friendly_id()+".getSendersAsync: returning senders with ids ["+
-a.senders_.map(function(a){return a.object_id()})+"]");b(a.senders_)})["catch"](function(c){a.logRemoteInvokeError(c,".prop.getSendersAsync() failed.");a.senders_=[];b(a.senders_)})})["catch"](function(c){a.logRemoteInvokeError(c,".getSendersAsync() failed.");a.senders_=[];b(a.senders_)})})};b.prototype.getReceivers=function(){var a=this;f.logger.log(this.user_friendly_id()+".getReceivers() called. ");if(this.isUnified()){for(var b=[],c=0,h=this.transceivers_;c<h.length;c++)b.push(h[c].receiver);
-this.receivers_=b}else this.getReceiversAsync().then(function(){f.logger.log(a.user_friendly_id()+".getReceivers() success.")})["catch"](function(b){a.logRemoteInvokeError(b,".getReceivers() failed!")});f.logger.log(this.user_friendly_id()+".getReceivers() returning:"+this.receivers_.length+" items");return this.receivers_};b.prototype.getReceiversAsync=function(){var a=this;f.logger.log(this.user_friendly_id()+".getReceiversAsync() called. "+this.receivers_);return new Promise(function(b,c){a.waitUntilConnected(a.user_friendly_id()+
-".getReceiversAsync").then(function(){return a.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.getReceivers,[])}).then(function(c){f.logger.log(a.user_friendly_id()+".getReceiversAsync: remote success.");var h=[],q=[];c.params[0].forEach(function(b){var c=a.receivers_.find(function(a){return a.object_id()===b.oid});void 0===c&&(f.logger.log(a.user_friendly_id()+" adding a RtpReceiver with oid:"+b.oid),c=new l.RtpReceiver(a,b.oid,g.ProxyMode.Remote,a.isUnified()),q.push(c.syncBarrier()));h.push(c)});
-Promise.all(q).then(function(){a.receivers_=h;f.logger.log(a.user_friendly_id()+".getReceiversAsync: returning receiver with ids ["+a.receivers_.map(function(a){return a.object_id()})+"]");b(a.receivers_)})["catch"](function(c){a.logRemoteInvokeError(c,".prop.getReceiversAsync() failed!");a.receivers_=[];b(a.receivers_)})})["catch"](function(c){a.logRemoteInvokeError(c,".getReceiversAsync() failed!");a.receivers_=[];b(a.receivers_)})})};b.prototype.addTransceiver=function(a,b){var c=this;f.logger.log(this.user_friendly_id()+
-".addTransceiver() called: "+JSON.stringify(a)+" init="+JSON.stringify(b));this.pendingtransceiver_=!0;var h="sendrecv";b&&b.direction&&(h=b.direction);var q=new v.RtpTransceiver(this,0,g.ProxyMode.Pseudo,this.isUnified(),h);this.transceivers_.push(q);this.waitUntilConnected(this.user_friendly_id()+".addTransceiver").then(function(){return"string"===typeof a?c.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.addTransceiverWithKind,a,b):c.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.addTransceiverWithTrack,
-{oid:a.object_id()},b)}).then(function(a){f.logger.log(c.user_friendly_id()+".addTransceiver() success with oid: "+c.param0(a).oid);q.bind(c,c.param0(a).oid);q.syncBarrier().then(function(){f.logger.log(c.user_friendly_id()+".addTransceiver(): success");c.pendingtransceiver_=!1})["catch"](function(a){c.logRemoteInvokeError(a,".prop.addTransceiver() failed!");c.pendingtransceiver_=!1})})["catch"](function(a){c.logRemoteInvokeError(a,"addTransceiver() failed!");c.pendingtransceiver_=!1});f.logger.log(this.user_friendly_id()+
-".addTransceiver() returning:");return q};b.prototype.waitTransceiverReady=function(a){var b=this;return new Promise(function(c,h){f.logger.trace(b.user_friendly_id()+".waitTransceiverReady(): pendingtransceiver_="+b.pendingtransceiver_);if(0==b.pendingtransceiver_){for(;b.deferredOfferAnswers&&0<b.deferredOfferAnswers.length;)b.deferredOfferAnswers.shift().post(!0);c()}else b.deferredOfferAnswers.push(new g.deferred_action(c,h,a)),b.checkTransceiver(15,1E3)})};b.prototype.checkTransceiver=function(a,
-b){var c=this;if(0>=a)for(f.logger.log(".checkTransceiver() timeout waiting for transceiver ready!");this.deferredOfferAnswers&&0<this.deferredOfferAnswers.length;)this.deferredOfferAnswers.shift().post(!1);else setTimeout(function(){if(0==c.pendingtransceiver_)for(;c.deferredOfferAnswers&&0<c.deferredOfferAnswers.length;)c.deferredOfferAnswers.shift().post(!0);else f.logger.log('.checkTransceiver(): count= "'+a),c.checkTransceiver(--a,b)},b)};b.prototype.getTransceivers=function(){f.logger.log(this.user_friendly_id()+
-".getTransceivers() called. ");f.logger.log(this.user_friendly_id()+".getTransceivers() returning:"+this.transceivers_.length+" items");return this.transceivers_};b.prototype.getTransceiversAsync=function(){var a=this;f.logger.log(this.user_friendly_id()+".getTransceiversAsync() called. ");return new Promise(function(b,c){a.waitUntilConnected(a.user_friendly_id()+".getTransceiversAsync").then(function(){return a.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.getTransceivers,[])}).then(function(c){f.logger.log(a.user_friendly_id()+
-".getTransceiversAsync() remote success.");var h=[],q=[];c.params[0].forEach(function(b){var c=a.transceivers_.find(function(a){return a.object_id()===b.oid});void 0===c&&(f.logger.log(a.user_friendly_id()+" adding a RtpTransceiver with oid:"+b.oid),c=new v.RtpTransceiver(a,b.oid,g.ProxyMode.Remote,a.isUnified()),q.push(c.syncBarrier()));h.push(c)});Promise.all(q).then(function(){a.transceivers_=h;f.logger.log(a.user_friendly_id()+".prop.getTransceiversAsync: returning transceiver with ids ["+a.transceivers_.map(function(a){return a.object_id()})+
-"]");b(a.transceivers_)})["catch"](function(c){a.logRemoteInvokeError(c,".prop.getTransceiversAsync() failed!");a.transceivers_=[];b(a.transceivers_)})})["catch"](function(c){a.logRemoteInvokeError(c,".getTransceiversAsync() failed!");a.transceivers_=[];b(a.transceivers_)})})};Object.defineProperty(b.prototype,"sctp",{get:function(){return this.sctp_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"ondatachannel",{get:function(){return this.ondatachannel_},set:function(a){var b=
-this;f.logger.log(this.user_friendly_id()+".set_ondatachannel() called.");this.ondatachannel_=a;this.waitUntilConnected(this.user_friendly_id()+".ondatachannel").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),u.method_id_RTCPeerConnection_t.ondatachannel);c.then(function(a){f.logger.log(b.user_friendly_id()+".ondatachannel callback received!!!");if(null===b.remotedatachannel_||b.remotedatachannel_.object_id()!=b.param0(a).oid)b.remotedatachannel_=new z.RtcDataChannel(b,b.param0(a).oid,
-g.ProxyMode.Remote),b.remotedatachannel_.syncBarrier().then(function(){f.logger.log(b.user_friendly_id()+"remotedatachannel_.syncBarrier(): success");var a=new Event("ondatachannel");a.channel=b.remotedatachannel_;if(b.localdatachannel_&&!b.localdatachannel_.isdestroyed())b.localdatachannel_.syncBarrier().then(function(){f.logger.log(b.user_friendly_id()+"ondatachannel(): notifying...");if(b.ondatachannel_)b.ondatachannel_(a)})["catch"](function(){f.logger.log(b.user_friendly_id()+"localdatachannel_.syncBarrier(): failed!")});
-else if(f.logger.log(b.user_friendly_id()+"ondatachannel(): notifying..."),b.ondatachannel_)b.ondatachannel_(a)})["catch"](function(){f.logger.log(b.user_friendly_id()+"remotedatachannel_.syncBarrier(): failed!")})});return b.remoteInvoke(!0,u.method_id_RTCPeerConnection_t.ondatachannel,c.success)})["catch"](function(){f.logger.log(b.user_friendly_id()+".ondatachannel() failed.")})},enumerable:!0,configurable:!0});b.prototype.fixDataChannelConfig=function(a){f.logger.log(this.user_friendly_id()+".fixDataChannelConfig() called: "+
-a);void 0==a&&(a={});void 0==a.negotiated&&void 0==a.id&&(a.negotiated=!1,a.id=-1);return a};b.prototype.createDataChannel=function(a,b){var c=this;f.logger.log(this.user_friendly_id()+".createDataChannel() called. label:"+a);this.localdatachannel_=new z.RtcDataChannel(this,0,g.ProxyMode.Pseudo);this.waitUntilConnected(this.user_friendly_id()+".createDataChannel").then(function(){return c.remoteInvoke(!1,u.method_id_RTCPeerConnection_t.createDataChannel,a,c.fixDataChannelConfig(b))}).then(function(a){f.logger.log(c.user_friendly_id()+
-".createDataChannel() success with oid: "+c.param0(a).oid);c.localdatachannel_.bind(c,c.param0(a).oid);c.localdatachannel_.syncBarrier().then(function(){f.logger.log(c.user_friendly_id()+"channel.syncBarrier(): success")})["catch"](function(){f.logger.log(c.user_friendly_id()+"channel.syncBarrier(): failed!")})})["catch"](function(a){a=c.param0(a);f.logger.log(c.user_friendly_id()+".createDataChannel() failed with error: "+a)});f.logger.log(this.user_friendly_id()+".createDataChannel() returning: "+
-this.localdatachannel_);return this.localdatachannel_};return b}(g.ProxyObject);a.PeerConnection=b},658:function(b,a,c){Object.defineProperty(a,"__esModule",{value:!0});var d=c(946),n=c(851),e=c(545),m=c(247),p=c(550),l=function(){function a(b,c,d){this.resolve=b;this.reject=c;this.name_=d}Object.defineProperty(a.prototype,"name",{get:function(){return this.name_},enumerable:!0,configurable:!0});a.prototype.post=function(a){1==a?(n.logger.log('deferred_action.post(): resolving "'+this.name_+'"'),
-this.resolve()):(n.logger.log('deferred_action.post(): rejecting "'+this.name_+'"'),this.reject())};a.prototype.postWithResult=function(a,b){1==a?(n.logger.log('deferred_action.post(): resolving "'+this.name_+'"'),this.resolve(b)):(n.logger.log('deferred_action.post(): rejecting "'+this.name_+'"'),this.reject())};return a}();a.deferred_action=l;var g=function(){return function(a,b){this.id=a;this.is_null=b}}();a.rpc_callback=g;var k=function(){function a(b,c,d){this.success=new g(b<<16,c);this.fail=
-new g(b<<16|1,c);this.id=b;this.oneShot=d}a.prototype.resolve=function(a){n.logger.trace("callback.resolve() called. [id="+this.id+"]");null!=this.handler&&this.handler(a)};a.prototype.reject=function(a){null!=this.err_handler&&this.err_handler(a)};a.prototype.then=function(a){this.handler=a};a.prototype.prom=function(){var a=this;return new Promise(function(b,c){a.handler=b;a.err_handler=c})};return a}();a.callback=k;var v;(function(a){a[a.NotConfigured=0]="NotConfigured";a[a.Configured=1]="Configured";
-a[a.Error=2]="Error";a[a.Destroyed=3]="Destroyed"})(v||(v={}));var t;(function(a){a[a.Local=0]="Local";a[a.Remote=1]="Remote";a[a.Pseudo=2]="Pseudo"})(t=a.ProxyMode||(a.ProxyMode={}));b=function(){function a(b,c,g,l,k){void 0===k&&(k=null);for(var C=[],r=5;r<arguments.length;r++)C[r-5]=arguments[r];var q=this;this.hdxms=d.getRedirector();this.iid=c;this.oid=g;this.mode=l;this.proxystate=v.NotConfigured;this.deferredActions=[];this.cbs=new Map;l===t.Local?(r=!1,this.iid===p.class_id_t.EngineControl&&
-(r=!0),this.hdxms.startRedirection(r,this.user_friendly_id()).then(function(){q.oid=a.nextId++;n.logger.log(q.user_friendly_id()+" assigned local oid:"+q.oid);var b=p.WebrpcClassLibInfoUtil.getMethodFeatureByid(c,0);return q.hdxms.WSSendObjectWrapper(b,c,0,e.WsJsonUtil.createMessageByid.apply(e.WsJsonUtil,[!1,!1,e.ws_msg_type_t.req,c,0,q.oid].concat(C)))}).then(function(a){n.logger.trace("ProxyObject: setting state to configured. (iid: "+q.iid+" oid: "+q.oid+")");var c=q.oid;q.proxystate=v.Configured;
-q.oid=q.param0(a);n.logger.log(q.user_friendly_id()+" assigned remote oid for local oid:"+c);q.onConnected();k&&k();m.gc.trackObject(q,b)})["catch"](function(){q.proxystate=v.Error;q.onConnected()})):l===t.Remote&&(this.proxystate=v.Configured,m.gc.trackObject(this,b))}a.prototype.bind=function(a,b){n.logger.trace("ProxyObject: binding object. (iid: "+this.iid+" oid: "+b+" mode: "+this.mode+")");if(this.mode===t.Pseudo){this.proxystate=v.Configured;var c=this.oid;this.oid=b;n.logger.log(this.user_friendly_id()+
-" assigned remote oid for local oid:"+c);this.onConnected();m.gc.trackObject(this,a);this.mode=t.Remote}else this.mode===t.Remote?n.logger.log("ProxyObject: binding already complete."):n.logger.log("ProxyObject: binding failure. incorrect mode!")};a.prototype.reconstructor=function(a,b,c){for(var d=this,t=[],g=3;g<arguments.length;g++)t[g-3]=arguments[g];this.proxystate=v.NotConfigured;this.deferredActions=[];g=p.WebrpcClassLibInfoUtil.getMethodFeatureByid(b,0);this.hdxms.WSSendObjectWrapper(g,b,
-0,e.WsJsonUtil.createMessageByid.apply(e.WsJsonUtil,[!1,!1,e.ws_msg_type_t.req,b,0,this.oid].concat(t))).then(function(b){n.logger.trace("ProxyObject: setting state to configured. (iid: "+d.iid+" oid: "+d.oid+")");var c=d.oid;d.proxystate=v.Configured;d.oid=d.param0(b);n.logger.log(d.user_friendly_id()+" assigned remote oid for local oid:"+c);d.onConnected();m.gc.trackObject(d,a)})["catch"](function(){d.proxystate=v.Error;d.onConnected()})};a.prototype.setParent=function(a){m.gc.setParent(this,a)};
-a.prototype.release=function(){n.logger.log(this.user_friendly_id()+".release() called.");m.gc.releaseObject(this)};a.prototype.destroy=function(){n.logger.log(this.user_friendly_id()+".destroy() called.");this.proxystate=v.Destroyed;var a=p.WebrpcClassLibInfoUtil.getMethodFeatureByid(this.iid,0);this.hdxms.WSSendObjectWrapper(a,this.iid,0,e.WsJsonUtil.createMessageByid(!1,!0,e.ws_msg_type_t.req,this.iid,0,this.oid))};a.prototype.isdestroyed=function(){return this.proxystate==v.Destroyed};a.prototype.onConnected=
-function(){for(;this.deferredActions&&0<this.deferredActions.length;)this.deferredActions.shift().post(this.proxystate==v.Configured)};a.prototype.isPseudo=function(){return this.mode==t.Pseudo};a.prototype.checkState=function(a,b){var c=this;0>=a?(n.logger.log("ProxyObject.checkState() timeout waiting for connection response! failed. (iid: "+c.iid+" oid: "+c.oid+")"),c.onConnected()):setTimeout(function(){if(c.proxystate==v.Configured)c.onConnected();else if(c.proxystate==v.Error)c.onConnected();
-else if(c.proxystate==v.Destroyed)c.onConnected();else n.logger.log('ProxyObject.checkState(): count= "'+a+'". (iid: '+c.iid+" oid: "+c.oid+")"),c.checkState(--a,b)},b)};a.prototype.waitUntilConnected=function(a){var b=this;return new Promise(function(c,d){b?(n.logger.trace("ProxyObject.waitUntilConnected(): readyState="+b.proxystate+". (iid: "+b.iid+" oid: "+b.oid+")"),b.proxystate==v.Destroyed?(b.onConnected(),n.logger.trace("rejecting already destroyed Object:"+b.user_friendly_id()),d("Object already destroyed :"+
-b.user_friendly_id())):b.proxystate==v.Configured?(b.onConnected(),c()):b.proxystate==v.Error?(n.logger.trace("ProxyObject.waitUntilConnected(): readyState="+b.proxystate+". (iid: "+b.iid+" oid: "+b.oid+")"),b.onConnected(),d()):(n.logger.log('ProxyObject.waitUntilConnected(): deferring action "'+a+'". (iid: '+b.iid+" oid: "+b.oid+")"),b.deferredActions.push(new l(c,d,a)),b.checkState(15,1E3))):d("Invalid Object")})};a.prototype.remoteInvoke=function(a,b){for(var c=[],d=2;d<arguments.length;d++)c[d-
-2]=arguments[d];if(this.proxystate==v.Destroyed)return n.logger.trace("rejecting already destroyed Object:"+this.user_friendly_id()),Promise.reject("Cannot invoke destroyed object :"+this.user_friendly_id());if(this.proxystate==v.Error)return n.logger.trace("rejecting already error state Object:"+this.user_friendly_id()),Promise.reject("Cannot invoke object in Error state:"+this.user_friendly_id());d=p.WebrpcClassLibInfoUtil.getMethodFeatureByid(this.iid,b);return this.hdxms.WSSendObjectWrapper(d,
-this.iid,b,e.WsJsonUtil.createMessageByid.apply(e.WsJsonUtil,[a,!1,e.ws_msg_type_t.req,this.iid,b,this.oid].concat(c)))};a.prototype.logRemoteInvokeError=function(a,b){var c=a;c?n.logger.log(this.user_friendly_id()+b+" with error: "+c.message):this.param0?(n.logger.log(this.user_friendly_id()+b+" with error: "+this.param0(a)),c=new DOMException(b+" with error: "+this.param0(a),this.user_friendly_id())):(n.logger.log(this.user_friendly_id()+b),c=new DOMException(b,this.user_friendly_id()));return c};
-a.prototype.registerCallbacks=function(b,c,d){this.unregisterCallbacks(d);var g=a.nextcbid++,t=new k(g,c,b);c||(b||this.cbs.set(d,g),this.hdxms.registerHandler(this.iid,this.oid,t));return t};a.prototype.unregisterCallbacks=function(a){this.cbs.has(a)?(this.hdxms.unregisterHandler(this.iid,this.oid,this.cbs.get(a)),this.cbs["delete"](a)):n.logger.trace(this.cbs)};a.prototype.object_id=function(){return this.oid};a.prototype.param0=function(a){var b={};a&&a.params&&(b=a.params[0]);return b};a.prototype.isNullCallback=
-function(a){return void 0==a||null==a};a.prototype.user_friendly_id=function(){return this.constructor.name+"["+this.oid+"]"};a.prototype.isRedirected=function(){return this.hdxms.isRedirected()};a.prototype.isValid=function(){return!(this.proxystate===v.Error||this.proxystate===v.Destroyed)};a.prototype.registerStateChangeNotification=function(a){this.hdxms.registerStateChangeNotification(a)};a.prototype.unregisterStateChangeNotification=function(a){this.hdxms.unregisterStateChangeNotification(a)};
-a.nextId=0;a.nextcbid=0;return a}();a.ProxyObject=b},144:function(b,a,c){function d(a){for(var b=[],c=0;c<a.length;c++)b.push({oid:a[c].object_id()});return b}var n=this&&this.__extends||function(){var a=function(b,c){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c])};return a(b,c)};return function(b,c){function d(){this.constructor=b}a(b,c);b.prototype=null===c?Object.create(c):(d.prototype=c.prototype,
-new d)}}(),e=this&&this.__awaiter||function(a,b,c,d){return new (c||(c=Promise))(function(f,y){function g(a){try{t(d.next(a))}catch(b){y(b)}}function h(a){try{t(d["throw"](a))}catch(b){y(b)}}function t(a){a.done?f(a.value):(new c(function(b){b(a.value)})).then(g,h)}t((d=d.apply(a,b||[])).next())})},m=this&&this.__generator||function(a,b){function c(a){return function(b){return d([a,b])}}function d(c){if(y)throw new TypeError("Generator is already executing.");for(;f;)try{if(y=1,g&&(h=c[0]&2?g["return"]:
-c[0]?g["throw"]||((h=g["return"])&&h.call(g),0):g.next)&&!(h=h.call(g,c[1])).done)return h;if(g=0,h)c=[c[0]&2,h.value];switch(c[0]){case 0:case 1:h=c;break;case 4:return f.label++,{value:c[1],done:!1};case 5:f.label++;g=c[1];c=[0];continue;case 7:c=f.ops.pop();f.trys.pop();continue;default:if(!(h=f.trys,h=0<h.length&&h[h.length-1])&&(6===c[0]||2===c[0])){f=0;continue}if(3===c[0]&&(!h||c[1]>h[0]&&c[1]<h[3]))f.label=c[1];else if(6===c[0]&&f.label<h[1])f.label=h[1],h=c;else if(h&&f.label<h[2])f.label=
-h[2],f.ops.push(c);else{h[2]&&f.ops.pop();f.trys.pop();continue}}c=b.call(a,f)}catch(q){c=[6,q],g=0}finally{y=h=0}if(c[0]&5)throw c[1];return{value:c[0]?c[1]:void 0,done:!0}}var f={label:0,sent:function(){if(h[0]&1)throw h[1];return h[1]},trys:[],ops:[]},y,g,h,t;$jscomp.initSymbol();$jscomp.initSymbol();$jscomp.initSymbolIterator();return t={next:c(0),"throw":c(1),"return":c(2)},"function"===typeof Symbol&&(t[Symbol.iterator]=function(){return this}),t};Object.defineProperty(a,"__esModule",{value:!0});
-var p=c(550),l=c(658),g=c(851),k=c(946),v=c(394),t;a.enumerateddecices=t;var z=function(){return function(a,b){this.type=a;this.target=b}}(),u=function(){function a(){this.is_local_clone=!1;this.clone_id=this.clone_count=0}a.prototype.clone=function(){this.clone_count++;var b=new a;b.is_local_clone=!0;b.clone_id=this.clone_count;return b};a.prototype.synchronize=function(a){return e(this,void 0,void 0,function(){return m(this,function(b){return this.is_local_clone?[2,a.asyncClone()]:[2,a]})})};return a}(),
-f=function(a){function b(c,d){var f=a.call(this,c,p.class_id_t.MediaStreamTrack,d,l.ProxyMode.Remote)||this;f.refCount_=0;f.refCount_++;f.clone_state=new u;return f}n(b,a);b.prototype.dumpInfo=function(){g.logger.log(this.user_friendly_id()+".dumpInfo() [id="+this.id+"] kind="+this.kind+" label="+this.label+" refcount="+this.refcount)};Object.defineProperty(b.prototype,"refcount",{get:function(){return this.refCount_},enumerable:!0,configurable:!0});b.prototype.addRef=function(){this.refCount_++;
-g.logger.log(this.user_friendly_id()+".addRef() called. [id="+this.id+"] refcount="+this.refCount_)};Object.defineProperty(b.prototype,"onended",{get:function(){g.logger.log(this.user_friendly_id()+".get_onended() called. [id="+this.id+"]");return this.onended_},set:function(a){var b=this;g.logger.log(this.user_friendly_id()+".set_onended() called. [id="+this.id+"]");this.onended_=a;this.waitUntilConnected("MediaStreamTrack.onended").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),
-p.method_id_MediaStreamTrack_t.onended);c.then(function(a){g.logger.log(b.user_friendly_id()+"onended event received!!!");a=new z("ended",b);b.readyState_="ended";b.onended_(a)});return b.remoteInvoke(!0,p.method_id_MediaStreamTrack_t.onended,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,".onended failed!")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onmute",{get:function(){g.logger.log(this.user_friendly_id()+".get_onmute() called. [id="+this.id+"]");return this.onmute_},
-set:function(a){var b=this;g.logger.log(this.user_friendly_id()+".set_onmute() called. [id="+this.id+"]");this.onmute_=a;this.waitUntilConnected("MediaStreamTrack.onmute").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),p.method_id_MediaStreamTrack_t.onmute);c.then(function(a){g.logger.log(b.user_friendly_id()+"onmute event received!!!");a=new z("mute",b);b.muted=!0;b.onmute_(a)});return b.remoteInvoke(!0,p.method_id_MediaStreamTrack_t.onmute,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,
-".onmute failed!")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onunmute",{get:function(){g.logger.log(this.user_friendly_id()+".get_onunmute() called. [id="+this.id+"]");return this.onunmute_},set:function(a){var b=this;g.logger.log(this.user_friendly_id()+".set_onunmute() called. [id="+this.id+"]");this.onunmute_=a;this.waitUntilConnected("MediaStreamTrack.onunmute").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),p.method_id_MediaStreamTrack_t.onunmute);
-c.then(function(a){g.logger.log("onunmute event received!!!");a=new z("unmute",b);b.muted=!1;b.onunmute_(a)});return b.remoteInvoke(!0,p.method_id_MediaStreamTrack_t.onunmute,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,".onunmute failed!")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onstop",{set:function(a){this.onstop_=a},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"enabled",{get:function(){g.logger.log(this.user_friendly_id()+".get_enabled() called. [id="+
-this.id+", value="+this.enabled_+"]");return this.enabled_},set:function(a){g.logger.log(this.user_friendly_id()+".set_enabled() called. [id="+this.id+", value="+a+"]");this.enabled_=a;this.remoteInvoke(!0,p.method_id_MediaStreamTrack_t.enabled,a)},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"readyState",{get:function(){g.logger.log(this.user_friendly_id()+".get_readyState() called. [id="+this.id+"]");return this.readyState_},enumerable:!0,configurable:!0});b.prototype.asyncClone=
-function(){return e(this,void 0,void 0,function(){var a,c,d;return m(this,function(f){switch(f.label){case 0:return[4,this.waitUntilConnected("RemoteMediaTrack.asyncClone")];case 1:return f.sent(),[4,this.remoteInvoke(!1,p.method_id_MediaStreamTrack_t.clone,[])];case 2:return a=f.sent(),c=this.param0(a),d=new b(this,c.oid),[2,d.syncBarrier()]}})})};b.prototype.clone=function(){g.logger.log(this.user_friendly_id()+".clone() called. [id="+this.id+"]");var a=this.clone_state.clone(),c=new b(this,this.object_id());
-c.id=this.id+"."+a.clone_id.toString();c.label=this.label;c.kind=this.kind;c.enabled_=this.enabled_;c.muted=this.muted;c.readyState_=this.readyState_;c.trackSettings_=this.trackSettings_;c.clone_state=a;c.constraints_=this.constraints_;c.capabilities_=this.capabilities_;return c};b.prototype.stop=function(){var a=this;g.logger.log(this.user_friendly_id()+".stop() called. [id="+this.id+"] refcount="+this.refCount_);this.readyState_="ended";if(0<this.refCount_&&(this.refCount_--,0===this.refCount_&&
-(g.logger.log(this.user_friendly_id()+".stop() called. [id="+this.id+"] remote invoking..."),this.remoteInvoke(!1,p.method_id_MediaStreamTrack_t.stop)["catch"](function(b){a.logRemoteInvokeError(b,".stop failed!")}),"video"==this.kind&&"remoteapp-track"==this.label&&k.getRedirector().stopAppshare(),null!==this.onstop_&&void 0!=this.onstop_)))this.onstop_()};b.prototype.getCapabilities=function(){return this.capabilities_};b.prototype.getConstraints=function(){return this.constraints_};b.prototype.getSettings=
-function(){return"audio"==this.kind?function(a){return{deviceId:a.deviceId,echoCancellation:a.echoCancellation}}(this.trackSettings_):function(a){return{aspectRatio:a.aspectRatio,deviceId:a.deviceId,frameRate:a.frameRate,height:a.height,width:a.width}}(this.trackSettings_)};b.prototype.applyConstraints=function(a){var b=this;g.logger.log(this.user_friendly_id()+".applyConstraints() called.");return new Promise(function(c,d){b.waitUntilConnected("MediaStreamTrack.applyConstraints").then(function(){return Promise.all([b.remoteInvoke(!1,
-p.method_id_MediaStreamTrack_t.applyConstraints,a),b.syncBarrier()])})["catch"](function(){d({name:"OverconstrainedError",message:"Failed to apply constraints."})}).then(function(){b.constraints_=a;return b.remoteInvoke(!1,p.method_id_MediaStreamTrack_t.getConstraints)}).then(function(a){b.constraints_=b.param0(a)})["catch"](function(a){b.logRemoteInvokeError(a,".syncBarrier() remote client does not support getConstraints method. Ignore it")}).then(function(){return c()})})};b.convertReadyState=function(a){return 0==
-a?"live":"ended"};b.prototype.syncBarrier=function(){var a=this;g.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(c,d){a.waitUntilConnected("MediaStreamTrack.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,p.method_id_MediaStreamTrack_t.kind,""),a.remoteInvoke(!1,p.method_id_MediaStreamTrack_t.id,""),a.remoteInvoke(!1,p.method_id_MediaStreamTrack_t.label,""),a.remoteInvoke(!1,p.method_id_MediaStreamTrack_t.enabled,!1),a.remoteInvoke(!1,
-p.method_id_MediaStreamTrack_t.muted,!1),a.remoteInvoke(!1,p.method_id_MediaStreamTrack_t.readyState,0),a.remoteInvoke(!1,p.method_id_MediaStreamTrack_t.getSettings),a.remoteInvoke(!1,p.method_id_MediaStreamTrack_t.getCapabilities)])}).then(function(d){var f=0;d=d.map(function(b){return a.param0(b)});a.kind=d[0];a.id=d[1];a.label=d[2];a.enabled_=d[3];a.muted=d[4];f=d[5];a.trackSettings_=d[6];a.capabilities_=d[7];a.readyState_=b.convertReadyState(f);c(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,
-".syncBarrier() failed!");d(b)})})};return b}(l.ProxyObject);a.RemoteMediaTrack=f;var A=function(){return function(){}}(),x=function(a){function b(c,f,g,t){void 0===g&&(g=l.ProxyMode.Local);void 0===t&&(t=[]);c=a.call(this,c,p.class_id_t.MediaStream,f,g,null,d(t))||this;c.clone_state=new u;c.tracks_=t;return c}n(b,a);b.prototype.dumpInfo=function(){g.logger.log(this.user_friendly_id()+".dumpInfo() [id="+this.id+"] active="+this.active_+" num tracks="+this.tracks_.length);for(var a=0,b=this.tracks_;a<
-b.length;a++){var c=b[a];c&&c.dumpInfo()}};b.prototype.toggleAudio=function(a){g.logger.log(this.user_friendly_id()+".toggleAudio() called: "+a);for(var b=0,c=this.getAudioTracks();b<c.length;b++)c[b].enabled=a};b.prototype.toJSON=function(){var a=new A;a.id=this.id;a.active=this.active_;a.oid=this.object_id();return"RemoteStream:"+JSON.stringify(a)};Object.defineProperty(b.prototype,"active",{get:function(){g.logger.log(this.user_friendly_id()+".get active() called. [id="+this.id+"] active="+this.active_);
-return this.active_},enumerable:!0,configurable:!0});b.prototype.getAudioTracks=function(){g.logger.log(this.user_friendly_id()+".getAudioTracks() called. [id="+this.id+"]");for(var a=[],b=0,c=this.tracks_;b<c.length;b++){var d=c[b];"audio"==d.kind&&a.push(d)}return a};b.prototype.getVideoTracks=function(){g.logger.log(this.user_friendly_id()+".getVideoTracks() called. [id="+this.id+"]");for(var a=[],b=0,c=this.tracks_;b<c.length;b++){var d=c[b];"video"==d.kind&&a.push(d)}return a};b.prototype.getTracks=
-function(){g.logger.log(this.user_friendly_id()+".getTracks() called. [id="+this.id+"]");return this.tracks_};b.prototype.getTrackById=function(a){g.logger.log(this.user_friendly_id()+".getTrackById() called. [id="+this.id+"]");for(var b=0,c=this.tracks_;b<c.length;b++){var d=c[b];if(d.id==a)return d}};b.prototype.addTrack=function(a){var b=this;g.logger.log(this.user_friendly_id()+".addTrack() called. [id="+this.id+"]");this.tracks_.push(a);a&&a.dumpInfo();var c=this;this.waitUntilConnected("MediaStream.addTrack").then(function(){g.logger.log(c.user_friendly_id()+
-".addTrack remote invoking");return c.remoteInvoke(!1,p.method_id_MediaStream_t.addTrack,{oid:a.object_id()})}).then(function(){g.logger.log(c.user_friendly_id()+".addTrack success")})["catch"](function(a){b.logRemoteInvokeError(a,".addTrack failed!")})};b.prototype.removeTrack=function(a){var b=this;g.logger.log(this.user_friendly_id()+".removeTrack() called. [id="+this.id+"]");var c=this.tracks_.indexOf(a);this.tracks_.splice(c,1);var d=this;this.waitUntilConnected("MediaStream.removeTrack").then(function(){g.logger.log(d.user_friendly_id()+
-".removeTrack remote invoking");return d.remoteInvoke(!1,p.method_id_MediaStream_t.removeTrack,{oid:a.object_id()})}).then(function(){g.logger.log(d.user_friendly_id()+".removeTrack success")})["catch"](function(a){b.logRemoteInvokeError(a,".removeTrack failed!")})};b.prototype.asyncClone=function(){return e(this,void 0,void 0,function(){var a,c,d;return m(this,function(f){switch(f.label){case 0:return g.logger.log(this.user_friendly_id()+".asyncClone() called. [id="+this.id+"]"),[4,this.waitUntilConnected("asyncClone")];
-case 1:return f.sent(),[4,this.remoteInvoke(!1,p.method_id_MediaStream_t.clone,[])];case 2:return a=f.sent(),console.log(a),c=this.param0(a),d=new b(this,c.oid,l.ProxyMode.Remote),[2,d.syncBarrier()]}})})};b.prototype.clone=function(){g.logger.log(this.user_friendly_id()+".clone() called. [id="+this.id+"]");var a=this.clone_state.clone(),c=new b(this,this.object_id(),l.ProxyMode.Remote);c.id=this.id+"."+a.clone_id.toString();this.tracks_.forEach(function(a){a.addRef()});c.tracks_=this.tracks_;c.clone_state=
-a;return c};b.prototype.syncBarrier=function(){var a=this;g.logger.log(this.user_friendly_id()+".syncBarrier() called. [id="+this.id+"]");return new Promise(function(b,c){a.waitUntilConnected("MediaStream.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,p.method_id_MediaStream_t.id,""),a.remoteInvoke(!1,p.method_id_MediaStream_t.active,!1),a.remoteInvoke(!1,p.method_id_MediaStream_t.getTracks,[])])}).then(function(b){g.logger.log(a.user_friendly_id()+".syncBarrier() remote success");
-b=b.map(function(b){return a.param0(b)});a.id=b[0];a.active_=b[1];b=b[2];for(var c=[],h=function(b){var h=a.tracks_.find(function(a){return a.object_id()===b.oid});void 0===h&&(g.logger.log(a.user_friendly_id()+" adding a RemoteMediaTrack with oid:"+b.oid),h=new f(a,b.oid));c.push(h.syncBarrier())},d=0;d<b.length;d++)h(b[d]);return Promise.all(c)}).then(function(c){a.tracks_=[];c.forEach(function(b){b.onstop=function(){var b=!0;a.tracks_.forEach(function(a){"ended"!=a.readyState&&(b=!1)});b&&a.release()};
-a.tracks_.push(b)});b(a)})["catch"](function(b){a.logRemoteInvokeError(b,".syncBarrier failed!");c()})})};return b}(l.ProxyObject);a.RemoteStream=x;b=function(a){function b(c,d){return a.call(this,c,p.class_id_t.MediaStreamEvent,d,l.ProxyMode.Remote)||this}n(b,a);b.prototype.syncBarrier=function(){var a=this;g.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.waitUntilConnected("MediaStreamEvent.syncBarrier").then(function(){return a.remoteInvoke(!1,p.method_id_MediaStreamEvent_t.stream,
-{oid:0})}).then(function(b){return(new x(a,b.params[0].oid,l.ProxyMode.Remote)).syncBarrier()}).then(function(c){a.stream=c;b(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier() failed!");c(b)})})};return b}(l.ProxyObject);a.RemoteStreamEvent=b;var D=function(a){function b(c){return a.call(this,null,p.class_id_t.MediaDeviceInfo,c,l.ProxyMode.Remote)||this}n(b,a);b.prototype.convertKind=function(a){return 0==a?"audioinput":1==a?"audiooutput":"videoinput"};b.prototype.syncBarrier=function(){var a=
-this;g.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.waitUntilConnected("RemoteDeviceInfo.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,p.method_id_MediaDeviceInfo_t.deviceId,""),a.remoteInvoke(!1,p.method_id_MediaDeviceInfo_t.kind,0),a.remoteInvoke(!1,p.method_id_MediaDeviceInfo_t.label,""),a.remoteInvoke(!1,p.method_id_MediaDeviceInfo_t.groupId,"")])}).then(function(c){a.kind=a.convertKind(a.param0(c.splice(1,1)[0]));c=c.map(function(b){return a.param0(b)});
-a.deviceId=c[0];a.label=c[1];a.groupId=c[2];b(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier() failed!");c(b)})})};return b}(l.ProxyObject);a.RemoteDeviceInfo=D;b=function(b){function c(){var a=b.call(this,null,p.class_id_t.MediaDevices,0,l.ProxyMode.Local,function(){a.setDeviceChangeCallback()})||this;a.devices_=[];a.pendingEnumerateDevice_=[];return a}n(c,b);Object.defineProperty(c.prototype,"panelid",{set:function(a){this.panelid_=a},enumerable:!0,configurable:!0});c.prototype.clearPanelId=
-function(){this.panelid_=-1};c.prototype.enumerateDevices=function(){var a=this;return 0<this.devices_.length&&0==this.pendingEnumerateDevice_.length?new Promise(function(b,c){g.logger.log(a.user_friendly_id()+".enumerateDevices: returning cached devices with ids ["+a.devices_.map(function(a){return a.object_id()})+"]");b(a.devices_)}):this.enumerateDevicesPrivate(!1)};c.prototype.postEnumerateDevicesResult=function(){for(var a=!0,b=0,c=0,d=this.pendingEnumerateDevice_;c<d.length;c++){var f=d[c];
-if(0==a&&"enumerateDevicesPrivate-remote"==f.name)break;f.postWithResult(!0,this.devices_);b++;a=!1}0<b&&this.pendingEnumerateDevice_.splice(0,b)};c.prototype.enumerateDevicesPrivate=function(b){var c=this;g.logger.log(this.user_friendly_id()+".enumerateDevicesPrivate() called. refresh:"+b+" pending:"+this.pendingEnumerateDevice_.length);return new Promise(function(d,f){1==b||0==c.pendingEnumerateDevice_.length?(c.pendingEnumerateDevice_.push(new l.deferred_action(d,f,"enumerateDevicesPrivate-remote")),
-c.waitUntilConnected("RemoteDevices.enumerateDevicesPrivate").then(function(){g.logger.log(c.user_friendly_id()+".enumerateDevicesPrivate() remote invoking...");return c.remoteInvoke(!1,p.method_id_MediaDevices_t.enumerateDevices,[])}).then(function(a){var b=[];a.params[0].forEach(function(a){var d=c.devices_.find(function(b){return b.object_id()===a.oid});void 0===d?(d=new D(a.oid),b.push(d.syncBarrier())):b.push(d)});return Promise.all(b)}).then(function(b){c.devices_.forEach(function(a){for(var c=
-!0,d=0;d<b.length;d++){var q=b[d];if(a.object_id()===q.object_id()){c=!1;break}}c&&a.release()});c.devices_=b;a.enumerateddecices=t=b;g.logger.log(c.user_friendly_id()+".enumerateDevicesPrivate: resolving enumerated devices with ids ["+b.map(function(a){return a.object_id()})+"]");c.postEnumerateDevicesResult()})["catch"](function(b){c.devices_=[];a.enumerateddecices=t=[];c.logRemoteInvokeError(b,".enumerateDevicesPrivate() failed, resolving with empty list.");c.postEnumerateDevicesResult()})):(c.pendingEnumerateDevice_.push(new l.deferred_action(d,
-f,"enumerateDevicesPrivate")),g.logger.log(c.user_friendly_id()+".enumerateDevicesPrivate() not remoting this call..."))})};c.prototype.getDisplayMedia=function(a){var b=this;return new Promise(function(c,d){b.waitUntilConnected("RemoteDevices.getDisplayMedia").then(function(){return b.IsPanelIdValid()}).then(function(){void 0!==a.video&&null!==a.video&&void 0!==b.panelid_&&(a.video.deviceId=b.panelid_);var c=b.prepareDisplayConstraints(a);return b.remoteInvoke(!1,p.method_id_MediaDevices_t.getDisplayMedia,
-c)}).then(function(a){return(new x(null,a.params[0].oid,l.ProxyMode.Remote)).syncBarrier()}).then(function(a){c(a)})["catch"](function(a){a=b.logRemoteInvokeError(a,".getDisplayMedia() failed!");d(a)})})};c.prototype.setDeviceChangeCallback=function(){var a=this;g.logger.log(this.user_friendly_id()+".set_DeviceChangeCallback() called.");this.waitUntilConnected("MediaDevices.ondevicechange").then(function(){var b=a.registerCallbacks(!1,!1,p.method_id_MediaDevices_t.ondevicechange);b.then(function(){g.logger.log(a.user_friendly_id()+
-".ondevicechange(): callback received!!!");a.enumerateDevicesPrivate(!0).then(function(){navigator.mediaDevices.dispatchEvent(new CustomEvent("devicechange"))})["catch"](function(){navigator.mediaDevices.dispatchEvent(new CustomEvent("devicechange"))})});return a.remoteInvoke(!0,p.method_id_MediaDevices_t.ondevicechange,b.success)})["catch"](function(b){a.logRemoteInvokeError(b,".set_ondevicechange() failed!")})};c.prototype.prepareDisplayConstraints=function(a){if(k.getRedirector().getFeatureValue(p.FEATURE_ms_teams_common_media_constraints))return a;
-var b={frameRate:15,width:{max:1920},height:{max:1080}};void 0!==a.video&&null!==a.video&&(a=a.video,void 0!==a.frameRate&&void 0!==a.width&&void 0!==a.height&&(b.frameRate=a.frameRate,b.width.max=a.width.max||a.width,b.height.max=a.height.max||a.height));return{video:b}};c.prototype.IsPanelIdValid=function(){var a=this;return new Promise(function(b,c){if(-1!==a.panelid_)g.logger.log(a.user_friendly_id()+".IsPanelIdValid() resolving with panelid_:"+a.panelid_),b();else var d=0,f=setInterval(function(){g.logger.log(a.user_friendly_id()+
-".IsPanelIdValid() waiting panelid_:"+a.panelid_);50<=d?(c(),clearInterval(f),g.logger.log(a.user_friendly_id()+".IsPanelIdValid(): PanelId is invalid.")):(++d,-1!=a.panelid_&&(b(),clearInterval(f),g.logger.log(a.user_friendly_id()+".IsPanelIdValid(): PanelId is valid.")))},10)})};return c}(l.ProxyObject);a.RemoteDevices=b;b=function(a){function b(){return a.call(this,null,p.class_id_t.NavigatorUserMedia,0,l.ProxyMode.Local)||this}n(b,a);b.getCapabilities=function(a){g.logger.log(this.constructor.name+
-".getCapabilities() called:"+a+" caps:"+b.caps_);return b.caps_[a]};b.resetcaps=function(){b.caps_={}};b.prototype.getCapabilities=function(){var a=this;g.logger.log(this.user_friendly_id()+".getCapabilities() called: ");return new Promise(function(c,d){a.waitUntilConnected(a.user_friendly_id()+".getCapabilities").then(function(){return Promise.all([a.remoteInvoke(!1,p.method_id_NavigatorUserMedia_t.getCapabilities,"audio"),a.remoteInvoke(!1,p.method_id_NavigatorUserMedia_t.getCapabilities,"video")])}).then(function(d){b.caps_.audio=
-a.param0(d[0]);b.caps_.video=a.param0(d[1]);c(b.caps_)})["catch"](function(b){b=a.logRemoteInvokeError(b,".getCapabilities() failed!");d(b)})})};b.prototype.setCodecCapabilities=function(a){var b=this;g.logger.log(this.user_friendly_id()+".setCodecCapabilities : set codecCapabilities to "+JSON.stringify(a));return new Promise(function(c,d){b.waitUntilConnected("NavigatorUserMedia.setCodecCapabilities").then(function(){return b.remoteInvoke(!1,p.method_id_NavigatorUserMedia_t.setCodecCapabilities,
-a)}).then(function(){g.logger.log(b.user_friendly_id()+".setCodecCapabilities() success.");c(!0);b.getCapabilities()})["catch"](function(a){a=b.logRemoteInvokeError(a,".setCodecCapabilities() failed!");d(a)})})};b.prototype.webkitGetUserMedia=function(a,b,c){return this.getUserMedia(a,b,c)};b.prototype.LogTelemetryDevice_=function(a){try{if("undefined"!==typeof a.audio){var b=a.audio.deviceId,c;t.forEach(function(a){b==a.deviceId&&(c=a.label)});g.logger.log(c);this.SendTelemetryData(v.tel_key_AudioDeviceUsed,
-c,0)}if("undefined"!==typeof a.video){var d=a.video.mandatory.sourceId,f;t.forEach(function(a){d==a.deviceId&&(f=a.label)});g.logger.log(f);this.SendTelemetryData(v.tel_key_VideoDeviceUsed,f,0)}}catch(h){g.logger.log(h)}};b.prototype.getUserMedia=function(a,b,c){g.logger.log(this.user_friendly_id()+".getUserMedia() called: "+JSON.stringify(a));return b&&c?this.getUserMedia_v1(a,b,c):this.getUserMedia_v2(a)};b.prototype.getUserMedia_v2=function(a){var b=this;g.logger.log(this.user_friendly_id()+".getUserMedia_v2() called: "+
-JSON.stringify(a));return new Promise(function(c,d){b.getUserMediaPrivate(a,function(a){g.logger.log(b.user_friendly_id()+"getUserMedia_v2: resolving stream");c(a)},function(a){g.logger.log(b.user_friendly_id()+"getUserMedia_v2: rejecting stream");d(a)})})};b.prototype.getUserMedia_v1=function(a,b,c){g.logger.log(this.user_friendly_id()+".getUserMedia_v1() called: "+JSON.stringify(a));return this.getUserMediaPrivate(a,b,c)};b.prototype.getUserMediaPrivate=function(a,b,c){var d=this;this.waitUntilConnected("NavigatorUserMedia.getUserMediaPrivate").then(function(){var b=
-d.registerCallbacks(!0,!1,p.method_id_NavigatorUserMedia_t.getUserMedia);a&&"undefined"!==typeof a.audio&&0==Object.keys(a.audio).length&&(a.audio={dummy:1});if(a&&"undefined"!==typeof a.video){var c=a.video;void 0==c.mandatory.maxFrameRate&&(c.mandatory.maxFrameRate=30);void 0==c.mandatory.minWidth&&(c.mandatory.minWidth=360);void 0==c.mandatory.maxWidth&&(c.mandatory.maxWidth=1920);void 0==c.mandatory.minHeight&&(c.mandatory.minHeight=180);void 0==c.mandatory.maxHeight&&(c.mandatory.maxHeight=1080)}d.remoteInvoke(!1,
-p.method_id_NavigatorUserMedia_t.getUserMedia,a,b.success,b.fail);return b.prom()}).then(function(a){g.logger.log(d.user_friendly_id()+".getUserMediaPrivate: received success callback!");return(new x(null,d.param0(a).oid,l.ProxyMode.Remote)).syncBarrier()}).then(function(f){g.logger.log(d.user_friendly_id()+".getUserMediaPrivate: MediaStream ready to deliver",JSON.stringify(f));0==f.getTracks().length?(g.logger.log(d.user_friendly_id()+".getUserMediaPrivate: reporting no tracks as error."),c({constraintName:"",
-name:"OverconstrainedError",message:""})):(d.LogTelemetryDevice_(a),b(f))})["catch"](function(a){d.logRemoteInvokeError(a,".getUserMediaPrivate() failed!");k.getRedirector().getFeatureValue(p.FEATURE_ms_teams_1912)?d.param0&&a?c(d.param0(a)):c({constraintName:"",name:"OverconstrainedError",message:""}):c({constraintName:"",name:"OverconstrainedError",message:""})})};b.prototype.SendTelemetryData=function(a,b,c){k.getRedirector().telemetry.SendTelemetryData(v.tel_cmd.Data,a,b,c)};b.caps_={};return b}(l.ProxyObject);
-a.NavigatorUserMedia=b},650:function(b,a,c){Object.defineProperty(a,"__esModule",{value:!0});var d=c(946),n=c(550),e=c(9),m=c(851),p=c(550),l=c(394),g;(function(a){a[a.Unknown=0]="Unknown";a[a.Windows=1]="Windows";a[a.Linux=2]="Linux"})(g=a.RemoteType||(a.RemoteType={}));var k=function(){return function(){}}();a.SessionInfo=k;b=function(){function a(){var b=this;this.isremote_=!1;this.isremote_=!0;this.type_=g.Windows;this.address_="0.0.0.0";this.sessioninfo_=null;d.getRedirector().setRemoteSessionInfoCb(function(){return b.remoteSessionInfo()});
-this.enginecontrol_=new e.EngineControl}a.prototype.release=function(){d.getRedirector().setRemoteSessionInfoCb(null)};a.prototype.user_friendly_id=function(){return"[RemoteSession]"};a.prototype.getFeatureFlags=function(){var a={};null!==this.enginecontrol_&&null!==this.enginecontrol_.features_&&void 0!==this.enginecontrol_.features_&&this.enginecontrol_.features_.forEach(function(b){a[b.name]=b.value});return a};a.prototype.isFeatureSupported=function(a){if("video"===a)return!0;if(!(a in p.featureNameMap))return!1;
-a=p.featureNameMap[a];for(var b=this.getFeatureFlags(),c=0;c<a.length;c++)if(!(a[c]in b)||!0!==b[a[c]])return!1;return!0};a.isFeaturePstnSupported=function(){return a.pstn_};a.isFeatureDtmfSupported=function(){return a.dtmfswitch_};a.isFeaturAppshareSupported=function(){return a.appshare_};a.isFeatureWebrtc1dot0Supported=function(){return a.webrtc1dot0_};a.isFeatureDataChannelSupported=function(){return a.datachannel_};a.isFeatureVdNoBufferLimitSupported=function(){return a.vdnobuflimit_};a.prototype.getSessionInfo=
-function(){m.logger.log(this.user_friendly_id()+".getSessionInfo() called.");return null!=this.sessioninfo_?Promise.resolve(this.sessioninfo_):Promise.reject()};a.prototype.remoteSessionInfo=function(){var b=this,c=this;m.logger.log(c.user_friendly_id()+".remoteSessionInfo() called.");return new Promise(function(g,f){c.enginecontrol_.syncBarrier().then(function(d){m.logger.log(c.user_friendly_id()+"enginecontrol info received!");c.sessioninfo_=new k;c.sessioninfo_.type_script=n.HDXMS_VERSION;c.sessioninfo_.webrpc=
-d.version_.major.toString()+"."+d.version_.minor.toString()+"."+d.version_.revision.toString()+"."+d.version_.build.toString();if(void 0!=d.versions_&&null!=d.versions_){c.SendTelemetryData(l.tel_key_VerTypeScript,n.HDXMS_VERSION,0);for(var f=0,p=0,C=d.versions_;p<C.length;p++){var r=C[p],r=r.major.toString()+"."+r.minor.toString()+"."+r.revision.toString()+"."+r.build.toString();switch(f){case e.VersionType.Webrpc:c.sessioninfo_.webrpc=r;c.SendTelemetryData(l.tel_key_VerWebrpc,r,0);break;case e.VersionType.WebrtcCodecs:c.sessioninfo_.webrtc_codecs=
-r;c.SendTelemetryData(l.tel_key_VerWebrtcCodecs,r,0);break;case e.VersionType.Receiver:c.sessioninfo_.receiver=r;c.SendTelemetryData(l.tel_key_VerReceiver,r,0);break;case e.VersionType.Vda:c.sessioninfo_.vda=r;c.SendTelemetryData(l.tel_key_VerVda,r,0);break;case e.VersionType.Endpoint:c.sessioninfo_.endpoint=r;c.SendTelemetryData(l.tel_key_VerEndpoint,r,0);break;default:m.logger.log(c.user_friendly_id()+"Unknown version type!")}f++}}void 0!=d.osinfo_&&null!=d.osinfo_&&(c.sessioninfo_.osinfo=d.osinfo_,
-d.osinfo_.family.includes("Darwin")&&d.osinfo_.edition.includes("Mac")?c.sessioninfo_.clientPlatform="Mac":c.sessioninfo_.clientPlatform=d.osinfo_.family,c.SendTelemetryData(l.tel_key_OSFamily,d.osinfo_.family,0),c.SendTelemetryData(l.tel_key_OSVersion,d.osinfo_.version,0),c.SendTelemetryData(l.tel_key_OSArchitecture,d.osinfo_.architecture,0),c.SendTelemetryData(l.tel_key_OSDistro,d.osinfo_.distro,0),c.SendTelemetryData(l.tel_key_OSEdition,d.osinfo_.edition,0));void 0!=d.endpointid_&&null!=d.endpointid_&&
-(c.sessioninfo_.endpointId=d.endpointid_.machine_id);a.pstn_=b.isFeatureSupported(n.Features.FEATURE_public_pstn);a.dtmfswitch_=b.isFeatureSupported(n.Features.FEATURE_public_dtmf);a.appshare_=b.isFeatureSupported(n.Features.FEATURE_public_app_sharing);a.webrtc1dot0_=b.isFeatureSupported(n.Features.FEATURE_public_webrtc1dot0);a.datachannel_=b.isFeatureSupported(n.Features.FEATURE_public_data_channel);a.vdnobuflimit_=b.isFeatureSupported(n.Features.FEATURE_public_vdnobuflimit);g(c.sessioninfo_);c.enginecontrol_.release()})["catch"](function(){d.getRedirector().isPingActive()?
-c.retrySessionInfo():(f(),c.enginecontrol_.release(),c.enginecontrol_=null)})})};a.prototype.retrySessionInfo=function(){var a=this;setTimeout(function(){m.logger.log("checking if we are connected...");a.enginecontrol_.bind();d.getRedirector().handleRemoteSessionInfo()},15E3)};a.prototype.SendTelemetryData=function(a,b,c){d.getRedirector().telemetry.SendTelemetryData(l.tel_cmd.Data,a,b,c)};a.pstn_=!1;a.dtmfswitch_=!1;a.appshare_=!1;a.webrtc1dot0_=!1;a.datachannel_=!1;a.vdnobuflimit_=!1;return a}();
-a.RemoteSession=b},24:function(b,a,c){var d=this&&this.__extends||function(){var a=function(b,c){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c])};return a(b,c)};return function(b,c){function d(){this.constructor=b}a(b,c);b.prototype=null===c?Object.create(c):(d.prototype=c.prototype,new d)}}();Object.defineProperty(a,"__esModule",{value:!0});var n=c(658),e=c(550),m=c(851),p=c(589),l;(function(a){a[a["new"]=
-0]="new";a[a.connecting=1]="connecting";a[a.connected=2]="connected";a[a.closed=3]="closed";a[a.max=4]="max"})(l||(l={}));b=function(a){function b(c,d){var g=a.call(this,c,e.class_id_t.RTCSctpTransport,d,n.ProxyMode.Remote)||this;m.logger.log(g.user_friendly_id()+".constructor");return g}d(b,a);b.prototype.syncBarrier=function(){var a=this;m.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.waitUntilConnected("RTCSctpTransport.syncBarrier").then(function(){m.logger.log(a.user_friendly_id()+
-".syncBarrierBase success.");return Promise.all([a.remoteInvoke(!1,e.method_id_RTCSctpTransport_t.transport,{}),a.remoteInvoke(!1,e.method_id_RTCSctpTransport_t.state,""),a.remoteInvoke(!1,e.method_id_RTCSctpTransport_t.maxMessageSize,0),a.remoteInvoke(!1,e.method_id_RTCSctpTransport_t.maxChannels,0)])}).then(function(c){var d;d=c.map(function(b){return a.param0(b)});c=d[0];a.sctpstate_=d[1];a.maxMessageSize_=d[2];a.maxChannels_=d[3];d=a.transport_;void 0==c||!1!==c.is_null||null!==a.transport_&&
-a.transport_.object_id()==c.oid||(d=new p.DtlsTransport(a,c.oid));d.syncBarrier().then(function(c){m.logger.log(a.user_friendly_id()+"transport.syncBarrier(): success");a.transport_=c;b(a)})["catch"](function(){m.logger.log(a.user_friendly_id()+"transport.syncBarrier(): failed!");a.transport_=null;b(a)})})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier() failed!");c(b)})})};Object.defineProperty(b.prototype,"transport",{get:function(){m.logger.log(this.user_friendly_id()+".get_transport() called: "+
-this.transport_);return this.transport_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"state",{get:function(){m.logger.log(this.user_friendly_id()+".get_state() called: "+this.sctpstate_);return this.sctpstate_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"maxMessageSize",{get:function(){m.logger.log(this.user_friendly_id()+".get_maxMessageSize() called: "+this.maxMessageSize_);return this.maxMessageSize_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,
-"maxChannels",{get:function(){m.logger.log(this.user_friendly_id()+".get_maxChannels() called: "+this.maxChannels_);return this.maxChannels_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onstatechange",{get:function(){m.logger.log(this.user_friendly_id()+".get_onstatechange() called: "+this.onstatechange_);return this.onstatechange_},set:function(a){var c=this;m.logger.log(this.user_friendly_id()+".set_onstatechange() called.");this.onstatechange_=a;this.waitUntilConnected(this.user_friendly_id()+
-".onstatechange").then(function(){var d=c.registerCallbacks(!1,c.isNullCallback(a),e.method_id_RTCSctpTransport_t.onstatechange);d.then(function(a){m.logger.log(c.user_friendly_id()+".onstatechange callback received!!!");c.sctpstate_=b.convertState(c.param0(a));m.logger.log(c.user_friendly_id()+"sctpstate_: "+c.sctpstate_);a=new Event("onstatechange");c.onstatechange_(a)});return c.remoteInvoke(!0,e.method_id_RTCSctpTransport_t.onstatechange,d.success)})["catch"](function(){m.logger.log(c.user_friendly_id()+
-".onstatechange() failed.")})},enumerable:!0,configurable:!0});b.convertState=function(a){return a==l["new"]?"closed":a==l.connecting?"connecting":a==l.connected?"connected":"closed"};return b}(n.ProxyObject);a.RTCSctpTransport=b;var g;(function(a){a[a.connecting=0]="connecting";a[a.open=1]="open";a[a.closing=2]="closing";a[a.closed=3]="closed"})(g||(g={}));b=function(a){function b(c,d,g){c=a.call(this,c,e.class_id_t.RTCDataChannel,d,g)||this;c.binaryType_="blob";m.logger.log(c.user_friendly_id()+
-".constructor");return c}d(b,a);b.prototype.syncBarrier=function(){var a=this;m.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.waitUntilConnected("RtcDataChannel.syncBarrier").then(function(){m.logger.log(a.user_friendly_id()+".syncBarrier remote invoking.");return Promise.all([a.remoteInvoke(!1,e.method_id_RTCDataChannel_t.label,""),a.remoteInvoke(!1,e.method_id_RTCDataChannel_t.ordered,!0),a.remoteInvoke(!1,e.method_id_RTCDataChannel_t.maxPacketLifeTime,
-0),a.remoteInvoke(!1,e.method_id_RTCDataChannel_t.maxRetransmits,0),a.remoteInvoke(!1,e.method_id_RTCDataChannel_t.protocol,""),a.remoteInvoke(!1,e.method_id_RTCDataChannel_t.negotiated,!1),a.remoteInvoke(!1,e.method_id_RTCDataChannel_t.id,0),a.remoteInvoke(!1,e.method_id_RTCDataChannel_t.readyState,""),a.remoteInvoke(!1,e.method_id_RTCDataChannel_t.bufferedAmount,0),a.remoteInvoke(!1,e.method_id_RTCDataChannel_t.bufferedAmountLowThreshold,0)])}).then(function(c){m.logger.log(a.user_friendly_id()+
-".syncBarrier success.");var d;c=c.map(function(b){return a.param0(b)});a.label_=c[0];a.ordered_=c[1];a.maxPacketLifeTime_=c[2];a.maxRetransmits_=c[3];a.protocol_=c[4];a.negotiated_=c[5];a.id_=c[6];d=c[7];a.bufferedAmount_=c[8];a.bufferedAmountLowThreshold_=c[9];a.readyState_=a.toRTCDataChannelState(d);b(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier() failed!");c(b)})})};Object.defineProperty(b.prototype,"label",{get:function(){m.logger.log(this.user_friendly_id()+".get_label() called: "+
-this.label_);return this.label_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"ordered",{get:function(){m.logger.log(this.user_friendly_id()+".get_ordered() called: "+this.ordered_);return this.ordered_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"maxPacketLifeTime",{get:function(){m.logger.log(this.user_friendly_id()+".get_maxPacketLifeTime() called: "+this.maxPacketLifeTime_);return this.maxPacketLifeTime_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,
-"maxRetransmits",{get:function(){m.logger.log(this.user_friendly_id()+".get_maxRetransmits() called: "+this.maxRetransmits_);return this.maxRetransmits_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"protocol",{get:function(){m.logger.log(this.user_friendly_id()+".get_protocol() called: "+this.protocol_);return this.protocol_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"negotiated",{get:function(){m.logger.log(this.user_friendly_id()+".get_negotiated() called: "+
-this.negotiated_);return this.negotiated_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"id",{get:function(){m.logger.log(this.user_friendly_id()+".get_id() called: "+this.id_);return this.id_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"readyState",{get:function(){m.logger.log(this.user_friendly_id()+".get_readyState() called: "+this.readyState_);return this.readyState_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"bufferedAmount",
-{get:function(){m.logger.log(this.user_friendly_id()+".get_bufferedAmount() called: "+this.bufferedAmount_);return this.bufferedAmount_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"bufferedAmountLowThreshold",{get:function(){m.logger.log(this.user_friendly_id()+".get_bufferedAmountLowThreshold() called: "+this.bufferedAmountLowThreshold_);return this.bufferedAmountLowThreshold_},set:function(a){m.logger.log(this.user_friendly_id()+".get_bufferedAmountLowThreshold() called: "+
-a);this.bufferedAmountLowThreshold_=a},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"binaryType",{get:function(){m.logger.log(this.user_friendly_id()+".get_binaryType() called: "+this.binaryType_);return this.binaryType_},set:function(a){m.logger.log(this.user_friendly_id()+".set_binaryType() called: "+a);this.binaryType_="blob"==a||"arraybuffer"==a?a:"blob"},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onopen",{get:function(){m.logger.log(this.user_friendly_id()+
-".get_onopen() called.");return this.onopen_},set:function(a){var b=this;m.logger.log(this.user_friendly_id()+".set_onopen() called.");this.onopen_=a;this.waitUntilConnected(this.user_friendly_id()+".onopen").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),e.method_id_RTCDataChannel_t.onopen);c.then(function(a){m.logger.log(b.user_friendly_id()+".onopen callback received!!!");b.syncBarrier().then(function(){m.logger.log(b.user_friendly_id()+".onopen notifying...");var a=new Event("open",
-{});Object.defineProperty(a,"target",{writable:!1,value:b});b.onopen_(a)})["catch"](function(){m.logger.log(b.user_friendly_id()+".syncBarrier(): failed!")})});return b.remoteInvoke(!0,e.method_id_RTCDataChannel_t.onopen,c.success)})["catch"](function(){m.logger.log(b.user_friendly_id()+".onopen() failed.")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onbufferedamountlow",{get:function(){m.logger.log(this.user_friendly_id()+".get_onbufferedamountlow() called.");return this.onbufferedamountlow_},
-set:function(a){var b=this;m.logger.log(this.user_friendly_id()+".set_onbufferedamountlow() called.");this.onbufferedamountlow_=a;this.waitUntilConnected(this.user_friendly_id()+".onbufferedamountlow").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),e.method_id_RTCDataChannel_t.onbufferedamountlow);c.then(function(a){m.logger.log(b.user_friendly_id()+".onbufferedamountlow callback received!!!");a=new Event("onbufferedamountlow");Object.defineProperty(a,"target",{writable:!1,value:b});
-b.onbufferedamountlow_(a)});return b.remoteInvoke(!0,e.method_id_RTCDataChannel_t.onbufferedamountlow,c.success)})["catch"](function(){m.logger.log(b.user_friendly_id()+".onbufferedamountlows() failed.")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onerror",{get:function(){m.logger.log(this.user_friendly_id()+".get_onerror() called.");return this.onerror_},set:function(a){var b=this;m.logger.log(this.user_friendly_id()+".set_onerror() called.");this.onerror_=a;this.waitUntilConnected(this.user_friendly_id()+
-".onerror").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),e.method_id_RTCDataChannel_t.onerror);c.then(function(a){m.logger.log(b.user_friendly_id()+".onerror callback received!");a=b.param0(a);m.logger.log(b.user_friendly_id()+"error: "+a);a=new Event("onerror");Object.defineProperty(a,"target",{writable:!1,value:b});b.onerror_(a)});return b.remoteInvoke(!0,e.method_id_RTCDataChannel_t.onerror,c.success)})["catch"](function(){m.logger.log(b.user_friendly_id()+".onerror() failed.")})},
-enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onclosing",{get:function(){m.logger.log(this.user_friendly_id()+".get_onclosing() called.");return this.onclosing_},set:function(a){var b=this;m.logger.log(this.user_friendly_id()+".set_onclosing() called.");this.onclosing_=a;this.waitUntilConnected(this.user_friendly_id()+".onclosing").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),e.method_id_RTCDataChannel_t.onclosing);c.then(function(a){m.logger.log(b.user_friendly_id()+
-".onclosing callback received!!!");a=new Event("onclosing");Object.defineProperty(a,"target",{writable:!1,value:b});b.onclosing_(a)});return b.remoteInvoke(!0,e.method_id_RTCDataChannel_t.onclosing,c.success)})["catch"](function(){m.logger.log(b.user_friendly_id()+".onclosing() failed.")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onclose",{get:function(){m.logger.log(this.user_friendly_id()+".get_onclose() called.");return this.onclose_},set:function(a){var b=this;m.logger.log(this.user_friendly_id()+
-".set_onclose() called.");this.onclose_=a;this.waitUntilConnected(this.user_friendly_id()+".onclose").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),e.method_id_RTCDataChannel_t.onclose);c.then(function(a){m.logger.log(b.user_friendly_id()+".onclose callback received!!!");a=new Event("onclose");Object.defineProperty(a,"target",{writable:!1,value:b});b.onclose_(a)});return b.remoteInvoke(!0,e.method_id_RTCDataChannel_t.onclose,c.success)})["catch"](function(){m.logger.log(b.user_friendly_id()+
-".onclose() failed.")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onmessage",{get:function(){m.logger.log(this.user_friendly_id()+".get_onmessage() called.");return this.onmessage_},set:function(a){var b=this;m.logger.log(this.user_friendly_id()+".set_onmessage() called.");this.onmessage_=a;this.waitUntilConnected(this.user_friendly_id()+".onmessage").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),e.method_id_RTCDataChannel_t.onmessage);c.then(function(a){m.logger.log(b.user_friendly_id()+
-".onmessage callback received!!!");var c=b.param0(a);a=new Event("onmessage");c.binary?a.data=c.data_ab:(c=atob(c.data_sz),a.data=c);b.onmessage_(a)});return b.remoteInvoke(!0,e.method_id_RTCDataChannel_t.onmessage,c.success)})["catch"](function(){m.logger.log(b.user_friendly_id()+".onmessage() failed.")})},enumerable:!0,configurable:!0});b.prototype.close=function(){var a=this;m.logger.log(this.user_friendly_id()+".close() called.");this.waitUntilConnected("RTCDataChannel.close").then(function(){return a.remoteInvoke(!1,
-e.method_id_RTCDataChannel_t.close)}).then(function(){m.logger.log(a.user_friendly_id()+".close: success.")})["catch"](function(){m.logger.log(a.user_friendly_id()+".close: failed.")})};b.prototype.toByteArray=function(a){var b=[];a=new Uint8Array(a instanceof ArrayBuffer?a:a.buffer);for(var c in a)b.push(a[c]);return b};b.prototype.send=function(a){var b=this;m.logger.log(this.user_friendly_id()+".send() called.");this.waitUntilConnected("RTCDataChannel.send").then(function(){if("string"===typeof a)return m.logger.log(b.user_friendly_id()+
-"data(string): "+a),b.remoteInvoke(!1,e.method_id_RTCDataChannel_t.send_text,a);if(a instanceof Blob)a.arrayBuffer().then(function(a){a=b.toByteArray(a);return b.remoteInvoke(!1,e.method_id_RTCDataChannel_t.send_binary,a)})["catch"](function(){m.logger.log(b.user_friendly_id()+".arrayBuffer(): failed.")});else{var c=b.toByteArray(a);return b.remoteInvoke(!1,e.method_id_RTCDataChannel_t.send_binary,c)}}).then(function(){m.logger.log(b.user_friendly_id()+".send: success.")})["catch"](function(){m.logger.log(b.user_friendly_id()+
-".send: failed.")})};b.prototype.toRTCDataChannelState=function(a){var b="closed";a==g.connecting?b="connecting":a==g.open?b="open":a==g.closing?b="closing":a==g.closed&&(b="closed");return b};return b}(n.ProxyObject);a.RtcDataChannel=b},589:function(b,a,c){var d=this&&this.__extends||function(){var a=function(b,c){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c])};return a(b,c)};return function(b,c){function d(){this.constructor=
-b}a(b,c);b.prototype=null===c?Object.create(c):(d.prototype=c.prototype,new d)}}(),e=this&&this.__awaiter||function(a,b,c,d){return new (c||(c=Promise))(function(f,g){function e(a){try{n(d.next(a))}catch(b){g(b)}}function h(a){try{n(d["throw"](a))}catch(b){g(b)}}function n(a){a.done?f(a.value):(new c(function(b){b(a.value)})).then(e,h)}n((d=d.apply(a,b||[])).next())})},k=this&&this.__generator||function(a,b){function c(a){return function(b){return d([a,b])}}function d(c){if(g)throw new TypeError("Generator is already executing.");
-for(;f;)try{if(g=1,e&&(h=c[0]&2?e["return"]:c[0]?e["throw"]||((h=e["return"])&&h.call(e),0):e.next)&&!(h=h.call(e,c[1])).done)return h;if(e=0,h)c=[c[0]&2,h.value];switch(c[0]){case 0:case 1:h=c;break;case 4:return f.label++,{value:c[1],done:!1};case 5:f.label++;e=c[1];c=[0];continue;case 7:c=f.ops.pop();f.trys.pop();continue;default:if(!(h=f.trys,h=0<h.length&&h[h.length-1])&&(6===c[0]||2===c[0])){f=0;continue}if(3===c[0]&&(!h||c[1]>h[0]&&c[1]<h[3]))f.label=c[1];else if(6===c[0]&&f.label<h[1])f.label=
-h[1],h=c;else if(h&&f.label<h[2])f.label=h[2],f.ops.push(c);else{h[2]&&f.ops.pop();f.trys.pop();continue}}c=b.call(a,f)}catch(q){c=[6,q],e=0}finally{g=h=0}if(c[0]&5)throw c[1];return{value:c[0]?c[1]:void 0,done:!0}}var f={label:0,sent:function(){if(h[0]&1)throw h[1];return h[1]},trys:[],ops:[]},g,e,h,n;$jscomp.initSymbol();$jscomp.initSymbol();$jscomp.initSymbolIterator();return n={next:c(0),"throw":c(1),"return":c(2)},"function"===typeof Symbol&&(n[Symbol.iterator]=function(){return this}),n};Object.defineProperty(a,
-"__esModule",{value:!0});var m=c(658),p=c(550),l=c(851),g=c(144),G=c(517),v=c(650),t=function(a){function b(c,d){var f=a.call(this,c,p.class_id_t.RTCDTMFToneChangeEvent,d,m.ProxyMode.Remote)||this;l.logger.log(f.user_friendly_id()+".constructor");return f}d(b,a);b.prototype.syncBarrier=function(){return e(this,void 0,void 0,function(){var a,b,c=this;return k(this,function(d){switch(d.label){case 0:return l.logger.log(this.user_friendly_id()+".syncBarrier() called."),[4,this.waitUntilConnected("DTMFToneChangeEvent.syncBarrier")];
-case 1:return d.sent(),[4,Promise.all([this.remoteInvoke(!1,p.method_id_RTCDTMFToneChangeEvent_t.tone,""),this.remoteInvoke(!1,p.method_id_RTCDTMFToneChangeEvent_t.tone_buffer,"")])];case 2:return b=d.sent(),a=b.map(function(a){return c.param0(a)}),this.tone=a[0],this.tone_buffer_=a[1],[2,this]}})})};Object.defineProperty(b.prototype,"tone_buffer",{get:function(){return this.tone_buffer_},enumerable:!0,configurable:!0});return b}(m.ProxyObject);a.DTMFToneChangeEvent=t;var z=function(a){function b(c,
-d){var f=a.call(this,c,p.class_id_t.RTCDTMFSender,d,m.ProxyMode.Remote)||this;l.logger.log(f.user_friendly_id()+".constructor");f.canInsertDTMF=!0;f.toneBuffer_="";return f}d(b,a);b.prototype.insertDTMF=function(a,b,c){var d=this;void 0===b&&(b=100);void 0===c&&(c=70);l.logger.log(this.user_friendly_id()+".insertDTMF() called, tones: "+a);this.waitUntilConnected("DtmfSender.insertDTMF").then(function(){return d.remoteInvoke(!1,p.method_id_RTCDTMFSender_t.insertDTMF,a,b,c)}).then(function(){l.logger.log(d.user_friendly_id()+
-".insertDTMF() success, tones: "+a)})["catch"](function(a){d.logRemoteInvokeError(a,".insertDTMF() failed!")})};Object.defineProperty(b.prototype,"ontonechange",{get:function(){return this.ontonechange_},set:function(a){var b=this;l.logger.log(this.user_friendly_id()+".set_ontonechange() called.");this.ontonechange_=a;this.waitUntilConnected("DtmfSender.ontonechange").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),p.method_id_RTCDTMFSender_t.ontonechange);c.then(function(a){l.logger.log(b.user_friendly_id()+
-".ontonechange callback received!");(new t(b,b.param0(a).oid)).syncBarrier().then(function(a){l.logger.log(b.user_friendly_id()+"tone: "+a.tone+" tone_buffer: "+a.tone_buffer);b.toneBuffer_=a.tone_buffer;b.ontonechange_(a)})["catch"](function(a){b.logRemoteInvokeError(a,".toneEvt.syncBarrier() failed!")})});return b.remoteInvoke(!0,p.method_id_RTCDTMFSender_t.ontonechange,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,".set_ontonechange() failed!")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,
-"toneBuffer",{get:function(){l.logger.log(this.user_friendly_id()+".toneBuffer() called.");return this.toneBuffer_},enumerable:!0,configurable:!0});return b}(m.ProxyObject);a.DtmfSender=z;var u=function(a){function b(c,d){var f=a.call(this,c,p.class_id_t.RTCIceTransport,d,m.ProxyMode.Remote)||this;l.logger.log(f.user_friendly_id()+".constructor");f.selectedPair=null;f.localCandidates_=[];f.remoteCandidates_=[];return f}d(b,a);b.prototype.syncBarrier=function(){var a=this;l.logger.log(this.user_friendly_id()+
-".syncBarrier() called.");return new Promise(function(c,d){a.waitUntilConnected("IceTransport.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,p.method_id_RTCIceTransport_t.role,0),a.remoteInvoke(!1,p.method_id_RTCIceTransport_t.component,0),a.remoteInvoke(!1,p.method_id_RTCIceTransport_t.state,0),a.remoteInvoke(!1,p.method_id_RTCIceTransport_t.gatheringState,0)])}).then(function(d){l.logger.log(a.user_friendly_id()+".syncBarrier success.");var f=0,h=0;d=d.map(function(b){return a.param0(b)});
-a.role_=d[0];a.component_=d[1];f=d[2];h=d[3];a.state_=b.convertState(f);a.gatheringState_=b.convertGatheringState(h);c(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier() failed!");d(b)})})};b.prototype.syncCandidates=function(){var a=this;l.logger.log(this.user_friendly_id()+".syncCandidates() called.");return new Promise(function(b,c){a.waitUntilConnected("IceTransport.syncCandidates").then(function(){return Promise.all([a.remoteInvoke(!1,p.method_id_RTCIceTransport_t.localcandidates,
-[]),a.remoteInvoke(!1,p.method_id_RTCIceTransport_t.remotecandidates,[])])}).then(function(c){l.logger.log(a.user_friendly_id()+".syncCandidates success.");c=c.map(function(b){return a.param0(b)});a.localCandidates_=c[0];a.remoteCandidates_=c[1];b(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncCandidates() failed!");c(b)})})};Object.defineProperty(b.prototype,"role",{get:function(){return this.role_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"component",{get:function(){return this.component_},
-enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"State",{get:function(){return this.state_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"gatheringState",{get:function(){return this.gatheringState_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onstatechange",{get:function(){return this.onstatechange_},set:function(a){var c=this;l.logger.log(this.user_friendly_id()+".set_onstatechange() called.");this.onstatechange_=a;this.waitUntilConnected("IceTransport.onstatechange").then(function(){var d=
-c.registerCallbacks(!1,c.isNullCallback(a),p.method_id_RTCIceTransport_t.onstatechange);d.then(function(a){l.logger.log(c.user_friendly_id()+".onstatechange callback received!");c.syncCandidates().then(function(a){l.logger.log(c.user_friendly_id()+"received updated ice candidates!")});c.state_=b.convertState(c.param0(a));l.logger.log(c.user_friendly_id()+"state: "+c.state_);c.onstatechange_()});return c.remoteInvoke(!0,p.method_id_RTCIceTransport_t.onstatechange,d.success)})["catch"](function(a){c.logRemoteInvokeError(a,
-".set_onstatechange failed!")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"ongatheringstatechange",{get:function(){return this.ongatheringstatechange_},set:function(a){var c=this;l.logger.log(this.user_friendly_id()+".set_ongatheringstatechange() called.");this.ongatheringstatechange_=a;this.waitUntilConnected("IceTransport.ongatheringstatechange").then(function(){var d=c.registerCallbacks(!1,c.isNullCallback(a),p.method_id_RTCIceTransport_t.ongatheringstatechange);d.then(function(a){l.logger.log(c.user_friendly_id()+
-".ongatheringstatechange callback received!");c.syncCandidates().then(function(a){l.logger.log(c.user_friendly_id()+"received updated ice candidates!")});c.gatheringState_=b.convertGatheringState(c.param0(a));l.logger.log(c.user_friendly_id()+"gatheringState: "+c.gatheringState_);c.ongatheringstatechange_()});return c.remoteInvoke(!0,p.method_id_RTCIceTransport_t.ongatheringstatechange,d.success)})["catch"](function(a){c.logRemoteInvokeError(a,".set_ongatheringstatechange failed!")})},enumerable:!0,
-configurable:!0});Object.defineProperty(b.prototype,"onselectedcandidatepairchange",{get:function(){return this.onselectedcandidatepairchange_},set:function(a){var b=this;l.logger.log(this.user_friendly_id()+".set_onselectedcandidatepairchange() called.");this.onselectedcandidatepairchange_=a;this.waitUntilConnected("IceTransport.onselectedcandidatepairchange").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),p.method_id_RTCIceTransport_t.onselectedcandidatepairchange);c.then(function(a){l.logger.log(b.user_friendly_id()+
-".onselectedcandidatepairchange callback received!");b.syncCandidates().then(function(a){l.logger.log(b.user_friendly_id()+"received updated ice candidates!")});b.selectedPair=b.param0(a);l.logger.log(b.user_friendly_id()+"selectedPair: "+b.selectedPair);b.onselectedcandidatepairchange_()});return b.remoteInvoke(!0,p.method_id_RTCIceTransport_t.onselectedcandidatepairchange,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,".set_onselectedcandidatepairchange failed!")})},enumerable:!0,configurable:!0});
-b.prototype.getLocalCandidates=function(){return this.localCandidates_};b.prototype.getRemoteCandidates=function(){return this.remoteCandidates_};b.prototype.getLocalParameters=function(){return null};b.prototype.getRemoteParameters=function(){return null};b.prototype.getSelectedCandidatePair=function(){return this.selectedPair};b.convertState=function(a){return 0==a?"new":1==a?"checking":2==a?"connected":3==a?"completed":4==a?"failed":5==a?"disconnected":"closed"};b.convertGatheringState=function(a){return 0==
-a?"new":1==a?"gathering":"complete"};return b}(m.ProxyObject);a.IceTransport=u;var f;(function(a){a[a["new"]=0]="new";a[a.connecting=1]="connecting";a[a.connected=2]="connected";a[a.closed=3]="closed";a[a.failed=4]="failed";a[a.max=5]="max"})(f||(f={}));var A=function(a){function b(c,d){var f=a.call(this,c,p.class_id_t.RTCDtlsTransport,d,m.ProxyMode.Remote)||this;l.logger.log(f.user_friendly_id()+".constructor");f.state_="new";f.transport_=null;f.remoteCertificates_=[];return f}d(b,a);b.prototype.dumpInfo=
-function(){l.logger.log("DtlsTransport["+this.object_id()+"].dumpInfo():");l.logger.log("    - state:"+this.state_);l.logger.log("    - transport:"+this.transport_)};b.prototype.syncBarrier=function(){var a=this;l.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(c,d){a.waitUntilConnected("DtlsTransport.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,p.method_id_RTCDtlsTransport_t.transport,{}),a.remoteInvoke(!1,p.method_id_RTCDtlsTransport_t.state,
-0),a.remoteInvoke(!1,p.method_id_RTCDtlsTransport_t.getRemoteCertificates,[])])}).then(function(f){var g;l.logger.log(a.user_friendly_id()+".syncBarrier remote success.");var h;g=f.map(function(b){return a.param0(b)});f=g[0];h=g[1];a.remoteCertificates_=g[2];a.state_=b.convertState(h);g=[];void 0==f||0!=f.is_null||null!==a.transport_&&a.transport_.object_id()==f.oid||(a.transport_=new u(a,f.oid),g.push(a.transport_.syncBarrier()));Promise.all(g).then(function(){l.logger.log(a.user_friendly_id()+".syncBarrier success");
-c(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".prop.syncBarrier failed!");d(b)})})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier failed!");d(b)})})};Object.defineProperty(b.prototype,"transport",{get:function(){return this.transport_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"state",{get:function(){l.logger.log(this.user_friendly_id()+".get_state() called: "+this.state_);return this.state_},enumerable:!0,configurable:!0});b.prototype.getRemoteCertificates=
-function(){return this.remoteCertificates_};Object.defineProperty(b.prototype,"onstatechange",{get:function(){return this.onstatechange_},set:function(a){var c=this;l.logger.log(this.user_friendly_id()+".set_onstatechange() called.");this.onstatechange_=a;this.waitUntilConnected("DtlsTransport.onstatechange").then(function(){var d=c.registerCallbacks(!1,c.isNullCallback(a),p.method_id_RTCDtlsTransport_t.onstatechange);d.then(function(a){l.logger.log(c.user_friendly_id()+".onstatechange callback received!");
-c.state_=b.convertState(c.param0(a));l.logger.log(c.user_friendly_id()+"state_: "+c.state_);c.onstatechange_()});return c.remoteInvoke(!0,p.method_id_RTCDtlsTransport_t.onstatechange,d.success)})["catch"](function(a){c.logRemoteInvokeError(a,".set_onstatechange failed!")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onerror",{get:function(){return this.onerror_},set:function(a){var b=this;l.logger.log(this.user_friendly_id()+".set_onerror() called.");this.onerror_=a;this.waitUntilConnected("DtlsTransport.onerror").then(function(){var c=
-b.registerCallbacks(!1,b.isNullCallback(a),p.method_id_RTCDtlsTransport_t.onerror);c.then(function(a){l.logger.log(b.user_friendly_id()+".onerror callback received!");a=b.param0(a);l.logger.log(b.user_friendly_id()+"error: "+a);b.onerror_(a)});return b.remoteInvoke(!0,p.method_id_RTCDtlsTransport_t.onerror,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,".set_onerror failed!")})},enumerable:!0,configurable:!0});b.convertState=function(a){return a==f["new"]?"new":a==f.connecting?"connecting":
-a==f.connected?"connected":a==f.closed?"closed":"failed"};return b}(m.ProxyObject);a.DtlsTransport=A;b=function(a){function b(c,d,f,g){c=a.call(this,c,d,f,g)||this;l.logger.log(c.user_friendly_id()+".constructor base");c.track_=null;c.transport_=null;c.rtcpTransport_=null;return c}d(b,a);b.prototype.syncBarrierBase=function(){var a=this;l.logger.log(this.user_friendly_id()+".syncBarrierBase() called.");return new Promise(function(b,c){var d,f,h;a instanceof x?(d=p.method_id_RTCRtpSender_t.track,f=
-p.method_id_RTCRtpSender_t.transport,h=p.method_id_RTCRtpSender_t.rtcpTransport):a instanceof D&&(d=p.method_id_RTCRtpReceiver_t.track,f=p.method_id_RTCRtpReceiver_t.transport,h=p.method_id_RTCRtpReceiver_t.rtcpTransport);a.waitUntilConnected("RtpSenderReceiver.syncBarrierBase").then(function(){return v.RemoteSession.isFeaturePstnSupported()&&v.RemoteSession.isFeatureDtmfSupported()?Promise.all([a.remoteInvoke(!1,d,{oid:a.object_id()}),a.remoteInvoke(!1,f,{oid:a.object_id()}),a.remoteInvoke(!1,h,
-{oid:a.object_id()})]):Promise.all([a.remoteInvoke(!1,d,{oid:a.object_id()})])}).then(function(d){var h;l.logger.log(a.user_friendly_id()+".syncBarrierBase remote success.");var f;h=d.map(function(b){return a.param0(b)});d=h[0];f=h[1];h=h[2];var e=[];void 0!=d&&!1===d.is_null&&(null===a.track_||a.track_.object_id()!=d.oid?a.track_=new g.RemoteMediaTrack(a,d.oid):a.track_.bind(a,d.oid),e.push(a.track.syncBarrier()));void 0==f||!1!==f.is_null||null!==a.transport_&&a.transport_.object_id()==f.oid||(a.transport_=
-new A(a,f.oid),e.push(a.transport_.syncBarrier()));void 0==h||!1!==h.is_null||null!==a.rtcpTransport_&&a.rtcpTransport_.object_id()==h.oid||(a.rtcpTransport_=new A(a,h.oid),e.push(a.rtcpTransport_.syncBarrier()));Promise.all(e).then(function(){l.logger.log(a.user_friendly_id()+".prop.syncBarrierBase success");b(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".prop.syncBarrierBase failed!");c(b)})})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrierBase() failed!");c(b)})})};Object.defineProperty(b.prototype,
-"transport",{get:function(){l.logger.log(this.user_friendly_id()+".get transport() called.");return this.transport_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"rtcpTransport",{get:function(){l.logger.log(this.user_friendly_id()+".get rtcpTransport() called.");return this.rtcpTransport_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"track",{get:function(){return this.track_},enumerable:!0,configurable:!0});b.prototype.reinitTrack=function(a){this.track_=
-a};b.prototype.getStats=function(){l.logger.log(this.user_friendly_id()+".getStats() called.");var a=this;return new Promise(function(b,c){var d=this;a.isRedirected()?a.waitUntilConnected("RtpReceiver.getStats").then(function(){var c;d instanceof x?c=p.method_id_RTCRtpSender_t.getStats:d instanceof D&&(c=p.method_id_RTCRtpReceiver_t.getStats);var h=a.registerCallbacks(!0,!1,c);h.then(function(a){void 0!==a.params&&0!==a.params.length&&b(G.StatsReport.fromJSON(JSON.parse(a.params[0])))});return a.remoteInvoke(!1,
-c,h.success)})["catch"](function(a){a=d.logRemoteInvokeError(a,".getStats() failed!");c(a)}):(l.logger.log(a.user_friendly_id()+".getStats(): not in active redirection!"),b())})};return b}(m.ProxyObject);a.RtpSenderReceiver=b;var x=function(a){function b(c,d,f,g){c=a.call(this,c,p.class_id_t.RTCRtpSender,d,f)||this;l.logger.log(c.user_friendly_id()+".constructor");c.dtmf_=null;c.params_=null;c.unified_=g;return c}d(b,a);b.prototype.dumpInfo=function(){l.logger.log("RtpSender["+this.object_id()+"].dumpInfo():");
-this.track&&this.track.dumpInfo()};b.prototype.syncBarrier=function(){var b=this;l.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(c,d){b.waitUntilConnected("RtpSender.syncBarrier").then(function(){return a.prototype.syncBarrierBase.call(b)}).then(function(){l.logger.log(b.user_friendly_id()+".syncBarrierBase success.");return v.RemoteSession.isFeaturePstnSupported()&&v.RemoteSession.isFeatureDtmfSupported()?Promise.all([b.remoteInvoke(!1,p.method_id_RTCRtpSender_t.dtmf,
-{oid:b.object_id()}),b.remoteInvoke(!1,p.method_id_RTCRtpSender_t.getParameters,{oid:b.object_id()})]):Promise.all([])}).then(function(a){l.logger.log(b.user_friendly_id()+".syncBarrier success.");var d;a=a.map(function(a){return b.param0(a)});d=a[0];b.params_=a[1];void 0==d||!1!==d.is_null||null!==b.dtmf_&&b.dtmf_.object_id()==d.oid||(b.dtmf_=new z(b,d.oid));c(b)})["catch"](function(a){a=b.logRemoteInvokeError(a,".syncBarrier failed!");d(a)})})};b.getCapabilities=function(a){l.logger.log(this.constructor.name+
-".getCapabilities() called.");return g.NavigatorUserMedia.getCapabilities(a)};Object.defineProperty(b.prototype,"dtmf",{get:function(){l.logger.log(this.user_friendly_id()+".get dtmf() called.");return this.dtmf_},enumerable:!0,configurable:!0});b.prototype.setParameters=function(a){var b=this;l.logger.log(this.user_friendly_id()+".setParameters() called.");return new Promise(function(c,d){b.waitUntilConnected("RtpSender.setParameters").then(function(){return Promise.all([b.remoteInvoke(!1,p.method_id_RTCRtpSender_t.setParameters,
-a)])}).then(function(d){l.logger.log(b.user_friendly_id()+".setParameters(): success.");c();b.params_=a})["catch"](function(a){a=b.logRemoteInvokeError(a,".setParameters() failed!");d(a)})})};b.prototype.getParameters=function(){var a=this;l.logger.log(this.user_friendly_id()+".getParameters() called.");this.waitUntilConnected(this.user_friendly_id()+".getParameters").then(function(){l.logger.log(a.user_friendly_id()+".getParameters() remote invoking");return a.remoteInvoke(!1,p.method_id_RTCRtpSender_t.getParameters,
-{oid:a.object_id()})}).then(function(b){l.logger.log(a.user_friendly_id()+".getParameters() success");a.params_=a.param0(b)})["catch"](function(b){a.logRemoteInvokeError(b,".getParameters() failed!")});l.logger.log(this.user_friendly_id()+".getParameters() returning: "+this.params_);return this.params_};b.prototype.replaceTrack=function(a){var b=this;l.logger.log(this.user_friendly_id()+".replaceTrack() called. track_:"+this.track_+", withTrack:"+a);return new Promise(function(c,d){b.waitUntilConnected("RtpSender.replaceTrack").then(function(){if(a)return Promise.all([b.remoteInvoke(!1,
-p.method_id_RTCRtpSender_t.replaceTrack,{oid:a.object_id()})]);if(b.unified_)return Promise.all([b.remoteInvoke(!1,p.method_id_RTCRtpSender_t.replaceTrack,{oid:0})]);l.logger.log(b.user_friendly_id()+".replaceTrack(): failed with null track!");d()}).then(function(d){l.logger.log(b.user_friendly_id()+".replaceTrack(): success.");c();b.reinitTrack(a)})["catch"](function(a){a=b.logRemoteInvokeError(a,".replaceTrack() failed!");d(a)})})};return b}(b);a.RtpSender=x;var D=function(a){function b(c,d,f,g,
-e){c=a.call(this,c,p.class_id_t.RTCRtpReceiver,d,f)||this;l.logger.log(c.user_friendly_id()+".constructor");c.contribsources_=[];c.syncsources_=[];c.params_=null;c.unified_=g;e&&(c.track_=e);return c}d(b,a);b.prototype.dumpInfo=function(){l.logger.log("RtpReceiver["+this.object_id()+"].dumpInfo():");this.track&&this.track.dumpInfo();this.transport&&this.transport.dumpInfo()};b.prototype.syncBarrier=function(){var b=this;l.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(c,
-d){b.waitUntilConnected("RtpReceiver.syncBarrier").then(function(){return a.prototype.syncBarrierBase.call(b)}).then(function(){l.logger.log(b.user_friendly_id()+".syncBarrierBase success.");return v.RemoteSession.isFeaturePstnSupported()&&v.RemoteSession.isFeatureDtmfSupported()?Promise.all([b.remoteInvoke(!1,p.method_id_RTCRtpReceiver_t.getContributingSources,[]),b.remoteInvoke(!1,p.method_id_RTCRtpReceiver_t.getSynchronizationSources,[]),b.remoteInvoke(!1,p.method_id_RTCRtpReceiver_t.getParameters,
-{oid:b.object_id()})]):Promise.all([b.remoteInvoke(!1,p.method_id_RTCRtpReceiver_t.getContributingSources,[])])}).then(function(a){l.logger.log(b.user_friendly_id()+".syncBarrier success.");a=a.map(function(a){return b.param0(a)});b.contribsources_=a[0];b.syncsources_=a[1];b.params_=a[2];c(b)})["catch"](function(a){a=b.logRemoteInvokeError(a,".syncBarrier() failed!");d(a)})})};b.getCapabilities=function(a){l.logger.log(this.constructor.name+".getCapabilities() called.");return g.NavigatorUserMedia.getCapabilities(a)};
-b.prototype.getContributingSources=function(){var a=this;l.logger.log(this.user_friendly_id()+".getContributingSources() called. "+JSON.stringify(this.contribsources_));this.waitUntilConnected("RtpReceiver.getContributingSources").then(function(){return Promise.all([a.remoteInvoke(!1,p.method_id_RTCRtpReceiver_t.getContributingSources,[])])}).then(function(b){a.contribsources_=b.map(function(b){return a.param0(b)})[0];l.logger.log(a.user_friendly_id(),".getContributingSources() success: "+JSON.stringify(a.contribsources_))})["catch"](function(b){a.logRemoteInvokeError(b,
-".getContributingSources() failed!");a.contribsources_=[]});return this.contribsources_};b.prototype.getParameters=function(){l.logger.log(this.user_friendly_id()+".getParameters() called.");return this.params_};b.prototype.getSynchronizationSources=function(){l.logger.log(this.user_friendly_id()+".getSynchronizationSources() called.");return this.syncsources_};return b}(b);a.RtpReceiver=D},377:function(b,a,c){var d=this&&this.__extends||function(){var a=function(b,c){a=Object.setPrototypeOf||{__proto__:[]}instanceof
-Array&&function(a,b){a.__proto__=b}||function(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c])};return a(b,c)};return function(b,c){function d(){this.constructor=b}a(b,c);b.prototype=null===c?Object.create(c):(d.prototype=c.prototype,new d)}}();Object.defineProperty(a,"__esModule",{value:!0});var e=c(658),k=c(550),m=c(851),p=c(589);b=function(){function a(){this.direction="sendrecv";this.sendEncodings=[];this.streams=[];m.logger.log(this.user_friendly_id()+".constructor")}a.prototype.user_friendly_id=
-function(){return this.constructor.name};return a}();a.RtpTransceiverInit=b;var l;(function(a){a[a.kSendRecv=0]="kSendRecv";a[a.kSendOnly=1]="kSendOnly";a[a.kRecvOnly=2]="kRecvOnly";a[a.kInactive=3]="kInactive"})(l||(l={}));b=function(a){function b(c,d,I,u,f,A){c=a.call(this,c,k.class_id_t.RTCRtpTransceiver,d,I)||this;m.logger.log(c.user_friendly_id()+".constructor");c.unified_=u;c.sender_=new p.RtpSender(c,0,e.ProxyMode.Pseudo,u);c.receiver_=A?A:new p.RtpReceiver(c,0,e.ProxyMode.Pseudo,u);f?(c.direction_=
-c.toRtpTransceiverDirection(f),c.currentDirection_=c.toRtpTransceiverDirection(f)):(c.direction_=l.kSendRecv,c.currentDirection_=l.kSendRecv);return c}d(b,a);b.prototype.dumpInfo=function(){m.logger.log(this.user_friendly_id()+".dumpInfo() [id="+this.mid+"] direction="+this.toRTCRtpTransceiverDirection(this.direction_)," currentDirection="+this.toRTCRtpTransceiverDirection(this.currentDirection_));this.sender&&this.sender.dumpInfo();this.receiver&&this.receiver.dumpInfo()};b.prototype.syncBarrier=
-function(){var a=this;m.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.waitUntilConnected("RtpTransceiver.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,k.method_id_RTCRtpTransceiver_t.mid,{oid:a.object_id()}),a.remoteInvoke(!1,k.method_id_RTCRtpTransceiver_t.direction,{oid:a.object_id()}),a.remoteInvoke(!1,k.method_id_RTCRtpTransceiver_t.currentDirection,{oid:a.object_id()}),a.remoteInvoke(!1,k.method_id_RTCRtpTransceiver_t.sender,
-{oid:a.object_id()}),a.remoteInvoke(!1,k.method_id_RTCRtpTransceiver_t.receiver,{oid:a.object_id()})])}).then(function(c){var d;m.logger.log(a.user_friendly_id()+".syncBarrier remote success.");d=c.map(function(b){return a.param0(b)});a.mid_=d[0];a.direction_=d[1];a.currentDirection_=d[2];c=d[3];d=d[4];var e=[];void 0!=c&&!1===c.is_null&&(a.sender_.bind(a,c.oid),e.push(a.sender_.syncBarrier()));void 0!=d&&!1===d.is_null&&(a.receiver_.bind(a,d.oid),e.push(a.receiver_.syncBarrier()));if(0==e.length)m.logger.log(a.user_friendly_id()+
-".syncBarrier success"),b(a);else return m.logger.log(a.user_friendly_id()+".prop.syncBarrier start"),Promise.all(e)}).then(function(){m.logger.log(a.user_friendly_id()+".syncBarrier success");b(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier() failed!");c(b)})})};Object.defineProperty(b.prototype,"mid",{get:function(){m.logger.log(this.user_friendly_id()+".get_mid() called: "+this.mid_);return this.mid_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"sender",
-{get:function(){return this.sender_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"receiver",{get:function(){return this.receiver_},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"direction",{get:function(){m.logger.log(this.user_friendly_id()+".get_direction() called. "+this.toRTCRtpTransceiverDirection(this.direction_));return this.toRTCRtpTransceiverDirection(this.direction_)},set:function(a){var b=this;m.logger.log(this.user_friendly_id()+".set_direction() called. "+
-a);this.direction_=this.toRtpTransceiverDirection(a);this.waitUntilConnected("RtpTransceiver.set_direction").then(function(){return b.remoteInvoke(!0,k.method_id_RTCRtpTransceiver_t.direction,b.toRtpTransceiverDirection(a))}).then(function(){m.logger.log(b.user_friendly_id()+".set_direction: success.")})["catch"](function(a){b.logRemoteInvokeError(a,".set_direction() failed!")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"currentDirection",{get:function(){m.logger.log(this.user_friendly_id()+
-".get_currentDirection() called. "+this.toRTCRtpTransceiverDirection(this.direction_));return this.toRTCRtpTransceiverDirection(this.currentDirection_)},enumerable:!0,configurable:!0});b.prototype.stop=function(){var a=this;m.logger.log(this.user_friendly_id()+".stop() called.");this.waitUntilConnected("RtpTransceiver.stop").then(function(){return a.remoteInvoke(!0,k.method_id_RTCRtpTransceiver_t.stop)}).then(function(){m.logger.log(a.user_friendly_id()+".stop: success.")})["catch"](function(b){a.logRemoteInvokeError(b,
-".stop() failed!")})};b.prototype.setCodecPreferences=function(a){var b=this;m.logger.log(this.user_friendly_id()+".setCodecPreferences() called.");this.waitUntilConnected("RtpTransceiver.setCodecPreferences").then(function(){return b.remoteInvoke(!0,k.method_id_RTCRtpTransceiver_t.setCodecPreferences,a)}).then(function(){m.logger.log(b.user_friendly_id()+".setCodecPreferences: success.")})["catch"](function(a){b.logRemoteInvokeError(a,".setCodecPreferences() failed!")})};b.prototype.toRtpTransceiverDirection=
-function(a){var b=l.kSendRecv;switch(a){case "inactive":b=l.kInactive;break;case "recvonly":b=l.kRecvOnly;break;case "sendonly":b=l.kSendOnly;break;case "sendrecv":b=l.kSendRecv;break;default:b=l.kInactive}return b};b.prototype.toRTCRtpTransceiverDirection=function(a){var b="sendrecv";switch(a){default:b="inactive";break;case l.kRecvOnly:b="recvonly";break;case l.kSendOnly:b="sendonly";break;case l.kSendRecv:b="sendrecv"}return b};return b}(e.ProxyObject);a.RtpTransceiver=b},509:function(b,a){Object.defineProperty(a,
-"__esModule",{value:!0});(function(a){a[a.Unknown=0]="Unknown";a[a.Cap=1]="Cap";a[a.GetSources=2]="GetSources";a[a.SetActive=3]="SetActive";a[a.TopologyChanged=4]="TopologyChanged"})(a.sshare_cmd||(a.sshare_cmd={}));(function(a){a[a.Unknown=0]="Unknown";a[a.Initialized=1]="Initialized";a[a.Error=2]="Error"})(a.sshare_state||(a.sshare_state={}));var c=function(){function a(){}a.prototype.onInitialized=function(a){};a.prototype.onInitComplete=function(){};a.prototype.onError=function(a){};a.prototype.onGetSources=
-function(a,b){};a.prototype.onSetActive=function(a,b){};a.prototype.onToplogyChanged=function(){};return a}();a.ScreenShareUtil=c},517:function(b,a){Object.defineProperty(a,"__esModule",{value:!0});var c=function(){function a(){this.items=[]}a.fromJSON=function(b){for(var c=new a,e=0;e<b.length;e++){var l=d.fromJSON(b[e]);c.items.push(l)}return c};a.toRTCStatsReport=function(a){return a};a.prototype.toJSON=function(){return JSON.stringify(this.items)};a.prototype.result=function(){return this.items};
-return a}();a.StatsReport=c;var d=function(){function a(){this.names_=[];this.stat_=new Map;this.id="";this.timestamp=0;this.type=""}a.fromJSON=function(b){var c=new a;c.id=b.id||"";c.timestamp=b.timestamp||"";c.type=b.type||"";Object.keys(b).forEach(function(a){"id"!==a&&"timestamp"!==a&&"type"!==a&&(c.names_.push(a),c.stat_.set(a,b[a]))});return c};a.prototype.toJSON=function(){return JSON.stringify({id:this.id,timestamp:this.timestamp,type:this.type,stat:this.stat_})};a.prototype.names=function(){return this.names_};
-a.prototype.stat=function(a){return this.stat_.get(a)};return a}();a.Stats=d},394:function(b,a,c){Object.defineProperty(a,"__esModule",{value:!0});var d=c(946),e=c(851);(function(a){a[a.unknown=0]="unknown";a[a.active=1]="active";a[a.idle=2]="idle"})(a.tel_CallState||(a.tel_CallState={}));(function(a){a[a.unknown=0]="unknown";a[a.incoming=1]="incoming";a[a.outgoing=2]="outgoing"})(a.tel_CallDirection||(a.tel_CallDirection={}));(function(a){a[a.unknown=0]="unknown";a[a.audio=1]="audio";a[a.video=2]=
-"video";a[a.multi=3]="multi";a[a.dshare=4]="dshare"})(a.tel_CallType||(a.tel_CallType={}));var k;(function(a){a[a.Unknown=0]="Unknown";a[a.Cap=1]="Cap";a[a.Init=2]="Init";a[a.Data=3]="Data"})(k=a.tel_cmd||(a.tel_cmd={}));a.tel_key_ConferenceCallDuration="ConferenceCallDuration";a.tel_key_AudioCallDuration="AudioCallDuration";a.tel_key_VideoCallDuration="VideoCallDuration";a.tel_key_ScreensharingCallDuration="ScreensharingCallDuration";a.tel_key_CallEstIncoming="CallEstIncoming";a.tel_key_CallEstOutgoing=
-"CallEstOutgoing";a.tel_key_AudioDeviceUsed="AudioDeviceUsed";a.tel_key_VideoDeviceUsed="VideoDeviceUsed";a.tel_key_SpeakerDeviceUsed="SpeakerDeviceUsed";a.tel_key_PerfCallDirection="PerfCallDirection";a.tel_key_PerfCallState="PerfCallState";a.tel_key_PerfCallType="PerfCallType";a.tel_key_VerWebrpc="VerWebrpc";a.tel_key_VerWebrtcCodecs="VerWebrtcCodecs";a.tel_key_VerReceiver="VerReceiver";a.tel_key_VerVda="VerVda";a.tel_key_VerEndpoint="VerEndpoint";a.tel_key_VerTypeScript="VerTypeScript";a.tel_key_OSFamily=
-"OSFamily";a.tel_key_OSVersion="OSVersion";a.tel_key_OSArchitecture="OSArchitecture";a.tel_key_OSDistro="OSDistro";a.tel_key_OSEdition="OSEdition";var m=function(){function a(b,c,d,e){this.cmd=b;this.key=c;this.value=d;this.flags=e}a.prototype.SendTelemetryData=function(a){a.SendTelemetryData(this.cmd,this.key,this.value,this.flags)};return a}();b=function(){function a(){this.id=0;this.deferredData=[]}a.prototype.reset=function(){this.id=0;this.deferredData=[]};a.prototype.onInitialized=function(a){for(this.id=
-a;this.deferredData&&0<this.deferredData.length;)this.deferredData.shift().SendTelemetryData(this)};a.prototype.SendTelemetryInit=function(){0<this.id&&this.reset();try{d.getRedirector().WSSendObject({v:"telemetry",hdr:{command:k.Init,id:0},init:{domain:"HDXMM Teams",subdomain:"Teams",feature:"msteams",version:"1.1.1.1"}})}catch(a){e.logger.log(a)}};a.prototype.SendTelemetryData=function(a,b,c,p){if(a!=k.Data)e.logger.log("invalid telemetry command!");else if(0==this.id)this.deferredData.push(new m(a,
-b,c,p));else try{d.getRedirector().WSSendObject({v:"telemetry",hdr:{command:a,id:this.id},data:{key:b,value:c,flags:p}})}catch(t){e.logger.log(t)}};return a}();a.Telemetry=b},307:function(b,a,c){var d=c(550).Features,e=c(360),k=c(144),m=c(679),p=c(945),l=c(368),g=c(851).logger,G=c(650),v=c(247).gc,t=c(946);(function(a,b){a.CitrixWebRTC=b()})("undefined"!==typeof self?self:this,function(){function a(b){t.getRedirector().SendTelemetryData_Speaker(b)}function b(){var a=window.getCitrixWebrtcRedir;void 0!==
-a?a().then(function(a){g.log("sucesss on connect, getCitrixWebrtcRedir reg value:"+a);"1"===a&&null===F&&(g.log("supported client"),F=new G.RemoteSession)})["catch"](function(){g.log("Failure to Read Webrtc redir Reg Key");A()}):(g.log("window.getCitrixWebrtcRedir() method is not available yet"),A())}function c(a){if("1"===a)g.log("Supported client"),t.getRedirector().pingConnectionBegin(!0);else if("0"===a){g.log("VDI Event: Unsupported client reported");try{H({event:"vdiClientDisconnected",reason:"endpointUnsupported",
-msg:"Unsupported endpoint connected"})}catch(b){g.log("onVMEvent(): exception: "+b.message)}}else g.log("Citrix Webrtc Redir Reg Key value is incorrect")}function A(){!1===J&&(g.log("starting MS Reg retry..."),J=!0,x(10))}function x(a){if(0>=a){J=!1;g.log("VDI Event: Reg Key not Updated after timer reported, Fallback");try{H({event:"vdiClientDisconnected",reason:"failure",msg:"Citrix Webrtc Redir Reg Key not Present"})}catch(b){g.log("onVMEvent(): exception: "+b.message)}}else{var d=window.getCitrixWebrtcRedir;
-void 0!==d?d().then(function(b){g.log("CitrixMSTeamsRedir reg value:"+b);"0"===b||"1"===b?(c(b),J=!1):(g.log("MS Teams Redir Reg key not updated - Start timer"),setTimeout(function(){g.log("Timer waiting for registry to be updated count :"+a);x(--a)},1E3))})["catch"](function(){g.log("Failure to Read MS Teams redir Reg Key - Start timer");setTimeout(function(){g.log("Timer waiting for registry to be updated count :"+a);x(--a)},1E3)}):(g.log("window.getCitrixWebrtcRedir() method is not available yet"),
-setTimeout(function(){g.log("Timer waiting for registry to be updated count :"+a);x(--a)},1E3))}}function D(){g.log("VDI: sendSessionInfo");F&&F.getSessionInfo().then(function(a){g.log("getSessionInfo success! info:"+JSON.stringify(a));try{H({event:"vdiClientConnected",version:a})}catch(b){g.log("onVMEvent(): exception: "+b.message)}})["catch"](function(){g.log("getSessionInfo failure! session is not fully connected yet...")})}var C=e.PeerConnection,r=new k.NavigatorUserMedia,q=k.NavigatorUserMedia.getCapabilities,
-w=new k.RemoteDevices,B=new l.FrameTracker,y=0,H=window.VMEventCallback,h=!1;window.onVdiClientDisconnected=function(a){g.log("VDI Event: vdiClientDisconnected");g.log("VDI : cleanup");t.getRedirector().clearReqs();k.NavigatorUserMedia.resetcaps();B=w=r=null;F&&F.release();F=null;v.reset();g.log("VDI : cleanup done");if(!0===a&&!1===h){g.log("VDI Event: vdiClientDisconnected with failure reported");h=!0;try{H({event:"vdiClientDisconnected",reason:"failure",msg:"Websocket Connection Failure"})}catch(b){g.log("onVMEvent(): exception: "+
-b.message)}}else{h=!1;try{H({event:"vdiClientDisconnected",reason:"endpointDisconnected"})}catch(b){g.log("onVMEvent(): exception: "+b.message)}}};var F=new G.RemoteSession;window.onVdiClientDisconnectedTimer=function(){g.log("VDI Event: onVdiClientDisconnectedTimer");null===F&&(F=new G.RemoteSession)};window.onVdiClientConnected=function(){g.log("VDI Event: vdiClientConnected");l.FrameTracker.sendOverlayInfo();null!==w&&w.isValid()||(w=new k.RemoteDevices);null!==r&&r.isValid()||(r=new k.NavigatorUserMedia);
-r.getCapabilities().then(function(a){g.log(".getCapabilities() success "+a)})["catch"](function(){g.log(".getCapabilities() failure")});D();navigator.mediaDevices.dispatchEvent(new CustomEvent("devicechange"))};var J=!1;return{Features:d,CitrixPeerConnection:C,getUserMedia:function(a,c,d){b();g.log("VDI Shim getUserMedia");null!==r&&r.isValid()||(r=new k.NavigatorUserMedia);return r.webkitGetUserMedia(a,c,d)},getDisplayMedia:function(a){b();g.log("VDI Shim getDisplayMedia");null!==w&&w.isValid()||
-(w=new k.RemoteDevices);return w.getDisplayMedia(a)},enumerateDevices:function(){b();null!==w&&w.isValid()||(w=new k.RemoteDevices);return w.enumerateDevices()},mapVideoElement:function(a){g.log("VDI New Video Element Created, Creating Mapping to VDA");null===B&&(B=new l.FrameTracker);void 0!==a.remoteVideoElement?g.log("Video element is already configured!"):(b(),Object.defineProperty(a,"remoteVideoElement",{writable:!0,value:null}),a.id||(a.id="ctx-vid-"+y++),a.remoteVideoElement=new m.VideoElement(a.id),
-a.remoteVideoElement.onloadedmetadata=function(){var b=new Event("loadedmetadata");a.dispatchEvent(b)},a.remoteVideoElement.ontimeupdate=function(){var b=new Event("timeupdate");a.dispatchEvent(b)},a.remoteVideoElement.onconnectionstatechange=function(){"connected"===a.remoteVideoElement.connectionState?B.track(a,function(b){a.remoteVideoElement.setFrame(b)}):B.untrack(a)},Object.defineProperty(a,"sinkId",{get:function(){return a.remoteVideoElement.sinkId},set:function(b){g.log("VDI Shim set video element SinkId value = "+
-b);a.remoteVideoElement.sinkId=b}}),Object.defineProperty(a,"srcObject",{get:function(){return a.remoteVideoElement.srcObject},set:function(b){g.log("VDI Shim set video element srcObject");a.remoteVideoElement.srcObject=b}}),Object.defineProperty(a,"videoWidth",{get:function(){return a.remoteVideoElement.videoWidth}}),Object.defineProperty(a,"videoHeight",{get:function(){return a.remoteVideoElement.videoHeight}}))},mapAudioElement:function(c){g.log("VDI New Audio Element Created, Creating Mapping to VDA");
-if(void 0!==c.remoteAudioElement)g.log("Audio element is already configured!");else{b();Object.defineProperty(c,"remoteAudioElement",{writable:!0,value:null});c.remoteAudioElement=new p.AudioElement;var d=c.remoteAudioElement.play;c.play=function(){g.log("VDI Shim remote audio play");return d.apply(c.remoteAudioElement,arguments)};var h=c.remoteAudioElement.pause;c.pause=function(){g.log("VDI Shim remote audio pause");return h.apply(c.remoteAudioElement,arguments)};Object.defineProperty(c,"sinkId",
-{get:function(){return c.remoteAudioElement.sinkId},set:function(a){g.log("VDI Shim set audio element SinkId value = "+a);c.setSinkId(a).then(function(){g.log("VDI Shim set audio element SinkId success")})["catch"](function(){g.log("VDI Shim set audio element SinkId failure")})}});c.setSinkId=function(b){g.log("VDI Shim set audio element SinkId value = "+b);var d=c.remoteAudioElement.setSinkId(b),h;k.enumerateddecices.forEach(function(a){b===a.deviceId&&(h=a.label)});a(h);return d};Object.defineProperty(c,
-"srcObject",{get:function(){return c.remoteAudioElement.srcObject},set:function(a){g.log("VDI Shim set audio element srcObject "+JSON.stringify(a));c.remoteAudioElement.srcObject=a}})}},setVMEventCallback:function(a){H=a;t.getRedirector().isConnected()&&!window.VMEventCallback&&D();window.VMEventCallback=null;g.log("VDI Event Callback Set")},addClipRect:function(a){g.log("VDI Adding Occlusion "+JSON.stringify(a));null===B&&(B=new l.FrameTracker);B.addOcclusion(a)},removeClipRect:function(a){g.log("VDI Removing Occlusion "+
-JSON.stringify(a));null===B&&(B=new l.FrameTracker);B.removeOcclusion(a)},initLog:function(a){g.setMSLogger(a);g.log("VDI init logger")},isFeatureOn:function(a){return null===F?!1:F.isFeatureSupported(a)},onConnectionChange:function(a){g.log("VDI : onConnectionChange to "+a);!1===a?g.log("Disconnecting from the VDA"):(g.log("Connecting to the VDA"),a=window.getCitrixWebrtcRedir,void 0!==a?a().then(function(a){g.log("Sucesss on connect, CitrixMSTeamsRedir reg value:"+a);"0"===a||"1"===a?c(a):(g.log("MS Teams Redir Reg key not updated yet"),
-A())})["catch"](function(){g.log("Failure to Read MS Teams redir Reg Key");A()}):(g.log("window.getCitrixWebrtcRedir() method is not available yet"),A()))},setCodecCapabilities:function(a){g.log("VDI Shim setCodecCapabilities");null!==r&&r.isValid()||(r=new k.NavigatorUserMedia);return r.setCodecCapabilities(a)},createMediaStream:function(a){g.log("VDI Shim createMediaStream");b();return new k.RemoteStream(null,0,0,a)},getCapabilities:function(a){b();g.log("VDI Shim getCapabilities");null!==r&&r.isValid()||
-(r=new k.NavigatorUserMedia,q=k.NavigatorUserMedia.getCapabilities);return q.apply(r,arguments)},destroyVideoElement:function(a,b){g.log("VDI Shim destroyVideoElement: ");if(a){var c=a.remoteVideoElement;c&&c.dispose();a.remoteVideoElement=void 0}},destroyAudioElement:function(a,b,c){g.log("VDI Shim destroyAudioElement: ");a&&((b=a.remoteAudioElement)&&b.dispose(),a.remoteAudioElement=void 0)}}})},679:function(b,a,c){var d=this&&this.__extends||function(){var a=function(b,c){a=Object.setPrototypeOf||
-{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c])};return a(b,c)};return function(b,c){function d(){this.constructor=b}a(b,c);b.prototype=null===c?Object.create(c):(d.prototype=c.prototype,new d)}}();Object.defineProperty(a,"__esModule",{value:!0});var e=c(658),k=c(550),m=c(851),p=c(946),l=c(550),g=function(){return function(a){this.x=Math.round(a.x)*window.devicePixelRatio;this.y=Math.round(a.y)*window.devicePixelRatio;this.width=
-Math.round(a.width)*window.devicePixelRatio;this.height=Math.round(a.height)*window.devicePixelRatio}}();a.VideoRect=g;var G;(function(a){a[a.pixels=0]="pixels";a[a.percent=1]="percent"})(G||(G={}));var v=function(){function a(b){this.value=parseInt(b);this.units=this.detectUnits(b)}a.prototype.detectUnits=function(a){return-1===a.toLowerCase().indexOf("px")?G.pixels:G.percent};return a}(),t;(function(a){a[a.fill=0]="fill";a[a.contain=1]="contain";a[a.cover=2]="cover"})(t||(t={}));var z=function(){return function(a,
-b){this.x=a;this.y=b}}(),u=function(){function a(b,c,d){this.fit=this.convertFit(b);this.position=new z(c,d)}a.prototype.convertFit=function(a){return"fill"==a?t.fill:"contain"==a?t.contain:"cover"==a?t.cover:t.fill};return a}();b=function(a){function b(c){var d=a.call(this,null,k.class_id_t.VideoElement,0,e.ProxyMode.Local)||this;d.srcObject_=null;d.sinkId_="";d.videoWidth=0;d.videoHeight=0;d.isLoaded=!1;d.connectionState="disconnected";d.styleObserver=null;d.pendingRelease_=!1;d.activeConnectionEvent_=
-null;d.connectionEventQueue_=[];d.elementId=c;return d}d(b,a);b.prototype.dispose=function(){m.logger.log("VideoElement.dispose (elementId: "+this.elementId+" oid: "+this.object_id()+")");this.pendingRelease_=!0;this.srcObject=this.ontimeupdate=this.onloadedmetadata=null};b.prototype.setState=function(a){this.connectionState=a;if(this.onconnectionstatechange_)this.onconnectionstatechange_()};Object.defineProperty(b.prototype,"sinkId",{get:function(){return this.sinkId_},set:function(a){var b=this;
-this.waitUntilConnected("VideoElement.sinkId").then(function(){return b.remoteInvoke(!0,k.method_id_VideoElement_t.sinkId,a)}).then(function(){b.sinkId_=a})["catch"](function(a){b.logRemoteInvokeError(a,".set_sinkId() failed!")})},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"srcObject",{get:function(){return this.srcObject_},set:function(a){m.logger.log(this.user_friendly_id()+".srcObject: set srcObject... this.srcObject:"+this.srcObject+" obj:"+a);if(this.srcObject_!==a){var b=
-p.getRedirector().getFeatureValue(l.FEATURE_ms_teams_1911);null!==this.srcObject_&&(null===a&&b&&this.disconnect(),b||this.disconnect(),this.isLoaded=!1);this.srcObject_=a;null!==this.srcObject_&&this.connectTo(this.srcObject_)}},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onconnectionstatechange",{get:function(){return this.onconnectionstatechange_},set:function(a){m.logger.log(this.user_friendly_id()+".set_onconnectionstatechange() called.");this.onconnectionstatechange_=
-a},enumerable:!0,configurable:!0});Object.defineProperty(b.prototype,"onloadedmetadata",{set:function(a){m.logger.log(this.user_friendly_id()+".set_onloadedmetadata() called.");this.onloadedmetadata_=a},enumerable:!0,configurable:!0});b.prototype.setupOnVideoFrameChanged=function(){var a=this,b=this.registerCallbacks(!1,!1,k.method_id_VideoElement_t.onvideoframechanged);b.then(function(b){m.logger.log(a.user_friendly_id()+".onvideoframechanged",b.params);a.videoWidth=b.params[0]||0;a.videoHeight=
-b.params[1]||0;a.isLoaded||(a.isLoaded=!0,a.onloadedmetadata_&&a.onloadedmetadata_())});this.remoteInvoke(!0,k.method_id_VideoElement_t.onvideoframechanged,b.success)};b.prototype.processConnectionEvent=function(){var a=this;if(0!==this.connectionEventQueue_.length&&!this.activeConnectionEvent_){var b=this.connectionEventQueue_.pop();"connectTo"==b.operation?this.activeConnectionEvent_=this.connectToAsync(b.param):"disconnect"==b.operation&&(this.activeConnectionEvent_=this.disconnectAsync());this.activeConnectionEvent_.then(function(){a.activeConnectionEvent_=
-void 0;a.processConnectionEvent()})["catch"](function(){m.logger.log(a.user_friendly_id()+" : Failed to handle connection event! ");a.activeConnectionEvent_=void 0;a.processConnectionEvent()})}};b.prototype.connectTo=function(a){this.connectionEventQueue_.push({operation:"connectTo",param:a});this.processConnectionEvent()};b.prototype.disconnect=function(){this.connectionEventQueue_.push({operation:"disconnect",param:null});this.processConnectionEvent()};b.prototype.connectToAsync=function(a){var b=
-this;return new Promise(function(c,d){m.logger.log(b.user_friendly_id()+".connectTo: connect media stream with id = "+a.id+", clone_id = "+a.clone_state.clone_id);b.streamId_=a.id;b.waitUntilConnected("VideoElement.connectTo").then(function(){return a.waitUntilConnected("MediaStream.connectTo")}).then(function(){b.setupOnVideoFrameChanged();return a.clone_state.synchronize(a)}).then(function(a){m.logger.log(b.user_friendly_id()+".connectTo: remote invoking");var c=b.registerCallbacks(!0,!1,k.method_id_VideoElement_t.connectTo);
-return Promise.all([b.remoteInvoke(!1,k.method_id_VideoElement_t.connectTo,{oid:a.object_id()},c.success,c.fail),c.prom()])}).then(function(a){m.logger.log(b.user_friendly_id()+".connectTo: remote media stream is connected!");b.setState("connected");b.watch();b.updateTimer=setInterval(function(){b.ontimeupdate&&b.ontimeupdate()},250);(a=window.document.getElementById(b.elementId))&&b.updateStyle(a);c()})["catch"](function(a){b.logRemoteInvokeError(a,".connectTo: failed to connect!");d()})})};b.prototype.disconnectAsync=
-function(){var a=this;return new Promise(function(b,c){m.logger.log(a.user_friendly_id()+".disconnect: disconnecting stream : "+a.streamId_);a.unwatch();a.waitUntilConnected("VideoElement.disconnect").then(function(){a.updateTimer&&clearInterval(a.updateTimer);var b=a.registerCallbacks(!1,!0,k.method_id_VideoElement_t.onvideoframechanged);a.remoteInvoke(!0,k.method_id_VideoElement_t.onvideoframechanged,b.success);return a.remoteInvoke(!1,k.method_id_VideoElement_t.disconnect)}).then(function(){m.logger.log(a.user_friendly_id()+
-".disconnect: remote media stream is disconnected!");a.setState("disconnected");1==a.pendingRelease_&&(a.pendingRelease_=!1,a.onconnectionstatechange=null,a.release());b()})["catch"](function(b){a.logRemoteInvokeError(b,".disconnect: failed to connect!");c()})})};b.prototype.setFrame=function(a){var b=this;m.logger.log(this.user_friendly_id()+".setFrame: set video frame to",a.x,a.y,a.width,a.height);this.waitUntilConnected("VideoElement.setFrame").then(function(){var c=new g(a);return b.remoteInvoke(!1,
-k.method_id_VideoElement_t.setFrame,c)}).then(function(){m.logger.log(b.user_friendly_id()+".setFrame: success!")})["catch"](function(a){b.logRemoteInvokeError(a,".setFrame: failed to connect!")})};b.prototype.addClipRect=function(a){var b=this;m.logger.log(this.user_friendly_id()+".addClipRect: ",JSON.stringify(a));this.waitUntilConnected("VideoElement.addClipRect").then(function(){var c=new g(a);return b.remoteInvoke(!1,k.method_id_VideoElement_t.addClipRect,c)})["catch"](function(a){b.logRemoteInvokeError(a,
-".addClipRect failed!")})};b.prototype.removeClipRect=function(a){var b=this;m.logger.log(this.user_friendly_id()+".removeClipRect: ",JSON.stringify(a));this.waitUntilConnected("VideoElement.removeClipRect").then(function(){var c=new g(a);return b.remoteInvoke(!1,k.method_id_VideoElement_t.removeClipRect,c)})["catch"](function(a){b.logRemoteInvokeError(a,".removeClipRect failed!")})};b.prototype.watch=function(){var a=this;if(p.getRedirector().getFeatureValue(l.FEATURE_ms_teams_video_placement)){var b=
-window.document.getElementById(this.elementId);b&&(this.unwatch(),this.styleObserver=new MutationObserver(function(b){b.forEach(function(b){"style"==b.attributeName?a.updateStyle(b.target):a.elementId=b.target.id})}),this.styleObserver.observe(b,{attributes:!0,attributeOldValue:!0,attributeFilter:["style","id"]}))}};b.prototype.unwatch=function(){this.styleObserver&&(this.styleObserver.disconnect(),this.styleObserver=null)};b.prototype.updateStyle=function(a){if("connected"==this.connectionState){var b=
-window.getComputedStyle(a).getPropertyValue("object-fit"),c=window.getComputedStyle(a).getPropertyValue("object-position").split(" ");a=new v(c[0]);c=new v(c[1]);this.placement=new u(b,a,c)}else m.logger.log(this.user_friendly_id()+".updateStyle: video element is not connected")};Object.defineProperty(b.prototype,"placement",{get:function(){return this.placement_},set:function(a){var b=this;p.getRedirector().getFeatureValue(l.FEATURE_ms_teams_video_placement)?this.waitUntilConnected("VideoElement.placement").then(function(){return b.remoteInvoke(!0,
-k.method_id_VideoElement_t.placement,a)}).then(function(){b.placement_=a})["catch"](function(a){b.logRemoteInvokeError(a,".placement setter: failed to connect!")}):m.logger.log(this.user_friendly_id()+".placement: video placement feature is not supported on a client")},enumerable:!0,configurable:!0});return b}(e.ProxyObject);a.VideoElement=b},269:function(b,a){Object.defineProperty(a,"__esModule",{value:!0});a.FEATURE_ms_teams_redirection="ms_teams_redirection";a.FEATURE_unsupported="unsupported";
-var c=function(){return function(a,b,c,d){this.major=a;this.minor=b;this.revision=c;this.build=d}}();a.VersionData=c;c=function(){return function(){}}();a.FeatureData=c;c=function(){return function(a,b){this.fature=a;this.version=b}}();a.WebrpcFeatureInfo=c;c=function(){return function(a,b,c,d,e){this.family=a;this.version=b;this.architecture=c;this.distro=d;this.edition=e}}();a.OSInfo=c;c=function(){return function(a,b){this.machine_id=a;this.user_id=b}}();a.EndpointId=c;c=function(){return function(b,
-c,d,e,k){void 0===k&&(k=a.FEATURE_ms_teams_redirection);this.iid=b;this.mid=c;this.name=d;this.isprop=e;this.feature=k}}();a.WebrpcMethodInfo=c;c=function(){return function(a,b,c){this.id=a;this.name=b;this.methods=c}}();a.WebrpcClassInfo=c;c=function(){return function(a,b){this.name=a;this.classes=b}}();a.WebrpcClassLibInfo=c},550:function(b,a,c){Object.defineProperty(a,"__esModule",{value:!0});var d=c(187);(function(b){for(var c in b)a.hasOwnProperty(c)||(a[c]=b[c])})(c(187));b=function(){function a(){}
-a.getInterfaceByid=function(a){for(var b=0,c=d.class_lib_info.classes;b<c.length;b++){var e=c[b];if(e.id==a)return e}return null};a.getMethodByid=function(a,b){var c=this.getInterfaceByid(a);if(null!=c)for(var d=0,c=c.methods;d<c.length;d++){var e=c[d];if(e.mid==b)return e}return null};a.getMethodFeatureByid=function(a,b){var c=this.getInterfaceByid(a);if(null!=c)for(var d=0,c=c.methods;d<c.length;d++){var e=c[d];if(e.mid==b)return e.feature}return null};a.composeClassInfoData=function(a){a=a.hdr;
-if(void 0==a)return"*** Invalid packet: Couldn't find hdr object ***";var b=a.proc;if(void 0==b)return"";a=b.iid;for(var b=b.methodid,c=0,e=d.class_lib_info.classes;c<e.length;c++){var g=e[c];if(g.id==a)for(var k=0,n=g.methods;k<n.length;k++){var t=n[k];if(t.mid==b)return g.name+"::"+t.name}}return""};return a}();a.WebrpcClassLibInfoUtil=b},187:function(b,a,c){Object.defineProperty(a,"__esModule",{value:!0});b=c(269);c=c(269);a.VersionData=c.VersionData;a.FeatureData=c.FeatureData;a.OSInfo=c.OSInfo;
-a.EndpointId=c.EndpointId;a.BUILD_TYPE_SDK=!0;a.HDXMS_VERSION="2.0.0.5";a.FEATURE_vda_service_no_buffer_limit="wsservice_no_buffer_limit";a.FEATURE_vda_app_sharing="webrtc_app_sharing";a.FEATURE_vda_multi_window="webrtc_multi_window";a.FEATURE_ms_teams_desktop_sharing="ms_teams_desktop_sharing";a.FEATURE_ms_teams_speaking_indicator="ms_teams_speaking_indicator";a.FEATURE_ms_teams_common_media_constraints="ms_teams_common_media_constraints";a.FEATURE_ms_teams_1911="ms_teams_1911";a.FEATURE_ms_teams_pstn=
-"ms_teams_pstn";a.FEATURE_ms_teams_1912="ms_teams_1912";a.FEATURE_ms_teams_mstrack_constraints="ms_teams_mstrack_constraints";a.FEATURE_ms_teams_osinfo="ms_teams_osinfo";a.FEATURE_ms_teams_endpoint_id="ms_teams_endpoint_id";a.FEATURE_ms_teams_remote_audio_notifications="ms_teams_remote_audio_notifications";a.FEATURE_ms_teams_device_group_id="ms_teams_device_group_id";a.FEATURE_ms_teams_dtmf="ms_teams_dtmf";a.FEATURE_ms_teams_video_placement="ms_teams_video_placement";a.FEATURE_ms_teams_codec_capability=
-"ms_teams_codec_capability";a.FEATURE_ms_teams_multi_window="ms_teams_multi_windows";a.FEATURE_ms_teams_webrtc_1dot0="ms_teams_webrtc_1.0";a.FEATURE_ms_teams_data_channel="ms_teams_data_channel";a.FEATURE_ms_teams_no_vd_buffer_limit="ms_teams_no_vd_buffer_limit";new b.WebrpcFeatureInfo(b.FEATURE_ms_teams_redirection,new b.VersionData(1,1,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_desktop_sharing,new b.VersionData(1,2,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_speaking_indicator,new b.VersionData(1,
-2,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_common_media_constraints,new b.VersionData(1,4,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_1911,new b.VersionData(1,4,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_1912,new b.VersionData(1,5,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_mstrack_constraints,new b.VersionData(1,6,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_pstn,new b.VersionData(1,6,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_osinfo,new b.VersionData(1,7,0,0));
-new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_endpoint_id,new b.VersionData(1,7,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_remote_audio_notifications,new b.VersionData(1,7,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_device_group_id,new b.VersionData(1,7,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_codec_capability,new b.VersionData(1,7,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_dtmf,new b.VersionData(1,7,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_video_placement,new b.VersionData(1,
-7,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_webrtc_1dot0,new b.VersionData(1,8,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_data_channel,new b.VersionData(1,8,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_multi_window,new b.VersionData(1,14,0,0));c=function(){function a(){}a.FEATURE_public_screenshare="screenshare";a.FEATURE_public_redirection="redirection";a.FEATURE_public_speaking_indicator="speaking_indicator";a.FEATURE_public_pstn="pstn";a.FEATURE_public_osinfo="osinfo";a.FEATURE_public_endpoint_id=
-"endpointid";a.FEATURE_public_remote_audio_notifications="remoteaudionotifications";a.FEATURE_public_device_group_id="compositedevices";a.FEATURE_public_dtmf="dtmf";a.FEATURE_public_monitor_sharing="multimonitorscreenshare";a.FEATURE_public_app_sharing="appshare";a.FEATURE_public_codec_capability="codec_capability";a.FEATURE_public_webrtc1dot0="webrtc1.0";a.FEATURE_public_data_channel="datachannel";a.FEATURE_public_vdnobuflimit="vdnobuflimit";a.FEATURE_public_multi_window="multiwindow";return a}();
-a.Features=c;a.featureNameMap={};a.featureNameMap[c.FEATURE_public_screenshare]=[a.FEATURE_ms_teams_desktop_sharing];a.featureNameMap[c.FEATURE_public_redirection]=[b.FEATURE_ms_teams_redirection];a.featureNameMap[c.FEATURE_public_speaking_indicator]=[a.FEATURE_ms_teams_speaking_indicator];a.featureNameMap[c.FEATURE_public_pstn]=[a.FEATURE_ms_teams_pstn];a.featureNameMap[c.FEATURE_public_osinfo]=[a.FEATURE_ms_teams_osinfo];a.featureNameMap[c.FEATURE_public_endpoint_id]=[a.FEATURE_ms_teams_endpoint_id];
-a.featureNameMap[c.FEATURE_public_remote_audio_notifications]=[a.FEATURE_ms_teams_remote_audio_notifications];a.featureNameMap[c.FEATURE_public_device_group_id]=[a.FEATURE_ms_teams_device_group_id];a.featureNameMap[c.FEATURE_public_dtmf]=[a.FEATURE_ms_teams_dtmf];a.featureNameMap[c.FEATURE_public_codec_capability]=[a.FEATURE_ms_teams_codec_capability];a.featureNameMap[c.FEATURE_public_webrtc1dot0]=[a.FEATURE_ms_teams_webrtc_1dot0];a.featureNameMap[c.FEATURE_public_multi_window]=[a.FEATURE_ms_teams_multi_window];
-a.featureNameMap[c.FEATURE_public_data_channel]=[a.FEATURE_ms_teams_data_channel];a.featureNameMap[c.FEATURE_public_vdnobuflimit]=[a.FEATURE_ms_teams_no_vd_buffer_limit];(function(a){a[a.EngineControl=0]="EngineControl";a[a.RTCPeerConnection=1]="RTCPeerConnection";a[a.RTCSessionDescription=2]="RTCSessionDescription";a[a.RTCIceCandidate=3]="RTCIceCandidate";a[a.RTCIceCandidateEvent=4]="RTCIceCandidateEvent";a[a.MediaDevices=5]="MediaDevices";a[a.MediaDeviceInfo=6]="MediaDeviceInfo";a[a.MediaStreamTrack=
+$jscomp.math.clz32=function(e){e=Number(e)>>>0;if(0===e)return 32;var l=0;0===(e&4294901760)&&(e<<=16,l+=16);0===(e&4278190080)&&(e<<=8,l+=8);0===(e&4026531840)&&(e<<=4,l+=4);0===(e&3221225472)&&(e<<=2,l+=2);0===(e&2147483648)&&l++;return l};$jscomp.math.imul=function(e,l){e=Number(e);l=Number(l);var p=e&65535,b=l&65535;return p*b+((e>>>16&65535)*b+p*(l>>>16&65535)<<16>>>0)|0};$jscomp.math.sign=function(e){e=Number(e);return 0===e||isNaN(e)?e:0<e?1:-1};
+$jscomp.math.log10=function(e){return Math.log(e)/Math.LN10};$jscomp.math.log2=function(e){return Math.log(e)/Math.LN2};$jscomp.math.log1p=function(e){e=Number(e);if(.25>e&&-.25<e){for(var l=e,p=1,b=e,a=0,c=1;a!=b;)l*=e,c*=-1,b=(a=b)+c*l/++p;return b}return Math.log(1+e)};$jscomp.math.expm1=function(e){e=Number(e);if(.25>e&&-.25<e){for(var l=e,p=1,b=e,a=0;a!=b;)l*=e/++p,b=(a=b)+l;return b}return Math.exp(e)-1};$jscomp.math.cosh=function(e){e=Number(e);return(Math.exp(e)+Math.exp(-e))/2};
+$jscomp.math.sinh=function(e){e=Number(e);return 0===e?e:(Math.exp(e)-Math.exp(-e))/2};$jscomp.math.tanh=function(e){e=Number(e);if(0===e)return e;var l=Math.exp(2*-Math.abs(e)),l=(1-l)/(1+l);return 0>e?-l:l};$jscomp.math.acosh=function(e){e=Number(e);return Math.log(e+Math.sqrt(e*e-1))};$jscomp.math.asinh=function(e){e=Number(e);if(0===e)return e;var l=Math.log(Math.abs(e)+Math.sqrt(e*e+1));return 0>e?-l:l};
+$jscomp.math.atanh=function(e){e=Number(e);return($jscomp.math.log1p(e)-$jscomp.math.log1p(-e))/2};
+$jscomp.math.hypot=function(e,l,p){for(var b=[],a=2;a<arguments.length;++a)b[a-2]=arguments[a];e=Number(e);l=Number(l);for(var c=Math.max(Math.abs(e),Math.abs(l)),Q=$jscomp.makeIterator(b),a=Q.next();!a.done;a=Q.next())c=Math.max(c,Math.abs(a.value));if(1E100<c||1E-100>c){e/=c;l/=c;Q=e*e+l*l;b=$jscomp.makeIterator(b);for(a=b.next();!a.done;a=b.next())a=a.value,a=Number(a)/c,Q+=a*a;return Math.sqrt(Q)*c}c=e*e+l*l;b=$jscomp.makeIterator(b);for(a=b.next();!a.done;a=b.next())a=a.value,a=Number(a),c+=
+a*a;return Math.sqrt(c)};$jscomp.math.trunc=function(e){e=Number(e);if(isNaN(e)||Infinity===e||-Infinity===e||0===e)return e;var l=Math.floor(Math.abs(e));return 0>e?-l:l};$jscomp.math.cbrt=function(e){if(0===e)return e;e=Number(e);var l=Math.pow(Math.abs(e),1/3);return 0>e?-l:l};$jscomp.number=$jscomp.number||{};$jscomp.number.isFinite=function(e){return"number"!==typeof e?!1:!isNaN(e)&&Infinity!==e&&-Infinity!==e};
+$jscomp.number.isInteger=function(e){return $jscomp.number.isFinite(e)?e===Math.floor(e):!1};$jscomp.number.isNaN=function(e){return"number"===typeof e&&isNaN(e)};$jscomp.number.isSafeInteger=function(e){return $jscomp.number.isInteger(e)&&Math.abs(e)<=$jscomp.number.MAX_SAFE_INTEGER};$jscomp.number.EPSILON=Math.pow(2,-52);$jscomp.number.MAX_SAFE_INTEGER=9007199254740991;$jscomp.number.MIN_SAFE_INTEGER=-9007199254740991;$jscomp.object=$jscomp.object||{};
+$jscomp.object.assign=function(e,l){for(var p=[],b=1;b<arguments.length;++b)p[b-1]=arguments[b];p=$jscomp.makeIterator(p);for(b=p.next();!b.done;b=p.next())if(b=b.value)for(var a in b)Object.prototype.hasOwnProperty.call(b,a)&&(e[a]=b[a]);return e};$jscomp.object.is=function(e,l){return e===l?0!==e||1/e===1/l:e!==e&&l!==l};$jscomp.Set=function(e){e=void 0===e?[]:e;this.map_=new $jscomp.Map;if(e){e=$jscomp.makeIterator(e);for(var l=e.next();!l.done;l=e.next())this.add(l.value)}this.size=this.map_.size};
+$jscomp.Set.checkBrowserConformance_=function(){var e=$jscomp.global.Set;if(!e||!e.prototype.entries||!Object.seal)return!1;var l=Object.seal({x:4}),e=new e($jscomp.makeIterator([l]));if(e.has(l)||1!=e.size||e.add(l)!=e||1!=e.size||e.add({x:4})!=e||2!=e.size)return!1;var e=e.entries(),p=e.next();if(p.done||p.value[0]!=l||p.value[1]!=l)return!1;p=e.next();return p.done||p.value[0]==l||4!=p.value[0].x||p.value[1]!=p.value[0]?!1:e.next().done};
+$jscomp.Set.prototype.add=function(e){this.map_.set(e,e);this.size=this.map_.size;return this};$jscomp.Set.prototype["delete"]=function(e){e=this.map_["delete"](e);this.size=this.map_.size;return e};$jscomp.Set.prototype.clear=function(){this.map_.clear();this.size=0};$jscomp.Set.prototype.has=function(e){return this.map_.has(e)};$jscomp.Set.prototype.entries=function(){return this.map_.entries()};$jscomp.Set.prototype.values=function(){return this.map_.values()};
+$jscomp.Set.prototype.forEach=function(e,l){var p=this;this.map_.forEach(function(b){return e.call(l,b,b,p)})};$jscomp.Set.ASSUME_NO_NATIVE=!1;$jscomp.Set$install=function(){!$jscomp.Set.ASSUME_NO_NATIVE&&$jscomp.Set.checkBrowserConformance_()?$jscomp.Set=$jscomp.global.Set:($jscomp.Map$install(),$jscomp.initSymbol(),$jscomp.initSymbolIterator(),$jscomp.Set.prototype[Symbol.iterator]=$jscomp.Set.prototype.values);$jscomp.Set$install=function(){}};$jscomp.string=$jscomp.string||{};
+$jscomp.string.noRegExp_=function(e,l){if(e instanceof RegExp)throw new TypeError("First argument to String.prototype."+l+" must not be a regular expression");};
+$jscomp.string.fromCodePoint=function(e){for(var l=[],p=0;p<arguments.length;++p)l[p-0]=arguments[p];for(var p="",l=$jscomp.makeIterator(l),b=l.next();!b.done;b=l.next()){b=b.value;b=+b;if(0>b||1114111<b||b!==Math.floor(b))throw new RangeError("invalid_code_point "+b);65535>=b?p+=String.fromCharCode(b):(b-=65536,p+=String.fromCharCode(b>>>10&1023|55296),p+=String.fromCharCode(b&1023|56320))}return p};
+$jscomp.string.repeat=function(e){var l=this.toString();if(0>e||1342177279<e)throw new RangeError("Invalid count value");e|=0;for(var p="";e;)if(e&1&&(p+=l),e>>>=1)l+=l;return p};$jscomp.string.repeat$install=function(){String.prototype.repeat||(String.prototype.repeat=$jscomp.string.repeat)};
+$jscomp.string.codePointAt=function(e){var l=this.toString(),p=l.length;e=Number(e)||0;if(0<=e&&e<p){e|=0;var b=l.charCodeAt(e);if(55296>b||56319<b||e+1===p)return b;e=l.charCodeAt(e+1);return 56320>e||57343<e?b:1024*(b-55296)+e+9216}};$jscomp.string.codePointAt$install=function(){String.prototype.codePointAt||(String.prototype.codePointAt=$jscomp.string.codePointAt)};
+$jscomp.string.includes=function(e,l){l=void 0===l?0:l;$jscomp.string.noRegExp_(e,"includes");return-1!==this.toString().indexOf(e,l)};$jscomp.string.includes$install=function(){String.prototype.includes||(String.prototype.includes=$jscomp.string.includes)};
+$jscomp.string.startsWith=function(e,l){l=void 0===l?0:l;$jscomp.string.noRegExp_(e,"startsWith");var p=this.toString();e+="";for(var b=p.length,a=e.length,c=Math.max(0,Math.min(l|0,p.length)),Q=0;Q<a&&c<b;)if(p[c++]!=e[Q++])return!1;return Q>=a};$jscomp.string.startsWith$install=function(){String.prototype.startsWith||(String.prototype.startsWith=$jscomp.string.startsWith)};
+$jscomp.string.endsWith=function(e,l){$jscomp.string.noRegExp_(e,"endsWith");var p=this.toString();e+="";void 0===l&&(l=p.length);for(var b=Math.max(0,Math.min(l|0,p.length)),a=e.length;0<a&&0<b;)if(p[--b]!=e[--a])return!1;return 0>=a};$jscomp.string.endsWith$install=function(){String.prototype.endsWith||(String.prototype.endsWith=$jscomp.string.endsWith)};
+(function(e,l){"object"===typeof exports&&"object"===typeof module?module.exports=l():"function"===typeof define&&define.amd?define([],l):"object"===typeof exports?exports.CitrixWebRTC=l():e.CitrixWebRTC=l()})(self,function(){return function(){function e(b){var a=p[b];if(void 0!==a)return a.exports;a=p[b]={exports:{}};l[b].call(a.exports,a,a.exports,e);return a.exports}var l={945:function(b,a,c){var e=this&&this.__extends||function(){var a=function(k,v){a=Object.setPrototypeOf||{__proto__:[]}instanceof
+Array&&function(a,g){a.__proto__=g}||function(a,g){for(var k in g)g.hasOwnProperty(k)&&(a[k]=g[k])};return a(k,v)};return function(k,v){function b(){this.constructor=k}a(k,v);k.prototype=null===v?Object.create(v):(b.prototype=v.prototype,new b)}}();Object.defineProperty(a,"__esModule",{value:!0});a.AudioElement=void 0;var u=c(658),h=c(550),d=c(851),w=c(946),q;(function(a){a.Init="Init";a.PlayStarted="PlayStarted";a.PauseCalled="PauseCalled"})(q||(q={}));b=function(a){function k(){var k=a.call(this,
+null,h.class_id_t.AudioElement,0,u.ProxyMode.Local)||this;k.sinkId_="";k.srcObject_=null;k.loop_=!1;k.notiState=q.Init;return k}e(k,a);k.prototype.setSinkId=function(a){var k=this;d.logger.log(this.user_friendly_id()+".setSinkId: set sinkId to "+a);return new Promise(function(g,b){k.waitUntilConnected("AudioElement.sinkId").then(function(){var b=k.remoteInvoke(!0,h.method_id_AudioElement_t.sinkId,a);w.getRedirector().getFeatureValue(h.FEATURE_ms_teams_pstn)||(k.sinkId_=a,g());return b}).then(function(){d.logger.log(k.user_friendly_id()+
+".setSinkId: success! resolving...");k.sinkId_=a;g()})["catch"](function(a){a=k.logRemoteInvokeError(a,".sinkId setter: failed to connect!");b(a)})})};Object.defineProperty(k.prototype,"sinkId",{get:function(){return this.sinkId_},set:function(a){this.setSinkId(a)},enumerable:!1,configurable:!0});Object.defineProperty(k.prototype,"srcObject",{get:function(){return this.srcObject_},set:function(a){var k=this;d.logger.log(this.user_friendly_id()+".srcObject: set srcObject to "+JSON.stringify(a));a!==
+this.srcObject_&&(this.srcObject_=a,this.waitUntilConnected("AudioElement.srcObject").then(function(){return a.syncBarrier()}).then(function(a){d.logger.log(k.user_friendly_id()+".srcObject: set srcObject to s "+JSON.stringify(a));return k.remoteInvoke(!0,h.method_id_AudioElement_t.srcObject,null!==a&&void 0!==a?a.id:"null")}).then(function(){d.logger.log(k.user_friendly_id()+".srcObject setter: remote success!")})["catch"](function(a){k.logRemoteInvokeError(a,".srcObject setter: failed to connect!")}))},
+enumerable:!1,configurable:!0});Object.defineProperty(k.prototype,"src",{get:function(){return this.src_},set:function(a){var k=this;d.logger.log(this.user_friendly_id()+".src: set src to "+a);this.src_=a;this.waitUntilConnected("AudioElement.src").then(function(){k.remoteInvoke(!0,h.method_id_AudioElement_t.src,a)})["catch"](function(a){k.logRemoteInvokeError(a,".src setter: failed to connect!")})},enumerable:!1,configurable:!0});k.prototype.play=function(){var a=this;d.logger.log(this.user_friendly_id()+
+".play() called.");this.toggleAudio(!0);return new Promise(function(k,g){a.waitUntilConnected("AudioElement.play").then(function(){return a.remoteInvoke(!1,h.method_id_AudioElement_t.play)}).then(function(){k()})["catch"](function(k){a.logRemoteInvokeError(k,".play: failed to connect!");g(k)})})};k.prototype.playEx=function(a,k,g){var b=this;d.logger.log(this.user_friendly_id()+".playEx() src:"+a+" sinkId:"+k+" loop:"+g);this.notiState=q.PlayStarted;this.waitUntilConnected("AudioElement.playEx").then(function(){var a=
+[];k&&a.push(b.setSinkId(k));void 0!==g&&null!==g&&(b.loop_=g,a.push(b.remoteInvoke(!0,h.method_id_AudioElement_t.loop,g)));return Promise.all(a)}).then(function(){b.src_=a;return b.remoteInvoke(!0,h.method_id_AudioElement_t.src,a)}).then(function(){return b.play()}).then(function(){if(b.notiState==q.PauseCalled)return d.logger.log(b.user_friendly_id()+".playEx() run deferred pause"),b.doPauseAndDispose()}).then(function(){b.notiState=q.Init;d.logger.log(b.user_friendly_id()+".playEx() done")})["catch"](function(a){b.notiState=
+q.Init;b.logRemoteInvokeError(a,".playEx() failed!")})};k.prototype.pause=function(){var a=this;d.logger.log(this.user_friendly_id()+".pause() called.");this.toggleAudio(!1);return new Promise(function(k,g){a.waitUntilConnected("AudioElement.pause").then(function(){return a.remoteInvoke(!1,h.method_id_AudioElement_t.pause)}).then(function(){k()})["catch"](function(k){a.logRemoteInvokeError(k,".pause: failed!");g()})})};k.prototype.doPauseAndDispose=function(){var a=this;d.logger.log(this.user_friendly_id()+
+".doPauseAndDispose() called.");this.toggleAudio(!1);return new Promise(function(k,g){a.waitUntilConnected("AudioElement.doPauseAndDispose").then(function(){return a.remoteInvoke(!1,h.method_id_AudioElement_t.pause,[])}).then(function(){d.logger.log(a.user_friendly_id()+".doPauseAndDispose() resolving...");k();a.dispose()})["catch"](function(g){a.logRemoteInvokeError(g,".doPauseAndDispose: failed to connect!")})})};k.prototype.pauseAndDispose=function(){this.notiState==q.PlayStarted?(d.logger.log(this.user_friendly_id()+
+".pauseAndDispose() deferred"),this.notiState=q.PauseCalled):this.doPauseAndDispose()};k.prototype.toggleAudio=function(a){this.srcObject_&&(d.logger.log(this.user_friendly_id()+".toggleAudio() toggle audio tracks:"+a),this.srcObject_.toggleAudio(a))};Object.defineProperty(k.prototype,"loop",{get:function(){return this.loop_},set:function(a){var k=this;d.logger.log(this.user_friendly_id()+".loop: set loop to "+a);this.loop_=a;this.waitUntilConnected("AudioElement.loop").then(function(){k.remoteInvoke(!0,
+h.method_id_AudioElement_t.loop,a)})["catch"](function(a){k.logRemoteInvokeError(a,".loop setter: failed to connect!")})},enumerable:!1,configurable:!0});k.prototype.dispose=function(){d.logger.log(this.user_friendly_id()+".dispose()");this.src_=this.sinkId_="";this.srcObject_=null;this.loop_=!1;this.release()};return k}(u.ProxyObject);a.AudioElement=b},239:function(b,a,c){a.E=void 0;var e=c(945),u=c(851),h=function(){function a(){this.sinkId=void 0;this.src="";this.loop=void 0;this.element=null}
+a.prototype.getSrc=function(){return this.src};a.prototype.setSinkId=function(a){this.sinkId=a};a.prototype.getLoop=function(){return!0===this.loop};a.prototype.setLoop=function(a){this.loop=a};a.prototype.play=function(a){this.element=new e.AudioElement;this.src=a;this.element.playEx(this.src,this.sinkId,this.loop)};a.prototype.pause=function(){this.element&&(this.element.pauseAndDispose(),this.element=null)};a.prototype.release=function(){this.element&&(this.element.dispose(),this.element=null)};
+return a}();b=function(){function a(){this.audioIdMap=null;this.audioIdMap=new Map}a.prototype.getNotificationInfo=function(a){if(this.audioIdMap.has(a))return this.audioIdMap.get(a);var b=new h;this.audioIdMap.set(a,b);return b};a.prototype.playNotifyAudio=function(a,b){b&&(u.logger.log("AudioNotification.playNotifyAudio, Remote to Thin Client audioId:"+a+" src:"+b),this.getNotificationInfo(a).play(b))};a.prototype.pauseNotifyAudio=function(a,b){if(this.audioIdMap.has(a)){var d=this.audioIdMap.get(a);
+b&&b!=d.getSrc()&&u.logger.log("AudioNotification.pauseNotifyAudio warning: for audioId:"+a+", different param src:"+b+" from org src:"+d.getSrc());d.pause()}else u.logger.log("AudioNotification.pauseNotifyAudio no audioId:"+a+" src:"+b)};a.prototype.setSinkId=function(a,b){if(null!=b&&b.startsWith("speaker:")){u.logger.log("AudioNotification.setSinkId before parsing audioId:"+a+" sinkId:"+b);var d=b.slice(8);u.logger.log("AudioNotification.setSinkId after parsing audioId:"+a+" speakersinkId:"+d);
+b=d}this.getNotificationInfo(a).setSinkId(b)};a.prototype.getLoop=function(a){return this.getNotificationInfo(a).getLoop()};a.prototype.setLoop=function(a,b){this.getNotificationInfo(a).setLoop(b)};a.prototype.release=function(){this.audioIdMap.forEach(function(a,b,d){a.release()});this.audioIdMap.clear()};return a}();a.E=b},613:function(b,a,c){var e=this&&this.__extends||function(){var a=function(b,d){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,
+b){for(var d in b)b.hasOwnProperty(d)&&(a[d]=b[d])};return a(b,d)};return function(b,d){function k(){this.constructor=b}a(b,d);b.prototype=null===d?Object.create(d):(k.prototype=d.prototype,new k)}}();Object.defineProperty(a,"__esModule",{value:!0});a.E911Service=void 0;var u=c(550),h=c(658),d=c(851);b=function(a){function b(){var d=a.call(this,null,u.class_id_t.E911Service,0,h.ProxyMode.Local)||this;d.preE911Info_=null;return d}e(b,a);b.prototype.isSameInfo=function(a){if(null==this.preE911Info_&&
+null!=a||null!=this.preE911Info_&&null==a||this.preE911Info_.e911.length!=a.e911.length||this.preE911Info_.bssid!=a.bssid||this.preE911Info_.ipv4!=a.ipv4||this.preE911Info_.subnetLengthIpv4!=a.subnetLengthIpv4||this.preE911Info_.ipv6!=a.ipv6||this.preE911Info_.subnetLengthIpv6!=a.subnetLengthIpv6||this.preE911Info_.mac!=a.mac||1E-4<=Math.abs(this.preE911Info_.latitude-a.latitude)||1E-4<=Math.abs(this.preE911Info_.longitude-a.longitude))return!1;for(var k=0;k<a.e911.length;k++)if(this.preE911Info_.e911[k].chassisId!=
+a.e911[k].chassisId||this.preE911Info_.e911[k].portId!=a.e911[k].portId)return!1;return!0};Object.defineProperty(b.prototype,"onupdate",{get:function(){return this.onupdate_},set:function(a){var k=this;this.onupdate_=a;this.waitUntilConnected(this.user_friendly_id()+".onupdate").then(function(){var a=k.registerCallbacks(!1,k.isNullCallback(k.onupdate_),u.method_id_E911Service_t.onupdate);a.then(function(a){a=a.params;var g=a[0];a.slice(1);null!==k.preE911Info_&&k.isSameInfo(g)||(d.logger.log(k.user_friendly_id()+
+".onupdate",JSON.stringify(g)),k.onupdate_&&k.onupdate_(g),k.preE911Info_=g)});return k.remoteInvoke(!0,u.method_id_E911Service_t.onupdate,a.success)})["catch"](function(){return d.logger.log(k.user_friendly_id()+".onupdate, could not set listener")})},enumerable:!1,configurable:!0});b.prototype.getE911Info=function(){var a=this;return new Promise(function(k,b){a.waitUntilConnected(a.user_friendly_id()+".getE911Info").then(function(){return a.remoteInvoke(!1,u.method_id_E911Service_t.getE911Info)}).then(function(b){d.logger.log(a.user_friendly_id()+
+".getE911Info",JSON.stringify(a.param0(b)));k(a.param0(b))})["catch"](function(){d.logger.log(a.user_friendly_id()+".getE911Info promise rejected");b()})})};b.prototype.updateE911Info=function(){var a=this;this.getE911Info().then(function(b){return a.onupdate&&a.onupdate(b)})["catch"](function(){return d.logger.log("Fail to get e911 information!")})};return b}(h.ProxyObject);a.E911Service=b},9:function(b,a,c){var e=this&&this.__extends||function(){var a=function(b,k){a=Object.setPrototypeOf||{__proto__:[]}instanceof
+Array&&function(a,b){a.__proto__=b}||function(a,b){for(var g in b)b.hasOwnProperty(g)&&(a[g]=b[g])};return a(b,k)};return function(b,k){function d(){this.constructor=b}a(b,k);b.prototype=null===k?Object.create(k):(d.prototype=k.prototype,new d)}}();Object.defineProperty(a,"__esModule",{value:!0});a.EngineControl=a.VersionType=void 0;var u=c(550),h=c(946),d=c(658),w=c(851);(function(a){a[a.Webrpc=0]="Webrpc";a[a.WebrtcCodecs=1]="WebrtcCodecs";a[a.Receiver=2]="Receiver";a[a.Vda=3]="Vda";a[a.Endpoint=
+4]="Endpoint";a[a.TypeScript=5]="TypeScript";a[a.HdxRtcEngine=6]="HdxRtcEngine";a[a.Max=7]="Max"})(a.VersionType||(a.VersionType={}));b=function(a){function b(k){var c=a.call(this,null,u.class_id_t.EngineControl,0,d.ProxyMode.Local)||this;c.clientInfo_="";c.clientInfo_=k;return c}e(b,a);b.prototype.bind=function(){w.logger.log(this.user_friendly_id()+".bind() called.");this.reconstructor(null,u.class_id_t.EngineControl,0)};b.prototype.syncBarrier=function(){var a=this;w.logger.log(this.user_friendly_id()+
+".syncBarrier() called.");return new Promise(function(b,d){a.syncBarrierDeep(b,d)&&a.waitUntilConnected("EngineControl.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,u.method_id_EngineControl_t.version,{major:0,minor:0,revision:0,build:0}),a.remoteInvoke(!1,u.method_id_EngineControl_t.feature_flags,[])])}).then(function(b){w.logger.log(a.user_friendly_id()+"received webrpc version and supported feature list.");b=b.map(function(b){return a.param0(b)});a.version_=b[0];a.features_=
+b[1];h.getRedirector().setFeatures(a.features_);a.remoteInvoke(!1,u.method_id_EngineControl_t.set_client_info,(a.clientInfo_||"Unknown")+"; vdiShim/"+u.HDXMS_VERSION,h.getRedirector().sessionClientId)["catch"](function(){return w.logger.log(a.user_friendly_id()+" could not set client info")});b=[];for(var d=0,t=a.features_;d<t.length;d++){var m=t[d];"ms_teams_desktop_sharing"===m.name&&m.value?b.push(a.remoteInvoke(!1,u.method_id_EngineControl_t.version_info,[])):"ms_teams_osinfo"===m.name&&m.value?
+b.push(a.remoteInvoke(!1,u.method_id_EngineControl_t.osinfo,{family:"",version:"",architecture:"",distro:"",edition:""})):"ms_teams_endpoint_id"===m.name&&m.value?b.push(a.remoteInvoke(!1,u.method_id_EngineControl_t.endpoint_id,{machine_id:"",user_id:""})):"ms_teams_hardware_info"===m.name&&m.value&&b.push(a.remoteInvoke(!1,u.method_id_EngineControl_t.hardware_info))}if(0<b.length)return Promise.all(b)}).then(function(b){if(void 0===b)w.logger.log(a.user_friendly_id()+"release-1905 client.");else{w.logger.log(a.user_friendly_id()+
+"release-1906 or later client: received detailed client version list.");for(var d=0;d<b.length;d++){var t=b[d];t.hdr.proc.iid==u.class_id_t.EngineControl&&t.hdr.proc.methodid==u.method_id_EngineControl_t.version_info?a.versions_=a.param0(t):t.hdr.proc.iid==u.class_id_t.EngineControl&&t.hdr.proc.methodid==u.method_id_EngineControl_t.osinfo?a.osinfo_=a.param0(t):t.hdr.proc.iid==u.class_id_t.EngineControl&&t.hdr.proc.methodid==u.method_id_EngineControl_t.endpoint_id?a.endpointid_=a.param0(t):t.hdr.proc.iid==
+u.class_id_t.EngineControl&&t.hdr.proc.methodid==u.method_id_EngineControl_t.hardware_info&&(a.hardwareinfo_=a.param0(t))}}a.syncBarrierResolve(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,"failure to retrieve version/feature related client info.");a.syncBarrierReject(b)})})};return b}(d.ProxyObject);a.EngineControl=b},368:function(b,a,c){Object.defineProperty(a,"__esModule",{value:!0});a.Frames=a.FrameTracker=void 0;var e=c(851),u=c(946),h=c(679),d=function(){return function(a,b){this.resolve=
+a;this.reject=b}}(),w=function(){function a(){this.name="overlay";this.reqs_=[];u.getRedirector().addProtocolHandler(this)}a.prototype.init=function(a){};a.prototype.reset=function(){this.reqs_.forEach(function(a,b){a.reject()});this.reqs_=[]};a.prototype.on_message=function(a){var b=this;e.logger.log("HDXMS: Overlay <<< "+JSON.stringify(a));if("capabilities"==a.command)new Promise(function(a,k){b.reqs_.push(new d(a,k));u.getRedirector().WSSendObject({v:"overlay",command:"configure",caps:[]})});else{var c=
+this.reqs_.shift();void 0!=c?1==a.status&&("track_window"==a.command?c.resolve(a.windowId):"untrack_window"==a.command?c.resolve(a.windowHandle):"configure"==a.command?c.resolve({}):c.reject({})):e.logger.log("spurious response for message: "+a.command)}};a.prototype.registerWindowWithService=function(a){var b=this;return new Promise(function(c,g){var B=u.getRedirector();if(void 0==a){e.logger.log("FrameTrackerProtocol.registerWindowWithService: legacy case");var t=window.getWindowHandleAsHex.bind(window);
+if(void 0===t||null===t)e.logger.log("FrameTrackerProtocol.registerWindowWithService: getWindowHandle method is undefined or null"),g({});Promise.all([t(),B.startRedirection(!1,"registerWindowWithService")]).then(function(a){e.logger.log("FrameTracker.registerWindowWithService: set window handle: "+a[0]);B.WSSendObject({v:"overlay",command:"window",windowHandle:a[0]});c(void 0)})}else e.logger.log("FrameTrackerProtocol.registerWindowWithService: new MW case"),B.startRedirection(!1,"registerWindowWithService").then(function(){b.reqs_.push(new d(c,
+g));B.WSSendObject({v:"overlay",command:"track_window",windowHandle:a})})})};a.prototype.unregisterWindowWithService=function(a){var b=this;e.logger.log("FrameTrackerProtocol.unregisterWindowWithService(handle: "+a+")");return new Promise(function(c,g){void 0==a?g({}):(b.reqs_.push(new d(c,g)),u.getRedirector().WSSendObject({v:"overlay",command:"untrack_window",windowHandle:a}))})};return a}(),q=function(){function a(b){var d=this;this.running_=!1;this.elements_=[];this.clipRects=new Set;this.videos_=
+[];this.connected_=!1;this.yClientAreaOffset_=this.xClientAreaOffset_=0;this.wheelEventHandler=function(a){setTimeout(function(){d.updateAll()},10)};this.scrollEventHandler=function(a){d.updateAll()};this.keyupEventHandler=function(a){"Tab"!=a.code&&"ArrowUp"!=a.code&&"ArrowDown"!=a.code&&"ArrowLeft"!=a.code&&"ArrowRight"!=a.code&&"PageUp"!=a.code&&"PageDown"!=a.code&&"Home"!=a.code&&"End"!=a.code||d.updateAll()};this.resizeEventHandler=function(a){e.logger.log("onWindowResize... update video elements position");
+d.updateAll()};e.logger.log("FrameTracker.constructor: (handle: "+b+")");this.handle_=b;this.connectToService();this.observer_=new MutationObserver(function(a){d.updateAll()})}a.prototype.connectToService=function(){var b=this;a.Protocol.registerWindowWithService(this.handle_).then(function(a){e.logger.log("FrameTracker: connected to service. (windowId="+a+")");b.connected_=!0;b.windowId_=a;b.videos_.forEach(function(a){a.sinkId=JSON.stringify(b.windowId_)});b.videos_=[]})};Object.defineProperty(a.prototype,
+"handle",{get:function(){return this.handle_},enumerable:!1,configurable:!0});a.prototype.getWindowFromElement=function(a){return a.ownerDocument.defaultView};a.prototype.rectanglesIntersect=function(a,b){return a.x<b.x+b.width&&a.x+a.width>b.x&&a.y<b.y+b.height&&a.y+a.height>b.y?!0:!1};a.prototype.intersectingRect=function(a,b){var d=Math.max(a.left,b.left),g=Math.max(a.top,b.top);return new DOMRect(d,g,Math.min(a.right,b.right)-d,Math.min(a.bottom,b.bottom)-g)};a.prototype.pedigreeCount=function(a,
+b){for(var d=0,g=a.parentElement;null!=g&&g!=b;)d++,g=g.parentElement;return{isAncestor:null!=g,pedigree:d}};a.prototype.selectTopmost=function(a,b){var d=this.getBoundingClientRect(a),g=this.getBoundingClientRect(b),d=this.intersectingRect(d,g),g=a.ownerDocument.elementFromPoint(d.left+d.width/2,d.top+d.height/2);if(g==a)return a;if(g==b)return b;d=this.pedigreeCount(a,g);g=this.pedigreeCount(b,g);if(d.isAncestor&&g.isAncestor){if(d.pedigree<g.pedigree)return a;if(g.pedigree<d.pedigree)return b}else{if(d.isAncestor)return a;
+if(g.isAncestor)return b}};a.prototype.checkOverlappingVideos=function(a){var b=this,d=this.getBoundingClientRect(a.target);a.overlaps.forEach(function(b){a.target.remoteVideoElement.removeClipRect(b.rect)});a.overlaps=[];this.elements_.forEach(function(g){if(g!=a){var c=g.overlaps.map(function(a){return a.element}).indexOf(a.target);-1!=c&&(c=g.overlaps.splice(c,1)[0],g.target.remoteVideoElement.removeClipRect(c.rect));c=b.getBoundingClientRect(g.target);if(b.rectanglesIntersect(d,c)){var t=b.selectTopmost(a.target,
+g.target);t==a.target?(g.overlaps.push({element:a.target,rect:d}),g.target.remoteVideoElement.addClipRect(d)):t==g.target&&(a.overlaps.push({element:g.target,rect:c}),a.target.remoteVideoElement.addClipRect(c))}}})};a.prototype.updateAll=function(){var a=this;this.elements_.forEach(function(b){var d=a.getBoundingClientRect(b.target);if(void 0!==d){var g=b.clientRect;if(void 0===g||g.x!==d.x||g.y!==d.y||g.width!==d.width||g.height!==d.height)b.clientRect=d,b.callback(d),a.checkOverlappingVideos(b)}})};
+a.prototype.track=function(a,b){var d=this,g=this.getBoundingClientRect(a);e.logger.log("Track (handle: "+this.handle_+") element frame",a,JSON.stringify(g));console.log(a);this.elements_.push({target:a,clientRect:void 0,callback:b,overlaps:[]});try{e.logger.log("[HdxWebRTC.js] Initializing occlusion for new videoElement"),this.clipRects.forEach(function(b){d.applyOcclusion(a,JSON.parse(b))})}catch(c){e.logger.log("[HdxWebRTC.js] addOcclusionInit failed! "+c)}this.running_||(e.logger.log("Start FrameTracker observer..."),
+this.observer_.observe(a.ownerDocument.body,{attributes:!0,childList:!0,subtree:!0}),g=this.getWindowFromElement(a),g.addEventListener("wheel",this.wheelEventHandler),g.addEventListener("scroll",this.scrollEventHandler),g.addEventListener("keyup",this.keyupEventHandler),g.addEventListener("resize",this.resizeEventHandler),this.running_=!0);this.updateAll()};a.prototype.untrack=function(a){e.logger.log("Untrack (handle: "+this.handle_+") element frame",a);var b=-1;this.elements_.forEach(function(g,
+d){g.target===a&&(b=d)});if(0<=b&&(this.elements_.splice(b,1),0===this.elements_.length)){e.logger.log("Stop FrameTracker observer...");this.observer_.disconnect();var d=this.getWindowFromElement(a);d.removeEventListener("wheel",this.wheelEventHandler);d.removeEventListener("scroll",this.scrollEventHandler);d.removeEventListener("keyup",this.keyupEventHandler);d.removeEventListener("resize",this.resizeEventHandler);this.running_=!1}};a.prototype.applyOcclusion=function(a,b){var d=this.getBoundingClientRect(a);
+this.rectanglesIntersect(b,d)&&void 0!==a.remoteVideoElement&&a.remoteVideoElement.addClipRect(b)};a.prototype.addOcclusion=function(a){var b=this;e.logger.log("[HdxWebRTC.js] Adding occlusion "+JSON.stringify(a));e.logger.log("[HdxWebRTC.js] Tracking '"+this.elements_.length+"' elements.");this.clipRects.add(JSON.stringify(a));this.elements_.forEach(function(d){b.applyOcclusion(d.target,a)})};a.prototype.removeOcclusion=function(a){e.logger.log("[HdxWebRTC.js] Removing occlusion "+JSON.stringify(a));
+e.logger.log("[HdxWebRTC.js] Tracking '"+this.elements_.length+"' elements.");this.clipRects["delete"](JSON.stringify(a));this.elements_.forEach(function(b){void 0!==b.target.remoteVideoElement&&b.target.remoteVideoElement.removeClipRect(a)})};a.prototype.setClientAreaOffset=function(a,b){this.xClientAreaOffset_=a;this.yClientAreaOffset_=b};a.prototype.getBoundingClientRect=function(a){a=a.getBoundingClientRect();a.x+=this.xClientAreaOffset_;a.y+=this.yClientAreaOffset_;return a};a.prototype.newVideoElement=
+function(b){var d=this;e.logger.log("FrameTracker.newVideoElement: (id: "+b.id+")");if(void 0!==b.remoteVideoElement)e.logger.log("Video element is already configured!!!");else{b.id||(b.id="ctx-vid-"+a.videoElementIDs++);var c=new h.VideoElement(b.id,this.getWindowFromElement(b));this.connected_?(e.logger.log("FrameTracker.newVideoElement: initializing video element with sink id "+this.windowId_),c.sinkId=JSON.stringify(this.windowId_)):(e.logger.log("FrameTracker.newVideoElement: video element awaiting stable window state"),
+this.videos_.push(c));c.onloadedmetadata=function(){b.dispatchEvent(new Event("loadedmetadata"))};c.ontimeupdate=function(){b.dispatchEvent(new Event("timeupdate"))};c.onconnectionstatechange=function(){"connected"==c.connectionState?d.track(b,function(a){c.setFrame(a)}):d.untrack(b)};delete b.remoteVideoElement;Object.defineProperty(b,"remoteVideoElement",{writable:!0,configurable:!0,value:null});b.remoteVideoElement=c;delete b.srcObject;Object.defineProperty(b,"srcObject",{configurable:!0,get:function(){return c.srcObject},
+set:function(a){e.logger.log("VDI Shim set video element srcObject "+a);c.srcObject=a}});delete b.videoWidth;Object.defineProperty(b,"videoWidth",{configurable:!0,get:function(){return c.videoWidth}});delete b.videoHeight;Object.defineProperty(b,"videoHeight",{configurable:!0,get:function(){return c.videoHeight}})}};a.prototype.disposeVideoElement=function(a){e.logger.log("FrameTracker.disposeVideoElement: (id: "+a.id+")");var b=a.remoteVideoElement;if(void 0!=b){var d=this.videos_.findIndex(function(a){return a.Id==
+b.Id});-1<d&&this.videos_.splice(d,1);b.dispose();a.remoteVideoElement=void 0}};a.videoElementIDs=0;a.Protocol=new w;return a}();a.FrameTracker=q;b=function(){function a(b){this.frames_=[];b&&this.frames_.push(new q(void 0))}a.prototype.newFrame=function(a){e.logger.log("Frames.newFrame: (handle: "+a+")");var b=this.findFrame(a);void 0==b&&(b=new q(a),this.frames_.push(b));return b};a.prototype.disposeFrame=function(a){e.logger.log("Frames.disposeFrame: (handle: "+a+")");var b=this.frames_.findIndex(function(b){return b.handle==
+a});-1<b&&(q.Protocol.unregisterWindowWithService(a).then(function(a){e.logger.log("Untrack window (handle: "+a+") successful")}),this.frames_.splice(b,1))};a.prototype.findFrame=function(a){e.logger.log("Frames.findFrame: (handle: "+a+")");return void 0!=a?this.frames_.find(function(b){return b.handle==a}):this.frames_[0]};a.prototype.reconnect=function(){e.logger.log("Frames.reconnect()");this.frames_.forEach(function(a){a.connectToService()})};return a}();a.Frames=b},247:function(b,a){Object.defineProperty(a,
+"__esModule",{value:!0});a.getGC=a.GC=void 0;var c=function(){function a(b){this.parent_=this.object_=null;this.children_=[];this.object_=b}a.prototype.addChild=function(a){a.parent_!=this&&(a.parent_=this,this.children_.push(a))};a.prototype.removeChild=function(a){var b=this.children_.indexOf(a);this.children_.splice(b,1);a.parent_=null};return a}(),e=function(){function a(){this.root_=new c(null)}a.prototype.trackObject=function(a,b){void 0===b&&(b=null);if(null===this.findNode(a,this.root_)){var e=
+this.findNode(b,this.root_),h=new c(a);e?e.addChild(h):this.root_.addChild(h)}};a.prototype.releaseObject=function(a){a=this.findNode(a,this.root_);if(null===a||a===this.root_)return!1;this.destroyNodeObjectRecurse(a);a.parent_.removeChild(a);return!0};a.prototype.destroyNodeObjectRecurse=function(a){for(var b=0,c=a.children_;b<c.length;b++)this.destroyNodeObjectRecurse(c[b]);a.object_.destroy()};a.prototype.setParent=function(a,b){var c=this.findNode(a,this.root_);if(null===c)return!1;var e=this.findNode(b,
+this.root_);if(null===e)return!1;if(c.parent_===e)return!0;c.parent_.removeChild(c);e.addChild(c);return!0};a.prototype.reset=function(){this.root_.children_=[]};a.prototype.findNode=function(a,b){if(b.object_===a)return b;for(var c=null,e=0,k=b.children_;e<k.length&&(c=this.findNode(a,k[e]),null===c);e++);return c};return a}();a.GC=e;var u=new e;a.getGC=function(){return u}},946:function(b,a,c){Object.defineProperty(a,"__esModule",{value:!0});a.getRedirector=a.HdxMediaStream=a.RedirectionStatus=
+a.WebrpcStatusCode=void 0;var e=c(658),u=c(851),h=c(550),d=c(545),w=c(394),q=c(691),n=function(){return function(a,b,d,m,c,k,x,r){void 0===r&&(r=void 0);this.resolve=a;this.reject=b;this.iid=d;this.oid=m;this.cbid=c;this.oneShot=k;this.mid=x;this.completion_cb=r}}(),k;(function(a){a[a.rpc_status_success=0]="rpc_status_success";a[a.rpc_status_unspecified_error=1]="rpc_status_unspecified_error";a[a.rpc_status_unexpected=2]="rpc_status_unexpected";a[a.rpc_status_index_out_of_bounds=3]="rpc_status_index_out_of_bounds";
+a[a.rpc_status_missing_parameter=4]="rpc_status_missing_parameter";a[a.rpc_status_missing_return_value=5]="rpc_status_missing_return_value";a[a.rpc_status_invalid_object=6]="rpc_status_invalid_object";a[a.rpc_status_user_exception=7]="rpc_status_user_exception";a[a.rpc_status_system_error=8]="rpc_status_system_error"})(k=a.WebrpcStatusCode||(a.WebrpcStatusCode={}));var v;(function(a){a[a.NotRedirected=0]="NotRedirected";a[a.Connecting=1]="Connecting";a[a.Binding=2]="Binding";a[a.Redirected=3]="Redirected"})(v=
+a.RedirectionStatus||(a.RedirectionStatus={}));b=function(){function a(){this.sessionId_="";this.handlers_=[];this.pingactive=!1;this.status=v.NotRedirected;this.reqs=[];this.cbs=[];this.deferredActions=[];this.telemetry_=new w.Telemetry;this.screenshare_=new q.ScreenShareUtil;this.stateChangeNotifcations=[];this.vdafeatures_=[]}Object.defineProperty(a.prototype,"telemetry",{get:function(){return this.telemetry_},enumerable:!1,configurable:!0});Object.defineProperty(a.prototype,"screenshare",{get:function(){return this.screenshare_},
+enumerable:!1,configurable:!0});a.prototype.setRemoteSessionInfoCb=function(a){this.remoteSessionInfoCb=a};a.prototype.setFeatures=function(a){this.features=a;this.screenshare.onInitComplete();this.handlers_.forEach(function(b,d){b.init(a)})};a.prototype.getFeatureValue=function(a){if(this.features){var b=this.features.find(function(b){return b.name===a});return void 0!==b?b.value:!1}return!1};a.prototype.getVDAFeatureValue=function(a){return void 0!==this.vdafeatures_.find(function(b){return b===
+a})?!0:!1};a.prototype.onRedirectionComplete=function(){for(;this.deferredActions&&0<this.deferredActions.length;)this.deferredActions.shift().post(this.status==v.Redirected)};a.prototype.connectToService=function(){u.logger.log("Redirection status: Connecting...");this.status=v.Connecting;return new Promise(function(a,b){var d=new WebSocket("wss://127.0.0.1:9002");d.onopen=function(){a(d)};d.onerror=function(a){u.logger.log("websocket connection error: "+a.type);b(a)}})};a.prototype.waitUntilRedirected=
+function(a){var b=this;return new Promise(function(d,c){b.status==v.Redirected?d():0>=a?c():setTimeout(function(){u.logger.log("waitUntilRedirected() timeout. count="+a);b.status!=v.Redirected?b.waitUntilRedirected(--a).then(function(){d()})["catch"](function(){c()}):d()},2E3)})};a.prototype.handleRemoteSessionInfo=function(){var a=this;u.logger.log("handleRemoteSessionInfo called.");var b=this;b.remoteSessionInfoCb?b.remoteSessionInfoCb().then(function(d){u.logger.log("remoteSessionInfo success! info:"+
+JSON.stringify(d));u.logger.log("Redirection status: Redirected");b.status=v.Redirected;b.pingConnectionEnd();(d=window.onVdiClientConnected)&&d();a.telemetry.SendTelemetryInit();b.onRedirectionComplete()})["catch"](function(){u.logger.log("remoteSessionInfo failure!");b.suspendRedirection(!0);b.onRedirectionComplete()}):(u.logger.log("remoteSessionInfoCb is invalid!"),b.suspendRedirection(!0),b.onRedirectionComplete())};a.prototype.startRedirection=function(a,b){var d=this,c=window.onVdiClientDisconnected;
+return new Promise(function(g,k){d.status!=v.Redirected?(u.logger.log("Attempting to start redirection: "+b),!1===a?d.deferredActions.push(new e.deferred_action(g,k,b)):d.connectToService().then(function(a){u.logger.log("Redirection status: Binding...");d.status=v.Binding;d.websocket=a;d.websocket.onmessage=function(a){d.onWSMessage(a)};d.websocket.onclose=function(a){d.onWSClose(a)};g();d.handleRemoteSessionInfo()})["catch"](function(a){u.logger.log("Unable to connect to websocket service! "+a);
+k();d.suspendRedirection(!0);d.onRedirectionComplete();c&&c(!0)})):(u.logger.log("Redirection already started."),g())})};a.prototype.terminateOptimization=function(){this.websocket.close(1E3,"normal disconnecting!")};a.prototype.suspendRedirection=function(a){var b=this;u.logger.log("Suspending redirection.");this.handlers_.forEach(function(a,b){a.reset()});var d=window.onVdiClientDisconnected;try{d&&d(!1)}catch(c){u.logger.log("suspendRedirection(): exception during vdiClientDisconnect: "+c.message)}u.logger.log("Redirection status: NotRedirected");
+var g=this.status;this.status=v.NotRedirected;var k=!1,d=window.getCitrixMSTeamsRedir,x=window.getCitrixWebrtcRedir,r;d?r=d:x&&(r=x);r&&r().then(function(d){u.logger.log("sucesss on disconnect"+d);"1"==d&&(k=!0,u.logger.log("Reg key exists while disconnecting"));a&&g===v.Redirected&&1==k&&(u.logger.log("Calling ping not normal disconnect"),b.pingConnectionBegin(!1))})["catch"](function(){u.logger.log("Failure to Read MS Teams redir Reg Key, not retrying...")});this.dispatchStateChangeNotifications()};
+a.prototype.onWSOpen=function(){};a.prototype.onWSClose=function(a){u.logger.log("disconnected from websocket service. "+JSON.stringify(a));try{a&&1E3==a.code?this.suspendRedirection(!1):this.suspendRedirection(!0)}catch(b){u.logger.log("suspendRedirection(): exception closing WebSocket: "+b.message)}};a.prototype.onWSError=function(){try{this.suspendRedirection(!0)}catch(a){u.logger.log("suspendRedirection(): exception on WebSocket error: "+a.message)}};a.prototype.WSSendObjectWrapper=function(a,
+b,d,c){var g=!0;b!=h.class_id_t.EngineControl||d!=h.method_id_EngineControl_t.ctor&&d!=h.method_id_EngineControl_t.version&&d!=h.method_id_EngineControl_t.feature_flags||(g=!1);var k=!0;if(g&&(k=!1,void 0!=this.features))for(var g=0,r=this.features;g<r.length;g++){var A=r[g];if(!0===A.value&&A.name==a){k=!0;break}}return 1==k?this.WSSendObject(c):Promise.reject("Cannot invoke method that is not supported by webrpc: iid("+b+") mid("+d+")")};a.prototype.WSSendObject=function(a){var b=this;return new Promise(function(d,
+c){if("webrtc"==a.v){var g=a.hdr.proc.iid,k=a.hdr.proc.methodid,r=a.objref.oid;a.hdr.destroy||(g=new n(d,c,g,r,0,!0,k),b.reqs.push(g));g=JSON.stringify(a);u.logger.trace("WSSendObject: >>> "+h.WebrpcClassLibInfoUtil.composeClassInfoData(a)+" "+g);try{b.websocket.readyState==WebSocket.OPEN?b.websocket.send(g):(u.logger.log("WSSendObject(): warinig: web socket is not open, dropping the message!"),d({}))}catch(A){u.logger.log("WSSendObject(): exception: "+A.message),c(A.message)}}else if("overlay"==
+a.v){g=JSON.stringify(a);u.logger.log("HDXMS: SendOverlayData: >>> "+g+"'");try{b.websocket.readyState==WebSocket.OPEN?b.websocket.send(g):(u.logger.log("WSSendObject(): warinig: web socket is not open, dropping the message!"),d({}))}catch(A){u.logger.log("WSSendObject(): exception: "+A.message),c(A.message)}}else if("telemetry"==a.v){g=JSON.stringify(a);u.logger.log("HDXMS: SendTelemetryData: >>> "+g+"'");try{b.websocket.readyState==WebSocket.OPEN?b.websocket.send(g):(u.logger.log("WSSendObject(): warinig: web socket is not open, dropping the message!"),
+d({}))}catch(A){u.logger.log("WSSendObject(): exception: "+A.message),c(A.message)}}else if("appsharing"==a.v){g=JSON.stringify(a);u.logger.log("HDXMS: SendScreenSharingData: >>> "+g+"'");try{b.websocket.readyState==WebSocket.OPEN?b.websocket.send(g):(u.logger.log("WSSendObject(): warinig: web socket is not open, dropping the message!"),d({}))}catch(A){u.logger.log("WSSendObject(): exception: "+A.message),c(A.message)}}else u.logger.log("HDXMS: WSSendObject: Unknown protocol: '"+JSON.stringify(a)+
+"'")})};a.prototype.webrpcStatusCodeToName=function(a){switch(a){case k.rpc_status_success:a="rpc_status_success";break;case k.rpc_status_unspecified_error:a="rpc_status_unspecified_error";break;case k.rpc_status_unexpected:a="rpc_status_unexpected";break;case k.rpc_status_index_out_of_bounds:a="rpc_status_index_out_of_bounds";break;case k.rpc_status_missing_parameter:a="rpc_status_missing_parameter";break;case k.rpc_status_missing_return_value:a="rpc_status_missing_return_value";break;case k.rpc_status_invalid_object:a=
+"rpc_status_invalid_object";break;case k.rpc_status_user_exception:a="rpc_status_user_exception";break;case k.rpc_status_system_error:a="rpc_status_system_error";break;default:a="unknown"}return a};a.prototype.parceWebrpcError=function(a,b){void 0===a&&(a=b&&0<b.length?b[0].category||b[0].code||b[0].message?k.rpc_status_system_error:k.rpc_status_user_exception:k.rpc_status_unspecified_error);var d;switch(a){case k.rpc_status_unspecified_error:case k.rpc_status_unexpected:case k.rpc_status_index_out_of_bounds:case k.rpc_status_missing_parameter:case k.rpc_status_missing_return_value:case k.rpc_status_invalid_object:d=
+new DOMException(this.webrpcStatusCodeToName(a),this.webrpcStatusCodeToName(a));break;case k.rpc_status_user_exception:d=b&&0<b.length?new DOMException(b[0],this.webrpcStatusCodeToName(a)):new DOMException(this.webrpcStatusCodeToName(a),this.webrpcStatusCodeToName(a));break;case k.rpc_status_system_error:if(b&&0<b.length){d=Object.create(DOMException);var g={value:null,writable:!0,enumerable:!1,Configurable:!0};g.value=b[0].category;Object.defineProperty(d,"name",g);g.value=b[0].code;Object.defineProperty(d,
+"code",g);g.value=b[0].message;Object.defineProperty(d,"message",g)}else d=new DOMException(this.webrpcStatusCodeToName(a),this.webrpcStatusCodeToName(a))}return d};a.prototype.onWSMessage=function(a){a=a.data;var b;try{b=JSON.parse(a)}catch(g){u.logger.log("invalid JSON!!!");u.logger.log(g);u.logger.log(a);return}if("webrtc"==b.v){u.logger.trace("onWSMessage: <<< "+h.WebrpcClassLibInfoUtil.composeClassInfoData(b)+" "+a);var c=b.hdr.proc.iid,k=b.hdr.proc.methodid,e=b.objref.oid,x=b.status;if(b.hdr.msg_type==
+d.WsJsonUtil.getMsgType(d.ws_msg_type_t.reply))a=this.reqs.findIndex(function(a){return a.iid==c&&a.oid==e&&a.mid==k}),0<=a?0==x?this.reqs.splice(a,1).shift().resolve(b):(x=this.parceWebrpcError(x,b.params),this.reqs.splice(a,1).shift().reject(x)):(u.logger.log("HDXMS didnt find this one. (reqs)"),u.logger.log(this.reqs));else if(b.hdr.msg_type==d.WsJsonUtil.getMsgType(d.ws_msg_type_t.event_req)){var r=b.func.id;a=this.cbs.findIndex(function(a){return a.iid==c&&a.oid==e&&a.cbid==r>>16});0<=a?(0==
+(r&65535)?this.cbs[a].resolve(b):(x=this.parceWebrpcError(x,b.params),this.cbs[a].reject(x)),1==this.cbs[a].oneShot&&(this.cbs[a].completion_cb?this.cbs[a].completion_cb(this.cbs[a].cbid,this.cbs[a].mid):u.logger.log("HDXMS didnt find completion_cb for oneShot callback, something went wrong!!!! cbid="+this.cbs[a].cbid+" (iid, mid)=("+this.cbs[a].iid,","+this.cbs[a].mid+")"))):(u.logger.log("HDXMS didnt find this one. (cbs)"),u.logger.log(JSON.stringify(this.cbs)))}else u.logger.log("HDXMS Received bogus message: "+
+a+"'")}else if("telemetry"==b.v)0==b.status&&(x=b.hdr.command,2==(x&2147483647)&&(a=b.hdr.id,this.telemetry.onInitialized(a),u.logger.log("Telemetry init response received")));else if("features"==b.v){a=b.features;if("feature-support"==b.command)for(u.logger.log("features capabilities received, features:"+a),this.vdafeatures_=a,x=0;x<a.length;x++)if(a[x]===h.FEATURE_vda_app_sharing)this.screenshare.onInitialized(!0);this.clientViewportMode_=b.client_viewport_mode;u.logger.log("features client_viewport_mode value: "+
+this.clientViewportMode_);this.sessionId_=b.client_session_id}else if("appsharing"==b.v)a=b.status,0==a?(x=b.hdr.command,a=b.hdr.id,(x&2147483647)==q.sshare_cmd.GetSources?(u.logger.log("appsharing GetSources response received"),x=b.data,this.screenshare.onGetSources(a,x)):(x&2147483647)==q.sshare_cmd.SetActive?(u.logger.log("appsharing SetActive response received"),x=b.data,this.screenshare.onSetActive(a,x)):(x&2147483647)==q.sshare_cmd.TopologyChanged?(u.logger.log("appsharing Window topology changed cmd received"),
+this.screenshare.onToplogyChanged()):(u.logger.log("invalid command reply:"+x),this.screenshare.onError(a))):(u.logger.log("invalid status reply:"+a),a=b.hdr.id,this.screenshare.onError(a));else if(x=this.handlers_.find(function(a){return a.name==b.v}),void 0!=x)x.on_message(b);else u.logger.log("HDXMS: onWSMessage: Unknown protocol: "+a+"'")};a.prototype.clearReqs=function(){u.logger.log("clearReqs()");this.reqs.forEach(function(a,b){a.reject()});this.reqs=[]};a.prototype.registerHandler=function(a,
+b,d,g){a=new n(g.resolve.bind(g),g.reject.bind(g),a,b,g.id,g.oneShot,d,g.completion_cb);this.cbs.push(a)};a.prototype.unregisterHandler=function(a,b,d){var g=this.cbs.findIndex(function(g){return g.iid==a&&g.oid==b&&g.cbid==d});0<=g?this.cbs.splice(g,1):(u.logger.log("HDXMS Didnt find this callback in the list!"),u.logger.log(JSON.stringify(this.cbs)))};a.prototype.isRedirected=function(){return this.status===v.Redirected||this.status===v.Binding||this.status===v.Connecting};a.prototype.isConnected=
+function(){return this.status==v.Redirected};a.prototype.isPingActive=function(){return this.pingactive};a.prototype.pingConnectionBegin=function(a){u.logger.log("Started timer");this.pingactive=!0;var b=window.onVdiClientDisconnectedTimer;1==a?(u.logger.log("checking if we are connected..."),b()):this.conntimer=setTimeout(function(){u.logger.log("checking if we are connected...");b&&b()},15E3)};a.prototype.pingConnectionEnd=function(){this.pingactive=!1;clearTimeout(this.conntimer)};a.prototype.SendTelemetryData_Speaker=
+function(a){this.telemetry.SendTelemetryData(w.tel_cmd.Data,w.tel_key_SpeakerDeviceUsed,a,0)};a.prototype.registerStateChangeNotification=function(a){this.stateChangeNotifcations.push(a)};a.prototype.unregisterStateChangeNotification=function(a){this.stateChangeNotifcations=this.stateChangeNotifcations.filter(function(b){return b!=a})};a.prototype.dispatchStateChangeNotifications=function(){this.stateChangeNotifcations.forEach(function(a){a()})};a.prototype.vdabufferNoLimit=function(){for(var a=!1,
+b=0,d=this.vdafeatures_;b<d.length;b++)if(d[b]===h.FEATURE_vda_service_no_buffer_limit){a=!0;break}return a};Object.defineProperty(a.prototype,"clientViewportMode",{get:function(){return this.clientViewportMode_||"unknown"},enumerable:!1,configurable:!0});Object.defineProperty(a.prototype,"sessionClientId",{get:function(){return this.sessionId_||""},enumerable:!1,configurable:!0});a.prototype.addProtocolHandler=function(a){void 0==this.handlers_.find(function(b){return b.name==a.name})&&this.handlers_.push(a)};
+return a}();a.HdxMediaStream=b;var z=new b;a.getRedirector=function(){return z}},985:function(b,a,c){var e=this&&this.__extends||function(){var a=function(b,d){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,b){for(var d in b)b.hasOwnProperty(d)&&(a[d]=b[d])};return a(b,d)};return function(b,d){function c(){this.constructor=b}a(b,d);b.prototype=null===d?Object.create(d):(c.prototype=d.prototype,new c)}}(),u=this&&this.__spreadArrays||function(){for(var a=
+0,b=0,d=arguments.length;b<d;b++)a+=arguments[b].length;for(var a=Array(a),c=0,b=0;b<d;b++)for(var e=arguments[b],g=0,h=e.length;g<h;g++,c++)a[c]=e[g];return a};Object.defineProperty(a,"__esModule",{value:!0});a.IceCandidatePair=a.IceCandidate=void 0;var h=c(658),d=c(550),w=c(851);b=function(a){function b(c,e,z){for(var g=[],h=3;h<arguments.length;h++)g[h-3]=arguments[h];return a.apply(this,u([c,d.class_id_t.RTCIceCandidate,e,z,null,[]],g))||this}e(b,a);Object.defineProperty(b.prototype,"candidate",
+{get:function(){return this.candidate_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"sdpMid",{get:function(){return this.sdpMid_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"sdpMLineIndex",{get:function(){return this.sdpMLineIndex_},enumerable:!1,configurable:!0});b.prototype.syncBarrier=function(){var a=this;w.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.syncBarrierDeep(b,c)&&a.waitUntilConnected("IceCandidate.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,
+d.method_id_RTCIceCandidate_t.candidate,""),a.remoteInvoke(!1,d.method_id_RTCIceCandidate_t.sdpMid,""),a.remoteInvoke(!1,d.method_id_RTCIceCandidate_t.sdpMLineIndex,0)])}).then(function(b){b=b.map(function(b){return a.param0(b)});a.candidate_=b[0];a.sdpMid_=b[1];a.sdpMLineIndex_=b[2];a.syncBarrierResolve(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier failed!");a.syncBarrierReject(b)})})};return b}(h.ProxyObject);a.IceCandidate=b;b=function(a){function b(c,e){return a.call(this,
+c,d.class_id_t.RTCIceCandidatePair,e,h.ProxyMode.Remote)||this}e(b,a);Object.defineProperty(b.prototype,"local",{get:function(){return this.local_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"remote",{get:function(){return this.remote_},enumerable:!1,configurable:!0});b.prototype.syncBarrier=function(){var a=this;w.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.syncBarrierDeep(b,c)&&a.waitUntilConnected("IceCandidatePair.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,
+d.method_id_RTCIceCandidatePair_t.local,{}),a.remoteInvoke(!1,d.method_id_RTCIceCandidatePair_t.remote,{})])}).then(function(b){b=b.map(function(b){return a.param0(b)});a.local_=b[0];a.remote_=b[1];a.syncBarrierResolve(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier failed!");a.syncBarrierReject(b)})})};return b}(h.ProxyObject);a.IceCandidatePair=b},851:function(b,a,c){Object.defineProperty(a,"__esModule",{value:!0});a.logger=a.Logger=void 0;var e=c(550);b=function(){function a(b){this.tracing=
+!1;this.mslogger_=void 0;this.enable_timestamp_=!1;this.tag=b;this.enabled=!0;e.BUILD_TYPE_SDK&&(this.enable_timestamp_=!0)}a.prototype.setMSLogger=function(a,b){this.mslogger_=a;void 0!=b&&(this.enable_timestamp_=b)};a.prototype.log=function(){for(var a=[],b=0;b<arguments.length;b++)a[b]=arguments[b];this.enabled&&(a=this.tag+" "+a,this.enable_timestamp_&&(b=new Date,a="["+b.getTime()+"] "+b.toISOString()+" "+a),void 0!=this.mslogger_?this.mslogger_.info(a):console.log(a))};a.prototype.logx=function(a){for(var b=
+[],c=1;c<arguments.length;c++)b[c-1]=arguments[c];a||this.log(b)};a.prototype.trace=function(){for(var a=[],b=0;b<arguments.length;b++)a[b]=arguments[b];this.tracing&&this.log.apply(this,a)};return a}();a.Logger=b;a.logger=new b("[HdxWebRTC.js]");a.logger.enabled=!0},360:function(b,a,c){var e=this&&this.__extends||function(){var a=function(b,d){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,b){for(var d in b)b.hasOwnProperty(d)&&(a[d]=b[d])};return a(b,
+d)};return function(b,d){function f(){this.constructor=b}a(b,d);b.prototype=null===d?Object.create(d):(f.prototype=d.prototype,new f)}}(),u=this&&this.__awaiter||function(a,b,d,f){function c(a){return a instanceof d?a:new d(function(f){f(a)})}return new (d||(d=Promise))(function(d,K){function g(a){try{m(f.next(a))}catch(b){K(b)}}function r(a){try{m(f["throw"](a))}catch(b){K(b)}}function m(a){a.done?d(a.value):c(a.value).then(g,r)}m((f=f.apply(a,b||[])).next())})},h=this&&this.__generator||function(a,
+b){function d(a){return function(b){return f([a,b])}}function f(f){if(g)throw new TypeError("Generator is already executing.");for(;c;)try{if(g=1,r&&(m=f[0]&2?r["return"]:f[0]?r["throw"]||((m=r["return"])&&m.call(r),0):r.next)&&!(m=m.call(r,f[1])).done)return m;if(r=0,m)f=[f[0]&2,m.value];switch(f[0]){case 0:case 1:m=f;break;case 4:return c.label++,{value:f[1],done:!1};case 5:c.label++;r=f[1];f=[0];continue;case 7:f=c.ops.pop();c.trys.pop();continue;default:if(!(m=c.trys,m=0<m.length&&m[m.length-
+1])&&(6===f[0]||2===f[0])){c=0;continue}if(3===f[0]&&(!m||f[1]>m[0]&&f[1]<m[3]))c.label=f[1];else if(6===f[0]&&c.label<m[1])c.label=m[1],m=f;else if(m&&c.label<m[2])c.label=m[2],c.ops.push(f);else{m[2]&&c.ops.pop();c.trys.pop();continue}}f=b.call(a,c)}catch(d){f=[6,d],r=0}finally{g=m=0}if(f[0]&5)throw f[1];return{value:f[0]?f[1]:void 0,done:!0}}var c={label:0,sent:function(){if(m[0]&1)throw m[1];return m[1]},trys:[],ops:[]},g,r,m,e;$jscomp.initSymbol();$jscomp.initSymbol();$jscomp.initSymbolIterator();
+return e={next:d(0),"throw":d(1),"return":d(2)},"function"===typeof Symbol&&(e[Symbol.iterator]=function(){return this}),e},d=this&&this.__spreadArrays||function(){for(var a=0,b=0,d=arguments.length;b<d;b++)a+=arguments[b].length;for(var a=Array(a),f=0,b=0;b<d;b++)for(var c=arguments[b],g=0,r=c.length;g<r;g++,f++)a[f]=c[g];return a};Object.defineProperty(a,"__esModule",{value:!0});a.PeerConnection=a.SessionDescription=a.SessionDescriptionInit=a.RtcConfiguration=a.RtcIceServer=a.IceCandidateEvent=
+void 0;var w=c(946),q=c(144),n=c(589),k=c(658),v=c(985),z=c(377),g=c(650),B=c(24),t=c(550),m=c(851),D=c(517),y=c(394),x=function(a){function b(d,f,c){d=a.call(this,d,t.class_id_t.RTCIceCandidateEvent,f,k.ProxyMode.Remote)||this;d.target=c;d.type="icecandidate";return d}e(b,a);Object.defineProperty(b.prototype,"candidate",{get:function(){return this.candidate_},enumerable:!1,configurable:!0});b.prototype.syncBarrier=function(){var a=this;m.logger.log(this.user_friendly_id()+".syncBarrier() called.");
+return new Promise(function(f,b){a.syncBarrierDeep(f,b)&&a.waitUntilConnected(a.user_friendly_id()+".syncBarrier").then(function(){return a.remoteInvoke(!1,t.method_id_RTCIceCandidateEvent_t.candidate,{oid:0})}).then(function(f){f=a.param0(f);return!1===f.is_null?(new v.IceCandidate(a,f.oid,k.ProxyMode.Remote)).syncBarrier():Promise.resolve(null)}).then(function(f){m.logger.log(a.user_friendly_id()+".onicecandidate: icecandidate available!");a.candidate_=f;a.syncBarrierResolve(a)})["catch"](function(f){f=
+a.logRemoteInvokeError(f,".onicecandidate() failed!");a.syncBarrierReject(f)})})};return b}(k.ProxyObject);a.IceCandidateEvent=x;var r=function(){function a(b,d){this.state_="new";this.candidates_=[];this.gatheringstateupdatecb_=void 0;this.pc_=b;this.gatheringstateupdatecb_=d}a.prototype.pushState=function(a){m.logger.log(this.pc_.user_friendly_id()+".onicegatheringstatechange: new state is "+a);this.state_=a;"gathering"==this.state_?(this.candidates_=[],this.postUpdate()):this.processRemaining()};
+a.prototype.addIceCandidate=function(a){var b=this;this.candidates_.push(a);var f=[];f.push(a.syncBarrier());f.push(this.pc_.updateSdpDescription(!0));Promise.all(f).then(function(a){m.logger.log(b.pc_.user_friendly_id()+".onicecandidate: icecandidate available!");b.postIceCandidate(a[0])})};a.prototype.postIceCandidate=function(a){m.logger.log(this.pc_.user_friendly_id()+".onicecandidate: posting ice candidate now!");if(null!=this.pc_.onicecandidate)this.pc_.onicecandidate(a);else m.logger.log(this.pc_.user_friendly_id()+
+"onicecandidate is NULL!!!");this.candidates_.shift();this.processRemaining()};a.prototype.postUpdate=function(){m.logger.log(this.pc_.user_friendly_id()+".onicegatheringstatechange: posting event now!");var a=new p("onicegatheringstatechange",this.pc_);this.gatheringstateupdatecb_&&this.gatheringstateupdatecb_(this.state_);this.pc_.onicegatheringstatechange(a)};a.prototype.processRemaining=function(){0==this.candidates_.length&&"complete"==this.state_?(this.pc_.onicecandidate({candidate:null,target:this}),
+this.postUpdate()):m.logger.log(this.pc_.user_friendly_id()+".onicecandidate: candidates remaining=["+this.candidates_.map(function(a){return a.object_id()})+"], state="+this.state_)};return a}(),A=function(){function a(){}a.toRtcIceServer=function(a,b){var f={urls:[],credential:"",username:""};a&&(a.urls?Array.isArray(a.urls)?f.urls=a.urls:f.urls.push(a.urls):m.logger.log("RtcIceServer.toRtcIceServer().urls property is missing! this is required property!"),a.credential&&(a.credential.hasOwnProperty("accessToken")?
+f.credential=a.credential.accessToken:f.credential=a.credential),a.username&&(f.username=a.username));if(1==b)for(var d in a)"urls"!=d&&"credential"!=d&&"username"!=d&&m.logger.log("RtcIceServer.toRtcIceServer() warning: unsupported property:"+d);return f};return a}();a.RtcIceServer=A;var M=function(){function a(){}a.toRtcConfiguration=function(a,b){1==b&&m.logger.log("RtcConfiguration.toRtcConfiguration() in RTCConfiguration config:"+JSON.stringify(a));var f={};if(a){if(a.iceServers){f.iceServers=
+[];for(var d=0,c=a.iceServers;d<c.length;d++)f.iceServers.push(A.toRtcIceServer(c[d],b))}a.iceTransportPolicy&&(f.iceTransportPolicy=a.iceTransportPolicy);a.bundlePolicy&&(f.bundlePolicy=a.bundlePolicy);a.rtcpMuxPolicy&&(f.rtcpMuxPolicy=a.rtcpMuxPolicy);a.iceTransports&&(f.iceTransports=a.iceTransports);a.sdpSemantics&&(f.sdpSemantics=a.sdpSemantics);a.enableDtlsSrtp&&(f.enableDtlsSrtp=a.enableDtlsSrtp);a.enableDscp&&(f.enableDscp=a.enableDscp)}if(1==b){for(var g in a)"iceServers"!=g&&"iceTransportPolicy"!=
+g&&"bundlePolicy"!=g&&"rtcpMuxPolicy"!=g&&"iceTransports"!=g&&"sdpSemantics"!=g&&"enableDtlsSrtp"!=g&&"enableDscp"!=g&&m.logger.log("RtcConfiguration.toRtcConfiguration() warning: unsupported property:"+g);m.logger.log("RtcConfiguration.toRtcConfiguration() converted RtcConfiguration config:"+JSON.stringify(f))}return f};return a}();a.RtcConfiguration=M;var F=function(){return function(a,b){this.sdp=b;this.type=a}}();a.SessionDescriptionInit=F;var l=function(a){function b(c,f,g){for(var r=[],m=3;m<
+arguments.length;m++)r[m-3]=arguments[m];return a.apply(this,d([c,t.class_id_t.RTCSessionDescription,f,g,null,[]],r))||this}e(b,a);b.prototype.toJSON=function(){return{type:this.type_,sdp:this.sdp_}};Object.defineProperty(b.prototype,"sdp",{get:function(){return this.sdp_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"type",{get:function(){return this.type_},enumerable:!1,configurable:!0});b.prototype.syncBarrier=function(){var a=this;m.logger.log(this.user_friendly_id()+".syncBarrier() called.");
+return new Promise(function(f,b){a.syncBarrierDeep(f,b)&&a.waitUntilConnected(a.user_friendly_id()+".syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,t.method_id_RTCSessionDescription_t.type,0),a.remoteInvoke(!1,t.method_id_RTCSessionDescription_t.sdp,"")])}).then(function(f){a.type_=a.convertType(a.param0(f[0]));a.sdp_=a.param0(f[1]);a.syncBarrierResolve(a)})["catch"](function(f){f=a.logRemoteInvokeError(f,".syncBarrier() failed!");a.syncBarrierReject(f)})})};b.prototype.convertType=
+function(a){return 0==a?"offer":1==a?"pranswer":2==a?"answer":"rollback"};b.convertC2H=function(a){return"offer"==a?0:"pranswer"==a?1:"answer"==a?2:3};return b}(k.ProxyObject);a.SessionDescription=l;var p=function(){return function(a,b){this.type=a;this.target=b}}(),L=function(){return function(){}}(),P=function(){function a(b,d){this.local=b;this.remote=d}Object.defineProperty(a.prototype,"active",{get:function(){var a=!1;if(1==this.local||1==this.remote)a=!0;return a},enumerable:!1,configurable:!0});
+return a}();b=function(a){function b(d){var f=a.call(this,null,t.class_id_t.RTCPeerConnection,0,k.ProxyMode.Local,null,[],b.ensure_config_defined(d,!1),{})||this;f.timeerstarted_=!1;f.firsttimeremoteoffer_=!1;f.firststable_=!1;f.firsttimelocaloffer_=!1;f.audiocall_=new P(!1,!1);f.videocall_=new P(!1,!1);f.screensharingcall_=new P(!1,!1);f.conferencecall_=!1;f.incomingcall_=!1;f.outgoingcall_=!1;f.usingasynconly_=!1;f.rtcconfig_=b.ensure_config_defined(d,!0);m.logger.log(f.user_friendly_id()+".constructor sdpSemantics="+
+f.rtcconfig_.sdpSemantics);if(!t.BUILD_TYPE_SDK&&f.isUnified()&&!w.getRedirector().getFeatureValue(t.FEATURE_ms_teams_webrtc_1dot0))throw new DOMException("CWA client does not support unified sdpSemantic","createPeerConnection");f.pendingtransceiver_=0;f.pendingtrack_=0;f.deferredOfferAnswers=[];f.localStreams=[];f.remoteStreams=[];f.onaddstream_=null;f.signalingState_="stable";f.iceConnectionState_="new";f.iceGatheringState_="new";f.iceQ_=new r(f,function(a){f.onicegatheringstateupdate(a)});f.receivers_=
+[];f.senders_=[];f.transceivers_=[];f.registerStateChangeNotification(f.onStateChange);f.localdatachannel_=null;f.remotedatachannel_=null;return f}e(b,a);b.ensure_config_defined=function(a,f){return M.toRtcConfiguration(a,f)};b.prototype.dumpSdp=function(a){m.logger.log(this.user_friendly_id()+".dumpSdp");a&&(m.logger.log(this.user_friendly_id()+"  -- type: "+a.type),m.logger.log(this.user_friendly_id()+"  -- sdp: "+a.sdp))};Object.defineProperty(b.prototype,"localDescription",{get:function(){m.logger.log(this.user_friendly_id()+
+".get_localDescription() called.");return this.localDescription_},set:function(a){m.logger.log(this.user_friendly_id()+".set_localDescription() called.");this.localDescription_=a},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"remoteDescription",{get:function(){m.logger.log(this.user_friendly_id()+".get_remoteDescription() called.");return this.remoteDescription_},set:function(a){m.logger.log(this.user_friendly_id()+".get_remoteDescription() called.");this.remoteDescription_=a},
+enumerable:!1,configurable:!0});b.prototype.isUnified=function(){return"unified"==this.rtcconfig_.sdpSemantics||"unified-plan"==this.rtcconfig_.sdpSemantics};b.prototype.onStateChange=function(){var a=new p("iceconnectionstatechange",this);if(this.oniceconnectionstatechange_)this.oniceconnectionstatechange_(a)};b.prototype.addIceCandidate=function(a){var f=this;m.logger.log(this.user_friendly_id()+".addIceCandidate() called.");this.waitUntilConnected(this.user_friendly_id()+".addIceCandidate").then(function(){var b=
+{candidate:a.candidate,sdpMid:a.sdpMid,sdpMLineIndex:a.sdpMLineIndex};if(void 0==b.candidate||null==b.candidate)b.candidate="";void 0==b.sdpMid&&(b.sdpMid=null);void 0==b.sdpMLineIndex&&(b.sdpMLineIndex=null);return(new v.IceCandidate(f,0,k.ProxyMode.Local,b)).syncBarrier()}).then(function(a){return f.remoteInvokeEx(!1,t.method_id_RTCPeerConnection_t.addIceCandidate,[a],{})}).then(function(){m.logger.log(f.user_friendly_id()+".addIceCandidate() success.");return f.updateSdpDescription(!1)}).then(function(){m.logger.log(f.user_friendly_id()+
+".addIceCandidate() - sync remote sdp success.")})["catch"](function(a){f.logRemoteInvokeError(a,".addIceCandidate() failed!")})};Object.defineProperty(b.prototype,"onicecandidate",{get:function(){return this.onicecandidate_},set:function(a){var f=this;m.logger.log(this.user_friendly_id()+".set_onicecandidate() called.");this.onicecandidate_=a;this.waitUntilConnected(this.user_friendly_id()+".onicecandidate").then(function(){var b=f.registerCallbacks(!1,f.isNullCallback(a),t.method_id_RTCPeerConnection_t.onicecandidate);
+b.then(function(a){m.logger.log(f.user_friendly_id()+".onicecandidate callback received!!!");a=new x(f,f.param0(a).oid,f);null!=f.iceQ_&&f.iceQ_.addIceCandidate(a)});return f.remoteInvoke(!0,t.method_id_RTCPeerConnection_t.onicecandidate,b.success)})["catch"](function(a){f.logRemoteInvokeError(a,".set_onicecandidate() failed!")})},enumerable:!1,configurable:!0});b.prototype.convertIceConnectionState=function(a){return 0==a?"new":1==a?"checking":2==a?"connected":3==a?"completed":4==a?"failed":5==a?
+"disconnected":"closed"};b.prototype.convertConnectionState=function(a){if(0!=a){if(1==a)return"connecting";if(2==a)return"connected";if(3==a)return"disconnected";if(4==a)return"failed";if(5==a)return"closed"}return"new"};Object.defineProperty(b.prototype,"onconnectionstatechange",{get:function(){return this.onconnectionstatechange_},set:function(a){var f=this;m.logger.log(this.user_friendly_id()+".set_onconnectionstatechange() called.");this.onconnectionstatechange_=a;this.waitUntilConnected(this.user_friendly_id()+
+".onconnectionstatechange").then(function(){var b=f.registerCallbacks(!1,f.isNullCallback(a),t.method_id_RTCPeerConnection_t.onconnectionstatechange);b.then(function(a){m.logger.log(f.user_friendly_id()+".onconnectionstatechange(): success callback received!!!");f.connectionState_=f.convertConnectionState(f.param0(a));m.logger.log(f.user_friendly_id()+" connectionState=:"+f.connectionState_);a=new p("connectionstatechange",f);if(f.onconnectionstatechange_)f.onconnectionstatechange_(a)});return f.remoteInvoke(!0,
+t.method_id_RTCPeerConnection_t.onconnectionstatechange,b.success)})["catch"](function(a){f.logRemoteInvokeError(a,".set_onconnectionstatechange() failed!")})},enumerable:!1,configurable:!0});b.prototype.get_connectionState=function(){m.logger.log(this.user_friendly_id()+".get_connectionState() called, value = "+this.connectionState_);return this.isRedirected()?this.connectionState_:"failed"};Object.defineProperty(b.prototype,"oniceconnectionstatechange",{get:function(){return this.oniceconnectionstatechange_},
+set:function(a){var f=this;m.logger.log(this.user_friendly_id()+".set_oniceconnectionstatechange() called.");this.oniceconnectionstatechange_=a;this.waitUntilConnected(this.user_friendly_id()+".oniceconnectionstatechange").then(function(){var b=f.registerCallbacks(!1,f.isNullCallback(a),t.method_id_RTCPeerConnection_t.oniceconnectionstatechange);b.then(function(a){m.logger.log(f.user_friendly_id()+".oniceconnectionstatechange(): success callback received!!!");f.iceConnectionState_=f.convertIceConnectionState(f.param0(a));
+a=new p("iceconnectionstatechange",f);if(f.oniceconnectionstatechange_)f.oniceconnectionstatechange_(a)});return f.remoteInvoke(!0,t.method_id_RTCPeerConnection_t.oniceconnectionstatechange,b.success)})["catch"](function(a){f.logRemoteInvokeError(a,".set_oniceconnectionstatechange() failed!")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"iceConnectionState",{get:function(){m.logger.log(this.user_friendly_id()+".get_iceConnectionState() called, value = "+this.iceConnectionState_);
+return this.isRedirected()?this.iceConnectionState_:"failed"},enumerable:!1,configurable:!0});b.prototype.convertIceGatheringState=function(a){return 0==a?"new":1==a?"gathering":"complete"};b.prototype.onicegatheringstateupdate=function(a){m.logger.log(this.user_friendly_id()+".onicegatheringstateupdate() current:"+this.iceGatheringState_+" updating to:"+a);this.iceGatheringState_=a;m.logger.log(this.user_friendly_id()+".onicegatheringstateupdate() after update: iceGatheringState_:"+this.iceGatheringState_)};
+Object.defineProperty(b.prototype,"onicegatheringstatechange",{get:function(){return this.onicegatheringstatechange_},set:function(a){var f=this;m.logger.log(this.user_friendly_id()+".set_onicegatheringstatechange() called.");this.onicegatheringstatechange_=a;this.waitUntilConnected(this.user_friendly_id()+".onicegatheringstatechange").then(function(){var b=f.registerCallbacks(!1,f.isNullCallback(a),t.method_id_RTCPeerConnection_t.onicegatheringstatechange);b.then(function(a){m.logger.log(f.user_friendly_id()+
+".onicegatheringstatechange(): callback received!!!");a=f.convertIceGatheringState(f.param0(a));null!=f.iceQ_&&f.iceQ_.pushState(a)});return f.remoteInvoke(!0,t.method_id_RTCPeerConnection_t.onicegatheringstatechange,b.success)})["catch"](function(a){f.logRemoteInvokeError(a,".set_onicegatheringstatechange() failed!")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"iceGatheringState",{get:function(){m.logger.log(this.user_friendly_id()+".get_iceGatheringState() called, value = "+
+this.iceGatheringState_);return this.iceGatheringState_},enumerable:!1,configurable:!0});b.prototype.convertSignalState=function(a){return 0==a?"stable":1==a?"have-local-offer":2==a?"have-local-pranswer":3==a?"have-remote-offer":4==a?"have-remote-pranswer":"closed"};b.prototype.TelemtryReadings_=function(){var a=this;"have-local-offer"==this.signalingState_&&0==this.firsttimelocaloffer_&&0==this.firsttimeremoteoffer_&&(this.outgoingcallstart_=(new Date).getTime(),0==this.outgoingcall_&&(this.SendTelemetryData(y.tel_key_PerfCallState,
+y.tel_CallState.active,1),this.SendTelemetryData(y.tel_key_PerfCallDirection,y.tel_CallDirection.outgoing,1),this.outgoingcall_=!0),this.firsttimelocaloffer_=!0);"have-remote-offer"==this.signalingState_&&0==this.firsttimeremoteoffer_&&0==this.firsttimelocaloffer_&&(this.incomingcallstart_=(new Date).getTime(),0==this.incomingcall_&&(this.SendTelemetryData(y.tel_key_PerfCallState,y.tel_CallState.active,1),this.SendTelemetryData(y.tel_key_PerfCallDirection,y.tel_CallDirection.incoming,1),this.incomingcall_=
+!0),this.firsttimeremoteoffer_=!0);"stable"==this.signalingState_&&0==this.firststable_&&(this.callstartTime_=(new Date).getTime(),this.firststable_=this.timeerstarted_=!0);if("stable"==this.signalingState_){for(var f=0,b=this.localStreams;f<b.length;f++){var d=b[f];1<=d.getAudioTracks().length&&0==this.audiocall_.local&&(this.SendTelemetryData(y.tel_key_PerfCallType,y.tel_CallType.audio,1),this.audiocall_.local=!0);d=d.getVideoTracks();if(1<=d.length)for(var c=0,g=d;c<g.length;c++)d=g[c],1==d.getSettings().deviceId.includes("display")?
+0==this.screensharingcall_.local&&(this.SendTelemetryData(y.tel_key_PerfCallType,y.tel_CallType.dshare,1),this.screensharingcall_.local=!0):0==this.videocall_.local&&(this.SendTelemetryData(y.tel_key_PerfCallType,y.tel_CallType.video,1),this.videocall_.local=!0)}f=0;for(b=this.remoteStreams;f<b.length;f++)if(d=b[f],1<=d.getAudioTracks().length&&0==this.audiocall_.remote&&(this.SendTelemetryData(y.tel_key_PerfCallType,y.tel_CallType.audio,1),this.audiocall_.remote=!0),c=d.getVideoTracks(),1<=c.length)for(d=
+0;d<c.length;d++)1==c[d].id.includes("applicationsharingVideo")?0==this.screensharingcall_.remote&&(this.SendTelemetryData(y.tel_key_PerfCallType,y.tel_CallType.dshare,1),this.screensharingcall_.remote=!0):0==this.videocall_.remote&&(this.SendTelemetryData(y.tel_key_PerfCallType,y.tel_CallType.video,1),this.videocall_.remote=!0);this.getReceiversAsync().then(function(f){2<f.length&&0==a.conferencecall_&&(a.SendTelemetryData(y.tel_key_PerfCallType,y.tel_CallType.multi,1),a.conferencecall_=!0)})}};
+Object.defineProperty(b.prototype,"onsignalingstatechange",{set:function(a){var f=this;m.logger.log(this.user_friendly_id()+".set_onsignalingstatechange() called.");this.onsignalingstatechange_=a;this.waitUntilConnected(this.user_friendly_id()+".onsignalingstatechanged").then(function(){var b=f.registerCallbacks(!1,f.isNullCallback(a),t.method_id_RTCPeerConnection_t.onsignalingstatechange);b.then(function(a){m.logger.log(f.user_friendly_id()+".onsignalingstatechange(): callback received!!!");f.signalingState_=
+f.convertSignalState(f.param0(a));a=new p("onsignalingstatechange",f);if(f.onsignalingstatechange_)f.onsignalingstatechange_(a);f.TelemtryReadings_()});return f.remoteInvoke(!0,t.method_id_RTCPeerConnection_t.onsignalingstatechange,b.success)})["catch"](function(a){f.logRemoteInvokeError(a,".set_onsignalingstatechange() failed!")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onsignalingstatechanged",{get:function(){return this.onsignalingstatechange_},enumerable:!1,configurable:!0});
+Object.defineProperty(b.prototype,"ontrack",{get:function(){return this.ontrack_},set:function(a){var f=this;m.logger.log(this.user_friendly_id()+".set_ontrack() called.");this.ontrack_=a;this.waitUntilConnected(this.user_friendly_id()+".ontrack").then(function(){var b=f.registerCallbacks(!1,f.isNullCallback(a),t.method_id_RTCPeerConnection_t.ontrack);b.then(function(a){return u(f,void 0,void 0,function(){var f,b,d,c,r,K,C,e,x,A,t,v=this;return h(this,function(h){m.logger.log(this.user_friendly_id()+
+".ontrack(): callback received!!!");f=new L;b=[];d=this.param0(a);void 0!=d.track&&!1===d.track.is_null&&(m.logger.log(this.user_friendly_id()+" adding a RemoteMediaTrack with oid:"+d.track.oid),c=new q.RemoteMediaTrack(this,d.track.oid),b.push(c.syncBarrier()));f.track=c;void 0!=d.receiver&&!1===d.receiver.is_null&&(r=this.receivers_.find(function(a){return a.object_id()===d.receiver.oid}),void 0===r&&(m.logger.log(this.user_friendly_id()+" adding a RtpReceiver with oid:"+d.receiver.oid),r=new n.RtpReceiver(this,
+d.receiver.oid,k.ProxyMode.Remote,this.isUnified(),c)),b.push(r.syncBarrier()));f.receiver=r;g.RemoteSession.isFeatureWebrtc1dot0Supported()&&void 0!=d.transceiver&&!1===d.transceiver.is_null&&(K=this.transceivers_.find(function(a){return a.object_id()===d.transceiver.oid}),void 0===K&&(m.logger.log(this.user_friendly_id()+" adding a RtpTransceiver with oid:"+d.transceiver.oid),K=new z.RtpTransceiver(this,d.transceiver.oid,k.ProxyMode.Remote,this.isUnified(),z.RtcRtpTransceiverDirection.inactive,
+r),this.transceivers_.push(K)),b.push(K.syncBarrier()));f.transceiver=K;f.streams=[];if(void 0!=d.streams)for(C=function(a){var d=e.remoteStreams.find(function(f){return!1===a.is_null&&f.object_id()===a.oid});void 0===d&&(m.logger.log(e.user_friendly_id()+" adding a RemoteStream with oid:"+a.oid),d=new q.RemoteStream(e,a.oid,k.ProxyMode.Remote),e.remoteStreams.push(d));b.push(d.syncBarrier());f.streams.push(d)},e=this,x=0,A=d.streams;x<A.length;x++)t=A[x],C(t);m.logger.log(this.user_friendly_id()+
+".ontrack(): .prop.syncBarrier start");Promise.all(b).then(function(){m.logger.log(v.user_friendly_id()+".ontrack(): notified!!! with evt: "+f);for(var a=0,b=f.streams;a<b.length;a++)b[a].toggleAudio(!1);if(v.ontrack_)v.ontrack_(f)})["catch"](function(a){v.logRemoteInvokeError(a,".ontrack(): .prop.syncBarrier failed.")});return[2]})})});return f.remoteInvoke(!0,t.method_id_RTCPeerConnection_t.ontrack,b.success)})["catch"](function(a){f.logRemoteInvokeError(a,".set_ontrack(): failed.")})},enumerable:!1,
+configurable:!0});Object.defineProperty(b.prototype,"signalingState",{get:function(){m.logger.log(this.user_friendly_id()+".get_signalingState() called, value = "+this.signalingState_);return this.signalingState_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onnegotiationneeded",{get:function(){return this.onnegotiationneeded_},set:function(a){var f=this;m.logger.log(this.user_friendly_id()+".set_onnegotiationneeded() called.");this.onnegotiationneeded_=a;this.waitUntilConnected(this.user_friendly_id()+
+".onnegotiationneeded").then(function(){var b=f.registerCallbacks(!1,f.isNullCallback(a),t.method_id_RTCPeerConnection_t.onnegotiationneeded);b.then(function(){m.logger.log(f.user_friendly_id()+".onnegotiationneeded(): callback received!!!");var a=new p("negotiationneeded",f);if(f.onnegotiationneeded_)f.onnegotiationneeded_(a)});return f.remoteInvoke(!0,t.method_id_RTCPeerConnection_t.onnegotiationneeded,b.success)})["catch"](function(a){f.logRemoteInvokeError(a,".set_onnegotiationneeded(): failed.")})},
+enumerable:!1,configurable:!0});b.prototype.dumpConstraints=function(a){m.logger.log(this.user_friendly_id()+"constraints: "+a);void 0!==a&&0!==Object.keys(a).length||m.logger.log(this.user_friendly_id()+"constraints either undefined or empty!");a&&(m.logger.log(this.user_friendly_id()+"  -- video: "+a.offerToReceiveVideo),m.logger.log(this.user_friendly_id()+"  -- audio: "+a.offerToReceiveAudio),m.logger.log(this.user_friendly_id()+"  -- iceRestart: "+a.iceRestart),m.logger.log(this.user_friendly_id()+
+"  -- voiceActivityDetection: "+a.voiceActivityDetection))};b.prototype.fix_constraints=function(a){this.dumpConstraints(a);var f={};this.isUnified()||(f={audio:!0,video:!0});if(a){if(void 0!==a.video||void 0!==a.offerToReceiveVideo)f.video=a.offerToReceiveVideo;if(void 0!==a.audio||void 0!==a.offerToReceiveAudio)f.audio=a.offerToReceiveAudio;void 0!==a.iceRestart&&(f.iceRestart=a.iceRestart);void 0!==a.voiceActivityDetection&&(f.voiceActivityDetection=a.voiceActivityDetection)}return f};b.prototype.createOffer=
+function(a,f,b){m.logger.log(this.user_friendly_id()+".createOffer() called.",JSON.stringify(a));return this.isUnified()?void 0==a?this.createOffer_v2():a?this.createOffer_v2(a):this.createOffer_v1(a,f,b):this.createOffer_v1(a,f,b)};b.prototype.createOffer_v2=function(a){var f=this;m.logger.log(this.user_friendly_id()+".createOffer_v2() called.",JSON.stringify(a));return new Promise(function(b,d){f.createOffer_v1(function(a){m.logger.log(f.user_friendly_id()+".createOffer_v2(): got sdp!!!",JSON.stringify(a));
+a=new F(a.type,a.sdp);b(a)},function(a){void 0!=a&&(a=f.logRemoteInvokeError(a,".createOffer_v2() failed."),d(a))},a)})};b.prototype.createOffer_v1=function(a,f,b){var d=this;m.logger.log(this.user_friendly_id()+".createOffer_v1().",JSON.stringify(b));var c=[this.waitUntilConnected(this.user_friendly_id()+".createOffer_v1"),this.waitTransceiverAndTrackReady(this.user_friendly_id()+".createOffer_v1")];Promise.all(c).then(function(){var a=d.registerCallbacks(!0,!1,t.method_id_RTCPeerConnection_t.createOffer);
+d.remoteInvoke(!1,t.method_id_RTCPeerConnection_t.createOffer,a.success,a.fail,d.fix_constraints(b));return a.prom()}).then(function(a){m.logger.log(d.user_friendly_id()+".createOffer_v1(): success callback received!!!");return(new l(d,d.param0(a).oid,k.ProxyMode.Remote)).syncBarrier()}).then(function(f){a&&a(f)})["catch"](function(a){void 0!=a&&(a=d.logRemoteInvokeError(a,".createOffer_v1() failed."),f&&f(a))})};b.prototype.createAnswer=function(a,f,b){m.logger.log(this.user_friendly_id()+".createAnswer() called.",
+JSON.stringify(a));return this.isUnified()?void 0==a?this.createAnswer_v2():a?this.createAnswer_v2(a):this.createAnswer_v1(a,f,b):this.createAnswer_v1(a,f,b)};b.prototype.createAnswer_v2=function(a){var f=this;m.logger.log(this.user_friendly_id()+".createAnswer_v2() called.",JSON.stringify(a));return new Promise(function(b,d){f.createAnswer_v1(function(a){m.logger.log(f.user_friendly_id()+".createAnswer_v2(): got sdp!!!",JSON.stringify(a));a=new F(a.type,a.sdp);b(a)},function(a){void 0!=a&&(a=f.logRemoteInvokeError(a,
+".createAnswer_v2() failed."),d(a))},a)})};b.prototype.createAnswer_v1=function(a,f,b){var d=this;m.logger.log(this.user_friendly_id()+".createAnswer_v1() called.",JSON.stringify(b));var c=[this.waitUntilConnected(this.user_friendly_id()+".createAnswer_v1"),this.waitTransceiverAndTrackReady(this.user_friendly_id()+".createAnswer_v1")];Promise.all(c).then(function(){var a=d.registerCallbacks(!0,!1,t.method_id_RTCPeerConnection_t.createAnswer);d.remoteInvoke(!1,t.method_id_RTCPeerConnection_t.createAnswer,
+a.success,a.fail,d.fix_constraints(b),{});return a.prom()}).then(function(a){m.logger.log(d.user_friendly_id()+".createAnswer_v1(): success callback received!!!");return(new l(d,d.param0(a).oid,k.ProxyMode.Remote)).syncBarrier()}).then(function(f){a&&a(f)})["catch"](function(a){a=d.logRemoteInvokeError(a,".createAnswer_v1() failed.");f&&f(a.message)})};b.prototype.updateSdpDescription=function(a){m.logger.log(this.user_friendly_id()+".updateSdpDescription() called.");var f=this;return new Promise(function(b,
+d){var c=[];1==a?c.push(f.remoteInvoke(!1,t.method_id_RTCPeerConnection_t.localDescription,{oid:0})):c.push(f.remoteInvoke(!1,t.method_id_RTCPeerConnection_t.remoteDescription,{oid:0}));Promise.all(c).then(function(a){m.logger.log(f.user_friendly_id()+".updateSdpDescription() resolved.");return(new l(f,f.param0(a[0]).oid,k.ProxyMode.Remote)).syncBarrier()}).then(function(d){1==a?f.localDescription_=d:f.remoteDescription_=d;m.logger.log(f.user_friendly_id()+".updateSdpDescription() updated sdp");b()})["catch"](function(a){f.logRemoteInvokeError(a,
+"sdp.syncBarrier() failed!");d()})})};b.prototype.sdpToString=function(a){var f="",b=0;for(a=a?a.split(/\r?\n/):[];b<a.length;b++){var d=a[b];-1!=d.indexOf("m=",0)?f+=d+"\\r\\n":-1!=d.indexOf("o=-",0)?f+=d+"\\r\\n":-1!=d.indexOf("a=ssrc",0)&&(f+=d+"\\r\\n")}return f};b.prototype.setLocalDescription=function(a,f,b){m.logger.log(this.user_friendly_id()+".setLocalDescription() called.",this.sdpToString(a.sdp));if(a instanceof F)return this.setLocalDescription_v2(a);if(a instanceof RTCSessionDescription&&
+f)return this.setLocalDescription_v1(a,f,b);f=void 0;a?f=new F(a.type,a.sdp):(m.logger.log(this.user_friendly_id()+".setLocalDescription() empty param1, setting sdp type to rollback"),a=void 0,a="have-remote-offer"==this.signalingState_?"answer":"have-local-pranswer"==this.signalingState_||"have-remote-pranswer"==this.signalingState_?"pranswer":"offer",f=new F(a,""));return this.setLocalDescription_v2(f)};b.prototype.setLocalDescription_v2=function(a){var f=this;m.logger.log(this.user_friendly_id()+
+".setLocalDescription_v2() called.");return new Promise(function(b,d){f.waitUntilConnected(f.user_friendly_id()+".setLocalDescription_v2").then(function(){return(new l(f,0,k.ProxyMode.Local,{type:l.convertC2H(a.type),sdp:a.sdp})).syncBarrier()}).then(function(c){var g=f.registerCallbacks(!0,!1,t.method_id_RTCPeerConnection_t.setLocalDescription_v2),r={type:l.convertC2H(a.type),sdp:a.sdp};f.remoteInvoke(!1,t.method_id_RTCPeerConnection_t.setLocalDescription_v2,r,g.success,g.fail);g.prom().then(function(){m.logger.log(f.user_friendly_id()+
+".setLocalDescription_v2(): success callback received!!!");f.localDescription_=c;m.logger.log(f.user_friendly_id()+".setLocalDescription_v2(): updated localDescription_");Promise.all([]).then(function(){m.logger.log(f.user_friendly_id()+".setLocalDescription_v2() success.");b()})["catch"](function(a){a=f.logRemoteInvokeError(a,".prop.setLocalDescription_v2() failed!");d(a)})})["catch"](function(a){a=f.logRemoteInvokeError(a,"setLocalDescription_v2() error callback received!");d(a)})})["catch"](function(a){a=
+f.logRemoteInvokeError(a,".setLocalDescription_v2() failed.");d(a)})})};b.prototype.setLocalDescription_v1=function(a,f,b){var d=this;m.logger.log(this.user_friendly_id()+".setLocalDescription_v1() called.");this.waitUntilConnected(this.user_friendly_id()+".setLocalDescription_v1").then(function(){return(new l(d,0,k.ProxyMode.Local,{type:l.convertC2H(a.type),sdp:a.sdp})).syncBarrier()}).then(function(a){var c=d.registerCallbacks(!0,!1,t.method_id_RTCPeerConnection_t.setLocalDescription);d.remoteInvokeEx(!1,
+t.method_id_RTCPeerConnection_t.setLocalDescription,[a],c.success,c.fail);c.prom().then(function(){m.logger.log(d.user_friendly_id()+".setLocalDescription_v1(): success callback received!!!");d.localDescription_=a;m.logger.log(d.user_friendly_id()+".setLocalDescription_v1(): updated localDescription_");Promise.all([]).then(function(){m.logger.log(d.user_friendly_id()+".setLocalDescription_v1() success.");f&&f()})["catch"](function(a){a=d.logRemoteInvokeError(a,".prop.setLocalDescription_v1() failed.");
+b&&b(a.message)})})["catch"](function(a){a=d.logRemoteInvokeError(a,".setLocalDescription_v1() error callback received.");b&&b(a.message)})})["catch"](function(a){a=d.logRemoteInvokeError(a,".setLocalDescription_v1() failed.");b&&b(a.message)})};b.prototype.setRemoteDescription=function(a,f,b){m.logger.log(this.user_friendly_id()+".setRemoteDescription() called.",this.sdpToString(a.sdp));if(a instanceof F)return this.setRemoteDescription_v2(a);if(a instanceof RTCSessionDescription&&f)return this.setRemoteDescription_v1(a,
+f,b);f=void 0;a?f=new F(a.type,a.sdp):(m.logger.log(this.user_friendly_id()+".setRemoteDescription() empty param1, setting sdp type to rollback"),a=void 0,a="have-remote-offer"==this.signalingState_?"answer":"have-local-pranswer"==this.signalingState_||"have-remote-pranswer"==this.signalingState_?"pranswer":"offer",f=new F(a,""));return this.setRemoteDescription_v2(f)};b.prototype.setRemoteDescription_v2=function(a){var f=this;m.logger.log(this.user_friendly_id()+".setRemoteDescription_v2() called.");
+return new Promise(function(b,d){f.waitUntilConnected(f.user_friendly_id()+".setRemoteDescription_v2").then(function(){var c=new l(f,0,k.ProxyMode.Local,{type:l.convertC2H(a.type),sdp:a.sdp}),g=[];g.push(c.syncBarrier());var c=f.registerCallbacks(!0,!1,t.method_id_RTCPeerConnection_t.setRemoteDescription_v2),r={type:l.convertC2H(a.type),sdp:a.sdp};f.remoteInvoke(!1,t.method_id_RTCPeerConnection_t.setRemoteDescription_v2,r,c.success,c.fail);g.push(c.prom());Promise.all(g).then(function(a){m.logger.log(f.user_friendly_id()+
+".setRemoteDescription_v2(): remote success.");f.remoteDescription_=a[0];g=[];f.usingasynconly_||(f.isUnified()?g.push(f.getTransceiversAsync()):g.push(f.getSendersAsync()));Promise.all(g).then(function(a){m.logger.log(f.user_friendly_id()+".setRemoteDescription_v2(): final success.");b()})["catch"](function(a){a=f.logRemoteInvokeError(a,".prop.setRemoteDescription_v2() final failed.");d(a)})})["catch"](function(a){a=f.logRemoteInvokeError(a,".prop.setRemoteDescription_v2() remote failed.");d(a)})})["catch"](function(a){a=
+f.logRemoteInvokeError(a,".setRemoteDescription_v2() failed.");d(a)})})};b.prototype.setRemoteDescription_v1=function(a,f,b){var d=this;m.logger.log(this.user_friendly_id()+".setRemoteDescription_v1() called.");this.waitUntilConnected(this.user_friendly_id()+".setRemoteDescription_v1").then(function(){return(new l(d,0,k.ProxyMode.Local,{type:l.convertC2H(a.type),sdp:a.sdp})).syncBarrier()}).then(function(a){var c=d.registerCallbacks(!0,!1,t.method_id_RTCPeerConnection_t.setRemoteDescription);d.remoteInvokeEx(!1,
+t.method_id_RTCPeerConnection_t.setRemoteDescription,[a],c.success,c.fail);c.prom().then(function(){m.logger.log(d.user_friendly_id()+".setRemoteDescription_v1(): success callback received!!!");d.remoteDescription_=a;m.logger.log(d.user_friendly_id()+".setRemoteDescription_v1(): updated remoteDescription_");var c=[];d.usingasynconly_||(d.isUnified()?c.push(d.getTransceiversAsync()):c.push(d.getSendersAsync()));Promise.all(c).then(function(){m.logger.log(d.user_friendly_id()+".setRemoteDescription_v1(): success.");
+f&&f()})["catch"](function(a){a=d.logRemoteInvokeError(a,".prop.setRemoteDescription_v1() failed.");b&&b(a.message)})})})["catch"](function(a){a=d.logRemoteInvokeError(a,".setRemoteDescription_v1() failed.");b&&b(a.message)})};b.prototype.getLocalStreams=function(){m.logger.log("PeerConnection.getLocalStreams() called. [oid="+this.object_id()+"]");for(var a=0,f=this.localStreams;a<f.length;a++)m.logger.log(JSON.stringify(f[a]));return this.localStreams};b.prototype.getRemoteStreams=function(){m.logger.log(this.user_friendly_id()+
+".getRemoteStreams() called.");for(var a=0,f=this.remoteStreams;a<f.length;a++)m.logger.log(JSON.stringify(f[a]));return this.remoteStreams};b.prototype.addTrack=function(a,f){return this.addTrackInternal(a,f,!1)};b.prototype.addTrackAsync=function(a,f){return this.addTrackInternal(a,f,!0)};b.prototype.addTrackInternal=function(a,f,b){var d=this;m.logger.log(this.user_friendly_id()+".addTrackInternal() called. track.id = "+a.id+", streams = "+JSON.stringify(f)+", isAsync = "+b);this.incrementPendingTrackCount();
+var c=[];if(f)if(f instanceof q.RemoteStream)c.push(f.id),this.localStreams.push(f);else for(var g=0;g<f.length;g++)c.push(f[g].id),this.localStreams.push(f[g]);else m.logger.log(this.user_friendly_id()+".addTrackInternal() empty streams passed in, continue with empty array");var r=new n.RtpSender(this,0,k.ProxyMode.Pseudo,this.isUnified());this.senders_.push(r);f=new Promise(function(f,b){d.waitUntilConnected(d.user_friendly_id()+".addTrackInternal").then(function(){return d.remoteInvokeEx(!1,t.method_id_RTCPeerConnection_t.addTrack,
+[a],c)}).then(function(a){m.logger.log(d.user_friendly_id()+".addTrackInternal() success with oid: "+d.param0(a).oid);r.bind(d,d.param0(a).oid);r.syncBarrier().then(function(){m.logger.log(d.user_friendly_id()+"sender.syncBarrier(): success");!d.usingasynconly_&&d.isUnified()?d.getTransceiversAsync().then(function(){d.decrementPendingTrackCount();f(r)})["catch"](function(a){d.logRemoteInvokeError(a,".addTrackInternal() getTransceiversAsync() failed!");d.decrementPendingTrackCount();b()}):(d.decrementPendingTrackCount(),
+f(r))})["catch"](function(a){d.logRemoteInvokeError(a,"sender.syncBarrier() failed!");d.decrementPendingTrackCount();b()})})["catch"](function(a){d.logRemoteInvokeError(a,"addTrack() failed!");d.decrementPendingTrackCount();b()})});if(b)return f;m.logger.log(this.user_friendly_id()+".addTrack() returning: "+r);return r};b.prototype.removeTrack=function(a){m.logger.log(this.user_friendly_id()+".removeTrack() called.");this.removeTrackAsync(a)};b.prototype.removeTrackAsync=function(a){var f=this;m.logger.log(this.user_friendly_id()+
+".removeTrackAsync() called.");this.incrementPendingTrackCount();for(var b=0;b<this.senders_.length;b++)this.senders_[b]==a&&this.senders_.splice(b,1);return new Promise(function(b,d){f.waitUntilConnected(f.user_friendly_id()+".removeTrackAsync").then(function(){return f.remoteInvokeEx(!1,t.method_id_RTCPeerConnection_t.removeTrack,[a])}).then(function(){m.logger.log(f.user_friendly_id()+".removeTrackAsync() success.");!f.usingasynconly_&&f.isUnified()?f.getTransceiversAsync().then(function(){f.decrementPendingTrackCount();
+b()})["catch"](function(a){f.logRemoteInvokeError(a,"removeTrackAsync() getTransceiversAsync() failed!");f.decrementPendingTrackCount();d(a)}):(f.decrementPendingTrackCount(),b())})["catch"](function(a){f.logRemoteInvokeError(a,"removeTrackAsync() failed!");f.decrementPendingTrackCount();d(a)})})};b.prototype.addStream=function(a){var b=this;m.logger.log(this.user_friendly_id()+".addStream() called: "+JSON.stringify(a));this.localStreams.push(a);this.waitUntilConnected(this.user_friendly_id()+".addStream").then(function(){return b.remoteInvokeEx(!1,
+t.method_id_RTCPeerConnection_t.addStream,[a],{})}).then(function(){m.logger.log(b.user_friendly_id()+".addStream() success.")})["catch"](function(a){b.logRemoteInvokeError(a,"addStream() failed.")})};b.prototype.removeStream=function(a){var b=this;m.logger.log(this.user_friendly_id()+".removeStream() called: "+JSON.stringify(a));for(var d=0;d<this.localStreams.length;d++)this.localStreams[d]==a&&this.localStreams.splice(d,1);this.waitUntilConnected(this.user_friendly_id()+".removeStream").then(function(){return b.remoteInvokeEx(!1,
+t.method_id_RTCPeerConnection_t.removeStream,[a])}).then(function(){m.logger.log(b.user_friendly_id()+".removeStream() success.")})["catch"](function(a){b.logRemoteInvokeError(a,"removeStream() failed.")})};Object.defineProperty(b.prototype,"onaddstream",{get:function(){return this.onaddstream_},set:function(a){var b=this;m.logger.log(this.user_friendly_id()+".set_onaddstream() called.");this.onaddstream_=a;this.waitUntilConnected(this.user_friendly_id()+".onaddstream").then(function(){var d=b.registerCallbacks(!1,
+b.isNullCallback(a),t.method_id_RTCPeerConnection_t.onaddstream);d.then(function(a){(new q.RemoteStreamEvent(b,b.param0(a).oid)).syncBarrier().then(function(a){m.logger.log(b.user_friendly_id()+".onaddstream callback received!");void 0===b.remoteStreams.find(function(b){return void 0!=a.stream&&b.object_id()===a.stream.object_id()})&&b.remoteStreams.push(a.stream);b.onaddstream_&&(m.logger.log(b.user_friendly_id()+".onaddstream notified!!! "+a.stream.id),b.onaddstream_(a))})});return b.remoteInvoke(!0,
+t.method_id_RTCPeerConnection_t.onaddstream,d.success)})["catch"](function(a){b.logRemoteInvokeError(a,"set_onaddstream() failed!")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onremovestream",{get:function(){return this.onremovestream_},set:function(a){var b=this;m.logger.log(this.user_friendly_id()+".set_onremovestream() called.");this.onremovestream_=a;this.waitUntilConnected(this.user_friendly_id()+".onremovestream").then(function(){var d=b.registerCallbacks(!1,b.isNullCallback(a),
+t.method_id_RTCPeerConnection_t.onremovestream);d.then(function(a){(new q.RemoteStreamEvent(b,b.param0(a).oid)).syncBarrier().then(function(a){m.logger.log(b.user_friendly_id()+".onremovestream callback received! "+a.stream.id);var d=b.remoteStreams.findIndex(function(b){return b.id==a.stream.id});0<=d&&b.remoteStreams.splice(d,1);if(b.onremovestream_)b.onremovestream_(a)})});return b.remoteInvoke(!0,t.method_id_RTCPeerConnection_t.onremovestream,d.success)})["catch"](function(a){b.logRemoteInvokeError(a,
+"set_onremovestream() failed!")})},enumerable:!1,configurable:!0});b.prototype.getStats=function(a){var b=this;return new Promise(function(d,c){b.isRedirected()?b.waitUntilConnected(b.user_friendly_id()+".getStats").then(function(){var c=b.registerCallbacks(!0,!1,t.method_id_RTCPeerConnection_t.getStats);c.then(function(b){void 0===b.params||0===b.params.length||0===b.params[0].length?d():a?(a(D.StatsReport.fromJSON(JSON.parse(b.params[0]))),d()):d(D.StatsReport.toRTCStatsReport(JSON.parse(b.params[0])))});
+return a?b.remoteInvoke(!1,t.method_id_RTCPeerConnection_t.getStats,c.success):b.remoteInvoke(!1,t.method_id_RTCPeerConnection_t.getStats_v2,c.success)})["catch"](function(a){b&&(a=b.logRemoteInvokeError(a,".getStats() failed!"),c(a))}):(a({}),d())})};b.prototype.SendTelemetryData=function(a,b,d){w.getRedirector().telemetry.SendTelemetryData(y.tel_cmd.Data,a,b,d)};b.prototype.MillisecondstoDisplayformat_=function(a){var b,d;d=Math.floor(a/1E3);b=Math.floor(d/60);a=Math.floor(b/60);m.logger.log(Math.floor(a/
+24)+":"+a%24+":"+b%60+":"+d%60)};b.prototype.CalculateCallDurationandType_=function(){if(1==this.timeerstarted_){this.timeerstarted_=!1;this.callendTime_=(new Date).getTime();var a=this.callendTime_-this.callstartTime_;this.MillisecondstoDisplayformat_(a);a=Math.round(a/1E3);m.logger.log("Call Duration "+a);1==this.conferencecall_?this.SendTelemetryData(y.tel_key_ConferenceCallDuration,a,1):(1==this.audiocall_.active&&this.SendTelemetryData(y.tel_key_AudioCallDuration,a,1),1==this.videocall_.active&&
+this.SendTelemetryData(y.tel_key_VideoCallDuration,a,1),1==this.screensharingcall_.active&&this.SendTelemetryData(y.tel_key_ScreensharingCallDuration,a,1));var b;1==this.firsttimelocaloffer_&&(b=this.callstartTime_-this.outgoingcallstart_);1==this.firsttimeremoteoffer_&&(b=this.callstartTime_-this.incomingcallstart_);this.MillisecondstoDisplayformat_(b);b=Math.round(b/1E3);m.logger.log("Call Establish Time "+b);1==this.incomingcall_?this.SendTelemetryData(y.tel_key_CallEstIncoming,b,1):1==this.outgoingcall_&&
+this.SendTelemetryData(y.tel_key_CallEstOutgoing,b,1);this.SendTelemetryData(y.tel_key_PerfCallState,y.tel_CallState.idle,1)}};b.prototype.close=function(){var a=this;m.logger.log(this.user_friendly_id()+".close() called.");this.CalculateCallDurationandType_();this.unregisterStateChangeNotification(this.onStateChange);this.onnegotiationneeded=this.onsignalingstatechange=this.onicegatheringstatechange=this.oniceconnectionstatechange=this.onicecandidate=this.onaddstream=null;this.waitUntilConnected(this.user_friendly_id()+
+".close").then(function(){return a.remoteInvoke(!1,t.method_id_RTCPeerConnection_t.close)}).then(function(){a.iceQ_=null;a.release();m.logger.log(a.user_friendly_id()+".close() success.")})["catch"](function(b){a.logRemoteInvokeError(b,".close() failed.");a.iceQ_=null;a.release()})};b.prototype.createDTMFSender=function(a){m.logger.log(this.user_friendly_id()+".createDTMFSender() called.");var b,d=this.senders_;if(void 0===d||0===d.length)d=this.getSenders();void 0!=d&&(d=d.find(function(b){return b.track.id===
+a.id}),void 0!=d&&(m.logger.log(this.user_friendly_id()+" returning RtpSender with oid:"+d.object_id()),b=d.dtmf));return b};Object.defineProperty(b.prototype,"usingAsyncOnly",{get:function(){return this.usingasynconly_},set:function(a){m.logger.log(this.user_friendly_id()+".usingAsyncOnly() called with async:"+a);void 0!=a&&null!=a&&(this.usingasynconly_=a)},enumerable:!1,configurable:!0});b.prototype.getSendersAsync=function(){m.logger.log(this.user_friendly_id()+".getSendersAsync() called.");return this.getSendersAsyncInternal()};
+b.prototype.getSenders=function(){m.logger.log(this.user_friendly_id()+".getSenders() called. ");if(this.usingasynconly_)throw m.logger.log(this.user_friendly_id()+".getSenders(): throwing exception: not allowed when usingAsyncOnly is true!!!"),new DOMException(".getSenders() not allowed when usingAsyncOnly is true!!!");this.getSendersAsyncInternal();m.logger.log(this.user_friendly_id()+".getSenders() returning:"+this.senders_.length+" items");return this.senders_};b.prototype.getSendersAsyncInternal=
+function(){var a=this;m.logger.log(this.user_friendly_id()+".getSendersAsyncInternal() called. "+this.senders_);return new Promise(function(b,d){a.waitUntilConnected(a.user_friendly_id()+".getSendersAsyncInternal").then(function(){m.logger.log(a.user_friendly_id()+".getSendersAsyncInternal invoking remote");return a.remoteInvoke(!1,t.method_id_RTCPeerConnection_t.getSenders)}).then(function(d){m.logger.log(a.user_friendly_id()+".getSendersAsyncInternal remote success");var c=[],g=[];d.params[0].forEach(function(b){var f=
+a.senders_.find(function(a){return a.object_id()===b.oid});void 0===f&&(m.logger.log(a.user_friendly_id()+" adding a RtpSender with oid:"+b.oid),f=new n.RtpSender(a,b.oid,k.ProxyMode.Remote,a.isUnified()));g.push(f.syncBarrier());c.push(f)});Promise.all(g).then(function(){a.senders_=c;m.logger.log(a.user_friendly_id()+".getSendersAsyncInternal: returning senders with ids ["+a.senders_.map(function(a){return a.object_id()})+"]");b(a.senders_)})["catch"](function(d){a.logRemoteInvokeError(d,".prop.getSendersAsyncInternal() failed.");
+a.senders_=[];b(a.senders_)})})["catch"](function(d){a.logRemoteInvokeError(d,".getSendersAsyncInternal() failed.");a.senders_=[];b(a.senders_)})})};b.prototype.getReceiversAsync=function(){m.logger.log(this.user_friendly_id()+".getReceiversAsync() called.");return this.getReceiversAsyncInternal()};b.prototype.getReceivers=function(){m.logger.log(this.user_friendly_id()+".getReceivers() called. ");if(this.usingasynconly_)throw m.logger.log(this.user_friendly_id()+".getReceivers(): throwing exception: not allowed when usingAsyncOnly is true!!!"),
+new DOMException(".getReceivers() not allowed when usingAsyncOnly is true!!!");this.getReceiversAsyncInternal();m.logger.log(this.user_friendly_id()+".getReceivers() returning:"+this.receivers_.length+" items");return this.receivers_};b.prototype.getReceiversAsyncInternal=function(){var a=this;m.logger.log(this.user_friendly_id()+".getReceiversAsyncInternal() called. "+this.receivers_);return new Promise(function(b,d){a.waitUntilConnected(a.user_friendly_id()+".getReceiversAsyncInternal").then(function(){return a.remoteInvoke(!1,
+t.method_id_RTCPeerConnection_t.getReceivers)}).then(function(d){m.logger.log(a.user_friendly_id()+".getReceiversAsyncInternal: remote success.");var c=[],g=[];d.params[0].forEach(function(b){var f=a.receivers_.find(function(a){return a.object_id()===b.oid});void 0===f&&(m.logger.log(a.user_friendly_id()+" adding a RtpReceiver with oid:"+b.oid),f=new n.RtpReceiver(a,b.oid,k.ProxyMode.Remote,a.isUnified()));g.push(f.syncBarrier());c.push(f)});Promise.all(g).then(function(){a.receivers_=c;m.logger.log(a.user_friendly_id()+
+".getReceiversAsyncInternal: returning receiver with ids ["+a.receivers_.map(function(a){return a.object_id()})+"]");b(a.receivers_)})["catch"](function(d){a.logRemoteInvokeError(d,".prop.getReceiversAsyncInternal() failed!");a.receivers_=[];b(a.receivers_)})})["catch"](function(d){a.logRemoteInvokeError(d,".getReceiversAsyncInternal() failed!");a.receivers_=[];b(a.receivers_)})})};b.prototype.addTransceiver=function(a,b){m.logger.log(this.user_friendly_id()+".addTransceiver() called: "+JSON.stringify(a)+
+" init="+JSON.stringify(b));return this.addTransceiverInternal(a,b,!1)};b.prototype.addTransceiverAsync=function(a,b){m.logger.log(this.user_friendly_id()+".addTransceiverAsync() called: "+JSON.stringify(a)+" init="+JSON.stringify(b));return this.addTransceiverInternal(a,b,!0)};b.prototype.addTransceiverInternal=function(a,b,d){var c=this;m.logger.log(this.user_friendly_id()+".addTransceiverInternal() called: "+JSON.stringify(a)+" init="+JSON.stringify(b));this.incrementPendingTransceiverCount();
+var r=z.RtcRtpTransceiverDirection.sendrecv,e=void 0;b&&(e=z.RtcRtpTransceiverInit.toRtcRtpTransceiverInit(b),e.direction&&(r=e.direction));var C=b;g.RemoteSession.isFeatureCallConstraintsSupported()&&(C=e);var x=new z.RtpTransceiver(this,0,k.ProxyMode.Pseudo,this.isUnified(),r);this.transceivers_.push(x);b=new Promise(function(b,f){c.waitUntilConnected(c.user_friendly_id()+".addTransceiverInternal").then(function(){return"string"===typeof a?c.remoteInvoke(!1,t.method_id_RTCPeerConnection_t.addTransceiverWithKind,
+a,C):c.remoteInvokeEx(!1,t.method_id_RTCPeerConnection_t.addTransceiverWithTrack,[a],C)}).then(function(a){m.logger.log(c.user_friendly_id()+".addTransceiverInternal() success with oid: "+c.param0(a).oid);x.bind(c,c.param0(a).oid);x.syncBarrier().then(function(){m.logger.log(c.user_friendly_id()+".addTransceiverInternal(): success");c.decrementPendingTransceiverCount();b(x)})["catch"](function(a){c.logRemoteInvokeError(a,".prop.addTransceiverInternal() failed!");c.decrementPendingTransceiverCount();
+f()})})["catch"](function(a){c.logRemoteInvokeError(a,"addTransceiverInternal() failed!");c.decrementPendingTransceiverCount();f()})});m.logger.log(this.user_friendly_id()+".addTransceiverInternal() returning:");return d?b:x};b.prototype.incrementPendingTransceiverCount=function(){++this.pendingtransceiver_};b.prototype.decrementPendingTransceiverCount=function(){0<this.pendingtransceiver_&&--this.pendingtransceiver_};b.prototype.incrementPendingTrackCount=function(){++this.pendingtrack_};b.prototype.decrementPendingTrackCount=
+function(){0<this.pendingtrack_&&--this.pendingtrack_};b.prototype.waitTransceiverAndTrackReady=function(a){var b=this;return new Promise(function(d,c){m.logger.trace(b.user_friendly_id()+".waitTransceiverAndTrackReady(): pendingtransceiver_="+b.pendingtransceiver_+", pendingtrack_="+b.pendingtrack_);if(0==b.pendingtransceiver_&&0==b.pendingtrack_){for(;b.deferredOfferAnswers&&0<b.deferredOfferAnswers.length;)b.deferredOfferAnswers.shift().post(!0);d()}else b.deferredOfferAnswers.push(new k.deferred_action(d,
+c,a)),b.checkTransceiverAndTrack(600,25)})};b.prototype.checkTransceiverAndTrack=function(a,b){var d=this;if(0>=a)for(m.logger.log(".checkTransceiverAndTrack() timeout waiting for transceiver ready!");this.deferredOfferAnswers&&0<this.deferredOfferAnswers.length;)this.deferredOfferAnswers.shift().post(!1);else setTimeout(function(a){if(0==d.pendingtransceiver_&&0==d.pendingtrack_)for(;d.deferredOfferAnswers&&0<d.deferredOfferAnswers.length;)d.deferredOfferAnswers.shift().post(!0);else m.logger.log('.checkTransceiverAndTrack(): count= "'+
+a),d.checkTransceiverAndTrack(--a,b)},b,a)};b.prototype.getTransceivers=function(){m.logger.log(this.user_friendly_id()+".getTransceivers() called. ");if(this.usingasynconly_)throw m.logger.log(this.user_friendly_id()+".getTransceivers(): throwing exception: not allowed when usingAsyncOnly is true!!!"),new DOMException(".getTransceivers() not allowed when usingAsyncOnly is true!!!");this.getTransceiversAsync();m.logger.log(this.user_friendly_id()+".getTransceivers() returning:"+this.transceivers_.length+
+" items");return this.transceivers_};b.prototype.getTransceiversAsync=function(){var a=this;m.logger.log(this.user_friendly_id()+".getTransceiversAsync() called. ");return new Promise(function(b,d){if(!a.isUnified())return m.logger.log(a.user_friendly_id()+".getTransceiversAsync() called in non-Unified. "),Promise.resolve(a.transceivers_);a.waitUntilConnected(a.user_friendly_id()+".getTransceiversAsync").then(function(){return a.remoteInvoke(!1,t.method_id_RTCPeerConnection_t.getTransceivers)}).then(function(d){m.logger.log(a.user_friendly_id()+
+".getTransceiversAsync() remote success.");var c=[],g=[];d.params[0].forEach(function(b){var f=a.transceivers_.find(function(a){return a.object_id()===b.oid});void 0===f&&(m.logger.log(a.user_friendly_id()+" adding a RtpTransceiver with oid:"+b.oid),f=new z.RtpTransceiver(a,b.oid,k.ProxyMode.Remote,a.isUnified()));g.push(f.syncBarrier());c.push(f)});Promise.all(g).then(function(){a.transceivers_=c;m.logger.log(a.user_friendly_id()+".prop.getTransceiversAsync: returning transceiver with ids ["+a.transceivers_.map(function(a){return a.object_id()})+
+"]");b(a.transceivers_)})["catch"](function(d){a.logRemoteInvokeError(d,".prop.getTransceiversAsync() failed!");a.transceivers_=[];b(a.transceivers_)})})["catch"](function(d){a.logRemoteInvokeError(d,".getTransceiversAsync() failed!");a.transceivers_=[];b(a.transceivers_)})})};Object.defineProperty(b.prototype,"sctp",{get:function(){return this.sctp_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"ondatachannel",{get:function(){return this.ondatachannel_},set:function(a){var b=
+this;m.logger.log(this.user_friendly_id()+".set_ondatachannel() called.");this.ondatachannel_=a;this.waitUntilConnected(this.user_friendly_id()+".ondatachannel").then(function(){var d=b.registerCallbacks(!1,b.isNullCallback(a),t.method_id_RTCPeerConnection_t.ondatachannel);d.then(function(a){m.logger.log(b.user_friendly_id()+".ondatachannel callback received!!!");if(null===b.remotedatachannel_||b.remotedatachannel_.object_id()!=b.param0(a).oid)b.remotedatachannel_=new B.RtcDataChannel(b,b.param0(a).oid,
+k.ProxyMode.Remote),b.remotedatachannel_.syncBarrier().then(function(){m.logger.log(b.user_friendly_id()+"remotedatachannel_.syncBarrier(): success");var a=new Event("ondatachannel");a.channel=b.remotedatachannel_;if(b.localdatachannel_&&!b.localdatachannel_.isdestroyed())b.localdatachannel_.syncBarrier().then(function(){m.logger.log(b.user_friendly_id()+"ondatachannel(): notifying...");if(b.ondatachannel_)b.ondatachannel_(a)})["catch"](function(){m.logger.log(b.user_friendly_id()+"localdatachannel_.syncBarrier(): failed!")});
+else if(m.logger.log(b.user_friendly_id()+"ondatachannel(): notifying..."),b.ondatachannel_)b.ondatachannel_(a)})["catch"](function(){m.logger.log(b.user_friendly_id()+"remotedatachannel_.syncBarrier(): failed!")})});return b.remoteInvoke(!0,t.method_id_RTCPeerConnection_t.ondatachannel,d.success)})["catch"](function(){m.logger.log(b.user_friendly_id()+".ondatachannel() failed.")})},enumerable:!1,configurable:!0});b.prototype.fixDataChannelConfig=function(a){m.logger.log(this.user_friendly_id()+".fixDataChannelConfig() called: "+
+a);void 0==a&&(a={});void 0==a.negotiated&&void 0==a.id&&(a.negotiated=!1,a.id=-1);return a};b.prototype.createDataChannel=function(a,b){var d=this;m.logger.log(this.user_friendly_id()+".createDataChannel() called. label:"+a);this.localdatachannel_=new B.RtcDataChannel(this,0,k.ProxyMode.Pseudo);this.waitUntilConnected(this.user_friendly_id()+".createDataChannel").then(function(){return d.remoteInvoke(!1,t.method_id_RTCPeerConnection_t.createDataChannel,a,d.fixDataChannelConfig(b))}).then(function(a){m.logger.log(d.user_friendly_id()+
+".createDataChannel() success with oid: "+d.param0(a).oid);d.localdatachannel_.bind(d,d.param0(a).oid);d.localdatachannel_.syncBarrier().then(function(){m.logger.log(d.user_friendly_id()+"channel.syncBarrier(): success")})["catch"](function(){m.logger.log(d.user_friendly_id()+"channel.syncBarrier(): failed!")})})["catch"](function(a){a=d.param0(a);m.logger.log(d.user_friendly_id()+".createDataChannel() failed with error: "+a)});m.logger.log(this.user_friendly_id()+".createDataChannel() returning: "+
+this.localdatachannel_);return this.localdatachannel_};return b}(k.ProxyObject);a.PeerConnection=b},658:function(b,a,c){var e=this&&this.__spreadArrays||function(){for(var a=0,b=0,d=arguments.length;b<d;b++)a+=arguments[b].length;for(var a=Array(a),c=0,b=0;b<d;b++)for(var g=arguments[b],r=0,e=g.length;r<e;r++,c++)a[c]=g[r];return a};Object.defineProperty(a,"__esModule",{value:!0});a.ProxyObject=a.ProxyMode=a.ProxyReadyState=a.number_allocator=a.callback=a.rpc_callback=a.deferred_action=void 0;var u=
+c(946),h=c(851),d=c(545),w=c(247),q=c(550),n=function(){function a(b,d,c){this.resolve=b;this.reject=d;this.name_=c}Object.defineProperty(a.prototype,"name",{get:function(){return this.name_},enumerable:!1,configurable:!0});a.prototype.post=function(a){1==a?(h.logger.log('deferred_action.post(): resolving "'+this.name_+'"'),this.resolve()):(h.logger.log('deferred_action.post(): rejecting "'+this.name_+'"'),this.reject())};a.prototype.postWithResult=function(a,b){1==a?(h.logger.log('deferred_action.post(): resolving "'+
+this.name_+'"'),this.resolve(b)):(h.logger.log('deferred_action.post(): rejecting "'+this.name_+'"'),this.reject())};a.prototype.postResolve=function(a){this.resolve(a)};a.prototype.postReject=function(a){void 0==a?this.reject():this.reject(a)};return a}();a.deferred_action=n;var k=function(){return function(a,b){this.id=a;this.is_null=b}}();a.rpc_callback=k;var v=function(){function a(b,d,c){this.success=new k(b<<16,d);this.fail=new k(b<<16|1,d);this.id=b;this.oneShot=c}a.prototype.resolve=function(a){h.logger.trace("callback.resolve() called. [id="+
+this.id+"]");null!=this.handler&&this.handler(a)};a.prototype.reject=function(a){null!=this.err_handler&&this.err_handler(a)};a.prototype.then=function(a){this.handler=a};a.prototype.prom=function(){var a=this;return new Promise(function(b,d){a.handler=b;a.err_handler=d})};return a}();a.callback=v;var z=function(){function a(b,d,c){this.min_=b<a.BOUND_LOW||b>a.BOUND_HIGH?a.DEF_MIN:b;this.max_=d<a.BOUND_LOW||d>a.BOUND_HIGH?a.DEF_MAX:d;this.interval_=c<a.BOUND_LOW||c>a.BOUND_HIGH?a.DEF_INTERVAL:c;this.numbers_=
+new Map;this.numbers_.set(this.min_,this.max_)}Object.defineProperty(a.prototype,"max",{get:function(){return this.max_},enumerable:!1,configurable:!0});Object.defineProperty(a.prototype,"min",{get:function(){return this.min_},enumerable:!1,configurable:!0});Object.defineProperty(a.prototype,"interval",{get:function(){return this.interval_},enumerable:!1,configurable:!0});Object.defineProperty(a.prototype,"numbers",{get:function(){return this.numbers_},enumerable:!1,configurable:!0});a.prototype.allocate=
+function(){var a=-1;if(0<this.numbers_.size){var b=Array.from(this.numbers_.keys()).sort(function(a,b){return a-b})[0],d=this.numbers_.get(b),a=this.min_+(b-this.min_)*this.interval_;this.numbers_["delete"](b);b+=1;b<d&&this.numbers_.set(b,d)}return a};a.prototype.deallocate=function(a){var b=Array.from(this.numbers_.keys()).sort(function(a,b){return a-b});a=(a-this.min_)/this.interval_;for(var d=!1,c=0;c<b.length&&(b[c]==a+1?(this.numbers_.set(a,this.numbers_.get(b[c])),this.numbers_["delete"](b[c]),
+d=!0):this.numbers_.get(b[c])==a&&(this.numbers_.set(b[c],a+1),c+1<b.length&&b[c+1]==a+1&&(this.numbers_.set(b[c],this.numbers_.get(b[c+1])),this.numbers_["delete"](b[c+1])),d=!0),!d);c++);d||this.numbers_.set(a,a+1)};a.BOUND_LOW=0;a.BOUND_HIGH=4294967295;a.DEF_MIN=0;a.DEF_MAX=1024;a.DEF_INTERVAL=1;return a}();a.number_allocator=z;var g;(function(a){a[a.NotConfigured=0]="NotConfigured";a[a.Configured=1]="Configured";a[a.Error=2]="Error";a[a.Destroyed=3]="Destroyed"})(g=a.ProxyReadyState||(a.ProxyReadyState=
+{}));var B;(function(a){a[a.Local=0]="Local";a[a.Remote=1]="Remote";a[a.Pseudo=2]="Pseudo"})(B=a.ProxyMode||(a.ProxyMode={}));b=function(){function a(b,c,k,x,r,A){var z=this;void 0===r&&(r=null);void 0===A&&(A=[]);for(var v=[],n=6;n<arguments.length;n++)v[n-6]=arguments[n];this.hdxms=u.getRedirector();this.iid=c;this.oid=k;this.mode=x;this.proxystate=g.NotConfigured;this.deferredActions=[];this.pendingSyncBarriers=[];this.cbs=new Map;if(x===B.Local){n=!1;this.iid===q.class_id_t.EngineControl&&(n=
+!0);var l=this;this.hdxms.startRedirection(n,this.user_friendly_id()).then(function(){z.oid=a.nextId++;h.logger.log(z.user_friendly_id()+" assigned local oid:"+z.oid);return new Promise(function(a,b){l.waitUntilConnectedEx(l.user_friendly_id()+".ctor()",A).then(function(){h.logger.log(l.user_friendly_id()+".ctor() all parameter rpc objects are ready.");var a=l.oidsFromProxyOjbects(A).concat(v),b=q.WebrpcClassLibInfoUtil.getMethodFeatureByid(c,0);return l.hdxms.WSSendObjectWrapper(b,c,0,d.WsJsonUtil.createMessageByid.apply(d.WsJsonUtil,
+e([!1,!1,d.ws_msg_type_t.req,c,0,l.oid],a)))}).then(function(b){h.logger.log(l.user_friendly_id()+".ctor() success.");a(b)})["catch"](function(){h.logger.log(l.user_friendly_id()+".ctor() failed.");b()})})}).then(function(a){h.logger.trace("ProxyObject: setting state to configured. (iid: "+z.iid+" oid: "+z.oid+")");var d=z.oid;l.proxystate=g.Configured;l.oid=z.param0(a);h.logger.log(z.user_friendly_id()+" assigned remote oid for local oid:"+d);l.onConnected();r&&r();w.getGC().trackObject(z,b)})["catch"](function(){l.proxystate=
+g.Error;l.onConnected()})}else x===B.Remote&&(this.proxystate=g.Configured,w.getGC().trackObject(this,b))}a.prototype.syncBarrierDeep=function(a,b){var d=!0;0<this.pendingSyncBarriers.length&&(d=!1);this.pendingSyncBarriers.push(new n(a,b,this.user_friendly_id()+".syncBarrier"));h.logger.log(this.user_friendly_id()+".syncBarrierDeep() queing request for:"+this.oid+", rv:"+d+", items:"+this.pendingSyncBarriers.length);return d};a.prototype.syncBarrierResolve=function(a){for(h.logger.log(this.user_friendly_id()+
+".syncBarrierResolve() items:"+this.pendingSyncBarriers.length);this.pendingSyncBarriers&&0<this.pendingSyncBarriers.length;)h.logger.log(this.user_friendly_id()+".syncBarrierResolve() items:"+this.pendingSyncBarriers.length+" resolving request for:"+this.oid),this.pendingSyncBarriers.shift().postResolve(a)};a.prototype.syncBarrierReject=function(a){for(h.logger.log(this.user_friendly_id()+".syncBarrierReject() items:"+this.pendingSyncBarriers.length);this.pendingSyncBarriers&&0<this.pendingSyncBarriers.length;)h.logger.log(this.user_friendly_id()+
+".syncBarrierReject() rejecting request for:"+this.oid),this.pendingSyncBarriers.shift().postReject(a)};Object.defineProperty(a.prototype,"proxyreadystate",{get:function(){return this.proxystate},set:function(a){this.proxystate=a},enumerable:!1,configurable:!0});a.prototype.bind=function(a,b){h.logger.trace("ProxyObject: binding object. (iid: "+this.iid+" oid: "+b+" mode: "+this.mode+")");if(this.mode===B.Pseudo){this.proxystate=g.Configured;var d=this.oid;this.oid=b;h.logger.log(this.user_friendly_id()+
+" assigned remote oid for local oid:"+d);this.onConnected();w.getGC().trackObject(this,a);this.mode=B.Remote}else this.mode===B.Remote?h.logger.log("ProxyObject: binding already complete."):h.logger.log("ProxyObject: binding failure. incorrect mode!")};a.prototype.reconstructor=function(a,b,c){for(var x=this,r=[],A=3;A<arguments.length;A++)r[A-3]=arguments[A];this.proxystate=g.NotConfigured;this.deferredActions=[];A=q.WebrpcClassLibInfoUtil.getMethodFeatureByid(b,0);this.hdxms.WSSendObjectWrapper(A,
+b,0,d.WsJsonUtil.createMessageByid.apply(d.WsJsonUtil,e([!1,!1,d.ws_msg_type_t.req,b,0,this.oid],r))).then(function(b){h.logger.trace("ProxyObject: setting state to configured. (iid: "+x.iid+" oid: "+x.oid+")");var d=x.oid;x.proxystate=g.Configured;x.oid=x.param0(b);h.logger.log(x.user_friendly_id()+" assigned remote oid for local oid:"+d);x.onConnected();w.getGC().trackObject(x,a)})["catch"](function(){x.proxystate=g.Error;x.onConnected()})};a.prototype.setParent=function(a){w.getGC().setParent(this,
+a)};a.prototype.release=function(){h.logger.log(this.user_friendly_id()+".release() called.");w.getGC().releaseObject(this)};a.prototype.destroy=function(){h.logger.log(this.user_friendly_id()+".destroy() called.");this.proxystate=g.Destroyed;var a=q.WebrpcClassLibInfoUtil.getMethodFeatureByid(this.iid,0);this.hdxms.WSSendObjectWrapper(a,this.iid,0,d.WsJsonUtil.createMessageByid(!1,!0,d.ws_msg_type_t.req,this.iid,0,this.oid));this.clearCallbacks()};a.prototype.isdestroyed=function(){return this.proxystate==
+g.Destroyed};a.prototype.onConnected=function(){for(;this.deferredActions&&0<this.deferredActions.length;)this.deferredActions.shift().post(this.proxystate==g.Configured)};a.prototype.isPseudo=function(){return this.mode==B.Pseudo};a.prototype.checkState=function(a,b,d){var c=this;0>=a?(h.logger.log("ProxyObject.checkState() timeout waiting for connection response! failed. (iid: "+c.iid+" oid: "+c.oid+"name: "+d+")"),c.onConnected()):setTimeout(function(a,d){if(c.proxystate==g.Configured)c.onConnected();
+else if(c.proxystate==g.Error)c.onConnected();else if(c.proxystate==g.Destroyed)c.onConnected();else c.checkState(--a,b,d)},b,a,d)};a.prototype.waitUntilConnected=function(a){var b=this;return new Promise(function(d,c){b?(h.logger.trace("ProxyObject.waitUntilConnected(): readyState="+b.proxystate+". (iid: "+b.iid+" oid: "+b.oid+")"),b.proxystate==g.Destroyed?(b.onConnected(),h.logger.trace("rejecting already destroyed Object:"+b.user_friendly_id()),c("Object already destroyed :"+b.user_friendly_id())):
+b.proxystate==g.Configured?(b.onConnected(),d()):b.proxystate==g.Error?(h.logger.trace("ProxyObject.waitUntilConnected(): readyState="+b.proxystate+". (iid: "+b.iid+" oid: "+b.oid+")"),b.onConnected(),c()):(h.logger.log('ProxyObject.waitUntilConnected(): deferring action "'+a+'". (iid: '+b.iid+" oid: "+b.oid+")"),b.deferredActions.push(new n(d,c,a)),b.checkState(600,25,a))):c("Invalid Object")})};a.prototype.remoteInvoke=function(a,b){for(var c=[],k=2;k<arguments.length;k++)c[k-2]=arguments[k];if(this.proxystate==
+g.Destroyed)return h.logger.trace("rejecting already destroyed Object:"+this.user_friendly_id()),Promise.reject("Cannot invoke destroyed object :"+this.user_friendly_id());if(this.proxystate==g.Error)return h.logger.trace("rejecting already error state Object:"+this.user_friendly_id()),Promise.reject("Cannot invoke object in Error state:"+this.user_friendly_id());k=q.WebrpcClassLibInfoUtil.getMethodFeatureByid(this.iid,b);return this.hdxms.WSSendObjectWrapper(k,this.iid,b,d.WsJsonUtil.createMessageByid.apply(d.WsJsonUtil,
+e([a,!1,d.ws_msg_type_t.req,this.iid,b,this.oid],c)))};a.prototype.waitUntilConnectedEx=function(a,b){var d=this;return new Promise(function(c,g){if(d){for(var e=[],k=0;k<b.length;k++){var z=b[k];if(z instanceof Array)for(var v=0;v<z.length;v++){var t=z[v];e.push(t.waitUntilConnected(a+"."+t.user_friendly_id()))}else e.push(z.waitUntilConnected(a+"."+z.user_friendly_id()))}Promise.all(e).then(function(){h.logger.log(d.user_friendly_id()+".waitUntilConnectedEx() success.");c()})["catch"](function(a){d.logRemoteInvokeError(a,
+".waitUntilConnectedEx(): failed.");g()})}else g("Invalid Object")})};a.prototype.oidsFromProxyOjbects=function(a){for(var b=[],d=0;d<a.length;d++){var c=a[d];if(c instanceof Array){for(var g=[],e=0;e<c.length;e++)g.push({oid:c[e].object_id()});b.push(g)}else b.push({oid:c.object_id()})}return b};a.prototype.remoteInvokeEx=function(a,b,c){for(var k=[],r=3;r<arguments.length;r++)k[r-3]=arguments[r];if(this.proxystate==g.Destroyed)return h.logger.trace("rejecting already destroyed Object:"+this.user_friendly_id()),
+Promise.reject("Cannot invoke destroyed object :"+this.user_friendly_id());if(this.proxystate==g.Error)return h.logger.trace("rejecting already error state Object:"+this.user_friendly_id()),Promise.reject("Cannot invoke object in Error state:"+this.user_friendly_id());var A=this;return new Promise(function(g,r){A.waitUntilConnectedEx(A.user_friendly_id()+".remoteInvokeEx",c).then(function(){h.logger.log(A.user_friendly_id()+".remoteInvokeEx() all parameter rpc objects are ready.");var g=A.oidsFromProxyOjbects(c).concat(k),
+r=q.WebrpcClassLibInfoUtil.getMethodFeatureByid(A.iid,b);return A.hdxms.WSSendObjectWrapper(r,A.iid,b,d.WsJsonUtil.createMessageByid.apply(d.WsJsonUtil,e([a,!1,d.ws_msg_type_t.req,A.iid,b,A.oid],g)))}).then(function(a){h.logger.log(A.user_friendly_id()+".remoteInvokeEx() success.");g(a)})["catch"](function(){h.logger.log(A.user_friendly_id()+".remoteInvokeEx() failed.");r()})})};a.prototype.logRemoteInvokeError=function(a,b){var d="",c=a;c?d=b+" with error: "+JSON.stringify(c.message):(d=this.param0(a),
+c=0!==Object.keys(d).length?new DOMException(b+" with error: "+JSON.stringify(d),this.user_friendly_id()):new DOMException(b,this.user_friendly_id()),d=c.message);h.logger.logx(this.isdestroyed(),this.user_friendly_id()+d);return c};a.prototype.allocate_cbid=function(){return a.cbid_allocator_.allocate()};a.prototype.deallocate_cbid=function(b){a.cbid_allocator_.deallocate(b)};a.prototype.registerCallbacks=function(a,b,d){var c=this,g=this.allocate_cbid();a=new v(g,b,a);0>g&&h.logger.log(this.user_friendly_id()+
+".registerCallbacks(). !!!! ran out of cbid !!!!");b||(this.cbs.set(g,d),a.completion_cb=function(a,b){c.unregisterCallbacks(a)},this.hdxms.registerHandler(this.iid,this.oid,d,a));return a};a.prototype.unregisterCallbacks=function(a){this.cbs.has(a)?(this.hdxms.unregisterHandler(this.iid,this.oid,a),this.deallocate_cbid(a),this.cbs["delete"](a)):h.logger.log(this.user_friendly_id()+".unregisterCallbacks(). mid="+this.cbs.get(a)+" cbid="+a+" Cant find callback handler registration!!!!")};a.prototype.clearCallbacks=
+function(){h.logger.log(this.user_friendly_id()+".clearCallbacks().");for(var a=0,b=Array.from(this.cbs.keys());a<b.length;a++){var d=b[a];this.hdxms.unregisterHandler(this.iid,this.oid,d);this.deallocate_cbid(d)}this.cbs.clear()};a.prototype.object_id=function(){return this.oid};a.prototype.param0=function(a){var b={};a&&a.params&&(b=a.params[0]);return b};a.prototype.isNullCallback=function(a){return void 0==a||null==a};a.prototype.user_friendly_id=function(){var a=this.constructor.name;0<=this.iid&&
+(a=q.class_id_t[this.iid]);return a+"["+this.oid+"]"};a.prototype.isRedirected=function(){return this.hdxms.isRedirected()};a.prototype.isValid=function(){return!(this.proxystate===g.Error||this.proxystate===g.Destroyed)};a.prototype.registerStateChangeNotification=function(a){this.hdxms.registerStateChangeNotification(a)};a.prototype.unregisterStateChangeNotification=function(a){this.hdxms.unregisterStateChangeNotification(a)};a.nextId=0;a.CBID_MAX=65536;a.cbid_allocator_=new z(0,a.CBID_MAX,1);return a}();
+a.ProxyObject=b},144:function(b,a,c){var e=this&&this.__extends||function(){var a=function(b,d){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,b){for(var f in b)b.hasOwnProperty(f)&&(a[f]=b[f])};return a(b,d)};return function(b,d){function c(){this.constructor=b}a(b,d);b.prototype=null===d?Object.create(d):(c.prototype=d.prototype,new c)}}(),u=this&&this.__awaiter||function(a,b,d,c){function g(a){return a instanceof d?a:new d(function(b){b(a)})}return new (d||
+(d=Promise))(function(f,d){function r(a){try{C(c.next(a))}catch(b){d(b)}}function e(a){try{C(c["throw"](a))}catch(b){d(b)}}function C(a){a.done?f(a.value):g(a.value).then(r,e)}C((c=c.apply(a,b||[])).next())})},h=this&&this.__generator||function(a,b){function d(a){return function(b){return c([a,b])}}function c(d){if(f)throw new TypeError("Generator is already executing.");for(;g;)try{if(f=1,r&&(e=d[0]&2?r["return"]:d[0]?r["throw"]||((e=r["return"])&&e.call(r),0):r.next)&&!(e=e.call(r,d[1])).done)return e;
+if(r=0,e)d=[d[0]&2,e.value];switch(d[0]){case 0:case 1:e=d;break;case 4:return g.label++,{value:d[1],done:!1};case 5:g.label++;r=d[1];d=[0];continue;case 7:d=g.ops.pop();g.trys.pop();continue;default:if(!(e=g.trys,e=0<e.length&&e[e.length-1])&&(6===d[0]||2===d[0])){g=0;continue}if(3===d[0]&&(!e||d[1]>e[0]&&d[1]<e[3]))g.label=d[1];else if(6===d[0]&&g.label<e[1])g.label=e[1],e=d;else if(e&&g.label<e[2])g.label=e[2],g.ops.push(d);else{e[2]&&g.ops.pop();g.trys.pop();continue}}d=b.call(a,g)}catch(C){d=
+[6,C],r=0}finally{f=e=0}if(d[0]&5)throw d[1];return{value:d[0]?d[1]:void 0,done:!0}}var g={label:0,sent:function(){if(e[0]&1)throw e[1];return e[1]},trys:[],ops:[]},f,r,e,k;$jscomp.initSymbol();$jscomp.initSymbol();$jscomp.initSymbolIterator();return k={next:d(0),"throw":d(1),"return":d(2)},"function"===typeof Symbol&&(k[Symbol.iterator]=function(){return this}),k};Object.defineProperty(a,"__esModule",{value:!0});a.NavigatorUserMedia=a.RemoteMediaStreamConstraints=a.RemoteMediaTrackConstraints=a.RemoteMediaTrackConstraintSet=
+a.RemoteDevices=a.RemoteDeviceInfo=a.DeviceInfo=a.RemoteStreamEvent=a.RemoteStream=a.RemoteMediaTrack=a.enumeratedDevices=void 0;var d=c(550),w=c(658),q=c(851),n=c(946),k=c(394),v=c(259),z=c(650),g=c(973),l;a.enumeratedDevices=l;var t=function(){return function(a,b){this.type=a;this.target=b}}(),m=function(){function a(){this.is_local_clone=!1;this.clone_id=this.clone_count=0}a.prototype.clone=function(){this.clone_count++;var b=new a;b.is_local_clone=!0;b.clone_id=this.clone_count;return b};a.prototype.synchronize=
+function(a){return u(this,void 0,void 0,function(){return h(this,function(b){return this.is_local_clone?[2,a.asyncClone()]:[2,Promise.resolve(a)]})})};return a}(),p=function(a){function b(c,g,r){void 0===r&&(r=w.ProxyMode.Remote);c=a.call(this,c,d.class_id_t.MediaStreamTrack,g,r)||this;c.refCount_=0;c.refCount_++;c.clone_state=new m;return c}e(b,a);b.prototype.dumpInfo=function(){q.logger.log(this.user_friendly_id()+".dumpInfo() [id="+this.id+"] kind="+this.kind+" label="+this.label+" refcount="+
+this.refcount+" enabled="+this.enabled+" readyState="+this.readyState)};Object.defineProperty(b.prototype,"refcount",{get:function(){return this.refCount_},enumerable:!1,configurable:!0});b.prototype.addRef=function(){this.refCount_++;q.logger.log(this.user_friendly_id()+".addRef() called. [id="+this.id+"] refcount="+this.refCount_)};Object.defineProperty(b.prototype,"onended",{get:function(){q.logger.log(this.user_friendly_id()+".get_onended() called. [id="+this.id+"]");return this.onended_},set:function(a){var b=
+this;q.logger.log(this.user_friendly_id()+".set_onended() called. [id="+this.id+"]");this.onended_=a;this.waitUntilConnected("MediaStreamTrack.onended").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),d.method_id_MediaStreamTrack_t.onended);c.then(function(a){q.logger.log(b.user_friendly_id()+"onended event received!!!");a=new t("ended",b);b.readyState_="ended";b.onended_(a)});return b.remoteInvoke(!0,d.method_id_MediaStreamTrack_t.onended,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,
+".onended failed!")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onmute",{get:function(){q.logger.log(this.user_friendly_id()+".get_onmute() called. [id="+this.id+"]");return this.onmute_},set:function(a){var b=this;q.logger.log(this.user_friendly_id()+".set_onmute() called. [id="+this.id+"]");this.onmute_=a;this.waitUntilConnected("MediaStreamTrack.onmute").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),d.method_id_MediaStreamTrack_t.onmute);c.then(function(a){q.logger.log(b.user_friendly_id()+
+"onmute event received!!!");a=new t("mute",b);b.muted=!0;b.onmute_(a)});return b.remoteInvoke(!0,d.method_id_MediaStreamTrack_t.onmute,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,".onmute failed!")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onunmute",{get:function(){q.logger.log(this.user_friendly_id()+".get_onunmute() called. [id="+this.id+"]");return this.onunmute_},set:function(a){var b=this;q.logger.log(this.user_friendly_id()+".set_onunmute() called. [id="+
+this.id+"]");this.onunmute_=a;this.waitUntilConnected("MediaStreamTrack.onunmute").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),d.method_id_MediaStreamTrack_t.onunmute);c.then(function(a){q.logger.log("onunmute event received!!!");a=new t("unmute",b);b.muted=!1;b.onunmute_(a)});return b.remoteInvoke(!0,d.method_id_MediaStreamTrack_t.onunmute,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,".onunmute failed!")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,
+"onstop",{set:function(a){this.onstop_=a},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"enabled",{get:function(){q.logger.log(this.user_friendly_id()+".get_enabled() called. [id="+this.id+", value="+this.enabled_+"]");return this.enabled_},set:function(a){q.logger.log(this.user_friendly_id()+".set_enabled() called. [id="+this.id+", value="+a+"]");this.enabled_=a;this.remoteInvoke(!0,d.method_id_MediaStreamTrack_t.enabled,a)},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,
+"readyState",{get:function(){q.logger.log(this.user_friendly_id()+".get_readyState() called. [id="+this.id+"]");return this.readyState_},enumerable:!1,configurable:!0});b.prototype.asyncClone=function(){return u(this,void 0,void 0,function(){var a,c,g;return h(this,function(f){switch(f.label){case 0:return[4,this.waitUntilConnected("RemoteMediaTrack.asyncClone")];case 1:return f.sent(),[4,this.remoteInvoke(!1,d.method_id_MediaStreamTrack_t.clone)];case 2:return a=f.sent(),c=this.param0(a),g=new b(this,
+c.oid),[2,g.syncBarrier()]}})})};b.prototype.deepClone=function(a){var c=this;q.logger.log(this.user_friendly_id()+".deepClone() called. [id="+this.id+"]");if(z.RemoteSession.isFeatureTrackCloneWithIdSupported()){var g=new b(null,0,w.ProxyMode.Pseudo),f=new m;g.id=a?a:this.id+"."+f.clone_id.toString();g.label=this.label;g.kind=this.kind;g.enabled_=this.enabled_;g.muted=this.muted;g.readyState_=this.readyState_;g.trackSettings_=this.trackSettings_;g.clone_state=f;g.constraints_=this.constraints_;g.capabilities_=
+this.capabilities_;g.onended=this.onended;g.onmute=this.onmute;g.onunmute=this.onunmute;g.onstop=this.onstop;this.waitUntilConnected("RemoteMediaTrack.deepClone").then(function(){return c.remoteInvoke(!1,d.method_id_MediaStreamTrack_t.clone,g.id)}).then(function(a){q.logger.log(c.user_friendly_id()+".deepClone() success with oid: "+c.param0(a).oid);g.bind(null,c.param0(a).oid);g.syncBarrier().then(function(){q.logger.log(c.user_friendly_id()+"track.syncBarrier(): success")})["catch"](function(a){c.logRemoteInvokeError(a,
+"track.syncBarrier() failed!")})})["catch"](function(a){c.logRemoteInvokeError(a,".deepClone() failed!")});return g}q.logger.log(this.user_friendly_id()+".deepClone() is not supported!")};b.prototype.localClone=function(){q.logger.log(this.user_friendly_id()+".localClone() called. [id="+this.id+"]");var a=this.clone_state.clone(),d=new b(this,this.object_id());d.id=this.id+"."+a.clone_id.toString();d.label=this.label;d.kind=this.kind;d.enabled_=this.enabled_;d.muted=this.muted;d.readyState_=this.readyState_;
+d.trackSettings_=this.trackSettings_;d.clone_state=a;d.constraints_=this.constraints_;d.capabilities_=this.capabilities_;return d};b.prototype.clone=function(){q.logger.log(this.user_friendly_id()+".clone() called. [id="+this.id+"]");return z.RemoteSession.isFeatureTrackCloneWithIdSupported()?this.deepClone():this.localClone()};b.prototype.stop=function(){var a=this;q.logger.log(this.user_friendly_id()+".stop() called. [id="+this.id+"] refcount="+this.refCount_);this.readyState_="ended";if(0<this.refCount_&&
+(this.refCount_--,0===this.refCount_&&(q.logger.log(this.user_friendly_id()+".stop() called. [id="+this.id+"] remote invoking..."),this.remoteInvoke(!1,d.method_id_MediaStreamTrack_t.stop)["catch"](function(b){a.logRemoteInvokeError(b,".stop failed!")}),"video"==this.kind&&"remoteapp-track"==this.label&&g.ScreenSharing.screenSharingInstance().stopAppshare(),null!==this.onstop_&&void 0!=this.onstop_)))this.onstop_()};b.prototype.getCapabilities=function(){return this.capabilities_};b.prototype.getConstraints=
+function(){return this.constraints_};b.prototype.getSettings=function(){return"audio"==this.kind?function(a){return{deviceId:a.deviceId,echoCancellation:a.echoCancellation}}(this.trackSettings_):function(a){return{aspectRatio:a.aspectRatio,deviceId:a.deviceId,frameRate:a.frameRate,height:a.height,width:a.width}}(this.trackSettings_)};b.prototype.getChannelCount=function(){return 2};b.prototype.applyConstraints=function(a){var b=this;q.logger.log(this.user_friendly_id()+".applyConstraints() called.");
+return new Promise(function(c,f){b.waitUntilConnected("MediaStreamTrack.applyConstraints").then(function(){return Promise.all([b.remoteInvoke(!1,d.method_id_MediaStreamTrack_t.applyConstraints,a),b.syncBarrier()])})["catch"](function(a){b.logRemoteInvokeError(a,"applyConstraints failed!");f({name:"OverconstrainedError",message:"Failed to apply constraints."})}).then(function(){b.constraints_=a;return b.remoteInvoke(!1,d.method_id_MediaStreamTrack_t.getConstraints)}).then(function(a){b.constraints_=
+b.param0(a)})["catch"](function(a){b.logRemoteInvokeError(a,".syncBarrier() remote client does not support getConstraints method. Ignore it")}).then(function(){return c()})})};b.convertReadyState=function(a){return 0==a?"live":"ended"};b.prototype.syncBarrier=function(){var a=this;q.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(c,g){a.syncBarrierDeep(c,g)&&a.waitUntilConnected("MediaStreamTrack.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,
+d.method_id_MediaStreamTrack_t.kind,""),a.remoteInvoke(!1,d.method_id_MediaStreamTrack_t.id,""),a.remoteInvoke(!1,d.method_id_MediaStreamTrack_t.label,""),a.remoteInvoke(!1,d.method_id_MediaStreamTrack_t.enabled,!1),a.remoteInvoke(!1,d.method_id_MediaStreamTrack_t.muted,!1),a.remoteInvoke(!1,d.method_id_MediaStreamTrack_t.readyState,0),a.remoteInvoke(!1,d.method_id_MediaStreamTrack_t.getSettings),a.remoteInvoke(!1,d.method_id_MediaStreamTrack_t.getCapabilities)])}).then(function(f){var d=0;f=f.map(function(b){return a.param0(b)});
+a.kind=f[0];a.id=f[1];a.label=f[2];a.enabled_=f[3];a.muted=f[4];d=f[5];a.trackSettings_=f[6];a.capabilities_=f[7];a.readyState_=b.convertReadyState(d);a.syncBarrierResolve(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier() failed!");a.syncBarrierReject(b)})})};b.prototype.dispose=function(){q.logger.log(this.user_friendly_id()+".dispose() called. [id="+this.id+"]");this.stop();0===this.refCount_&&this.release()};return b}(w.ProxyObject);a.RemoteMediaTrack=p;var y=function(){return function(){}}(),
+x=function(a){function b(c,g,r,f,e){void 0===r&&(r=w.ProxyMode.Local);void 0===f&&(f=[]);var k=this;q.logger.log("RemoteStream.ctor() streamid="+e+" num tracks="+f.length);r==w.ProxyMode.Remote||e||(e=b.uuidv4());k=e&&z.RemoteSession.isFeatureTrackCloneWithIdSupported()?a.call(this,c,d.class_id_t.MediaStream,g,r,null,[f],e)||this:a.call(this,c,d.class_id_t.MediaStream,g,r,null,[f])||this;k.id=e;k.tracks_=f;k.clone_state=new m;k.active_=!0;k.tracks_.forEach(function(a){a.setParent(k)});return k}e(b,
+a);b.uuidv4=function(){return"10000000-1000-4000-8000-100000000000".replace(/[018]/g,function(a){return(a^crypto.getRandomValues(new Uint8Array(1))[0]&15>>a/4).toString(16)})};b.prototype.dumpInfo=function(){q.logger.log(this.user_friendly_id()+".dumpInfo() [id="+this.id+"] active="+this.active_+" num tracks="+this.tracks_.length);for(var a=0,b=this.tracks_;a<b.length;a++){var d=b[a];d&&d.dumpInfo()}};b.prototype.toggleAudio=function(a){q.logger.log(this.user_friendly_id()+".toggleAudio() called: "+
+a);for(var b=0,d=this.getAudioTracks();b<d.length;b++)d[b].enabled=a};b.prototype.toJSON=function(){var a=new y;a.id=this.id;a.active=this.active_;a.oid=this.object_id();return"RemoteStream:"+JSON.stringify(a)};Object.defineProperty(b.prototype,"active",{get:function(){var a=this;q.logger.log(this.user_friendly_id()+".get active() called. [id="+this.id+"] active="+this.active_);n.getRedirector().getFeatureValue(d.FEATURE_ms_teams_stream_active_status)?this.waitUntilConnected("MediaStream.active").then(function(){q.logger.log(a.user_friendly_id()+
+".get active() remote invoking");return a.remoteInvoke(!1,d.method_id_MediaStream_t.active,!1)}).then(function(b){a.active_=a.param0(b);q.logger.log(a.user_friendly_id()+".get active() success, active="+a.active_)})["catch"](function(b){a.active_=!0;a.logRemoteInvokeError(b,".get active() failed! active="+a.active_)}):this.active_=!0;return this.active_},enumerable:!1,configurable:!0});b.prototype.getAudioTracks=function(){q.logger.log(this.user_friendly_id()+".getAudioTracks() called. [id="+this.id+
+"]");for(var a=[],b=0,d=this.tracks_;b<d.length;b++){var f=d[b];"audio"==f.kind&&a.push(f)}return a};b.prototype.getVideoTracks=function(){q.logger.log(this.user_friendly_id()+".getVideoTracks() called. [id="+this.id+"]");for(var a=[],b=0,d=this.tracks_;b<d.length;b++){var f=d[b];"video"==f.kind&&a.push(f)}return a};b.prototype.getTracks=function(){q.logger.log(this.user_friendly_id()+".getTracks() called. [id="+this.id+"]");return this.tracks_};b.prototype.getTrackById=function(a){q.logger.log(this.user_friendly_id()+
+".getTrackById() called. [id="+this.id+"]");for(var b=0,d=this.tracks_;b<d.length;b++){var f=d[b];if(f.id==a)return f}};b.prototype.addTrack=function(a){var b=this;q.logger.log(this.user_friendly_id()+".addTrack() called. [id="+this.id+"]");this.tracks_.push(a);a&&a.dumpInfo();var c=this;this.waitUntilConnected("MediaStream.addTrack").then(function(){q.logger.log(c.user_friendly_id()+".addTrack remote invoking");return c.remoteInvokeEx(!1,d.method_id_MediaStream_t.addTrack,[a])}).then(function(){q.logger.log(c.user_friendly_id()+
+".addTrack success")})["catch"](function(a){b.logRemoteInvokeError(a,".addTrack failed!")})};b.prototype.removeTrack=function(a){var b=this;q.logger.log(this.user_friendly_id()+".removeTrack() called. [id="+this.id+"]");var c=this.tracks_.indexOf(a);this.tracks_.splice(c,1);var f=this;this.waitUntilConnected("MediaStream.removeTrack").then(function(){q.logger.log(f.user_friendly_id()+".removeTrack remote invoking");return f.remoteInvokeEx(!1,d.method_id_MediaStream_t.removeTrack,[a])}).then(function(){q.logger.log(f.user_friendly_id()+
+".removeTrack success")})["catch"](function(a){b.logRemoteInvokeError(a,".removeTrack failed!")})};b.prototype.asyncClone=function(){return u(this,void 0,void 0,function(){var a,c,g;return h(this,function(f){switch(f.label){case 0:return q.logger.log(this.user_friendly_id()+".asyncClone() called. [id="+this.id+"]"),[4,this.waitUntilConnected("asyncClone")];case 1:return f.sent(),[4,this.remoteInvoke(!1,d.method_id_MediaStream_t.clone)];case 2:return a=f.sent(),q.logger.log(a),c=this.param0(a),g=new b(this,
+c.oid,w.ProxyMode.Remote),[2,g.syncBarrier()]}})})};b.prototype.deepClone=function(a){var d=this;q.logger.log(this.user_friendly_id()+".deepClone() called. [id="+this.id+"]");if(z.RemoteSession.isFeatureTrackCloneWithIdSupported()){var c=[];this.tracks_.forEach(function(a){c.push(a.deepClone())});var f=new m;a=a?a:this.id+"."+f.clone_id.toString();var g=new b(null,0,w.ProxyMode.Local,c,a);g.id=a;g.active_=this.active_;g.clone_state=f;g.tracks_=c;g.waitUntilConnected("RemoteStream.deepClone").then(function(){g.syncBarrier().then(function(){q.logger.log(d.user_friendly_id()+
+"stream.syncBarrier(): success")})["catch"](function(a){d.logRemoteInvokeError(a,"stream.syncBarrier() failed!")})})["catch"](function(a){d.logRemoteInvokeError(a,".deepClone() failed!")});return g}q.logger.log(this.user_friendly_id()+".deepClone() is not supported!")};b.prototype.localClone=function(){q.logger.log(this.user_friendly_id()+".localClone() called. [id="+this.id+"]");var a=this.clone_state.clone(),d=new b(this,this.object_id(),w.ProxyMode.Remote);d.id=this.id+"."+a.clone_id.toString();
+d.active_=this.active_;this.tracks_.forEach(function(a){a.addRef()});d.tracks_=this.tracks_;d.clone_state=a;return d};b.prototype.clone=function(){q.logger.log(this.user_friendly_id()+".clone() called. [id="+this.id+"]");return z.RemoteSession.isFeatureTrackCloneWithIdSupported()?this.deepClone():this.localClone()};b.prototype.syncBarrier=function(){var a=this;q.logger.log(this.user_friendly_id()+".syncBarrier() called. [id="+this.id+"]");return new Promise(function(b,c){a.syncBarrierDeep(b,c)&&a.waitUntilConnected("MediaStream.syncBarrier").then(function(){var b=
+[];b.push(a.remoteInvoke(!1,d.method_id_MediaStream_t.id,""));n.getRedirector().getFeatureValue(d.FEATURE_ms_teams_stream_active_status)&&b.push(a.remoteInvoke(!1,d.method_id_MediaStream_t.active,!0));b.push(a.remoteInvoke(!1,d.method_id_MediaStream_t.getTracks));return Promise.all(b)}).then(function(b){q.logger.log(a.user_friendly_id()+".syncBarrier() remote success");var c;n.getRedirector().getFeatureValue(d.FEATURE_ms_teams_stream_active_status)?(b=b.map(function(b){return a.param0(b)}),a.id=b[0],
+a.active_=b[1],c=b[2]):(b=b.map(function(b){return a.param0(b)}),a.id=b[0],c=b[1],a.active_=!0);var g=[];b=function(b){var f=a.tracks_.find(function(a){return a.object_id()===b.oid});void 0===f&&(q.logger.log(a.user_friendly_id()+" adding a RemoteMediaTrack with oid:"+b.oid),f=new p(a,b.oid));g.push(f.syncBarrier())};for(var r=0;r<c.length;r++)b(c[r]);return Promise.all(g)}).then(function(b){a.tracks_=[];b.forEach(function(b){d.BUILD_TYPE_SDK||(b.onstop=function(){var b=!0;a.tracks_.forEach(function(a){"ended"!=
+a.readyState&&(b=!1)});b&&a.release()});a.tracks_.push(b)});a.syncBarrierResolve(a)})["catch"](function(b){a.logRemoteInvokeError(b,".syncBarrier failed!");a.syncBarrierReject()})})};b.prototype.dispose=function(){q.logger.log(this.user_friendly_id()+".dispose() called. [id="+this.id+"]");this.tracks_.forEach(function(a){a.dispose()});this.release()};return b}(w.ProxyObject);a.RemoteStream=x;b=function(a){function b(c,g){return a.call(this,c,d.class_id_t.MediaStreamEvent,g,w.ProxyMode.Remote)||this}
+e(b,a);b.prototype.syncBarrier=function(){var a=this;q.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.syncBarrierDeep(b,c)&&a.waitUntilConnected("MediaStreamEvent.syncBarrier").then(function(){return a.remoteInvoke(!1,d.method_id_MediaStreamEvent_t.stream,{oid:0})}).then(function(b){return(new x(a,b.params[0].oid,w.ProxyMode.Remote)).syncBarrier()}).then(function(b){a.stream=b;a.syncBarrierResolve(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,
+".syncBarrier() failed!");a.syncBarrierReject(b)})})};return b}(w.ProxyObject);a.RemoteStreamEvent=b;var r=function(){return function(a,b,d,c){this.deviceId=a;this.groupId=b;this.kind=d;this.label=c}}();a.DeviceInfo=r;var A=function(a){function b(c){return a.call(this,null,d.class_id_t.MediaDeviceInfo,c,w.ProxyMode.Remote)||this}e(b,a);b.convertKind=function(a){return 0==a?"audioinput":1==a?"audiooutput":"videoinput"};b.prototype.syncBarrier=function(){var a=this;q.logger.log(this.user_friendly_id()+
+".syncBarrier() called.");return new Promise(function(c,g){a.syncBarrierDeep(c,g)&&a.waitUntilConnected("RemoteDeviceInfo.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,d.method_id_MediaDeviceInfo_t.deviceId,""),a.remoteInvoke(!1,d.method_id_MediaDeviceInfo_t.kind,0),a.remoteInvoke(!1,d.method_id_MediaDeviceInfo_t.label,""),a.remoteInvoke(!1,d.method_id_MediaDeviceInfo_t.groupId,"")])}).then(function(f){a.kind=b.convertKind(a.param0(f.splice(1,1)[0]));f=f.map(function(b){return a.param0(b)});
+a.deviceId=f[0];a.label=f[1];a.groupId=f[2];a.syncBarrierResolve(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier() failed!");a.syncBarrierReject(b)})})};return b}(w.ProxyObject);a.RemoteDeviceInfo=A;b=function(b){function c(){var a=b.call(this,null,d.class_id_t.MediaDevices,0,w.ProxyMode.Local,function(){a.setDeviceChangeCallback()})||this;a.devices_=[];a.enumerateMarker="enumerateDevicesPrivate";a.enumerateRemoteMarker="enumeratedDevicesPrivate-Remote";a.shareSystemAudio_=!1;a.pendingEnumerateDevice_=
+[];a.panelid_=-1;return a}e(c,b);Object.defineProperty(c.prototype,"panelid",{set:function(a){this.panelid_=a},enumerable:!1,configurable:!0});c.prototype.clearPanelId=function(){this.panelid_=-1};c.prototype.enumerateDevices=function(){var a=this;return 0<this.devices_.length&&0==this.pendingEnumerateDevice_.length?new Promise(function(b,d){q.logger.log(a.user_friendly_id()+".enumerateDevices: returning cached devices");b(a.devices_)}):this.enumerateDevicesPrivate(!1)};c.prototype.enumerateDevicesPrivate=
+function(a){return n.getRedirector().getFeatureValue(d.FEATURE_ms_teams_enumerate_devices_v2)?this.enumerateDevicesPrivateV2(a):this.enumerateDevicesPrivateV1(a)};c.prototype.postEnumerateDevicesResult=function(){for(var a=!0,b=0,d=0,f=this.pendingEnumerateDevice_;d<f.length;d++){var c=f[d];if(0==a&&c.name==this.enumerateRemoteMarker)break;c.postWithResult(!0,this.devices_);b++;a=!1}0<b&&this.pendingEnumerateDevice_.splice(0,b)};c.prototype.enumerateDevicesPrivateV2=function(b){var c=this;q.logger.log(this.user_friendly_id()+
+".enumerateDevicesPrivateV2() called. refresh:"+b+" pending:"+this.pendingEnumerateDevice_.length);return new Promise(function(g,f){1==b||0==c.pendingEnumerateDevice_.length?(c.pendingEnumerateDevice_.push(new w.deferred_action(g,f,c.enumerateRemoteMarker)),c.waitUntilConnected("RemoteDevices.enumerateDevicesPrivateV2").then(function(){q.logger.log(c.user_friendly_id()+".enumerateDevicesPrivateV2() remote invoking...");return c.remoteInvoke(!1,d.method_id_MediaDevices_t.enumerateDevicesV2)}).then(function(b){var f=
+[];b.params[0].forEach(function(a){a=new r(a.deviceId,a.groupId,A.convertKind(a.kind),a.label);f.push(a)});c.devices_=f;a.enumeratedDevices=l=f;q.logger.log(c.user_friendly_id()+".enumerateDevicesPrivateV2: resolving enumerated devices: "+JSON.stringify(c.devices_));c.postEnumerateDevicesResult()})["catch"](function(b){c.devices_=[];a.enumeratedDevices=l=[];c.logRemoteInvokeError(b,".enumerateDevicesPrivateV2() failed, resolving with empty list.");c.postEnumerateDevicesResult()})):(c.pendingEnumerateDevice_.push(new w.deferred_action(g,
+f,c.enumerateMarker)),q.logger.log(c.user_friendly_id()+".enumerateDevicesPrivateV2() not remoting this call..."))})};c.prototype.enumerateDevicesPrivateV1=function(b){var c=this;q.logger.log(this.user_friendly_id()+".enumerateDevicesPrivateV1() called. refresh:"+b+" pending:"+this.pendingEnumerateDevice_.length);return new Promise(function(g,f){1==b||0==c.pendingEnumerateDevice_.length?(c.pendingEnumerateDevice_.push(new w.deferred_action(g,f,c.enumerateRemoteMarker)),c.waitUntilConnected("RemoteDevices.enumerateDevicesPrivateV1").then(function(){q.logger.log(c.user_friendly_id()+
+".enumerateDevicesPrivateV1() remote invoking...");return c.remoteInvoke(!1,d.method_id_MediaDevices_t.enumerateDevices)}).then(function(a){var b=[];a.params[0].forEach(function(a){a=new A(a.oid);b.push(a.syncBarrier())});return Promise.all(b)}).then(function(b){var f=[];b.forEach(function(a){var b=new r(a.deviceId,a.groupId,a.kind,a.label);f.push(b);a.release()});c.devices_=f;a.enumeratedDevices=l=f;q.logger.log(c.user_friendly_id()+".enumerateDevicesPrivateV1: resolving enumerated devices: "+JSON.stringify(c.devices_));
+c.postEnumerateDevicesResult()})["catch"](function(b){a.enumeratedDevices=l=[];c.devices_=[];c.logRemoteInvokeError(b,".enumerateDevicesPrivateV1() failed, resolving with empty list.");c.postEnumerateDevicesResult()})):(c.pendingEnumerateDevice_.push(new w.deferred_action(g,f,c.enumerateMarker)),q.logger.log(c.user_friendly_id()+".enumerateDevicesPrivateV1() not remoting this call..."))})};c.prototype.getDisplayMedia=function(a){var b=this;return new Promise(function(c,f){b.waitUntilConnected("RemoteDevices.getDisplayMedia").then(function(){return g.ScreenSharing.screenSharingInstance().setActiveSource(b.panelid_,
+z.RemoteSession.isFeaturAppshareSupported())}).then(function(f){void 0!==a.video&&null!==a.video&&void 0!==f&&(a.video.deviceId=f);n.getRedirector().getFeatureValue(d.FEATURE_ms_teams_share_system_audio)&&(void 0!==a.audio&&"boolean"!==typeof a.audio?q.logger.log("Non-boolean audio constraints"):a.audio=a.audio||b.shareSystemAudio_);f=b.prepareDisplayConstraints(a);f=J.toRemoteMediaStreamConstraints(f,!0);return b.remoteInvoke(!1,d.method_id_MediaDevices_t.getDisplayMedia,f)}).then(function(a){return(new x(null,
+a.params[0].oid,w.ProxyMode.Remote)).syncBarrier()}).then(function(a){c(a)})["catch"](function(a){g.ScreenSharing.screenSharingInstance().isAppshareActive()&&g.ScreenSharing.screenSharingInstance().stopAppshare();a=b.logRemoteInvokeError(a,".getDisplayMedia() failed!");f(a)})})};c.prototype.setDeviceChangeCallback=function(){var a=this;q.logger.log(this.user_friendly_id()+".set_DeviceChangeCallback() called.");this.waitUntilConnected("MediaDevices.ondevicechange").then(function(){var b=a.registerCallbacks(!1,
+!1,d.method_id_MediaDevices_t.ondevicechange);b.then(function(){q.logger.log(a.user_friendly_id()+".ondevicechange(): callback received!!!");a.enumerateDevicesPrivate(!0).then(function(){navigator.mediaDevices.dispatchEvent(new CustomEvent("devicechange"))})["catch"](function(){navigator.mediaDevices.dispatchEvent(new CustomEvent("devicechange"))})});return a.remoteInvoke(!0,d.method_id_MediaDevices_t.ondevicechange,b.success)})["catch"](function(b){a.logRemoteInvokeError(b,".set_ondevicechange() failed!")})};
+c.prototype.prepareDisplayConstraints=function(a){if(n.getRedirector().getFeatureValue(d.FEATURE_ms_teams_common_media_constraints))return a;var b={frameRate:15,width:{max:1920},height:{max:1080}};if(void 0!==a.video&&null!==a.video){var c=a.video;void 0!==c.frameRate&&void 0!==c.width&&void 0!==c.height&&(b.frameRate=c.frameRate,b.width.max=c.width.max||c.width,b.height.max=c.height.max||c.height)}return a.audio?{video:b,audio:a.audio}:{video:b}};return c}(w.ProxyObject);a.RemoteDevices=b;var M=
+function(){function a(){}a.toRemoteMediaTrackConstraintSet=function(a){var b=void 0;v.Util.hasValue(a)&&(b={},v.Util.hasValue(a.width)&&(b.width=a.width),v.Util.hasValue(a.height)&&(b.height=a.height),v.Util.hasValue(a.aspectRatio)&&(b.aspectRatio=a.aspectRatio),v.Util.hasValue(a.frameRate)&&(b.frameRate=a.frameRate),v.Util.hasValue(a.facingMode)&&(b.facingMode=a.facingMode),v.Util.hasValue(a.sampleRate)&&(b.sampleRate=a.sampleRate),v.Util.hasValue(a.sampleSize)&&(b.sampleSize=a.sampleSize),v.Util.hasValue(a.volume)&&
+(b.volume=a.volume),v.Util.hasValue(a.echoCancellation)&&(b.echoCancellation=a.echoCancellation),v.Util.hasValue(a.autoGainControl)&&(b.autoGainControl=a.autoGainControl),v.Util.hasValue(a.noiseSuppression)&&(b.noiseSuppression=a.noiseSuppression),v.Util.hasValue(a.latency)&&(b.latency=a.latency),v.Util.hasValue(a.channelCount)&&(b.channelCount=a.channelCount),v.Util.hasValue(a.deviceId)&&(b.deviceId=a.deviceId),v.Util.hasValue(a.groupId)&&(b.groupId=a.groupId),v.Util.hasValue(a.maxFrameRate)&&(b.maxFrameRate=
+a.maxFrameRate),v.Util.hasValue(a.maxHeight)&&(b.maxHeight=a.maxHeight),v.Util.hasValue(a.maxWidth)&&(b.maxWidth=a.maxWidth),v.Util.hasValue(a.minHeight)&&(b.minHeight=a.minHeight),v.Util.hasValue(a.minWidth)&&(b.minWidth=a.minWidth),v.Util.hasValue(a.sourceId)&&(b.sourceId=a.sourceId));return b};return a}();a.RemoteMediaTrackConstraintSet=M;var F=function(a){function b(){return null!==a&&a.apply(this,arguments)||this}e(b,a);b.defMandatory=function(a){var b=a;v.Util.hasValue(a)?(v.Util.hasValue(a.maxFrameRate)||
+(b.maxFrameRate=30),v.Util.hasValue(a.minWidth)||(b.minWidth=360),v.Util.hasValue(a.maxWidth)||(b.maxWidth=1920),v.Util.hasValue(a.minHeight)||(b.minHeight=180),v.Util.hasValue(a.maxHeight)||(b.maxHeight=1080)):b={maxFrameRate:30,minWidth:360,maxWidth:1920,minHeight:180,maxHeight:1080};return b};b.toRemoteMediaTrackConstraints=function(a){var b=void 0;v.Util.hasValue(a)&&(b=M.toRemoteMediaTrackConstraintSet(a),b.advanced=[],v.Util.hasValue(a.advanced)&&a.advanced.forEach(function(a){a=M.toRemoteMediaTrackConstraintSet(a);
+b.advanced.push(a)}),v.Util.hasValue(a.mandatory)&&(b.mandatory="boolean"!=typeof a.mandatory?M.toRemoteMediaTrackConstraintSet(a.mandatory):a.mandatory));return b};return b}(M);a.RemoteMediaTrackConstraints=F;var J=function(){function a(){}a.getDefaultAudioDeviceId=function(){if(void 0!==l){var a=l.find(function(a){return"audioinput"===a.kind&&"default"===a.deviceId});if(void 0!==a)return a.deviceId}return""};a.getDefaultVideoDeviceId=function(){if(void 0!==l){var a=l.find(function(a){return"videoinput"===
+a.kind});if(void 0!==a)return a.deviceId}return""};a.toRemoteMediaStreamConstraints=function(b,c){void 0===c&&(c=!1);q.logger.log("RemoteMediaStreamConstraints.toRemoteMediaStreamConstraints() in constraints:"+JSON.stringify(b));var g={};v.Util.hasValue(b)&&(v.Util.hasValue(b.audio)&&("boolean"!=typeof b.audio?(g.audio=F.toRemoteMediaTrackConstraints(b.audio),0!=Object.keys(g.audio).length&&v.Util.hasValue(g.audio)||(g.audio={dummy:1}),d.BUILD_TYPE_SDK&&0==c&&a.isConstraintsAudioDeviceIdEmpty(b)&&
+(g.audio.deviceId=a.getDefaultAudioDeviceId(),q.logger.log("RemoteMediaStreamConstraints.toRemoteMediaStreamConstraints() set default audio deviceId:'"+g.audio.deviceId+"'"))):g.audio=b.audio),v.Util.hasValue(b.peerIdentity)&&(g.peerIdentity=b.peerIdentity),v.Util.hasValue(b.video)&&("boolean"!=typeof b.video?(g.video=F.toRemoteMediaTrackConstraints(b.video),0==c&&"boolean"!=typeof g.video.mandatory&&(g.video.mandatory=F.defMandatory(g.video.mandatory),d.BUILD_TYPE_SDK&&a.isConstraintsVideoSourceIdEmpty(b)&&
+(g.video.mandatory.sourceId=a.getDefaultVideoDeviceId(),q.logger.log("RemoteMediaStreamConstraints.toRemoteMediaStreamConstraints() set default video sourceId:'"+g.video.mandatory.sourceId+"'")))):(g.video=b.video,1==b.video&&0==c&&d.BUILD_TYPE_SDK&&a.isConstraintsVideoSourceIdEmpty(b)&&(g.video={},g.video.mandatory=F.defMandatory(void 0),g.video.mandatory.sourceId=a.getDefaultVideoDeviceId(),q.logger.log("RemoteMediaStreamConstraints.toRemoteMediaStreamConstraints() set default video sourceId:'"+
+g.video.mandatory.sourceId+"'")))));q.logger.log("RemoteMediaStreamConstraints.toRemoteMediaStreamConstraints() out constraints:"+JSON.stringify(g));return g};a.isConstraintsAudioDeviceIdEmpty=function(a){var b=!1;v.Util.hasValue(a)&&v.Util.hasValue(a.audio)&&("boolean"==typeof a.audio?1==a.audio&&(b=!0):(a=a.audio,!a||!1!==v.Util.hasValue(a.deviceId)&&""!==a.deviceId||(b=!0)));return b};a.isConstraintsVideoSourceIdEmpty=function(a){var b=!1;if(v.Util.hasValue(a)&&v.Util.hasValue(a.video))if("boolean"==
+typeof a.video)1==a.video&&(b=!0);else if(a=a.video)(a=a.mandatory)&&!1!==v.Util.hasValue(a.sourceId)&&""!==a.sourceId||(b=!0);return b};return a}();a.RemoteMediaStreamConstraints=J;var G=function(){function a(){this.video=this.audio=a.EmptyCapabilities}a.EmptyCapabilities={codecs:[],headerExtensions:[]};return a}();b=function(a){function b(){return a.call(this,null,d.class_id_t.NavigatorUserMedia,0,w.ProxyMode.Local)||this}e(b,a);b.getCapabilities=function(a){q.logger.log("NavigatorUserMedia.getCapabilities for type="+
+a+" capabilities="+JSON.stringify(b.capabilities[a]));return b.capabilities[a]};b.resetCapabilities=function(){b.capabilities=new G};b.prototype.getCapabilities=function(){var a=this;q.logger.log(this.user_friendly_id()+".getCapabilities...");return new Promise(function(c,g){a.waitUntilConnected("NavigatorUserMedia.getCapabilities").then(function(){return Promise.all([a.remoteInvoke(!1,d.method_id_NavigatorUserMedia_t.getCapabilities,"audio"),a.remoteInvoke(!1,d.method_id_NavigatorUserMedia_t.getCapabilities,
+"video")])}).then(function(f){b.capabilities.audio=a.param0(f[0]);b.capabilities.video=a.param0(f[1]);q.logger.log(a.user_friendly_id()+".getCapabilities capabilities="+JSON.stringify(b.capabilities));c(b.capabilities)})["catch"](function(b){g(a.logRemoteInvokeError(b,".getCapabilities failed!"))})})};b.prototype.setCodecCapabilities=function(a){var b=this;q.logger.log(this.user_friendly_id()+".setCodecCapabilities : set codecCapabilities to "+JSON.stringify(a));return new Promise(function(c,f){b.waitUntilConnected("NavigatorUserMedia.setCodecCapabilities").then(function(){return b.remoteInvoke(!1,
+d.method_id_NavigatorUserMedia_t.setCodecCapabilities,a)}).then(function(){q.logger.log(b.user_friendly_id()+".setCodecCapabilities() success.");c(!0);b.getCapabilities()})["catch"](function(a){a=b.logRemoteInvokeError(a,".setCodecCapabilities() failed!");f(a)})})};b.prototype.webkitGetUserMedia=function(a,b,d){return this.getUserMedia(a,b,d)};b.prototype.LogTelemetryDevice_=function(a){try{if("undefined"!==typeof a.audio){var b=a.audio.deviceId,d;l.forEach(function(a){b==a.deviceId&&(d=a.label)});
+q.logger.log(d);this.SendTelemetryData(k.tel_key_AudioDeviceUsed,d,0)}if("undefined"!==typeof a.video){var f=a.video.mandatory,c;f&&l.forEach(function(a){f.sourceId==a.deviceId&&(c=a.label)});q.logger.log(c);this.SendTelemetryData(k.tel_key_VideoDeviceUsed,c,0)}}catch(g){q.logger.log(g)}};b.prototype.getUserMedia=function(a,b,d){q.logger.log(this.user_friendly_id()+".getUserMedia() called: "+JSON.stringify(a));return b&&d?this.getUserMedia_v1(a,b,d):this.getUserMedia_v2(a)};b.prototype.getUserMedia_v2=
+function(a){var b=this;q.logger.log(this.user_friendly_id()+".getUserMedia_v2() called: "+JSON.stringify(a));return new Promise(function(d,f){b.getUserMediaPrivate(a,function(a){q.logger.log(b.user_friendly_id()+"getUserMedia_v2: resolving stream");d(a)},function(a){q.logger.log(b.user_friendly_id()+"getUserMedia_v2: rejecting stream");f(a)})})};b.prototype.getUserMedia_v1=function(a,b,d){q.logger.log(this.user_friendly_id()+".getUserMedia_v1() called: "+JSON.stringify(a));return this.getUserMediaPrivate(a,
+b,d)};b.prototype.getUserMediaPrivate=function(a,b,c){var f=this;this.waitUntilConnected("NavigatorUserMedia.getUserMediaPrivate").then(function(){var b=f.registerCallbacks(!0,!1,d.method_id_NavigatorUserMedia_t.getUserMedia),c=J.toRemoteMediaStreamConstraints(a);f.remoteInvoke(!1,d.method_id_NavigatorUserMedia_t.getUserMedia,c,b.success,b.fail);return b.prom()}).then(function(a){q.logger.log(f.user_friendly_id()+".getUserMediaPrivate: received success callback!");return(new x(null,f.param0(a).oid,
+w.ProxyMode.Remote)).syncBarrier()}).then(function(d){q.logger.log(f.user_friendly_id()+".getUserMediaPrivate: MediaStream ready to deliver",JSON.stringify(d));0==d.getTracks().length?(q.logger.log(f.user_friendly_id()+".getUserMediaPrivate: reporting no tracks as error."),c({constraintName:"",name:"OverconstrainedError",message:""})):(f.LogTelemetryDevice_(a),b(d))})["catch"](function(a){f.logRemoteInvokeError(a,".getUserMediaPrivate() failed!");n.getRedirector().getFeatureValue(d.FEATURE_ms_teams_1912)?
+f.param0&&a?c(f.param0(a)):c({constraintName:"",name:"OverconstrainedError",message:""}):c({constraintName:"",name:"OverconstrainedError",message:""})})};b.prototype.SendTelemetryData=function(a,b,d){n.getRedirector().telemetry.SendTelemetryData(k.tel_cmd.Data,a,b,d)};b.capabilities=new G;return b}(w.ProxyObject);a.NavigatorUserMedia=b},650:function(b,a,c){Object.defineProperty(a,"__esModule",{value:!0});a.RemoteSession=a.SessionInfo=a.RemoteType=void 0;var e=c(946),l=c(550),h=c(9),d=c(851),w=c(550),
+q=c(394),n;(function(a){a[a.Unknown=0]="Unknown";a[a.Windows=1]="Windows";a[a.Linux=2]="Linux"})(n=a.RemoteType||(a.RemoteType={}));var k=function(){return function(){}}();a.SessionInfo=k;b=function(){function a(b,d){var c=this;this.isremote_=!1;this.isremote_=!0;this.type_=n.Windows;this.address_="0.0.0.0";this.sessioninfo_=null;e.getRedirector().setRemoteSessionInfoCb(function(){return c.remoteSessionInfo()});this.enginecontrol_=new h.EngineControl(b+"::"+d)}a.prototype.release=function(){e.getRedirector().setRemoteSessionInfoCb(null)};
+a.prototype.user_friendly_id=function(){return"[RemoteSession]"};a.prototype.getFeatureFlags=function(){var a={};null!==this.enginecontrol_&&null!==this.enginecontrol_.features_&&void 0!==this.enginecontrol_.features_&&this.enginecontrol_.features_.forEach(function(b){a[b.name]=b.value});return a};a.prototype.isFeatureSupported=function(a){if("video"===a)return!0;if("givecontrol"===a&&this.sessioninfo_.clientPlatform.includes("Linux")||!(a in w.featureNameMap))return!1;for(var b=w.featureNameMap[a],
+d=this.getFeatureFlags(),c=0;c<b.length;c++)if(!(b[c]in d)||!0!==d[b[c]])return!1;return a in w.vdaFeatureNameMap?w.vdaFeatureNameMap[a].map(function(a){return e.getRedirector().getVDAFeatureValue(a)}).reduce(function(a,b){return a&&b},!0):!0};a.isFeaturePstnSupported=function(){return a.pstn_};a.isFeatureDtmfSupported=function(){return a.dtmfswitch_};a.isFeaturAppshareSupported=function(){return a.appshare_};a.isFeatureWebrtc1dot0Supported=function(){return a.webrtc1dot0_};a.isFeatureDataChannelSupported=
+function(){return a.datachannel_};a.isFeatureVdNoBufferLimitSupported=function(){return a.vdnobuflimit_};a.isFeatureCallConstraintsSupported=function(){return a.callconstraints_};a.isFeatureTrackCloneWithIdSupported=function(){return a.trackclonewithid_};a.isFeatureSenderStatsFixSupported=function(){return a.senderstatsfix_};a.prototype.getSessionInfo=function(){d.logger.log(this.user_friendly_id()+".getSessionInfo() called.");return null!=this.sessioninfo_?Promise.resolve(this.sessioninfo_):Promise.reject()};
+a.prototype.remoteSessionInfo=function(){var b=this,c=this;d.logger.log(c.user_friendly_id()+".remoteSessionInfo() called.");return new Promise(function(n,t){c.enginecontrol_.syncBarrier().then(function(e){d.logger.log(c.user_friendly_id()+"enginecontrol info received!");c.sessioninfo_=new k;c.sessioninfo_.type_script=l.HDXMS_VERSION;c.sessioninfo_.webrpc=e.version_.major.toString()+"."+e.version_.minor.toString()+"."+e.version_.revision.toString()+"."+e.version_.build.toString();if(void 0!=e.versions_&&
+null!=e.versions_){c.SendTelemetryData(q.tel_key_VerTypeScript,l.HDXMS_VERSION,0);for(var t=0,y=0,x=e.versions_;y<x.length;y++){var r=x[y],r=r.major.toString()+"."+r.minor.toString()+"."+r.revision.toString()+"."+r.build.toString();switch(t){case h.VersionType.Webrpc:c.sessioninfo_.webrpc=r;c.SendTelemetryData(q.tel_key_VerWebrpc,r,0);break;case h.VersionType.WebrtcCodecs:c.sessioninfo_.webrtc_codecs=r;c.SendTelemetryData(q.tel_key_VerWebrtcCodecs,r,0);break;case h.VersionType.Receiver:c.sessioninfo_.receiver=
+r;c.SendTelemetryData(q.tel_key_VerReceiver,r,0);break;case h.VersionType.Vda:c.sessioninfo_.vda=r;c.SendTelemetryData(q.tel_key_VerVda,r,0);break;case h.VersionType.Endpoint:c.sessioninfo_.endpoint=r;c.SendTelemetryData(q.tel_key_VerEndpoint,r,0);break;case h.VersionType.HdxRtcEngine:c.sessioninfo_.hdxrtcengine=r;c.SendTelemetryData(q.tel_key_VerHdxRtcEngine,r,0);break;default:d.logger.log(c.user_friendly_id()+"Unknown version type!")}t++}}void 0!=e.osinfo_&&null!=e.osinfo_&&(c.sessioninfo_.osinfo=
+e.osinfo_,e.osinfo_.family.includes("Darwin")&&["Mac OS X","macOS","OS X"].some(function(a){return e.osinfo_.edition.startsWith(a)})?c.sessioninfo_.clientPlatform="Mac":c.sessioninfo_.clientPlatform=e.osinfo_.family,c.SendTelemetryData(q.tel_key_OSFamily,e.osinfo_.family,0),c.SendTelemetryData(q.tel_key_OSVersion,e.osinfo_.version,0),c.SendTelemetryData(q.tel_key_OSArchitecture,e.osinfo_.architecture,0),c.SendTelemetryData(q.tel_key_OSDistro,e.osinfo_.distro,0),c.SendTelemetryData(q.tel_key_OSEdition,
+e.osinfo_.edition,0));void 0!=e.endpointid_&&null!=e.endpointid_&&(c.sessioninfo_.endpointId=e.endpointid_.machine_id);void 0!=e.hardwareinfo_&&null!=e.hardwareinfo_&&(c.sessioninfo_.hardware_info=e.hardwareinfo_,c.SendTelemetryData(q.tel_key_CPUModel,e.hardwareinfo_.cpu_info.cpumodel,0),c.SendTelemetryData(q.tel_key_CPUProcessors,e.hardwareinfo_.cpu_info.numberofprocessors,0),c.SendTelemetryData(q.tel_key_CPUGpuinfo,JSON.stringify(e.hardwareinfo_.gpu_info.gpus),0),c.SendTelemetryData(q.tel_key_CPUTotalmemory,
+e.hardwareinfo_.memory_info.totalmemory,0));a.pstn_=b.isFeatureSupported(l.Features.FEATURE_public_pstn);a.dtmfswitch_=b.isFeatureSupported(l.Features.FEATURE_public_dtmf);a.appshare_=b.isFeatureSupported(l.Features.FEATURE_public_app_sharing);a.webrtc1dot0_=b.isFeatureSupported(l.Features.FEATURE_public_webrtc1dot0);a.datachannel_=b.isFeatureSupported(l.Features.FEATURE_public_data_channel);a.vdnobuflimit_=b.isFeatureSupported(l.Features.FEATURE_public_vdnobuflimit);a.callconstraints_=b.isFeatureSupported(l.Features.FEATURE_public_stream_resolution);
+a.trackclonewithid_=b.isFeatureSupported(l.Features.FEATURE_public_track_clone_with_id);a.senderstatsfix_=b.isFeatureSupported(l.Features.FEATURE_public_sender_stats_fix);n(c.sessioninfo_);c.enginecontrol_.release()})["catch"](function(){e.getRedirector().isPingActive()?c.retrySessionInfo():(t(),c.enginecontrol_.release(),c.enginecontrol_=null)})})};a.prototype.retrySessionInfo=function(){var a=this;setTimeout(function(){d.logger.log("checking if we are connected...");a.enginecontrol_.bind();e.getRedirector().handleRemoteSessionInfo()},
+15E3)};a.prototype.SendTelemetryData=function(a,b,d){e.getRedirector().telemetry.SendTelemetryData(q.tel_cmd.Data,a,b,d)};a.pstn_=!1;a.dtmfswitch_=!1;a.appshare_=!1;a.webrtc1dot0_=!1;a.datachannel_=!1;a.vdnobuflimit_=!1;a.callconstraints_=!1;a.trackclonewithid_=!1;a.senderstatsfix_=!1;return a}();a.RemoteSession=b},24:function(b,a,c){var e=this&&this.__extends||function(){var a=function(b,d){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,b){for(var d in b)b.hasOwnProperty(d)&&
+(a[d]=b[d])};return a(b,d)};return function(b,d){function c(){this.constructor=b}a(b,d);b.prototype=null===d?Object.create(d):(c.prototype=d.prototype,new c)}}();Object.defineProperty(a,"__esModule",{value:!0});a.RtcDataChannel=a.RTCSctpTransport=void 0;var l=c(658),h=c(550),d=c(851),w=c(589),q;(function(a){a[a["new"]=0]="new";a[a.connecting=1]="connecting";a[a.connected=2]="connected";a[a.closed=3]="closed";a[a.max=4]="max"})(q||(q={}));b=function(a){function b(c,g){var e=a.call(this,c,h.class_id_t.RTCSctpTransport,
+g,l.ProxyMode.Remote)||this;d.logger.log(e.user_friendly_id()+".constructor");return e}e(b,a);b.prototype.syncBarrier=function(){var a=this;d.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.syncBarrierDeep(b,c)&&a.waitUntilConnected("RTCSctpTransport.syncBarrier").then(function(){d.logger.log(a.user_friendly_id()+".syncBarrierBase success.");return Promise.all([a.remoteInvoke(!1,h.method_id_RTCSctpTransport_t.transport,{oid:0}),a.remoteInvoke(!1,h.method_id_RTCSctpTransport_t.state,
+0),a.remoteInvoke(!1,h.method_id_RTCSctpTransport_t.maxMessageSize,0),a.remoteInvoke(!1,h.method_id_RTCSctpTransport_t.maxChannels,0)])}).then(function(b){var c;c=b.map(function(b){return a.param0(b)});b=c[0];a.sctpstate_=c[1];a.maxMessageSize_=c[2];a.maxChannels_=c[3];c=a.transport_;void 0==b||!1!==b.is_null||null!==a.transport_&&a.transport_.object_id()==b.oid||(c=new w.DtlsTransport(a,b.oid));c.syncBarrier().then(function(b){d.logger.log(a.user_friendly_id()+"transport.syncBarrier(): success");
+a.transport_=b;a.syncBarrierResolve(a)})["catch"](function(){d.logger.log(a.user_friendly_id()+"transport.syncBarrier(): failed!");a.transport_=null;a.syncBarrierResolve(a)})})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier() failed!");a.syncBarrierReject(b)})})};Object.defineProperty(b.prototype,"transport",{get:function(){d.logger.log(this.user_friendly_id()+".get_transport() called: "+this.transport_);return this.transport_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,
+"state",{get:function(){d.logger.log(this.user_friendly_id()+".get_state() called: "+this.sctpstate_);return this.sctpstate_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"maxMessageSize",{get:function(){d.logger.log(this.user_friendly_id()+".get_maxMessageSize() called: "+this.maxMessageSize_);return this.maxMessageSize_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"maxChannels",{get:function(){d.logger.log(this.user_friendly_id()+".get_maxChannels() called: "+
+this.maxChannels_);return this.maxChannels_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onstatechange",{get:function(){d.logger.log(this.user_friendly_id()+".get_onstatechange() called: "+this.onstatechange_);return this.onstatechange_},set:function(a){var c=this;d.logger.log(this.user_friendly_id()+".set_onstatechange() called.");this.onstatechange_=a;this.waitUntilConnected(this.user_friendly_id()+".onstatechange").then(function(){var e=c.registerCallbacks(!1,c.isNullCallback(a),
+h.method_id_RTCSctpTransport_t.onstatechange);e.then(function(a){d.logger.log(c.user_friendly_id()+".onstatechange callback received!!!");c.sctpstate_=b.convertState(c.param0(a));d.logger.log(c.user_friendly_id()+"sctpstate_: "+c.sctpstate_);a=new Event("onstatechange");c.onstatechange_(a)});return c.remoteInvoke(!0,h.method_id_RTCSctpTransport_t.onstatechange,e.success)})["catch"](function(){d.logger.log(c.user_friendly_id()+".onstatechange() failed.")})},enumerable:!1,configurable:!0});b.convertState=
+function(a){return a==q["new"]?"closed":a==q.connecting?"connecting":a==q.connected?"connected":"closed"};return b}(l.ProxyObject);a.RTCSctpTransport=b;var n;(function(a){a[a.connecting=0]="connecting";a[a.open=1]="open";a[a.closing=2]="closing";a[a.closed=3]="closed"})(n||(n={}));b=function(a){function b(c,g,e){c=a.call(this,c,h.class_id_t.RTCDataChannel,g,e)||this;c.binaryType_="blob";d.logger.log(c.user_friendly_id()+".constructor");return c}e(b,a);b.prototype.syncBarrier=function(){var a=this;
+d.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.syncBarrierDeep(b,c)&&a.waitUntilConnected("RtcDataChannel.syncBarrier").then(function(){d.logger.log(a.user_friendly_id()+".syncBarrier remote invoking.");return Promise.all([a.remoteInvoke(!1,h.method_id_RTCDataChannel_t.label,""),a.remoteInvoke(!1,h.method_id_RTCDataChannel_t.ordered,!0),a.remoteInvoke(!1,h.method_id_RTCDataChannel_t.maxPacketLifeTime,0),a.remoteInvoke(!1,h.method_id_RTCDataChannel_t.maxRetransmits,
+0),a.remoteInvoke(!1,h.method_id_RTCDataChannel_t.protocol,""),a.remoteInvoke(!1,h.method_id_RTCDataChannel_t.negotiated,!1),a.remoteInvoke(!1,h.method_id_RTCDataChannel_t.id,0),a.remoteInvoke(!1,h.method_id_RTCDataChannel_t.readyState,0),a.remoteInvoke(!1,h.method_id_RTCDataChannel_t.bufferedAmount,0),a.remoteInvoke(!1,h.method_id_RTCDataChannel_t.bufferedAmountLowThreshold,0)])}).then(function(b){d.logger.log(a.user_friendly_id()+".syncBarrier success.");var c;b=b.map(function(b){return a.param0(b)});
+a.label_=b[0];a.ordered_=b[1];a.maxPacketLifeTime_=b[2];a.maxRetransmits_=b[3];a.protocol_=b[4];a.negotiated_=b[5];a.id_=b[6];c=b[7];a.bufferedAmount_=b[8];a.bufferedAmountLowThreshold_=b[9];a.readyState_=a.toRTCDataChannelState(c);a.syncBarrierResolve(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier() failed!");a.syncBarrierReject(b)})})};Object.defineProperty(b.prototype,"label",{get:function(){d.logger.log(this.user_friendly_id()+".get_label() called: "+this.label_);return this.label_},
+enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"ordered",{get:function(){d.logger.log(this.user_friendly_id()+".get_ordered() called: "+this.ordered_);return this.ordered_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"maxPacketLifeTime",{get:function(){d.logger.log(this.user_friendly_id()+".get_maxPacketLifeTime() called: "+this.maxPacketLifeTime_);return this.maxPacketLifeTime_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"maxRetransmits",
+{get:function(){d.logger.log(this.user_friendly_id()+".get_maxRetransmits() called: "+this.maxRetransmits_);return this.maxRetransmits_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"protocol",{get:function(){d.logger.log(this.user_friendly_id()+".get_protocol() called: "+this.protocol_);return this.protocol_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"negotiated",{get:function(){d.logger.log(this.user_friendly_id()+".get_negotiated() called: "+this.negotiated_);
+return this.negotiated_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"id",{get:function(){d.logger.log(this.user_friendly_id()+".get_id() called: "+this.id_);return this.id_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"readyState",{get:function(){d.logger.log(this.user_friendly_id()+".get_readyState() called: "+this.readyState_);return this.readyState_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"bufferedAmount",{get:function(){d.logger.log(this.user_friendly_id()+
+".get_bufferedAmount() called: "+this.bufferedAmount_);return this.bufferedAmount_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"bufferedAmountLowThreshold",{get:function(){d.logger.log(this.user_friendly_id()+".get_bufferedAmountLowThreshold() called: "+this.bufferedAmountLowThreshold_);return this.bufferedAmountLowThreshold_},set:function(a){d.logger.log(this.user_friendly_id()+".get_bufferedAmountLowThreshold() called: "+a);this.bufferedAmountLowThreshold_=a},enumerable:!1,
+configurable:!0});Object.defineProperty(b.prototype,"binaryType",{get:function(){d.logger.log(this.user_friendly_id()+".get_binaryType() called: "+this.binaryType_);return this.binaryType_},set:function(a){d.logger.log(this.user_friendly_id()+".set_binaryType() called: "+a);this.binaryType_="blob"==a||"arraybuffer"==a?a:"blob"},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onopen",{get:function(){d.logger.log(this.user_friendly_id()+".get_onopen() called.");return this.onopen_},
+set:function(a){var b=this;d.logger.log(this.user_friendly_id()+".set_onopen() called.");this.onopen_=a;this.waitUntilConnected(this.user_friendly_id()+".onopen").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),h.method_id_RTCDataChannel_t.onopen);c.then(function(a){d.logger.log(b.user_friendly_id()+".onopen callback received!!!");b.syncBarrier().then(function(){d.logger.log(b.user_friendly_id()+".onopen notifying...");var a=new Event("open",{});Object.defineProperty(a,"target",{writable:!1,
+value:b});b.onopen_(a)})["catch"](function(){d.logger.log(b.user_friendly_id()+".syncBarrier(): failed!")})});return b.remoteInvoke(!0,h.method_id_RTCDataChannel_t.onopen,c.success)})["catch"](function(){d.logger.log(b.user_friendly_id()+".onopen() failed.")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onbufferedamountlow",{get:function(){d.logger.log(this.user_friendly_id()+".get_onbufferedamountlow() called.");return this.onbufferedamountlow_},set:function(a){var b=this;
+d.logger.log(this.user_friendly_id()+".set_onbufferedamountlow() called.");this.onbufferedamountlow_=a;this.waitUntilConnected(this.user_friendly_id()+".onbufferedamountlow").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),h.method_id_RTCDataChannel_t.onbufferedamountlow);c.then(function(a){d.logger.log(b.user_friendly_id()+".onbufferedamountlow callback received!!!");a=new Event("onbufferedamountlow");Object.defineProperty(a,"target",{writable:!1,value:b});b.onbufferedamountlow_(a)});
+return b.remoteInvoke(!0,h.method_id_RTCDataChannel_t.onbufferedamountlow,c.success)})["catch"](function(){d.logger.log(b.user_friendly_id()+".onbufferedamountlows() failed.")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onerror",{get:function(){d.logger.log(this.user_friendly_id()+".get_onerror() called.");return this.onerror_},set:function(a){var b=this;d.logger.log(this.user_friendly_id()+".set_onerror() called.");this.onerror_=a;this.waitUntilConnected(this.user_friendly_id()+
+".onerror").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),h.method_id_RTCDataChannel_t.onerror);c.then(function(a){d.logger.log(b.user_friendly_id()+".onerror callback received!");a=b.param0(a);d.logger.log(b.user_friendly_id()+"error: "+a);a=new Event("onerror");Object.defineProperty(a,"target",{writable:!1,value:b});b.onerror_(a)});return b.remoteInvoke(!0,h.method_id_RTCDataChannel_t.onerror,c.success)})["catch"](function(){d.logger.log(b.user_friendly_id()+".onerror() failed.")})},
+enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onclosing",{get:function(){d.logger.log(this.user_friendly_id()+".get_onclosing() called.");return this.onclosing_},set:function(a){var b=this;d.logger.log(this.user_friendly_id()+".set_onclosing() called.");this.onclosing_=a;this.waitUntilConnected(this.user_friendly_id()+".onclosing").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),h.method_id_RTCDataChannel_t.onclosing);c.then(function(a){d.logger.log(b.user_friendly_id()+
+".onclosing callback received!!!");a=new Event("onclosing");Object.defineProperty(a,"target",{writable:!1,value:b});b.onclosing_(a)});return b.remoteInvoke(!0,h.method_id_RTCDataChannel_t.onclosing,c.success)})["catch"](function(){d.logger.log(b.user_friendly_id()+".onclosing() failed.")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onclose",{get:function(){d.logger.log(this.user_friendly_id()+".get_onclose() called.");return this.onclose_},set:function(a){var b=this;d.logger.log(this.user_friendly_id()+
+".set_onclose() called.");this.onclose_=a;this.waitUntilConnected(this.user_friendly_id()+".onclose").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),h.method_id_RTCDataChannel_t.onclose);c.then(function(a){d.logger.log(b.user_friendly_id()+".onclose callback received!!!");a=new Event("onclose");Object.defineProperty(a,"target",{writable:!1,value:b});b.onclose_(a)});return b.remoteInvoke(!0,h.method_id_RTCDataChannel_t.onclose,c.success)})["catch"](function(){d.logger.log(b.user_friendly_id()+
+".onclose() failed.")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onmessage",{get:function(){d.logger.log(this.user_friendly_id()+".get_onmessage() called.");return this.onmessage_},set:function(a){var b=this;d.logger.log(this.user_friendly_id()+".set_onmessage() called.");this.onmessage_=a;this.waitUntilConnected(this.user_friendly_id()+".onmessage").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),h.method_id_RTCDataChannel_t.onmessage);c.then(function(a){d.logger.log(b.user_friendly_id()+
+".onmessage callback received!!!");var c=b.param0(a);a=new Event("onmessage");c.binary?a.data=c.data_ab:(c=atob(c.data_sz),a.data=c);b.onmessage_(a)});return b.remoteInvoke(!0,h.method_id_RTCDataChannel_t.onmessage,c.success)})["catch"](function(){d.logger.log(b.user_friendly_id()+".onmessage() failed.")})},enumerable:!1,configurable:!0});b.prototype.close=function(){var a=this;d.logger.log(this.user_friendly_id()+".close() called.");this.waitUntilConnected("RTCDataChannel.close").then(function(){return a.remoteInvoke(!1,
+h.method_id_RTCDataChannel_t.close)}).then(function(){d.logger.log(a.user_friendly_id()+".close: success.")})["catch"](function(){d.logger.log(a.user_friendly_id()+".close: failed.")})};b.prototype.toByteArray=function(a){var b=[];a=new Uint8Array(a instanceof ArrayBuffer?a:a.buffer);for(var d in a)b.push(a[d]);return b};b.prototype.send=function(a){var b=this;d.logger.log(this.user_friendly_id()+".send() called.");this.waitUntilConnected("RTCDataChannel.send").then(function(){if("string"===typeof a)return d.logger.log(b.user_friendly_id()+
+"data(string): "+a),b.remoteInvoke(!1,h.method_id_RTCDataChannel_t.send_text,a);if(a instanceof Blob)a.arrayBuffer().then(function(a){a=b.toByteArray(a);return b.remoteInvoke(!1,h.method_id_RTCDataChannel_t.send_binary,a)})["catch"](function(){d.logger.log(b.user_friendly_id()+".arrayBuffer(): failed.")});else{var c=b.toByteArray(a);return b.remoteInvoke(!1,h.method_id_RTCDataChannel_t.send_binary,c)}}).then(function(){d.logger.log(b.user_friendly_id()+".send: success.")})["catch"](function(){d.logger.log(b.user_friendly_id()+
+".send: failed.")})};b.prototype.toRTCDataChannelState=function(a){var b="closed";a==n.connecting?b="connecting":a==n.open?b="open":a==n.closing?b="closing":a==n.closed&&(b="closed");return b};return b}(l.ProxyObject);a.RtcDataChannel=b},484:function(b,a,c){var e=this&&this.__extends||function(){var a=function(b,d){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,b){for(var d in b)b.hasOwnProperty(d)&&(a[d]=b[d])};return a(b,d)};return function(b,d){function c(){this.constructor=
+b}a(b,d);b.prototype=null===d?Object.create(d):(c.prototype=d.prototype,new c)}}();Object.defineProperty(a,"__esModule",{value:!0});a.RtcRtpReceiveParameters=a.RtcRtpSendParameters=a.RtcRtpEncodingParameters=a.RtcRtpParameters=a.RtcRtcpParameters=a.RtcRtpHeaderExtensionParameters=a.RtcRtpCodecParameters=void 0;var l=c(851),h=function(){function a(){}a.defRtcRtpCodecParameters=function(){return{mimeType:"",payloadType:0,sdpFmtpLine:""}};a.defRTCRtpCodecParameters=function(){return{clockRate:0,mimeType:"",
+payloadType:0}};a.toRtcRtpCodecParameters=function(b){var d=a.defRtcRtpCodecParameters();b&&(b.channels&&(d.channels=b.channels),b.clockRate&&(d.clockRate=b.clockRate),b.mimeType&&(d.mimeType=b.mimeType),b.payloadType&&(d.payloadType=b.payloadType),b.sdpFmtpLine&&(d.sdpFmtpLine=b.sdpFmtpLine));return d};a.toRTCRtpCodecParameters=function(b){var d=a.defRTCRtpCodecParameters();b&&(b.channels&&(d.channels=b.channels),b.clockRate&&(d.clockRate=b.clockRate),b.mimeType&&(d.mimeType=b.mimeType),b.payloadType&&
+(d.payloadType=b.payloadType),b.sdpFmtpLine&&(d.sdpFmtpLine=b.sdpFmtpLine));return d};return a}();a.RtcRtpCodecParameters=h;var d=function(){function a(){}a.defRtcRtpHeaderExtensionParameters=function(){return{encrypted:!1,id:0,uri:""}};a.defRTCRtpHeaderExtensionParameters=function(){return{id:0,uri:""}};a.toRtcRtpHeaderExtensionParameters=function(b){var d=a.defRtcRtpHeaderExtensionParameters();if(b){var c=b.encrypted;void 0!=c&&null!=c&&(d.encrypted=c);b.id&&(d.id=b.id);b.uri&&(d.uri=b.uri)}return d};
+a.toRTCRtpHeaderExtensionParameters=function(b){var d=a.defRTCRtpHeaderExtensionParameters();if(b){var c=b.encrypted;void 0!=c&&null!=c&&(d.encrypted=c);b.id&&(d.id=b.id);b.uri&&(d.uri=b.uri)}return d};return a}();a.RtcRtpHeaderExtensionParameters=d;var w=function(){function a(){}a.defRtcRtcpParameters=function(){return{cname:"",reducedSize:!1}};a.defRTCRtcpParameters=function(){return{}};a.toRtcRtcpParameters=function(b){var d=a.defRtcRtcpParameters();b&&(b.cname&&(d.cname=b.cname),b=b.reducedSize,
+void 0!=b&&null!=b&&(d.reducedSize=b));return d};a.toRTCRtcpParameters=function(b){var d=a.defRTCRtcpParameters();b&&(b.cname&&(d.cname=b.cname),b=b.reducedSize,void 0!=b&&null!=b&&(d.reducedSize=b));return d};return a}();a.RtcRtcpParameters=w;var q=function(){function a(){}a.defRtcRtpParameters=function(){return{codecs:[],headerExtensions:[],rtcp:w.defRtcRtcpParameters()}};a.defRTCRtpParameters=function(){return{codecs:[],headerExtensions:[],rtcp:w.defRTCRtcpParameters()}};a.toRtcRtpParameters=function(b){var c=
+a.defRtcRtpParameters();if(b){if(b.codecs)for(var g=0,e=b.codecs;g<e.length;g++)c.codecs.push(h.toRtcRtpCodecParameters(e[g]));if(b.headerExtensions)for(g=0,e=b.headerExtensions;g<e.length;g++)c.headerExtensions.push(d.toRtcRtpHeaderExtensionParameters(e[g]));b.rtcp&&(c.rtcp=w.toRtcRtcpParameters(b.rtcp))}return c};a.toRTCRtpParameters=function(b){var c=a.defRTCRtpParameters();if(b){if(b.codecs)for(var e=0,n=b.codecs;e<n.length;e++)c.codecs.push(h.toRTCRtpCodecParameters(n[e]));if(b.headerExtensions)for(e=
+0,n=b.headerExtensions;e<n.length;e++)c.headerExtensions.push(d.toRTCRtpHeaderExtensionParameters(n[e]));b.rtcp&&(c.rtcp=w.toRtcRtcpParameters(b.rtcp))}return c};return a}();a.RtcRtpParameters=q;var n=function(){function a(){}a.defRtcRtpEncodingParameters=function(){return{active:!0,rid:""}};a.defRTCRtpEncodingParameters=function(){return{}};a.toRtcRtpEncodingParameters=function(b){var d=a.defRtcRtpEncodingParameters();if(b){var c=b.active;void 0!=c&&null!=c&&(d.active=c);b.maxBitrate&&(d.maxBitrate=
+b.maxBitrate);b.maxFramerate&&(d.maxFramerate=b.maxFramerate);b.scaleResolutionDownBy&&(d.scaleResolutionDownBy=b.scaleResolutionDownBy);b.rid&&(d.rid=b.rid);b.networkPriority&&(d.networkPriority=b.networkPriority)}return d};a.toRTCRtpEncodingParameters=function(b){var d=a.defRTCRtpEncodingParameters();if(b){var c=b.active;void 0!=c&&null!=c&&(d.active=c);b.maxBitrate&&(d.maxBitrate=b.maxBitrate);b.maxFramerate&&(d.maxFramerate=b.maxFramerate);b.scaleResolutionDownBy&&(d.scaleResolutionDownBy=b.scaleResolutionDownBy);
+b.rid&&(d.rid=b.rid);b.networkPriority&&(d.networkPriority=b.networkPriority)}return d};return a}();a.RtcRtpEncodingParameters=n;b=function(a){function b(){return null!==a&&a.apply(this,arguments)||this}e(b,a);b.defRtcRtpSendParameters=function(){var a=q.defRtcRtpParameters();a.encodings=[];a.transaction_id="";return a};b.defRTCRtpSendParameters=function(){var a=q.defRTCRtpParameters();a.encodings=[];a.transactionId="";return a};b.toRtcRtpSendParameters=function(a){l.logger.log("RtcRtpSendParameters.toRtcRtpSendParameters() in param:"+
+JSON.stringify(a));var d=b.defRtcRtpSendParameters(),c=q.toRtcRtpParameters(a);c.codecs.forEach(function(a){return d.codecs.push(a)});c.headerExtensions.forEach(function(a){return d.headerExtensions.push(a)});d.rtcp=c.rtcp;if(a){if(a.encodings)for(var c=0,e=a.encodings;c<e.length;c++)d.encodings.push(n.toRtcRtpEncodingParameters(e[c]));a.transactionId&&(d.transaction_id=a.transactionId)}l.logger.log("RtcRtpSendParameters.toRtcRtpSendParameters() out param:"+JSON.stringify(d));return d};b.toRTCRtpSendParameters=
+function(a){l.logger.log("RtcRtpSendParameters.toRTCRtpSendParameters() in param:"+JSON.stringify(a));var d=b.defRTCRtpSendParameters(),c=q.toRTCRtpParameters(a);c.codecs.forEach(function(a){return d.codecs.push(a)});c.headerExtensions.forEach(function(a){return d.headerExtensions.push(a)});d.rtcp=c.rtcp;if(a){if(a.encodings)for(var c=0,e=a.encodings;c<e.length;c++)d.encodings.push(n.toRTCRtpEncodingParameters(e[c]));a.transaction_id&&(d.transactionId=a.transaction_id)}l.logger.log("RtcRtpSendParameters.toRTCRtpSendParameters() out param:"+
+JSON.stringify(d));return d};return b}(q);a.RtcRtpSendParameters=b;b=function(a){function b(){return null!==a&&a.apply(this,arguments)||this}e(b,a);b.defRtcRtpReceiveParameters=function(){return q.defRtcRtpParameters()};b.defRTCRtpReceiveParameters=function(){return q.defRTCRtpParameters()};b.toRtcRtpReceiveParameters=function(a){l.logger.log("RtcRtpReceiveParameters.toRtcRtpReceiveParameters() in param:"+JSON.stringify(a));a=q.toRtcRtpParameters(a);l.logger.log("RtcRtpReceiveParameters.toRtcRtpReceiveParameters() out param:"+
+JSON.stringify(a));return a};b.toRTCRtpReceiveParameters=function(a){l.logger.log("RtcRtpReceiveParameters.toRTCRtpReceiveParameters() in param:"+JSON.stringify(a));a=q.toRTCRtpParameters(a);l.logger.log("RtcRtpReceiveParameters.toRTCRtpReceiveParameters() out param:"+JSON.stringify(a));return a};return b}(q);a.RtcRtpReceiveParameters=b},589:function(b,a,c){var e=this&&this.__extends||function(){var a=function(b,d){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=
+b}||function(a,b){for(var d in b)b.hasOwnProperty(d)&&(a[d]=b[d])};return a(b,d)};return function(b,d){function c(){this.constructor=b}a(b,d);b.prototype=null===d?Object.create(d):(c.prototype=d.prototype,new c)}}();Object.defineProperty(a,"__esModule",{value:!0});a.RtpReceiver=a.RtpSender=a.RtpSenderReceiver=a.DtlsTransport=a.IceTransport=a.DtmfSender=a.DTMFToneChangeEvent=void 0;var l=c(658),h=c(550),d=c(851),w=c(144),q=c(517),n=c(650),k=c(484),v=function(a){function b(c,e){var g=a.call(this,c,
+h.class_id_t.RTCDTMFToneChangeEvent,e,l.ProxyMode.Remote)||this;d.logger.log(g.user_friendly_id()+".constructor");return g}e(b,a);b.prototype.syncBarrier=function(){var a=this;d.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.syncBarrierDeep(b,c)&&a.waitUntilConnected(a.user_friendly_id()+".syncBarrier").then(function(){Promise.all([a.remoteInvoke(!1,h.method_id_RTCDTMFToneChangeEvent_t.tone,""),a.remoteInvoke(!1,h.method_id_RTCDTMFToneChangeEvent_t.tone_buffer,
+"")]).then(function(b){d.logger.log(a.user_friendly_id()+".syncBarrier(): success.");b=b.map(function(b){return a.param0(b)});a.tone=b[0];a.tone_buffer_=b[1];a.syncBarrierResolve(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".prop.syncBarrier() failed.");a.syncBarrierReject(b)})})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier() failed.");a.syncBarrierReject(b)})})};Object.defineProperty(b.prototype,"tone_buffer",{get:function(){return this.tone_buffer_},enumerable:!1,configurable:!0});
+return b}(l.ProxyObject);a.DTMFToneChangeEvent=v;var p=function(a){function b(c,e){var g=a.call(this,c,h.class_id_t.RTCDTMFSender,e,l.ProxyMode.Remote)||this;d.logger.log(g.user_friendly_id()+".constructor");g.canInsertDTMF=!0;g.toneBuffer_="";return g}e(b,a);b.prototype.insertDTMF=function(a,b,c){var e=this;void 0===b&&(b=100);void 0===c&&(c=70);d.logger.log(this.user_friendly_id()+".insertDTMF() called, tones: "+a);this.waitUntilConnected("DtmfSender.insertDTMF").then(function(){return e.remoteInvoke(!1,
+h.method_id_RTCDTMFSender_t.insertDTMF,a,b,c)}).then(function(){d.logger.log(e.user_friendly_id()+".insertDTMF() success, tones: "+a)})["catch"](function(a){e.logRemoteInvokeError(a,".insertDTMF() failed!")})};Object.defineProperty(b.prototype,"ontonechange",{get:function(){return this.ontonechange_},set:function(a){var b=this;d.logger.log(this.user_friendly_id()+".set_ontonechange() called.");this.ontonechange_=a;this.waitUntilConnected("DtmfSender.ontonechange").then(function(){var c=b.registerCallbacks(!1,
+b.isNullCallback(a),h.method_id_RTCDTMFSender_t.ontonechange);c.then(function(a){d.logger.log(b.user_friendly_id()+".ontonechange callback received!");(new v(b,b.param0(a).oid)).syncBarrier().then(function(a){d.logger.log(b.user_friendly_id()+"tone: "+a.tone+" tone_buffer: "+a.tone_buffer);b.toneBuffer_=a.tone_buffer;b.ontonechange_(a)})["catch"](function(a){b.logRemoteInvokeError(a,".toneEvt.syncBarrier() failed!")})});return b.remoteInvoke(!0,h.method_id_RTCDTMFSender_t.ontonechange,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,
+".set_ontonechange() failed!")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"toneBuffer",{get:function(){d.logger.log(this.user_friendly_id()+".toneBuffer() called.");return this.toneBuffer_},enumerable:!1,configurable:!0});return b}(l.ProxyObject);a.DtmfSender=p;var g=function(a){function b(c,e){var g=a.call(this,c,h.class_id_t.RTCIceTransport,e,l.ProxyMode.Remote)||this;d.logger.log(g.user_friendly_id()+".constructor");g.selectedPair=null;g.localCandidates_=[];g.remoteCandidates_=
+[];return g}e(b,a);b.prototype.syncBarrier=function(){var a=this;d.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(c,e){a.syncBarrierDeep(c,e)&&a.waitUntilConnected("IceTransport.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,h.method_id_RTCIceTransport_t.role,0),a.remoteInvoke(!1,h.method_id_RTCIceTransport_t.component,0),a.remoteInvoke(!1,h.method_id_RTCIceTransport_t.state,0),a.remoteInvoke(!1,h.method_id_RTCIceTransport_t.gatheringState,
+0)])}).then(function(c){d.logger.log(a.user_friendly_id()+".syncBarrier success.");var e=0,g=0;c=c.map(function(b){return a.param0(b)});a.role_=c[0];a.component_=c[1];e=c[2];g=c[3];a.state_=b.convertState(e);a.gatheringState_=b.convertGatheringState(g);a.syncBarrierResolve(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier() failed!");a.syncBarrierReject(b)})})};b.prototype.syncCandidates=function(){var a=this;d.logger.log(this.user_friendly_id()+".syncCandidates() called.");return new Promise(function(b,
+c){a.waitUntilConnected("IceTransport.syncCandidates").then(function(){return Promise.all([a.remoteInvoke(!1,h.method_id_RTCIceTransport_t.localcandidates,[]),a.remoteInvoke(!1,h.method_id_RTCIceTransport_t.remotecandidates,[])])}).then(function(c){d.logger.log(a.user_friendly_id()+".syncCandidates success.");c=c.map(function(b){return a.param0(b)});a.localCandidates_=c[0];a.remoteCandidates_=c[1];b(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncCandidates() failed!");c(b)})})};Object.defineProperty(b.prototype,
+"role",{get:function(){return this.role_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"component",{get:function(){return this.component_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"State",{get:function(){return this.state_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"gatheringState",{get:function(){return this.gatheringState_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onstatechange",{get:function(){return this.onstatechange_},
+set:function(a){var c=this;d.logger.log(this.user_friendly_id()+".set_onstatechange() called.");this.onstatechange_=a;this.waitUntilConnected("IceTransport.onstatechange").then(function(){var e=c.registerCallbacks(!1,c.isNullCallback(a),h.method_id_RTCIceTransport_t.onstatechange);e.then(function(a){d.logger.log(c.user_friendly_id()+".onstatechange callback received!");c.syncCandidates().then(function(a){d.logger.log(c.user_friendly_id()+"received updated ice candidates!")});c.state_=b.convertState(c.param0(a));
+d.logger.log(c.user_friendly_id()+"state: "+c.state_);c.onstatechange_()});return c.remoteInvoke(!0,h.method_id_RTCIceTransport_t.onstatechange,e.success)})["catch"](function(a){c.logRemoteInvokeError(a,".set_onstatechange failed!")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"ongatheringstatechange",{get:function(){return this.ongatheringstatechange_},set:function(a){var c=this;d.logger.log(this.user_friendly_id()+".set_ongatheringstatechange() called.");this.ongatheringstatechange_=
+a;this.waitUntilConnected("IceTransport.ongatheringstatechange").then(function(){var e=c.registerCallbacks(!1,c.isNullCallback(a),h.method_id_RTCIceTransport_t.ongatheringstatechange);e.then(function(a){d.logger.log(c.user_friendly_id()+".ongatheringstatechange callback received!");c.syncCandidates().then(function(a){d.logger.log(c.user_friendly_id()+"received updated ice candidates!")});c.gatheringState_=b.convertGatheringState(c.param0(a));d.logger.log(c.user_friendly_id()+"gatheringState: "+c.gatheringState_);
+c.ongatheringstatechange_()});return c.remoteInvoke(!0,h.method_id_RTCIceTransport_t.ongatheringstatechange,e.success)})["catch"](function(a){c.logRemoteInvokeError(a,".set_ongatheringstatechange failed!")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onselectedcandidatepairchange",{get:function(){return this.onselectedcandidatepairchange_},set:function(a){var b=this;d.logger.log(this.user_friendly_id()+".set_onselectedcandidatepairchange() called.");this.onselectedcandidatepairchange_=
+a;this.waitUntilConnected("IceTransport.onselectedcandidatepairchange").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),h.method_id_RTCIceTransport_t.onselectedcandidatepairchange);c.then(function(a){d.logger.log(b.user_friendly_id()+".onselectedcandidatepairchange callback received!");b.syncCandidates().then(function(a){d.logger.log(b.user_friendly_id()+"received updated ice candidates!")});b.selectedPair=b.param0(a);d.logger.log(b.user_friendly_id()+"selectedPair: "+b.selectedPair);
+b.onselectedcandidatepairchange_()});return b.remoteInvoke(!0,h.method_id_RTCIceTransport_t.onselectedcandidatepairchange,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,".set_onselectedcandidatepairchange failed!")})},enumerable:!1,configurable:!0});b.prototype.getLocalCandidates=function(){return this.localCandidates_};b.prototype.getRemoteCandidates=function(){return this.remoteCandidates_};b.prototype.getLocalParameters=function(){return null};b.prototype.getRemoteParameters=function(){return null};
+b.prototype.getSelectedCandidatePair=function(){return this.selectedPair};b.convertState=function(a){return 0==a?"new":1==a?"checking":2==a?"connected":3==a?"completed":4==a?"failed":5==a?"disconnected":"closed"};b.convertGatheringState=function(a){return 0==a?"new":1==a?"gathering":"complete"};return b}(l.ProxyObject);a.IceTransport=g;var B;(function(a){a[a["new"]=0]="new";a[a.connecting=1]="connecting";a[a.connected=2]="connected";a[a.closed=3]="closed";a[a.failed=4]="failed";a[a.max=5]="max"})(B||
+(B={}));var t=function(a){function b(c,e){var g=a.call(this,c,h.class_id_t.RTCDtlsTransport,e,l.ProxyMode.Remote)||this;d.logger.log(g.user_friendly_id()+".constructor");g.state_="new";g.transport_=null;g.remoteCertificates_=[];return g}e(b,a);b.prototype.dumpInfo=function(){d.logger.log("DtlsTransport["+this.object_id()+"].dumpInfo():");d.logger.log("    - state:"+this.state_);d.logger.log("    - transport:"+this.transport_)};b.prototype.syncBarrier=function(){var a=this;d.logger.log(this.user_friendly_id()+
+".syncBarrier() called.");return new Promise(function(c,e){a.syncBarrierDeep(c,e)&&a.waitUntilConnected("DtlsTransport.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,h.method_id_RTCDtlsTransport_t.transport,{}),a.remoteInvoke(!1,h.method_id_RTCDtlsTransport_t.state,0),a.remoteInvoke(!1,h.method_id_RTCDtlsTransport_t.getRemoteCertificates)])}).then(function(c){var e;d.logger.log(a.user_friendly_id()+".syncBarrier remote success.");var h;e=c.map(function(b){return a.param0(b)});
+c=e[0];h=e[1];a.remoteCertificates_=e[2];a.state_=b.convertState(h);e=[];if(void 0!=c&&0==c.is_null){h=a.transport_;if(null===a.transport_||a.transport_.object_id()!=c.oid)h=new g(a,c.oid);e.push(h.syncBarrier())}else e.push(Promise.resolve(null));Promise.all(e).then(function(b){d.logger.log(a.user_friendly_id()+".syncBarrier success");a.transport_=b[0];a.syncBarrierResolve(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".prop.syncBarrier failed!");a.syncBarrierReject(b)})})["catch"](function(b){b=
+a.logRemoteInvokeError(b,".syncBarrier failed!");a.syncBarrierReject(b)})})};Object.defineProperty(b.prototype,"transport",{get:function(){return this.transport_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"state",{get:function(){d.logger.log(this.user_friendly_id()+".get_state() called: "+this.state_);return this.state_},enumerable:!1,configurable:!0});b.prototype.getRemoteCertificates=function(){return this.remoteCertificates_};Object.defineProperty(b.prototype,"onstatechange",
+{get:function(){return this.onstatechange_},set:function(a){var c=this;d.logger.log(this.user_friendly_id()+".set_onstatechange() called.");this.onstatechange_=a;this.waitUntilConnected("DtlsTransport.onstatechange").then(function(){var e=c.registerCallbacks(!1,c.isNullCallback(a),h.method_id_RTCDtlsTransport_t.onstatechange);e.then(function(a){d.logger.log(c.user_friendly_id()+".onstatechange callback received!");c.state_=b.convertState(c.param0(a));d.logger.log(c.user_friendly_id()+"state_: "+c.state_);
+c.onstatechange_()});return c.remoteInvoke(!0,h.method_id_RTCDtlsTransport_t.onstatechange,e.success)})["catch"](function(a){c.logRemoteInvokeError(a,".set_onstatechange failed!")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onerror",{get:function(){return this.onerror_},set:function(a){var b=this;d.logger.log(this.user_friendly_id()+".set_onerror() called.");this.onerror_=a;this.waitUntilConnected("DtlsTransport.onerror").then(function(){var c=b.registerCallbacks(!1,b.isNullCallback(a),
+h.method_id_RTCDtlsTransport_t.onerror);c.then(function(a){d.logger.log(b.user_friendly_id()+".onerror callback received!");a=b.param0(a);d.logger.log(b.user_friendly_id()+"error: "+a);b.onerror_(a)});return b.remoteInvoke(!0,h.method_id_RTCDtlsTransport_t.onerror,c.success)})["catch"](function(a){b.logRemoteInvokeError(a,".set_onerror failed!")})},enumerable:!1,configurable:!0});b.convertState=function(a){return a==B["new"]?"new":a==B.connecting?"connecting":a==B.connected?"connected":a==B.closed?
+"closed":"failed"};return b}(l.ProxyObject);a.DtlsTransport=t;b=function(a){function b(c,e,g,h){c=a.call(this,c,e,g,h)||this;d.logger.log(c.user_friendly_id()+".constructor base");c.track_=null;c.transport_=null;return c}e(b,a);b.prototype.syncBarrierBase=function(){d.logger.log(this.user_friendly_id()+".syncBarrierBase() called.");var a=[],b,c;this instanceof m?(b=h.method_id_RTCRtpSender_t.track,c=h.method_id_RTCRtpSender_t.transport):this instanceof D&&(b=h.method_id_RTCRtpReceiver_t.track,c=h.method_id_RTCRtpReceiver_t.transport);
+n.RemoteSession.isFeaturePstnSupported()&&n.RemoteSession.isFeatureDtmfSupported()?(a.push(this.remoteInvoke(!1,b,{oid:0})),a.push(this.remoteInvoke(!1,c,{oid:0}))):a.push(this.remoteInvoke(!1,b,{oid:0}));return a};b.prototype.syncBarrierBaseResults=function(a){var b,c=this;b=0;d.logger.log(this.user_friendly_id()+".syncBarrierBaseResults");var e;n.RemoteSession.isFeaturePstnSupported()&&n.RemoteSession.isFeatureDtmfSupported()?(b=a.map(function(a){return c.param0(a)}),a=b[0],e=b[1],b=2):(a=a.map(function(a){return c.param0(a)})[0],
+b=1);var g=[];if(void 0!=a&&!1===a.is_null){var h=this.track_;null===this.track_||this.track_.object_id()!=a.oid?h=new w.RemoteMediaTrack(this,a.oid):this.track_.bind(this,a.oid);g.push(h.syncBarrier())}else g.push(Promise.resolve(null));if(void 0!=e&&!1===e.is_null){a=this.transport_;if(null===this.transport_||this.transport_.object_id()!=e.oid)a=new t(this,e.oid);g.push(a.syncBarrier())}else g.push(Promise.resolve(null));return[b,g]};b.prototype.syncBarrierBaseResultsWithAllPromisesFulFilled=function(a){this.track_=
+a[0];this.transport_=a[1]};Object.defineProperty(b.prototype,"transport",{get:function(){d.logger.log(this.user_friendly_id()+".get transport() called.");return this.transport_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"rtcpTransport",{get:function(){d.logger.log(this.user_friendly_id()+".get rtcpTransport() called.");return this.transport_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"track",{get:function(){return this.track_},enumerable:!1,configurable:!0});
+b.prototype.reinitTrack=function(a){this.track_=a};b.prototype.getStats=function(){d.logger.log(this.user_friendly_id()+".getStats() called.");var a=this;return new Promise(function(b,c){a.isRedirected()?a.waitUntilConnected("RtpReceiver.getStats").then(function(){if(n.RemoteSession.isFeatureSenderStatsFixSupported()){var d;a instanceof m?d=h.method_id_RTCRtpSender_t.getStats:a instanceof D&&(d=h.method_id_RTCRtpReceiver_t.getStats);var c=a.registerCallbacks(!0,!1,d);c.then(function(a){void 0===a.params||
+0===a.params.length||0===a.params[0].length?b():b(q.StatsReport.fromJSON(JSON.parse(a.params[0])))});return a.remoteInvoke(!1,d,c.success)}b()})["catch"](function(b){b=a.logRemoteInvokeError(b,".getStats() failed!");c(b)}):(d.logger.log(a.user_friendly_id()+".getStats(): not in active redirection!"),b())})};return b}(l.ProxyObject);a.RtpSenderReceiver=b;var m=function(a){function b(c,e,g,m){c=a.call(this,c,h.class_id_t.RTCRtpSender,e,g)||this;d.logger.log(c.user_friendly_id()+".constructor");c.dtmf_=
+null;c.params_=k.RtcRtpSendParameters.defRtcRtpSendParameters();c.unified_=m;return c}e(b,a);b.prototype.dumpInfo=function(){d.logger.log("RtpSender["+this.object_id()+"].dumpInfo():");this.track&&this.track.dumpInfo()};b.prototype.syncBarrier=function(){var b=this;d.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(c,e){b.syncBarrierDeep(c,e)&&b.waitUntilConnected("RtpSender.syncBarrier").then(function(){var c=a.prototype.syncBarrierBase.call(b);n.RemoteSession.isFeaturePstnSupported()&&
+n.RemoteSession.isFeatureDtmfSupported()&&(c.push(b.remoteInvoke(!1,h.method_id_RTCRtpSender_t.dtmf,{oid:0})),c.push(b.remoteInvoke(!1,h.method_id_RTCRtpSender_t.getParameters)));return Promise.all(c)}).then(function(a){var c,e;c=b.syncBarrierBaseResults(a);e=c[0];c=c[1];a=a.slice(e).map(function(a){return b.param0(a)});e=a[0];b.params_=a[1];void 0==e||!1!==e.is_null||null!==b.dtmf_&&b.dtmf_.object_id()==e.oid||(b.dtmf_=new p(b,e.oid));Promise.all(c).then(function(a){b.syncBarrierBaseResultsWithAllPromisesFulFilled(a);
+d.logger.log(b.user_friendly_id()+".syncBarrierBase success.");b.syncBarrierResolve(b)})["catch"](function(a){a=b.logRemoteInvokeError(a,".syncBarrier() promises_base failed!");b.syncBarrierReject(a)})})["catch"](function(a){a=b.logRemoteInvokeError(a,".syncBarrier failed!");b.syncBarrierReject(a)})})};b.getCapabilities=function(a){d.logger.log(this.constructor.name+".getCapabilities() called.");return w.NavigatorUserMedia.getCapabilities(a)};Object.defineProperty(b.prototype,"dtmf",{get:function(){d.logger.log(this.user_friendly_id()+
+".get dtmf() called.");return this.dtmf_},enumerable:!1,configurable:!0});b.prototype.setParameters=function(a){return this.setParametersAsync(a)};b.prototype.setParametersAsync=function(a){var b=this;d.logger.log(this.user_friendly_id()+".setParametersAsync() called.");return new Promise(function(c,e){b.waitUntilConnected("RtpSender.setParametersAsync").then(function(){return Promise.all([b.remoteInvoke(!1,h.method_id_RTCRtpSender_t.setParameters,k.RtcRtpSendParameters.toRtcRtpSendParameters(a))])}).then(function(e){d.logger.log(b.user_friendly_id()+
+".setParametersAsync(): success.");c();b.params_=k.RtcRtpSendParameters.toRtcRtpSendParameters(a)})["catch"](function(a){a=b.logRemoteInvokeError(a,".setParametersAsync() failed!");e(a)})})};b.prototype.getParameters=function(){d.logger.log(this.user_friendly_id()+".getParameters() called.");return this.getParametersInternal(!1)};b.prototype.getParametersAsync=function(){d.logger.log(this.user_friendly_id()+".getParametersAsync() called.");return this.getParametersInternal(!0)};b.prototype.getParametersInternal=
+function(a){var b=this,c=new Promise(function(a,c){b.waitUntilConnected(b.user_friendly_id()+".getParametersInternal").then(function(){d.logger.log(b.user_friendly_id()+".getParametersInternal() remote invoking");return b.remoteInvoke(!1,h.method_id_RTCRtpSender_t.getParameters)}).then(function(c){b.params_=b.param0(c);d.logger.log(b.user_friendly_id()+".getParametersInternal() success returning: "+b.params_);a(k.RtcRtpSendParameters.toRTCRtpSendParameters(b.params_))})["catch"](function(a){a=b.logRemoteInvokeError(a,
+".getParametersInternal() failed!");c(a)})});if(a)return c;d.logger.log(this.user_friendly_id()+".getParametersInternal() returning: "+this.params_);return k.RtcRtpSendParameters.toRTCRtpSendParameters(this.params_)};b.prototype.replaceTrack=function(a){var b=this;d.logger.log(this.user_friendly_id()+".replaceTrack() called. current track:"+(this.track_?this.track_.object_id():"null")+" with track="+(a?a.object_id():"null"));return new Promise(function(c,e){b.waitUntilConnected("RtpSender.replaceTrack").then(function(){return a||
+n.RemoteSession.isFeatureWebrtc1dot0Supported()?a?b.remoteInvokeEx(!1,h.method_id_RTCRtpSender_t.replaceTrack,[a]):b.remoteInvoke(!1,h.method_id_RTCRtpSender_t.replaceTrack,{oid:-1}):Promise.reject(new DOMException("Does not support replace track with null in non-Unified SDP semantic!"))}).then(function(e){d.logger.log(b.user_friendly_id()+".replaceTrack(): success.");c();b.reinitTrack(a)})["catch"](function(a){a=b.logRemoteInvokeError(a,".replaceTrack() failed!");e(a)})})};return b}(b);a.RtpSender=
+m;var D=function(a){function b(c,e,g,m,x){c=a.call(this,c,h.class_id_t.RTCRtpReceiver,e,g)||this;d.logger.log(c.user_friendly_id()+".constructor");c.contribsources_=[];c.syncsources_=[];c.params_=k.RtcRtpParameters.defRtcRtpParameters();c.unified_=m;x&&(c.track_=x);return c}e(b,a);b.prototype.dumpInfo=function(){d.logger.log("RtpReceiver["+this.object_id()+"].dumpInfo():");this.track&&this.track.dumpInfo();this.transport&&this.transport.dumpInfo()};b.prototype.syncBarrier=function(){var b=this;d.logger.log(this.user_friendly_id()+
+".syncBarrier() called.");return new Promise(function(c,e){b.syncBarrierDeep(c,e)&&b.waitUntilConnected("RtpReceiver.syncBarrier").then(function(){var c=a.prototype.syncBarrierBase.call(b);n.RemoteSession.isFeaturePstnSupported()&&n.RemoteSession.isFeatureDtmfSupported()?(c.push(b.remoteInvoke(!1,h.method_id_RTCRtpReceiver_t.getContributingSources)),c.push(b.remoteInvoke(!1,h.method_id_RTCRtpReceiver_t.getSynchronizationSources)),c.push(b.remoteInvoke(!1,h.method_id_RTCRtpReceiver_t.getParameters))):
+c.push(b.remoteInvoke(!1,h.method_id_RTCRtpReceiver_t.getContributingSources));return Promise.all(c)}).then(function(a){var c,e;c=b.syncBarrierBaseResults(a);e=c[0];c=c[1];a=a.slice(e).map(function(a){return b.param0(a)});b.contribsources_=a[0];b.syncsources_=a[1];b.params_=a[2];Promise.all(c).then(function(a){b.syncBarrierBaseResultsWithAllPromisesFulFilled(a);d.logger.log(b.user_friendly_id()+".syncBarrier success.");b.syncBarrierResolve(b)})["catch"](function(a){a=b.logRemoteInvokeError(a,".syncBarrier() promises_base failed!");
+b.syncBarrierReject(a)})})["catch"](function(a){a=b.logRemoteInvokeError(a,".syncBarrier() failed!");b.syncBarrierReject(a)})})};b.getCapabilities=function(a){d.logger.log(this.constructor.name+".getCapabilities() called.");return w.NavigatorUserMedia.getCapabilities(a)};b.prototype.getContributingSources=function(){var a=this;d.logger.log(this.user_friendly_id()+".getContributingSources() called. "+JSON.stringify(this.contribsources_));this.waitUntilConnected("RtpReceiver.getContributingSources").then(function(){return Promise.all([a.remoteInvoke(!1,
+h.method_id_RTCRtpReceiver_t.getContributingSources)])}).then(function(b){a.contribsources_=b.map(function(b){return a.param0(b)})[0];d.logger.log(a.user_friendly_id(),".getContributingSources() success: "+JSON.stringify(a.contribsources_))})["catch"](function(b){a.logRemoteInvokeError(b,".getContributingSources() failed!");a.contribsources_=[]});return this.contribsources_};b.prototype.getParameters=function(){var a=this;d.logger.log(this.user_friendly_id()+".getParameters() called.");this.waitUntilConnected(this.user_friendly_id()+
+".getParameters").then(function(){d.logger.log(a.user_friendly_id()+".getParameters() remote invoking");return a.remoteInvoke(!1,h.method_id_RTCRtpReceiver_t.getParameters)}).then(function(b){d.logger.log(a.user_friendly_id()+".getParameters() success");a.params_=a.param0(b)})["catch"](function(b){a.logRemoteInvokeError(b,".getParameters() failed!")});d.logger.log(this.user_friendly_id()+".getParameters() returning: "+this.params_);return k.RtcRtpReceiveParameters.toRTCRtpReceiveParameters(this.params_)};
+b.prototype.getSynchronizationSources=function(){d.logger.log(this.user_friendly_id()+".getSynchronizationSources() called.");return this.syncsources_};return b}(b);a.RtpReceiver=D},377:function(b,a,c){var e=this&&this.__extends||function(){var a=function(b,c){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c])};return a(b,c)};return function(b,c){function d(){this.constructor=b}a(b,c);b.prototype=null===
+c?Object.create(c):(d.prototype=c.prototype,new d)}}();Object.defineProperty(a,"__esModule",{value:!0});a.RtpTransceiver=a.RtcRtpTransceiverInit=a.RtcRtpTransceiverDirection=void 0;var l=c(658),h=c(550),d=c(851),w=c(589),q=c(484),n;(function(a){a[a.sendrecv=0]="sendrecv";a[a.sendonly=1]="sendonly";a[a.recvonly=2]="recvonly";a[a.inactive=3]="inactive";a[a.stopped=4]="stopped"})(n=a.RtcRtpTransceiverDirection||(a.RtcRtpTransceiverDirection={}));var k=function(){function a(){}a.toRtcRtpTransceiverDirection=
+function(a){switch(a){case "inactive":a=n.inactive;break;case "recvonly":a=n.recvonly;break;case "sendonly":a=n.sendonly;break;case "sendrecv":a=n.sendrecv;break;case "stopped":a=n.stopped;break;default:a=n.sendrecv}return a};a.toRTCRtpTransceiverDirection=function(a){switch(a){case n.inactive:a="inactive";break;case n.recvonly:a="recvonly";break;case n.sendonly:a="sendonly";break;case n.sendrecv:a="sendrecv";break;case n.stopped:a="stopped";break;default:a="sendrecv"}return a};a.toRtcRtpTransceiverInit=
+function(b){d.logger.log("RtcRtpTransceiverInit.toRtcRtpTransceiverInit() in init:"+JSON.stringify(b));var c={};b&&(b.direction&&(c.direction=a.toRtcRtpTransceiverDirection(b.direction)),b.sendEncodings&&(c.sendEncodings=[],b.sendEncodings.forEach(function(a){return c.sendEncodings.push(q.RtcRtpEncodingParameters.toRtcRtpEncodingParameters(a))})),b.streams&&(c.streams=b.streams));d.logger.log("RtcRtpTransceiverInit.toRtcRtpTransceiverInit() out init:"+JSON.stringify(c));return c};return a}();a.RtcRtpTransceiverInit=
+k;b=function(a){function b(c,e,k,m,q,y){c=a.call(this,c,h.class_id_t.RTCRtpTransceiver,e,k)||this;d.logger.log(c.user_friendly_id()+".constructor");c.unified_=m;c.sender_=new w.RtpSender(c,0,l.ProxyMode.Pseudo,m);c.receiver_=y?y:new w.RtpReceiver(c,0,l.ProxyMode.Pseudo,m);q?(c.direction_=q,c.currentDirection_=q):(c.direction_=n.sendrecv,c.currentDirection_=n.sendrecv);return c}e(b,a);b.prototype.dumpInfo=function(){d.logger.log(this.user_friendly_id()+".dumpInfo() [id="+this.mid+"] direction="+k.toRTCRtpTransceiverDirection(this.direction_)+
+" currentDirection="+k.toRTCRtpTransceiverDirection(this.currentDirection_));this.sender&&this.sender.dumpInfo();this.receiver&&this.receiver.dumpInfo()};b.prototype.syncBarrier=function(){var a=this;d.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.syncBarrierDeep(b,c)&&a.waitUntilConnected("RtpTransceiver.syncBarrier").then(function(){return Promise.all([a.remoteInvoke(!1,h.method_id_RTCRtpTransceiver_t.mid,""),a.remoteInvoke(!1,h.method_id_RTCRtpTransceiver_t.direction,
+0),a.remoteInvoke(!1,h.method_id_RTCRtpTransceiver_t.currentDirection,0),a.remoteInvoke(!1,h.method_id_RTCRtpTransceiver_t.sender,{oid:0}),a.remoteInvoke(!1,h.method_id_RTCRtpTransceiver_t.receiver,{oid:0})])}).then(function(b){var c;d.logger.log(a.user_friendly_id()+".syncBarrier remote success.");c=b.map(function(b){return a.param0(b)});a.mid_=c[0];a.direction_=c[1];a.currentDirection_=c[2];b=c[3];c=c[4];var e=[];void 0!=b&&!1===b.is_null&&(a.sender_.bind(a,b.oid),e.push(a.sender_.syncBarrier()));
+void 0!=c&&!1===c.is_null&&(a.receiver_.bind(a,c.oid),e.push(a.receiver_.syncBarrier()));if(0==e.length)d.logger.log(a.user_friendly_id()+".syncBarrier success"),a.syncBarrierResolve(a);else return d.logger.log(a.user_friendly_id()+".prop.syncBarrier start"),Promise.all(e)}).then(function(){d.logger.log(a.user_friendly_id()+".syncBarrier success");a.syncBarrierResolve(a)})["catch"](function(b){b=a.logRemoteInvokeError(b,".syncBarrier() failed!");a.syncBarrierReject(b)})})};Object.defineProperty(b.prototype,
+"mid",{get:function(){d.logger.log(this.user_friendly_id()+".get_mid() called: "+this.mid_);return this.mid_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"sender",{get:function(){return this.sender_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"receiver",{get:function(){return this.receiver_},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"direction",{get:function(){d.logger.log(this.user_friendly_id()+".get_direction() called. "+k.toRTCRtpTransceiverDirection(this.direction_));
+return k.toRTCRtpTransceiverDirection(this.direction_)},set:function(a){var b=this;d.logger.log(this.user_friendly_id()+".set_direction() called. "+a);this.direction_=k.toRtcRtpTransceiverDirection(a);this.waitUntilConnected("RtpTransceiver.set_direction").then(function(){return b.remoteInvoke(!0,h.method_id_RTCRtpTransceiver_t.direction,k.toRtcRtpTransceiverDirection(a))}).then(function(){d.logger.log(b.user_friendly_id()+".set_direction: success.")})["catch"](function(a){b.logRemoteInvokeError(a,
+".set_direction() failed!")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"currentDirection",{get:function(){d.logger.log(this.user_friendly_id()+".get_currentDirection() called. "+k.toRTCRtpTransceiverDirection(this.currentDirection_));return k.toRTCRtpTransceiverDirection(this.currentDirection_)},enumerable:!1,configurable:!0});b.prototype.stop=function(){var a=this;d.logger.log(this.user_friendly_id()+".stop() called.");this.waitUntilConnected("RtpTransceiver.stop").then(function(){return a.remoteInvoke(!0,
+h.method_id_RTCRtpTransceiver_t.stop)}).then(function(){d.logger.log(a.user_friendly_id()+".stop: success.")})["catch"](function(b){a.logRemoteInvokeError(b,".stop() failed!")})};b.prototype.setCodecPreferences=function(a){var b=this;d.logger.log(this.user_friendly_id()+".setCodecPreferences() called.");this.waitUntilConnected("RtpTransceiver.setCodecPreferences").then(function(){return b.remoteInvoke(!0,h.method_id_RTCRtpTransceiver_t.setCodecPreferences,a)}).then(function(){d.logger.log(b.user_friendly_id()+
+".setCodecPreferences: success.")})["catch"](function(a){b.logRemoteInvokeError(a,".setCodecPreferences() failed!")})};return b}(l.ProxyObject);a.RtpTransceiver=b},973:function(b,a,c){function e(a,b){return void 0!==a.find(function(a){return a===b})}function l(a,b,c){b/=a.width;c/=a.height;var d=document.createElement("canvas"),e=d.getContext("2d");d.width=a.width*b;d.height=a.height*c;e.putImageData(a,0,0);if(1!=b||1!=c)e.scale(b,c),e.drawImage(d,0,0);return d}function h(a,b,c){a=l(a,b,c);b=document.createElement("img");
+b.src=a.toDataURL();return b}function d(a,b,c,d){c="undefined"!==typeof c?c:D.Width;d="undefined"!==typeof d?d:D.Height;if(!0===b)return h(a,c,d);b=null;c==a.width&&d===a.height?b=a:(a=l(a,c,d),b=a.getContext("2d").getImageData(0,0,a.width,a.height));return b}var w=this&&this.__extends||function(){var a=function(b,c){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c])};return a(b,c)};return function(b,
+c){function d(){this.constructor=b}a(b,c);b.prototype=null===c?Object.create(c):(d.prototype=c.prototype,new d)}}();Object.defineProperty(a,"__esModule",{value:!0});a.ScreenSource=a.ScreenSourceVda=a.ScreenSharingVda=a.ScreenSharingRemote=a.ScreenSharing=a.ImageDataRemote=void 0;var q=c(658),n=c(550),k=c(851),p=c(946),z=c(691),g=c(650),B;(function(a){a[a.Legacy=0]="Legacy";a[a.MonitorsAndApps=10]="MonitorsAndApps"})(B||(B={}));b=function(){return function(a,b,c){this.data=a;this.height=b;this.width=
+c}}();a.ImageDataRemote=b;b=function(){function a(){this.local_=this.remote_=null}a.screenSharingInstance=function(b){a.instance||(a.instance=new a,b&&(a.instance.onscreentopologychanged=b));return a.instance};a.destroyInstance=function(){a.instance&&a.instance.remote_&&a.instance.remote_.release();a.instance=null};a.prototype.user_friendly_id=function(){return this.constructor.name+"[]"};Object.defineProperty(a.prototype,"onscreentopologychanged",{set:function(a){this.remote_||(this.remote_=new t);
+this.remote_.onscreentopologychanged=a;this.local_||(this.local_=new m);this.local_.onscreentopologychanged=a},enumerable:!1,configurable:!0});a.prototype.getWindowsAsync=function(){var a=this;k.logger.log(this.user_friendly_id()+".getWindowsAsync() called.");null==this.local_&&(this.local_=new m);return new Promise(function(b,c){var d=[];a.local_.getWindowsAsync().then(function(c){c&&(d=c);k.logger.log(a.user_friendly_id()+".getWindowsAsync() returning sources");b(d)})["catch"](function(){k.logger.log("ScreenSharing.getWindowsAsync(): rejected");
+b(d)})})};a.prototype.getScreensAsync=function(){var a=this;k.logger.log(this.user_friendly_id()+".getScreensAsync() called.");null==this.remote_&&(this.remote_=new t);return new Promise(function(b,c){var d=[];a.remote_.getScreensAsync().then(function(c){c&&(d=c);k.logger.log(a.user_friendly_id()+".getScreensAsync() returning sources");b(d)})["catch"](function(){k.logger.log("ScreenSharing.getScreensAsync(): rejected");b(d)})})};a.prototype.setActiveSource=function(a,b){var c=this;k.logger.log(this.user_friendly_id()+
+".setActiveSource() called. id="+a+" appshare="+b);return new Promise(function(d,e){c.remote_.contains(a)?c.remote_.setActive(a).then(function(a){d(a)})["catch"](function(){k.logger.log("ScreenSharing.setActiveSource(): rejected");e()}):b?c.local_.contains(a)?c.local_.setActive(!0,a).then(function(a){d(a)})["catch"](function(){k.logger.log("ScreenSharing.setActiveSource(): rejected");e()}):(k.logger.log("ScreenSharing.setActiveSource(): legacy screen sharing"),d("")):(k.logger.log("ScreenSharing.setActiveSource(): legacy screen sharing"),
+d(""))})};a.prototype.isAppshareActive=function(){return this.local_&&-1!==this.local_.lastActive};a.prototype.stopAppshare=function(){k.logger.log(this.user_friendly_id()+".stopAppshare() called.");this.local_&&this.local_.setActive(!1).then(function(a){k.logger.log("ScreenSharing.stopAppshare(): success, deviceid=",a)})["catch"](function(){k.logger.log("ScreenSharing.stopAppshare(): failure or timeout due to nonresponsive WS Agent")})};a.instance=null;return a}();a.ScreenSharing=b;var t=function(a){function b(){var c=
+a.call(this,null,n.class_id_t.ScreenSharingRemote,0,q.ProxyMode.Local)||this;k.logger.log(c.user_friendly_id()+".constructor");c.sources_=[];return c}w(b,a);b.prototype.getSourceById=function(a){return this.sources_.find(function(b){return b.getId()==a})};b.prototype.contains=function(a){return void 0!==this.getSourceById(a)};Object.defineProperty(b.prototype,"onscreentopologychanged",{get:function(){return this.onscreentopologychanged_},set:function(a){var b=this;this.onscreentopologychanged_=a;
+this.waitUntilConnected(this.user_friendly_id()+".onscreentopologychanged").then(function(){var a=b.registerCallbacks(!1,b.isNullCallback(b.onscreentopologychanged_),n.method_id_VDISharingRemote_t.onscreentopologychanged);a.then(function(){k.logger.log(b.user_friendly_id()+"onscreentopologychanged event received!!!");b.onscreentopologychanged_&&b.onscreentopologychanged_()});return b.remoteInvoke(!0,n.method_id_VDISharingRemote_t.onscreentopologychanged,a.success)})["catch"](function(a){b.logRemoteInvokeError(a,
+".set_onscreentopologychanged() failed!")})},enumerable:!1,configurable:!0});b.prototype.getScreensAsync=function(){var a=this;k.logger.log(this.user_friendly_id()+".getScreensAsync() called.");var b=this.sources_;this.sources_=[];var c=p.getRedirector().vdabufferNoLimit()&&g.RemoteSession.isFeatureVdNoBufferLimitSupported();return new Promise(function(d,g){a.waitUntilConnected(a.user_friendly_id()+".getScreensAsync").then(function(){return a.remoteInvoke(!1,n.method_id_VDISharingRemote_t.getScreensAsync,
+c)}).then(function(c){var h=[];c.params[0].forEach(function(c){var d=b.find(function(a){return a.object_id()===c.oid});void 0===d&&(k.logger.log(a.user_friendly_id()+" create a ScreenSource with oid:"+c.oid),d=new y(a,c.oid,q.ProxyMode.Remote));h.push(d.syncBarrier())});Promise.all(h.map(function(a){return a.then(function(a){return{value:a,status:"fulfilled"}},function(a){return{value:a,status:"rejected"}})})).then(function(c){var g=c.filter(function(a){return"fulfilled"===a.status}).map(function(a){return a.value});
+a.sources_=g;b.filter(function(a){return!e(g,a)}).forEach(function(a){return a.release()});d(g)})["catch"](function(c){c=a.logRemoteInvokeError(c,".getScreensAsync() failed!");b.forEach(function(a){a.release()});g(c)})})["catch"](function(c){c=a.logRemoteInvokeError(c,".getScreensAsync() failed!");b.forEach(function(a){a.release()});g(c)})})};b.prototype.setActive=function(a){var b=this;k.logger.log(this.user_friendly_id()+".setActive() called. uniqueid="+a);return new Promise(function(c,d){-1!=a?
+c(b.getSourceById(a).getDeviceId()):d()})};return b}(q.ProxyObject);a.ScreenSharingRemote=t;var m=function(){function a(){k.logger.log(this.user_friendly_id()+".constructor");this.sources_=[];this.lastactive_=-1}a.prototype.user_friendly_id=function(){return this.constructor.name+"[]"};Object.defineProperty(a.prototype,"onscreentopologychanged",{set:function(a){p.getRedirector().screenshare.setTopologyChangeCB(a)},enumerable:!1,configurable:!0});Object.defineProperty(a.prototype,"lastActive",{get:function(){return this.lastactive_},
+enumerable:!1,configurable:!0});a.prototype.getSourceById=function(a){return this.sources_.find(function(b){return b.getId()==a})};a.prototype.contains=function(a){return void 0!==this.getSourceById(a)};a.prototype.getWindowsAsync=function(){var a=this;k.logger.log(this.user_friendly_id()+".getWindowsAsync() called.");var b=this.sources_;this.sources_=[];return new Promise(function(c,d){p.getRedirector().screenshare.getSources(new z.getSourcesReqData(2)).then(function(d){d=d.map(function(c){var d=
+b.find(function(a){return a.equivalent(c)});return void 0!==d?(d.setDescription(c.getDescription()),c.getIcon().then(function(a){d.setIcon(a)})["catch"](function(){k.logger.log(a.user_friendly_id()+".getWindowsAsync() failed to retrieve new icon.")}),c.getPreviewAsync().then(function(a){d.setPreview(a)})["catch"](function(){k.logger.log(a.user_friendly_id()+".getWindowsAsync() failed to retrieve new preview.")}),d):c});if(-1!=a.lastactive_){var e=b.find(function(b){return b.getId()==a.lastactive_}),
+g=d.find(function(b){return b.getId()==a.lastactive_});void 0!==e&&void 0===g&&d.push(e)}a.sources_=d;c(a.sources_)})["catch"](function(){k.logger.log(a.user_friendly_id()+".getWindowsAsync(): rejected");d()})})};a.prototype.activateSource=function(a,b){var c=this;return new Promise(function(d,e){var g=b?"activate":"deactivate";k.logger.log(c.user_friendly_id()+".activateSource() called. action="+g);var h=new z.setActiveReqData(a.srcid,a.hwnd,a.origin,a.pid,!0,!0,b);p.getRedirector().screenshare.setActive(h).then(function(b){k.logger.log(c.user_friendly_id()+
+": "+g+" success: srcid="+b.srcid+" deviceid="+b.bufferid);a.deviceid=b.bufferid;d(b.bufferid)})["catch"](function(){k.logger.log(c.user_friendly_id()+"failed to "+g+": srcid="+a.srcid+", maybe WS Agent is too slow to respond");e()})})};a.prototype.setActive=function(a,b){var c=this;k.logger.log(this.user_friendly_id()+".setActive() called. uniqueid="+b);return new Promise(function(d,e){a||(b=c.lastactive_);-1!=b?(a?(b!=c.lastactive_&&-1!=c.lastactive_&&c.activateSource(c.getSourceById(c.lastactive_),
+!1),c.lastactive_=b):c.lastactive_=-1,c.activateSource(c.getSourceById(b),a).then(function(b){d(a?"RemoteApplication-"+b:b)})["catch"](function(){e()})):e()})};return a}();a.ScreenSharingVda=m;var D=function(){function a(){}a.Width=140;a.Height=90;return a}();b=function(){function a(b,c,d,e,g,h,k,m,n,l){this.uniqueid_=y.nextId_++;this.srcid_=b;this.deviceid_=c;this.type_=d;this.imagedata_=e;this.icon_=g;this.name_=h;this.hwnd_=k;this.origin_=m;this.caption_=n;this.pid_=l}a.prototype.user_friendly_id=
+function(){return this.constructor.name+"["+this.uniqueid_+"]"};Object.defineProperty(a.prototype,"srcid",{get:function(){return this.srcid_},enumerable:!1,configurable:!0});Object.defineProperty(a.prototype,"hwnd",{get:function(){return this.hwnd_},enumerable:!1,configurable:!0});Object.defineProperty(a.prototype,"origin",{get:function(){return this.origin_},enumerable:!1,configurable:!0});Object.defineProperty(a.prototype,"pid",{get:function(){return this.pid_},enumerable:!1,configurable:!0});a.prototype.getId=
+function(){return this.uniqueid_};a.prototype.getDeviceId=function(){return this.deviceid_};Object.defineProperty(a.prototype,"deviceid",{set:function(a){this.deviceid_=a},enumerable:!1,configurable:!0});a.prototype.getType=function(){return 2};a.prototype.getPreview=function(a,b,c){k.logger.log(this.user_friendly_id()+".getPreview() called, width:"+a+" height:"+b+" asImage:"+c);return Promise.reject(null)};a.prototype.setPreview=function(a){this.imagedata_=a};a.prototype.getPreviewAsync=function(a,
+b,c){k.logger.log(this.user_friendly_id()+".getPreviewAsync() called, width:"+a+" height:"+b);return!0===c?(a=h(this.imagedata_,D.Width,D.Height),Promise.resolve({data:a.src.replace(/^data:image\/(png|jpg);base64,/,"")})):Promise.resolve(this.imagedata_)};a.prototype.getPreviewImage=function(a,b,c){k.logger.log(this.user_friendly_id()+".getPreviewImage() called, width:"+b+" height:"+c);return Promise.resolve(d(this.imagedata_,a,b,c))};a.prototype.getDescription=function(){return this.name_};a.prototype.setDescription=
+function(a){this.name_=a};a.prototype.getIcon=function(a,b,c){return!0===c?(a=h(this.icon_,D.Width,D.Height),Promise.resolve({data:a.src.replace(/^data:image\/(png|jpg);base64,/,"")})):Promise.resolve(this.icon_)};a.prototype.getIconImage=function(a,b,c){k.logger.log(this.user_friendly_id()+".getIconImage() called, width:"+b+" height:"+c);return Promise.resolve(d(this.icon_,a,"undefined"!==typeof b?b:this.icon_.width,"undefined"!==typeof c?c:this.icon_.height))};a.prototype.setIcon=function(a){this.icon_=
+a};a.prototype.getBounds=function(){return{x:0,y:0,width:0,height:0}};a.prototype.equivalent=function(a){return this.pid_===a.pid_&&this.hwnd_===a.hwnd_};return a}();a.ScreenSourceVda=b;var y=function(a){function b(c,d,e){c=a.call(this,c,n.class_id_t.ScreenSource,d,e)||this;c.screenshare_=new z.ScreenShareUtil;c.uniqueid_=b.nextId_++;k.logger.log(c.user_friendly_id()+".constructor");return c}w(b,a);b.prototype.user_friendly_id=function(){return this.constructor.name+"["+this.uniqueid_+"]"};b.prototype.toJSImageData=
+function(a){var b=atob(a.data.toString()),b=this.screenshare_.str2ab(b),b=new Uint8ClampedArray(b,0,b.byteLength);this.imagedata_=new ImageData(b,a.width,a.height)};b.prototype.syncBarrier=function(){var a=this;k.logger.log(this.user_friendly_id()+".syncBarrier() called.");return new Promise(function(b,c){a.syncBarrierDeep(b,c)&&a.waitUntilConnected(a.user_friendly_id()+".syncBarrier").then(function(){Promise.all([a.remoteInvoke(!1,n.method_id_ScreenSource_t.srcid,0),a.remoteInvoke(!1,n.method_id_ScreenSource_t.deviceid,
+""),a.remoteInvoke(!1,n.method_id_ScreenSource_t.type,0),a.remoteInvoke(!1,n.method_id_ScreenSource_t.name,""),a.remoteInvoke(!1,n.method_id_ScreenSource_t.imagedata),a.remoteInvoke(!1,n.method_id_ScreenSource_t.hwnd,""),a.remoteInvoke(!1,n.method_id_ScreenSource_t.origin,0),a.remoteInvoke(!1,n.method_id_ScreenSource_t.caption,""),a.remoteInvoke(!1,n.method_id_ScreenSource_t.pid,0)]).then(function(b){k.logger.log(a.user_friendly_id()+".syncBarrier(): success.");var c;b=b.map(function(b){return a.param0(b)});
+a.srcid_=b[0];a.deviceid_=b[1];a.type_=b[2];a.name_=b[3];c=b[4];a.hwnd_=b[5];a.origin_=b[6];a.caption_=b[7];a.pid_=b[8];a.toJSImageData(c);a.remoteInvoke(!1,n.method_id_ScreenSource_t.bounds,0).then(function(b){a.bounds_=a.param0(b);a.syncBarrierResolve(a)})["catch"](function(b){a.bounds_=void 0;b=a.logRemoteInvokeError(b,".prop.syncBarrier() getBounds failed.");a.syncBarrierReject(b)})})["catch"](function(b){b=a.logRemoteInvokeError(b,".prop.syncBarrier() failed.");a.syncBarrierReject(b)})})["catch"](function(b){b=
+a.logRemoteInvokeError(b,".syncBarrier() failed.");a.syncBarrierReject(b)})})};b.prototype.getId=function(){return this.uniqueid_};b.prototype.getDeviceId=function(){return this.deviceid_};b.prototype.getType=function(){return 1};b.prototype.getPreview=function(a,b,c){k.logger.log(this.user_friendly_id()+".getPreview() called, width:"+a+" height:"+b+" asImage:"+c);return Promise.reject(null)};b.prototype.getPreviewAsync=function(a,b,c){k.logger.log(this.user_friendly_id()+".getPreviewAsync() called, width:"+
+a+" height:"+b);return!0===c?(a=h(this.imagedata_,D.Width,D.Height),Promise.resolve({data:a.src.replace(/^data:image\/(png|jpg);base64,/,"")})):Promise.resolve(this.imagedata_)};b.prototype.getPreviewImage=function(a,b,c){k.logger.log(this.user_friendly_id()+".getPreviewImage() called, width:"+b+" height:"+c);return Promise.resolve(d(this.imagedata_,a,b,c))};b.prototype.getDescription=function(){return this.name_};b.prototype.getIcon=function(a,b){return Promise.resolve(this.imagedata_)};b.prototype.getBounds=
+function(){return this.bounds_||{x:0,y:0,width:0,height:0}};b.nextId_=B.MonitorsAndApps;return b}(q.ProxyObject);a.ScreenSource=y},691:function(b,a,c){Object.defineProperty(a,"__esModule",{value:!0});a.ScreenShareUtil=a.Bitmap=a.BitmapInfoHeader=a.BitmapFileHeader=a.setActiveRespData=a.setActiveReqData=a.getSourcesReqData=a.sshare_state=a.sshare_cmd=void 0;var e=c(946),l=c(973),h=c(851),d;(function(a){a[a.Unknown=0]="Unknown";a[a.Cap=1]="Cap";a[a.GetSources=2]="GetSources";a[a.SetActive=3]="SetActive";
+a[a.TopologyChanged=4]="TopologyChanged"})(d=a.sshare_cmd||(a.sshare_cmd={}));var w;(function(a){a[a.Unknown=0]="Unknown";a[a.Initialized=1]="Initialized";a[a.Error=2]="Error"})(w=a.sshare_state||(a.sshare_state={}));b=function(){return function(a){this.origin=a}}();a.getSourcesReqData=b;b=function(){return function(a,b,c,d,e,h,k){this.srcid=a;this.hwnd=b;this.origin=c;this.pid=d;this.border=e;this.cursor=h;this.activate=k}}();a.setActiveReqData=b;var q=function(){return function(a,b,c){this.srcid=
+a;this.origin=b;this.bufferid=c}}();a.setActiveRespData=q;var n=function(){function a(b,c,d,e,g){this.id_=b;this.resolve_=c;this.reject_=d;this.cmd_=e;this.data_=g;this.sent_=!1;this.timeoutId=void 0}a.prototype.user_friendly_id=function(){return this.constructor.name+"["+this.id_+"]"};a.prototype.cmdString=function(){return this.cmd_==d.Cap?"Cap":this.cmd_==d.GetSources?"GetSources":this.cmd_==d.SetActive?"SetActive":"Unknown"};return a}(),k=function(){return function(){}}();a.BitmapFileHeader=k;
+var p=function(){return function(){}}();a.BitmapInfoHeader=p;var z=function(){return function(){}}();a.Bitmap=z;b=function(){function a(){this.cmdque_=[]}a.prototype.reqid=function(){return a.nextId++};a.prototype.user_friendly_id=function(){return this.constructor.name+"[]"};a.prototype.stateString=function(){return a.state_==w.Initialized?"Initialized":a.state_==w.Error?"Error":"Unknown"};a.prototype.reset=function(){a.state_=w.Unknown;this.cmdque_=[]};a.prototype.dispatchCmds=function(){var b=
+this;a.state_==w.Initialized?this.cmdque_.forEach(function(a){0==a.sent_&&(a.cmd_==d.GetSources?(b.WSSendGetSources(a.id_,a.data_),a.sent_=!0,a.timeoutId=setTimeout(b.abortCmd.bind(b,a.id_),5E3)):a.cmd_==d.SetActive?(b.WSSendSetActive(a.id_,a.data_),a.sent_=!0,a.timeoutId=setTimeout(b.abortCmd.bind(b,a.id_),5E3)):h.logger.log(a.user_friendly_id()+".dispatchCmds(): invalid cmd: "+a.cmdString()))}):a.state_==w.Error?(this.cmdque_.forEach(function(a){h.logger.log(a.user_friendly_id()+".dispatchCmds(): purging cmd: "+
+a.cmdString());a.reject_()}),this.cmdque_=[]):h.logger.log(this.user_friendly_id()+".dispatchCmds(): invalid state: "+this.stateString())};a.prototype.abortCmd=function(a){var b=this.cmdque_.findIndex(function(b){return b.id_===a});-1!==b?(b=this.cmdque_.splice(b,1)[0],h.logger.log(b.user_friendly_id()+NaN+b.cmdString()+"]: aborted due to nonresponsive WS Agent!"),b.cmd_===d.SetActive&&b.data_.activate&&l.ScreenSharing.screenSharingInstance().stopAppshare(),b.reject_()):h.logger.log(this.user_friendly_id()+
+".abortCmd(): Cmd not found!")};a.prototype.finalizeCmd=function(a,b,c){for(var d=0;d<this.cmdque_.length;d++){var e=this.cmdque_[d];if(void 0!=b&&b==e.id_&&1==e.sent_||void 0==b&&1==e.sent_){clearTimeout(e.timeoutId);h.logger.log(e.user_friendly_id()+".finalizeCmd(): purging cmd: "+e.cmdString());a?void 0!=c?e.resolve_(c):e.resolve_():e.reject_();this.cmdque_.splice(d,1);break}}};a.prototype.onInitialized=function(b){h.logger.log(this.user_friendly_id()+".onInitialized(): init: "+b+" state:"+this.stateString());
+a.state_!=w.Initialized&&(a.state_=b?w.Initialized:w.Error);this.dispatchCmds()};a.prototype.onInitComplete=function(){h.logger.log(this.user_friendly_id()+".onInitComplete(): state:"+this.stateString());a.state_==w.Unknown&&(a.state_=w.Error,h.logger.log(this.user_friendly_id()+".onInitComplete(): items in queue:"+this.cmdque_.length),this.dispatchCmds())};a.prototype.onError=function(b){h.logger.log(this.user_friendly_id()+".onError(): state: "+this.stateString());a.state_==w.Unknown?(a.state_=
+w.Error,this.dispatchCmds()):a.state_==w.Initialized&&this.finalizeCmd(!1,b)};a.prototype.ab2str=function(a){return String.fromCharCode.apply(null,new Uint8Array(a))};a.prototype.str2ab=function(a){for(var b=new ArrayBuffer(a.length),c=new Uint8Array(b),d=0,e=a.length;d<e;d++)c[d]=a.charCodeAt(d);return b};a.prototype.getBMP=function(a){var b=new DataView(a),c=new z;c.fileheader=new k;c.fileheader.bfType=b.getUint16(0,!0);c.fileheader.bfSize=b.getUint32(2,!0);c.fileheader.bfReserved1=b.getUint16(6,
+!0);c.fileheader.bfReserved2=b.getUint16(8,!0);c.fileheader.bfOffBits=b.getUint32(10,!0);c.infoheader=new p;c.infoheader.biSize=b.getUint32(14,!0);c.infoheader.biWidth=b.getUint32(18,!0);c.infoheader.biHeight=b.getUint32(22,!0);c.infoheader.biPlanes=b.getUint16(26,!0);c.infoheader.biBitCount=b.getUint16(28,!0);c.infoheader.biCompression=b.getUint32(30,!0);c.infoheader.biSizeImage=b.getUint32(34,!0);c.infoheader.biXPelsPerMeter=b.getUint32(38,!0);c.infoheader.biYPelsPerMeter=b.getUint32(42,!0);c.infoheader.biClrUsed=
+b.getUint32(46,!0);c.infoheader.biClrImportant=b.getUint32(50,!0);b=c.fileheader.bfOffBits;c.stride=4*Math.floor((c.infoheader.biBitCount*c.infoheader.biWidth+31)/32);c.pixels=new Uint8Array(a,b);return c};a.prototype.convertToImageData=function(a){var b=document.createElement("canvas").getContext("2d"),c=a.infoheader.biWidth,d=a.infoheader.biHeight,b=b.createImageData(c,d),e=b.data,g=a.pixels;a=a.stride;for(var h=0;h<d;++h)for(var k=0;k<c;++k){var l=4*(k+c*(d-h)),n=4*k+a*h;e[l]=g[n+2];e[l+1]=g[n+
+1];e[l+2]=g[n];e[l+3]=255}return b};a.prototype.onGetSources=function(a,b){this.sources_=[];var c=this;b.sources.forEach(function(a){var b=a.image,d=atob(b.data),d=c.str2ab(d),d=new Uint8ClampedArray(d,0,d.byteLength),b=new ImageData(d,b.width,b.height),d=a.icon,e=atob(d.data),e=c.str2ab(e),e=new Uint8ClampedArray(e,0,e.byteLength),d=new ImageData(e,d.width,d.height);a=new l.ScreenSourceVda(a.srcid,a.devicdid,a.type,b,d,a.name,a.hwnd,a.origin,a.caption,a.pid);c.sources_.push(a)});this.finalizeCmd(!0,
+a,this.sources_)};a.prototype.getSources=function(b){var c=this;return new Promise(function(e,h){if(a.state_!=w.Error){var k=new n(c.reqid(),e,h,d.GetSources,b);c.cmdque_.push(k)}else h();a.state_==w.Initialized&&c.dispatchCmds()})};a.prototype.onSetActive=function(a,b){var c=new q(b.srcid,b.origin,b.bufferid);this.finalizeCmd(!0,a,c)};a.prototype.setActive=function(b){var c=this;return new Promise(function(e,h){if(a.state_!=w.Error){var k=new n(c.reqid(),e,h,d.SetActive,b);c.cmdque_.push(k)}else h();
+a.state_==w.Initialized&&c.dispatchCmds()})};a.prototype.setTopologyChangeCB=function(a){this.onwindowtopologychanged_=a};a.prototype.onToplogyChanged=function(){if(this.onwindowtopologychanged_)this.onwindowtopologychanged_()};a.prototype.WSSendGetSources=function(a,b){try{e.getRedirector().WSSendObject({v:"appsharing",hdr:{command:d.GetSources,id:a},data:{origin:b.origin}})}catch(c){h.logger.log(c)}};a.prototype.WSSendSetActive=function(a,b){try{e.getRedirector().WSSendObject({v:"appsharing",hdr:{command:d.SetActive,
+id:a},data:{srcid:b.srcid,hwnd:b.hwnd,origin:b.origin,pid:b.pid,border:b.border,cursor:b.cursor,activate:b.activate}})}catch(c){h.logger.log(c)}};a.state_=w.Unknown;a.nextId=0;return a}();a.ScreenShareUtil=b},517:function(b,a){Object.defineProperty(a,"__esModule",{value:!0});a.Stats=a.StatsReport=void 0;var c=function(){function a(){this.items=[]}a.fromJSON=function(b){for(var c=new a,l=0;l<b.length;l++){var q=e.fromJSON(b[l]);c.items.push(q)}return c};a.toRTCStatsReport=function(a){return a};a.prototype.toJSON=
+function(){return JSON.stringify(this.items)};a.prototype.result=function(){return this.items};return a}();a.StatsReport=c;var e=function(){function a(){this.names_=[];this.stat_=new Map;this.id="";this.timestamp=0;this.type=""}a.fromJSON=function(b){var c=new a;c.id=b.id||"";c.timestamp=b.timestamp||"";c.type=b.type||"";Object.keys(b).forEach(function(a){"id"!==a&&"timestamp"!==a&&"type"!==a&&(c.names_.push(a),c.stat_.set(a,b[a]))});return c};a.prototype.toJSON=function(){return JSON.stringify({id:this.id,
+timestamp:this.timestamp,type:this.type,stat:this.stat_})};a.prototype.names=function(){return this.names_};a.prototype.stat=function(a){return this.stat_.get(a)};return a}();a.Stats=e},704:function(b,a,c){var e=this&&this.__extends||function(){var a=function(b,c){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c])};return a(b,c)};return function(b,c){function d(){this.constructor=b}a(b,c);b.prototype=
+null===c?Object.create(c):(d.prototype=c.prototype,new d)}}();Object.defineProperty(a,"__esModule",{value:!0});a.StreamResolution=a.RemoteCallConstraints=void 0;var l=c(550),h=c(658),d=c(851);b=function(){return function(){}}();a.RemoteCallConstraints=b;b=function(a){function b(){var c=a.call(this,null,l.class_id_t.StreamResolution,0,h.ProxyMode.Local)||this;c.lastSentConstraints_=null;return c}e(b,a);Object.defineProperty(b.prototype,"onupdate",{get:function(){return this.onupdate_},set:function(a){var c=
+this;this.onupdate_=a;this.waitUntilConnected(this.user_friendly_id()+".onupdate").then(function(){var a=c.registerCallbacks(!1,c.isNullCallback(c.onupdate_),l.method_id_StreamResolution_t.onupdate);a.then(function(a){a=a.params;var e=a[0];a.slice(1);d.logger.log(c.user_friendly_id()+".onupdate",JSON.stringify(e));c.lastSentConstraints_&&JSON.stringify(c.lastSentConstraints_)==JSON.stringify(e)?d.logger.log(c.user_friendly_id()+".onupdate constraints unchanged, ignoring"):c.onupdate_&&(b.isValidRemoteConstraints(e)?
+(c.lastSentConstraints_=e,c.onupdate_(c.toICallConstraints(c.lastSentConstraints_))):d.logger.log(c.user_friendly_id()+".onupdate invalid RemoteCallConstraints"))});return c.remoteInvoke(!0,l.method_id_StreamResolution_t.onupdate,a.success)})["catch"](function(){return d.logger.log(c.user_friendly_id()+".onupdate, could not set listener")})},enumerable:!1,configurable:!0});b.prototype.toICallConstraints=function(a){var b={maxParticipantResolutions:null};if(a.max_participant_resolutions_dynamic){b.maxParticipantResolutions=
+{};for(var c=0,e=a.max_participant_resolutions_dynamic;c<e.length;c++){var g=e[c];b.maxParticipantResolutions[g.count]=g.resolution}}else a.max_participant_resolutions_static&&(b.maxParticipantResolutions=a.max_participant_resolutions_static);b.maxIncomingStreams=a.max_incoming_streams;b.maxOutgoingResolution=a.max_outgoing_resolution;b.maxSimulcastLayers=a.max_simulcast_layers;d.logger.log(this.user_friendly_id()+".toICallConstraints: "+JSON.stringify(b));return b};b.isValidRemoteConstraints=function(a){return null!=
+a&&(null!=a.max_participant_resolutions_dynamic||null!=a.max_participant_resolutions_static)&&null!=a.max_incoming_streams&&null!=a.max_outgoing_resolution&&null!=a.max_simulcast_layers};b.prototype.getCallConstraints=function(){var a=this;return new Promise(function(c,e){a.waitUntilConnected(a.user_friendly_id()+".getCallConstraints").then(function(){return a.remoteInvoke(!1,l.method_id_StreamResolution_t.getCallConstraints)}).then(function(h){h=a.param0(h);d.logger.log(a.user_friendly_id()+".getCallConstraints",
+JSON.stringify(h));b.isValidRemoteConstraints(h)?(a.onupdate_&&(a.lastSentConstraints_=h),c(a.toICallConstraints(h))):(d.logger.log(a.user_friendly_id()+".getCallConstraints invalid RemoteCallConstraints"),e())})["catch"](function(){d.logger.log(a.user_friendly_id()+".getCallConstraints promise rejected");e()})})};b.getDefaultConstraints=function(){var a={maxParticipantResolutions:{1:720,2:720,3:360,more:360},maxIncomingStreams:4,maxOutgoingResolution:720,maxSimulcastLayers:0};d.logger.log("StreamResolution.getDefaultConstraints: "+
+JSON.stringify(a));return a};b.prototype.updateStreamResolution=function(){var a=this;this.getCallConstraints().then(function(b){return a.onupdate&&a.onupdate(b)})["catch"](function(){return d.logger.log("Failed to get stream resolution information!")})};return b}(h.ProxyObject);a.StreamResolution=b},394:function(b,a,c){Object.defineProperty(a,"__esModule",{value:!0});a.Telemetry=a.tel_key_CPUTotalmemory=a.tel_key_CPUGpuinfo=a.tel_key_CPUMachineid=a.tel_key_CPUProcessors=a.tel_key_CPUCores=a.tel_key_CPUModel=
+a.tel_key_CPUSpeed=a.tel_key_OSEdition=a.tel_key_OSDistro=a.tel_key_OSArchitecture=a.tel_key_OSVersion=a.tel_key_OSFamily=a.tel_key_VerHdxRtcEngine=a.tel_key_VerTypeScript=a.tel_key_VerEndpoint=a.tel_key_VerVda=a.tel_key_VerReceiver=a.tel_key_VerWebrtcCodecs=a.tel_key_VerWebrpc=a.tel_key_PerfCallType=a.tel_key_PerfCallState=a.tel_key_PerfCallDirection=a.tel_key_SpeakerDeviceUsed=a.tel_key_VideoDeviceUsed=a.tel_key_AudioDeviceUsed=a.tel_key_CallEstOutgoing=a.tel_key_CallEstIncoming=a.tel_key_ScreensharingCallDuration=
+a.tel_key_VideoCallDuration=a.tel_key_AudioCallDuration=a.tel_key_ConferenceCallDuration=a.tel_cmd=a.tel_CallType=a.tel_CallDirection=a.tel_CallState=void 0;var e=c(946),l=c(851);(function(a){a[a.unknown=0]="unknown";a[a.active=1]="active";a[a.idle=2]="idle"})(a.tel_CallState||(a.tel_CallState={}));(function(a){a[a.unknown=0]="unknown";a[a.incoming=1]="incoming";a[a.outgoing=2]="outgoing"})(a.tel_CallDirection||(a.tel_CallDirection={}));(function(a){a[a.unknown=0]="unknown";a[a.audio=1]="audio";a[a.video=
+2]="video";a[a.multi=3]="multi";a[a.dshare=4]="dshare"})(a.tel_CallType||(a.tel_CallType={}));var h;(function(a){a[a.Unknown=0]="Unknown";a[a.Cap=1]="Cap";a[a.Init=2]="Init";a[a.Data=3]="Data"})(h=a.tel_cmd||(a.tel_cmd={}));a.tel_key_ConferenceCallDuration="ConferenceCallDuration";a.tel_key_AudioCallDuration="AudioCallDuration";a.tel_key_VideoCallDuration="VideoCallDuration";a.tel_key_ScreensharingCallDuration="ScreensharingCallDuration";a.tel_key_CallEstIncoming="CallEstIncoming";a.tel_key_CallEstOutgoing=
+"CallEstOutgoing";a.tel_key_AudioDeviceUsed="AudioDeviceUsed";a.tel_key_VideoDeviceUsed="VideoDeviceUsed";a.tel_key_SpeakerDeviceUsed="SpeakerDeviceUsed";a.tel_key_PerfCallDirection="PerfCallDirection";a.tel_key_PerfCallState="PerfCallState";a.tel_key_PerfCallType="PerfCallType";a.tel_key_VerWebrpc="VerWebrpc";a.tel_key_VerWebrtcCodecs="VerWebrtcCodecs";a.tel_key_VerReceiver="VerReceiver";a.tel_key_VerVda="VerVda";a.tel_key_VerEndpoint="VerEndpoint";a.tel_key_VerTypeScript="VerTypeScript";a.tel_key_VerHdxRtcEngine=
+"VerHdxRtcEngine";a.tel_key_OSFamily="OSFamily";a.tel_key_OSVersion="OSVersion";a.tel_key_OSArchitecture="OSArchitecture";a.tel_key_OSDistro="OSDistro";a.tel_key_OSEdition="OSEdition";a.tel_key_CPUSpeed="CPUSpeed";a.tel_key_CPUModel="CPUModel";a.tel_key_CPUCores="CPUCores";a.tel_key_CPUProcessors="CPUProcessors";a.tel_key_CPUMachineid="CPUMachineid";a.tel_key_CPUGpuinfo="CPUGpuinfo";a.tel_key_CPUTotalmemory="CPUTotalmemory";var d=function(){function a(b,c,d,e){this.cmd=b;this.key=c;this.value=d;this.flags=
+e}a.prototype.SendTelemetryData=function(a){a.SendTelemetryData(this.cmd,this.key,this.value,this.flags)};return a}();b=function(){function a(){this.id=0;this.deferredData=[]}a.prototype.reset=function(){this.id=0;this.deferredData=[]};a.prototype.onInitialized=function(a){for(this.id=a;this.deferredData&&0<this.deferredData.length;)this.deferredData.shift().SendTelemetryData(this)};a.prototype.SendTelemetryInit=function(){0<this.id&&this.reset();try{e.getRedirector().WSSendObject({v:"telemetry",
+hdr:{command:h.Init,id:0},init:{domain:"HDXMM Teams",subdomain:"Teams",feature:"msteams",version:"1.1.1.1"}})}catch(a){l.logger.log(a)}};a.prototype.SendTelemetryData=function(a,b,c,w){if(a!=h.Data)l.logger.log("invalid telemetry command!");else if(0==this.id)this.deferredData.push(new d(a,b,c,w));else try{e.getRedirector().WSSendObject({v:"telemetry",hdr:{command:a,id:this.id},data:{key:b,value:c,flags:w}})}catch(p){l.logger.log(p)}};return a}();a.Telemetry=b},259:function(b,a,c){Object.defineProperty(a,
+"__esModule",{value:!0});a.Util=void 0;var e=c(851);b=function(){function a(){}a.stringifyArray=function(a){for(var b="[",c=0;c<a.length;++c)0!=c&&(b+=","),b+=this.stringify(a[c]);return b+"]"};a.stringifyObject=function(a){var b="{",c=!0,e;for(e in a)c?c=!1:b+=",",b=b+'"'+e+'":',b=a[e]instanceof Array?b+this.stringifyArray(a[e]):"object"==typeof a[e]?b+this.stringifyObject(a[e]):b+JSON.stringify(a[e]);return b+"}"};a.stringify=function(a){return"object"==typeof a?"[object Array]"==Object.prototype.toString.call(a)?
+this.stringifyArray(a):this.stringifyObject(a):JSON.stringify(a)};a.GetObjectPropertyDescriptor=function(a,b){for(var c=void 0;a!=Object.prototype;){c=Object.getOwnPropertyDescriptor(a,b);if(void 0!==c)break;a=a.__proto__}return c};a.sendEvent=function(a,b){try{var c=document.createEvent("Event");c.initEvent(b,!0,!0);a.dispatchEvent(c)}catch(l){e.logger.log('sendEvent(): exception dispatching "'+b+'" event: '+l.message)}};a.hasValue=function(a){var b=!1;null!==a&&void 0!==a&&(b=!0);return b};return a}();
+a.Util=b},307:function(b,a,c){var e=this&&this.__awaiter||function(a,b,c,d){function e(a){return a instanceof c?a:new c(function(b){b(a)})}return new (c||(c=Promise))(function(c,g){function h(a){try{l(d.next(a))}catch(b){g(b)}}function k(a){try{l(d["throw"](a))}catch(b){g(b)}}function l(a){a.done?c(a.value):e(a.value).then(h,k)}l((d=d.apply(a,b||[])).next())})},l=this&&this.__generator||function(a,b){function c(a){return function(b){return d([a,b])}}function d(c){if(g)throw new TypeError("Generator is already executing.");
+for(;e;)try{if(g=1,h&&(k=c[0]&2?h["return"]:c[0]?h["throw"]||((k=h["return"])&&k.call(h),0):h.next)&&!(k=k.call(h,c[1])).done)return k;if(h=0,k)c=[c[0]&2,k.value];switch(c[0]){case 0:case 1:k=c;break;case 4:return e.label++,{value:c[1],done:!1};case 5:e.label++;h=c[1];c=[0];continue;case 7:c=e.ops.pop();e.trys.pop();continue;default:if(!(k=e.trys,k=0<k.length&&k[k.length-1])&&(6===c[0]||2===c[0])){e=0;continue}if(3===c[0]&&(!k||c[1]>k[0]&&c[1]<k[3]))e.label=c[1];else if(6===c[0]&&e.label<k[1])e.label=
+k[1],k=c;else if(k&&e.label<k[2])e.label=k[2],e.ops.push(c);else{k[2]&&e.ops.pop();e.trys.pop();continue}}c=b.call(a,e)}catch(l){c=[6,l],h=0}finally{g=k=0}if(c[0]&5)throw c[1];return{value:c[0]?c[1]:void 0,done:!0}}var e={label:0,sent:function(){if(k[0]&1)throw k[1];return k[1]},trys:[],ops:[]},g,h,k,l;$jscomp.initSymbol();$jscomp.initSymbol();$jscomp.initSymbolIterator();return l={next:c(0),"throw":c(1),"return":c(2)},"function"===typeof Symbol&&(l[Symbol.iterator]=function(){return this}),l},h=
+c(360),d=c(144);c(679);var p=c(945),q=c(368),n=c(851).logger,k=c(650),v=c(973),z=c(247).getGC,g=c(946),B=c(613).E911Service;b=c(550);var t=b.Features,m=b.FEATURE_vda_delete_viewport,D=c(704).StreamResolution,y=c(239).E;(function(a,b){a.CitrixWebRTC=b()})("undefined"!==typeof self?self:this,function(){function a(b,c){n.log("VDI Shim createMediaStreamInternal");G();var f=new d.RemoteStream(null,0,0,b),e=new Promise(function(a,b){f.syncBarrier().then(function(b){n.log("stream.syncBarrier(): success.");
+a(b)})["catch"](function(a){n.log("stream.syncBarrier(): failed with error: "+JSON.stringify(a));f.release();b()})});return c?e:f}function b(a){null==Y&&(Y=new q.Frames(!O.isFeatureSupported(t.FEATURE_public_multi_window)));a(Y)}function c(a,d){b(function(b){var c=b.findFrame(a);void 0==c&&(c=b.newFrame(a));d(c)})}function M(a,c){b(function(b){b=b.findFrame(a);null!=b&&c(b)})}function F(a){g.getRedirector().SendTelemetryData_Speaker(a)}function J(a,b){if(S)try{"vdiE911InfoChanged"===a?a="vdiE911DataChanged":
+"vdiCallConstraintsChanged"===a&&(a="vdiStreamConstraintsChanged");var c=Object.assign({event:a},b);n.log("Dispatching VM event:"+JSON.stringify(c));S(c)}catch(d){n.log("Exception onVMEvent(), eventName:"+a+" message:"+d.message)}}function G(){var a=window.getCitrixWebrtcRedir;void 0!==a?a().then(function(a){n.log("sucesss on connect, getCitrixWebrtcRedir reg value:"+a);"1"!==a||O||(n.log("supported client"),P(W))})["catch"](function(){n.log("Failure to Read Webrtc redir Reg Key");f()}):(n.log("window.getCitrixWebrtcRedir() method is not available yet"),
+f())}function L(a){n.log("VDI Event: vdiClientDisconnected");ba();if(!0===a&&!1===aa){n.log("VDI Event: vdiClientDisconnected with failure reported");aa=!0;try{S({event:"vdiClientDisconnected",reason:"failure",msg:"Websocket Connection Failure"})}catch(b){n.log("onVMEvent(): exception: "+b.message)}}else{aa=!1;try{S({event:"vdiClientDisconnected",reason:"endpointDisconnected"})}catch(b){n.log("onVMEvent(): exception: "+b.message)}}}function P(a){n.log("initRemoteSession with vendor:"+a);O||(O=new k.RemoteSession("CitrixWebRTCSDK",
+a))}function C(){n.log("VDI Event: onVdiClientDisconnectedTimer");P(W)}function R(){var a=this;n.log("VDI Shim onVdiClientConnected...");O?O.getSessionInfo().then(function(c){return e(a,void 0,void 0,function(){return l(this,function(a){switch(a.label){case 0:return n.log("VDI Shim onVdiClientConnected, client endpoint info:"+JSON.stringify(c)),H&&H.isValid()||(H=new d.RemoteDevices),I&&I.isValid()||(I=new d.NavigatorUserMedia),b(function(a){a.reconnect()}),J("vdiClientConnected",{version:c,endpointId:c.endpointId}),
+[4,I.getCapabilities().then(function(a){n.log("VDI Shim onVdiClientConnected, caps = "+a)})["catch"](function(){n.log("VDI Shim onVdiClientConnected, could not get capabilities")})];case 1:return a.sent(),T||(T=new B,T.onupdate=function(a){J("vdiE911InfoChanged",a)},T.updateE911Info()),U||(J("vdiCallConstraintsChanged",D.getDefaultConstraints()),null!==O&&k.RemoteSession.isFeatureCallConstraintsSupported()&&(U=new D,U.onupdate=function(a){J("vdiCallConstraintsChanged",a)},U.updateStreamResolution())),
+navigator.mediaDevices.dispatchEvent(new CustomEvent("devicechange")),[2]}})})})["catch"](function(){n.log("VDI Shim onVdiClientConnected, getSessionInfo failure! Session is not fully connected yet...")}):n.log("VDI Shim onVdiClientConnected, remoteSession does not exist")}function K(a){if("1"===a)n.log("Supported client"),g.getRedirector().pingConnectionBegin(!0);else if("0"===a){n.log("VDI Event: Unsupported client reported");try{S({event:"vdiClientDisconnected",reason:"endpointUnsupported",msg:"Unsupported endpoint connected"})}catch(b){n.log("onVMEvent(): exception: "+
+b.message)}}else n.log("Citrix Webrtc Redir Reg Key value is incorrect")}function f(){!1===Z&&(n.log("starting MS Reg retry..."),Z=!0,X(10))}function X(a){if(0>=a){Z=!1;n.log("VDI Event: Reg Key not Updated after timer reported, Fallback");try{S({event:"vdiClientDisconnected",reason:"failure",msg:"Citrix Webrtc Redir Reg Key not Present"})}catch(b){n.log("onVMEvent(): exception: "+b.message)}}else{var c=window.getCitrixWebrtcRedir;void 0!==c?c().then(function(b){n.log("CitrixMSTeamsRedir reg value:"+
+b);"0"===b||"1"===b?(K(b),Z=!1):(n.log("MS Teams Redir Reg key not updated - Start timer"),setTimeout(function(){n.log("Timer waiting for registry to be updated count :"+a);X(--a)},1E3))})["catch"](function(){n.log("Failure to Read MS Teams redir Reg Key - Start timer");setTimeout(function(){n.log("Timer waiting for registry to be updated count :"+a);X(--a)},1E3)}):(n.log("window.getCitrixWebrtcRedir() method is not available yet"),setTimeout(function(){n.log("Timer waiting for registry to be updated count :"+
+a);X(--a)},1E3))}}function ba(){n.log("VDI : cleanup");g.getRedirector().clearReqs();d.NavigatorUserMedia.resetCapabilities();Y=H=I=null;N&&N.release();O&&O.release();O=null;v.ScreenSharing.destroyInstance();T&&(T.release(),T=null);U&&(U.release(),U=null);z().reset();n.log("VDI : cleanup done")}function ca(){return v.ScreenSharing.screenSharingInstance(function(){if(S)try{S({event:"vdiScreenTopologyChanged"})}catch(a){n.log("onVMEvent('vdiScreenTopologyChanged'): exception: "+a.message)}})}function E(a){if(!V)throw n.log("VDI Shim "+
+a+": throwing exception: not initialized!!"),new DOMException("UCSDK is not initialized!!!");}var I=null,da=d.NavigatorUserMedia.getCapabilities,H=null,Y=null,N=null,S=null,T=null,U=null,aa=!1,O=void 0,Z=!1,V=!1,W=void 0;return{Features:t,CitrixPeerConnection:h.PeerConnection,getUserMedia:function(a,b,c){E("getUserMedia");G();n.log("VDI Shim getUserMedia");null!==I&&I.isValid()||(I=new d.NavigatorUserMedia);var f=d.RemoteMediaStreamConstraints.isConstraintsAudioDeviceIdEmpty(a),e=d.RemoteMediaStreamConstraints.isConstraintsVideoSourceIdEmpty(a);
+return f||e?new Promise(function(d,f){H.enumerateDevices().then(function(d){return I.webkitGetUserMedia(a,b,c)}).then(function(a){n.log("webkitGetUserMedia for default was resolved");d(a)})["catch"](function(a){n.log("getUserMedia() for default failed with error:"+JSON.stringify(a));f()})}):I.webkitGetUserMedia(a,b,c)},getDisplayMedia:function(a){E("getDisplayMedia");G();n.log("VDI Shim getDisplayMedia");null!==H&&H.isValid()||(H=new d.RemoteDevices);return H.getDisplayMedia(a)},enumerateDevices:function(){E("enumerateDevices");
+G();n.log("VDI Shim enumerateDevices");null!==H&&H.isValid()||(H=new d.RemoteDevices);return H.enumerateDevices()},onWindowClose:function(a,c,d){E("onWindowClose");n.log("VDI Shim onWindowClose: (handle: "+a+")");g.getRedirector().getVDAFeatureValue(m)&&b(function(b){b.disposeFrame(a)})},setClientAreaOffset:function(a,b,d){E("setClientAreaOffset");n.log("VDI setClientAreaOffset with xOffset = "+a+", yOffset = "+b+", windowHandle = "+d);G();c(d,function(c){c.setClientAreaOffset(a,b)})},mapVideoElement:function(a,
+b){E("mapVideoElement");n.log("VDI New Video Element Created, Creating Mapping to Thin Client DOM");G();c(b,function(b){b.newVideoElement(a)})},mapAudioElement:function(a){E("mapAudioElement");n.log("VDI New Audio Element Created, Creating Mapping to VDA");if(void 0!==a.remoteAudioElement)n.log("Audio element is already configured!");else{G();delete a.remoteAudioElement;Object.defineProperty(a,"remoteAudioElement",{writable:!0,configurable:!0,value:null});a.remoteAudioElement=new p.AudioElement;delete a.sinkId;
+Object.defineProperty(a,"sinkId",{configurable:!0,get:function(){return a.remoteAudioElement?a.remoteAudioElement.sinkId:void 0},set:function(b){n.log("VDI Shim set audio element SinkId value = "+b);a.setSinkId(b).then(function(){n.log("VDI Shim set audio element SinkId success")})["catch"](function(){n.log("VDI Shim set audio element SinkId failure")})}});var b=a.remoteAudioElement.play;a.play=function(){n.log("VDI Shim remote audio play");return b.apply(a.remoteAudioElement,arguments)};var c=a.remoteAudioElement.pause;
+a.pause=function(){n.log("VDI Shim remote audio pause");return c.apply(a.remoteAudioElement,arguments)};a.setSinkId=function(b){n.log("VDI Shim set audio element SinkId value = "+b);var c=a.remoteAudioElement.setSinkId(b),f;d.enumeratedDevices.forEach(function(a){b===a.deviceId&&(f=a.label)});F(f);return c};delete a.srcObject;Object.defineProperty(a,"srcObject",{configurable:!0,get:function(){return a.remoteAudioElement?a.remoteAudioElement.srcObject:void 0},set:function(b){n.log("VDI Shim set audio element srcObject "+
+JSON.stringify(b));a.remoteAudioElement.srcObject=b}})}},disposeVideoElement:function(a,b){E("disposeVideoElement");n.log("VDI Shim disposeVideoElement: ");M(b,function(b){b.disposeVideoElement(a)})},disposeAudioElement:function(a,b,c){E("disposeAudioElement");n.log("VDI Shim disposeAudioElement: ");a&&(b=a.remoteAudioElement)&&(b.dispose(),a.remoteAudioElement=void 0)},setVMEventCallback:function(a){var b=this;S=a;g.getRedirector().isConnected()&&O.getSessionInfo().then(function(a){return e(b,void 0,
+void 0,function(){return l(this,function(b){n.log("VDI Shim onVdiClientConnected, client endpoint info:"+JSON.stringify(a));J("vdiClientConnected",{version:a,endpointId:a.endpointId});return[2]})})});n.log("VDI Event Callback Set")},playNotifyAudio:function(a,b){E("playNotifyAudio");n.log("VDI Shim Audio playNotifyAudio audioId:"+a+" src:"+b);N&&N.playNotifyAudio(a,b)},stopNotifyAudio:function(a,b){E("stopNotifyAudio");n.log("VDI Shim Audio pauseNotifyAudio audioId:"+a+" src:"+b);N&&N.pauseNotifyAudio(a,
+b)},setSinkId:function(a,b){E("setSinkId");n.log("VDI Shim Audio setSinkId audioId:"+a+" sinkId:"+b);N&&N.setSinkId(a,b)},getLoop:function(a){E("getLoop");var b;N&&(b=N.getLoop(a));n.log("VDI Shim Audio getLoop audioId:"+a+" loop: "+b);return b},setLoop:function(a,b){E("setLoop");n.log("VDI Shim Audio setLoop audioId:"+a+" bool:"+b);N&&N.setLoop(a,b)},addClipRect:function(a,b){E("addClipRect");n.log("VDI Adding Occlusion "+JSON.stringify(a));c(b,function(b){b.addOcclusion(a)})},removeClipRect:function(a,
+b){E("removeClipRect");n.log("VDI Removing Occlusion "+JSON.stringify(a));c(b,function(b){b.removeOcclusion(a)})},initLog:function(a,b){n.setMSLogger(a,b);n.log("VDI init logger")},isFeatureOn:function(a){E("isFeatureOn");return O?O.isFeatureSupported(a):!1},onConnectionChange:function(a){E("onConnectionChange");n.log("VDI : onConnectionChange to "+a);!1===a?n.log("Disconnecting from the VDA"):(n.log("Connecting to the VDA"),a=window.getCitrixWebrtcRedir,void 0!==a?a().then(function(a){n.log("Sucesss on connect, CitrixRedir reg value:"+
+a);"0"===a||"1"===a?K(a):(n.log("MS Teams Redir Reg key not updated yet"),f())})["catch"](function(){n.log("Failure to Read MS Teams redir Reg Key");f()}):(n.log("window.getCitrixWebrtcRedir() method is not available yet"),f()))},getScreensAsync:function(){E("getScreensAsync");n.log("VDI Shim getScreensAsync");G();var a=ca();return a.getScreensAsync.apply(a,arguments)},getWindowsAsync:function(){E("getWindowsAsync");n.log("VDI Shim getWindowsAsync");G();var a=ca();return a.getWindowsAsync.apply(a,
+arguments)},setScreenSharePanelId:function(a){E("setScreenSharePanelId");n.log("VDI: setScreenSharePanelId set to "+JSON.stringify(a));G();null!==H&&H.isValid()||(H=new d.RemoteDevices);H.panelid=a},setCodecCapabilities:function(a){E("setCodecCapabilities");G();n.log("VDI Shim setCodecCapabilities");null!==I&&I.isValid()||(I=new d.NavigatorUserMedia);return I.setCodecCapabilities(a)},getE911Data:function(){E("getE911Data");return T?T.getE911Info():null},createMediaStream:function(b){E("createMediaStream");
+n.log("VDI Shim createMediaStream");return a(b,!1)},createMediaStreamAsync:function(b){E("createMediaStreamAsync");n.log("VDI Shim createMediaStreamAsync");return a(b,!0)},disposeMediaStream:function(a){E("disposeMediaStream");n.log("VDI Shim disposeMediaStream: ");for(var b=0;b<a.length;b++){var c=a[b];c&&c.dispose()}},getCapabilities:function(a){E("getCapabilities");G();n.log("VDI Shim getCapabilities");null!==I&&I.isValid()||(I=new d.NavigatorUserMedia,da=d.NavigatorUserMedia.getCapabilities);
+return da.apply(I,arguments)},initUCSDK:function(a){n.log("VDI Shim initUCSDK vendor:"+a);var b=!0;void 0==a||null==a||"string"!==typeof a||0==a.length?b=!1:0==a.split(" ").join("").length&&(b=!1);if(!b)throw n.log("VDI Shim initUCSDK: throwing exception: vendor info cannot be empty!!!"),new DOMException("vendor info cannot be empty, please pass vendor info string!!!");V||(W=a,I=new d.NavigatorUserMedia,H=new d.RemoteDevices,N=new y,H=new d.RemoteDevices,P(W),window.onVdiClientDisconnected=L,window.onVdiClientDisconnectedTimer=
+C,window.onVdiClientConnected=R,V=!0)},deinitUCSDK:function(){n.log("VDI Shim deinitUCSDK");V&&(g.getRedirector().terminateOptimization(),ba(),window.onVdiClientDisconnected=void 0,window.onVdiClientDisconnectedTimer=void 0,W=window.onVdiClientConnected=void 0,V=!1)}}})},679:function(b,a,c){var e=this&&this.__extends||function(){var a=function(b,c){a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(a,b){a.__proto__=b}||function(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c])};
+return a(b,c)};return function(b,c){function d(){this.constructor=b}a(b,c);b.prototype=null===c?Object.create(c):(d.prototype=c.prototype,new d)}}();Object.defineProperty(a,"__esModule",{value:!0});a.VideoElement=a.VideoRect=void 0;var l=c(658),h=c(550),d=c(851),p=c(946),q=c(550),n=function(){return function(a,b){this.x=Math.round(a.x)*b.devicePixelRatio;this.y=Math.round(a.y)*b.devicePixelRatio;this.width=Math.round(a.width)*b.devicePixelRatio;this.height=Math.round(a.height)*b.devicePixelRatio}}();
+a.VideoRect=n;var k;(function(a){a[a.pixels=0]="pixels";a[a.percent=1]="percent"})(k||(k={}));var v=function(){function a(b){this.value=parseInt(b);this.units=this.detectUnits(b)}a.prototype.detectUnits=function(a){return-1===a.toLowerCase().indexOf("px")?k.pixels:k.percent};return a}(),z;(function(a){a[a.fill=0]="fill";a[a.contain=1]="contain";a[a.cover=2]="cover"})(z||(z={}));var g=function(){return function(a,b){this.x=a;this.y=b}}(),B=function(){function a(b,c,d){this.fit=this.convertFit(b);this.position=
+new g(c,d)}a.prototype.convertFit=function(a){return"fill"==a?z.fill:"contain"==a?z.contain:"cover"==a?z.cover:z.fill};return a}(),t;(function(a){a[a.NotReady=0]="NotReady";a[a.Ready=1]="Ready"})(t||(t={}));b=function(a){function b(c,e){var g=a.call(this,null,h.class_id_t.VideoElement,0,l.ProxyMode.Local)||this;g.srcObject_=null;g.sinkId_="";g.videoWidth=0;g.videoHeight=0;g.isLoaded=!1;g.connectionState="disconnected";g.styleObserver=null;g.readyState_=t.NotReady;g.deferredVideoActions=[];g.pendingRelease_=
+!1;g.activeConnectionEvent_=null;g.connectionEventQueue_=[];g.window_=e;g.elementId=c;d.logger.log("VideoElement.constructor (elementid: "+c+")");return g}e(b,a);b.prototype.dispose=function(){var a=this;d.logger.log("VideoElement.dispose (elementId: "+this.elementId+" oid: "+this.object_id()+")");this.pendingRelease_=!0;this.srcObject=this.ontimeupdate=this.onloadedmetadata=null;this.waitUntilReady("VideoElement.dispose").then(function(){})["catch"](function(){a.pendingRelease_=!1;a.setState("disconnected");
+a.onconnectionstatechange=null;a.release()});this.onReady()};b.prototype.setState=function(a){this.connectionState=a;if(this.onconnectionstatechange_)this.onconnectionstatechange_()};Object.defineProperty(b.prototype,"Id",{get:function(){return this.elementId},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"sinkId",{get:function(){return this.sinkId_},set:function(a){var b=this;d.logger.log("VideoElement.sinkId: (id="+a+")");this.waitUntilConnected("VideoElement.sinkId").then(function(){return void 0!=
+a?b.remoteInvoke(!0,h.method_id_VideoElement_t.sinkId,a):new Promise(function(a){return a(void 0)})}).then(function(){d.logger.log("videoElement: setting state to ready. (oid: "+b.object_id()+")");b.sinkId_=a;b.readyState_=t.Ready;b.onReady()})["catch"](function(a){b.logRemoteInvokeError(a,".set_sinkId() failed!")})},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"srcObject",{get:function(){return this.srcObject_},set:function(a){d.logger.log(this.user_friendly_id()+".srcObject: set srcObject... this.srcObject:"+
+this.srcObject+" obj:"+a);if(this.srcObject_!==a){var b=p.getRedirector().getFeatureValue(q.FEATURE_ms_teams_1911);null!==this.srcObject_&&(null===a&&b&&this.disconnect(),b||this.disconnect(),this.isLoaded=!1);this.srcObject_=a;null!==this.srcObject_&&this.connectTo(this.srcObject_)}},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onconnectionstatechange",{get:function(){return this.onconnectionstatechange_},set:function(a){d.logger.log(this.user_friendly_id()+".set_onconnectionstatechange() called.");
+this.onconnectionstatechange_=a},enumerable:!1,configurable:!0});Object.defineProperty(b.prototype,"onloadedmetadata",{set:function(a){d.logger.log(this.user_friendly_id()+".set_onloadedmetadata() called.");this.onloadedmetadata_=a},enumerable:!1,configurable:!0});b.prototype.setupOnVideoFrameChanged=function(){var a=this,b=this.registerCallbacks(!1,!1,h.method_id_VideoElement_t.onvideoframechanged);b.then(function(b){d.logger.log(a.user_friendly_id()+".onvideoframechanged",b.params);a.videoWidth=
+b.params[0]||0;a.videoHeight=b.params[1]||0;a.isLoaded||(a.isLoaded=!0,a.onloadedmetadata_&&a.onloadedmetadata_())});this.remoteInvoke(!0,h.method_id_VideoElement_t.onvideoframechanged,b.success)};b.prototype.processConnectionEvent=function(){var a=this;if(0!==this.connectionEventQueue_.length&&!this.activeConnectionEvent_){var b=this.connectionEventQueue_.pop();"connectTo"==b.operation?this.activeConnectionEvent_=this.connectToAsync(b.param):"disconnect"==b.operation&&(this.activeConnectionEvent_=
+this.disconnectAsync());this.activeConnectionEvent_.then(function(){a.activeConnectionEvent_=void 0;a.processConnectionEvent()})["catch"](function(){d.logger.log(a.user_friendly_id()+" : Failed to handle connection event! ");a.activeConnectionEvent_=void 0;a.processConnectionEvent()})}};b.prototype.connectTo=function(a){this.connectionEventQueue_.push({operation:"connectTo",param:a});this.processConnectionEvent()};b.prototype.disconnect=function(){this.connectionEventQueue_.push({operation:"disconnect",
+param:null});this.processConnectionEvent()};b.prototype.connectToAsync=function(a){var b=this;return new Promise(function(c,e){d.logger.log(b.user_friendly_id()+".connectTo: connect media stream with id = "+a.id+", clone_id = "+a.clone_state.clone_id);b.streamId_=a.id;b.waitUntilReady("VideoElement.connectTo").then(function(){return a.waitUntilConnected("MediaStream.connectTo")}).then(function(){b.setupOnVideoFrameChanged();return a.clone_state.synchronize(a)}).then(function(a){d.logger.log(b.user_friendly_id()+
+".connectTo: remote invoking");var c=b.registerCallbacks(!0,!1,h.method_id_VideoElement_t.connectTo);return Promise.all([b.remoteInvokeEx(!1,h.method_id_VideoElement_t.connectTo,[a],c.success,c.fail),c.prom()])}).then(function(a){d.logger.log(b.user_friendly_id()+".connectTo: remote media stream is connected!");b.setState("connected");b.watch();b.updateTimer=setInterval(function(){b.ontimeupdate&&b.ontimeupdate()},250);(a=b.window_.document.getElementById(b.elementId))&&b.updateStyle(a);c()})["catch"](function(a){b.logRemoteInvokeError(a,
+".connectTo: failed to connect!");e()})})};b.prototype.disconnectAsync=function(){var a=this;return new Promise(function(b,c){d.logger.log(a.user_friendly_id()+".disconnect: disconnecting stream : "+a.streamId_);a.unwatch();a.waitUntilReady("VideoElement.disconnect").then(function(){a.updateTimer&&clearInterval(a.updateTimer);var b=a.registerCallbacks(!1,!0,h.method_id_VideoElement_t.onvideoframechanged);a.remoteInvoke(!0,h.method_id_VideoElement_t.onvideoframechanged,b.success);return a.remoteInvoke(!1,
+h.method_id_VideoElement_t.disconnect)}).then(function(){d.logger.log(a.user_friendly_id()+".disconnect: remote media stream is disconnected!");a.setState("disconnected");1==a.pendingRelease_&&(a.pendingRelease_=!1,a.onconnectionstatechange=null,a.release());b()})["catch"](function(b){a.logRemoteInvokeError(b,".disconnect: failed to connect!");c()})})};b.prototype.setFrame=function(a){var b=this;d.logger.log(this.user_friendly_id()+".setFrame: set video frame to",a.x,a.y,a.width,a.height);this.waitUntilReady("VideoElement.setFrame").then(function(){var c=
+new n(a,b.window_);return b.remoteInvoke(!1,h.method_id_VideoElement_t.setFrame,c)}).then(function(){d.logger.log(b.user_friendly_id()+".setFrame: success!")})["catch"](function(a){b.logRemoteInvokeError(a,".setFrame: failed to connect!")})};b.prototype.addClipRect=function(a){var b=this;d.logger.log(this.user_friendly_id()+".addClipRect: ",JSON.stringify(a));this.waitUntilReady("VideoElement.addClipRect").then(function(){var c=new n(a,b.window_);return b.remoteInvoke(!1,h.method_id_VideoElement_t.addClipRect,
+c)})["catch"](function(a){b.logRemoteInvokeError(a,".addClipRect failed!")})};b.prototype.removeClipRect=function(a){var b=this;d.logger.log(this.user_friendly_id()+".removeClipRect: ",JSON.stringify(a));this.waitUntilReady("VideoElement.removeClipRect").then(function(){var c=new n(a,b.window_);return b.remoteInvoke(!1,h.method_id_VideoElement_t.removeClipRect,c)})["catch"](function(a){b.logRemoteInvokeError(a,".removeClipRect failed!")})};b.prototype.watch=function(){var a=this;if(p.getRedirector().getFeatureValue(q.FEATURE_ms_teams_video_placement)){var b=
+this.window_.document.getElementById(this.elementId);b&&(this.unwatch(),this.styleObserver=new MutationObserver(function(b){b.forEach(function(b){"style"==b.attributeName?a.updateStyle(b.target):a.elementId=b.target.id})}),this.styleObserver.observe(b,{attributes:!0,attributeOldValue:!0,attributeFilter:["style","id"]}))}};b.prototype.unwatch=function(){this.styleObserver&&(this.styleObserver.disconnect(),this.styleObserver=null)};b.prototype.updateStyle=function(a){if("connected"==this.connectionState){var b=
+this.window_.getComputedStyle(a).getPropertyValue("object-fit"),c=this.window_.getComputedStyle(a).getPropertyValue("object-position").split(" ");a=new v(c[0]);c=new v(c[1]);this.placement=new B(b,a,c)}else d.logger.log(this.user_friendly_id()+".updateStyle: video element is not connected")};Object.defineProperty(b.prototype,"placement",{get:function(){return this.placement_},set:function(a){var b=this;p.getRedirector().getFeatureValue(q.FEATURE_ms_teams_video_placement)?this.waitUntilReady("VideoElement.placement").then(function(){return b.remoteInvoke(!0,
+h.method_id_VideoElement_t.placement,a)}).then(function(){b.placement_=a})["catch"](function(a){b.logRemoteInvokeError(a,".placement setter: failed to connect!")}):d.logger.log(this.user_friendly_id()+".placement: video placement feature is not supported on a client")},enumerable:!1,configurable:!0});b.prototype.waitUntilReady=function(a){var b=this;return new Promise(function(c,e){d.logger.log("VideoElement.waitUntilReady(): readyState="+b.readyState_+". (oid: "+b.object_id()+")");b.readyState_==
+t.Ready?c():(d.logger.log('videoElement.waitUntilReady(): deferring action "'+a+'". (oid: '+b.object_id()+")"),b.deferredVideoActions.push(new l.deferred_action(c,e,a)))})};b.prototype.onReady=function(){for(;this.deferredVideoActions&&0<this.deferredVideoActions.length;)this.deferredVideoActions.shift().post(this.readyState_==t.Ready)};return b}(l.ProxyObject);a.VideoElement=b},269:function(b,a){Object.defineProperty(a,"__esModule",{value:!0});a.HardwareInfo=a.MemoryInfo=a.GPUInfo=a.GPU=a.CPUInfo=
+a.WebrpcClassLibInfo=a.WebrpcClassInfo=a.WebrpcMethodInfo=a.EndpointId=a.OSInfo=a.WebrpcFeatureInfo=a.FeatureData=a.VersionData=a.FEATURE_unsupported=a.FEATURE_ms_teams_redirection=void 0;a.FEATURE_ms_teams_redirection="ms_teams_redirection";a.FEATURE_unsupported="unsupported";var c=function(){return function(a,b,c,d){this.major=a;this.minor=b;this.revision=c;this.build=d}}();a.VersionData=c;c=function(){return function(){}}();a.FeatureData=c;c=function(){return function(a,b){this.fature=a;this.version=
+b}}();a.WebrpcFeatureInfo=c;c=function(){return function(a,b,c,d,e){this.family=a;this.version=b;this.architecture=c;this.distro=d;this.edition=e}}();a.OSInfo=c;c=function(){return function(a,b){this.machine_id=a;this.user_id=b}}();a.EndpointId=c;c=function(){return function(b,c,e,d,l){void 0===l&&(l=a.FEATURE_ms_teams_redirection);this.iid=b;this.mid=c;this.name=e;this.isprop=d;this.feature=l}}();a.WebrpcMethodInfo=c;c=function(){return function(a,b,c){this.id=a;this.name=b;this.methods=c}}();a.WebrpcClassInfo=
+c;c=function(){return function(a,b){this.name=a;this.classes=b}}();a.WebrpcClassLibInfo=c;c=function(){return function(a,b){this.cpumodel=a;this.numberofprocessors=b}}();a.CPUInfo=c;c=function(){return function(a,b){this.name=a;this.driver=b}}();a.GPU=c;c=function(){return function(a){this.gpus=a}}();a.GPUInfo=c;c=function(){return function(a){this.totalmemory=a}}();a.MemoryInfo=c;c=function(){return function(a,b,c){this.cpu_info=a;this.gpu_info=b;this.memory_info=c}}();a.HardwareInfo=c},550:function(b,
+a,c){var e=this&&this.__createBinding||(Object.create?function(a,b,c,e){void 0===e&&(e=c);Object.defineProperty(a,e,{enumerable:!0,get:function(){return b[c]}})}:function(a,b,c,e){void 0===e&&(e=c);a[e]=b[c]});b=this&&this.__exportStar||function(a,b){for(var c in a)"default"===c||b.hasOwnProperty(c)||e(b,a,c)};Object.defineProperty(a,"__esModule",{value:!0});a.WebrpcClassLibInfoUtil=void 0;var l=c(187);b(c(187),a);c=function(){function a(){}a.getInterfaceByid=function(a){for(var b=0,c=l.class_lib_info.classes;b<
+c.length;b++){var e=c[b];if(e.id==a)return e}return null};a.getMethodByid=function(a,b){var c=this.getInterfaceByid(a);if(null!=c)for(var e=0,c=c.methods;e<c.length;e++){var k=c[e];if(k.mid==b)return k}return null};a.getMethodFeatureByid=function(a,b){var c=this.getInterfaceByid(a);if(null!=c)for(var e=0,c=c.methods;e<c.length;e++){var k=c[e];if(k.mid==b)return k.feature}return null};a.composeClassInfoData=function(a){a=a.hdr;if(void 0==a)return"*** Invalid packet: Couldn't find hdr object ***";var b=
+a.proc;if(void 0==b)return"";a=b.iid;for(var b=b.methodid,c=0,e=l.class_lib_info.classes;c<e.length;c++){var k=e[c];if(k.id==a)for(var h=0,p=k.methods;h<p.length;h++){var g=p[h];if(g.mid==b)return k.name+"::"+g.name}}return""};return a}();a.WebrpcClassLibInfoUtil=c},187:function(b,a,c){Object.defineProperty(a,"__esModule",{value:!0});a.class_lib_info=a.method_id_StreamResolution_t=a.method_id_RTCSctpTransport_t=a.method_id_RTCDataChannel_t=a.method_id_E911Service_t=a.method_id_ScreenSource_t=a.method_id_VDISharingRemote_t=
+a.method_id_RTCRtpTransceiver_t=a.method_id_RTCIceCandidatePair_t=a.method_id_RTCDTMFToneChangeEvent_t=a.method_id_RTCDTMFSender_t=a.method_id_RTCIceTransport_t=a.method_id_RTCDtlsTransport_t=a.method_id_RTCRtpSender_t=a.method_id_RTCRtpReceiver_t=a.method_id_AudioElement_t=a.method_id_VideoElement_t=a.method_id_MediaStreamEvent_t=a.method_id_RTCIceCandidateEvent_t=a.method_id_RTCIceCandidate_t=a.method_id_NavigatorUserMedia_t=a.method_id_MediaStream_t=a.method_id_MediaStreamTrack_t=a.method_id_RTCSessionDescription_t=
+a.method_id_MediaDeviceInfo_t=a.method_id_MediaDevices_t=a.method_id_RTCPeerConnection_t=a.method_id_EngineControl_t=a.class_id_t=a.vdaFeatureNameMap=a.featureNameMap=a.Features=a.FEATURE_ms_teams_sender_stats_fix=a.FEATURE_ms_teams_enumerate_devices_v2=a.FEATURE_ms_teams_track_clone_with_id=a.FEATURE_ms_teams_audio_notifications_loop=a.FEATURE_ms_teams_share_system_audio=a.FEATURE_ms_teams_stream_active_status=a.FEATURE_ms_teams_hardware_info=a.FEATURE_ms_teams_secondary_audio_notifications=a.FEATURE_ms_teams_stream_resolution=
+a.FEATURE_ms_teams_client_info=a.FEATURE_ms_teams_no_vd_buffer_limit=a.FEATURE_ms_teams_data_channel=a.FEATURE_ms_teams_webrtc_1dot0=a.FEATURE_ms_teams_multi_window=a.FEATURE_ms_teams_gtc=a.FEATURE_ms_teams_e911=a.FEATURE_ms_teams_codec_capability=a.FEATURE_ms_teams_app_sharing=a.FEATURE_ms_teams_monitor_sharing=a.FEATURE_ms_teams_video_placement=a.FEATURE_ms_teams_dtmf=a.FEATURE_ms_teams_device_group_id=a.FEATURE_ms_teams_remote_audio_notifications=a.FEATURE_ms_teams_endpoint_id=a.FEATURE_ms_teams_osinfo=
+a.FEATURE_ms_teams_mstrack_constraints=a.FEATURE_ms_teams_1912=a.FEATURE_ms_teams_pstn=a.FEATURE_ms_teams_1911=a.FEATURE_ms_teams_common_media_constraints=a.FEATURE_ms_teams_speaking_indicator=a.FEATURE_ms_teams_desktop_sharing=a.FEATURE_vda_delete_viewport=a.FEATURE_vda_multi_window=a.FEATURE_vda_app_sharing=a.FEATURE_vda_service_no_buffer_limit=a.HDXMS_VERSION=a.BUILD_TYPE_SDK=void 0;b=c(269);var e=c(269);Object.defineProperty(a,"VersionData",{enumerable:!0,get:function(){return e.VersionData}});
+Object.defineProperty(a,"FeatureData",{enumerable:!0,get:function(){return e.FeatureData}});Object.defineProperty(a,"OSInfo",{enumerable:!0,get:function(){return e.OSInfo}});Object.defineProperty(a,"EndpointId",{enumerable:!0,get:function(){return e.EndpointId}});Object.defineProperty(a,"HardwareInfo",{enumerable:!0,get:function(){return e.HardwareInfo}});a.BUILD_TYPE_SDK=!0;a.HDXMS_VERSION="3.1.0";a.FEATURE_vda_service_no_buffer_limit="wsservice_no_buffer_limit";a.FEATURE_vda_app_sharing="webrtc_app_sharing";
+a.FEATURE_vda_multi_window="webrtc_multi_window";a.FEATURE_vda_delete_viewport="overlay_delete_viewport";a.FEATURE_ms_teams_desktop_sharing="ms_teams_desktop_sharing";a.FEATURE_ms_teams_speaking_indicator="ms_teams_speaking_indicator";a.FEATURE_ms_teams_common_media_constraints="ms_teams_common_media_constraints";a.FEATURE_ms_teams_1911="ms_teams_1911";a.FEATURE_ms_teams_pstn="ms_teams_pstn";a.FEATURE_ms_teams_1912="ms_teams_1912";a.FEATURE_ms_teams_mstrack_constraints="ms_teams_mstrack_constraints";
+a.FEATURE_ms_teams_osinfo="ms_teams_osinfo";a.FEATURE_ms_teams_endpoint_id="ms_teams_endpoint_id";a.FEATURE_ms_teams_remote_audio_notifications="ms_teams_remote_audio_notifications";a.FEATURE_ms_teams_device_group_id="ms_teams_device_group_id";a.FEATURE_ms_teams_dtmf="ms_teams_dtmf";a.FEATURE_ms_teams_video_placement="ms_teams_video_placement";a.FEATURE_ms_teams_monitor_sharing="ms_teams_multi_monitor_sharing";a.FEATURE_ms_teams_app_sharing="ms_teams_app_sharing";a.FEATURE_ms_teams_codec_capability=
+"ms_teams_codec_capability";a.FEATURE_ms_teams_e911="ms_teams_e911";a.FEATURE_ms_teams_gtc="ms_teams_gtc";a.FEATURE_ms_teams_multi_window="ms_teams_multi_windows";a.FEATURE_ms_teams_webrtc_1dot0="ms_teams_webrtc_1.0";a.FEATURE_ms_teams_data_channel="ms_teams_data_channel";a.FEATURE_ms_teams_no_vd_buffer_limit="ms_teams_no_vd_buffer_limit";a.FEATURE_ms_teams_client_info="ms_teams_client_info";a.FEATURE_ms_teams_stream_resolution="ms_teams_stream_resolution";a.FEATURE_ms_teams_secondary_audio_notifications=
+"ms_teams_secondary_audio_notifications";a.FEATURE_ms_teams_hardware_info="ms_teams_hardware_info";a.FEATURE_ms_teams_stream_active_status="ms_teams_stream_active_status";a.FEATURE_ms_teams_share_system_audio="ms_teams_share_system_audio";a.FEATURE_ms_teams_audio_notifications_loop="ms_teams_audio_notifications_loop";a.FEATURE_ms_teams_track_clone_with_id="ms_teams_track_clone_with_id";a.FEATURE_ms_teams_enumerate_devices_v2="ms_teams_enumerate_devices_v2";a.FEATURE_ms_teams_sender_stats_fix="ms_teams_sender_stats_fix";
+new b.WebrpcFeatureInfo(b.FEATURE_ms_teams_redirection,new b.VersionData(1,1,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_desktop_sharing,new b.VersionData(1,2,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_speaking_indicator,new b.VersionData(1,2,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_common_media_constraints,new b.VersionData(1,4,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_1911,new b.VersionData(1,4,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_1912,new b.VersionData(1,5,
+0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_mstrack_constraints,new b.VersionData(1,6,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_pstn,new b.VersionData(1,6,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_osinfo,new b.VersionData(1,7,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_endpoint_id,new b.VersionData(1,7,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_remote_audio_notifications,new b.VersionData(1,7,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_device_group_id,new b.VersionData(1,
+7,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_codec_capability,new b.VersionData(1,7,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_dtmf,new b.VersionData(1,7,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_video_placement,new b.VersionData(1,7,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_monitor_sharing,new b.VersionData(1,7,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_app_sharing,new b.VersionData(1,8,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_webrtc_1dot0,new b.VersionData(1,
+8,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_data_channel,new b.VersionData(1,8,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_e911,new b.VersionData(1,13,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_multi_window,new b.VersionData(1,14,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_client_info,new b.VersionData(1,19,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_stream_resolution,new b.VersionData(1,25,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_secondary_audio_notifications,
+new b.VersionData(1,21,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_hardware_info,new b.VersionData(1,35,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_stream_active_status,new b.VersionData(1,32,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_audio_notifications_loop,new b.VersionData(1,33,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_track_clone_with_id,new b.VersionData(1,33,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_enumerate_devices_v2,new b.VersionData(1,35,0,0));new b.WebrpcFeatureInfo(a.FEATURE_ms_teams_sender_stats_fix,
+new b.VersionData(1,36,0,0));c=function(){function a(){}a.FEATURE_public_screenshare="screenshare";a.FEATURE_public_redirection="redirection";a.FEATURE_public_speaking_indicator="speaking_indicator";a.FEATURE_public_pstn="pstn";a.FEATURE_public_osinfo="osinfo";a.FEATURE_public_endpoint_id="endpointid";a.FEATURE_public_remote_audio_notifications="remoteaudionotifications";a.FEATURE_public_device_group_id="compositedevices";a.FEATURE_public_dtmf="dtmf";a.FEATURE_public_monitor_sharing="multimonitorscreenshare";
+a.FEATURE_public_app_sharing="appshare";a.FEATURE_public_codec_capability="codec_capability";a.FEATURE_public_e911="e911";a.FEATURE_public_webrtc1dot0="webrtc1.0";a.FEATURE_public_data_channel="datachannel";a.FEATURE_public_vdnobuflimit="vdnobuflimit";a.FEATURE_public_multi_window="multiwindow";a.FEATURE_public_secondary_audio_notifications="secondaryringer";a.FEATURE_public_stream_resolution="streamresolution";a.FEATURE_public_track_clone_with_id="track_clone_with_id";a.FEATURE_public_sender_stats_fix=
+"sender_stats_fix";a.FEATURE_public_audio_notification_loop="loop";return a}();a.Features=c;a.featureNameMap={};a.featureNameMap[c.FEATURE_public_screenshare]=[a.FEATURE_ms_teams_desktop_sharing];a.featureNameMap[c.FEATURE_public_redirection]=[b.FEATURE_ms_teams_redirection];a.featureNameMap[c.FEATURE_public_speaking_indicator]=[a.FEATURE_ms_teams_speaking_indicator];a.featureNameMap[c.FEATURE_public_pstn]=[a.FEATURE_ms_teams_pstn];a.featureNameMap[c.FEATURE_public_osinfo]=[a.FEATURE_ms_teams_osinfo];
+a.featureNameMap[c.FEATURE_public_endpoint_id]=[a.FEATURE_ms_teams_endpoint_id];a.featureNameMap[c.FEATURE_public_remote_audio_notifications]=[a.FEATURE_ms_teams_remote_audio_notifications,a.FEATURE_ms_teams_secondary_audio_notifications];a.featureNameMap[c.FEATURE_public_device_group_id]=[a.FEATURE_ms_teams_device_group_id];a.featureNameMap[c.FEATURE_public_dtmf]=[a.FEATURE_ms_teams_dtmf];a.featureNameMap[c.FEATURE_public_monitor_sharing]=[a.FEATURE_ms_teams_monitor_sharing];a.featureNameMap[c.FEATURE_public_app_sharing]=
+[a.FEATURE_ms_teams_app_sharing];a.featureNameMap[c.FEATURE_public_codec_capability]=[a.FEATURE_ms_teams_codec_capability];a.featureNameMap[c.FEATURE_public_e911]=[a.FEATURE_ms_teams_e911];a.featureNameMap[c.FEATURE_public_webrtc1dot0]=[a.FEATURE_ms_teams_webrtc_1dot0];a.featureNameMap[c.FEATURE_public_multi_window]=[a.FEATURE_ms_teams_multi_window];a.featureNameMap[c.FEATURE_public_data_channel]=[a.FEATURE_ms_teams_data_channel];a.featureNameMap[c.FEATURE_public_vdnobuflimit]=[a.FEATURE_ms_teams_no_vd_buffer_limit];
+a.featureNameMap[c.FEATURE_public_secondary_audio_notifications]=[a.FEATURE_ms_teams_remote_audio_notifications,a.FEATURE_ms_teams_secondary_audio_notifications];a.featureNameMap[c.FEATURE_public_stream_resolution]=[a.FEATURE_ms_teams_stream_resolution];a.featureNameMap[c.FEATURE_public_track_clone_with_id]=[a.FEATURE_ms_teams_track_clone_with_id];a.featureNameMap[c.FEATURE_public_sender_stats_fix]=[a.FEATURE_ms_teams_sender_stats_fix];a.featureNameMap[c.FEATURE_public_audio_notification_loop]=[a.FEATURE_ms_teams_audio_notifications_loop];
+a.vdaFeatureNameMap={};a.vdaFeatureNameMap[c.FEATURE_public_multi_window]=[a.FEATURE_vda_multi_window];a.vdaFeatureNameMap[c.FEATURE_public_app_sharing]=[a.FEATURE_vda_app_sharing];(function(a){a[a.EngineControl=0]="EngineControl";a[a.RTCPeerConnection=1]="RTCPeerConnection";a[a.RTCSessionDescription=2]="RTCSessionDescription";a[a.RTCIceCandidate=3]="RTCIceCandidate";a[a.RTCIceCandidateEvent=4]="RTCIceCandidateEvent";a[a.MediaDevices=5]="MediaDevices";a[a.MediaDeviceInfo=6]="MediaDeviceInfo";a[a.MediaStreamTrack=
 7]="MediaStreamTrack";a[a.MediaStreamEvent=8]="MediaStreamEvent";a[a.MediaStream=9]="MediaStream";a[a.NavigatorUserMedia=10]="NavigatorUserMedia";a[a.VideoElement=11]="VideoElement";a[a.AudioElement=12]="AudioElement";a[a.RTCRtpReceiver=13]="RTCRtpReceiver";a[a.RTCRtpSender=14]="RTCRtpSender";a[a.RTCDtlsTransport=15]="RTCDtlsTransport";a[a.RTCIceTransport=16]="RTCIceTransport";a[a.RTCDTMFSender=17]="RTCDTMFSender";a[a.RTCDTMFToneChangeEvent=18]="RTCDTMFToneChangeEvent";a[a.RTCIceCandidatePair=19]=
-"RTCIceCandidatePair";a[a.RTCRtpTransceiver=20]="RTCRtpTransceiver";a[a.reserved3=21]="reserved3";a[a.reserved4=22]="reserved4";a[a.reserved1=23]="reserved1";a[a.reserved2=24]="reserved2";a[a.RTCDataChannel=25]="RTCDataChannel";a[a.RTCSctpTransport=26]="RTCSctpTransport"})(c=a.class_id_t||(a.class_id_t={}));var d;(function(a){a[a.ctor=0]="ctor";a[a.version=1]="version";a[a.feature_flags=2]="feature_flags";a[a.version_info=3]="version_info";a[a.osinfo=4]="osinfo";a[a.endpoint_id=5]="endpoint_id"})(d=
-a.method_id_EngineControl_t||(a.method_id_EngineControl_t={}));var e;(function(a){a[a.ctor=0]="ctor";a[a.localDescription=1]="localDescription";a[a.remoteDescription=2]="remoteDescription";a[a.readyState=3]="readyState";a[a.iceState=4]="iceState";a[a.localStreams=5]="localStreams";a[a.remoteStreams=6]="remoteStreams";a[a.createOffer=7]="createOffer";a[a.createAnswer=8]="createAnswer";a[a.setLocalDescription=9]="setLocalDescription";a[a.setRemoteDescription=10]="setRemoteDescription";a[a.updateIce=
-11]="updateIce";a[a.addIceCandidate=12]="addIceCandidate";a[a.addStream=13]="addStream";a[a.removeStream=14]="removeStream";a[a.close=15]="close";a[a.iceConnectionState=16]="iceConnectionState";a[a.iceGatheringState=17]="iceGatheringState";a[a.signalingState=18]="signalingState";a[a.onaddstream=19]="onaddstream";a[a.onicecandidate=20]="onicecandidate";a[a.oniceconnectionstatechange=21]="oniceconnectionstatechange";a[a.onicegatheringstatechange=22]="onicegatheringstatechange";a[a.onsignalingstatechange=
-23]="onsignalingstatechange";a[a.onnegotiationneeded=24]="onnegotiationneeded";a[a.onremovestream=25]="onremovestream";a[a.getStats=26]="getStats";a[a.getReceivers=27]="getReceivers";a[a.getSenders=28]="getSenders";a[a.addTrack=29]="addTrack";a[a.removeTrack=30]="removeTrack";a[a.ontrack=31]="ontrack";a[a.setLocalDescription_v2=32]="setLocalDescription_v2";a[a.setRemoteDescription_v2=33]="setRemoteDescription_v2";a[a.addTransceiverWithTrack=34]="addTransceiverWithTrack";a[a.addTransceiverWithKind=
-35]="addTransceiverWithKind";a[a.getTransceivers=36]="getTransceivers";a[a.onconnectionstatechange=37]="onconnectionstatechange";a[a.sctp=38]="sctp";a[a.ondatachannel=39]="ondatachannel";a[a.createDataChannel=40]="createDataChannel";a[a.getStats_v2=41]="getStats_v2"})(e=a.method_id_RTCPeerConnection_t||(a.method_id_RTCPeerConnection_t={}));var k;(function(a){a[a.ctor=0]="ctor";a[a.enumerateDevices=1]="enumerateDevices";a[a.getDisplayMedia=2]="getDisplayMedia";a[a.ondevicechange=3]="ondevicechange"})(k=
-a.method_id_MediaDevices_t||(a.method_id_MediaDevices_t={}));var m;(function(a){a[a.ctor=0]="ctor";a[a.deviceId=1]="deviceId";a[a.kind=2]="kind";a[a.label=3]="label";a[a.groupId=4]="groupId"})(m=a.method_id_MediaDeviceInfo_t||(a.method_id_MediaDeviceInfo_t={}));var p;(function(a){a[a.ctor=0]="ctor";a[a.type=1]="type";a[a.sdp=2]="sdp"})(p=a.method_id_RTCSessionDescription_t||(a.method_id_RTCSessionDescription_t={}));var l;(function(a){a[a.ctor=0]="ctor";a[a.kind=1]="kind";a[a.id=2]="id";a[a.label=
-3]="label";a[a.enabled=4]="enabled";a[a.muted=5]="muted";a[a.readyState=6]="readyState";a[a.onended=7]="onended";a[a.onmute=8]="onmute";a[a.onunmute=9]="onunmute";a[a.clone=10]="clone";a[a.stop=11]="stop";a[a.getCapabilities=12]="getCapabilities";a[a.getSettings=13]="getSettings";a[a.applyConstraints=14]="applyConstraints";a[a.getConstraints=15]="getConstraints"})(l=a.method_id_MediaStreamTrack_t||(a.method_id_MediaStreamTrack_t={}));var g;(function(a){a[a.ctor=0]="ctor";a[a.id=1]="id";a[a.getAudioTracks=
-2]="getAudioTracks";a[a.getVideoTracks=3]="getVideoTracks";a[a.getTracks=4]="getTracks";a[a.getTrackById=5]="getTrackById";a[a.addTrack=6]="addTrack";a[a.removeTrack=7]="removeTrack";a[a.clone=8]="clone";a[a.active=9]="active"})(g=a.method_id_MediaStream_t||(a.method_id_MediaStream_t={}));var G;(function(a){a[a.ctor=0]="ctor";a[a.getUserMedia=1]="getUserMedia";a[a.setCodecCapabilities=2]="setCodecCapabilities";a[a.getCapabilities=3]="getCapabilities"})(G=a.method_id_NavigatorUserMedia_t||(a.method_id_NavigatorUserMedia_t=
-{}));var v;(function(a){a[a.ctor=0]="ctor";a[a.candidate=1]="candidate";a[a.sdpMid=2]="sdpMid";a[a.sdpMLineIndex=3]="sdpMLineIndex"})(v=a.method_id_RTCIceCandidate_t||(a.method_id_RTCIceCandidate_t={}));var t;(function(a){a[a.ctor=0]="ctor";a[a.candidate=1]="candidate"})(t=a.method_id_RTCIceCandidateEvent_t||(a.method_id_RTCIceCandidateEvent_t={}));var z;(function(a){a[a.ctor=0]="ctor";a[a.stream=1]="stream"})(z=a.method_id_MediaStreamEvent_t||(a.method_id_MediaStreamEvent_t={}));var u;(function(a){a[a.ctor=
-0]="ctor";a[a.sinkId=1]="sinkId";a[a.connectTo=2]="connectTo";a[a.disconnect=3]="disconnect";a[a.setFrame=4]="setFrame";a[a.addClipRect=5]="addClipRect";a[a.removeClipRect=6]="removeClipRect";a[a.onerror=7]="onerror";a[a.onvideoframechanged=8]="onvideoframechanged";a[a.placement=9]="placement"})(u=a.method_id_VideoElement_t||(a.method_id_VideoElement_t={}));var f;(function(a){a[a.ctor=0]="ctor";a[a.sinkId=1]="sinkId";a[a.srcObject=2]="srcObject";a[a.src=3]="src";a[a.play=4]="play";a[a.pause=5]="pause"})(f=
-a.method_id_AudioElement_t||(a.method_id_AudioElement_t={}));var A;(function(a){a[a.ctor=0]="ctor";a[a.track=1]="track";a[a.getContributingSources=2]="getContributingSources";a[a.getSynchronizationSources=3]="getSynchronizationSources";a[a.transport=4]="transport";a[a.rtcpTransport=5]="rtcpTransport";a[a.getCapabilities=6]="getCapabilities";a[a.getParameters=7]="getParameters";a[a.getStats=8]="getStats";a[a.getCapabilities_v2=9]="getCapabilities_v2"})(A=a.method_id_RTCRtpReceiver_t||(a.method_id_RTCRtpReceiver_t=
-{}));var x;(function(a){a[a.ctor=0]="ctor";a[a.track=1]="track";a[a.transport=2]="transport";a[a.rtcpTransport=3]="rtcpTransport";a[a.dtmf=4]="dtmf";a[a.getCapabilities=5]="getCapabilities";a[a.getParameters=6]="getParameters";a[a.setParameters=7]="setParameters";a[a.replaceTrack=8]="replaceTrack";a[a.getStats=9]="getStats";a[a.setStreams=10]="setStreams";a[a.getCapabilities_v2=11]="getCapabilities_v2"})(x=a.method_id_RTCRtpSender_t||(a.method_id_RTCRtpSender_t={}));var D;(function(a){a[a.ctor=0]=
-"ctor";a[a.transport=1]="transport";a[a.state=2]="state";a[a.getRemoteCertificates=3]="getRemoteCertificates";a[a.onstatechange=4]="onstatechange";a[a.onerror=5]="onerror"})(D=a.method_id_RTCDtlsTransport_t||(a.method_id_RTCDtlsTransport_t={}));var C;(function(a){a[a.ctor=0]="ctor";a[a.role=1]="role";a[a.component=2]="component";a[a.state=3]="state";a[a.gatheringState=4]="gatheringState";a[a.localcandidates=5]="localcandidates";a[a.remotecandidates=6]="remotecandidates";a[a.onstatechange=7]="onstatechange";
-a[a.ongatheringstatechange=8]="ongatheringstatechange";a[a.onselectedcandidatepairchange=9]="onselectedcandidatepairchange"})(C=a.method_id_RTCIceTransport_t||(a.method_id_RTCIceTransport_t={}));var r;(function(a){a[a.ctor=0]="ctor";a[a.insertDTMF=1]="insertDTMF";a[a.ontonechange=2]="ontonechange";a[a.canInsertDTMF=3]="canInsertDTMF";a[a.toneBuffer=4]="toneBuffer"})(r=a.method_id_RTCDTMFSender_t||(a.method_id_RTCDTMFSender_t={}));var q;(function(a){a[a.ctor=0]="ctor";a[a.tone=1]="tone";a[a.tone_buffer=
-2]="tone_buffer"})(q=a.method_id_RTCDTMFToneChangeEvent_t||(a.method_id_RTCDTMFToneChangeEvent_t={}));var w;(function(a){a[a.ctor=0]="ctor";a[a.local=1]="local";a[a.remote=2]="remote"})(w=a.method_id_RTCIceCandidatePair_t||(a.method_id_RTCIceCandidatePair_t={}));var B;(function(a){a[a.ctor=0]="ctor";a[a.mid=1]="mid";a[a.sender=2]="sender";a[a.receiver=3]="receiver";a[a.direction=4]="direction";a[a.currentDirection=5]="currentDirection";a[a.stop=6]="stop";a[a.setCodecPreferences=7]="setCodecPreferences"})(B=
-a.method_id_RTCRtpTransceiver_t||(a.method_id_RTCRtpTransceiver_t={}));var y;(function(a){a[a.ctor=0]="ctor";a[a.label=1]="label";a[a.ordered=2]="ordered";a[a.maxPacketLifeTime=3]="maxPacketLifeTime";a[a.maxRetransmits=4]="maxRetransmits";a[a.protocol=5]="protocol";a[a.negotiated=6]="negotiated";a[a.id=7]="id";a[a.readyState=8]="readyState";a[a.bufferedAmount=9]="bufferedAmount";a[a.bufferedAmountLowThreshold=10]="bufferedAmountLowThreshold";a[a.onopen=11]="onopen";a[a.onbufferedamountlow=12]="onbufferedamountlow";
-a[a.onerror=13]="onerror";a[a.onclosing=14]="onclosing";a[a.onclose=15]="onclose";a[a.onmessage=16]="onmessage";a[a.close=17]="close";a[a.send_text=18]="send_text";a[a.send_binary=19]="send_binary"})(y=a.method_id_RTCDataChannel_t||(a.method_id_RTCDataChannel_t={}));var H;(function(a){a[a.ctor=0]="ctor";a[a.transport=1]="transport";a[a.state=2]="state";a[a.maxMessageSize=3]="maxMessageSize";a[a.maxChannels=4]="maxChannels";a[a.onstatechange=5]="onstatechange"})(H=a.method_id_RTCSctpTransport_t||(a.method_id_RTCSctpTransport_t=
-{}));a.class_lib_info=new b.WebrpcClassLibInfo("webrpc_class_library",[new b.WebrpcClassInfo(c.EngineControl,"EngineControl",[new b.WebrpcMethodInfo(c.EngineControl,d.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.EngineControl,d.version,"version",!0),new b.WebrpcMethodInfo(c.EngineControl,d.feature_flags,"feature_flags",!0),new b.WebrpcMethodInfo(c.EngineControl,d.version_info,"version_info",!0,a.FEATURE_ms_teams_desktop_sharing),new b.WebrpcMethodInfo(c.EngineControl,d.osinfo,"osinfo",!0,a.FEATURE_ms_teams_osinfo),
-new b.WebrpcMethodInfo(c.EngineControl,d.endpoint_id,"endpoint_id",!0,a.FEATURE_ms_teams_endpoint_id)]),new b.WebrpcClassInfo(c.RTCPeerConnection,"RTCPeerConnection",[new b.WebrpcMethodInfo(c.RTCPeerConnection,e.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.localDescription,"localDescription",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.remoteDescription,"remoteDescription",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.readyState,"readyState",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,
-e.iceState,"iceState",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.localStreams,"localStreams",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.remoteStreams,"remoteStreams",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.createOffer,"createOffer",!1),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.createAnswer,"createAnswer",!1),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.setLocalDescription,"setLocalDescription",!1),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.setRemoteDescription,"setRemoteDescription",
-!1),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.updateIce,"updateIce",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.addIceCandidate,"addIceCandidate",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.addStream,"addStream",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.removeStream,"removeStream",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.close,"close",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.iceConnectionState,"iceConnectionState",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,
-e.iceGatheringState,"iceGatheringState",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.signalingState,"signalingState",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.onaddstream,"onaddstream",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.onicecandidate,"onicecandidate",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.oniceconnectionstatechange,"oniceconnectionstatechange",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.onicegatheringstatechange,"onicegatheringstatechange",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,
-e.onsignalingstatechange,"onsignalingstatechange",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.onnegotiationneeded,"onnegotiationneeded",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.onremovestream,"onremovestream",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.getStats,"getStats",!1),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.getReceivers,"getReceivers",!1,a.FEATURE_ms_teams_speaking_indicator),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.getSenders,"getSenders",!1,a.FEATURE_ms_teams_pstn),
-new b.WebrpcMethodInfo(c.RTCPeerConnection,e.addTrack,"addTrack",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.removeTrack,"removeTrack",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.ontrack,"ontrack",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.setLocalDescription_v2,"setLocalDescription_v2",!1,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.setRemoteDescription_v2,"setRemoteDescription_v2",
-!1,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.addTransceiverWithTrack,"addTransceiverWithTrack",!1,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.addTransceiverWithKind,"addTransceiverWithKind",!1,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.getTransceivers,"getTransceivers",!1,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.onconnectionstatechange,"onconnectionstatechange",
-!0,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.sctp,"sctp",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.ondatachannel,"ondatachannel",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.createDataChannel,"createDataChannel",!1,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCPeerConnection,e.getStats_v2,"getStats_v2",!1,a.FEATURE_ms_teams_webrtc_1dot0)]),new b.WebrpcClassInfo(c.RTCSessionDescription,
-"RTCSessionDescription",[new b.WebrpcMethodInfo(c.RTCSessionDescription,p.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.RTCSessionDescription,p.type,"type",!0),new b.WebrpcMethodInfo(c.RTCSessionDescription,p.sdp,"sdp",!0)]),new b.WebrpcClassInfo(c.RTCIceCandidate,"RTCIceCandidate",[new b.WebrpcMethodInfo(c.RTCIceCandidate,v.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.RTCIceCandidate,v.candidate,"candidate",!0),new b.WebrpcMethodInfo(c.RTCIceCandidate,v.sdpMid,"sdpMid",!0),new b.WebrpcMethodInfo(c.RTCIceCandidate,
-v.sdpMLineIndex,"sdpMLineIndex",!0)]),new b.WebrpcClassInfo(c.RTCIceCandidateEvent,"RTCIceCandidateEvent",[new b.WebrpcMethodInfo(c.RTCIceCandidateEvent,t.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.RTCIceCandidateEvent,t.candidate,"candidate",!0)]),new b.WebrpcClassInfo(c.MediaDevices,"MediaDevices",[new b.WebrpcMethodInfo(c.MediaDevices,k.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.MediaDevices,k.enumerateDevices,"enumerateDevices",!1),new b.WebrpcMethodInfo(c.MediaDevices,k.getDisplayMedia,"getDisplayMedia",
-!1,a.FEATURE_ms_teams_desktop_sharing),new b.WebrpcMethodInfo(c.MediaDevices,k.ondevicechange,"ondevicechange",!0,a.FEATURE_ms_teams_speaking_indicator)]),new b.WebrpcClassInfo(c.MediaDeviceInfo,"MediaDeviceInfo",[new b.WebrpcMethodInfo(c.MediaDeviceInfo,m.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.MediaDeviceInfo,m.deviceId,"deviceId",!0),new b.WebrpcMethodInfo(c.MediaDeviceInfo,m.kind,"kind",!0),new b.WebrpcMethodInfo(c.MediaDeviceInfo,m.label,"label",!0),new b.WebrpcMethodInfo(c.MediaDeviceInfo,
-m.groupId,"groupId",!0)]),new b.WebrpcClassInfo(c.MediaStreamTrack,"MediaStreamTrack",[new b.WebrpcMethodInfo(c.MediaStreamTrack,l.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.MediaStreamTrack,l.clone,"clone",!1),new b.WebrpcMethodInfo(c.MediaStreamTrack,l.stop,"stop",!1),new b.WebrpcMethodInfo(c.MediaStreamTrack,l.getCapabilities,"getCapabilities",!1),new b.WebrpcMethodInfo(c.MediaStreamTrack,l.getSettings,"getSettings",!1),new b.WebrpcMethodInfo(c.MediaStreamTrack,l.applyConstraints,"applyConstraints",
-!1,a.FEATURE_ms_teams_desktop_sharing),new b.WebrpcMethodInfo(c.MediaStreamTrack,l.kind,"kind",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,l.id,"id",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,l.label,"label",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,l.enabled,"enabled",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,l.muted,"muted",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,l.readyState,"readyState",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,l.onended,"onended",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,
-l.onmute,"onmute",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,l.onunmute,"onunmute",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,l.getConstraints,"getConstraints",!1,a.FEATURE_ms_teams_mstrack_constraints)]),new b.WebrpcClassInfo(c.MediaStream,"MediaStream",[new b.WebrpcMethodInfo(c.MediaStream,g.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.MediaStream,g.id,"id",!0),new b.WebrpcMethodInfo(c.MediaStream,g.getAudioTracks,"getAudioTracks",!1),new b.WebrpcMethodInfo(c.MediaStream,g.getVideoTracks,"getVideoTracks",
-!1),new b.WebrpcMethodInfo(c.MediaStream,g.getTracks,"getTracks",!1),new b.WebrpcMethodInfo(c.MediaStream,g.getTrackById,"getTrackById",!1),new b.WebrpcMethodInfo(c.MediaStream,g.addTrack,"addTrack",!1),new b.WebrpcMethodInfo(c.MediaStream,g.removeTrack,"removeTrack",!1),new b.WebrpcMethodInfo(c.MediaStream,g.clone,"clone",!0),new b.WebrpcMethodInfo(c.MediaStream,g.active,"active",!0)]),new b.WebrpcClassInfo(c.NavigatorUserMedia,"NavigatorUserMedia",[new b.WebrpcMethodInfo(c.NavigatorUserMedia,G.ctor,
-"ctor",!1),new b.WebrpcMethodInfo(c.NavigatorUserMedia,G.getUserMedia,"getUserMedia",!1),new b.WebrpcMethodInfo(c.NavigatorUserMedia,G.setCodecCapabilities,"setCodecCapabilities",!1,a.FEATURE_ms_teams_codec_capability),new b.WebrpcMethodInfo(c.NavigatorUserMedia,G.getCapabilities,"getRtpCapabilities",!1,a.FEATURE_ms_teams_webrtc_1dot0)]),new b.WebrpcClassInfo(c.MediaStreamEvent,"MediaStreamEvent",[new b.WebrpcMethodInfo(c.MediaStreamEvent,z.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.MediaStreamEvent,
-z.stream,"stream",!0)]),new b.WebrpcClassInfo(c.VideoElement,"VideoElement",[new b.WebrpcMethodInfo(c.VideoElement,u.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.VideoElement,u.sinkId,"sinkId",!0),new b.WebrpcMethodInfo(c.VideoElement,u.connectTo,"connectTo",!1),new b.WebrpcMethodInfo(c.VideoElement,u.disconnect,"disconnect",!1),new b.WebrpcMethodInfo(c.VideoElement,u.setFrame,"setFrame",!1),new b.WebrpcMethodInfo(c.VideoElement,u.addClipRect,"addClipRect",!1),new b.WebrpcMethodInfo(c.VideoElement,u.removeClipRect,
-"removeClipRect",!1),new b.WebrpcMethodInfo(c.VideoElement,u.onerror,"onerror",!0),new b.WebrpcMethodInfo(c.VideoElement,u.onvideoframechanged,"onvideoframechanged",!0),new b.WebrpcMethodInfo(c.VideoElement,u.placement,"placement",!0,a.FEATURE_ms_teams_video_placement)]),new b.WebrpcClassInfo(c.AudioElement,"AudioElement",[new b.WebrpcMethodInfo(c.AudioElement,f.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.AudioElement,f.sinkId,"sinkId",!0),new b.WebrpcMethodInfo(c.AudioElement,f.srcObject,"srcObject",
-!0),new b.WebrpcMethodInfo(c.AudioElement,f.src,"src",!0),new b.WebrpcMethodInfo(c.AudioElement,f.play,"play",!1),new b.WebrpcMethodInfo(c.AudioElement,f.pause,"pause",!1)]),new b.WebrpcClassInfo(c.RTCRtpReceiver,"RTCRtpReceiver",[new b.WebrpcMethodInfo(c.RTCRtpReceiver,A.ctor,"ctor",!1,a.FEATURE_ms_teams_speaking_indicator),new b.WebrpcMethodInfo(c.RTCRtpReceiver,A.track,"track",!0,a.FEATURE_ms_teams_speaking_indicator),new b.WebrpcMethodInfo(c.RTCRtpReceiver,A.getContributingSources,"getContributingSources",
-!1,a.FEATURE_ms_teams_speaking_indicator),new b.WebrpcMethodInfo(c.RTCRtpReceiver,A.getSynchronizationSources,"getSynchronizationSources",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpReceiver,A.transport,"transport",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpReceiver,A.rtcpTransport,"rtcptransport",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpReceiver,A.getCapabilities,"getCapabilities",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpReceiver,
-A.getParameters,"getParameters",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpReceiver,A.getStats,"getStats",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpReceiver,A.getCapabilities_v2,"getCapabilities_v2",!1,a.FEATURE_ms_teams_webrtc_1dot0)]),new b.WebrpcClassInfo(c.RTCRtpSender,"RTCRtpSender",[new b.WebrpcMethodInfo(c.RTCRtpSender,x.ctor,"ctor",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,x.track,"track",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,
-x.transport,"transport",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,x.rtcpTransport,"rtcpTransport",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,x.dtmf,"dtmf",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,x.getCapabilities,"getCapabilities",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,x.getParameters,"getParameters",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,x.setParameters,"setParameters",!1,
-a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,x.replaceTrack,"replaceTrack",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,x.getStats,"getStats",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,x.setStreams,"setStreams",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,x.getCapabilities_v2,"getCapabilities_v2",!1,a.FEATURE_ms_teams_webrtc_1dot0)]),new b.WebrpcClassInfo(c.RTCDtlsTransport,"RTCDtlsTransport",[new b.WebrpcMethodInfo(c.RTCDtlsTransport,
-D.ctor,"ctor",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDtlsTransport,D.transport,"transport",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDtlsTransport,D.state,"state",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDtlsTransport,D.getRemoteCertificates,"getRemoteCertificates",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDtlsTransport,D.onstatechange,"onstatechange",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDtlsTransport,D.onerror,"onerror",
-!0,a.FEATURE_ms_teams_pstn)]),new b.WebrpcClassInfo(c.RTCIceTransport,"RTCIceTransport",[new b.WebrpcMethodInfo(c.RTCIceTransport,C.ctor,"ctor",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,C.role,"role",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,C.component,"component",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,C.state,"state",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,C.gatheringState,"gatheringState",
-!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,C.localcandidates,"localcandidates",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,C.remotecandidates,"remotecandidates",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,C.onstatechange,"onstatechange",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,C.ongatheringstatechange,"ongatheringstatechange",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,
-C.onselectedcandidatepairchange,"onselectedcandidatepairchange",!0,a.FEATURE_ms_teams_pstn)]),new b.WebrpcClassInfo(c.RTCDTMFSender,"RTCDTMFSender",[new b.WebrpcMethodInfo(c.RTCDTMFSender,r.ctor,"ctor",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDTMFSender,r.insertDTMF,"insertDTMF",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDTMFSender,r.ontonechange,"ontonechange",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDTMFSender,r.canInsertDTMF,"canInsertDTMF",!0,a.FEATURE_ms_teams_pstn),
-new b.WebrpcMethodInfo(c.RTCDTMFSender,r.toneBuffer,"toneBuffer",!0,a.FEATURE_ms_teams_pstn)]),new b.WebrpcClassInfo(c.RTCDTMFToneChangeEvent,"RTCDTMFToneChangeEvent",[new b.WebrpcMethodInfo(c.RTCDTMFToneChangeEvent,q.ctor,"ctor",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDTMFToneChangeEvent,q.tone,"tone",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDTMFToneChangeEvent,q.tone_buffer,"tone_buffer",!0,a.FEATURE_ms_teams_pstn)]),new b.WebrpcClassInfo(c.RTCIceCandidatePair,"RTCIceCandidatePair",
-[new b.WebrpcMethodInfo(c.RTCIceCandidatePair,w.ctor,"ctor",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceCandidatePair,w.local,"local",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceCandidatePair,w.remote,"remote",!0,a.FEATURE_ms_teams_pstn)]),new b.WebrpcClassInfo(c.RTCRtpTransceiver,"RTCRtpTransceiver",[new b.WebrpcMethodInfo(c.RTCRtpTransceiver,B.ctor,"ctor",!1,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCRtpTransceiver,B.mid,"mid",!0,a.FEATURE_ms_teams_webrtc_1dot0),
-new b.WebrpcMethodInfo(c.RTCRtpTransceiver,B.sender,"sender",!0,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCRtpTransceiver,B.receiver,"receiver",!0,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCRtpTransceiver,B.direction,"direction",!0,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCRtpTransceiver,B.currentDirection,"currentDirection",!0,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCRtpTransceiver,B.stop,"stop",!1,a.FEATURE_ms_teams_webrtc_1dot0),
-new b.WebrpcMethodInfo(c.RTCRtpTransceiver,B.setCodecPreferences,"setCodecPreferences",!1,a.FEATURE_ms_teams_webrtc_1dot0)]),new b.WebrpcClassInfo(c.RTCDataChannel,"RTCDataChannel",[new b.WebrpcMethodInfo(c.RTCDataChannel,y.ctor,"ctor",!1,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.label,"label",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.ordered,"ordered",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.maxPacketLifeTime,
-"maxPacketLifeTime",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.maxRetransmits,"maxRetransmits",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.protocol,"protocol",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.negotiated,"negotiated",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.id,"id",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.readyState,
-"readyState",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.bufferedAmount,"bufferedAmount",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.bufferedAmountLowThreshold,"bufferedAmountLowThreshold",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.onopen,"onopen",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.onbufferedamountlow,"onbufferedamountlow",!0,a.FEATURE_ms_teams_data_channel),
-new b.WebrpcMethodInfo(c.RTCDataChannel,y.onerror,"onerror",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.onclosing,"onclosing",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.onclose,"onclose",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.onmessage,"onmessage",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.close,"close",!1,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,
-y.send_text,"send_text",!1,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,y.send_binary,"send_binary",!1,a.FEATURE_ms_teams_data_channel)]),new b.WebrpcClassInfo(c.RTCSctpTransport,"RTCSctpTransport",[new b.WebrpcMethodInfo(c.RTCSctpTransport,H.ctor,"ctor",!1,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCSctpTransport,H.transport,"transport",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCSctpTransport,H.state,"state",!0,a.FEATURE_ms_teams_data_channel),
-new b.WebrpcMethodInfo(c.RTCSctpTransport,H.maxMessageSize,"maxMessageSize",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCSctpTransport,H.maxChannels,"maxChannels",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCSctpTransport,H.onstatechange,"onstatechange",!0,a.FEATURE_ms_teams_data_channel)])])},545:function(b,a,c){Object.defineProperty(a,"__esModule",{value:!0});var d=c(550),e;(function(a){a[a.req=0]="req";a[a.reply=1]="reply";a[a.event_req=2]="event_req";a[a.event_reply=
-3]="event_reply"})(e=a.ws_msg_type_t||(a.ws_msg_type_t={}));b=function(){function a(){}a.createMessageByid=function(a,b,c,e,k,n){for(var t=[],z=6;z<arguments.length;z++)t[z-6]=arguments[z];(z=d.WebrpcClassLibInfoUtil.getMethodByid(e,k))&&z.isprop||(a=!1);return this.createMessage.apply(this,[c,a,b,e,k,n].concat(t))};a.createMessage=function(a,b,c,d,e,k){for(var n=[],z=6;z<arguments.length;z++)n[z-6]=arguments[z];return{v:"webrtc",hdr:{version:this._version,msg_type:this.getMsgType(a),modifier:b,destroy:c,
-proc:{iid:d,methodid:e}},objref:{oid:k},params:n.slice()}};a.getMsgType=function(a){var b="";switch(a){default:b="req";break;case e.reply:b="reply";break;case e.event_req:b="event-req";break;case e.event_reply:b="event-reply"}return b};a._version=1;return a}();a.WsJsonUtil=b}},k={};return d(307)}()});
+"RTCIceCandidatePair";a[a.RTCRtpTransceiver=20]="RTCRtpTransceiver";a[a.ScreenSharingRemote=21]="ScreenSharingRemote";a[a.ScreenSource=22]="ScreenSource";a[a.E911Service=23]="E911Service";a[a.reserved2=24]="reserved2";a[a.RTCDataChannel=25]="RTCDataChannel";a[a.RTCSctpTransport=26]="RTCSctpTransport";a[a.StreamResolution=27]="StreamResolution";a[a.VideoEffect=28]="VideoEffect";a[a.reserved6=29]="reserved6";a[a.reserved7=30]="reserved7";a[a.reserved8=31]="reserved8"})(c=a.class_id_t||(a.class_id_t=
+{}));var l;(function(a){a[a.ctor=0]="ctor";a[a.version=1]="version";a[a.feature_flags=2]="feature_flags";a[a.version_info=3]="version_info";a[a.osinfo=4]="osinfo";a[a.endpoint_id=5]="endpoint_id";a[a.set_client_info=6]="set_client_info";a[a.hardware_info=7]="hardware_info"})(l=a.method_id_EngineControl_t||(a.method_id_EngineControl_t={}));var h;(function(a){a[a.ctor=0]="ctor";a[a.localDescription=1]="localDescription";a[a.remoteDescription=2]="remoteDescription";a[a.readyState=3]="readyState";a[a.iceState=
+4]="iceState";a[a.localStreams=5]="localStreams";a[a.remoteStreams=6]="remoteStreams";a[a.createOffer=7]="createOffer";a[a.createAnswer=8]="createAnswer";a[a.setLocalDescription=9]="setLocalDescription";a[a.setRemoteDescription=10]="setRemoteDescription";a[a.updateIce=11]="updateIce";a[a.addIceCandidate=12]="addIceCandidate";a[a.addStream=13]="addStream";a[a.removeStream=14]="removeStream";a[a.close=15]="close";a[a.iceConnectionState=16]="iceConnectionState";a[a.iceGatheringState=17]="iceGatheringState";
+a[a.signalingState=18]="signalingState";a[a.onaddstream=19]="onaddstream";a[a.onicecandidate=20]="onicecandidate";a[a.oniceconnectionstatechange=21]="oniceconnectionstatechange";a[a.onicegatheringstatechange=22]="onicegatheringstatechange";a[a.onsignalingstatechange=23]="onsignalingstatechange";a[a.onnegotiationneeded=24]="onnegotiationneeded";a[a.onremovestream=25]="onremovestream";a[a.getStats=26]="getStats";a[a.getReceivers=27]="getReceivers";a[a.getSenders=28]="getSenders";a[a.addTrack=29]="addTrack";
+a[a.removeTrack=30]="removeTrack";a[a.ontrack=31]="ontrack";a[a.setLocalDescription_v2=32]="setLocalDescription_v2";a[a.setRemoteDescription_v2=33]="setRemoteDescription_v2";a[a.addTransceiverWithTrack=34]="addTransceiverWithTrack";a[a.addTransceiverWithKind=35]="addTransceiverWithKind";a[a.getTransceivers=36]="getTransceivers";a[a.onconnectionstatechange=37]="onconnectionstatechange";a[a.sctp=38]="sctp";a[a.ondatachannel=39]="ondatachannel";a[a.createDataChannel=40]="createDataChannel";a[a.getStats_v2=
+41]="getStats_v2"})(h=a.method_id_RTCPeerConnection_t||(a.method_id_RTCPeerConnection_t={}));var d;(function(a){a[a.ctor=0]="ctor";a[a.enumerateDevices=1]="enumerateDevices";a[a.getDisplayMedia=2]="getDisplayMedia";a[a.ondevicechange=3]="ondevicechange";a[a.enumerateDevicesV2=4]="enumerateDevicesV2"})(d=a.method_id_MediaDevices_t||(a.method_id_MediaDevices_t={}));var p;(function(a){a[a.ctor=0]="ctor";a[a.deviceId=1]="deviceId";a[a.kind=2]="kind";a[a.label=3]="label";a[a.groupId=4]="groupId"})(p=a.method_id_MediaDeviceInfo_t||
+(a.method_id_MediaDeviceInfo_t={}));var q;(function(a){a[a.ctor=0]="ctor";a[a.type=1]="type";a[a.sdp=2]="sdp"})(q=a.method_id_RTCSessionDescription_t||(a.method_id_RTCSessionDescription_t={}));var n;(function(a){a[a.ctor=0]="ctor";a[a.kind=1]="kind";a[a.id=2]="id";a[a.label=3]="label";a[a.enabled=4]="enabled";a[a.muted=5]="muted";a[a.readyState=6]="readyState";a[a.onended=7]="onended";a[a.onmute=8]="onmute";a[a.onunmute=9]="onunmute";a[a.clone=10]="clone";a[a.stop=11]="stop";a[a.getCapabilities=12]=
+"getCapabilities";a[a.getSettings=13]="getSettings";a[a.applyConstraints=14]="applyConstraints";a[a.getConstraints=15]="getConstraints"})(n=a.method_id_MediaStreamTrack_t||(a.method_id_MediaStreamTrack_t={}));var k;(function(a){a[a.ctor=0]="ctor";a[a.id=1]="id";a[a.getAudioTracks=2]="getAudioTracks";a[a.getVideoTracks=3]="getVideoTracks";a[a.getTracks=4]="getTracks";a[a.getTrackById=5]="getTrackById";a[a.addTrack=6]="addTrack";a[a.removeTrack=7]="removeTrack";a[a.clone=8]="clone";a[a.active=9]="active"})(k=
+a.method_id_MediaStream_t||(a.method_id_MediaStream_t={}));var v;(function(a){a[a.ctor=0]="ctor";a[a.getUserMedia=1]="getUserMedia";a[a.setCodecCapabilities=2]="setCodecCapabilities";a[a.getCapabilities=3]="getCapabilities"})(v=a.method_id_NavigatorUserMedia_t||(a.method_id_NavigatorUserMedia_t={}));var z;(function(a){a[a.ctor=0]="ctor";a[a.candidate=1]="candidate";a[a.sdpMid=2]="sdpMid";a[a.sdpMLineIndex=3]="sdpMLineIndex"})(z=a.method_id_RTCIceCandidate_t||(a.method_id_RTCIceCandidate_t={}));var g;
+(function(a){a[a.ctor=0]="ctor";a[a.candidate=1]="candidate"})(g=a.method_id_RTCIceCandidateEvent_t||(a.method_id_RTCIceCandidateEvent_t={}));var B;(function(a){a[a.ctor=0]="ctor";a[a.stream=1]="stream"})(B=a.method_id_MediaStreamEvent_t||(a.method_id_MediaStreamEvent_t={}));var t;(function(a){a[a.ctor=0]="ctor";a[a.sinkId=1]="sinkId";a[a.connectTo=2]="connectTo";a[a.disconnect=3]="disconnect";a[a.setFrame=4]="setFrame";a[a.addClipRect=5]="addClipRect";a[a.removeClipRect=6]="removeClipRect";a[a.onerror=
+7]="onerror";a[a.onvideoframechanged=8]="onvideoframechanged";a[a.placement=9]="placement"})(t=a.method_id_VideoElement_t||(a.method_id_VideoElement_t={}));var m;(function(a){a[a.ctor=0]="ctor";a[a.sinkId=1]="sinkId";a[a.srcObject=2]="srcObject";a[a.src=3]="src";a[a.play=4]="play";a[a.pause=5]="pause";a[a.loop=6]="loop"})(m=a.method_id_AudioElement_t||(a.method_id_AudioElement_t={}));var D;(function(a){a[a.ctor=0]="ctor";a[a.track=1]="track";a[a.getContributingSources=2]="getContributingSources";
+a[a.getSynchronizationSources=3]="getSynchronizationSources";a[a.transport=4]="transport";a[a.rtcpTransport=5]="rtcpTransport";a[a.getCapabilities=6]="getCapabilities";a[a.getParameters=7]="getParameters";a[a.getStats=8]="getStats";a[a.getCapabilities_v2=9]="getCapabilities_v2"})(D=a.method_id_RTCRtpReceiver_t||(a.method_id_RTCRtpReceiver_t={}));var y;(function(a){a[a.ctor=0]="ctor";a[a.track=1]="track";a[a.transport=2]="transport";a[a.rtcpTransport=3]="rtcpTransport";a[a.dtmf=4]="dtmf";a[a.getCapabilities=
+5]="getCapabilities";a[a.getParameters=6]="getParameters";a[a.setParameters=7]="setParameters";a[a.replaceTrack=8]="replaceTrack";a[a.getStats=9]="getStats";a[a.setStreams=10]="setStreams";a[a.getCapabilities_v2=11]="getCapabilities_v2"})(y=a.method_id_RTCRtpSender_t||(a.method_id_RTCRtpSender_t={}));var x;(function(a){a[a.ctor=0]="ctor";a[a.transport=1]="transport";a[a.state=2]="state";a[a.getRemoteCertificates=3]="getRemoteCertificates";a[a.onstatechange=4]="onstatechange";a[a.onerror=5]="onerror"})(x=
+a.method_id_RTCDtlsTransport_t||(a.method_id_RTCDtlsTransport_t={}));var r;(function(a){a[a.ctor=0]="ctor";a[a.role=1]="role";a[a.component=2]="component";a[a.state=3]="state";a[a.gatheringState=4]="gatheringState";a[a.localcandidates=5]="localcandidates";a[a.remotecandidates=6]="remotecandidates";a[a.onstatechange=7]="onstatechange";a[a.ongatheringstatechange=8]="ongatheringstatechange";a[a.onselectedcandidatepairchange=9]="onselectedcandidatepairchange"})(r=a.method_id_RTCIceTransport_t||(a.method_id_RTCIceTransport_t=
+{}));var A;(function(a){a[a.ctor=0]="ctor";a[a.insertDTMF=1]="insertDTMF";a[a.ontonechange=2]="ontonechange";a[a.canInsertDTMF=3]="canInsertDTMF";a[a.toneBuffer=4]="toneBuffer"})(A=a.method_id_RTCDTMFSender_t||(a.method_id_RTCDTMFSender_t={}));var M;(function(a){a[a.ctor=0]="ctor";a[a.tone=1]="tone";a[a.tone_buffer=2]="tone_buffer"})(M=a.method_id_RTCDTMFToneChangeEvent_t||(a.method_id_RTCDTMFToneChangeEvent_t={}));var F;(function(a){a[a.ctor=0]="ctor";a[a.local=1]="local";a[a.remote=2]="remote"})(F=
+a.method_id_RTCIceCandidatePair_t||(a.method_id_RTCIceCandidatePair_t={}));var J;(function(a){a[a.ctor=0]="ctor";a[a.mid=1]="mid";a[a.sender=2]="sender";a[a.receiver=3]="receiver";a[a.direction=4]="direction";a[a.currentDirection=5]="currentDirection";a[a.stop=6]="stop";a[a.setCodecPreferences=7]="setCodecPreferences"})(J=a.method_id_RTCRtpTransceiver_t||(a.method_id_RTCRtpTransceiver_t={}));var G;(function(a){a[a.ctor=0]="ctor";a[a.getScreensAsync=1]="getScreensAsync";a[a.onscreentopologychanged=
+2]="onscreentopologychanged"})(G=a.method_id_VDISharingRemote_t||(a.method_id_VDISharingRemote_t={}));var L;(function(a){a[a.ctor=0]="ctor";a[a.srcid=1]="srcid";a[a.deviceid=2]="deviceid";a[a.type=3]="type";a[a.name=4]="name";a[a.imagedata=5]="imagedata";a[a.hwnd=6]="hwnd";a[a.origin=7]="origin";a[a.caption=8]="caption";a[a.pid=9]="pid";a[a.bounds=10]="bounds"})(L=a.method_id_ScreenSource_t||(a.method_id_ScreenSource_t={}));var P;(function(a){a[a.ctor=0]="ctor";a[a.getE911Info=1]="getE911Info";a[a.onupdate=
+2]="onupdate"})(P=a.method_id_E911Service_t||(a.method_id_E911Service_t={}));var C;(function(a){a[a.ctor=0]="ctor";a[a.label=1]="label";a[a.ordered=2]="ordered";a[a.maxPacketLifeTime=3]="maxPacketLifeTime";a[a.maxRetransmits=4]="maxRetransmits";a[a.protocol=5]="protocol";a[a.negotiated=6]="negotiated";a[a.id=7]="id";a[a.readyState=8]="readyState";a[a.bufferedAmount=9]="bufferedAmount";a[a.bufferedAmountLowThreshold=10]="bufferedAmountLowThreshold";a[a.onopen=11]="onopen";a[a.onbufferedamountlow=12]=
+"onbufferedamountlow";a[a.onerror=13]="onerror";a[a.onclosing=14]="onclosing";a[a.onclose=15]="onclose";a[a.onmessage=16]="onmessage";a[a.close=17]="close";a[a.send_text=18]="send_text";a[a.send_binary=19]="send_binary"})(C=a.method_id_RTCDataChannel_t||(a.method_id_RTCDataChannel_t={}));var R;(function(a){a[a.ctor=0]="ctor";a[a.transport=1]="transport";a[a.state=2]="state";a[a.maxMessageSize=3]="maxMessageSize";a[a.maxChannels=4]="maxChannels";a[a.onstatechange=5]="onstatechange"})(R=a.method_id_RTCSctpTransport_t||
+(a.method_id_RTCSctpTransport_t={}));var K;(function(a){a[a.ctor=0]="ctor";a[a.getCallConstraints=1]="getCallConstraints";a[a.onupdate=2]="onupdate"})(K=a.method_id_StreamResolution_t||(a.method_id_StreamResolution_t={}));a.class_lib_info=new b.WebrpcClassLibInfo("webrpc_class_library",[new b.WebrpcClassInfo(c.EngineControl,"EngineControl",[new b.WebrpcMethodInfo(c.EngineControl,l.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.EngineControl,l.version,"version",!0),new b.WebrpcMethodInfo(c.EngineControl,
+l.feature_flags,"feature_flags",!0),new b.WebrpcMethodInfo(c.EngineControl,l.version_info,"version_info",!0,a.FEATURE_ms_teams_desktop_sharing),new b.WebrpcMethodInfo(c.EngineControl,l.osinfo,"osinfo",!0,a.FEATURE_ms_teams_osinfo),new b.WebrpcMethodInfo(c.EngineControl,l.endpoint_id,"endpoint_id",!0,a.FEATURE_ms_teams_endpoint_id),new b.WebrpcMethodInfo(c.EngineControl,l.set_client_info,"set_client_info",!1,a.FEATURE_ms_teams_client_info),new b.WebrpcMethodInfo(c.EngineControl,l.hardware_info,"hardware_info",
+!0,a.FEATURE_ms_teams_hardware_info)]),new b.WebrpcClassInfo(c.RTCPeerConnection,"RTCPeerConnection",[new b.WebrpcMethodInfo(c.RTCPeerConnection,h.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.localDescription,"localDescription",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.remoteDescription,"remoteDescription",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.readyState,"readyState",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.iceState,"iceState",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,
+h.localStreams,"localStreams",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.remoteStreams,"remoteStreams",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.createOffer,"createOffer",!1),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.createAnswer,"createAnswer",!1),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.setLocalDescription,"setLocalDescription",!1),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.setRemoteDescription,"setRemoteDescription",!1),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.updateIce,
+"updateIce",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.addIceCandidate,"addIceCandidate",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.addStream,"addStream",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.removeStream,"removeStream",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.close,"close",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.iceConnectionState,"iceConnectionState",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.iceGatheringState,"iceGatheringState",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,
+h.signalingState,"signalingState",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.onaddstream,"onaddstream",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.onicecandidate,"onicecandidate",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.oniceconnectionstatechange,"oniceconnectionstatechange",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.onicegatheringstatechange,"onicegatheringstatechange",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.onsignalingstatechange,"onsignalingstatechange",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,
+h.onnegotiationneeded,"onnegotiationneeded",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.onremovestream,"onremovestream",!0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.getStats,"getStats",!1),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.getReceivers,"getReceivers",!1,a.FEATURE_ms_teams_speaking_indicator),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.getSenders,"getSenders",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.addTrack,"addTrack",!1,a.FEATURE_ms_teams_pstn),
+new b.WebrpcMethodInfo(c.RTCPeerConnection,h.removeTrack,"removeTrack",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.ontrack,"ontrack",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.setLocalDescription_v2,"setLocalDescription_v2",!1,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.setRemoteDescription_v2,"setRemoteDescription_v2",!1,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.addTransceiverWithTrack,
+"addTransceiverWithTrack",!1,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.addTransceiverWithKind,"addTransceiverWithKind",!1,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.getTransceivers,"getTransceivers",!1,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.onconnectionstatechange,"onconnectionstatechange",!0,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.sctp,"sctp",!0,a.FEATURE_ms_teams_data_channel),
+new b.WebrpcMethodInfo(c.RTCPeerConnection,h.ondatachannel,"ondatachannel",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.createDataChannel,"createDataChannel",!1,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCPeerConnection,h.getStats_v2,"getStats_v2",!1,a.FEATURE_ms_teams_webrtc_1dot0)]),new b.WebrpcClassInfo(c.RTCSessionDescription,"RTCSessionDescription",[new b.WebrpcMethodInfo(c.RTCSessionDescription,q.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.RTCSessionDescription,
+q.type,"type",!0),new b.WebrpcMethodInfo(c.RTCSessionDescription,q.sdp,"sdp",!0)]),new b.WebrpcClassInfo(c.RTCIceCandidate,"RTCIceCandidate",[new b.WebrpcMethodInfo(c.RTCIceCandidate,z.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.RTCIceCandidate,z.candidate,"candidate",!0),new b.WebrpcMethodInfo(c.RTCIceCandidate,z.sdpMid,"sdpMid",!0),new b.WebrpcMethodInfo(c.RTCIceCandidate,z.sdpMLineIndex,"sdpMLineIndex",!0)]),new b.WebrpcClassInfo(c.RTCIceCandidateEvent,"RTCIceCandidateEvent",[new b.WebrpcMethodInfo(c.RTCIceCandidateEvent,
+g.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.RTCIceCandidateEvent,g.candidate,"candidate",!0)]),new b.WebrpcClassInfo(c.MediaDevices,"MediaDevices",[new b.WebrpcMethodInfo(c.MediaDevices,d.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.MediaDevices,d.enumerateDevices,"enumerateDevices",!1),new b.WebrpcMethodInfo(c.MediaDevices,d.getDisplayMedia,"getDisplayMedia",!1,a.FEATURE_ms_teams_desktop_sharing),new b.WebrpcMethodInfo(c.MediaDevices,d.ondevicechange,"ondevicechange",!0,a.FEATURE_ms_teams_speaking_indicator),
+new b.WebrpcMethodInfo(c.MediaDevices,d.enumerateDevicesV2,"enuerateDevicesV2",!1,a.FEATURE_ms_teams_enumerate_devices_v2)]),new b.WebrpcClassInfo(c.MediaDeviceInfo,"MediaDeviceInfo",[new b.WebrpcMethodInfo(c.MediaDeviceInfo,p.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.MediaDeviceInfo,p.deviceId,"deviceId",!0),new b.WebrpcMethodInfo(c.MediaDeviceInfo,p.kind,"kind",!0),new b.WebrpcMethodInfo(c.MediaDeviceInfo,p.label,"label",!0),new b.WebrpcMethodInfo(c.MediaDeviceInfo,p.groupId,"groupId",!0)]),new b.WebrpcClassInfo(c.MediaStreamTrack,
+"MediaStreamTrack",[new b.WebrpcMethodInfo(c.MediaStreamTrack,n.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.MediaStreamTrack,n.clone,"clone",!1),new b.WebrpcMethodInfo(c.MediaStreamTrack,n.stop,"stop",!1),new b.WebrpcMethodInfo(c.MediaStreamTrack,n.getCapabilities,"getCapabilities",!1),new b.WebrpcMethodInfo(c.MediaStreamTrack,n.getSettings,"getSettings",!1),new b.WebrpcMethodInfo(c.MediaStreamTrack,n.applyConstraints,"applyConstraints",!1,a.FEATURE_ms_teams_desktop_sharing),new b.WebrpcMethodInfo(c.MediaStreamTrack,
+n.kind,"kind",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,n.id,"id",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,n.label,"label",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,n.enabled,"enabled",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,n.muted,"muted",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,n.readyState,"readyState",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,n.onended,"onended",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,n.onmute,"onmute",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,
+n.onunmute,"onunmute",!0),new b.WebrpcMethodInfo(c.MediaStreamTrack,n.getConstraints,"getConstraints",!1,a.FEATURE_ms_teams_mstrack_constraints)]),new b.WebrpcClassInfo(c.MediaStream,"MediaStream",[new b.WebrpcMethodInfo(c.MediaStream,k.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.MediaStream,k.id,"id",!0),new b.WebrpcMethodInfo(c.MediaStream,k.getAudioTracks,"getAudioTracks",!1),new b.WebrpcMethodInfo(c.MediaStream,k.getVideoTracks,"getVideoTracks",!1),new b.WebrpcMethodInfo(c.MediaStream,k.getTracks,
+"getTracks",!1),new b.WebrpcMethodInfo(c.MediaStream,k.getTrackById,"getTrackById",!1),new b.WebrpcMethodInfo(c.MediaStream,k.addTrack,"addTrack",!1),new b.WebrpcMethodInfo(c.MediaStream,k.removeTrack,"removeTrack",!1),new b.WebrpcMethodInfo(c.MediaStream,k.clone,"clone",!0),new b.WebrpcMethodInfo(c.MediaStream,k.active,"active",!0)]),new b.WebrpcClassInfo(c.NavigatorUserMedia,"NavigatorUserMedia",[new b.WebrpcMethodInfo(c.NavigatorUserMedia,v.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.NavigatorUserMedia,
+v.getUserMedia,"getUserMedia",!1),new b.WebrpcMethodInfo(c.NavigatorUserMedia,v.setCodecCapabilities,"setCodecCapabilities",!1,a.FEATURE_ms_teams_codec_capability),new b.WebrpcMethodInfo(c.NavigatorUserMedia,v.getCapabilities,"getRtpCapabilities",!1,a.FEATURE_ms_teams_webrtc_1dot0)]),new b.WebrpcClassInfo(c.MediaStreamEvent,"MediaStreamEvent",[new b.WebrpcMethodInfo(c.MediaStreamEvent,B.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.MediaStreamEvent,B.stream,"stream",!0)]),new b.WebrpcClassInfo(c.VideoElement,
+"VideoElement",[new b.WebrpcMethodInfo(c.VideoElement,t.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.VideoElement,t.sinkId,"sinkId",!0),new b.WebrpcMethodInfo(c.VideoElement,t.connectTo,"connectTo",!1),new b.WebrpcMethodInfo(c.VideoElement,t.disconnect,"disconnect",!1),new b.WebrpcMethodInfo(c.VideoElement,t.setFrame,"setFrame",!1),new b.WebrpcMethodInfo(c.VideoElement,t.addClipRect,"addClipRect",!1),new b.WebrpcMethodInfo(c.VideoElement,t.removeClipRect,"removeClipRect",!1),new b.WebrpcMethodInfo(c.VideoElement,
+t.onerror,"onerror",!0),new b.WebrpcMethodInfo(c.VideoElement,t.onvideoframechanged,"onvideoframechanged",!0),new b.WebrpcMethodInfo(c.VideoElement,t.placement,"placement",!0,a.FEATURE_ms_teams_video_placement)]),new b.WebrpcClassInfo(c.AudioElement,"AudioElement",[new b.WebrpcMethodInfo(c.AudioElement,m.ctor,"ctor",!1),new b.WebrpcMethodInfo(c.AudioElement,m.sinkId,"sinkId",!0),new b.WebrpcMethodInfo(c.AudioElement,m.srcObject,"srcObject",!0),new b.WebrpcMethodInfo(c.AudioElement,m.src,"src",!0),
+new b.WebrpcMethodInfo(c.AudioElement,m.play,"play",!1),new b.WebrpcMethodInfo(c.AudioElement,m.pause,"pause",!1),new b.WebrpcMethodInfo(c.AudioElement,m.loop,"loop",!0,a.FEATURE_ms_teams_audio_notifications_loop)]),new b.WebrpcClassInfo(c.RTCRtpReceiver,"RTCRtpReceiver",[new b.WebrpcMethodInfo(c.RTCRtpReceiver,D.ctor,"ctor",!1,a.FEATURE_ms_teams_speaking_indicator),new b.WebrpcMethodInfo(c.RTCRtpReceiver,D.track,"track",!0,a.FEATURE_ms_teams_speaking_indicator),new b.WebrpcMethodInfo(c.RTCRtpReceiver,
+D.getContributingSources,"getContributingSources",!1,a.FEATURE_ms_teams_speaking_indicator),new b.WebrpcMethodInfo(c.RTCRtpReceiver,D.getSynchronizationSources,"getSynchronizationSources",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpReceiver,D.transport,"transport",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpReceiver,D.rtcpTransport,"rtcptransport",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpReceiver,D.getCapabilities,"getCapabilities",!1,a.FEATURE_ms_teams_pstn),
+new b.WebrpcMethodInfo(c.RTCRtpReceiver,D.getParameters,"getParameters",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpReceiver,D.getStats,"getStats",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpReceiver,D.getCapabilities_v2,"getCapabilities_v2",!1,a.FEATURE_ms_teams_webrtc_1dot0)]),new b.WebrpcClassInfo(c.RTCRtpSender,"RTCRtpSender",[new b.WebrpcMethodInfo(c.RTCRtpSender,y.ctor,"ctor",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,y.track,"track",!0,a.FEATURE_ms_teams_pstn),
+new b.WebrpcMethodInfo(c.RTCRtpSender,y.transport,"transport",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,y.rtcpTransport,"rtcpTransport",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,y.dtmf,"dtmf",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,y.getCapabilities,"getCapabilities",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,y.getParameters,"getParameters",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,
+y.setParameters,"setParameters",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,y.replaceTrack,"replaceTrack",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,y.getStats,"getStats",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,y.setStreams,"setStreams",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCRtpSender,y.getCapabilities_v2,"getCapabilities_v2",!1,a.FEATURE_ms_teams_webrtc_1dot0)]),new b.WebrpcClassInfo(c.RTCDtlsTransport,"RTCDtlsTransport",
+[new b.WebrpcMethodInfo(c.RTCDtlsTransport,x.ctor,"ctor",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDtlsTransport,x.transport,"transport",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDtlsTransport,x.state,"state",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDtlsTransport,x.getRemoteCertificates,"getRemoteCertificates",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDtlsTransport,x.onstatechange,"onstatechange",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDtlsTransport,
+x.onerror,"onerror",!0,a.FEATURE_ms_teams_pstn)]),new b.WebrpcClassInfo(c.RTCIceTransport,"RTCIceTransport",[new b.WebrpcMethodInfo(c.RTCIceTransport,r.ctor,"ctor",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,r.role,"role",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,r.component,"component",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,r.state,"state",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,r.gatheringState,
+"gatheringState",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,r.localcandidates,"localcandidates",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,r.remotecandidates,"remotecandidates",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,r.onstatechange,"onstatechange",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,r.ongatheringstatechange,"ongatheringstatechange",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceTransport,
+r.onselectedcandidatepairchange,"onselectedcandidatepairchange",!0,a.FEATURE_ms_teams_pstn)]),new b.WebrpcClassInfo(c.RTCDTMFSender,"RTCDTMFSender",[new b.WebrpcMethodInfo(c.RTCDTMFSender,A.ctor,"ctor",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDTMFSender,A.insertDTMF,"insertDTMF",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDTMFSender,A.ontonechange,"ontonechange",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDTMFSender,A.canInsertDTMF,"canInsertDTMF",!0,a.FEATURE_ms_teams_pstn),
+new b.WebrpcMethodInfo(c.RTCDTMFSender,A.toneBuffer,"toneBuffer",!0,a.FEATURE_ms_teams_pstn)]),new b.WebrpcClassInfo(c.RTCDTMFToneChangeEvent,"RTCDTMFToneChangeEvent",[new b.WebrpcMethodInfo(c.RTCDTMFToneChangeEvent,M.ctor,"ctor",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDTMFToneChangeEvent,M.tone,"tone",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCDTMFToneChangeEvent,M.tone_buffer,"tone_buffer",!0,a.FEATURE_ms_teams_pstn)]),new b.WebrpcClassInfo(c.RTCIceCandidatePair,"RTCIceCandidatePair",
+[new b.WebrpcMethodInfo(c.RTCIceCandidatePair,F.ctor,"ctor",!1,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceCandidatePair,F.local,"local",!0,a.FEATURE_ms_teams_pstn),new b.WebrpcMethodInfo(c.RTCIceCandidatePair,F.remote,"remote",!0,a.FEATURE_ms_teams_pstn)]),new b.WebrpcClassInfo(c.RTCRtpTransceiver,"RTCRtpTransceiver",[new b.WebrpcMethodInfo(c.RTCRtpTransceiver,J.ctor,"ctor",!1,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCRtpTransceiver,J.mid,"mid",!0,a.FEATURE_ms_teams_webrtc_1dot0),
+new b.WebrpcMethodInfo(c.RTCRtpTransceiver,J.sender,"sender",!0,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCRtpTransceiver,J.receiver,"receiver",!0,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCRtpTransceiver,J.direction,"direction",!0,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCRtpTransceiver,J.currentDirection,"currentDirection",!0,a.FEATURE_ms_teams_webrtc_1dot0),new b.WebrpcMethodInfo(c.RTCRtpTransceiver,J.stop,"stop",!1,a.FEATURE_ms_teams_webrtc_1dot0),
+new b.WebrpcMethodInfo(c.RTCRtpTransceiver,J.setCodecPreferences,"setCodecPreferences",!1,a.FEATURE_ms_teams_webrtc_1dot0)]),new b.WebrpcClassInfo(c.ScreenSharingRemote,"ScreenSharingRemote",[new b.WebrpcMethodInfo(c.ScreenSharingRemote,G.ctor,"ctor",!1,a.FEATURE_ms_teams_monitor_sharing),new b.WebrpcMethodInfo(c.ScreenSharingRemote,G.getScreensAsync,"getScreensAsync",!1,a.FEATURE_ms_teams_monitor_sharing),new b.WebrpcMethodInfo(c.ScreenSharingRemote,G.onscreentopologychanged,"onscreentopologychanged",
+!0,a.FEATURE_ms_teams_monitor_sharing)]),new b.WebrpcClassInfo(c.ScreenSource,"ScreenSource",[new b.WebrpcMethodInfo(c.ScreenSource,L.ctor,"ctor",!1,a.FEATURE_ms_teams_monitor_sharing),new b.WebrpcMethodInfo(c.ScreenSource,L.srcid,"srcid",!0,a.FEATURE_ms_teams_monitor_sharing),new b.WebrpcMethodInfo(c.ScreenSource,L.deviceid,"deviceid",!0,a.FEATURE_ms_teams_monitor_sharing),new b.WebrpcMethodInfo(c.ScreenSource,L.type,"type",!0,a.FEATURE_ms_teams_monitor_sharing),new b.WebrpcMethodInfo(c.ScreenSource,
+L.name,"name",!0,a.FEATURE_ms_teams_monitor_sharing),new b.WebrpcMethodInfo(c.ScreenSource,L.imagedata,"imagedata",!0,a.FEATURE_ms_teams_monitor_sharing),new b.WebrpcMethodInfo(c.ScreenSource,L.hwnd,"hwnd",!0,a.FEATURE_ms_teams_monitor_sharing),new b.WebrpcMethodInfo(c.ScreenSource,L.origin,"origin",!0,a.FEATURE_ms_teams_monitor_sharing),new b.WebrpcMethodInfo(c.ScreenSource,L.caption,"caption",!0,a.FEATURE_ms_teams_monitor_sharing),new b.WebrpcMethodInfo(c.ScreenSource,L.pid,"pid",!0,a.FEATURE_ms_teams_monitor_sharing),
+new b.WebrpcMethodInfo(c.ScreenSource,L.bounds,"bounds",!0,a.FEATURE_ms_teams_gtc)]),new b.WebrpcClassInfo(c.E911Service,"E911Service",[new b.WebrpcMethodInfo(c.E911Service,P.ctor,"ctor",!1,a.FEATURE_ms_teams_e911),new b.WebrpcMethodInfo(c.E911Service,P.getE911Info,"getE911Info",!1,a.FEATURE_ms_teams_e911),new b.WebrpcMethodInfo(c.E911Service,P.onupdate,"onupdate",!0,a.FEATURE_ms_teams_e911)]),new b.WebrpcClassInfo(c.RTCDataChannel,"RTCDataChannel",[new b.WebrpcMethodInfo(c.RTCDataChannel,C.ctor,
+"ctor",!1,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.label,"label",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.ordered,"ordered",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.maxPacketLifeTime,"maxPacketLifeTime",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.maxRetransmits,"maxRetransmits",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.protocol,
+"protocol",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.negotiated,"negotiated",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.id,"id",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.readyState,"readyState",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.bufferedAmount,"bufferedAmount",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.bufferedAmountLowThreshold,
+"bufferedAmountLowThreshold",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.onopen,"onopen",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.onbufferedamountlow,"onbufferedamountlow",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.onerror,"onerror",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.onclosing,"onclosing",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,
+C.onclose,"onclose",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.onmessage,"onmessage",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.close,"close",!1,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.send_text,"send_text",!1,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCDataChannel,C.send_binary,"send_binary",!1,a.FEATURE_ms_teams_data_channel)]),new b.WebrpcClassInfo(c.RTCSctpTransport,"RTCSctpTransport",
+[new b.WebrpcMethodInfo(c.RTCSctpTransport,R.ctor,"ctor",!1,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCSctpTransport,R.transport,"transport",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCSctpTransport,R.state,"state",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCSctpTransport,R.maxMessageSize,"maxMessageSize",!0,a.FEATURE_ms_teams_data_channel),new b.WebrpcMethodInfo(c.RTCSctpTransport,R.maxChannels,"maxChannels",!0,a.FEATURE_ms_teams_data_channel),
+new b.WebrpcMethodInfo(c.RTCSctpTransport,R.onstatechange,"onstatechange",!0,a.FEATURE_ms_teams_data_channel)]),new b.WebrpcClassInfo(c.StreamResolution,"StreamResolution",[new b.WebrpcMethodInfo(c.StreamResolution,K.ctor,"ctor",!1,a.FEATURE_ms_teams_stream_resolution),new b.WebrpcMethodInfo(c.StreamResolution,K.getCallConstraints,"getCallConstraints",!1,a.FEATURE_ms_teams_stream_resolution),new b.WebrpcMethodInfo(c.StreamResolution,K.onupdate,"onupdate",!0,a.FEATURE_ms_teams_stream_resolution)])])},
+545:function(b,a,c){var e=this&&this.__spreadArrays||function(){for(var a=0,b=0,c=arguments.length;b<c;b++)a+=arguments[b].length;for(var a=Array(a),e=0,b=0;b<c;b++)for(var k=arguments[b],h=0,l=k.length;h<l;h++,e++)a[e]=k[h];return a};Object.defineProperty(a,"__esModule",{value:!0});a.WsJsonUtil=a.ws_msg_type_t=void 0;var l=c(550),h;(function(a){a[a.req=0]="req";a[a.reply=1]="reply";a[a.event_req=2]="event_req";a[a.event_reply=3]="event_reply"})(h=a.ws_msg_type_t||(a.ws_msg_type_t={}));b=function(){function a(){}
+a.createMessageByid=function(a,b,c,d,h,p){for(var g=[],B=6;B<arguments.length;B++)g[B-6]=arguments[B];(B=l.WebrpcClassLibInfoUtil.getMethodByid(d,h))&&B.isprop||(a=!1);return this.createMessage.apply(this,e([c,a,b,d,h,p],g))};a.createMessage=function(a,b,c,d,h,l){for(var g=[],p=6;p<arguments.length;p++)g[p-6]=arguments[p];return{v:"webrtc",hdr:{version:this._version,msg_type:this.getMsgType(a),modifier:b,destroy:c,proc:{iid:d,methodid:h}},objref:{oid:l},params:e(g)}};a.getMsgType=function(a){var b=
+"";switch(a){default:b="req";break;case h.reply:b="reply";break;case h.event_req:b="event-req";break;case h.event_reply:b="event-reply"}return b};a._version=1;return a}();a.WsJsonUtil=b}},p={};return e(307)}()});
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],2:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/create"), __esModule: true };
-},{"core-js/library/fn/object/create":20}],3:[function(require,module,exports){
+},{"core-js/library/fn/object/create":18}],3:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/define-property"), __esModule: true };
-},{"core-js/library/fn/object/define-property":21}],4:[function(require,module,exports){
+},{"core-js/library/fn/object/define-property":19}],4:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/get-own-property-descriptor"), __esModule: true };
-},{"core-js/library/fn/object/get-own-property-descriptor":22}],5:[function(require,module,exports){
+},{"core-js/library/fn/object/get-own-property-descriptor":20}],5:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/get-prototype-of"), __esModule: true };
-},{"core-js/library/fn/object/get-prototype-of":23}],6:[function(require,module,exports){
+},{"core-js/library/fn/object/get-prototype-of":21}],6:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/set-prototype-of"), __esModule: true };
-},{"core-js/library/fn/object/set-prototype-of":24}],7:[function(require,module,exports){
+},{"core-js/library/fn/object/set-prototype-of":22}],7:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/promise"), __esModule: true };
-},{"core-js/library/fn/promise":25}],8:[function(require,module,exports){
+},{"core-js/library/fn/promise":23}],8:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/symbol"), __esModule: true };
-},{"core-js/library/fn/symbol":26}],9:[function(require,module,exports){
+},{"core-js/library/fn/symbol":24}],9:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/symbol/iterator"), __esModule: true };
-},{"core-js/library/fn/symbol/iterator":27}],10:[function(require,module,exports){
+},{"core-js/library/fn/symbol/iterator":25}],10:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -678,6 +860,1888 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
   return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
 };
 },{"../core-js/symbol":8,"../core-js/symbol/iterator":9}],17:[function(require,module,exports){
+module.exports = require("regenerator-runtime");
+
+},{"regenerator-runtime":115}],18:[function(require,module,exports){
+require('../../modules/es6.object.create');
+var $Object = require('../../modules/_core').Object;
+module.exports = function create(P, D) {
+  return $Object.create(P, D);
+};
+
+},{"../../modules/_core":33,"../../modules/es6.object.create":101}],19:[function(require,module,exports){
+require('../../modules/es6.object.define-property');
+var $Object = require('../../modules/_core').Object;
+module.exports = function defineProperty(it, key, desc) {
+  return $Object.defineProperty(it, key, desc);
+};
+
+},{"../../modules/_core":33,"../../modules/es6.object.define-property":102}],20:[function(require,module,exports){
+require('../../modules/es6.object.get-own-property-descriptor');
+var $Object = require('../../modules/_core').Object;
+module.exports = function getOwnPropertyDescriptor(it, key) {
+  return $Object.getOwnPropertyDescriptor(it, key);
+};
+
+},{"../../modules/_core":33,"../../modules/es6.object.get-own-property-descriptor":103}],21:[function(require,module,exports){
+require('../../modules/es6.object.get-prototype-of');
+module.exports = require('../../modules/_core').Object.getPrototypeOf;
+
+},{"../../modules/_core":33,"../../modules/es6.object.get-prototype-of":104}],22:[function(require,module,exports){
+require('../../modules/es6.object.set-prototype-of');
+module.exports = require('../../modules/_core').Object.setPrototypeOf;
+
+},{"../../modules/_core":33,"../../modules/es6.object.set-prototype-of":105}],23:[function(require,module,exports){
+require('../modules/es6.object.to-string');
+require('../modules/es6.string.iterator');
+require('../modules/web.dom.iterable');
+require('../modules/es6.promise');
+require('../modules/es7.promise.finally');
+require('../modules/es7.promise.try');
+module.exports = require('../modules/_core').Promise;
+
+},{"../modules/_core":33,"../modules/es6.object.to-string":106,"../modules/es6.promise":107,"../modules/es6.string.iterator":108,"../modules/es7.promise.finally":110,"../modules/es7.promise.try":111,"../modules/web.dom.iterable":114}],24:[function(require,module,exports){
+require('../../modules/es6.symbol');
+require('../../modules/es6.object.to-string');
+require('../../modules/es7.symbol.async-iterator');
+require('../../modules/es7.symbol.observable');
+module.exports = require('../../modules/_core').Symbol;
+
+},{"../../modules/_core":33,"../../modules/es6.object.to-string":106,"../../modules/es6.symbol":109,"../../modules/es7.symbol.async-iterator":112,"../../modules/es7.symbol.observable":113}],25:[function(require,module,exports){
+require('../../modules/es6.string.iterator');
+require('../../modules/web.dom.iterable');
+module.exports = require('../../modules/_wks-ext').f('iterator');
+
+},{"../../modules/_wks-ext":97,"../../modules/es6.string.iterator":108,"../../modules/web.dom.iterable":114}],26:[function(require,module,exports){
+module.exports = function (it) {
+  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
+  return it;
+};
+
+},{}],27:[function(require,module,exports){
+module.exports = function () { /* empty */ };
+
+},{}],28:[function(require,module,exports){
+module.exports = function (it, Constructor, name, forbiddenField) {
+  if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
+    throw TypeError(name + ': incorrect invocation!');
+  } return it;
+};
+
+},{}],29:[function(require,module,exports){
+var isObject = require('./_is-object');
+module.exports = function (it) {
+  if (!isObject(it)) throw TypeError(it + ' is not an object!');
+  return it;
+};
+
+},{"./_is-object":52}],30:[function(require,module,exports){
+// false -> Array#indexOf
+// true  -> Array#includes
+var toIObject = require('./_to-iobject');
+var toLength = require('./_to-length');
+var toAbsoluteIndex = require('./_to-absolute-index');
+module.exports = function (IS_INCLUDES) {
+  return function ($this, el, fromIndex) {
+    var O = toIObject($this);
+    var length = toLength(O.length);
+    var index = toAbsoluteIndex(fromIndex, length);
+    var value;
+    // Array#includes uses SameValueZero equality algorithm
+    // eslint-disable-next-line no-self-compare
+    if (IS_INCLUDES && el != el) while (length > index) {
+      value = O[index++];
+      // eslint-disable-next-line no-self-compare
+      if (value != value) return true;
+    // Array#indexOf ignores holes, Array#includes - not
+    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
+      if (O[index] === el) return IS_INCLUDES || index || 0;
+    } return !IS_INCLUDES && -1;
+  };
+};
+
+},{"./_to-absolute-index":88,"./_to-iobject":90,"./_to-length":91}],31:[function(require,module,exports){
+// getting tag from 19.1.3.6 Object.prototype.toString()
+var cof = require('./_cof');
+var TAG = require('./_wks')('toStringTag');
+// ES3 wrong here
+var ARG = cof(function () { return arguments; }()) == 'Arguments';
+
+// fallback for IE11 Script Access Denied error
+var tryGet = function (it, key) {
+  try {
+    return it[key];
+  } catch (e) { /* empty */ }
+};
+
+module.exports = function (it) {
+  var O, T, B;
+  return it === undefined ? 'Undefined' : it === null ? 'Null'
+    // @@toStringTag case
+    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+    // builtinTag case
+    : ARG ? cof(O)
+    // ES3 arguments fallback
+    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+};
+
+},{"./_cof":32,"./_wks":98}],32:[function(require,module,exports){
+var toString = {}.toString;
+
+module.exports = function (it) {
+  return toString.call(it).slice(8, -1);
+};
+
+},{}],33:[function(require,module,exports){
+var core = module.exports = { version: '2.6.12' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+},{}],34:[function(require,module,exports){
+// optional / simple context binding
+var aFunction = require('./_a-function');
+module.exports = function (fn, that, length) {
+  aFunction(fn);
+  if (that === undefined) return fn;
+  switch (length) {
+    case 1: return function (a) {
+      return fn.call(that, a);
+    };
+    case 2: return function (a, b) {
+      return fn.call(that, a, b);
+    };
+    case 3: return function (a, b, c) {
+      return fn.call(that, a, b, c);
+    };
+  }
+  return function (/* ...args */) {
+    return fn.apply(that, arguments);
+  };
+};
+
+},{"./_a-function":26}],35:[function(require,module,exports){
+// 7.2.1 RequireObjectCoercible(argument)
+module.exports = function (it) {
+  if (it == undefined) throw TypeError("Can't call method on  " + it);
+  return it;
+};
+
+},{}],36:[function(require,module,exports){
+// Thank's IE8 for his funny defineProperty
+module.exports = !require('./_fails')(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+},{"./_fails":41}],37:[function(require,module,exports){
+var isObject = require('./_is-object');
+var document = require('./_global').document;
+// typeof document.createElement is 'object' in old IE
+var is = isObject(document) && isObject(document.createElement);
+module.exports = function (it) {
+  return is ? document.createElement(it) : {};
+};
+
+},{"./_global":43,"./_is-object":52}],38:[function(require,module,exports){
+// IE 8- don't enum bug keys
+module.exports = (
+  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
+).split(',');
+
+},{}],39:[function(require,module,exports){
+// all enumerable object keys, includes symbols
+var getKeys = require('./_object-keys');
+var gOPS = require('./_object-gops');
+var pIE = require('./_object-pie');
+module.exports = function (it) {
+  var result = getKeys(it);
+  var getSymbols = gOPS.f;
+  if (getSymbols) {
+    var symbols = getSymbols(it);
+    var isEnum = pIE.f;
+    var i = 0;
+    var key;
+    while (symbols.length > i) if (isEnum.call(it, key = symbols[i++])) result.push(key);
+  } return result;
+};
+
+},{"./_object-gops":69,"./_object-keys":72,"./_object-pie":73}],40:[function(require,module,exports){
+var global = require('./_global');
+var core = require('./_core');
+var ctx = require('./_ctx');
+var hide = require('./_hide');
+var has = require('./_has');
+var PROTOTYPE = 'prototype';
+
+var $export = function (type, name, source) {
+  var IS_FORCED = type & $export.F;
+  var IS_GLOBAL = type & $export.G;
+  var IS_STATIC = type & $export.S;
+  var IS_PROTO = type & $export.P;
+  var IS_BIND = type & $export.B;
+  var IS_WRAP = type & $export.W;
+  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
+  var expProto = exports[PROTOTYPE];
+  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
+  var key, own, out;
+  if (IS_GLOBAL) source = name;
+  for (key in source) {
+    // contains in native
+    own = !IS_FORCED && target && target[key] !== undefined;
+    if (own && has(exports, key)) continue;
+    // export native or passed
+    out = own ? target[key] : source[key];
+    // prevent global pollution for namespaces
+    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+    // bind timers to global for call from export context
+    : IS_BIND && own ? ctx(out, global)
+    // wrap global constructors for prevent change them in library
+    : IS_WRAP && target[key] == out ? (function (C) {
+      var F = function (a, b, c) {
+        if (this instanceof C) {
+          switch (arguments.length) {
+            case 0: return new C();
+            case 1: return new C(a);
+            case 2: return new C(a, b);
+          } return new C(a, b, c);
+        } return C.apply(this, arguments);
+      };
+      F[PROTOTYPE] = C[PROTOTYPE];
+      return F;
+    // make static versions for prototype methods
+    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
+    if (IS_PROTO) {
+      (exports.virtual || (exports.virtual = {}))[key] = out;
+      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
+      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
+    }
+  }
+};
+// type bitmap
+$export.F = 1;   // forced
+$export.G = 2;   // global
+$export.S = 4;   // static
+$export.P = 8;   // proto
+$export.B = 16;  // bind
+$export.W = 32;  // wrap
+$export.U = 64;  // safe
+$export.R = 128; // real proto method for `library`
+module.exports = $export;
+
+},{"./_core":33,"./_ctx":34,"./_global":43,"./_has":44,"./_hide":45}],41:[function(require,module,exports){
+module.exports = function (exec) {
+  try {
+    return !!exec();
+  } catch (e) {
+    return true;
+  }
+};
+
+},{}],42:[function(require,module,exports){
+var ctx = require('./_ctx');
+var call = require('./_iter-call');
+var isArrayIter = require('./_is-array-iter');
+var anObject = require('./_an-object');
+var toLength = require('./_to-length');
+var getIterFn = require('./core.get-iterator-method');
+var BREAK = {};
+var RETURN = {};
+var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
+  var iterFn = ITERATOR ? function () { return iterable; } : getIterFn(iterable);
+  var f = ctx(fn, that, entries ? 2 : 1);
+  var index = 0;
+  var length, step, iterator, result;
+  if (typeof iterFn != 'function') throw TypeError(iterable + ' is not iterable!');
+  // fast case for arrays with default iterator
+  if (isArrayIter(iterFn)) for (length = toLength(iterable.length); length > index; index++) {
+    result = entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
+    if (result === BREAK || result === RETURN) return result;
+  } else for (iterator = iterFn.call(iterable); !(step = iterator.next()).done;) {
+    result = call(iterator, f, step.value, entries);
+    if (result === BREAK || result === RETURN) return result;
+  }
+};
+exports.BREAK = BREAK;
+exports.RETURN = RETURN;
+
+},{"./_an-object":29,"./_ctx":34,"./_is-array-iter":50,"./_iter-call":53,"./_to-length":91,"./core.get-iterator-method":99}],43:[function(require,module,exports){
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+var global = module.exports = typeof window != 'undefined' && window.Math == Math
+  ? window : typeof self != 'undefined' && self.Math == Math ? self
+  // eslint-disable-next-line no-new-func
+  : Function('return this')();
+if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
+
+},{}],44:[function(require,module,exports){
+var hasOwnProperty = {}.hasOwnProperty;
+module.exports = function (it, key) {
+  return hasOwnProperty.call(it, key);
+};
+
+},{}],45:[function(require,module,exports){
+var dP = require('./_object-dp');
+var createDesc = require('./_property-desc');
+module.exports = require('./_descriptors') ? function (object, key, value) {
+  return dP.f(object, key, createDesc(1, value));
+} : function (object, key, value) {
+  object[key] = value;
+  return object;
+};
+
+},{"./_descriptors":36,"./_object-dp":64,"./_property-desc":77}],46:[function(require,module,exports){
+var document = require('./_global').document;
+module.exports = document && document.documentElement;
+
+},{"./_global":43}],47:[function(require,module,exports){
+module.exports = !require('./_descriptors') && !require('./_fails')(function () {
+  return Object.defineProperty(require('./_dom-create')('div'), 'a', { get: function () { return 7; } }).a != 7;
+});
+
+},{"./_descriptors":36,"./_dom-create":37,"./_fails":41}],48:[function(require,module,exports){
+// fast apply, http://jsperf.lnkit.com/fast-apply/5
+module.exports = function (fn, args, that) {
+  var un = that === undefined;
+  switch (args.length) {
+    case 0: return un ? fn()
+                      : fn.call(that);
+    case 1: return un ? fn(args[0])
+                      : fn.call(that, args[0]);
+    case 2: return un ? fn(args[0], args[1])
+                      : fn.call(that, args[0], args[1]);
+    case 3: return un ? fn(args[0], args[1], args[2])
+                      : fn.call(that, args[0], args[1], args[2]);
+    case 4: return un ? fn(args[0], args[1], args[2], args[3])
+                      : fn.call(that, args[0], args[1], args[2], args[3]);
+  } return fn.apply(that, args);
+};
+
+},{}],49:[function(require,module,exports){
+// fallback for non-array-like ES3 and non-enumerable old V8 strings
+var cof = require('./_cof');
+// eslint-disable-next-line no-prototype-builtins
+module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
+  return cof(it) == 'String' ? it.split('') : Object(it);
+};
+
+},{"./_cof":32}],50:[function(require,module,exports){
+// check on default Array iterator
+var Iterators = require('./_iterators');
+var ITERATOR = require('./_wks')('iterator');
+var ArrayProto = Array.prototype;
+
+module.exports = function (it) {
+  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
+};
+
+},{"./_iterators":58,"./_wks":98}],51:[function(require,module,exports){
+// 7.2.2 IsArray(argument)
+var cof = require('./_cof');
+module.exports = Array.isArray || function isArray(arg) {
+  return cof(arg) == 'Array';
+};
+
+},{"./_cof":32}],52:[function(require,module,exports){
+module.exports = function (it) {
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+},{}],53:[function(require,module,exports){
+// call something on iterator step with safe closing on error
+var anObject = require('./_an-object');
+module.exports = function (iterator, fn, value, entries) {
+  try {
+    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
+  // 7.4.6 IteratorClose(iterator, completion)
+  } catch (e) {
+    var ret = iterator['return'];
+    if (ret !== undefined) anObject(ret.call(iterator));
+    throw e;
+  }
+};
+
+},{"./_an-object":29}],54:[function(require,module,exports){
+'use strict';
+var create = require('./_object-create');
+var descriptor = require('./_property-desc');
+var setToStringTag = require('./_set-to-string-tag');
+var IteratorPrototype = {};
+
+// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
+require('./_hide')(IteratorPrototype, require('./_wks')('iterator'), function () { return this; });
+
+module.exports = function (Constructor, NAME, next) {
+  Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
+  setToStringTag(Constructor, NAME + ' Iterator');
+};
+
+},{"./_hide":45,"./_object-create":63,"./_property-desc":77,"./_set-to-string-tag":82,"./_wks":98}],55:[function(require,module,exports){
+'use strict';
+var LIBRARY = require('./_library');
+var $export = require('./_export');
+var redefine = require('./_redefine');
+var hide = require('./_hide');
+var Iterators = require('./_iterators');
+var $iterCreate = require('./_iter-create');
+var setToStringTag = require('./_set-to-string-tag');
+var getPrototypeOf = require('./_object-gpo');
+var ITERATOR = require('./_wks')('iterator');
+var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
+var FF_ITERATOR = '@@iterator';
+var KEYS = 'keys';
+var VALUES = 'values';
+
+var returnThis = function () { return this; };
+
+module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
+  $iterCreate(Constructor, NAME, next);
+  var getMethod = function (kind) {
+    if (!BUGGY && kind in proto) return proto[kind];
+    switch (kind) {
+      case KEYS: return function keys() { return new Constructor(this, kind); };
+      case VALUES: return function values() { return new Constructor(this, kind); };
+    } return function entries() { return new Constructor(this, kind); };
+  };
+  var TAG = NAME + ' Iterator';
+  var DEF_VALUES = DEFAULT == VALUES;
+  var VALUES_BUG = false;
+  var proto = Base.prototype;
+  var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
+  var $default = $native || getMethod(DEFAULT);
+  var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
+  var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
+  var methods, key, IteratorPrototype;
+  // Fix native
+  if ($anyNative) {
+    IteratorPrototype = getPrototypeOf($anyNative.call(new Base()));
+    if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
+      // Set @@toStringTag to native iterators
+      setToStringTag(IteratorPrototype, TAG, true);
+      // fix for some old engines
+      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
+    }
+  }
+  // fix Array#{values, @@iterator}.name in V8 / FF
+  if (DEF_VALUES && $native && $native.name !== VALUES) {
+    VALUES_BUG = true;
+    $default = function values() { return $native.call(this); };
+  }
+  // Define iterator
+  if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
+    hide(proto, ITERATOR, $default);
+  }
+  // Plug for library
+  Iterators[NAME] = $default;
+  Iterators[TAG] = returnThis;
+  if (DEFAULT) {
+    methods = {
+      values: DEF_VALUES ? $default : getMethod(VALUES),
+      keys: IS_SET ? $default : getMethod(KEYS),
+      entries: $entries
+    };
+    if (FORCED) for (key in methods) {
+      if (!(key in proto)) redefine(proto, key, methods[key]);
+    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
+  }
+  return methods;
+};
+
+},{"./_export":40,"./_hide":45,"./_iter-create":54,"./_iterators":58,"./_library":59,"./_object-gpo":70,"./_redefine":79,"./_set-to-string-tag":82,"./_wks":98}],56:[function(require,module,exports){
+var ITERATOR = require('./_wks')('iterator');
+var SAFE_CLOSING = false;
+
+try {
+  var riter = [7][ITERATOR]();
+  riter['return'] = function () { SAFE_CLOSING = true; };
+  // eslint-disable-next-line no-throw-literal
+  Array.from(riter, function () { throw 2; });
+} catch (e) { /* empty */ }
+
+module.exports = function (exec, skipClosing) {
+  if (!skipClosing && !SAFE_CLOSING) return false;
+  var safe = false;
+  try {
+    var arr = [7];
+    var iter = arr[ITERATOR]();
+    iter.next = function () { return { done: safe = true }; };
+    arr[ITERATOR] = function () { return iter; };
+    exec(arr);
+  } catch (e) { /* empty */ }
+  return safe;
+};
+
+},{"./_wks":98}],57:[function(require,module,exports){
+module.exports = function (done, value) {
+  return { value: value, done: !!done };
+};
+
+},{}],58:[function(require,module,exports){
+module.exports = {};
+
+},{}],59:[function(require,module,exports){
+module.exports = true;
+
+},{}],60:[function(require,module,exports){
+var META = require('./_uid')('meta');
+var isObject = require('./_is-object');
+var has = require('./_has');
+var setDesc = require('./_object-dp').f;
+var id = 0;
+var isExtensible = Object.isExtensible || function () {
+  return true;
+};
+var FREEZE = !require('./_fails')(function () {
+  return isExtensible(Object.preventExtensions({}));
+});
+var setMeta = function (it) {
+  setDesc(it, META, { value: {
+    i: 'O' + ++id, // object ID
+    w: {}          // weak collections IDs
+  } });
+};
+var fastKey = function (it, create) {
+  // return primitive with prefix
+  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return 'F';
+    // not necessary to add metadata
+    if (!create) return 'E';
+    // add missing metadata
+    setMeta(it);
+  // return object ID
+  } return it[META].i;
+};
+var getWeak = function (it, create) {
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return true;
+    // not necessary to add metadata
+    if (!create) return false;
+    // add missing metadata
+    setMeta(it);
+  // return hash weak collections IDs
+  } return it[META].w;
+};
+// add metadata on freeze-family methods calling
+var onFreeze = function (it) {
+  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
+  return it;
+};
+var meta = module.exports = {
+  KEY: META,
+  NEED: false,
+  fastKey: fastKey,
+  getWeak: getWeak,
+  onFreeze: onFreeze
+};
+
+},{"./_fails":41,"./_has":44,"./_is-object":52,"./_object-dp":64,"./_uid":94}],61:[function(require,module,exports){
+var global = require('./_global');
+var macrotask = require('./_task').set;
+var Observer = global.MutationObserver || global.WebKitMutationObserver;
+var process = global.process;
+var Promise = global.Promise;
+var isNode = require('./_cof')(process) == 'process';
+
+module.exports = function () {
+  var head, last, notify;
+
+  var flush = function () {
+    var parent, fn;
+    if (isNode && (parent = process.domain)) parent.exit();
+    while (head) {
+      fn = head.fn;
+      head = head.next;
+      try {
+        fn();
+      } catch (e) {
+        if (head) notify();
+        else last = undefined;
+        throw e;
+      }
+    } last = undefined;
+    if (parent) parent.enter();
+  };
+
+  // Node.js
+  if (isNode) {
+    notify = function () {
+      process.nextTick(flush);
+    };
+  // browsers with MutationObserver, except iOS Safari - https://github.com/zloirock/core-js/issues/339
+  } else if (Observer && !(global.navigator && global.navigator.standalone)) {
+    var toggle = true;
+    var node = document.createTextNode('');
+    new Observer(flush).observe(node, { characterData: true }); // eslint-disable-line no-new
+    notify = function () {
+      node.data = toggle = !toggle;
+    };
+  // environments with maybe non-completely correct, but existent Promise
+  } else if (Promise && Promise.resolve) {
+    // Promise.resolve without an argument throws an error in LG WebOS 2
+    var promise = Promise.resolve(undefined);
+    notify = function () {
+      promise.then(flush);
+    };
+  // for other environments - macrotask based on:
+  // - setImmediate
+  // - MessageChannel
+  // - window.postMessag
+  // - onreadystatechange
+  // - setTimeout
+  } else {
+    notify = function () {
+      // strange IE + webpack dev server bug - use .call(global)
+      macrotask.call(global, flush);
+    };
+  }
+
+  return function (fn) {
+    var task = { fn: fn, next: undefined };
+    if (last) last.next = task;
+    if (!head) {
+      head = task;
+      notify();
+    } last = task;
+  };
+};
+
+},{"./_cof":32,"./_global":43,"./_task":87}],62:[function(require,module,exports){
+'use strict';
+// 25.4.1.5 NewPromiseCapability(C)
+var aFunction = require('./_a-function');
+
+function PromiseCapability(C) {
+  var resolve, reject;
+  this.promise = new C(function ($$resolve, $$reject) {
+    if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');
+    resolve = $$resolve;
+    reject = $$reject;
+  });
+  this.resolve = aFunction(resolve);
+  this.reject = aFunction(reject);
+}
+
+module.exports.f = function (C) {
+  return new PromiseCapability(C);
+};
+
+},{"./_a-function":26}],63:[function(require,module,exports){
+// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
+var anObject = require('./_an-object');
+var dPs = require('./_object-dps');
+var enumBugKeys = require('./_enum-bug-keys');
+var IE_PROTO = require('./_shared-key')('IE_PROTO');
+var Empty = function () { /* empty */ };
+var PROTOTYPE = 'prototype';
+
+// Create object with fake `null` prototype: use iframe Object with cleared prototype
+var createDict = function () {
+  // Thrash, waste and sodomy: IE GC bug
+  var iframe = require('./_dom-create')('iframe');
+  var i = enumBugKeys.length;
+  var lt = '<';
+  var gt = '>';
+  var iframeDocument;
+  iframe.style.display = 'none';
+  require('./_html').appendChild(iframe);
+  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
+  // createDict = iframe.contentWindow.Object;
+  // html.removeChild(iframe);
+  iframeDocument = iframe.contentWindow.document;
+  iframeDocument.open();
+  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
+  iframeDocument.close();
+  createDict = iframeDocument.F;
+  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
+  return createDict();
+};
+
+module.exports = Object.create || function create(O, Properties) {
+  var result;
+  if (O !== null) {
+    Empty[PROTOTYPE] = anObject(O);
+    result = new Empty();
+    Empty[PROTOTYPE] = null;
+    // add "__proto__" for Object.getPrototypeOf polyfill
+    result[IE_PROTO] = O;
+  } else result = createDict();
+  return Properties === undefined ? result : dPs(result, Properties);
+};
+
+},{"./_an-object":29,"./_dom-create":37,"./_enum-bug-keys":38,"./_html":46,"./_object-dps":65,"./_shared-key":83}],64:[function(require,module,exports){
+var anObject = require('./_an-object');
+var IE8_DOM_DEFINE = require('./_ie8-dom-define');
+var toPrimitive = require('./_to-primitive');
+var dP = Object.defineProperty;
+
+exports.f = require('./_descriptors') ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if (IE8_DOM_DEFINE) try {
+    return dP(O, P, Attributes);
+  } catch (e) { /* empty */ }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+  if ('value' in Attributes) O[P] = Attributes.value;
+  return O;
+};
+
+},{"./_an-object":29,"./_descriptors":36,"./_ie8-dom-define":47,"./_to-primitive":93}],65:[function(require,module,exports){
+var dP = require('./_object-dp');
+var anObject = require('./_an-object');
+var getKeys = require('./_object-keys');
+
+module.exports = require('./_descriptors') ? Object.defineProperties : function defineProperties(O, Properties) {
+  anObject(O);
+  var keys = getKeys(Properties);
+  var length = keys.length;
+  var i = 0;
+  var P;
+  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
+  return O;
+};
+
+},{"./_an-object":29,"./_descriptors":36,"./_object-dp":64,"./_object-keys":72}],66:[function(require,module,exports){
+var pIE = require('./_object-pie');
+var createDesc = require('./_property-desc');
+var toIObject = require('./_to-iobject');
+var toPrimitive = require('./_to-primitive');
+var has = require('./_has');
+var IE8_DOM_DEFINE = require('./_ie8-dom-define');
+var gOPD = Object.getOwnPropertyDescriptor;
+
+exports.f = require('./_descriptors') ? gOPD : function getOwnPropertyDescriptor(O, P) {
+  O = toIObject(O);
+  P = toPrimitive(P, true);
+  if (IE8_DOM_DEFINE) try {
+    return gOPD(O, P);
+  } catch (e) { /* empty */ }
+  if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
+};
+
+},{"./_descriptors":36,"./_has":44,"./_ie8-dom-define":47,"./_object-pie":73,"./_property-desc":77,"./_to-iobject":90,"./_to-primitive":93}],67:[function(require,module,exports){
+// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
+var toIObject = require('./_to-iobject');
+var gOPN = require('./_object-gopn').f;
+var toString = {}.toString;
+
+var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
+  ? Object.getOwnPropertyNames(window) : [];
+
+var getWindowNames = function (it) {
+  try {
+    return gOPN(it);
+  } catch (e) {
+    return windowNames.slice();
+  }
+};
+
+module.exports.f = function getOwnPropertyNames(it) {
+  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
+};
+
+},{"./_object-gopn":68,"./_to-iobject":90}],68:[function(require,module,exports){
+// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
+var $keys = require('./_object-keys-internal');
+var hiddenKeys = require('./_enum-bug-keys').concat('length', 'prototype');
+
+exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
+  return $keys(O, hiddenKeys);
+};
+
+},{"./_enum-bug-keys":38,"./_object-keys-internal":71}],69:[function(require,module,exports){
+exports.f = Object.getOwnPropertySymbols;
+
+},{}],70:[function(require,module,exports){
+// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
+var has = require('./_has');
+var toObject = require('./_to-object');
+var IE_PROTO = require('./_shared-key')('IE_PROTO');
+var ObjectProto = Object.prototype;
+
+module.exports = Object.getPrototypeOf || function (O) {
+  O = toObject(O);
+  if (has(O, IE_PROTO)) return O[IE_PROTO];
+  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
+    return O.constructor.prototype;
+  } return O instanceof Object ? ObjectProto : null;
+};
+
+},{"./_has":44,"./_shared-key":83,"./_to-object":92}],71:[function(require,module,exports){
+var has = require('./_has');
+var toIObject = require('./_to-iobject');
+var arrayIndexOf = require('./_array-includes')(false);
+var IE_PROTO = require('./_shared-key')('IE_PROTO');
+
+module.exports = function (object, names) {
+  var O = toIObject(object);
+  var i = 0;
+  var result = [];
+  var key;
+  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
+  // Don't enum bug & hidden keys
+  while (names.length > i) if (has(O, key = names[i++])) {
+    ~arrayIndexOf(result, key) || result.push(key);
+  }
+  return result;
+};
+
+},{"./_array-includes":30,"./_has":44,"./_shared-key":83,"./_to-iobject":90}],72:[function(require,module,exports){
+// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+var $keys = require('./_object-keys-internal');
+var enumBugKeys = require('./_enum-bug-keys');
+
+module.exports = Object.keys || function keys(O) {
+  return $keys(O, enumBugKeys);
+};
+
+},{"./_enum-bug-keys":38,"./_object-keys-internal":71}],73:[function(require,module,exports){
+exports.f = {}.propertyIsEnumerable;
+
+},{}],74:[function(require,module,exports){
+// most Object methods by ES6 should accept primitives
+var $export = require('./_export');
+var core = require('./_core');
+var fails = require('./_fails');
+module.exports = function (KEY, exec) {
+  var fn = (core.Object || {})[KEY] || Object[KEY];
+  var exp = {};
+  exp[KEY] = exec(fn);
+  $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
+};
+
+},{"./_core":33,"./_export":40,"./_fails":41}],75:[function(require,module,exports){
+module.exports = function (exec) {
+  try {
+    return { e: false, v: exec() };
+  } catch (e) {
+    return { e: true, v: e };
+  }
+};
+
+},{}],76:[function(require,module,exports){
+var anObject = require('./_an-object');
+var isObject = require('./_is-object');
+var newPromiseCapability = require('./_new-promise-capability');
+
+module.exports = function (C, x) {
+  anObject(C);
+  if (isObject(x) && x.constructor === C) return x;
+  var promiseCapability = newPromiseCapability.f(C);
+  var resolve = promiseCapability.resolve;
+  resolve(x);
+  return promiseCapability.promise;
+};
+
+},{"./_an-object":29,"./_is-object":52,"./_new-promise-capability":62}],77:[function(require,module,exports){
+module.exports = function (bitmap, value) {
+  return {
+    enumerable: !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable: !(bitmap & 4),
+    value: value
+  };
+};
+
+},{}],78:[function(require,module,exports){
+var hide = require('./_hide');
+module.exports = function (target, src, safe) {
+  for (var key in src) {
+    if (safe && target[key]) target[key] = src[key];
+    else hide(target, key, src[key]);
+  } return target;
+};
+
+},{"./_hide":45}],79:[function(require,module,exports){
+module.exports = require('./_hide');
+
+},{"./_hide":45}],80:[function(require,module,exports){
+// Works with __proto__ only. Old v8 can't work with null proto objects.
+/* eslint-disable no-proto */
+var isObject = require('./_is-object');
+var anObject = require('./_an-object');
+var check = function (O, proto) {
+  anObject(O);
+  if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
+};
+module.exports = {
+  set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
+    function (test, buggy, set) {
+      try {
+        set = require('./_ctx')(Function.call, require('./_object-gopd').f(Object.prototype, '__proto__').set, 2);
+        set(test, []);
+        buggy = !(test instanceof Array);
+      } catch (e) { buggy = true; }
+      return function setPrototypeOf(O, proto) {
+        check(O, proto);
+        if (buggy) O.__proto__ = proto;
+        else set(O, proto);
+        return O;
+      };
+    }({}, false) : undefined),
+  check: check
+};
+
+},{"./_an-object":29,"./_ctx":34,"./_is-object":52,"./_object-gopd":66}],81:[function(require,module,exports){
+'use strict';
+var global = require('./_global');
+var core = require('./_core');
+var dP = require('./_object-dp');
+var DESCRIPTORS = require('./_descriptors');
+var SPECIES = require('./_wks')('species');
+
+module.exports = function (KEY) {
+  var C = typeof core[KEY] == 'function' ? core[KEY] : global[KEY];
+  if (DESCRIPTORS && C && !C[SPECIES]) dP.f(C, SPECIES, {
+    configurable: true,
+    get: function () { return this; }
+  });
+};
+
+},{"./_core":33,"./_descriptors":36,"./_global":43,"./_object-dp":64,"./_wks":98}],82:[function(require,module,exports){
+var def = require('./_object-dp').f;
+var has = require('./_has');
+var TAG = require('./_wks')('toStringTag');
+
+module.exports = function (it, tag, stat) {
+  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
+};
+
+},{"./_has":44,"./_object-dp":64,"./_wks":98}],83:[function(require,module,exports){
+var shared = require('./_shared')('keys');
+var uid = require('./_uid');
+module.exports = function (key) {
+  return shared[key] || (shared[key] = uid(key));
+};
+
+},{"./_shared":84,"./_uid":94}],84:[function(require,module,exports){
+var core = require('./_core');
+var global = require('./_global');
+var SHARED = '__core-js_shared__';
+var store = global[SHARED] || (global[SHARED] = {});
+
+(module.exports = function (key, value) {
+  return store[key] || (store[key] = value !== undefined ? value : {});
+})('versions', []).push({
+  version: core.version,
+  mode: require('./_library') ? 'pure' : 'global',
+  copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
+});
+
+},{"./_core":33,"./_global":43,"./_library":59}],85:[function(require,module,exports){
+// 7.3.20 SpeciesConstructor(O, defaultConstructor)
+var anObject = require('./_an-object');
+var aFunction = require('./_a-function');
+var SPECIES = require('./_wks')('species');
+module.exports = function (O, D) {
+  var C = anObject(O).constructor;
+  var S;
+  return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
+};
+
+},{"./_a-function":26,"./_an-object":29,"./_wks":98}],86:[function(require,module,exports){
+var toInteger = require('./_to-integer');
+var defined = require('./_defined');
+// true  -> String#at
+// false -> String#codePointAt
+module.exports = function (TO_STRING) {
+  return function (that, pos) {
+    var s = String(defined(that));
+    var i = toInteger(pos);
+    var l = s.length;
+    var a, b;
+    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
+    a = s.charCodeAt(i);
+    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
+      ? TO_STRING ? s.charAt(i) : a
+      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
+  };
+};
+
+},{"./_defined":35,"./_to-integer":89}],87:[function(require,module,exports){
+var ctx = require('./_ctx');
+var invoke = require('./_invoke');
+var html = require('./_html');
+var cel = require('./_dom-create');
+var global = require('./_global');
+var process = global.process;
+var setTask = global.setImmediate;
+var clearTask = global.clearImmediate;
+var MessageChannel = global.MessageChannel;
+var Dispatch = global.Dispatch;
+var counter = 0;
+var queue = {};
+var ONREADYSTATECHANGE = 'onreadystatechange';
+var defer, channel, port;
+var run = function () {
+  var id = +this;
+  // eslint-disable-next-line no-prototype-builtins
+  if (queue.hasOwnProperty(id)) {
+    var fn = queue[id];
+    delete queue[id];
+    fn();
+  }
+};
+var listener = function (event) {
+  run.call(event.data);
+};
+// Node.js 0.9+ & IE10+ has setImmediate, otherwise:
+if (!setTask || !clearTask) {
+  setTask = function setImmediate(fn) {
+    var args = [];
+    var i = 1;
+    while (arguments.length > i) args.push(arguments[i++]);
+    queue[++counter] = function () {
+      // eslint-disable-next-line no-new-func
+      invoke(typeof fn == 'function' ? fn : Function(fn), args);
+    };
+    defer(counter);
+    return counter;
+  };
+  clearTask = function clearImmediate(id) {
+    delete queue[id];
+  };
+  // Node.js 0.8-
+  if (require('./_cof')(process) == 'process') {
+    defer = function (id) {
+      process.nextTick(ctx(run, id, 1));
+    };
+  // Sphere (JS game engine) Dispatch API
+  } else if (Dispatch && Dispatch.now) {
+    defer = function (id) {
+      Dispatch.now(ctx(run, id, 1));
+    };
+  // Browsers with MessageChannel, includes WebWorkers
+  } else if (MessageChannel) {
+    channel = new MessageChannel();
+    port = channel.port2;
+    channel.port1.onmessage = listener;
+    defer = ctx(port.postMessage, port, 1);
+  // Browsers with postMessage, skip WebWorkers
+  // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
+  } else if (global.addEventListener && typeof postMessage == 'function' && !global.importScripts) {
+    defer = function (id) {
+      global.postMessage(id + '', '*');
+    };
+    global.addEventListener('message', listener, false);
+  // IE8-
+  } else if (ONREADYSTATECHANGE in cel('script')) {
+    defer = function (id) {
+      html.appendChild(cel('script'))[ONREADYSTATECHANGE] = function () {
+        html.removeChild(this);
+        run.call(id);
+      };
+    };
+  // Rest old browsers
+  } else {
+    defer = function (id) {
+      setTimeout(ctx(run, id, 1), 0);
+    };
+  }
+}
+module.exports = {
+  set: setTask,
+  clear: clearTask
+};
+
+},{"./_cof":32,"./_ctx":34,"./_dom-create":37,"./_global":43,"./_html":46,"./_invoke":48}],88:[function(require,module,exports){
+var toInteger = require('./_to-integer');
+var max = Math.max;
+var min = Math.min;
+module.exports = function (index, length) {
+  index = toInteger(index);
+  return index < 0 ? max(index + length, 0) : min(index, length);
+};
+
+},{"./_to-integer":89}],89:[function(require,module,exports){
+// 7.1.4 ToInteger
+var ceil = Math.ceil;
+var floor = Math.floor;
+module.exports = function (it) {
+  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
+};
+
+},{}],90:[function(require,module,exports){
+// to indexed object, toObject with fallback for non-array-like ES3 strings
+var IObject = require('./_iobject');
+var defined = require('./_defined');
+module.exports = function (it) {
+  return IObject(defined(it));
+};
+
+},{"./_defined":35,"./_iobject":49}],91:[function(require,module,exports){
+// 7.1.15 ToLength
+var toInteger = require('./_to-integer');
+var min = Math.min;
+module.exports = function (it) {
+  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
+};
+
+},{"./_to-integer":89}],92:[function(require,module,exports){
+// 7.1.13 ToObject(argument)
+var defined = require('./_defined');
+module.exports = function (it) {
+  return Object(defined(it));
+};
+
+},{"./_defined":35}],93:[function(require,module,exports){
+// 7.1.1 ToPrimitive(input [, PreferredType])
+var isObject = require('./_is-object');
+// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+// and the second argument - flag - preferred type is a string
+module.exports = function (it, S) {
+  if (!isObject(it)) return it;
+  var fn, val;
+  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  throw TypeError("Can't convert object to primitive value");
+};
+
+},{"./_is-object":52}],94:[function(require,module,exports){
+var id = 0;
+var px = Math.random();
+module.exports = function (key) {
+  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+};
+
+},{}],95:[function(require,module,exports){
+var global = require('./_global');
+var navigator = global.navigator;
+
+module.exports = navigator && navigator.userAgent || '';
+
+},{"./_global":43}],96:[function(require,module,exports){
+var global = require('./_global');
+var core = require('./_core');
+var LIBRARY = require('./_library');
+var wksExt = require('./_wks-ext');
+var defineProperty = require('./_object-dp').f;
+module.exports = function (name) {
+  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
+  if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
+};
+
+},{"./_core":33,"./_global":43,"./_library":59,"./_object-dp":64,"./_wks-ext":97}],97:[function(require,module,exports){
+exports.f = require('./_wks');
+
+},{"./_wks":98}],98:[function(require,module,exports){
+var store = require('./_shared')('wks');
+var uid = require('./_uid');
+var Symbol = require('./_global').Symbol;
+var USE_SYMBOL = typeof Symbol == 'function';
+
+var $exports = module.exports = function (name) {
+  return store[name] || (store[name] =
+    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
+};
+
+$exports.store = store;
+
+},{"./_global":43,"./_shared":84,"./_uid":94}],99:[function(require,module,exports){
+var classof = require('./_classof');
+var ITERATOR = require('./_wks')('iterator');
+var Iterators = require('./_iterators');
+module.exports = require('./_core').getIteratorMethod = function (it) {
+  if (it != undefined) return it[ITERATOR]
+    || it['@@iterator']
+    || Iterators[classof(it)];
+};
+
+},{"./_classof":31,"./_core":33,"./_iterators":58,"./_wks":98}],100:[function(require,module,exports){
+'use strict';
+var addToUnscopables = require('./_add-to-unscopables');
+var step = require('./_iter-step');
+var Iterators = require('./_iterators');
+var toIObject = require('./_to-iobject');
+
+// 22.1.3.4 Array.prototype.entries()
+// 22.1.3.13 Array.prototype.keys()
+// 22.1.3.29 Array.prototype.values()
+// 22.1.3.30 Array.prototype[@@iterator]()
+module.exports = require('./_iter-define')(Array, 'Array', function (iterated, kind) {
+  this._t = toIObject(iterated); // target
+  this._i = 0;                   // next index
+  this._k = kind;                // kind
+// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
+}, function () {
+  var O = this._t;
+  var kind = this._k;
+  var index = this._i++;
+  if (!O || index >= O.length) {
+    this._t = undefined;
+    return step(1);
+  }
+  if (kind == 'keys') return step(0, index);
+  if (kind == 'values') return step(0, O[index]);
+  return step(0, [index, O[index]]);
+}, 'values');
+
+// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
+Iterators.Arguments = Iterators.Array;
+
+addToUnscopables('keys');
+addToUnscopables('values');
+addToUnscopables('entries');
+
+},{"./_add-to-unscopables":27,"./_iter-define":55,"./_iter-step":57,"./_iterators":58,"./_to-iobject":90}],101:[function(require,module,exports){
+var $export = require('./_export');
+// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
+$export($export.S, 'Object', { create: require('./_object-create') });
+
+},{"./_export":40,"./_object-create":63}],102:[function(require,module,exports){
+var $export = require('./_export');
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+$export($export.S + $export.F * !require('./_descriptors'), 'Object', { defineProperty: require('./_object-dp').f });
+
+},{"./_descriptors":36,"./_export":40,"./_object-dp":64}],103:[function(require,module,exports){
+// 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
+var toIObject = require('./_to-iobject');
+var $getOwnPropertyDescriptor = require('./_object-gopd').f;
+
+require('./_object-sap')('getOwnPropertyDescriptor', function () {
+  return function getOwnPropertyDescriptor(it, key) {
+    return $getOwnPropertyDescriptor(toIObject(it), key);
+  };
+});
+
+},{"./_object-gopd":66,"./_object-sap":74,"./_to-iobject":90}],104:[function(require,module,exports){
+// 19.1.2.9 Object.getPrototypeOf(O)
+var toObject = require('./_to-object');
+var $getPrototypeOf = require('./_object-gpo');
+
+require('./_object-sap')('getPrototypeOf', function () {
+  return function getPrototypeOf(it) {
+    return $getPrototypeOf(toObject(it));
+  };
+});
+
+},{"./_object-gpo":70,"./_object-sap":74,"./_to-object":92}],105:[function(require,module,exports){
+// 19.1.3.19 Object.setPrototypeOf(O, proto)
+var $export = require('./_export');
+$export($export.S, 'Object', { setPrototypeOf: require('./_set-proto').set });
+
+},{"./_export":40,"./_set-proto":80}],106:[function(require,module,exports){
+
+},{}],107:[function(require,module,exports){
+'use strict';
+var LIBRARY = require('./_library');
+var global = require('./_global');
+var ctx = require('./_ctx');
+var classof = require('./_classof');
+var $export = require('./_export');
+var isObject = require('./_is-object');
+var aFunction = require('./_a-function');
+var anInstance = require('./_an-instance');
+var forOf = require('./_for-of');
+var speciesConstructor = require('./_species-constructor');
+var task = require('./_task').set;
+var microtask = require('./_microtask')();
+var newPromiseCapabilityModule = require('./_new-promise-capability');
+var perform = require('./_perform');
+var userAgent = require('./_user-agent');
+var promiseResolve = require('./_promise-resolve');
+var PROMISE = 'Promise';
+var TypeError = global.TypeError;
+var process = global.process;
+var versions = process && process.versions;
+var v8 = versions && versions.v8 || '';
+var $Promise = global[PROMISE];
+var isNode = classof(process) == 'process';
+var empty = function () { /* empty */ };
+var Internal, newGenericPromiseCapability, OwnPromiseCapability, Wrapper;
+var newPromiseCapability = newGenericPromiseCapability = newPromiseCapabilityModule.f;
+
+var USE_NATIVE = !!function () {
+  try {
+    // correct subclassing with @@species support
+    var promise = $Promise.resolve(1);
+    var FakePromise = (promise.constructor = {})[require('./_wks')('species')] = function (exec) {
+      exec(empty, empty);
+    };
+    // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
+    return (isNode || typeof PromiseRejectionEvent == 'function')
+      && promise.then(empty) instanceof FakePromise
+      // v8 6.6 (Node 10 and Chrome 66) have a bug with resolving custom thenables
+      // https://bugs.chromium.org/p/chromium/issues/detail?id=830565
+      // we can't detect it synchronously, so just check versions
+      && v8.indexOf('6.6') !== 0
+      && userAgent.indexOf('Chrome/66') === -1;
+  } catch (e) { /* empty */ }
+}();
+
+// helpers
+var isThenable = function (it) {
+  var then;
+  return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
+};
+var notify = function (promise, isReject) {
+  if (promise._n) return;
+  promise._n = true;
+  var chain = promise._c;
+  microtask(function () {
+    var value = promise._v;
+    var ok = promise._s == 1;
+    var i = 0;
+    var run = function (reaction) {
+      var handler = ok ? reaction.ok : reaction.fail;
+      var resolve = reaction.resolve;
+      var reject = reaction.reject;
+      var domain = reaction.domain;
+      var result, then, exited;
+      try {
+        if (handler) {
+          if (!ok) {
+            if (promise._h == 2) onHandleUnhandled(promise);
+            promise._h = 1;
+          }
+          if (handler === true) result = value;
+          else {
+            if (domain) domain.enter();
+            result = handler(value); // may throw
+            if (domain) {
+              domain.exit();
+              exited = true;
+            }
+          }
+          if (result === reaction.promise) {
+            reject(TypeError('Promise-chain cycle'));
+          } else if (then = isThenable(result)) {
+            then.call(result, resolve, reject);
+          } else resolve(result);
+        } else reject(value);
+      } catch (e) {
+        if (domain && !exited) domain.exit();
+        reject(e);
+      }
+    };
+    while (chain.length > i) run(chain[i++]); // variable length - can't use forEach
+    promise._c = [];
+    promise._n = false;
+    if (isReject && !promise._h) onUnhandled(promise);
+  });
+};
+var onUnhandled = function (promise) {
+  task.call(global, function () {
+    var value = promise._v;
+    var unhandled = isUnhandled(promise);
+    var result, handler, console;
+    if (unhandled) {
+      result = perform(function () {
+        if (isNode) {
+          process.emit('unhandledRejection', value, promise);
+        } else if (handler = global.onunhandledrejection) {
+          handler({ promise: promise, reason: value });
+        } else if ((console = global.console) && console.error) {
+          console.error('Unhandled promise rejection', value);
+        }
+      });
+      // Browsers should not trigger `rejectionHandled` event if it was handled here, NodeJS - should
+      promise._h = isNode || isUnhandled(promise) ? 2 : 1;
+    } promise._a = undefined;
+    if (unhandled && result.e) throw result.v;
+  });
+};
+var isUnhandled = function (promise) {
+  return promise._h !== 1 && (promise._a || promise._c).length === 0;
+};
+var onHandleUnhandled = function (promise) {
+  task.call(global, function () {
+    var handler;
+    if (isNode) {
+      process.emit('rejectionHandled', promise);
+    } else if (handler = global.onrejectionhandled) {
+      handler({ promise: promise, reason: promise._v });
+    }
+  });
+};
+var $reject = function (value) {
+  var promise = this;
+  if (promise._d) return;
+  promise._d = true;
+  promise = promise._w || promise; // unwrap
+  promise._v = value;
+  promise._s = 2;
+  if (!promise._a) promise._a = promise._c.slice();
+  notify(promise, true);
+};
+var $resolve = function (value) {
+  var promise = this;
+  var then;
+  if (promise._d) return;
+  promise._d = true;
+  promise = promise._w || promise; // unwrap
+  try {
+    if (promise === value) throw TypeError("Promise can't be resolved itself");
+    if (then = isThenable(value)) {
+      microtask(function () {
+        var wrapper = { _w: promise, _d: false }; // wrap
+        try {
+          then.call(value, ctx($resolve, wrapper, 1), ctx($reject, wrapper, 1));
+        } catch (e) {
+          $reject.call(wrapper, e);
+        }
+      });
+    } else {
+      promise._v = value;
+      promise._s = 1;
+      notify(promise, false);
+    }
+  } catch (e) {
+    $reject.call({ _w: promise, _d: false }, e); // wrap
+  }
+};
+
+// constructor polyfill
+if (!USE_NATIVE) {
+  // 25.4.3.1 Promise(executor)
+  $Promise = function Promise(executor) {
+    anInstance(this, $Promise, PROMISE, '_h');
+    aFunction(executor);
+    Internal.call(this);
+    try {
+      executor(ctx($resolve, this, 1), ctx($reject, this, 1));
+    } catch (err) {
+      $reject.call(this, err);
+    }
+  };
+  // eslint-disable-next-line no-unused-vars
+  Internal = function Promise(executor) {
+    this._c = [];             // <- awaiting reactions
+    this._a = undefined;      // <- checked in isUnhandled reactions
+    this._s = 0;              // <- state
+    this._d = false;          // <- done
+    this._v = undefined;      // <- value
+    this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
+    this._n = false;          // <- notify
+  };
+  Internal.prototype = require('./_redefine-all')($Promise.prototype, {
+    // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
+    then: function then(onFulfilled, onRejected) {
+      var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
+      reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
+      reaction.fail = typeof onRejected == 'function' && onRejected;
+      reaction.domain = isNode ? process.domain : undefined;
+      this._c.push(reaction);
+      if (this._a) this._a.push(reaction);
+      if (this._s) notify(this, false);
+      return reaction.promise;
+    },
+    // 25.4.5.1 Promise.prototype.catch(onRejected)
+    'catch': function (onRejected) {
+      return this.then(undefined, onRejected);
+    }
+  });
+  OwnPromiseCapability = function () {
+    var promise = new Internal();
+    this.promise = promise;
+    this.resolve = ctx($resolve, promise, 1);
+    this.reject = ctx($reject, promise, 1);
+  };
+  newPromiseCapabilityModule.f = newPromiseCapability = function (C) {
+    return C === $Promise || C === Wrapper
+      ? new OwnPromiseCapability(C)
+      : newGenericPromiseCapability(C);
+  };
+}
+
+$export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
+require('./_set-to-string-tag')($Promise, PROMISE);
+require('./_set-species')(PROMISE);
+Wrapper = require('./_core')[PROMISE];
+
+// statics
+$export($export.S + $export.F * !USE_NATIVE, PROMISE, {
+  // 25.4.4.5 Promise.reject(r)
+  reject: function reject(r) {
+    var capability = newPromiseCapability(this);
+    var $$reject = capability.reject;
+    $$reject(r);
+    return capability.promise;
+  }
+});
+$export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
+  // 25.4.4.6 Promise.resolve(x)
+  resolve: function resolve(x) {
+    return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
+  }
+});
+$export($export.S + $export.F * !(USE_NATIVE && require('./_iter-detect')(function (iter) {
+  $Promise.all(iter)['catch'](empty);
+})), PROMISE, {
+  // 25.4.4.1 Promise.all(iterable)
+  all: function all(iterable) {
+    var C = this;
+    var capability = newPromiseCapability(C);
+    var resolve = capability.resolve;
+    var reject = capability.reject;
+    var result = perform(function () {
+      var values = [];
+      var index = 0;
+      var remaining = 1;
+      forOf(iterable, false, function (promise) {
+        var $index = index++;
+        var alreadyCalled = false;
+        values.push(undefined);
+        remaining++;
+        C.resolve(promise).then(function (value) {
+          if (alreadyCalled) return;
+          alreadyCalled = true;
+          values[$index] = value;
+          --remaining || resolve(values);
+        }, reject);
+      });
+      --remaining || resolve(values);
+    });
+    if (result.e) reject(result.v);
+    return capability.promise;
+  },
+  // 25.4.4.4 Promise.race(iterable)
+  race: function race(iterable) {
+    var C = this;
+    var capability = newPromiseCapability(C);
+    var reject = capability.reject;
+    var result = perform(function () {
+      forOf(iterable, false, function (promise) {
+        C.resolve(promise).then(capability.resolve, reject);
+      });
+    });
+    if (result.e) reject(result.v);
+    return capability.promise;
+  }
+});
+
+},{"./_a-function":26,"./_an-instance":28,"./_classof":31,"./_core":33,"./_ctx":34,"./_export":40,"./_for-of":42,"./_global":43,"./_is-object":52,"./_iter-detect":56,"./_library":59,"./_microtask":61,"./_new-promise-capability":62,"./_perform":75,"./_promise-resolve":76,"./_redefine-all":78,"./_set-species":81,"./_set-to-string-tag":82,"./_species-constructor":85,"./_task":87,"./_user-agent":95,"./_wks":98}],108:[function(require,module,exports){
+'use strict';
+var $at = require('./_string-at')(true);
+
+// 21.1.3.27 String.prototype[@@iterator]()
+require('./_iter-define')(String, 'String', function (iterated) {
+  this._t = String(iterated); // target
+  this._i = 0;                // next index
+// 21.1.5.2.1 %StringIteratorPrototype%.next()
+}, function () {
+  var O = this._t;
+  var index = this._i;
+  var point;
+  if (index >= O.length) return { value: undefined, done: true };
+  point = $at(O, index);
+  this._i += point.length;
+  return { value: point, done: false };
+});
+
+},{"./_iter-define":55,"./_string-at":86}],109:[function(require,module,exports){
+'use strict';
+// ECMAScript 6 symbols shim
+var global = require('./_global');
+var has = require('./_has');
+var DESCRIPTORS = require('./_descriptors');
+var $export = require('./_export');
+var redefine = require('./_redefine');
+var META = require('./_meta').KEY;
+var $fails = require('./_fails');
+var shared = require('./_shared');
+var setToStringTag = require('./_set-to-string-tag');
+var uid = require('./_uid');
+var wks = require('./_wks');
+var wksExt = require('./_wks-ext');
+var wksDefine = require('./_wks-define');
+var enumKeys = require('./_enum-keys');
+var isArray = require('./_is-array');
+var anObject = require('./_an-object');
+var isObject = require('./_is-object');
+var toObject = require('./_to-object');
+var toIObject = require('./_to-iobject');
+var toPrimitive = require('./_to-primitive');
+var createDesc = require('./_property-desc');
+var _create = require('./_object-create');
+var gOPNExt = require('./_object-gopn-ext');
+var $GOPD = require('./_object-gopd');
+var $GOPS = require('./_object-gops');
+var $DP = require('./_object-dp');
+var $keys = require('./_object-keys');
+var gOPD = $GOPD.f;
+var dP = $DP.f;
+var gOPN = gOPNExt.f;
+var $Symbol = global.Symbol;
+var $JSON = global.JSON;
+var _stringify = $JSON && $JSON.stringify;
+var PROTOTYPE = 'prototype';
+var HIDDEN = wks('_hidden');
+var TO_PRIMITIVE = wks('toPrimitive');
+var isEnum = {}.propertyIsEnumerable;
+var SymbolRegistry = shared('symbol-registry');
+var AllSymbols = shared('symbols');
+var OPSymbols = shared('op-symbols');
+var ObjectProto = Object[PROTOTYPE];
+var USE_NATIVE = typeof $Symbol == 'function' && !!$GOPS.f;
+var QObject = global.QObject;
+// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
+var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
+
+// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
+var setSymbolDesc = DESCRIPTORS && $fails(function () {
+  return _create(dP({}, 'a', {
+    get: function () { return dP(this, 'a', { value: 7 }).a; }
+  })).a != 7;
+}) ? function (it, key, D) {
+  var protoDesc = gOPD(ObjectProto, key);
+  if (protoDesc) delete ObjectProto[key];
+  dP(it, key, D);
+  if (protoDesc && it !== ObjectProto) dP(ObjectProto, key, protoDesc);
+} : dP;
+
+var wrap = function (tag) {
+  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
+  sym._k = tag;
+  return sym;
+};
+
+var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function (it) {
+  return typeof it == 'symbol';
+} : function (it) {
+  return it instanceof $Symbol;
+};
+
+var $defineProperty = function defineProperty(it, key, D) {
+  if (it === ObjectProto) $defineProperty(OPSymbols, key, D);
+  anObject(it);
+  key = toPrimitive(key, true);
+  anObject(D);
+  if (has(AllSymbols, key)) {
+    if (!D.enumerable) {
+      if (!has(it, HIDDEN)) dP(it, HIDDEN, createDesc(1, {}));
+      it[HIDDEN][key] = true;
+    } else {
+      if (has(it, HIDDEN) && it[HIDDEN][key]) it[HIDDEN][key] = false;
+      D = _create(D, { enumerable: createDesc(0, false) });
+    } return setSymbolDesc(it, key, D);
+  } return dP(it, key, D);
+};
+var $defineProperties = function defineProperties(it, P) {
+  anObject(it);
+  var keys = enumKeys(P = toIObject(P));
+  var i = 0;
+  var l = keys.length;
+  var key;
+  while (l > i) $defineProperty(it, key = keys[i++], P[key]);
+  return it;
+};
+var $create = function create(it, P) {
+  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
+};
+var $propertyIsEnumerable = function propertyIsEnumerable(key) {
+  var E = isEnum.call(this, key = toPrimitive(key, true));
+  if (this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return false;
+  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
+};
+var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
+  it = toIObject(it);
+  key = toPrimitive(key, true);
+  if (it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return;
+  var D = gOPD(it, key);
+  if (D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key])) D.enumerable = true;
+  return D;
+};
+var $getOwnPropertyNames = function getOwnPropertyNames(it) {
+  var names = gOPN(toIObject(it));
+  var result = [];
+  var i = 0;
+  var key;
+  while (names.length > i) {
+    if (!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META) result.push(key);
+  } return result;
+};
+var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
+  var IS_OP = it === ObjectProto;
+  var names = gOPN(IS_OP ? OPSymbols : toIObject(it));
+  var result = [];
+  var i = 0;
+  var key;
+  while (names.length > i) {
+    if (has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true)) result.push(AllSymbols[key]);
+  } return result;
+};
+
+// 19.4.1.1 Symbol([description])
+if (!USE_NATIVE) {
+  $Symbol = function Symbol() {
+    if (this instanceof $Symbol) throw TypeError('Symbol is not a constructor!');
+    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
+    var $set = function (value) {
+      if (this === ObjectProto) $set.call(OPSymbols, value);
+      if (has(this, HIDDEN) && has(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
+      setSymbolDesc(this, tag, createDesc(1, value));
+    };
+    if (DESCRIPTORS && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
+    return wrap(tag);
+  };
+  redefine($Symbol[PROTOTYPE], 'toString', function toString() {
+    return this._k;
+  });
+
+  $GOPD.f = $getOwnPropertyDescriptor;
+  $DP.f = $defineProperty;
+  require('./_object-gopn').f = gOPNExt.f = $getOwnPropertyNames;
+  require('./_object-pie').f = $propertyIsEnumerable;
+  $GOPS.f = $getOwnPropertySymbols;
+
+  if (DESCRIPTORS && !require('./_library')) {
+    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
+  }
+
+  wksExt.f = function (name) {
+    return wrap(wks(name));
+  };
+}
+
+$export($export.G + $export.W + $export.F * !USE_NATIVE, { Symbol: $Symbol });
+
+for (var es6Symbols = (
+  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
+  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
+).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
+
+for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
+
+$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
+  // 19.4.2.1 Symbol.for(key)
+  'for': function (key) {
+    return has(SymbolRegistry, key += '')
+      ? SymbolRegistry[key]
+      : SymbolRegistry[key] = $Symbol(key);
+  },
+  // 19.4.2.5 Symbol.keyFor(sym)
+  keyFor: function keyFor(sym) {
+    if (!isSymbol(sym)) throw TypeError(sym + ' is not a symbol!');
+    for (var key in SymbolRegistry) if (SymbolRegistry[key] === sym) return key;
+  },
+  useSetter: function () { setter = true; },
+  useSimple: function () { setter = false; }
+});
+
+$export($export.S + $export.F * !USE_NATIVE, 'Object', {
+  // 19.1.2.2 Object.create(O [, Properties])
+  create: $create,
+  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
+  defineProperty: $defineProperty,
+  // 19.1.2.3 Object.defineProperties(O, Properties)
+  defineProperties: $defineProperties,
+  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
+  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
+  // 19.1.2.7 Object.getOwnPropertyNames(O)
+  getOwnPropertyNames: $getOwnPropertyNames,
+  // 19.1.2.8 Object.getOwnPropertySymbols(O)
+  getOwnPropertySymbols: $getOwnPropertySymbols
+});
+
+// Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
+// https://bugs.chromium.org/p/v8/issues/detail?id=3443
+var FAILS_ON_PRIMITIVES = $fails(function () { $GOPS.f(1); });
+
+$export($export.S + $export.F * FAILS_ON_PRIMITIVES, 'Object', {
+  getOwnPropertySymbols: function getOwnPropertySymbols(it) {
+    return $GOPS.f(toObject(it));
+  }
+});
+
+// 24.3.2 JSON.stringify(value [, replacer [, space]])
+$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
+  var S = $Symbol();
+  // MS Edge converts symbol values to JSON as {}
+  // WebKit converts symbol values to JSON as null
+  // V8 throws on boxed symbols
+  return _stringify([S]) != '[null]' || _stringify({ a: S }) != '{}' || _stringify(Object(S)) != '{}';
+})), 'JSON', {
+  stringify: function stringify(it) {
+    var args = [it];
+    var i = 1;
+    var replacer, $replacer;
+    while (arguments.length > i) args.push(arguments[i++]);
+    $replacer = replacer = args[1];
+    if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
+    if (!isArray(replacer)) replacer = function (key, value) {
+      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
+      if (!isSymbol(value)) return value;
+    };
+    args[1] = replacer;
+    return _stringify.apply($JSON, args);
+  }
+});
+
+// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
+$Symbol[PROTOTYPE][TO_PRIMITIVE] || require('./_hide')($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
+// 19.4.3.5 Symbol.prototype[@@toStringTag]
+setToStringTag($Symbol, 'Symbol');
+// 20.2.1.9 Math[@@toStringTag]
+setToStringTag(Math, 'Math', true);
+// 24.3.3 JSON[@@toStringTag]
+setToStringTag(global.JSON, 'JSON', true);
+
+},{"./_an-object":29,"./_descriptors":36,"./_enum-keys":39,"./_export":40,"./_fails":41,"./_global":43,"./_has":44,"./_hide":45,"./_is-array":51,"./_is-object":52,"./_library":59,"./_meta":60,"./_object-create":63,"./_object-dp":64,"./_object-gopd":66,"./_object-gopn":68,"./_object-gopn-ext":67,"./_object-gops":69,"./_object-keys":72,"./_object-pie":73,"./_property-desc":77,"./_redefine":79,"./_set-to-string-tag":82,"./_shared":84,"./_to-iobject":90,"./_to-object":92,"./_to-primitive":93,"./_uid":94,"./_wks":98,"./_wks-define":96,"./_wks-ext":97}],110:[function(require,module,exports){
+// https://github.com/tc39/proposal-promise-finally
+'use strict';
+var $export = require('./_export');
+var core = require('./_core');
+var global = require('./_global');
+var speciesConstructor = require('./_species-constructor');
+var promiseResolve = require('./_promise-resolve');
+
+$export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
+  var C = speciesConstructor(this, core.Promise || global.Promise);
+  var isFunction = typeof onFinally == 'function';
+  return this.then(
+    isFunction ? function (x) {
+      return promiseResolve(C, onFinally()).then(function () { return x; });
+    } : onFinally,
+    isFunction ? function (e) {
+      return promiseResolve(C, onFinally()).then(function () { throw e; });
+    } : onFinally
+  );
+} });
+
+},{"./_core":33,"./_export":40,"./_global":43,"./_promise-resolve":76,"./_species-constructor":85}],111:[function(require,module,exports){
+'use strict';
+// https://github.com/tc39/proposal-promise-try
+var $export = require('./_export');
+var newPromiseCapability = require('./_new-promise-capability');
+var perform = require('./_perform');
+
+$export($export.S, 'Promise', { 'try': function (callbackfn) {
+  var promiseCapability = newPromiseCapability.f(this);
+  var result = perform(callbackfn);
+  (result.e ? promiseCapability.reject : promiseCapability.resolve)(result.v);
+  return promiseCapability.promise;
+} });
+
+},{"./_export":40,"./_new-promise-capability":62,"./_perform":75}],112:[function(require,module,exports){
+require('./_wks-define')('asyncIterator');
+
+},{"./_wks-define":96}],113:[function(require,module,exports){
+require('./_wks-define')('observable');
+
+},{"./_wks-define":96}],114:[function(require,module,exports){
+require('./es6.array.iterator');
+var global = require('./_global');
+var hide = require('./_hide');
+var Iterators = require('./_iterators');
+var TO_STRING_TAG = require('./_wks')('toStringTag');
+
+var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
+  'DOMTokenList,DataTransferItemList,FileList,HTMLAllCollection,HTMLCollection,HTMLFormElement,HTMLSelectElement,' +
+  'MediaList,MimeTypeArray,NamedNodeMap,NodeList,PaintRequestList,Plugin,PluginArray,SVGLengthList,SVGNumberList,' +
+  'SVGPathSegList,SVGPointList,SVGStringList,SVGTransformList,SourceBufferList,StyleSheetList,TextTrackCueList,' +
+  'TextTrackList,TouchList').split(',');
+
+for (var i = 0; i < DOMIterables.length; i++) {
+  var NAME = DOMIterables[i];
+  var Collection = global[NAME];
+  var proto = Collection && Collection.prototype;
+  if (proto && !proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
+  Iterators[NAME] = Iterators.Array;
+}
+
+},{"./_global":43,"./_hide":45,"./_iterators":58,"./_wks":98,"./es6.array.iterator":100}],115:[function(require,module,exports){
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -714,7 +2778,7 @@ if (hadRuntime) {
   }
 }
 
-},{"./runtime":18}],18:[function(require,module,exports){
+},{"./runtime":116}],116:[function(require,module,exports){
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -1443,1889 +3507,7 @@ if (hadRuntime) {
   (function() { return this })() || Function("return this")()
 );
 
-},{}],19:[function(require,module,exports){
-module.exports = require("regenerator-runtime");
-
-},{"regenerator-runtime":17}],20:[function(require,module,exports){
-require('../../modules/es6.object.create');
-var $Object = require('../../modules/_core').Object;
-module.exports = function create(P, D) {
-  return $Object.create(P, D);
-};
-
-},{"../../modules/_core":35,"../../modules/es6.object.create":103}],21:[function(require,module,exports){
-require('../../modules/es6.object.define-property');
-var $Object = require('../../modules/_core').Object;
-module.exports = function defineProperty(it, key, desc) {
-  return $Object.defineProperty(it, key, desc);
-};
-
-},{"../../modules/_core":35,"../../modules/es6.object.define-property":104}],22:[function(require,module,exports){
-require('../../modules/es6.object.get-own-property-descriptor');
-var $Object = require('../../modules/_core').Object;
-module.exports = function getOwnPropertyDescriptor(it, key) {
-  return $Object.getOwnPropertyDescriptor(it, key);
-};
-
-},{"../../modules/_core":35,"../../modules/es6.object.get-own-property-descriptor":105}],23:[function(require,module,exports){
-require('../../modules/es6.object.get-prototype-of');
-module.exports = require('../../modules/_core').Object.getPrototypeOf;
-
-},{"../../modules/_core":35,"../../modules/es6.object.get-prototype-of":106}],24:[function(require,module,exports){
-require('../../modules/es6.object.set-prototype-of');
-module.exports = require('../../modules/_core').Object.setPrototypeOf;
-
-},{"../../modules/_core":35,"../../modules/es6.object.set-prototype-of":107}],25:[function(require,module,exports){
-require('../modules/es6.object.to-string');
-require('../modules/es6.string.iterator');
-require('../modules/web.dom.iterable');
-require('../modules/es6.promise');
-require('../modules/es7.promise.finally');
-require('../modules/es7.promise.try');
-module.exports = require('../modules/_core').Promise;
-
-},{"../modules/_core":35,"../modules/es6.object.to-string":108,"../modules/es6.promise":109,"../modules/es6.string.iterator":110,"../modules/es7.promise.finally":112,"../modules/es7.promise.try":113,"../modules/web.dom.iterable":116}],26:[function(require,module,exports){
-require('../../modules/es6.symbol');
-require('../../modules/es6.object.to-string');
-require('../../modules/es7.symbol.async-iterator');
-require('../../modules/es7.symbol.observable');
-module.exports = require('../../modules/_core').Symbol;
-
-},{"../../modules/_core":35,"../../modules/es6.object.to-string":108,"../../modules/es6.symbol":111,"../../modules/es7.symbol.async-iterator":114,"../../modules/es7.symbol.observable":115}],27:[function(require,module,exports){
-require('../../modules/es6.string.iterator');
-require('../../modules/web.dom.iterable');
-module.exports = require('../../modules/_wks-ext').f('iterator');
-
-},{"../../modules/_wks-ext":99,"../../modules/es6.string.iterator":110,"../../modules/web.dom.iterable":116}],28:[function(require,module,exports){
-module.exports = function (it) {
-  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
-  return it;
-};
-
-},{}],29:[function(require,module,exports){
-module.exports = function () { /* empty */ };
-
-},{}],30:[function(require,module,exports){
-module.exports = function (it, Constructor, name, forbiddenField) {
-  if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
-    throw TypeError(name + ': incorrect invocation!');
-  } return it;
-};
-
-},{}],31:[function(require,module,exports){
-var isObject = require('./_is-object');
-module.exports = function (it) {
-  if (!isObject(it)) throw TypeError(it + ' is not an object!');
-  return it;
-};
-
-},{"./_is-object":54}],32:[function(require,module,exports){
-// false -> Array#indexOf
-// true  -> Array#includes
-var toIObject = require('./_to-iobject');
-var toLength = require('./_to-length');
-var toAbsoluteIndex = require('./_to-absolute-index');
-module.exports = function (IS_INCLUDES) {
-  return function ($this, el, fromIndex) {
-    var O = toIObject($this);
-    var length = toLength(O.length);
-    var index = toAbsoluteIndex(fromIndex, length);
-    var value;
-    // Array#includes uses SameValueZero equality algorithm
-    // eslint-disable-next-line no-self-compare
-    if (IS_INCLUDES && el != el) while (length > index) {
-      value = O[index++];
-      // eslint-disable-next-line no-self-compare
-      if (value != value) return true;
-    // Array#indexOf ignores holes, Array#includes - not
-    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
-      if (O[index] === el) return IS_INCLUDES || index || 0;
-    } return !IS_INCLUDES && -1;
-  };
-};
-
-},{"./_to-absolute-index":90,"./_to-iobject":92,"./_to-length":93}],33:[function(require,module,exports){
-// getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = require('./_cof');
-var TAG = require('./_wks')('toStringTag');
-// ES3 wrong here
-var ARG = cof(function () { return arguments; }()) == 'Arguments';
-
-// fallback for IE11 Script Access Denied error
-var tryGet = function (it, key) {
-  try {
-    return it[key];
-  } catch (e) { /* empty */ }
-};
-
-module.exports = function (it) {
-  var O, T, B;
-  return it === undefined ? 'Undefined' : it === null ? 'Null'
-    // @@toStringTag case
-    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-    // builtinTag case
-    : ARG ? cof(O)
-    // ES3 arguments fallback
-    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-};
-
-},{"./_cof":34,"./_wks":100}],34:[function(require,module,exports){
-var toString = {}.toString;
-
-module.exports = function (it) {
-  return toString.call(it).slice(8, -1);
-};
-
-},{}],35:[function(require,module,exports){
-var core = module.exports = { version: '2.6.12' };
-if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-},{}],36:[function(require,module,exports){
-// optional / simple context binding
-var aFunction = require('./_a-function');
-module.exports = function (fn, that, length) {
-  aFunction(fn);
-  if (that === undefined) return fn;
-  switch (length) {
-    case 1: return function (a) {
-      return fn.call(that, a);
-    };
-    case 2: return function (a, b) {
-      return fn.call(that, a, b);
-    };
-    case 3: return function (a, b, c) {
-      return fn.call(that, a, b, c);
-    };
-  }
-  return function (/* ...args */) {
-    return fn.apply(that, arguments);
-  };
-};
-
-},{"./_a-function":28}],37:[function(require,module,exports){
-// 7.2.1 RequireObjectCoercible(argument)
-module.exports = function (it) {
-  if (it == undefined) throw TypeError("Can't call method on  " + it);
-  return it;
-};
-
-},{}],38:[function(require,module,exports){
-// Thank's IE8 for his funny defineProperty
-module.exports = !require('./_fails')(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
-
-},{"./_fails":43}],39:[function(require,module,exports){
-var isObject = require('./_is-object');
-var document = require('./_global').document;
-// typeof document.createElement is 'object' in old IE
-var is = isObject(document) && isObject(document.createElement);
-module.exports = function (it) {
-  return is ? document.createElement(it) : {};
-};
-
-},{"./_global":45,"./_is-object":54}],40:[function(require,module,exports){
-// IE 8- don't enum bug keys
-module.exports = (
-  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
-).split(',');
-
-},{}],41:[function(require,module,exports){
-// all enumerable object keys, includes symbols
-var getKeys = require('./_object-keys');
-var gOPS = require('./_object-gops');
-var pIE = require('./_object-pie');
-module.exports = function (it) {
-  var result = getKeys(it);
-  var getSymbols = gOPS.f;
-  if (getSymbols) {
-    var symbols = getSymbols(it);
-    var isEnum = pIE.f;
-    var i = 0;
-    var key;
-    while (symbols.length > i) if (isEnum.call(it, key = symbols[i++])) result.push(key);
-  } return result;
-};
-
-},{"./_object-gops":71,"./_object-keys":74,"./_object-pie":75}],42:[function(require,module,exports){
-var global = require('./_global');
-var core = require('./_core');
-var ctx = require('./_ctx');
-var hide = require('./_hide');
-var has = require('./_has');
-var PROTOTYPE = 'prototype';
-
-var $export = function (type, name, source) {
-  var IS_FORCED = type & $export.F;
-  var IS_GLOBAL = type & $export.G;
-  var IS_STATIC = type & $export.S;
-  var IS_PROTO = type & $export.P;
-  var IS_BIND = type & $export.B;
-  var IS_WRAP = type & $export.W;
-  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
-  var expProto = exports[PROTOTYPE];
-  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
-  var key, own, out;
-  if (IS_GLOBAL) source = name;
-  for (key in source) {
-    // contains in native
-    own = !IS_FORCED && target && target[key] !== undefined;
-    if (own && has(exports, key)) continue;
-    // export native or passed
-    out = own ? target[key] : source[key];
-    // prevent global pollution for namespaces
-    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
-    // bind timers to global for call from export context
-    : IS_BIND && own ? ctx(out, global)
-    // wrap global constructors for prevent change them in library
-    : IS_WRAP && target[key] == out ? (function (C) {
-      var F = function (a, b, c) {
-        if (this instanceof C) {
-          switch (arguments.length) {
-            case 0: return new C();
-            case 1: return new C(a);
-            case 2: return new C(a, b);
-          } return new C(a, b, c);
-        } return C.apply(this, arguments);
-      };
-      F[PROTOTYPE] = C[PROTOTYPE];
-      return F;
-    // make static versions for prototype methods
-    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
-    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
-    if (IS_PROTO) {
-      (exports.virtual || (exports.virtual = {}))[key] = out;
-      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
-      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
-    }
-  }
-};
-// type bitmap
-$export.F = 1;   // forced
-$export.G = 2;   // global
-$export.S = 4;   // static
-$export.P = 8;   // proto
-$export.B = 16;  // bind
-$export.W = 32;  // wrap
-$export.U = 64;  // safe
-$export.R = 128; // real proto method for `library`
-module.exports = $export;
-
-},{"./_core":35,"./_ctx":36,"./_global":45,"./_has":46,"./_hide":47}],43:[function(require,module,exports){
-module.exports = function (exec) {
-  try {
-    return !!exec();
-  } catch (e) {
-    return true;
-  }
-};
-
-},{}],44:[function(require,module,exports){
-var ctx = require('./_ctx');
-var call = require('./_iter-call');
-var isArrayIter = require('./_is-array-iter');
-var anObject = require('./_an-object');
-var toLength = require('./_to-length');
-var getIterFn = require('./core.get-iterator-method');
-var BREAK = {};
-var RETURN = {};
-var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
-  var iterFn = ITERATOR ? function () { return iterable; } : getIterFn(iterable);
-  var f = ctx(fn, that, entries ? 2 : 1);
-  var index = 0;
-  var length, step, iterator, result;
-  if (typeof iterFn != 'function') throw TypeError(iterable + ' is not iterable!');
-  // fast case for arrays with default iterator
-  if (isArrayIter(iterFn)) for (length = toLength(iterable.length); length > index; index++) {
-    result = entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
-    if (result === BREAK || result === RETURN) return result;
-  } else for (iterator = iterFn.call(iterable); !(step = iterator.next()).done;) {
-    result = call(iterator, f, step.value, entries);
-    if (result === BREAK || result === RETURN) return result;
-  }
-};
-exports.BREAK = BREAK;
-exports.RETURN = RETURN;
-
-},{"./_an-object":31,"./_ctx":36,"./_is-array-iter":52,"./_iter-call":55,"./_to-length":93,"./core.get-iterator-method":101}],45:[function(require,module,exports){
-// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-var global = module.exports = typeof window != 'undefined' && window.Math == Math
-  ? window : typeof self != 'undefined' && self.Math == Math ? self
-  // eslint-disable-next-line no-new-func
-  : Function('return this')();
-if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
-
-},{}],46:[function(require,module,exports){
-var hasOwnProperty = {}.hasOwnProperty;
-module.exports = function (it, key) {
-  return hasOwnProperty.call(it, key);
-};
-
-},{}],47:[function(require,module,exports){
-var dP = require('./_object-dp');
-var createDesc = require('./_property-desc');
-module.exports = require('./_descriptors') ? function (object, key, value) {
-  return dP.f(object, key, createDesc(1, value));
-} : function (object, key, value) {
-  object[key] = value;
-  return object;
-};
-
-},{"./_descriptors":38,"./_object-dp":66,"./_property-desc":79}],48:[function(require,module,exports){
-var document = require('./_global').document;
-module.exports = document && document.documentElement;
-
-},{"./_global":45}],49:[function(require,module,exports){
-module.exports = !require('./_descriptors') && !require('./_fails')(function () {
-  return Object.defineProperty(require('./_dom-create')('div'), 'a', { get: function () { return 7; } }).a != 7;
-});
-
-},{"./_descriptors":38,"./_dom-create":39,"./_fails":43}],50:[function(require,module,exports){
-// fast apply, http://jsperf.lnkit.com/fast-apply/5
-module.exports = function (fn, args, that) {
-  var un = that === undefined;
-  switch (args.length) {
-    case 0: return un ? fn()
-                      : fn.call(that);
-    case 1: return un ? fn(args[0])
-                      : fn.call(that, args[0]);
-    case 2: return un ? fn(args[0], args[1])
-                      : fn.call(that, args[0], args[1]);
-    case 3: return un ? fn(args[0], args[1], args[2])
-                      : fn.call(that, args[0], args[1], args[2]);
-    case 4: return un ? fn(args[0], args[1], args[2], args[3])
-                      : fn.call(that, args[0], args[1], args[2], args[3]);
-  } return fn.apply(that, args);
-};
-
-},{}],51:[function(require,module,exports){
-// fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = require('./_cof');
-// eslint-disable-next-line no-prototype-builtins
-module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
-  return cof(it) == 'String' ? it.split('') : Object(it);
-};
-
-},{"./_cof":34}],52:[function(require,module,exports){
-// check on default Array iterator
-var Iterators = require('./_iterators');
-var ITERATOR = require('./_wks')('iterator');
-var ArrayProto = Array.prototype;
-
-module.exports = function (it) {
-  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
-};
-
-},{"./_iterators":60,"./_wks":100}],53:[function(require,module,exports){
-// 7.2.2 IsArray(argument)
-var cof = require('./_cof');
-module.exports = Array.isArray || function isArray(arg) {
-  return cof(arg) == 'Array';
-};
-
-},{"./_cof":34}],54:[function(require,module,exports){
-module.exports = function (it) {
-  return typeof it === 'object' ? it !== null : typeof it === 'function';
-};
-
-},{}],55:[function(require,module,exports){
-// call something on iterator step with safe closing on error
-var anObject = require('./_an-object');
-module.exports = function (iterator, fn, value, entries) {
-  try {
-    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
-  // 7.4.6 IteratorClose(iterator, completion)
-  } catch (e) {
-    var ret = iterator['return'];
-    if (ret !== undefined) anObject(ret.call(iterator));
-    throw e;
-  }
-};
-
-},{"./_an-object":31}],56:[function(require,module,exports){
-'use strict';
-var create = require('./_object-create');
-var descriptor = require('./_property-desc');
-var setToStringTag = require('./_set-to-string-tag');
-var IteratorPrototype = {};
-
-// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-require('./_hide')(IteratorPrototype, require('./_wks')('iterator'), function () { return this; });
-
-module.exports = function (Constructor, NAME, next) {
-  Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
-  setToStringTag(Constructor, NAME + ' Iterator');
-};
-
-},{"./_hide":47,"./_object-create":65,"./_property-desc":79,"./_set-to-string-tag":84,"./_wks":100}],57:[function(require,module,exports){
-'use strict';
-var LIBRARY = require('./_library');
-var $export = require('./_export');
-var redefine = require('./_redefine');
-var hide = require('./_hide');
-var Iterators = require('./_iterators');
-var $iterCreate = require('./_iter-create');
-var setToStringTag = require('./_set-to-string-tag');
-var getPrototypeOf = require('./_object-gpo');
-var ITERATOR = require('./_wks')('iterator');
-var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
-var FF_ITERATOR = '@@iterator';
-var KEYS = 'keys';
-var VALUES = 'values';
-
-var returnThis = function () { return this; };
-
-module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
-  $iterCreate(Constructor, NAME, next);
-  var getMethod = function (kind) {
-    if (!BUGGY && kind in proto) return proto[kind];
-    switch (kind) {
-      case KEYS: return function keys() { return new Constructor(this, kind); };
-      case VALUES: return function values() { return new Constructor(this, kind); };
-    } return function entries() { return new Constructor(this, kind); };
-  };
-  var TAG = NAME + ' Iterator';
-  var DEF_VALUES = DEFAULT == VALUES;
-  var VALUES_BUG = false;
-  var proto = Base.prototype;
-  var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
-  var $default = $native || getMethod(DEFAULT);
-  var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
-  var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
-  var methods, key, IteratorPrototype;
-  // Fix native
-  if ($anyNative) {
-    IteratorPrototype = getPrototypeOf($anyNative.call(new Base()));
-    if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
-      // Set @@toStringTag to native iterators
-      setToStringTag(IteratorPrototype, TAG, true);
-      // fix for some old engines
-      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
-    }
-  }
-  // fix Array#{values, @@iterator}.name in V8 / FF
-  if (DEF_VALUES && $native && $native.name !== VALUES) {
-    VALUES_BUG = true;
-    $default = function values() { return $native.call(this); };
-  }
-  // Define iterator
-  if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
-    hide(proto, ITERATOR, $default);
-  }
-  // Plug for library
-  Iterators[NAME] = $default;
-  Iterators[TAG] = returnThis;
-  if (DEFAULT) {
-    methods = {
-      values: DEF_VALUES ? $default : getMethod(VALUES),
-      keys: IS_SET ? $default : getMethod(KEYS),
-      entries: $entries
-    };
-    if (FORCED) for (key in methods) {
-      if (!(key in proto)) redefine(proto, key, methods[key]);
-    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
-  }
-  return methods;
-};
-
-},{"./_export":42,"./_hide":47,"./_iter-create":56,"./_iterators":60,"./_library":61,"./_object-gpo":72,"./_redefine":81,"./_set-to-string-tag":84,"./_wks":100}],58:[function(require,module,exports){
-var ITERATOR = require('./_wks')('iterator');
-var SAFE_CLOSING = false;
-
-try {
-  var riter = [7][ITERATOR]();
-  riter['return'] = function () { SAFE_CLOSING = true; };
-  // eslint-disable-next-line no-throw-literal
-  Array.from(riter, function () { throw 2; });
-} catch (e) { /* empty */ }
-
-module.exports = function (exec, skipClosing) {
-  if (!skipClosing && !SAFE_CLOSING) return false;
-  var safe = false;
-  try {
-    var arr = [7];
-    var iter = arr[ITERATOR]();
-    iter.next = function () { return { done: safe = true }; };
-    arr[ITERATOR] = function () { return iter; };
-    exec(arr);
-  } catch (e) { /* empty */ }
-  return safe;
-};
-
-},{"./_wks":100}],59:[function(require,module,exports){
-module.exports = function (done, value) {
-  return { value: value, done: !!done };
-};
-
-},{}],60:[function(require,module,exports){
-module.exports = {};
-
-},{}],61:[function(require,module,exports){
-module.exports = true;
-
-},{}],62:[function(require,module,exports){
-var META = require('./_uid')('meta');
-var isObject = require('./_is-object');
-var has = require('./_has');
-var setDesc = require('./_object-dp').f;
-var id = 0;
-var isExtensible = Object.isExtensible || function () {
-  return true;
-};
-var FREEZE = !require('./_fails')(function () {
-  return isExtensible(Object.preventExtensions({}));
-});
-var setMeta = function (it) {
-  setDesc(it, META, { value: {
-    i: 'O' + ++id, // object ID
-    w: {}          // weak collections IDs
-  } });
-};
-var fastKey = function (it, create) {
-  // return primitive with prefix
-  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return 'F';
-    // not necessary to add metadata
-    if (!create) return 'E';
-    // add missing metadata
-    setMeta(it);
-  // return object ID
-  } return it[META].i;
-};
-var getWeak = function (it, create) {
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return true;
-    // not necessary to add metadata
-    if (!create) return false;
-    // add missing metadata
-    setMeta(it);
-  // return hash weak collections IDs
-  } return it[META].w;
-};
-// add metadata on freeze-family methods calling
-var onFreeze = function (it) {
-  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
-  return it;
-};
-var meta = module.exports = {
-  KEY: META,
-  NEED: false,
-  fastKey: fastKey,
-  getWeak: getWeak,
-  onFreeze: onFreeze
-};
-
-},{"./_fails":43,"./_has":46,"./_is-object":54,"./_object-dp":66,"./_uid":96}],63:[function(require,module,exports){
-var global = require('./_global');
-var macrotask = require('./_task').set;
-var Observer = global.MutationObserver || global.WebKitMutationObserver;
-var process = global.process;
-var Promise = global.Promise;
-var isNode = require('./_cof')(process) == 'process';
-
-module.exports = function () {
-  var head, last, notify;
-
-  var flush = function () {
-    var parent, fn;
-    if (isNode && (parent = process.domain)) parent.exit();
-    while (head) {
-      fn = head.fn;
-      head = head.next;
-      try {
-        fn();
-      } catch (e) {
-        if (head) notify();
-        else last = undefined;
-        throw e;
-      }
-    } last = undefined;
-    if (parent) parent.enter();
-  };
-
-  // Node.js
-  if (isNode) {
-    notify = function () {
-      process.nextTick(flush);
-    };
-  // browsers with MutationObserver, except iOS Safari - https://github.com/zloirock/core-js/issues/339
-  } else if (Observer && !(global.navigator && global.navigator.standalone)) {
-    var toggle = true;
-    var node = document.createTextNode('');
-    new Observer(flush).observe(node, { characterData: true }); // eslint-disable-line no-new
-    notify = function () {
-      node.data = toggle = !toggle;
-    };
-  // environments with maybe non-completely correct, but existent Promise
-  } else if (Promise && Promise.resolve) {
-    // Promise.resolve without an argument throws an error in LG WebOS 2
-    var promise = Promise.resolve(undefined);
-    notify = function () {
-      promise.then(flush);
-    };
-  // for other environments - macrotask based on:
-  // - setImmediate
-  // - MessageChannel
-  // - window.postMessag
-  // - onreadystatechange
-  // - setTimeout
-  } else {
-    notify = function () {
-      // strange IE + webpack dev server bug - use .call(global)
-      macrotask.call(global, flush);
-    };
-  }
-
-  return function (fn) {
-    var task = { fn: fn, next: undefined };
-    if (last) last.next = task;
-    if (!head) {
-      head = task;
-      notify();
-    } last = task;
-  };
-};
-
-},{"./_cof":34,"./_global":45,"./_task":89}],64:[function(require,module,exports){
-'use strict';
-// 25.4.1.5 NewPromiseCapability(C)
-var aFunction = require('./_a-function');
-
-function PromiseCapability(C) {
-  var resolve, reject;
-  this.promise = new C(function ($$resolve, $$reject) {
-    if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');
-    resolve = $$resolve;
-    reject = $$reject;
-  });
-  this.resolve = aFunction(resolve);
-  this.reject = aFunction(reject);
-}
-
-module.exports.f = function (C) {
-  return new PromiseCapability(C);
-};
-
-},{"./_a-function":28}],65:[function(require,module,exports){
-// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = require('./_an-object');
-var dPs = require('./_object-dps');
-var enumBugKeys = require('./_enum-bug-keys');
-var IE_PROTO = require('./_shared-key')('IE_PROTO');
-var Empty = function () { /* empty */ };
-var PROTOTYPE = 'prototype';
-
-// Create object with fake `null` prototype: use iframe Object with cleared prototype
-var createDict = function () {
-  // Thrash, waste and sodomy: IE GC bug
-  var iframe = require('./_dom-create')('iframe');
-  var i = enumBugKeys.length;
-  var lt = '<';
-  var gt = '>';
-  var iframeDocument;
-  iframe.style.display = 'none';
-  require('./_html').appendChild(iframe);
-  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
-  // createDict = iframe.contentWindow.Object;
-  // html.removeChild(iframe);
-  iframeDocument = iframe.contentWindow.document;
-  iframeDocument.open();
-  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
-  iframeDocument.close();
-  createDict = iframeDocument.F;
-  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
-  return createDict();
-};
-
-module.exports = Object.create || function create(O, Properties) {
-  var result;
-  if (O !== null) {
-    Empty[PROTOTYPE] = anObject(O);
-    result = new Empty();
-    Empty[PROTOTYPE] = null;
-    // add "__proto__" for Object.getPrototypeOf polyfill
-    result[IE_PROTO] = O;
-  } else result = createDict();
-  return Properties === undefined ? result : dPs(result, Properties);
-};
-
-},{"./_an-object":31,"./_dom-create":39,"./_enum-bug-keys":40,"./_html":48,"./_object-dps":67,"./_shared-key":85}],66:[function(require,module,exports){
-var anObject = require('./_an-object');
-var IE8_DOM_DEFINE = require('./_ie8-dom-define');
-var toPrimitive = require('./_to-primitive');
-var dP = Object.defineProperty;
-
-exports.f = require('./_descriptors') ? Object.defineProperty : function defineProperty(O, P, Attributes) {
-  anObject(O);
-  P = toPrimitive(P, true);
-  anObject(Attributes);
-  if (IE8_DOM_DEFINE) try {
-    return dP(O, P, Attributes);
-  } catch (e) { /* empty */ }
-  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
-  if ('value' in Attributes) O[P] = Attributes.value;
-  return O;
-};
-
-},{"./_an-object":31,"./_descriptors":38,"./_ie8-dom-define":49,"./_to-primitive":95}],67:[function(require,module,exports){
-var dP = require('./_object-dp');
-var anObject = require('./_an-object');
-var getKeys = require('./_object-keys');
-
-module.exports = require('./_descriptors') ? Object.defineProperties : function defineProperties(O, Properties) {
-  anObject(O);
-  var keys = getKeys(Properties);
-  var length = keys.length;
-  var i = 0;
-  var P;
-  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
-  return O;
-};
-
-},{"./_an-object":31,"./_descriptors":38,"./_object-dp":66,"./_object-keys":74}],68:[function(require,module,exports){
-var pIE = require('./_object-pie');
-var createDesc = require('./_property-desc');
-var toIObject = require('./_to-iobject');
-var toPrimitive = require('./_to-primitive');
-var has = require('./_has');
-var IE8_DOM_DEFINE = require('./_ie8-dom-define');
-var gOPD = Object.getOwnPropertyDescriptor;
-
-exports.f = require('./_descriptors') ? gOPD : function getOwnPropertyDescriptor(O, P) {
-  O = toIObject(O);
-  P = toPrimitive(P, true);
-  if (IE8_DOM_DEFINE) try {
-    return gOPD(O, P);
-  } catch (e) { /* empty */ }
-  if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
-};
-
-},{"./_descriptors":38,"./_has":46,"./_ie8-dom-define":49,"./_object-pie":75,"./_property-desc":79,"./_to-iobject":92,"./_to-primitive":95}],69:[function(require,module,exports){
-// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-var toIObject = require('./_to-iobject');
-var gOPN = require('./_object-gopn').f;
-var toString = {}.toString;
-
-var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
-  ? Object.getOwnPropertyNames(window) : [];
-
-var getWindowNames = function (it) {
-  try {
-    return gOPN(it);
-  } catch (e) {
-    return windowNames.slice();
-  }
-};
-
-module.exports.f = function getOwnPropertyNames(it) {
-  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
-};
-
-},{"./_object-gopn":70,"./_to-iobject":92}],70:[function(require,module,exports){
-// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-var $keys = require('./_object-keys-internal');
-var hiddenKeys = require('./_enum-bug-keys').concat('length', 'prototype');
-
-exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
-  return $keys(O, hiddenKeys);
-};
-
-},{"./_enum-bug-keys":40,"./_object-keys-internal":73}],71:[function(require,module,exports){
-exports.f = Object.getOwnPropertySymbols;
-
-},{}],72:[function(require,module,exports){
-// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = require('./_has');
-var toObject = require('./_to-object');
-var IE_PROTO = require('./_shared-key')('IE_PROTO');
-var ObjectProto = Object.prototype;
-
-module.exports = Object.getPrototypeOf || function (O) {
-  O = toObject(O);
-  if (has(O, IE_PROTO)) return O[IE_PROTO];
-  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
-    return O.constructor.prototype;
-  } return O instanceof Object ? ObjectProto : null;
-};
-
-},{"./_has":46,"./_shared-key":85,"./_to-object":94}],73:[function(require,module,exports){
-var has = require('./_has');
-var toIObject = require('./_to-iobject');
-var arrayIndexOf = require('./_array-includes')(false);
-var IE_PROTO = require('./_shared-key')('IE_PROTO');
-
-module.exports = function (object, names) {
-  var O = toIObject(object);
-  var i = 0;
-  var result = [];
-  var key;
-  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
-  // Don't enum bug & hidden keys
-  while (names.length > i) if (has(O, key = names[i++])) {
-    ~arrayIndexOf(result, key) || result.push(key);
-  }
-  return result;
-};
-
-},{"./_array-includes":32,"./_has":46,"./_shared-key":85,"./_to-iobject":92}],74:[function(require,module,exports){
-// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = require('./_object-keys-internal');
-var enumBugKeys = require('./_enum-bug-keys');
-
-module.exports = Object.keys || function keys(O) {
-  return $keys(O, enumBugKeys);
-};
-
-},{"./_enum-bug-keys":40,"./_object-keys-internal":73}],75:[function(require,module,exports){
-exports.f = {}.propertyIsEnumerable;
-
-},{}],76:[function(require,module,exports){
-// most Object methods by ES6 should accept primitives
-var $export = require('./_export');
-var core = require('./_core');
-var fails = require('./_fails');
-module.exports = function (KEY, exec) {
-  var fn = (core.Object || {})[KEY] || Object[KEY];
-  var exp = {};
-  exp[KEY] = exec(fn);
-  $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
-};
-
-},{"./_core":35,"./_export":42,"./_fails":43}],77:[function(require,module,exports){
-module.exports = function (exec) {
-  try {
-    return { e: false, v: exec() };
-  } catch (e) {
-    return { e: true, v: e };
-  }
-};
-
-},{}],78:[function(require,module,exports){
-var anObject = require('./_an-object');
-var isObject = require('./_is-object');
-var newPromiseCapability = require('./_new-promise-capability');
-
-module.exports = function (C, x) {
-  anObject(C);
-  if (isObject(x) && x.constructor === C) return x;
-  var promiseCapability = newPromiseCapability.f(C);
-  var resolve = promiseCapability.resolve;
-  resolve(x);
-  return promiseCapability.promise;
-};
-
-},{"./_an-object":31,"./_is-object":54,"./_new-promise-capability":64}],79:[function(require,module,exports){
-module.exports = function (bitmap, value) {
-  return {
-    enumerable: !(bitmap & 1),
-    configurable: !(bitmap & 2),
-    writable: !(bitmap & 4),
-    value: value
-  };
-};
-
-},{}],80:[function(require,module,exports){
-var hide = require('./_hide');
-module.exports = function (target, src, safe) {
-  for (var key in src) {
-    if (safe && target[key]) target[key] = src[key];
-    else hide(target, key, src[key]);
-  } return target;
-};
-
-},{"./_hide":47}],81:[function(require,module,exports){
-module.exports = require('./_hide');
-
-},{"./_hide":47}],82:[function(require,module,exports){
-// Works with __proto__ only. Old v8 can't work with null proto objects.
-/* eslint-disable no-proto */
-var isObject = require('./_is-object');
-var anObject = require('./_an-object');
-var check = function (O, proto) {
-  anObject(O);
-  if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
-};
-module.exports = {
-  set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
-    function (test, buggy, set) {
-      try {
-        set = require('./_ctx')(Function.call, require('./_object-gopd').f(Object.prototype, '__proto__').set, 2);
-        set(test, []);
-        buggy = !(test instanceof Array);
-      } catch (e) { buggy = true; }
-      return function setPrototypeOf(O, proto) {
-        check(O, proto);
-        if (buggy) O.__proto__ = proto;
-        else set(O, proto);
-        return O;
-      };
-    }({}, false) : undefined),
-  check: check
-};
-
-},{"./_an-object":31,"./_ctx":36,"./_is-object":54,"./_object-gopd":68}],83:[function(require,module,exports){
-'use strict';
-var global = require('./_global');
-var core = require('./_core');
-var dP = require('./_object-dp');
-var DESCRIPTORS = require('./_descriptors');
-var SPECIES = require('./_wks')('species');
-
-module.exports = function (KEY) {
-  var C = typeof core[KEY] == 'function' ? core[KEY] : global[KEY];
-  if (DESCRIPTORS && C && !C[SPECIES]) dP.f(C, SPECIES, {
-    configurable: true,
-    get: function () { return this; }
-  });
-};
-
-},{"./_core":35,"./_descriptors":38,"./_global":45,"./_object-dp":66,"./_wks":100}],84:[function(require,module,exports){
-var def = require('./_object-dp').f;
-var has = require('./_has');
-var TAG = require('./_wks')('toStringTag');
-
-module.exports = function (it, tag, stat) {
-  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
-};
-
-},{"./_has":46,"./_object-dp":66,"./_wks":100}],85:[function(require,module,exports){
-var shared = require('./_shared')('keys');
-var uid = require('./_uid');
-module.exports = function (key) {
-  return shared[key] || (shared[key] = uid(key));
-};
-
-},{"./_shared":86,"./_uid":96}],86:[function(require,module,exports){
-var core = require('./_core');
-var global = require('./_global');
-var SHARED = '__core-js_shared__';
-var store = global[SHARED] || (global[SHARED] = {});
-
-(module.exports = function (key, value) {
-  return store[key] || (store[key] = value !== undefined ? value : {});
-})('versions', []).push({
-  version: core.version,
-  mode: require('./_library') ? 'pure' : 'global',
-  copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
-});
-
-},{"./_core":35,"./_global":45,"./_library":61}],87:[function(require,module,exports){
-// 7.3.20 SpeciesConstructor(O, defaultConstructor)
-var anObject = require('./_an-object');
-var aFunction = require('./_a-function');
-var SPECIES = require('./_wks')('species');
-module.exports = function (O, D) {
-  var C = anObject(O).constructor;
-  var S;
-  return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
-};
-
-},{"./_a-function":28,"./_an-object":31,"./_wks":100}],88:[function(require,module,exports){
-var toInteger = require('./_to-integer');
-var defined = require('./_defined');
-// true  -> String#at
-// false -> String#codePointAt
-module.exports = function (TO_STRING) {
-  return function (that, pos) {
-    var s = String(defined(that));
-    var i = toInteger(pos);
-    var l = s.length;
-    var a, b;
-    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
-    a = s.charCodeAt(i);
-    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
-      ? TO_STRING ? s.charAt(i) : a
-      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
-  };
-};
-
-},{"./_defined":37,"./_to-integer":91}],89:[function(require,module,exports){
-var ctx = require('./_ctx');
-var invoke = require('./_invoke');
-var html = require('./_html');
-var cel = require('./_dom-create');
-var global = require('./_global');
-var process = global.process;
-var setTask = global.setImmediate;
-var clearTask = global.clearImmediate;
-var MessageChannel = global.MessageChannel;
-var Dispatch = global.Dispatch;
-var counter = 0;
-var queue = {};
-var ONREADYSTATECHANGE = 'onreadystatechange';
-var defer, channel, port;
-var run = function () {
-  var id = +this;
-  // eslint-disable-next-line no-prototype-builtins
-  if (queue.hasOwnProperty(id)) {
-    var fn = queue[id];
-    delete queue[id];
-    fn();
-  }
-};
-var listener = function (event) {
-  run.call(event.data);
-};
-// Node.js 0.9+ & IE10+ has setImmediate, otherwise:
-if (!setTask || !clearTask) {
-  setTask = function setImmediate(fn) {
-    var args = [];
-    var i = 1;
-    while (arguments.length > i) args.push(arguments[i++]);
-    queue[++counter] = function () {
-      // eslint-disable-next-line no-new-func
-      invoke(typeof fn == 'function' ? fn : Function(fn), args);
-    };
-    defer(counter);
-    return counter;
-  };
-  clearTask = function clearImmediate(id) {
-    delete queue[id];
-  };
-  // Node.js 0.8-
-  if (require('./_cof')(process) == 'process') {
-    defer = function (id) {
-      process.nextTick(ctx(run, id, 1));
-    };
-  // Sphere (JS game engine) Dispatch API
-  } else if (Dispatch && Dispatch.now) {
-    defer = function (id) {
-      Dispatch.now(ctx(run, id, 1));
-    };
-  // Browsers with MessageChannel, includes WebWorkers
-  } else if (MessageChannel) {
-    channel = new MessageChannel();
-    port = channel.port2;
-    channel.port1.onmessage = listener;
-    defer = ctx(port.postMessage, port, 1);
-  // Browsers with postMessage, skip WebWorkers
-  // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
-  } else if (global.addEventListener && typeof postMessage == 'function' && !global.importScripts) {
-    defer = function (id) {
-      global.postMessage(id + '', '*');
-    };
-    global.addEventListener('message', listener, false);
-  // IE8-
-  } else if (ONREADYSTATECHANGE in cel('script')) {
-    defer = function (id) {
-      html.appendChild(cel('script'))[ONREADYSTATECHANGE] = function () {
-        html.removeChild(this);
-        run.call(id);
-      };
-    };
-  // Rest old browsers
-  } else {
-    defer = function (id) {
-      setTimeout(ctx(run, id, 1), 0);
-    };
-  }
-}
-module.exports = {
-  set: setTask,
-  clear: clearTask
-};
-
-},{"./_cof":34,"./_ctx":36,"./_dom-create":39,"./_global":45,"./_html":48,"./_invoke":50}],90:[function(require,module,exports){
-var toInteger = require('./_to-integer');
-var max = Math.max;
-var min = Math.min;
-module.exports = function (index, length) {
-  index = toInteger(index);
-  return index < 0 ? max(index + length, 0) : min(index, length);
-};
-
-},{"./_to-integer":91}],91:[function(require,module,exports){
-// 7.1.4 ToInteger
-var ceil = Math.ceil;
-var floor = Math.floor;
-module.exports = function (it) {
-  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
-};
-
-},{}],92:[function(require,module,exports){
-// to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = require('./_iobject');
-var defined = require('./_defined');
-module.exports = function (it) {
-  return IObject(defined(it));
-};
-
-},{"./_defined":37,"./_iobject":51}],93:[function(require,module,exports){
-// 7.1.15 ToLength
-var toInteger = require('./_to-integer');
-var min = Math.min;
-module.exports = function (it) {
-  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
-};
-
-},{"./_to-integer":91}],94:[function(require,module,exports){
-// 7.1.13 ToObject(argument)
-var defined = require('./_defined');
-module.exports = function (it) {
-  return Object(defined(it));
-};
-
-},{"./_defined":37}],95:[function(require,module,exports){
-// 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = require('./_is-object');
-// instead of the ES6 spec version, we didn't implement @@toPrimitive case
-// and the second argument - flag - preferred type is a string
-module.exports = function (it, S) {
-  if (!isObject(it)) return it;
-  var fn, val;
-  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
-  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
-  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
-  throw TypeError("Can't convert object to primitive value");
-};
-
-},{"./_is-object":54}],96:[function(require,module,exports){
-var id = 0;
-var px = Math.random();
-module.exports = function (key) {
-  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-};
-
-},{}],97:[function(require,module,exports){
-var global = require('./_global');
-var navigator = global.navigator;
-
-module.exports = navigator && navigator.userAgent || '';
-
-},{"./_global":45}],98:[function(require,module,exports){
-var global = require('./_global');
-var core = require('./_core');
-var LIBRARY = require('./_library');
-var wksExt = require('./_wks-ext');
-var defineProperty = require('./_object-dp').f;
-module.exports = function (name) {
-  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
-  if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
-};
-
-},{"./_core":35,"./_global":45,"./_library":61,"./_object-dp":66,"./_wks-ext":99}],99:[function(require,module,exports){
-exports.f = require('./_wks');
-
-},{"./_wks":100}],100:[function(require,module,exports){
-var store = require('./_shared')('wks');
-var uid = require('./_uid');
-var Symbol = require('./_global').Symbol;
-var USE_SYMBOL = typeof Symbol == 'function';
-
-var $exports = module.exports = function (name) {
-  return store[name] || (store[name] =
-    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
-};
-
-$exports.store = store;
-
-},{"./_global":45,"./_shared":86,"./_uid":96}],101:[function(require,module,exports){
-var classof = require('./_classof');
-var ITERATOR = require('./_wks')('iterator');
-var Iterators = require('./_iterators');
-module.exports = require('./_core').getIteratorMethod = function (it) {
-  if (it != undefined) return it[ITERATOR]
-    || it['@@iterator']
-    || Iterators[classof(it)];
-};
-
-},{"./_classof":33,"./_core":35,"./_iterators":60,"./_wks":100}],102:[function(require,module,exports){
-'use strict';
-var addToUnscopables = require('./_add-to-unscopables');
-var step = require('./_iter-step');
-var Iterators = require('./_iterators');
-var toIObject = require('./_to-iobject');
-
-// 22.1.3.4 Array.prototype.entries()
-// 22.1.3.13 Array.prototype.keys()
-// 22.1.3.29 Array.prototype.values()
-// 22.1.3.30 Array.prototype[@@iterator]()
-module.exports = require('./_iter-define')(Array, 'Array', function (iterated, kind) {
-  this._t = toIObject(iterated); // target
-  this._i = 0;                   // next index
-  this._k = kind;                // kind
-// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
-}, function () {
-  var O = this._t;
-  var kind = this._k;
-  var index = this._i++;
-  if (!O || index >= O.length) {
-    this._t = undefined;
-    return step(1);
-  }
-  if (kind == 'keys') return step(0, index);
-  if (kind == 'values') return step(0, O[index]);
-  return step(0, [index, O[index]]);
-}, 'values');
-
-// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
-Iterators.Arguments = Iterators.Array;
-
-addToUnscopables('keys');
-addToUnscopables('values');
-addToUnscopables('entries');
-
-},{"./_add-to-unscopables":29,"./_iter-define":57,"./_iter-step":59,"./_iterators":60,"./_to-iobject":92}],103:[function(require,module,exports){
-var $export = require('./_export');
-// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-$export($export.S, 'Object', { create: require('./_object-create') });
-
-},{"./_export":42,"./_object-create":65}],104:[function(require,module,exports){
-var $export = require('./_export');
-// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !require('./_descriptors'), 'Object', { defineProperty: require('./_object-dp').f });
-
-},{"./_descriptors":38,"./_export":42,"./_object-dp":66}],105:[function(require,module,exports){
-// 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
-var toIObject = require('./_to-iobject');
-var $getOwnPropertyDescriptor = require('./_object-gopd').f;
-
-require('./_object-sap')('getOwnPropertyDescriptor', function () {
-  return function getOwnPropertyDescriptor(it, key) {
-    return $getOwnPropertyDescriptor(toIObject(it), key);
-  };
-});
-
-},{"./_object-gopd":68,"./_object-sap":76,"./_to-iobject":92}],106:[function(require,module,exports){
-// 19.1.2.9 Object.getPrototypeOf(O)
-var toObject = require('./_to-object');
-var $getPrototypeOf = require('./_object-gpo');
-
-require('./_object-sap')('getPrototypeOf', function () {
-  return function getPrototypeOf(it) {
-    return $getPrototypeOf(toObject(it));
-  };
-});
-
-},{"./_object-gpo":72,"./_object-sap":76,"./_to-object":94}],107:[function(require,module,exports){
-// 19.1.3.19 Object.setPrototypeOf(O, proto)
-var $export = require('./_export');
-$export($export.S, 'Object', { setPrototypeOf: require('./_set-proto').set });
-
-},{"./_export":42,"./_set-proto":82}],108:[function(require,module,exports){
-
-},{}],109:[function(require,module,exports){
-'use strict';
-var LIBRARY = require('./_library');
-var global = require('./_global');
-var ctx = require('./_ctx');
-var classof = require('./_classof');
-var $export = require('./_export');
-var isObject = require('./_is-object');
-var aFunction = require('./_a-function');
-var anInstance = require('./_an-instance');
-var forOf = require('./_for-of');
-var speciesConstructor = require('./_species-constructor');
-var task = require('./_task').set;
-var microtask = require('./_microtask')();
-var newPromiseCapabilityModule = require('./_new-promise-capability');
-var perform = require('./_perform');
-var userAgent = require('./_user-agent');
-var promiseResolve = require('./_promise-resolve');
-var PROMISE = 'Promise';
-var TypeError = global.TypeError;
-var process = global.process;
-var versions = process && process.versions;
-var v8 = versions && versions.v8 || '';
-var $Promise = global[PROMISE];
-var isNode = classof(process) == 'process';
-var empty = function () { /* empty */ };
-var Internal, newGenericPromiseCapability, OwnPromiseCapability, Wrapper;
-var newPromiseCapability = newGenericPromiseCapability = newPromiseCapabilityModule.f;
-
-var USE_NATIVE = !!function () {
-  try {
-    // correct subclassing with @@species support
-    var promise = $Promise.resolve(1);
-    var FakePromise = (promise.constructor = {})[require('./_wks')('species')] = function (exec) {
-      exec(empty, empty);
-    };
-    // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
-    return (isNode || typeof PromiseRejectionEvent == 'function')
-      && promise.then(empty) instanceof FakePromise
-      // v8 6.6 (Node 10 and Chrome 66) have a bug with resolving custom thenables
-      // https://bugs.chromium.org/p/chromium/issues/detail?id=830565
-      // we can't detect it synchronously, so just check versions
-      && v8.indexOf('6.6') !== 0
-      && userAgent.indexOf('Chrome/66') === -1;
-  } catch (e) { /* empty */ }
-}();
-
-// helpers
-var isThenable = function (it) {
-  var then;
-  return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
-};
-var notify = function (promise, isReject) {
-  if (promise._n) return;
-  promise._n = true;
-  var chain = promise._c;
-  microtask(function () {
-    var value = promise._v;
-    var ok = promise._s == 1;
-    var i = 0;
-    var run = function (reaction) {
-      var handler = ok ? reaction.ok : reaction.fail;
-      var resolve = reaction.resolve;
-      var reject = reaction.reject;
-      var domain = reaction.domain;
-      var result, then, exited;
-      try {
-        if (handler) {
-          if (!ok) {
-            if (promise._h == 2) onHandleUnhandled(promise);
-            promise._h = 1;
-          }
-          if (handler === true) result = value;
-          else {
-            if (domain) domain.enter();
-            result = handler(value); // may throw
-            if (domain) {
-              domain.exit();
-              exited = true;
-            }
-          }
-          if (result === reaction.promise) {
-            reject(TypeError('Promise-chain cycle'));
-          } else if (then = isThenable(result)) {
-            then.call(result, resolve, reject);
-          } else resolve(result);
-        } else reject(value);
-      } catch (e) {
-        if (domain && !exited) domain.exit();
-        reject(e);
-      }
-    };
-    while (chain.length > i) run(chain[i++]); // variable length - can't use forEach
-    promise._c = [];
-    promise._n = false;
-    if (isReject && !promise._h) onUnhandled(promise);
-  });
-};
-var onUnhandled = function (promise) {
-  task.call(global, function () {
-    var value = promise._v;
-    var unhandled = isUnhandled(promise);
-    var result, handler, console;
-    if (unhandled) {
-      result = perform(function () {
-        if (isNode) {
-          process.emit('unhandledRejection', value, promise);
-        } else if (handler = global.onunhandledrejection) {
-          handler({ promise: promise, reason: value });
-        } else if ((console = global.console) && console.error) {
-          console.error('Unhandled promise rejection', value);
-        }
-      });
-      // Browsers should not trigger `rejectionHandled` event if it was handled here, NodeJS - should
-      promise._h = isNode || isUnhandled(promise) ? 2 : 1;
-    } promise._a = undefined;
-    if (unhandled && result.e) throw result.v;
-  });
-};
-var isUnhandled = function (promise) {
-  return promise._h !== 1 && (promise._a || promise._c).length === 0;
-};
-var onHandleUnhandled = function (promise) {
-  task.call(global, function () {
-    var handler;
-    if (isNode) {
-      process.emit('rejectionHandled', promise);
-    } else if (handler = global.onrejectionhandled) {
-      handler({ promise: promise, reason: promise._v });
-    }
-  });
-};
-var $reject = function (value) {
-  var promise = this;
-  if (promise._d) return;
-  promise._d = true;
-  promise = promise._w || promise; // unwrap
-  promise._v = value;
-  promise._s = 2;
-  if (!promise._a) promise._a = promise._c.slice();
-  notify(promise, true);
-};
-var $resolve = function (value) {
-  var promise = this;
-  var then;
-  if (promise._d) return;
-  promise._d = true;
-  promise = promise._w || promise; // unwrap
-  try {
-    if (promise === value) throw TypeError("Promise can't be resolved itself");
-    if (then = isThenable(value)) {
-      microtask(function () {
-        var wrapper = { _w: promise, _d: false }; // wrap
-        try {
-          then.call(value, ctx($resolve, wrapper, 1), ctx($reject, wrapper, 1));
-        } catch (e) {
-          $reject.call(wrapper, e);
-        }
-      });
-    } else {
-      promise._v = value;
-      promise._s = 1;
-      notify(promise, false);
-    }
-  } catch (e) {
-    $reject.call({ _w: promise, _d: false }, e); // wrap
-  }
-};
-
-// constructor polyfill
-if (!USE_NATIVE) {
-  // 25.4.3.1 Promise(executor)
-  $Promise = function Promise(executor) {
-    anInstance(this, $Promise, PROMISE, '_h');
-    aFunction(executor);
-    Internal.call(this);
-    try {
-      executor(ctx($resolve, this, 1), ctx($reject, this, 1));
-    } catch (err) {
-      $reject.call(this, err);
-    }
-  };
-  // eslint-disable-next-line no-unused-vars
-  Internal = function Promise(executor) {
-    this._c = [];             // <- awaiting reactions
-    this._a = undefined;      // <- checked in isUnhandled reactions
-    this._s = 0;              // <- state
-    this._d = false;          // <- done
-    this._v = undefined;      // <- value
-    this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
-    this._n = false;          // <- notify
-  };
-  Internal.prototype = require('./_redefine-all')($Promise.prototype, {
-    // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
-    then: function then(onFulfilled, onRejected) {
-      var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
-      reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
-      reaction.fail = typeof onRejected == 'function' && onRejected;
-      reaction.domain = isNode ? process.domain : undefined;
-      this._c.push(reaction);
-      if (this._a) this._a.push(reaction);
-      if (this._s) notify(this, false);
-      return reaction.promise;
-    },
-    // 25.4.5.1 Promise.prototype.catch(onRejected)
-    'catch': function (onRejected) {
-      return this.then(undefined, onRejected);
-    }
-  });
-  OwnPromiseCapability = function () {
-    var promise = new Internal();
-    this.promise = promise;
-    this.resolve = ctx($resolve, promise, 1);
-    this.reject = ctx($reject, promise, 1);
-  };
-  newPromiseCapabilityModule.f = newPromiseCapability = function (C) {
-    return C === $Promise || C === Wrapper
-      ? new OwnPromiseCapability(C)
-      : newGenericPromiseCapability(C);
-  };
-}
-
-$export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
-require('./_set-to-string-tag')($Promise, PROMISE);
-require('./_set-species')(PROMISE);
-Wrapper = require('./_core')[PROMISE];
-
-// statics
-$export($export.S + $export.F * !USE_NATIVE, PROMISE, {
-  // 25.4.4.5 Promise.reject(r)
-  reject: function reject(r) {
-    var capability = newPromiseCapability(this);
-    var $$reject = capability.reject;
-    $$reject(r);
-    return capability.promise;
-  }
-});
-$export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
-  // 25.4.4.6 Promise.resolve(x)
-  resolve: function resolve(x) {
-    return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
-  }
-});
-$export($export.S + $export.F * !(USE_NATIVE && require('./_iter-detect')(function (iter) {
-  $Promise.all(iter)['catch'](empty);
-})), PROMISE, {
-  // 25.4.4.1 Promise.all(iterable)
-  all: function all(iterable) {
-    var C = this;
-    var capability = newPromiseCapability(C);
-    var resolve = capability.resolve;
-    var reject = capability.reject;
-    var result = perform(function () {
-      var values = [];
-      var index = 0;
-      var remaining = 1;
-      forOf(iterable, false, function (promise) {
-        var $index = index++;
-        var alreadyCalled = false;
-        values.push(undefined);
-        remaining++;
-        C.resolve(promise).then(function (value) {
-          if (alreadyCalled) return;
-          alreadyCalled = true;
-          values[$index] = value;
-          --remaining || resolve(values);
-        }, reject);
-      });
-      --remaining || resolve(values);
-    });
-    if (result.e) reject(result.v);
-    return capability.promise;
-  },
-  // 25.4.4.4 Promise.race(iterable)
-  race: function race(iterable) {
-    var C = this;
-    var capability = newPromiseCapability(C);
-    var reject = capability.reject;
-    var result = perform(function () {
-      forOf(iterable, false, function (promise) {
-        C.resolve(promise).then(capability.resolve, reject);
-      });
-    });
-    if (result.e) reject(result.v);
-    return capability.promise;
-  }
-});
-
-},{"./_a-function":28,"./_an-instance":30,"./_classof":33,"./_core":35,"./_ctx":36,"./_export":42,"./_for-of":44,"./_global":45,"./_is-object":54,"./_iter-detect":58,"./_library":61,"./_microtask":63,"./_new-promise-capability":64,"./_perform":77,"./_promise-resolve":78,"./_redefine-all":80,"./_set-species":83,"./_set-to-string-tag":84,"./_species-constructor":87,"./_task":89,"./_user-agent":97,"./_wks":100}],110:[function(require,module,exports){
-'use strict';
-var $at = require('./_string-at')(true);
-
-// 21.1.3.27 String.prototype[@@iterator]()
-require('./_iter-define')(String, 'String', function (iterated) {
-  this._t = String(iterated); // target
-  this._i = 0;                // next index
-// 21.1.5.2.1 %StringIteratorPrototype%.next()
-}, function () {
-  var O = this._t;
-  var index = this._i;
-  var point;
-  if (index >= O.length) return { value: undefined, done: true };
-  point = $at(O, index);
-  this._i += point.length;
-  return { value: point, done: false };
-});
-
-},{"./_iter-define":57,"./_string-at":88}],111:[function(require,module,exports){
-'use strict';
-// ECMAScript 6 symbols shim
-var global = require('./_global');
-var has = require('./_has');
-var DESCRIPTORS = require('./_descriptors');
-var $export = require('./_export');
-var redefine = require('./_redefine');
-var META = require('./_meta').KEY;
-var $fails = require('./_fails');
-var shared = require('./_shared');
-var setToStringTag = require('./_set-to-string-tag');
-var uid = require('./_uid');
-var wks = require('./_wks');
-var wksExt = require('./_wks-ext');
-var wksDefine = require('./_wks-define');
-var enumKeys = require('./_enum-keys');
-var isArray = require('./_is-array');
-var anObject = require('./_an-object');
-var isObject = require('./_is-object');
-var toObject = require('./_to-object');
-var toIObject = require('./_to-iobject');
-var toPrimitive = require('./_to-primitive');
-var createDesc = require('./_property-desc');
-var _create = require('./_object-create');
-var gOPNExt = require('./_object-gopn-ext');
-var $GOPD = require('./_object-gopd');
-var $GOPS = require('./_object-gops');
-var $DP = require('./_object-dp');
-var $keys = require('./_object-keys');
-var gOPD = $GOPD.f;
-var dP = $DP.f;
-var gOPN = gOPNExt.f;
-var $Symbol = global.Symbol;
-var $JSON = global.JSON;
-var _stringify = $JSON && $JSON.stringify;
-var PROTOTYPE = 'prototype';
-var HIDDEN = wks('_hidden');
-var TO_PRIMITIVE = wks('toPrimitive');
-var isEnum = {}.propertyIsEnumerable;
-var SymbolRegistry = shared('symbol-registry');
-var AllSymbols = shared('symbols');
-var OPSymbols = shared('op-symbols');
-var ObjectProto = Object[PROTOTYPE];
-var USE_NATIVE = typeof $Symbol == 'function' && !!$GOPS.f;
-var QObject = global.QObject;
-// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
-var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
-
-// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
-var setSymbolDesc = DESCRIPTORS && $fails(function () {
-  return _create(dP({}, 'a', {
-    get: function () { return dP(this, 'a', { value: 7 }).a; }
-  })).a != 7;
-}) ? function (it, key, D) {
-  var protoDesc = gOPD(ObjectProto, key);
-  if (protoDesc) delete ObjectProto[key];
-  dP(it, key, D);
-  if (protoDesc && it !== ObjectProto) dP(ObjectProto, key, protoDesc);
-} : dP;
-
-var wrap = function (tag) {
-  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
-  sym._k = tag;
-  return sym;
-};
-
-var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function (it) {
-  return typeof it == 'symbol';
-} : function (it) {
-  return it instanceof $Symbol;
-};
-
-var $defineProperty = function defineProperty(it, key, D) {
-  if (it === ObjectProto) $defineProperty(OPSymbols, key, D);
-  anObject(it);
-  key = toPrimitive(key, true);
-  anObject(D);
-  if (has(AllSymbols, key)) {
-    if (!D.enumerable) {
-      if (!has(it, HIDDEN)) dP(it, HIDDEN, createDesc(1, {}));
-      it[HIDDEN][key] = true;
-    } else {
-      if (has(it, HIDDEN) && it[HIDDEN][key]) it[HIDDEN][key] = false;
-      D = _create(D, { enumerable: createDesc(0, false) });
-    } return setSymbolDesc(it, key, D);
-  } return dP(it, key, D);
-};
-var $defineProperties = function defineProperties(it, P) {
-  anObject(it);
-  var keys = enumKeys(P = toIObject(P));
-  var i = 0;
-  var l = keys.length;
-  var key;
-  while (l > i) $defineProperty(it, key = keys[i++], P[key]);
-  return it;
-};
-var $create = function create(it, P) {
-  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
-};
-var $propertyIsEnumerable = function propertyIsEnumerable(key) {
-  var E = isEnum.call(this, key = toPrimitive(key, true));
-  if (this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return false;
-  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
-};
-var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
-  it = toIObject(it);
-  key = toPrimitive(key, true);
-  if (it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return;
-  var D = gOPD(it, key);
-  if (D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key])) D.enumerable = true;
-  return D;
-};
-var $getOwnPropertyNames = function getOwnPropertyNames(it) {
-  var names = gOPN(toIObject(it));
-  var result = [];
-  var i = 0;
-  var key;
-  while (names.length > i) {
-    if (!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META) result.push(key);
-  } return result;
-};
-var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
-  var IS_OP = it === ObjectProto;
-  var names = gOPN(IS_OP ? OPSymbols : toIObject(it));
-  var result = [];
-  var i = 0;
-  var key;
-  while (names.length > i) {
-    if (has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true)) result.push(AllSymbols[key]);
-  } return result;
-};
-
-// 19.4.1.1 Symbol([description])
-if (!USE_NATIVE) {
-  $Symbol = function Symbol() {
-    if (this instanceof $Symbol) throw TypeError('Symbol is not a constructor!');
-    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
-    var $set = function (value) {
-      if (this === ObjectProto) $set.call(OPSymbols, value);
-      if (has(this, HIDDEN) && has(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
-      setSymbolDesc(this, tag, createDesc(1, value));
-    };
-    if (DESCRIPTORS && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
-    return wrap(tag);
-  };
-  redefine($Symbol[PROTOTYPE], 'toString', function toString() {
-    return this._k;
-  });
-
-  $GOPD.f = $getOwnPropertyDescriptor;
-  $DP.f = $defineProperty;
-  require('./_object-gopn').f = gOPNExt.f = $getOwnPropertyNames;
-  require('./_object-pie').f = $propertyIsEnumerable;
-  $GOPS.f = $getOwnPropertySymbols;
-
-  if (DESCRIPTORS && !require('./_library')) {
-    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
-  }
-
-  wksExt.f = function (name) {
-    return wrap(wks(name));
-  };
-}
-
-$export($export.G + $export.W + $export.F * !USE_NATIVE, { Symbol: $Symbol });
-
-for (var es6Symbols = (
-  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
-  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
-).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
-
-for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
-
-$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
-  // 19.4.2.1 Symbol.for(key)
-  'for': function (key) {
-    return has(SymbolRegistry, key += '')
-      ? SymbolRegistry[key]
-      : SymbolRegistry[key] = $Symbol(key);
-  },
-  // 19.4.2.5 Symbol.keyFor(sym)
-  keyFor: function keyFor(sym) {
-    if (!isSymbol(sym)) throw TypeError(sym + ' is not a symbol!');
-    for (var key in SymbolRegistry) if (SymbolRegistry[key] === sym) return key;
-  },
-  useSetter: function () { setter = true; },
-  useSimple: function () { setter = false; }
-});
-
-$export($export.S + $export.F * !USE_NATIVE, 'Object', {
-  // 19.1.2.2 Object.create(O [, Properties])
-  create: $create,
-  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
-  defineProperty: $defineProperty,
-  // 19.1.2.3 Object.defineProperties(O, Properties)
-  defineProperties: $defineProperties,
-  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
-  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
-  // 19.1.2.7 Object.getOwnPropertyNames(O)
-  getOwnPropertyNames: $getOwnPropertyNames,
-  // 19.1.2.8 Object.getOwnPropertySymbols(O)
-  getOwnPropertySymbols: $getOwnPropertySymbols
-});
-
-// Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
-// https://bugs.chromium.org/p/v8/issues/detail?id=3443
-var FAILS_ON_PRIMITIVES = $fails(function () { $GOPS.f(1); });
-
-$export($export.S + $export.F * FAILS_ON_PRIMITIVES, 'Object', {
-  getOwnPropertySymbols: function getOwnPropertySymbols(it) {
-    return $GOPS.f(toObject(it));
-  }
-});
-
-// 24.3.2 JSON.stringify(value [, replacer [, space]])
-$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
-  var S = $Symbol();
-  // MS Edge converts symbol values to JSON as {}
-  // WebKit converts symbol values to JSON as null
-  // V8 throws on boxed symbols
-  return _stringify([S]) != '[null]' || _stringify({ a: S }) != '{}' || _stringify(Object(S)) != '{}';
-})), 'JSON', {
-  stringify: function stringify(it) {
-    var args = [it];
-    var i = 1;
-    var replacer, $replacer;
-    while (arguments.length > i) args.push(arguments[i++]);
-    $replacer = replacer = args[1];
-    if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
-    if (!isArray(replacer)) replacer = function (key, value) {
-      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
-      if (!isSymbol(value)) return value;
-    };
-    args[1] = replacer;
-    return _stringify.apply($JSON, args);
-  }
-});
-
-// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
-$Symbol[PROTOTYPE][TO_PRIMITIVE] || require('./_hide')($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
-// 19.4.3.5 Symbol.prototype[@@toStringTag]
-setToStringTag($Symbol, 'Symbol');
-// 20.2.1.9 Math[@@toStringTag]
-setToStringTag(Math, 'Math', true);
-// 24.3.3 JSON[@@toStringTag]
-setToStringTag(global.JSON, 'JSON', true);
-
-},{"./_an-object":31,"./_descriptors":38,"./_enum-keys":41,"./_export":42,"./_fails":43,"./_global":45,"./_has":46,"./_hide":47,"./_is-array":53,"./_is-object":54,"./_library":61,"./_meta":62,"./_object-create":65,"./_object-dp":66,"./_object-gopd":68,"./_object-gopn":70,"./_object-gopn-ext":69,"./_object-gops":71,"./_object-keys":74,"./_object-pie":75,"./_property-desc":79,"./_redefine":81,"./_set-to-string-tag":84,"./_shared":86,"./_to-iobject":92,"./_to-object":94,"./_to-primitive":95,"./_uid":96,"./_wks":100,"./_wks-define":98,"./_wks-ext":99}],112:[function(require,module,exports){
-// https://github.com/tc39/proposal-promise-finally
-'use strict';
-var $export = require('./_export');
-var core = require('./_core');
-var global = require('./_global');
-var speciesConstructor = require('./_species-constructor');
-var promiseResolve = require('./_promise-resolve');
-
-$export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
-  var C = speciesConstructor(this, core.Promise || global.Promise);
-  var isFunction = typeof onFinally == 'function';
-  return this.then(
-    isFunction ? function (x) {
-      return promiseResolve(C, onFinally()).then(function () { return x; });
-    } : onFinally,
-    isFunction ? function (e) {
-      return promiseResolve(C, onFinally()).then(function () { throw e; });
-    } : onFinally
-  );
-} });
-
-},{"./_core":35,"./_export":42,"./_global":45,"./_promise-resolve":78,"./_species-constructor":87}],113:[function(require,module,exports){
-'use strict';
-// https://github.com/tc39/proposal-promise-try
-var $export = require('./_export');
-var newPromiseCapability = require('./_new-promise-capability');
-var perform = require('./_perform');
-
-$export($export.S, 'Promise', { 'try': function (callbackfn) {
-  var promiseCapability = newPromiseCapability.f(this);
-  var result = perform(callbackfn);
-  (result.e ? promiseCapability.reject : promiseCapability.resolve)(result.v);
-  return promiseCapability.promise;
-} });
-
-},{"./_export":42,"./_new-promise-capability":64,"./_perform":77}],114:[function(require,module,exports){
-require('./_wks-define')('asyncIterator');
-
-},{"./_wks-define":98}],115:[function(require,module,exports){
-require('./_wks-define')('observable');
-
-},{"./_wks-define":98}],116:[function(require,module,exports){
-require('./es6.array.iterator');
-var global = require('./_global');
-var hide = require('./_hide');
-var Iterators = require('./_iterators');
-var TO_STRING_TAG = require('./_wks')('toStringTag');
-
-var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
-  'DOMTokenList,DataTransferItemList,FileList,HTMLAllCollection,HTMLCollection,HTMLFormElement,HTMLSelectElement,' +
-  'MediaList,MimeTypeArray,NamedNodeMap,NodeList,PaintRequestList,Plugin,PluginArray,SVGLengthList,SVGNumberList,' +
-  'SVGPathSegList,SVGPointList,SVGStringList,SVGTransformList,SourceBufferList,StyleSheetList,TextTrackCueList,' +
-  'TextTrackList,TouchList').split(',');
-
-for (var i = 0; i < DOMIterables.length; i++) {
-  var NAME = DOMIterables[i];
-  var Collection = global[NAME];
-  var proto = Collection && Collection.prototype;
-  if (proto && !proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
-  Iterators[NAME] = Iterators.Array;
-}
-
-},{"./_global":45,"./_hide":47,"./_iterators":60,"./_wks":100,"./es6.array.iterator":102}],117:[function(require,module,exports){
+},{}],117:[function(require,module,exports){
 /*
  *  Copyright (c) 2017 The WebRTC project authors. All Rights Reserved.
  *
@@ -10454,7 +10636,7 @@ var RtcSession = function () {
                 _rtc_const.RTC_PEER_CONNECTION_CONFIG.iceServers = self._iceServers;
                 self._pc = self._createPeerConnection(_rtc_const.RTC_PEER_CONNECTION_CONFIG, _rtc_const.RTC_PEER_CONNECTION_OPTIONAL_CONFIG);
             }
-            self._strategy.connect(self);
+            self._pc.ontrack = (0, _utils.hitch)(self, self._ontrack);
             self._pc.onicecandidate = (0, _utils.hitch)(self, self._onIceCandidate);
             self._pc.onconnectionstatechange = (0, _utils.hitch)(self, self._onPeerConnectionStateChange);
             self._pc.oniceconnectionstatechange = (0, _utils.hitch)(self, self._onIceStateChange);
@@ -11155,7 +11337,7 @@ var RtcSession = function () {
 
 exports.default = RtcSession;
 
-},{"./exceptions":135,"./rtc_const":136,"./rtp-stats":139,"./session_report":140,"./signaling":141,"./strategies/CCPInitiationStrategyInterface":142,"./strategies/StandardStrategy":144,"./utils":145,"babel-runtime/helpers/asyncToGenerator":10,"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12,"babel-runtime/helpers/get":13,"babel-runtime/helpers/inherits":14,"babel-runtime/helpers/possibleConstructorReturn":15,"babel-runtime/helpers/typeof":16,"babel-runtime/regenerator":19,"sdp":118,"uuid/v4":121}],139:[function(require,module,exports){
+},{"./exceptions":135,"./rtc_const":136,"./rtp-stats":139,"./session_report":140,"./signaling":141,"./strategies/CCPInitiationStrategyInterface":142,"./strategies/StandardStrategy":144,"./utils":145,"babel-runtime/helpers/asyncToGenerator":10,"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12,"babel-runtime/helpers/get":13,"babel-runtime/helpers/inherits":14,"babel-runtime/helpers/possibleConstructorReturn":15,"babel-runtime/helpers/typeof":16,"babel-runtime/regenerator":17,"sdp":118,"uuid/v4":121}],139:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11426,7 +11608,7 @@ var SessionReport = exports.SessionReport = function () {
         this._noRemoteIceCandidateFailure = null;
         this._setRemoteDescriptionFailure = null;
         this._streamStats = [];
-        this._rtcJsVersion = "1.1.23";
+        this._rtcJsVersion = "1.1.24";
     }
     /**
      *Timestamp when RTCSession started.
@@ -12589,7 +12771,7 @@ var AmznRtcSignaling = function () {
 
 exports.default = AmznRtcSignaling;
 
-},{"./exceptions":135,"./rtc_const":136,"./utils":145,"./virtual_wss_connection_manager":146,"babel-runtime/helpers/asyncToGenerator":10,"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12,"babel-runtime/helpers/inherits":14,"babel-runtime/helpers/possibleConstructorReturn":15,"babel-runtime/regenerator":19,"uuid/v4":121}],142:[function(require,module,exports){
+},{"./exceptions":135,"./rtc_const":136,"./utils":145,"./virtual_wss_connection_manager":146,"babel-runtime/helpers/asyncToGenerator":10,"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12,"babel-runtime/helpers/inherits":14,"babel-runtime/helpers/possibleConstructorReturn":15,"babel-runtime/regenerator":17,"uuid/v4":121}],142:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12714,13 +12896,9 @@ var _CCPInitiationStrategyInterface = require("./CCPInitiationStrategyInterface"
 
 var _CCPInitiationStrategyInterface2 = _interopRequireDefault(_CCPInitiationStrategyInterface);
 
-var _utils = require("../utils");
-
 var _rtc_session = require("../rtc_session");
 
 var _rtc_const = require("../rtc_const");
-
-require("@citrix/ucsdk/CitrixWebRTC");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12728,34 +12906,53 @@ var CitrixVDIStrategy = function (_CCPInitiationStrateg) {
     (0, _inherits3.default)(CitrixVDIStrategy, _CCPInitiationStrateg);
 
     function CitrixVDIStrategy() {
+        var useRealCitrix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
         (0, _classCallCheck3.default)(this, CitrixVDIStrategy);
 
         var _this = (0, _possibleConstructorReturn3.default)(this, (CitrixVDIStrategy.__proto__ || Object.getPrototypeOf(CitrixVDIStrategy)).call(this));
 
-        if (!window.CitrixWebRTC.isFeatureOn("webrtc1.0")) {
-            throw new Error('Citrix WebRTC redirection feature is NOT supported!');
+        if (useRealCitrix) {
+            require("@citrix/ucsdk/CitrixWebRTC");
         }
-        window.getCitrixWebrtcRedir = function () {
-            var registryValue = Promise.resolve(1);
-            return new Promise(function (resolve, reject) {
-                //retrieve registry value internally
-                registryValue.then(function (v) {
-                    resolve(v);
-                }).catch(function () {
-                    reject();
-                });
-            });
-        };
-        window.CitrixWebRTC.initLog(global.connect.getLog());
-        console.log("CitrixVDIStrategy initialized");
+        console.log("CitrixVDIStrategy initializing");
+        _this.initCitrixWebRTC();
+        _this.initGetCitrixWebrtcRedir();
+        _this.initLog();
         return _this;
     }
 
-    // the following functions are rtc_peer_connection_factory related functions
-    // check if the browser supports early media connection
-
-
     (0, _createClass3.default)(CitrixVDIStrategy, [{
+        key: "initCitrixWebRTC",
+        value: function initCitrixWebRTC() {
+            window.CitrixWebRTC.setVMEventCallback(function (event) {
+                if (event.event === 'vdiClientConnected') {
+                    if (!window.CitrixWebRTC.isFeatureOn("webrtc1.0")) {
+                        throw new Error('Citrix WebRTC redirection feature is NOT supported!');
+                    }
+                    console.log("CitrixVDIStrategy initialized");
+                } else if (event.event === 'vdiClientDisconnected') {
+                    console.log("vdiClientDisconnected");
+                }
+            });
+            window.CitrixWebRTC.initUCSDK("AmazonConnect");
+        }
+    }, {
+        key: "initGetCitrixWebrtcRedir",
+        value: function initGetCitrixWebrtcRedir() {
+            window.getCitrixWebrtcRedir = function () {
+                return Promise.resolve(1);
+            };
+        }
+    }, {
+        key: "initLog",
+        value: function initLog() {
+            window.CitrixWebRTC.initLog(global.connect.getLog());
+        }
+
+        // the following functions are rtc_peer_connection_factory related functions
+        // check if the browser supports early media connection
+
+    }, {
         key: "_isEarlyMediaConnectionSupported",
         value: function _isEarlyMediaConnectionSupported() {
             // Citrix WebRTC SDK doesn't support early media connection
@@ -12820,20 +13017,22 @@ var CitrixVDIStrategy = function (_CCPInitiationStrateg) {
             return new window.CitrixWebRTC.CitrixPeerConnection(configuration, optionalConfiguration);
         }
     }, {
-        key: "connect",
-        value: function connect(self) {
-            self._pc.onaddstream = (0, _utils.hitch)(self, self._ontrack);
-        }
-    }, {
         key: "_ontrack",
         value: function _ontrack(self, evt) {
-            var remoteStream = evt.stream.clone();
-
-            var audioTracks = evt.stream.getAudioTracks();
-            if (audioTracks !== undefined && audioTracks.length > 0) {
-                self._remoteAudioStream = remoteStream;
-                self._remoteAudioElement.srcObject = remoteStream;
+            window.CitrixWebRTC.mapAudioElement(self._remoteAudioElement);
+            if (evt.streams.length > 1) {
+                self._logger.warn('Found more than 1 streams for ' + evt.track.kind + ' track ' + evt.track.id + ' : ' + evt.streams.map(function (stream) {
+                    return stream.id;
+                }).join(','));
             }
+            if (evt.track.kind === 'video' && self._remoteVideoElement) {
+                self._remoteVideoElement.srcObject = evt.streams[0];
+                self._remoteVideoStream = evt.streams[0];
+            } else if (evt.track.kind === 'audio' && self._remoteAudioElement) {
+                self._remoteAudioElement.srcObject = evt.streams[0];
+                self._remoteAudioStream = evt.streams[0];
+            }
+            self._remoteAudioElement.play();
         }
     }, {
         key: "_buildMediaConstraints",
@@ -12869,7 +13068,7 @@ var CitrixVDIStrategy = function (_CCPInitiationStrateg) {
 exports.default = CitrixVDIStrategy;
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../rtc_const":136,"../rtc_session":138,"../utils":145,"./CCPInitiationStrategyInterface":142,"@citrix/ucsdk/CitrixWebRTC":1,"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12,"babel-runtime/helpers/inherits":14,"babel-runtime/helpers/possibleConstructorReturn":15}],144:[function(require,module,exports){
+},{"../rtc_const":136,"../rtc_session":138,"./CCPInitiationStrategyInterface":142,"@citrix/ucsdk/CitrixWebRTC":1,"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12,"babel-runtime/helpers/inherits":14,"babel-runtime/helpers/possibleConstructorReturn":15}],144:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12988,11 +13187,6 @@ var StandardStrategy = function (_CCPInitiationStrateg) {
         key: "_createPeerConnection",
         value: function _createPeerConnection(configuration, optionalConfiguration) {
             return new RTCPeerConnection(configuration, optionalConfiguration);
-        }
-    }, {
-        key: "connect",
-        value: function connect(self) {
-            self._pc.ontrack = (0, _utils.hitch)(self, self._ontrack);
         }
     }, {
         key: "_ontrack",
