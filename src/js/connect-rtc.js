@@ -47,6 +47,7 @@ import RtcPeerConnectionFactory from './rtc_peer_connection_factory'
 import uuid from 'uuid/v4';
 import StandardStrategy from "./strategies/StandardStrategy";
 import CitrixVDIStrategy from "./strategies/CitrixVDIStrategy";
+import DCVWebRTCStrategy from "./strategies/DCVWebRTCStrategy";
 
 global.connect = global.connect || {};
 global.connect.RTCSession = RtcSession;
@@ -55,6 +56,7 @@ global.connect.RtcPeerConnectionFactory = RtcPeerConnectionFactory;
 global.connect.uuid = uuid;
 global.connect.StandardStrategy = StandardStrategy;
 global.connect.CitrixVDIStrategy = CitrixVDIStrategy;
+global.connect.DCVWebRTCStrategy = DCVWebRTCStrategy;
 
 global.lily = global.lily || {};
 global.lily.RTCSession = RtcSession;
