@@ -15,6 +15,7 @@ module.exports = function (grunt) {
         browserify: {
             connectRtcGlobalObjectDebug: {
                 src: [
+                    './lib/dcv-webrtc-redir-client-bundle.js',
                     './src/js/connect-rtc.js'
                 ],
                 dest: './out/connect-rtc-debug.js',
@@ -27,6 +28,7 @@ module.exports = function (grunt) {
             },
             connectRtcGlobalObject: {
                 src: [
+                    './lib/dcv-webrtc-redir-client-bundle.js',
                     './src/js/connect-rtc.js'
                 ],
                 dest: './out/connect-rtc.js',
