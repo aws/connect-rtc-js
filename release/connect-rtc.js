@@ -1,4 +1,4263 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+"use strict";
+
+var _toArray2 = require("babel-runtime/helpers/toArray");
+
+var _toArray3 = _interopRequireDefault(_toArray2);
+
+var _slicedToArray2 = require("babel-runtime/helpers/slicedToArray");
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+var _regenerator = require("babel-runtime/regenerator");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require("babel-runtime/helpers/asyncToGenerator");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require("babel-runtime/helpers/createClass");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _typeof2 = require("babel-runtime/helpers/typeof");
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+!function (e, t) {
+  "object" == (typeof exports === "undefined" ? "undefined" : (0, _typeof3.default)(exports)) && "object" == (typeof module === "undefined" ? "undefined" : (0, _typeof3.default)(module)) ? module.exports = t() : "function" == typeof define && define.amd ? define([], t) : "object" == (typeof exports === "undefined" ? "undefined" : (0, _typeof3.default)(exports)) ? exports.dcvwebrtcredir = t() : e.dcvwebrtcredir = t();
+}(self, function () {
+  return function () {
+    var e = { 114: function _(e, t) {
+        !function (e) {
+          "use strict";
+          for (var t = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", r = "undefined" == typeof Uint8Array ? [] : new Uint8Array(256), n = 0; n < t.length; n++) {
+            r[t.charCodeAt(n)] = n;
+          }var i = function i(e) {
+            var r,
+                n = new Uint8Array(e),
+                i = n.length,
+                s = "";for (r = 0; r < i; r += 3) {
+              s += t[n[r] >> 2], s += t[(3 & n[r]) << 4 | n[r + 1] >> 4], s += t[(15 & n[r + 1]) << 2 | n[r + 2] >> 6], s += t[63 & n[r + 2]];
+            }return i % 3 == 2 ? s = s.substring(0, s.length - 1) + "=" : i % 3 == 1 && (s = s.substring(0, s.length - 2) + "=="), s;
+          },
+              s = function s(e) {
+            var t,
+                n,
+                i,
+                s,
+                a,
+                o = .75 * e.length,
+                c = e.length,
+                d = 0;"=" === e[e.length - 1] && (o--, "=" === e[e.length - 2] && o--);var l = new ArrayBuffer(o),
+                p = new Uint8Array(l);for (t = 0; t < c; t += 4) {
+              n = r[e.charCodeAt(t)], i = r[e.charCodeAt(t + 1)], s = r[e.charCodeAt(t + 2)], a = r[e.charCodeAt(t + 3)], p[d++] = n << 2 | i >> 4, p[d++] = (15 & i) << 4 | s >> 2, p[d++] = (3 & s) << 6 | 63 & a;
+            }return l;
+          };e.decode = s, e.encode = i, Object.defineProperty(e, "__esModule", { value: !0 });
+        }(t);
+      }, 43: function _(e, t, r) {
+        var n, i;!function (s, a) {
+          "use strict";
+          n = function n() {
+            var e = function e() {},
+                t = "undefined",
+                r = (typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t && (0, _typeof3.default)(window.navigator) !== t && /Trident\/|MSIE /.test(window.navigator.userAgent),
+                n = ["trace", "debug", "info", "warn", "error"];function i(e, t) {
+              var r = e[t];if ("function" == typeof r.bind) return r.bind(e);try {
+                return Function.prototype.bind.call(r, e);
+              } catch (t) {
+                return function () {
+                  return Function.prototype.apply.apply(r, [e, arguments]);
+                };
+              }
+            }function s() {
+              console.log && (console.log.apply ? console.log.apply(console, arguments) : Function.prototype.apply.apply(console.log, [console, arguments])), console.trace && console.trace();
+            }function a(n) {
+              return "debug" === n && (n = "log"), (typeof console === "undefined" ? "undefined" : (0, _typeof3.default)(console)) !== t && ("trace" === n && r ? s : void 0 !== console[n] ? i(console, n) : void 0 !== console.log ? i(console, "log") : e);
+            }function o(t, r) {
+              for (var i = 0; i < n.length; i++) {
+                var s = n[i];this[s] = i < t ? e : this.methodFactory(s, t, r);
+              }this.log = this.debug;
+            }function c(e, r, n) {
+              return function () {
+                (typeof console === "undefined" ? "undefined" : (0, _typeof3.default)(console)) !== t && (o.call(this, r, n), this[e].apply(this, arguments));
+              };
+            }function d(e, t, r) {
+              return a(e) || c.apply(this, arguments);
+            }function l(e, r, i) {
+              var s,
+                  a = this;r = null == r ? "WARN" : r;var c = "loglevel";function l(e) {
+                var r = (n[e] || "silent").toUpperCase();if ((typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t && c) {
+                  try {
+                    return void (window.localStorage[c] = r);
+                  } catch (e) {}try {
+                    window.document.cookie = encodeURIComponent(c) + "=" + r + ";";
+                  } catch (e) {}
+                }
+              }function p() {
+                var e;if ((typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t && c) {
+                  try {
+                    e = window.localStorage[c];
+                  } catch (e) {}if ((typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e)) === t) try {
+                    var r = window.document.cookie,
+                        n = r.indexOf(encodeURIComponent(c) + "=");-1 !== n && (e = /^([^;]+)/.exec(r.slice(n))[1]);
+                  } catch (e) {}return void 0 === a.levels[e] && (e = void 0), e;
+                }
+              }function h() {
+                if ((typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t && c) {
+                  try {
+                    return void window.localStorage.removeItem(c);
+                  } catch (e) {}try {
+                    window.document.cookie = encodeURIComponent(c) + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+                  } catch (e) {}
+                }
+              }"string" == typeof e ? c += ":" + e : "symbol" == (typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e)) && (c = void 0), a.name = e, a.levels = { TRACE: 0, DEBUG: 1, INFO: 2, WARN: 3, ERROR: 4, SILENT: 5 }, a.methodFactory = i || d, a.getLevel = function () {
+                return s;
+              }, a.setLevel = function (r, n) {
+                if ("string" == typeof r && void 0 !== a.levels[r.toUpperCase()] && (r = a.levels[r.toUpperCase()]), !("number" == typeof r && r >= 0 && r <= a.levels.SILENT)) throw "log.setLevel() called with invalid level: " + r;if (s = r, !1 !== n && l(r), o.call(a, r, e), (typeof console === "undefined" ? "undefined" : (0, _typeof3.default)(console)) === t && r < a.levels.SILENT) return "No console available for logging";
+              }, a.setDefaultLevel = function (e) {
+                r = e, p() || a.setLevel(e, !1);
+              }, a.resetLevel = function () {
+                a.setLevel(r, !1), h();
+              }, a.enableAll = function (e) {
+                a.setLevel(a.levels.TRACE, e);
+              }, a.disableAll = function (e) {
+                a.setLevel(a.levels.SILENT, e);
+              };var u = p();null == u && (u = r), a.setLevel(u, !1);
+            }var p = new l(),
+                h = {};p.getLogger = function (e) {
+              if ("symbol" != (typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e)) && "string" != typeof e || "" === e) throw new TypeError("You must supply a name when creating a logger.");var t = h[e];return t || (t = h[e] = new l(e, p.getLevel(), p.methodFactory)), t;
+            };var u = (typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t ? window.log : void 0;return p.noConflict = function () {
+              return (typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t && window.log === p && (window.log = u), p;
+            }, p.getLoggers = function () {
+              return h;
+            }, p.default = p, p;
+          }, void 0 === (i = "function" == typeof n ? n.call(t, r, t, e) : n) || (e.exports = i);
+        }();
+      }, 591: function _(e, t, r) {
+        "use strict";
+
+        var _r = r(555),
+            n = _r.Deflate,
+            i = _r.deflate,
+            s = _r.deflateRaw,
+            a = _r.gzip,
+            _r2 = r(843),
+            o = _r2.Inflate,
+            c = _r2.inflate,
+            d = _r2.inflateRaw,
+            l = _r2.ungzip,
+            p = r(619);
+
+        e.exports.Deflate = n, e.exports.deflate = i, e.exports.deflateRaw = s, e.exports.gzip = a, e.exports.Inflate = o, e.exports.inflate = c, e.exports.inflateRaw = d, e.exports.ungzip = l, e.exports.constants = p;
+      }, 555: function _(e, t, r) {
+        "use strict";
+        var n = r(405),
+            i = r(236),
+            s = r(373),
+            a = r(898),
+            o = r(292),
+            c = Object.prototype.toString,
+            _r3 = r(619),
+            d = _r3.Z_NO_FLUSH,
+            l = _r3.Z_SYNC_FLUSH,
+            p = _r3.Z_FULL_FLUSH,
+            h = _r3.Z_FINISH,
+            u = _r3.Z_OK,
+            f = _r3.Z_STREAM_END,
+            m = _r3.Z_DEFAULT_COMPRESSION,
+            _ = _r3.Z_DEFAULT_STRATEGY,
+            g = _r3.Z_DEFLATED;function v(e) {
+          this.options = i.assign({ level: m, method: g, chunkSize: 16384, windowBits: 15, memLevel: 8, strategy: _ }, e || {});var t = this.options;t.raw && t.windowBits > 0 ? t.windowBits = -t.windowBits : t.gzip && t.windowBits > 0 && t.windowBits < 16 && (t.windowBits += 16), this.err = 0, this.msg = "", this.ended = !1, this.chunks = [], this.strm = new o(), this.strm.avail_out = 0;var r = n.deflateInit2(this.strm, t.level, t.method, t.windowBits, t.memLevel, t.strategy);if (r !== u) throw new Error(a[r]);if (t.header && n.deflateSetHeader(this.strm, t.header), t.dictionary) {
+            var _e = void 0;if (_e = "string" == typeof t.dictionary ? s.string2buf(t.dictionary) : "[object ArrayBuffer]" === c.call(t.dictionary) ? new Uint8Array(t.dictionary) : t.dictionary, r = n.deflateSetDictionary(this.strm, _e), r !== u) throw new Error(a[r]);this._dict_set = !0;
+          }
+        }function E(e, t) {
+          var r = new v(t);if (r.push(e, !0), r.err) throw r.msg || a[r.err];return r.result;
+        }v.prototype.push = function (e, t) {
+          var r = this.strm,
+              i = this.options.chunkSize;var a = void 0,
+              o = void 0;if (this.ended) return !1;for (o = t === ~~t ? t : !0 === t ? h : d, "string" == typeof e ? r.input = s.string2buf(e) : "[object ArrayBuffer]" === c.call(e) ? r.input = new Uint8Array(e) : r.input = e, r.next_in = 0, r.avail_in = r.input.length;;) {
+            if (0 === r.avail_out && (r.output = new Uint8Array(i), r.next_out = 0, r.avail_out = i), (o === l || o === p) && r.avail_out <= 6) this.onData(r.output.subarray(0, r.next_out)), r.avail_out = 0;else {
+              if (a = n.deflate(r, o), a === f) return r.next_out > 0 && this.onData(r.output.subarray(0, r.next_out)), a = n.deflateEnd(this.strm), this.onEnd(a), this.ended = !0, a === u;if (0 !== r.avail_out) {
+                if (o > 0 && r.next_out > 0) this.onData(r.output.subarray(0, r.next_out)), r.avail_out = 0;else if (0 === r.avail_in) break;
+              } else this.onData(r.output);
+            }
+          }return !0;
+        }, v.prototype.onData = function (e) {
+          this.chunks.push(e);
+        }, v.prototype.onEnd = function (e) {
+          e === u && (this.result = i.flattenChunks(this.chunks)), this.chunks = [], this.err = e, this.msg = this.strm.msg;
+        }, e.exports.Deflate = v, e.exports.deflate = E, e.exports.deflateRaw = function (e, t) {
+          return (t = t || {}).raw = !0, E(e, t);
+        }, e.exports.gzip = function (e, t) {
+          return (t = t || {}).gzip = !0, E(e, t);
+        }, e.exports.constants = r(619);
+      }, 843: function _(e, t, r) {
+        "use strict";
+        var n = r(948),
+            i = r(236),
+            s = r(373),
+            a = r(898),
+            o = r(292),
+            c = r(188),
+            d = Object.prototype.toString,
+            _r4 = r(619),
+            l = _r4.Z_NO_FLUSH,
+            p = _r4.Z_FINISH,
+            h = _r4.Z_OK,
+            u = _r4.Z_STREAM_END,
+            f = _r4.Z_NEED_DICT,
+            m = _r4.Z_STREAM_ERROR,
+            _ = _r4.Z_DATA_ERROR,
+            g = _r4.Z_MEM_ERROR;function v(e) {
+          this.options = i.assign({ chunkSize: 65536, windowBits: 15, to: "" }, e || {});var t = this.options;t.raw && t.windowBits >= 0 && t.windowBits < 16 && (t.windowBits = -t.windowBits, 0 === t.windowBits && (t.windowBits = -15)), !(t.windowBits >= 0 && t.windowBits < 16) || e && e.windowBits || (t.windowBits += 32), t.windowBits > 15 && t.windowBits < 48 && 0 == (15 & t.windowBits) && (t.windowBits |= 15), this.err = 0, this.msg = "", this.ended = !1, this.chunks = [], this.strm = new o(), this.strm.avail_out = 0;var r = n.inflateInit2(this.strm, t.windowBits);if (r !== h) throw new Error(a[r]);if (this.header = new c(), n.inflateGetHeader(this.strm, this.header), t.dictionary && ("string" == typeof t.dictionary ? t.dictionary = s.string2buf(t.dictionary) : "[object ArrayBuffer]" === d.call(t.dictionary) && (t.dictionary = new Uint8Array(t.dictionary)), t.raw && (r = n.inflateSetDictionary(this.strm, t.dictionary), r !== h))) throw new Error(a[r]);
+        }function E(e, t) {
+          var r = new v(t);if (r.push(e), r.err) throw r.msg || a[r.err];return r.result;
+        }v.prototype.push = function (e, t) {
+          var r = this.strm,
+              i = this.options.chunkSize,
+              a = this.options.dictionary;var o = void 0,
+              c = void 0,
+              v = void 0;if (this.ended) return !1;for (c = t === ~~t ? t : !0 === t ? p : l, "[object ArrayBuffer]" === d.call(e) ? r.input = new Uint8Array(e) : r.input = e, r.next_in = 0, r.avail_in = r.input.length;;) {
+            for (0 === r.avail_out && (r.output = new Uint8Array(i), r.next_out = 0, r.avail_out = i), o = n.inflate(r, c), o === f && a && (o = n.inflateSetDictionary(r, a), o === h ? o = n.inflate(r, c) : o === _ && (o = f)); r.avail_in > 0 && o === u && r.state.wrap > 0 && 0 !== e[r.next_in];) {
+              n.inflateReset(r), o = n.inflate(r, c);
+            }switch (o) {case m:case _:case f:case g:
+                return this.onEnd(o), this.ended = !0, !1;}if (v = r.avail_out, r.next_out && (0 === r.avail_out || o === u)) if ("string" === this.options.to) {
+              var _e2 = s.utf8border(r.output, r.next_out),
+                  _t = r.next_out - _e2,
+                  _n = s.buf2string(r.output, _e2);r.next_out = _t, r.avail_out = i - _t, _t && r.output.set(r.output.subarray(_e2, _e2 + _t), 0), this.onData(_n);
+            } else this.onData(r.output.length === r.next_out ? r.output : r.output.subarray(0, r.next_out));if (o !== h || 0 !== v) {
+              if (o === u) return o = n.inflateEnd(this.strm), this.onEnd(o), this.ended = !0, !0;if (0 === r.avail_in) break;
+            }
+          }return !0;
+        }, v.prototype.onData = function (e) {
+          this.chunks.push(e);
+        }, v.prototype.onEnd = function (e) {
+          e === h && ("string" === this.options.to ? this.result = this.chunks.join("") : this.result = i.flattenChunks(this.chunks)), this.chunks = [], this.err = e, this.msg = this.strm.msg;
+        }, e.exports.Inflate = v, e.exports.inflate = E, e.exports.inflateRaw = function (e, t) {
+          return (t = t || {}).raw = !0, E(e, t);
+        }, e.exports.ungzip = E, e.exports.constants = r(619);
+      }, 236: function _(e) {
+        "use strict";
+        var t = function t(e, _t2) {
+          return Object.prototype.hasOwnProperty.call(e, _t2);
+        };e.exports.assign = function (e) {
+          var r = Array.prototype.slice.call(arguments, 1);for (; r.length;) {
+            var _n2 = r.shift();if (_n2) {
+              if ("object" != (typeof _n2 === "undefined" ? "undefined" : (0, _typeof3.default)(_n2))) throw new TypeError(_n2 + "must be non-object");for (var _r5 in _n2) {
+                t(_n2, _r5) && (e[_r5] = _n2[_r5]);
+              }
+            }
+          }return e;
+        }, e.exports.flattenChunks = function (e) {
+          var t = 0;for (var _r6 = 0, _n3 = e.length; _r6 < _n3; _r6++) {
+            t += e[_r6].length;
+          }var r = new Uint8Array(t);for (var _t3 = 0, _n4 = 0, i = e.length; _t3 < i; _t3++) {
+            var i = e[_t3];r.set(i, _n4), _n4 += i.length;
+          }return r;
+        };
+      }, 373: function _(e) {
+        "use strict";
+        var t = !0;try {
+          String.fromCharCode.apply(null, new Uint8Array(1));
+        } catch (e) {
+          t = !1;
+        }var r = new Uint8Array(256);for (var _e3 = 0; _e3 < 256; _e3++) {
+          r[_e3] = _e3 >= 252 ? 6 : _e3 >= 248 ? 5 : _e3 >= 240 ? 4 : _e3 >= 224 ? 3 : _e3 >= 192 ? 2 : 1;
+        }r[254] = r[254] = 1, e.exports.string2buf = function (e) {
+          if ("function" == typeof TextEncoder && TextEncoder.prototype.encode) return new TextEncoder().encode(e);var t = void 0,
+              r = void 0,
+              n = void 0,
+              i = void 0,
+              s = void 0,
+              a = e.length,
+              o = 0;for (i = 0; i < a; i++) {
+            r = e.charCodeAt(i), 55296 == (64512 & r) && i + 1 < a && (n = e.charCodeAt(i + 1), 56320 == (64512 & n) && (r = 65536 + (r - 55296 << 10) + (n - 56320), i++)), o += r < 128 ? 1 : r < 2048 ? 2 : r < 65536 ? 3 : 4;
+          }for (t = new Uint8Array(o), s = 0, i = 0; s < o; i++) {
+            r = e.charCodeAt(i), 55296 == (64512 & r) && i + 1 < a && (n = e.charCodeAt(i + 1), 56320 == (64512 & n) && (r = 65536 + (r - 55296 << 10) + (n - 56320), i++)), r < 128 ? t[s++] = r : r < 2048 ? (t[s++] = 192 | r >>> 6, t[s++] = 128 | 63 & r) : r < 65536 ? (t[s++] = 224 | r >>> 12, t[s++] = 128 | r >>> 6 & 63, t[s++] = 128 | 63 & r) : (t[s++] = 240 | r >>> 18, t[s++] = 128 | r >>> 12 & 63, t[s++] = 128 | r >>> 6 & 63, t[s++] = 128 | 63 & r);
+          }return t;
+        };e.exports.buf2string = function (e, n) {
+          var i = n || e.length;if ("function" == typeof TextDecoder && TextDecoder.prototype.decode) return new TextDecoder().decode(e.subarray(0, n));var s = void 0,
+              a = void 0;var o = new Array(2 * i);for (a = 0, s = 0; s < i;) {
+            var _t4 = e[s++];if (_t4 < 128) {
+              o[a++] = _t4;continue;
+            }var _n5 = r[_t4];if (_n5 > 4) o[a++] = 65533, s += _n5 - 1;else {
+              for (_t4 &= 2 === _n5 ? 31 : 3 === _n5 ? 15 : 7; _n5 > 1 && s < i;) {
+                _t4 = _t4 << 6 | 63 & e[s++], _n5--;
+              }_n5 > 1 ? o[a++] = 65533 : _t4 < 65536 ? o[a++] = _t4 : (_t4 -= 65536, o[a++] = 55296 | _t4 >> 10 & 1023, o[a++] = 56320 | 1023 & _t4);
+            }
+          }return function (e, r) {
+            if (r < 65534 && e.subarray && t) return String.fromCharCode.apply(null, e.length === r ? e : e.subarray(0, r));var n = "";for (var _t5 = 0; _t5 < r; _t5++) {
+              n += String.fromCharCode(e[_t5]);
+            }return n;
+          }(o, a);
+        }, e.exports.utf8border = function (e, t) {
+          (t = t || e.length) > e.length && (t = e.length);var n = t - 1;for (; n >= 0 && 128 == (192 & e[n]);) {
+            n--;
+          }return n < 0 || 0 === n ? t : n + r[e[n]] > t ? n : t;
+        };
+      }, 69: function _(e) {
+        "use strict";
+        e.exports = function (e, t, r, n) {
+          var i = 65535 & e | 0,
+              s = e >>> 16 & 65535 | 0,
+              a = 0;for (; 0 !== r;) {
+            a = r > 2e3 ? 2e3 : r, r -= a;do {
+              i = i + t[n++] | 0, s = s + i | 0;
+            } while (--a);i %= 65521, s %= 65521;
+          }return i | s << 16 | 0;
+        };
+      }, 619: function _(e) {
+        "use strict";
+        e.exports = { Z_NO_FLUSH: 0, Z_PARTIAL_FLUSH: 1, Z_SYNC_FLUSH: 2, Z_FULL_FLUSH: 3, Z_FINISH: 4, Z_BLOCK: 5, Z_TREES: 6, Z_OK: 0, Z_STREAM_END: 1, Z_NEED_DICT: 2, Z_ERRNO: -1, Z_STREAM_ERROR: -2, Z_DATA_ERROR: -3, Z_MEM_ERROR: -4, Z_BUF_ERROR: -5, Z_NO_COMPRESSION: 0, Z_BEST_SPEED: 1, Z_BEST_COMPRESSION: 9, Z_DEFAULT_COMPRESSION: -1, Z_FILTERED: 1, Z_HUFFMAN_ONLY: 2, Z_RLE: 3, Z_FIXED: 4, Z_DEFAULT_STRATEGY: 0, Z_BINARY: 0, Z_TEXT: 1, Z_UNKNOWN: 2, Z_DEFLATED: 8 };
+      }, 869: function _(e) {
+        "use strict";
+        var t = new Uint32Array(function () {
+          var e = void 0,
+              t = [];for (var r = 0; r < 256; r++) {
+            e = r;for (var n = 0; n < 8; n++) {
+              e = 1 & e ? 3988292384 ^ e >>> 1 : e >>> 1;
+            }t[r] = e;
+          }return t;
+        }());e.exports = function (e, r, n, i) {
+          var s = t,
+              a = i + n;e ^= -1;for (var _t6 = i; _t6 < a; _t6++) {
+            e = e >>> 8 ^ s[255 & (e ^ r[_t6])];
+          }return -1 ^ e;
+        };
+      }, 405: function _(e, t, r) {
+        "use strict";
+
+        var _r7 = r(342),
+            n = _r7._tr_init,
+            i = _r7._tr_stored_block,
+            s = _r7._tr_flush_block,
+            a = _r7._tr_tally,
+            o = _r7._tr_align,
+            c = r(69),
+            d = r(869),
+            l = r(898),
+            _r8 = r(619),
+            p = _r8.Z_NO_FLUSH,
+            h = _r8.Z_PARTIAL_FLUSH,
+            u = _r8.Z_FULL_FLUSH,
+            f = _r8.Z_FINISH,
+            m = _r8.Z_BLOCK,
+            _ = _r8.Z_OK,
+            g = _r8.Z_STREAM_END,
+            v = _r8.Z_STREAM_ERROR,
+            E = _r8.Z_DATA_ERROR,
+            y = _r8.Z_BUF_ERROR,
+            T = _r8.Z_DEFAULT_COMPRESSION,
+            C = _r8.Z_FILTERED,
+            b = _r8.Z_HUFFMAN_ONLY,
+            w = _r8.Z_RLE,
+            A = _r8.Z_FIXED,
+            R = _r8.Z_DEFAULT_STRATEGY,
+            S = _r8.Z_UNKNOWN,
+            P = _r8.Z_DEFLATED,
+            k = 258,
+            x = 262,
+            I = 42,
+            D = 113,
+            O = 666,
+            N = function N(e, t) {
+          return e.msg = l[t], t;
+        },
+            M = function M(e) {
+          return 2 * e - (e > 4 ? 9 : 0);
+        },
+            L = function L(e) {
+          var t = e.length;for (; --t >= 0;) {
+            e[t] = 0;
+          }
+        },
+            U = function U(e) {
+          var t = void 0,
+              r = void 0,
+              n = void 0,
+              i = e.w_size;t = e.hash_size, n = t;do {
+            r = e.head[--n], e.head[n] = r >= i ? r - i : 0;
+          } while (--t);t = i, n = t;do {
+            r = e.prev[--n], e.prev[n] = r >= i ? r - i : 0;
+          } while (--t);
+        };
+
+        var j = function j(e, t, r) {
+          return (t << e.hash_shift ^ r) & e.hash_mask;
+        };var z = function z(e) {
+          var t = e.state;var r = t.pending;r > e.avail_out && (r = e.avail_out), 0 !== r && (e.output.set(t.pending_buf.subarray(t.pending_out, t.pending_out + r), e.next_out), e.next_out += r, t.pending_out += r, e.total_out += r, e.avail_out -= r, t.pending -= r, 0 === t.pending && (t.pending_out = 0));
+        },
+            G = function G(e, t) {
+          s(e, e.block_start >= 0 ? e.block_start : -1, e.strstart - e.block_start, t), e.block_start = e.strstart, z(e.strm);
+        },
+            F = function F(e, t) {
+          e.pending_buf[e.pending++] = t;
+        },
+            V = function V(e, t) {
+          e.pending_buf[e.pending++] = t >>> 8 & 255, e.pending_buf[e.pending++] = 255 & t;
+        },
+            W = function W(e, t, r, n) {
+          var i = e.avail_in;return i > n && (i = n), 0 === i ? 0 : (e.avail_in -= i, t.set(e.input.subarray(e.next_in, e.next_in + i), r), 1 === e.state.wrap ? e.adler = c(e.adler, t, i, r) : 2 === e.state.wrap && (e.adler = d(e.adler, t, i, r)), e.next_in += i, e.total_in += i, i);
+        },
+            q = function q(e, t) {
+          var r = void 0,
+              n = void 0,
+              i = e.max_chain_length,
+              s = e.strstart,
+              a = e.prev_length,
+              o = e.nice_match;var c = e.strstart > e.w_size - x ? e.strstart - (e.w_size - x) : 0,
+              d = e.window,
+              l = e.w_mask,
+              p = e.prev,
+              h = e.strstart + k;var u = d[s + a - 1],
+              f = d[s + a];e.prev_length >= e.good_match && (i >>= 2), o > e.lookahead && (o = e.lookahead);do {
+            if (r = t, d[r + a] === f && d[r + a - 1] === u && d[r] === d[s] && d[++r] === d[s + 1]) {
+              s += 2, r++;do {} while (d[++s] === d[++r] && d[++s] === d[++r] && d[++s] === d[++r] && d[++s] === d[++r] && d[++s] === d[++r] && d[++s] === d[++r] && d[++s] === d[++r] && d[++s] === d[++r] && s < h);if (n = k - (h - s), s = h - k, n > a) {
+                if (e.match_start = t, a = n, n >= o) break;u = d[s + a - 1], f = d[s + a];
+              }
+            }
+          } while ((t = p[t & l]) > c && 0 != --i);return a <= e.lookahead ? a : e.lookahead;
+        },
+            Z = function Z(e) {
+          var t = e.w_size;var r = void 0,
+              n = void 0,
+              i = void 0;do {
+            if (n = e.window_size - e.lookahead - e.strstart, e.strstart >= t + (t - x) && (e.window.set(e.window.subarray(t, t + t - n), 0), e.match_start -= t, e.strstart -= t, e.block_start -= t, e.insert > e.strstart && (e.insert = e.strstart), U(e), n += t), 0 === e.strm.avail_in) break;if (r = W(e.strm, e.window, e.strstart + e.lookahead, n), e.lookahead += r, e.lookahead + e.insert >= 3) for (i = e.strstart - e.insert, e.ins_h = e.window[i], e.ins_h = j(e, e.ins_h, e.window[i + 1]); e.insert && (e.ins_h = j(e, e.ins_h, e.window[i + 3 - 1]), e.prev[i & e.w_mask] = e.head[e.ins_h], e.head[e.ins_h] = i, i++, e.insert--, !(e.lookahead + e.insert < 3));) {}
+          } while (e.lookahead < x && 0 !== e.strm.avail_in);
+        },
+            B = function B(e, t) {
+          var r = void 0,
+              n = void 0,
+              s = void 0,
+              a = e.pending_buf_size - 5 > e.w_size ? e.w_size : e.pending_buf_size - 5,
+              o = 0,
+              c = e.strm.avail_in;do {
+            if (r = 65535, s = e.bi_valid + 42 >> 3, e.strm.avail_out < s) break;if (s = e.strm.avail_out - s, n = e.strstart - e.block_start, r > n + e.strm.avail_in && (r = n + e.strm.avail_in), r > s && (r = s), r < a && (0 === r && t !== f || t === p || r !== n + e.strm.avail_in)) break;o = t === f && r === n + e.strm.avail_in ? 1 : 0, i(e, 0, 0, o), e.pending_buf[e.pending - 4] = r, e.pending_buf[e.pending - 3] = r >> 8, e.pending_buf[e.pending - 2] = ~r, e.pending_buf[e.pending - 1] = ~r >> 8, z(e.strm), n && (n > r && (n = r), e.strm.output.set(e.window.subarray(e.block_start, e.block_start + n), e.strm.next_out), e.strm.next_out += n, e.strm.avail_out -= n, e.strm.total_out += n, e.block_start += n, r -= n), r && (W(e.strm, e.strm.output, e.strm.next_out, r), e.strm.next_out += r, e.strm.avail_out -= r, e.strm.total_out += r);
+          } while (0 === o);return c -= e.strm.avail_in, c && (c >= e.w_size ? (e.matches = 2, e.window.set(e.strm.input.subarray(e.strm.next_in - e.w_size, e.strm.next_in), 0), e.strstart = e.w_size, e.insert = e.strstart) : (e.window_size - e.strstart <= c && (e.strstart -= e.w_size, e.window.set(e.window.subarray(e.w_size, e.w_size + e.strstart), 0), e.matches < 2 && e.matches++, e.insert > e.strstart && (e.insert = e.strstart)), e.window.set(e.strm.input.subarray(e.strm.next_in - c, e.strm.next_in), e.strstart), e.strstart += c, e.insert += c > e.w_size - e.insert ? e.w_size - e.insert : c), e.block_start = e.strstart), e.high_water < e.strstart && (e.high_water = e.strstart), o ? 4 : t !== p && t !== f && 0 === e.strm.avail_in && e.strstart === e.block_start ? 2 : (s = e.window_size - e.strstart, e.strm.avail_in > s && e.block_start >= e.w_size && (e.block_start -= e.w_size, e.strstart -= e.w_size, e.window.set(e.window.subarray(e.w_size, e.w_size + e.strstart), 0), e.matches < 2 && e.matches++, s += e.w_size, e.insert > e.strstart && (e.insert = e.strstart)), s > e.strm.avail_in && (s = e.strm.avail_in), s && (W(e.strm, e.window, e.strstart, s), e.strstart += s, e.insert += s > e.w_size - e.insert ? e.w_size - e.insert : s), e.high_water < e.strstart && (e.high_water = e.strstart), s = e.bi_valid + 42 >> 3, s = e.pending_buf_size - s > 65535 ? 65535 : e.pending_buf_size - s, a = s > e.w_size ? e.w_size : s, n = e.strstart - e.block_start, (n >= a || (n || t === f) && t !== p && 0 === e.strm.avail_in && n <= s) && (r = n > s ? s : n, o = t === f && 0 === e.strm.avail_in && r === n ? 1 : 0, i(e, e.block_start, r, o), e.block_start += r, z(e.strm)), o ? 3 : 1);
+        },
+            H = function H(e, t) {
+          var r = void 0,
+              n = void 0;for (;;) {
+            if (e.lookahead < x) {
+              if (Z(e), e.lookahead < x && t === p) return 1;if (0 === e.lookahead) break;
+            }if (r = 0, e.lookahead >= 3 && (e.ins_h = j(e, e.ins_h, e.window[e.strstart + 3 - 1]), r = e.prev[e.strstart & e.w_mask] = e.head[e.ins_h], e.head[e.ins_h] = e.strstart), 0 !== r && e.strstart - r <= e.w_size - x && (e.match_length = q(e, r)), e.match_length >= 3) {
+              if (n = a(e, e.strstart - e.match_start, e.match_length - 3), e.lookahead -= e.match_length, e.match_length <= e.max_lazy_match && e.lookahead >= 3) {
+                e.match_length--;do {
+                  e.strstart++, e.ins_h = j(e, e.ins_h, e.window[e.strstart + 3 - 1]), r = e.prev[e.strstart & e.w_mask] = e.head[e.ins_h], e.head[e.ins_h] = e.strstart;
+                } while (0 != --e.match_length);e.strstart++;
+              } else e.strstart += e.match_length, e.match_length = 0, e.ins_h = e.window[e.strstart], e.ins_h = j(e, e.ins_h, e.window[e.strstart + 1]);
+            } else n = a(e, 0, e.window[e.strstart]), e.lookahead--, e.strstart++;if (n && (G(e, !1), 0 === e.strm.avail_out)) return 1;
+          }return e.insert = e.strstart < 2 ? e.strstart : 2, t === f ? (G(e, !0), 0 === e.strm.avail_out ? 3 : 4) : e.sym_next && (G(e, !1), 0 === e.strm.avail_out) ? 1 : 2;
+        },
+            K = function K(e, t) {
+          var r = void 0,
+              n = void 0,
+              i = void 0;for (;;) {
+            if (e.lookahead < x) {
+              if (Z(e), e.lookahead < x && t === p) return 1;if (0 === e.lookahead) break;
+            }if (r = 0, e.lookahead >= 3 && (e.ins_h = j(e, e.ins_h, e.window[e.strstart + 3 - 1]), r = e.prev[e.strstart & e.w_mask] = e.head[e.ins_h], e.head[e.ins_h] = e.strstart), e.prev_length = e.match_length, e.prev_match = e.match_start, e.match_length = 2, 0 !== r && e.prev_length < e.max_lazy_match && e.strstart - r <= e.w_size - x && (e.match_length = q(e, r), e.match_length <= 5 && (e.strategy === C || 3 === e.match_length && e.strstart - e.match_start > 4096) && (e.match_length = 2)), e.prev_length >= 3 && e.match_length <= e.prev_length) {
+              i = e.strstart + e.lookahead - 3, n = a(e, e.strstart - 1 - e.prev_match, e.prev_length - 3), e.lookahead -= e.prev_length - 1, e.prev_length -= 2;do {
+                ++e.strstart <= i && (e.ins_h = j(e, e.ins_h, e.window[e.strstart + 3 - 1]), r = e.prev[e.strstart & e.w_mask] = e.head[e.ins_h], e.head[e.ins_h] = e.strstart);
+              } while (0 != --e.prev_length);if (e.match_available = 0, e.match_length = 2, e.strstart++, n && (G(e, !1), 0 === e.strm.avail_out)) return 1;
+            } else if (e.match_available) {
+              if (n = a(e, 0, e.window[e.strstart - 1]), n && G(e, !1), e.strstart++, e.lookahead--, 0 === e.strm.avail_out) return 1;
+            } else e.match_available = 1, e.strstart++, e.lookahead--;
+          }return e.match_available && (n = a(e, 0, e.window[e.strstart - 1]), e.match_available = 0), e.insert = e.strstart < 2 ? e.strstart : 2, t === f ? (G(e, !0), 0 === e.strm.avail_out ? 3 : 4) : e.sym_next && (G(e, !1), 0 === e.strm.avail_out) ? 1 : 2;
+        };function J(e, t, r, n, i) {
+          this.good_length = e, this.max_lazy = t, this.nice_length = r, this.max_chain = n, this.func = i;
+        }var $ = [new J(0, 0, 0, 0, B), new J(4, 4, 8, 4, H), new J(4, 5, 16, 8, H), new J(4, 6, 32, 32, H), new J(4, 4, 16, 16, K), new J(8, 16, 32, 32, K), new J(8, 16, 128, 128, K), new J(8, 32, 128, 256, K), new J(32, 128, 258, 1024, K), new J(32, 258, 258, 4096, K)];function Y() {
+          this.strm = null, this.status = 0, this.pending_buf = null, this.pending_buf_size = 0, this.pending_out = 0, this.pending = 0, this.wrap = 0, this.gzhead = null, this.gzindex = 0, this.method = P, this.last_flush = -1, this.w_size = 0, this.w_bits = 0, this.w_mask = 0, this.window = null, this.window_size = 0, this.prev = null, this.head = null, this.ins_h = 0, this.hash_size = 0, this.hash_bits = 0, this.hash_mask = 0, this.hash_shift = 0, this.block_start = 0, this.match_length = 0, this.prev_match = 0, this.match_available = 0, this.strstart = 0, this.match_start = 0, this.lookahead = 0, this.prev_length = 0, this.max_chain_length = 0, this.max_lazy_match = 0, this.level = 0, this.strategy = 0, this.good_match = 0, this.nice_match = 0, this.dyn_ltree = new Uint16Array(1146), this.dyn_dtree = new Uint16Array(122), this.bl_tree = new Uint16Array(78), L(this.dyn_ltree), L(this.dyn_dtree), L(this.bl_tree), this.l_desc = null, this.d_desc = null, this.bl_desc = null, this.bl_count = new Uint16Array(16), this.heap = new Uint16Array(573), L(this.heap), this.heap_len = 0, this.heap_max = 0, this.depth = new Uint16Array(573), L(this.depth), this.sym_buf = 0, this.lit_bufsize = 0, this.sym_next = 0, this.sym_end = 0, this.opt_len = 0, this.static_len = 0, this.matches = 0, this.insert = 0, this.bi_buf = 0, this.bi_valid = 0;
+        }var X = function X(e) {
+          if (!e) return 1;var t = e.state;return !t || t.strm !== e || t.status !== I && 57 !== t.status && 69 !== t.status && 73 !== t.status && 91 !== t.status && 103 !== t.status && t.status !== D && t.status !== O ? 1 : 0;
+        },
+            Q = function Q(e) {
+          if (X(e)) return N(e, v);e.total_in = e.total_out = 0, e.data_type = S;var t = e.state;return t.pending = 0, t.pending_out = 0, t.wrap < 0 && (t.wrap = -t.wrap), t.status = 2 === t.wrap ? 57 : t.wrap ? I : D, e.adler = 2 === t.wrap ? 0 : 1, t.last_flush = -2, n(t), _;
+        },
+            ee = function ee(e) {
+          var t = Q(e);var r;return t === _ && ((r = e.state).window_size = 2 * r.w_size, L(r.head), r.max_lazy_match = $[r.level].max_lazy, r.good_match = $[r.level].good_length, r.nice_match = $[r.level].nice_length, r.max_chain_length = $[r.level].max_chain, r.strstart = 0, r.block_start = 0, r.lookahead = 0, r.insert = 0, r.match_length = r.prev_length = 2, r.match_available = 0, r.ins_h = 0), t;
+        },
+            te = function te(e, t, r, n, i, s) {
+          if (!e) return v;var a = 1;if (t === T && (t = 6), n < 0 ? (a = 0, n = -n) : n > 15 && (a = 2, n -= 16), i < 1 || i > 9 || r !== P || n < 8 || n > 15 || t < 0 || t > 9 || s < 0 || s > A || 8 === n && 1 !== a) return N(e, v);8 === n && (n = 9);var o = new Y();return e.state = o, o.strm = e, o.status = I, o.wrap = a, o.gzhead = null, o.w_bits = n, o.w_size = 1 << o.w_bits, o.w_mask = o.w_size - 1, o.hash_bits = i + 7, o.hash_size = 1 << o.hash_bits, o.hash_mask = o.hash_size - 1, o.hash_shift = ~~((o.hash_bits + 3 - 1) / 3), o.window = new Uint8Array(2 * o.w_size), o.head = new Uint16Array(o.hash_size), o.prev = new Uint16Array(o.w_size), o.lit_bufsize = 1 << i + 6, o.pending_buf_size = 4 * o.lit_bufsize, o.pending_buf = new Uint8Array(o.pending_buf_size), o.sym_buf = o.lit_bufsize, o.sym_end = 3 * (o.lit_bufsize - 1), o.level = t, o.strategy = s, o.method = r, ee(e);
+        };e.exports.deflateInit = function (e, t) {
+          return te(e, t, P, 15, 8, R);
+        }, e.exports.deflateInit2 = te, e.exports.deflateReset = ee, e.exports.deflateResetKeep = Q, e.exports.deflateSetHeader = function (e, t) {
+          return X(e) || 2 !== e.state.wrap ? v : (e.state.gzhead = t, _);
+        }, e.exports.deflate = function (e, t) {
+          if (X(e) || t > m || t < 0) return e ? N(e, v) : v;var r = e.state;if (!e.output || 0 !== e.avail_in && !e.input || r.status === O && t !== f) return N(e, 0 === e.avail_out ? y : v);var n = r.last_flush;if (r.last_flush = t, 0 !== r.pending) {
+            if (z(e), 0 === e.avail_out) return r.last_flush = -1, _;
+          } else if (0 === e.avail_in && M(t) <= M(n) && t !== f) return N(e, y);if (r.status === O && 0 !== e.avail_in) return N(e, y);if (r.status === I && 0 === r.wrap && (r.status = D), r.status === I) {
+            var _t7 = P + (r.w_bits - 8 << 4) << 8,
+                _n6 = -1;if (_n6 = r.strategy >= b || r.level < 2 ? 0 : r.level < 6 ? 1 : 6 === r.level ? 2 : 3, _t7 |= _n6 << 6, 0 !== r.strstart && (_t7 |= 32), _t7 += 31 - _t7 % 31, V(r, _t7), 0 !== r.strstart && (V(r, e.adler >>> 16), V(r, 65535 & e.adler)), e.adler = 1, r.status = D, z(e), 0 !== r.pending) return r.last_flush = -1, _;
+          }if (57 === r.status) if (e.adler = 0, F(r, 31), F(r, 139), F(r, 8), r.gzhead) F(r, (r.gzhead.text ? 1 : 0) + (r.gzhead.hcrc ? 2 : 0) + (r.gzhead.extra ? 4 : 0) + (r.gzhead.name ? 8 : 0) + (r.gzhead.comment ? 16 : 0)), F(r, 255 & r.gzhead.time), F(r, r.gzhead.time >> 8 & 255), F(r, r.gzhead.time >> 16 & 255), F(r, r.gzhead.time >> 24 & 255), F(r, 9 === r.level ? 2 : r.strategy >= b || r.level < 2 ? 4 : 0), F(r, 255 & r.gzhead.os), r.gzhead.extra && r.gzhead.extra.length && (F(r, 255 & r.gzhead.extra.length), F(r, r.gzhead.extra.length >> 8 & 255)), r.gzhead.hcrc && (e.adler = d(e.adler, r.pending_buf, r.pending, 0)), r.gzindex = 0, r.status = 69;else if (F(r, 0), F(r, 0), F(r, 0), F(r, 0), F(r, 0), F(r, 9 === r.level ? 2 : r.strategy >= b || r.level < 2 ? 4 : 0), F(r, 3), r.status = D, z(e), 0 !== r.pending) return r.last_flush = -1, _;if (69 === r.status) {
+            if (r.gzhead.extra) {
+              var _t8 = r.pending,
+                  _n7 = (65535 & r.gzhead.extra.length) - r.gzindex;for (; r.pending + _n7 > r.pending_buf_size;) {
+                var _i2 = r.pending_buf_size - r.pending;if (r.pending_buf.set(r.gzhead.extra.subarray(r.gzindex, r.gzindex + _i2), r.pending), r.pending = r.pending_buf_size, r.gzhead.hcrc && r.pending > _t8 && (e.adler = d(e.adler, r.pending_buf, r.pending - _t8, _t8)), r.gzindex += _i2, z(e), 0 !== r.pending) return r.last_flush = -1, _;_t8 = 0, _n7 -= _i2;
+              }var _i = new Uint8Array(r.gzhead.extra);r.pending_buf.set(_i.subarray(r.gzindex, r.gzindex + _n7), r.pending), r.pending += _n7, r.gzhead.hcrc && r.pending > _t8 && (e.adler = d(e.adler, r.pending_buf, r.pending - _t8, _t8)), r.gzindex = 0;
+            }r.status = 73;
+          }if (73 === r.status) {
+            if (r.gzhead.name) {
+              var _t9 = void 0,
+                  _n8 = r.pending;do {
+                if (r.pending === r.pending_buf_size) {
+                  if (r.gzhead.hcrc && r.pending > _n8 && (e.adler = d(e.adler, r.pending_buf, r.pending - _n8, _n8)), z(e), 0 !== r.pending) return r.last_flush = -1, _;_n8 = 0;
+                }_t9 = r.gzindex < r.gzhead.name.length ? 255 & r.gzhead.name.charCodeAt(r.gzindex++) : 0, F(r, _t9);
+              } while (0 !== _t9);r.gzhead.hcrc && r.pending > _n8 && (e.adler = d(e.adler, r.pending_buf, r.pending - _n8, _n8)), r.gzindex = 0;
+            }r.status = 91;
+          }if (91 === r.status) {
+            if (r.gzhead.comment) {
+              var _t10 = void 0,
+                  _n9 = r.pending;do {
+                if (r.pending === r.pending_buf_size) {
+                  if (r.gzhead.hcrc && r.pending > _n9 && (e.adler = d(e.adler, r.pending_buf, r.pending - _n9, _n9)), z(e), 0 !== r.pending) return r.last_flush = -1, _;_n9 = 0;
+                }_t10 = r.gzindex < r.gzhead.comment.length ? 255 & r.gzhead.comment.charCodeAt(r.gzindex++) : 0, F(r, _t10);
+              } while (0 !== _t10);r.gzhead.hcrc && r.pending > _n9 && (e.adler = d(e.adler, r.pending_buf, r.pending - _n9, _n9));
+            }r.status = 103;
+          }if (103 === r.status) {
+            if (r.gzhead.hcrc) {
+              if (r.pending + 2 > r.pending_buf_size && (z(e), 0 !== r.pending)) return r.last_flush = -1, _;F(r, 255 & e.adler), F(r, e.adler >> 8 & 255), e.adler = 0;
+            }if (r.status = D, z(e), 0 !== r.pending) return r.last_flush = -1, _;
+          }if (0 !== e.avail_in || 0 !== r.lookahead || t !== p && r.status !== O) {
+            var _n10 = 0 === r.level ? B(r, t) : r.strategy === b ? function (e, t) {
+              var r = void 0;for (;;) {
+                if (0 === e.lookahead && (Z(e), 0 === e.lookahead)) {
+                  if (t === p) return 1;break;
+                }if (e.match_length = 0, r = a(e, 0, e.window[e.strstart]), e.lookahead--, e.strstart++, r && (G(e, !1), 0 === e.strm.avail_out)) return 1;
+              }return e.insert = 0, t === f ? (G(e, !0), 0 === e.strm.avail_out ? 3 : 4) : e.sym_next && (G(e, !1), 0 === e.strm.avail_out) ? 1 : 2;
+            }(r, t) : r.strategy === w ? function (e, t) {
+              var r = void 0,
+                  n = void 0,
+                  i = void 0,
+                  s = void 0;var o = e.window;for (;;) {
+                if (e.lookahead <= k) {
+                  if (Z(e), e.lookahead <= k && t === p) return 1;if (0 === e.lookahead) break;
+                }if (e.match_length = 0, e.lookahead >= 3 && e.strstart > 0 && (i = e.strstart - 1, n = o[i], n === o[++i] && n === o[++i] && n === o[++i])) {
+                  s = e.strstart + k;do {} while (n === o[++i] && n === o[++i] && n === o[++i] && n === o[++i] && n === o[++i] && n === o[++i] && n === o[++i] && n === o[++i] && i < s);e.match_length = k - (s - i), e.match_length > e.lookahead && (e.match_length = e.lookahead);
+                }if (e.match_length >= 3 ? (r = a(e, 1, e.match_length - 3), e.lookahead -= e.match_length, e.strstart += e.match_length, e.match_length = 0) : (r = a(e, 0, e.window[e.strstart]), e.lookahead--, e.strstart++), r && (G(e, !1), 0 === e.strm.avail_out)) return 1;
+              }return e.insert = 0, t === f ? (G(e, !0), 0 === e.strm.avail_out ? 3 : 4) : e.sym_next && (G(e, !1), 0 === e.strm.avail_out) ? 1 : 2;
+            }(r, t) : $[r.level].func(r, t);if (3 !== _n10 && 4 !== _n10 || (r.status = O), 1 === _n10 || 3 === _n10) return 0 === e.avail_out && (r.last_flush = -1), _;if (2 === _n10 && (t === h ? o(r) : t !== m && (i(r, 0, 0, !1), t === u && (L(r.head), 0 === r.lookahead && (r.strstart = 0, r.block_start = 0, r.insert = 0))), z(e), 0 === e.avail_out)) return r.last_flush = -1, _;
+          }return t !== f ? _ : r.wrap <= 0 ? g : (2 === r.wrap ? (F(r, 255 & e.adler), F(r, e.adler >> 8 & 255), F(r, e.adler >> 16 & 255), F(r, e.adler >> 24 & 255), F(r, 255 & e.total_in), F(r, e.total_in >> 8 & 255), F(r, e.total_in >> 16 & 255), F(r, e.total_in >> 24 & 255)) : (V(r, e.adler >>> 16), V(r, 65535 & e.adler)), z(e), r.wrap > 0 && (r.wrap = -r.wrap), 0 !== r.pending ? _ : g);
+        }, e.exports.deflateEnd = function (e) {
+          if (X(e)) return v;var t = e.state.status;return e.state = null, t === D ? N(e, E) : _;
+        }, e.exports.deflateSetDictionary = function (e, t) {
+          var r = t.length;if (X(e)) return v;var n = e.state,
+              i = n.wrap;if (2 === i || 1 === i && n.status !== I || n.lookahead) return v;if (1 === i && (e.adler = c(e.adler, t, r, 0)), n.wrap = 0, r >= n.w_size) {
+            0 === i && (L(n.head), n.strstart = 0, n.block_start = 0, n.insert = 0);var _e4 = new Uint8Array(n.w_size);_e4.set(t.subarray(r - n.w_size, r), 0), t = _e4, r = n.w_size;
+          }var s = e.avail_in,
+              a = e.next_in,
+              o = e.input;for (e.avail_in = r, e.next_in = 0, e.input = t, Z(n); n.lookahead >= 3;) {
+            var _e5 = n.strstart,
+                _t11 = n.lookahead - 2;do {
+              n.ins_h = j(n, n.ins_h, n.window[_e5 + 3 - 1]), n.prev[_e5 & n.w_mask] = n.head[n.ins_h], n.head[n.ins_h] = _e5, _e5++;
+            } while (--_t11);n.strstart = _e5, n.lookahead = 2, Z(n);
+          }return n.strstart += n.lookahead, n.block_start = n.strstart, n.insert = n.lookahead, n.lookahead = 0, n.match_length = n.prev_length = 2, n.match_available = 0, e.next_in = a, e.input = o, e.avail_in = s, n.wrap = i, _;
+        }, e.exports.deflateInfo = "pako deflate (from Nodeca project)";
+      }, 188: function _(e) {
+        "use strict";
+        e.exports = function () {
+          this.text = 0, this.time = 0, this.xflags = 0, this.os = 0, this.extra = null, this.extra_len = 0, this.name = "", this.comment = "", this.hcrc = 0, this.done = !1;
+        };
+      }, 264: function _(e) {
+        "use strict";
+        var t = 16209;e.exports = function (e, r) {
+          var n = void 0,
+              i = void 0,
+              s = void 0,
+              a = void 0,
+              o = void 0,
+              c = void 0,
+              d = void 0,
+              l = void 0,
+              p = void 0,
+              h = void 0,
+              u = void 0,
+              f = void 0,
+              m = void 0,
+              _ = void 0,
+              g = void 0,
+              v = void 0,
+              E = void 0,
+              y = void 0,
+              T = void 0,
+              C = void 0,
+              b = void 0,
+              w = void 0,
+              A = void 0,
+              R = void 0;var S = e.state;n = e.next_in, A = e.input, i = n + (e.avail_in - 5), s = e.next_out, R = e.output, a = s - (r - e.avail_out), o = s + (e.avail_out - 257), c = S.dmax, d = S.wsize, l = S.whave, p = S.wnext, h = S.window, u = S.hold, f = S.bits, m = S.lencode, _ = S.distcode, g = (1 << S.lenbits) - 1, v = (1 << S.distbits) - 1;e: do {
+            f < 15 && (u += A[n++] << f, f += 8, u += A[n++] << f, f += 8), E = m[u & g];t: for (;;) {
+              if (y = E >>> 24, u >>>= y, f -= y, y = E >>> 16 & 255, 0 === y) R[s++] = 65535 & E;else {
+                if (!(16 & y)) {
+                  if (0 == (64 & y)) {
+                    E = m[(65535 & E) + (u & (1 << y) - 1)];continue t;
+                  }if (32 & y) {
+                    S.mode = 16191;break e;
+                  }e.msg = "invalid literal/length code", S.mode = t;break e;
+                }T = 65535 & E, y &= 15, y && (f < y && (u += A[n++] << f, f += 8), T += u & (1 << y) - 1, u >>>= y, f -= y), f < 15 && (u += A[n++] << f, f += 8, u += A[n++] << f, f += 8), E = _[u & v];r: for (;;) {
+                  if (y = E >>> 24, u >>>= y, f -= y, y = E >>> 16 & 255, !(16 & y)) {
+                    if (0 == (64 & y)) {
+                      E = _[(65535 & E) + (u & (1 << y) - 1)];continue r;
+                    }e.msg = "invalid distance code", S.mode = t;break e;
+                  }if (C = 65535 & E, y &= 15, f < y && (u += A[n++] << f, f += 8, f < y && (u += A[n++] << f, f += 8)), C += u & (1 << y) - 1, C > c) {
+                    e.msg = "invalid distance too far back", S.mode = t;break e;
+                  }if (u >>>= y, f -= y, y = s - a, C > y) {
+                    if (y = C - y, y > l && S.sane) {
+                      e.msg = "invalid distance too far back", S.mode = t;break e;
+                    }if (b = 0, w = h, 0 === p) {
+                      if (b += d - y, y < T) {
+                        T -= y;do {
+                          R[s++] = h[b++];
+                        } while (--y);b = s - C, w = R;
+                      }
+                    } else if (p < y) {
+                      if (b += d + p - y, y -= p, y < T) {
+                        T -= y;do {
+                          R[s++] = h[b++];
+                        } while (--y);if (b = 0, p < T) {
+                          y = p, T -= y;do {
+                            R[s++] = h[b++];
+                          } while (--y);b = s - C, w = R;
+                        }
+                      }
+                    } else if (b += p - y, y < T) {
+                      T -= y;do {
+                        R[s++] = h[b++];
+                      } while (--y);b = s - C, w = R;
+                    }for (; T > 2;) {
+                      R[s++] = w[b++], R[s++] = w[b++], R[s++] = w[b++], T -= 3;
+                    }T && (R[s++] = w[b++], T > 1 && (R[s++] = w[b++]));
+                  } else {
+                    b = s - C;do {
+                      R[s++] = R[b++], R[s++] = R[b++], R[s++] = R[b++], T -= 3;
+                    } while (T > 2);T && (R[s++] = R[b++], T > 1 && (R[s++] = R[b++]));
+                  }break;
+                }
+              }break;
+            }
+          } while (n < i && s < o);T = f >> 3, n -= T, f -= T << 3, u &= (1 << f) - 1, e.next_in = n, e.next_out = s, e.avail_in = n < i ? i - n + 5 : 5 - (n - i), e.avail_out = s < o ? o - s + 257 : 257 - (s - o), S.hold = u, S.bits = f;
+        };
+      }, 948: function _(e, t, r) {
+        "use strict";
+        var n = r(69),
+            i = r(869),
+            s = r(264),
+            a = r(241),
+            _r9 = r(619),
+            o = _r9.Z_FINISH,
+            c = _r9.Z_BLOCK,
+            d = _r9.Z_TREES,
+            l = _r9.Z_OK,
+            p = _r9.Z_STREAM_END,
+            h = _r9.Z_NEED_DICT,
+            u = _r9.Z_STREAM_ERROR,
+            f = _r9.Z_DATA_ERROR,
+            m = _r9.Z_MEM_ERROR,
+            _ = _r9.Z_BUF_ERROR,
+            g = _r9.Z_DEFLATED,
+            v = 16180,
+            E = 16190,
+            y = 16191,
+            T = 16192,
+            C = 16194,
+            b = 16199,
+            w = 16200,
+            A = 16206,
+            R = 16209,
+            S = 16210,
+            P = function P(e) {
+          return (e >>> 24 & 255) + (e >>> 8 & 65280) + ((65280 & e) << 8) + ((255 & e) << 24);
+        };function k() {
+          this.strm = null, this.mode = 0, this.last = !1, this.wrap = 0, this.havedict = !1, this.flags = 0, this.dmax = 0, this.check = 0, this.total = 0, this.head = null, this.wbits = 0, this.wsize = 0, this.whave = 0, this.wnext = 0, this.window = null, this.hold = 0, this.bits = 0, this.length = 0, this.offset = 0, this.extra = 0, this.lencode = null, this.distcode = null, this.lenbits = 0, this.distbits = 0, this.ncode = 0, this.nlen = 0, this.ndist = 0, this.have = 0, this.next = null, this.lens = new Uint16Array(320), this.work = new Uint16Array(288), this.lendyn = null, this.distdyn = null, this.sane = 0, this.back = 0, this.was = 0;
+        }var x = function x(e) {
+          if (!e) return 1;var t = e.state;return !t || t.strm !== e || t.mode < v || t.mode > 16211 ? 1 : 0;
+        },
+            I = function I(e) {
+          if (x(e)) return u;var t = e.state;return e.total_in = e.total_out = t.total = 0, e.msg = "", t.wrap && (e.adler = 1 & t.wrap), t.mode = v, t.last = 0, t.havedict = 0, t.flags = -1, t.dmax = 32768, t.head = null, t.hold = 0, t.bits = 0, t.lencode = t.lendyn = new Int32Array(852), t.distcode = t.distdyn = new Int32Array(592), t.sane = 1, t.back = -1, l;
+        },
+            D = function D(e) {
+          if (x(e)) return u;var t = e.state;return t.wsize = 0, t.whave = 0, t.wnext = 0, I(e);
+        },
+            O = function O(e, t) {
+          var r = void 0;if (x(e)) return u;var n = e.state;return t < 0 ? (r = 0, t = -t) : (r = 5 + (t >> 4), t < 48 && (t &= 15)), t && (t < 8 || t > 15) ? u : (null !== n.window && n.wbits !== t && (n.window = null), n.wrap = r, n.wbits = t, D(e));
+        },
+            N = function N(e, t) {
+          if (!e) return u;var r = new k();e.state = r, r.strm = e, r.window = null, r.mode = v;var n = O(e, t);return n !== l && (e.state = null), n;
+        };var M = void 0,
+            L = void 0,
+            U = !0;var j = function j(e) {
+          if (U) {
+            M = new Int32Array(512), L = new Int32Array(32);var _t12 = 0;for (; _t12 < 144;) {
+              e.lens[_t12++] = 8;
+            }for (; _t12 < 256;) {
+              e.lens[_t12++] = 9;
+            }for (; _t12 < 280;) {
+              e.lens[_t12++] = 7;
+            }for (; _t12 < 288;) {
+              e.lens[_t12++] = 8;
+            }for (a(1, e.lens, 0, 288, M, 0, e.work, { bits: 9 }), _t12 = 0; _t12 < 32;) {
+              e.lens[_t12++] = 5;
+            }a(2, e.lens, 0, 32, L, 0, e.work, { bits: 5 }), U = !1;
+          }e.lencode = M, e.lenbits = 9, e.distcode = L, e.distbits = 5;
+        },
+            z = function z(e, t, r, n) {
+          var i = void 0;var s = e.state;return null === s.window && (s.wsize = 1 << s.wbits, s.wnext = 0, s.whave = 0, s.window = new Uint8Array(s.wsize)), n >= s.wsize ? (s.window.set(t.subarray(r - s.wsize, r), 0), s.wnext = 0, s.whave = s.wsize) : (i = s.wsize - s.wnext, i > n && (i = n), s.window.set(t.subarray(r - n, r - n + i), s.wnext), (n -= i) ? (s.window.set(t.subarray(r - n, r), 0), s.wnext = n, s.whave = s.wsize) : (s.wnext += i, s.wnext === s.wsize && (s.wnext = 0), s.whave < s.wsize && (s.whave += i))), 0;
+        };e.exports.inflateReset = D, e.exports.inflateReset2 = O, e.exports.inflateResetKeep = I, e.exports.inflateInit = function (e) {
+          return N(e, 15);
+        }, e.exports.inflateInit2 = N, e.exports.inflate = function (e, t) {
+          var r = void 0,
+              k = void 0,
+              I = void 0,
+              D = void 0,
+              O = void 0,
+              N = void 0,
+              M = void 0,
+              L = void 0,
+              U = void 0,
+              G = void 0,
+              F = void 0,
+              V = void 0,
+              W = void 0,
+              q = void 0,
+              Z = void 0,
+              B = void 0,
+              H = void 0,
+              K = void 0,
+              J = void 0,
+              $ = void 0,
+              Y = void 0,
+              X = void 0,
+              Q = 0;var ee = new Uint8Array(4);var te = void 0,
+              re = void 0;var ne = new Uint8Array([16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15]);if (x(e) || !e.output || !e.input && 0 !== e.avail_in) return u;r = e.state, r.mode === y && (r.mode = T), O = e.next_out, I = e.output, M = e.avail_out, D = e.next_in, k = e.input, N = e.avail_in, L = r.hold, U = r.bits, G = N, F = M, X = l;e: for (;;) {
+            switch (r.mode) {case v:
+                if (0 === r.wrap) {
+                  r.mode = T;break;
+                }for (; U < 16;) {
+                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                }if (2 & r.wrap && 35615 === L) {
+                  0 === r.wbits && (r.wbits = 15), r.check = 0, ee[0] = 255 & L, ee[1] = L >>> 8 & 255, r.check = i(r.check, ee, 2, 0), L = 0, U = 0, r.mode = 16181;break;
+                }if (r.head && (r.head.done = !1), !(1 & r.wrap) || (((255 & L) << 8) + (L >> 8)) % 31) {
+                  e.msg = "incorrect header check", r.mode = R;break;
+                }if ((15 & L) !== g) {
+                  e.msg = "unknown compression method", r.mode = R;break;
+                }if (L >>>= 4, U -= 4, Y = 8 + (15 & L), 0 === r.wbits && (r.wbits = Y), Y > 15 || Y > r.wbits) {
+                  e.msg = "invalid window size", r.mode = R;break;
+                }r.dmax = 1 << r.wbits, r.flags = 0, e.adler = r.check = 1, r.mode = 512 & L ? 16189 : y, L = 0, U = 0;break;case 16181:
+                for (; U < 16;) {
+                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                }if (r.flags = L, (255 & r.flags) !== g) {
+                  e.msg = "unknown compression method", r.mode = R;break;
+                }if (57344 & r.flags) {
+                  e.msg = "unknown header flags set", r.mode = R;break;
+                }r.head && (r.head.text = L >> 8 & 1), 512 & r.flags && 4 & r.wrap && (ee[0] = 255 & L, ee[1] = L >>> 8 & 255, r.check = i(r.check, ee, 2, 0)), L = 0, U = 0, r.mode = 16182;case 16182:
+                for (; U < 32;) {
+                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                }r.head && (r.head.time = L), 512 & r.flags && 4 & r.wrap && (ee[0] = 255 & L, ee[1] = L >>> 8 & 255, ee[2] = L >>> 16 & 255, ee[3] = L >>> 24 & 255, r.check = i(r.check, ee, 4, 0)), L = 0, U = 0, r.mode = 16183;case 16183:
+                for (; U < 16;) {
+                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                }r.head && (r.head.xflags = 255 & L, r.head.os = L >> 8), 512 & r.flags && 4 & r.wrap && (ee[0] = 255 & L, ee[1] = L >>> 8 & 255, r.check = i(r.check, ee, 2, 0)), L = 0, U = 0, r.mode = 16184;case 16184:
+                if (1024 & r.flags) {
+                  for (; U < 16;) {
+                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                  }r.length = L, r.head && (r.head.extra_len = L), 512 & r.flags && 4 & r.wrap && (ee[0] = 255 & L, ee[1] = L >>> 8 & 255, r.check = i(r.check, ee, 2, 0)), L = 0, U = 0;
+                } else r.head && (r.head.extra = null);r.mode = 16185;case 16185:
+                if (1024 & r.flags && (V = r.length, V > N && (V = N), V && (r.head && (Y = r.head.extra_len - r.length, r.head.extra || (r.head.extra = new Uint8Array(r.head.extra_len)), r.head.extra.set(k.subarray(D, D + V), Y)), 512 & r.flags && 4 & r.wrap && (r.check = i(r.check, k, V, D)), N -= V, D += V, r.length -= V), r.length)) break e;r.length = 0, r.mode = 16186;case 16186:
+                if (2048 & r.flags) {
+                  if (0 === N) break e;V = 0;do {
+                    Y = k[D + V++], r.head && Y && r.length < 65536 && (r.head.name += String.fromCharCode(Y));
+                  } while (Y && V < N);if (512 & r.flags && 4 & r.wrap && (r.check = i(r.check, k, V, D)), N -= V, D += V, Y) break e;
+                } else r.head && (r.head.name = null);r.length = 0, r.mode = 16187;case 16187:
+                if (4096 & r.flags) {
+                  if (0 === N) break e;V = 0;do {
+                    Y = k[D + V++], r.head && Y && r.length < 65536 && (r.head.comment += String.fromCharCode(Y));
+                  } while (Y && V < N);if (512 & r.flags && 4 & r.wrap && (r.check = i(r.check, k, V, D)), N -= V, D += V, Y) break e;
+                } else r.head && (r.head.comment = null);r.mode = 16188;case 16188:
+                if (512 & r.flags) {
+                  for (; U < 16;) {
+                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                  }if (4 & r.wrap && L !== (65535 & r.check)) {
+                    e.msg = "header crc mismatch", r.mode = R;break;
+                  }L = 0, U = 0;
+                }r.head && (r.head.hcrc = r.flags >> 9 & 1, r.head.done = !0), e.adler = r.check = 0, r.mode = y;break;case 16189:
+                for (; U < 32;) {
+                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                }e.adler = r.check = P(L), L = 0, U = 0, r.mode = E;case E:
+                if (0 === r.havedict) return e.next_out = O, e.avail_out = M, e.next_in = D, e.avail_in = N, r.hold = L, r.bits = U, h;e.adler = r.check = 1, r.mode = y;case y:
+                if (t === c || t === d) break e;case T:
+                if (r.last) {
+                  L >>>= 7 & U, U -= 7 & U, r.mode = A;break;
+                }for (; U < 3;) {
+                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                }switch (r.last = 1 & L, L >>>= 1, U -= 1, 3 & L) {case 0:
+                    r.mode = 16193;break;case 1:
+                    if (j(r), r.mode = b, t === d) {
+                      L >>>= 2, U -= 2;break e;
+                    }break;case 2:
+                    r.mode = 16196;break;case 3:
+                    e.msg = "invalid block type", r.mode = R;}L >>>= 2, U -= 2;break;case 16193:
+                for (L >>>= 7 & U, U -= 7 & U; U < 32;) {
+                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                }if ((65535 & L) != (L >>> 16 ^ 65535)) {
+                  e.msg = "invalid stored block lengths", r.mode = R;break;
+                }if (r.length = 65535 & L, L = 0, U = 0, r.mode = C, t === d) break e;case C:
+                r.mode = 16195;case 16195:
+                if (V = r.length, V) {
+                  if (V > N && (V = N), V > M && (V = M), 0 === V) break e;I.set(k.subarray(D, D + V), O), N -= V, D += V, M -= V, O += V, r.length -= V;break;
+                }r.mode = y;break;case 16196:
+                for (; U < 14;) {
+                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                }if (r.nlen = 257 + (31 & L), L >>>= 5, U -= 5, r.ndist = 1 + (31 & L), L >>>= 5, U -= 5, r.ncode = 4 + (15 & L), L >>>= 4, U -= 4, r.nlen > 286 || r.ndist > 30) {
+                  e.msg = "too many length or distance symbols", r.mode = R;break;
+                }r.have = 0, r.mode = 16197;case 16197:
+                for (; r.have < r.ncode;) {
+                  for (; U < 3;) {
+                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                  }r.lens[ne[r.have++]] = 7 & L, L >>>= 3, U -= 3;
+                }for (; r.have < 19;) {
+                  r.lens[ne[r.have++]] = 0;
+                }if (r.lencode = r.lendyn, r.lenbits = 7, te = { bits: r.lenbits }, X = a(0, r.lens, 0, 19, r.lencode, 0, r.work, te), r.lenbits = te.bits, X) {
+                  e.msg = "invalid code lengths set", r.mode = R;break;
+                }r.have = 0, r.mode = 16198;case 16198:
+                for (; r.have < r.nlen + r.ndist;) {
+                  for (; Q = r.lencode[L & (1 << r.lenbits) - 1], Z = Q >>> 24, B = Q >>> 16 & 255, H = 65535 & Q, !(Z <= U);) {
+                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                  }if (H < 16) L >>>= Z, U -= Z, r.lens[r.have++] = H;else {
+                    if (16 === H) {
+                      for (re = Z + 2; U < re;) {
+                        if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                      }if (L >>>= Z, U -= Z, 0 === r.have) {
+                        e.msg = "invalid bit length repeat", r.mode = R;break;
+                      }Y = r.lens[r.have - 1], V = 3 + (3 & L), L >>>= 2, U -= 2;
+                    } else if (17 === H) {
+                      for (re = Z + 3; U < re;) {
+                        if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                      }L >>>= Z, U -= Z, Y = 0, V = 3 + (7 & L), L >>>= 3, U -= 3;
+                    } else {
+                      for (re = Z + 7; U < re;) {
+                        if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                      }L >>>= Z, U -= Z, Y = 0, V = 11 + (127 & L), L >>>= 7, U -= 7;
+                    }if (r.have + V > r.nlen + r.ndist) {
+                      e.msg = "invalid bit length repeat", r.mode = R;break;
+                    }for (; V--;) {
+                      r.lens[r.have++] = Y;
+                    }
+                  }
+                }if (r.mode === R) break;if (0 === r.lens[256]) {
+                  e.msg = "invalid code -- missing end-of-block", r.mode = R;break;
+                }if (r.lenbits = 9, te = { bits: r.lenbits }, X = a(1, r.lens, 0, r.nlen, r.lencode, 0, r.work, te), r.lenbits = te.bits, X) {
+                  e.msg = "invalid literal/lengths set", r.mode = R;break;
+                }if (r.distbits = 6, r.distcode = r.distdyn, te = { bits: r.distbits }, X = a(2, r.lens, r.nlen, r.ndist, r.distcode, 0, r.work, te), r.distbits = te.bits, X) {
+                  e.msg = "invalid distances set", r.mode = R;break;
+                }if (r.mode = b, t === d) break e;case b:
+                r.mode = w;case w:
+                if (N >= 6 && M >= 258) {
+                  e.next_out = O, e.avail_out = M, e.next_in = D, e.avail_in = N, r.hold = L, r.bits = U, s(e, F), O = e.next_out, I = e.output, M = e.avail_out, D = e.next_in, k = e.input, N = e.avail_in, L = r.hold, U = r.bits, r.mode === y && (r.back = -1);break;
+                }for (r.back = 0; Q = r.lencode[L & (1 << r.lenbits) - 1], Z = Q >>> 24, B = Q >>> 16 & 255, H = 65535 & Q, !(Z <= U);) {
+                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                }if (B && 0 == (240 & B)) {
+                  for (K = Z, J = B, $ = H; Q = r.lencode[$ + ((L & (1 << K + J) - 1) >> K)], Z = Q >>> 24, B = Q >>> 16 & 255, H = 65535 & Q, !(K + Z <= U);) {
+                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                  }L >>>= K, U -= K, r.back += K;
+                }if (L >>>= Z, U -= Z, r.back += Z, r.length = H, 0 === B) {
+                  r.mode = 16205;break;
+                }if (32 & B) {
+                  r.back = -1, r.mode = y;break;
+                }if (64 & B) {
+                  e.msg = "invalid literal/length code", r.mode = R;break;
+                }r.extra = 15 & B, r.mode = 16201;case 16201:
+                if (r.extra) {
+                  for (re = r.extra; U < re;) {
+                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                  }r.length += L & (1 << r.extra) - 1, L >>>= r.extra, U -= r.extra, r.back += r.extra;
+                }r.was = r.length, r.mode = 16202;case 16202:
+                for (; Q = r.distcode[L & (1 << r.distbits) - 1], Z = Q >>> 24, B = Q >>> 16 & 255, H = 65535 & Q, !(Z <= U);) {
+                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                }if (0 == (240 & B)) {
+                  for (K = Z, J = B, $ = H; Q = r.distcode[$ + ((L & (1 << K + J) - 1) >> K)], Z = Q >>> 24, B = Q >>> 16 & 255, H = 65535 & Q, !(K + Z <= U);) {
+                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                  }L >>>= K, U -= K, r.back += K;
+                }if (L >>>= Z, U -= Z, r.back += Z, 64 & B) {
+                  e.msg = "invalid distance code", r.mode = R;break;
+                }r.offset = H, r.extra = 15 & B, r.mode = 16203;case 16203:
+                if (r.extra) {
+                  for (re = r.extra; U < re;) {
+                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                  }r.offset += L & (1 << r.extra) - 1, L >>>= r.extra, U -= r.extra, r.back += r.extra;
+                }if (r.offset > r.dmax) {
+                  e.msg = "invalid distance too far back", r.mode = R;break;
+                }r.mode = 16204;case 16204:
+                if (0 === M) break e;if (V = F - M, r.offset > V) {
+                  if (V = r.offset - V, V > r.whave && r.sane) {
+                    e.msg = "invalid distance too far back", r.mode = R;break;
+                  }V > r.wnext ? (V -= r.wnext, W = r.wsize - V) : W = r.wnext - V, V > r.length && (V = r.length), q = r.window;
+                } else q = I, W = O - r.offset, V = r.length;V > M && (V = M), M -= V, r.length -= V;do {
+                  I[O++] = q[W++];
+                } while (--V);0 === r.length && (r.mode = w);break;case 16205:
+                if (0 === M) break e;I[O++] = r.length, M--, r.mode = w;break;case A:
+                if (r.wrap) {
+                  for (; U < 32;) {
+                    if (0 === N) break e;N--, L |= k[D++] << U, U += 8;
+                  }if (F -= M, e.total_out += F, r.total += F, 4 & r.wrap && F && (e.adler = r.check = r.flags ? i(r.check, I, F, O - F) : n(r.check, I, F, O - F)), F = M, 4 & r.wrap && (r.flags ? L : P(L)) !== r.check) {
+                    e.msg = "incorrect data check", r.mode = R;break;
+                  }L = 0, U = 0;
+                }r.mode = 16207;case 16207:
+                if (r.wrap && r.flags) {
+                  for (; U < 32;) {
+                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
+                  }if (4 & r.wrap && L !== (4294967295 & r.total)) {
+                    e.msg = "incorrect length check", r.mode = R;break;
+                  }L = 0, U = 0;
+                }r.mode = 16208;case 16208:
+                X = p;break e;case R:
+                X = f;break e;case S:
+                return m;default:
+                return u;}
+          }return e.next_out = O, e.avail_out = M, e.next_in = D, e.avail_in = N, r.hold = L, r.bits = U, (r.wsize || F !== e.avail_out && r.mode < R && (r.mode < A || t !== o)) && z(e, e.output, e.next_out, F - e.avail_out) ? (r.mode = S, m) : (G -= e.avail_in, F -= e.avail_out, e.total_in += G, e.total_out += F, r.total += F, 4 & r.wrap && F && (e.adler = r.check = r.flags ? i(r.check, I, F, e.next_out - F) : n(r.check, I, F, e.next_out - F)), e.data_type = r.bits + (r.last ? 64 : 0) + (r.mode === y ? 128 : 0) + (r.mode === b || r.mode === C ? 256 : 0), (0 === G && 0 === F || t === o) && X === l && (X = _), X);
+        }, e.exports.inflateEnd = function (e) {
+          if (x(e)) return u;var t = e.state;return t.window && (t.window = null), e.state = null, l;
+        }, e.exports.inflateGetHeader = function (e, t) {
+          if (x(e)) return u;var r = e.state;return 0 == (2 & r.wrap) ? u : (r.head = t, t.done = !1, l);
+        }, e.exports.inflateSetDictionary = function (e, t) {
+          var r = t.length;var i = void 0,
+              s = void 0,
+              a = void 0;return x(e) ? u : (i = e.state, 0 !== i.wrap && i.mode !== E ? u : i.mode === E && (s = 1, s = n(s, t, r, 0), s !== i.check) ? f : (a = z(e, t, r, r), a ? (i.mode = S, m) : (i.havedict = 1, l)));
+        }, e.exports.inflateInfo = "pako inflate (from Nodeca project)";
+      }, 241: function _(e) {
+        "use strict";
+        var t = 15,
+            r = new Uint16Array([3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258, 0, 0]),
+            n = new Uint8Array([16, 16, 16, 16, 16, 16, 16, 16, 17, 17, 17, 17, 18, 18, 18, 18, 19, 19, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21, 16, 72, 78]),
+            i = new Uint16Array([1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193, 257, 385, 513, 769, 1025, 1537, 2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577, 0, 0]),
+            s = new Uint8Array([16, 16, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23, 24, 24, 25, 25, 26, 26, 27, 27, 28, 28, 29, 29, 64, 64]);e.exports = function (e, a, o, c, d, l, p, h) {
+          var u = h.bits;var f = void 0,
+              m = void 0,
+              _ = void 0,
+              g = void 0,
+              v = void 0,
+              E = void 0,
+              y = 0,
+              T = 0,
+              C = 0,
+              b = 0,
+              w = 0,
+              A = 0,
+              R = 0,
+              S = 0,
+              P = 0,
+              k = 0,
+              x = null;var I = new Uint16Array(16),
+              D = new Uint16Array(16);var O = void 0,
+              N = void 0,
+              M = void 0,
+              L = null;for (y = 0; y <= t; y++) {
+            I[y] = 0;
+          }for (T = 0; T < c; T++) {
+            I[a[o + T]]++;
+          }for (w = u, b = t; b >= 1 && 0 === I[b]; b--) {}if (w > b && (w = b), 0 === b) return d[l++] = 20971520, d[l++] = 20971520, h.bits = 1, 0;for (C = 1; C < b && 0 === I[C]; C++) {}for (w < C && (w = C), S = 1, y = 1; y <= t; y++) {
+            if (S <<= 1, S -= I[y], S < 0) return -1;
+          }if (S > 0 && (0 === e || 1 !== b)) return -1;for (D[1] = 0, y = 1; y < t; y++) {
+            D[y + 1] = D[y] + I[y];
+          }for (T = 0; T < c; T++) {
+            0 !== a[o + T] && (p[D[a[o + T]]++] = T);
+          }if (0 === e ? (x = L = p, E = 20) : 1 === e ? (x = r, L = n, E = 257) : (x = i, L = s, E = 0), k = 0, T = 0, y = C, v = l, A = w, R = 0, _ = -1, P = 1 << w, g = P - 1, 1 === e && P > 852 || 2 === e && P > 592) return 1;for (;;) {
+            O = y - R, p[T] + 1 < E ? (N = 0, M = p[T]) : p[T] >= E ? (N = L[p[T] - E], M = x[p[T] - E]) : (N = 96, M = 0), f = 1 << y - R, m = 1 << A, C = m;do {
+              m -= f, d[v + (k >> R) + m] = O << 24 | N << 16 | M | 0;
+            } while (0 !== m);for (f = 1 << y - 1; k & f;) {
+              f >>= 1;
+            }if (0 !== f ? (k &= f - 1, k += f) : k = 0, T++, 0 == --I[y]) {
+              if (y === b) break;y = a[o + p[T]];
+            }if (y > w && (k & g) !== _) {
+              for (0 === R && (R = w), v += C, A = y - R, S = 1 << A; A + R < b && (S -= I[A + R], !(S <= 0));) {
+                A++, S <<= 1;
+              }if (P += 1 << A, 1 === e && P > 852 || 2 === e && P > 592) return 1;_ = k & g, d[_] = w << 24 | A << 16 | v - l | 0;
+            }
+          }return 0 !== k && (d[v + k] = y - R << 24 | 64 << 16 | 0), h.bits = w, 0;
+        };
+      }, 898: function _(e) {
+        "use strict";
+        e.exports = { 2: "need dictionary", 1: "stream end", 0: "", "-1": "file error", "-2": "stream error", "-3": "data error", "-4": "insufficient memory", "-5": "buffer error", "-6": "incompatible version" };
+      }, 342: function _(e) {
+        "use strict";
+        function t(e) {
+          var t = e.length;for (; --t >= 0;) {
+            e[t] = 0;
+          }
+        }var r = 256,
+            n = 286,
+            i = 30,
+            s = 15,
+            a = new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0]),
+            o = new Uint8Array([0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13]),
+            c = new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 7]),
+            d = new Uint8Array([16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15]),
+            l = new Array(576);t(l);var p = new Array(60);t(p);var h = new Array(512);t(h);var u = new Array(256);t(u);var f = new Array(29);t(f);var m = new Array(i);function _(e, t, r, n, i) {
+          this.static_tree = e, this.extra_bits = t, this.extra_base = r, this.elems = n, this.max_length = i, this.has_stree = e && e.length;
+        }var g = void 0,
+            v = void 0,
+            E = void 0;function y(e, t) {
+          this.dyn_tree = e, this.max_code = 0, this.stat_desc = t;
+        }t(m);var T = function T(e) {
+          return e < 256 ? h[e] : h[256 + (e >>> 7)];
+        },
+            C = function C(e, t) {
+          e.pending_buf[e.pending++] = 255 & t, e.pending_buf[e.pending++] = t >>> 8 & 255;
+        },
+            b = function b(e, t, r) {
+          e.bi_valid > 16 - r ? (e.bi_buf |= t << e.bi_valid & 65535, C(e, e.bi_buf), e.bi_buf = t >> 16 - e.bi_valid, e.bi_valid += r - 16) : (e.bi_buf |= t << e.bi_valid & 65535, e.bi_valid += r);
+        },
+            w = function w(e, t, r) {
+          b(e, r[2 * t], r[2 * t + 1]);
+        },
+            A = function A(e, t) {
+          var r = 0;do {
+            r |= 1 & e, e >>>= 1, r <<= 1;
+          } while (--t > 0);return r >>> 1;
+        },
+            R = function R(e, t, r) {
+          var n = new Array(16);var i = void 0,
+              a = void 0,
+              o = 0;for (i = 1; i <= s; i++) {
+            o = o + r[i - 1] << 1, n[i] = o;
+          }for (a = 0; a <= t; a++) {
+            var _t13 = e[2 * a + 1];0 !== _t13 && (e[2 * a] = A(n[_t13]++, _t13));
+          }
+        },
+            S = function S(e) {
+          var t = void 0;for (t = 0; t < n; t++) {
+            e.dyn_ltree[2 * t] = 0;
+          }for (t = 0; t < i; t++) {
+            e.dyn_dtree[2 * t] = 0;
+          }for (t = 0; t < 19; t++) {
+            e.bl_tree[2 * t] = 0;
+          }e.dyn_ltree[512] = 1, e.opt_len = e.static_len = 0, e.sym_next = e.matches = 0;
+        },
+            P = function P(e) {
+          e.bi_valid > 8 ? C(e, e.bi_buf) : e.bi_valid > 0 && (e.pending_buf[e.pending++] = e.bi_buf), e.bi_buf = 0, e.bi_valid = 0;
+        },
+            k = function k(e, t, r, n) {
+          var i = 2 * t,
+              s = 2 * r;return e[i] < e[s] || e[i] === e[s] && n[t] <= n[r];
+        },
+            x = function x(e, t, r) {
+          var n = e.heap[r];var i = r << 1;for (; i <= e.heap_len && (i < e.heap_len && k(t, e.heap[i + 1], e.heap[i], e.depth) && i++, !k(t, n, e.heap[i], e.depth));) {
+            e.heap[r] = e.heap[i], r = i, i <<= 1;
+          }e.heap[r] = n;
+        },
+            I = function I(e, t, n) {
+          var i = void 0,
+              s = void 0,
+              c = void 0,
+              d = void 0,
+              l = 0;if (0 !== e.sym_next) do {
+            i = 255 & e.pending_buf[e.sym_buf + l++], i += (255 & e.pending_buf[e.sym_buf + l++]) << 8, s = e.pending_buf[e.sym_buf + l++], 0 === i ? w(e, s, t) : (c = u[s], w(e, c + r + 1, t), d = a[c], 0 !== d && (s -= f[c], b(e, s, d)), i--, c = T(i), w(e, c, n), d = o[c], 0 !== d && (i -= m[c], b(e, i, d)));
+          } while (l < e.sym_next);w(e, 256, t);
+        },
+            D = function D(e, t) {
+          var r = t.dyn_tree,
+              n = t.stat_desc.static_tree,
+              i = t.stat_desc.has_stree,
+              a = t.stat_desc.elems;var o = void 0,
+              c = void 0,
+              d = void 0,
+              l = -1;for (e.heap_len = 0, e.heap_max = 573, o = 0; o < a; o++) {
+            0 !== r[2 * o] ? (e.heap[++e.heap_len] = l = o, e.depth[o] = 0) : r[2 * o + 1] = 0;
+          }for (; e.heap_len < 2;) {
+            d = e.heap[++e.heap_len] = l < 2 ? ++l : 0, r[2 * d] = 1, e.depth[d] = 0, e.opt_len--, i && (e.static_len -= n[2 * d + 1]);
+          }for (t.max_code = l, o = e.heap_len >> 1; o >= 1; o--) {
+            x(e, r, o);
+          }d = a;do {
+            o = e.heap[1], e.heap[1] = e.heap[e.heap_len--], x(e, r, 1), c = e.heap[1], e.heap[--e.heap_max] = o, e.heap[--e.heap_max] = c, r[2 * d] = r[2 * o] + r[2 * c], e.depth[d] = (e.depth[o] >= e.depth[c] ? e.depth[o] : e.depth[c]) + 1, r[2 * o + 1] = r[2 * c + 1] = d, e.heap[1] = d++, x(e, r, 1);
+          } while (e.heap_len >= 2);e.heap[--e.heap_max] = e.heap[1], function (e, t) {
+            var r = t.dyn_tree,
+                n = t.max_code,
+                i = t.stat_desc.static_tree,
+                a = t.stat_desc.has_stree,
+                o = t.stat_desc.extra_bits,
+                c = t.stat_desc.extra_base,
+                d = t.stat_desc.max_length;var l = void 0,
+                p = void 0,
+                h = void 0,
+                u = void 0,
+                f = void 0,
+                m = void 0,
+                _ = 0;for (u = 0; u <= s; u++) {
+              e.bl_count[u] = 0;
+            }for (r[2 * e.heap[e.heap_max] + 1] = 0, l = e.heap_max + 1; l < 573; l++) {
+              p = e.heap[l], u = r[2 * r[2 * p + 1] + 1] + 1, u > d && (u = d, _++), r[2 * p + 1] = u, p > n || (e.bl_count[u]++, f = 0, p >= c && (f = o[p - c]), m = r[2 * p], e.opt_len += m * (u + f), a && (e.static_len += m * (i[2 * p + 1] + f)));
+            }if (0 !== _) {
+              do {
+                for (u = d - 1; 0 === e.bl_count[u];) {
+                  u--;
+                }e.bl_count[u]--, e.bl_count[u + 1] += 2, e.bl_count[d]--, _ -= 2;
+              } while (_ > 0);for (u = d; 0 !== u; u--) {
+                for (p = e.bl_count[u]; 0 !== p;) {
+                  h = e.heap[--l], h > n || (r[2 * h + 1] !== u && (e.opt_len += (u - r[2 * h + 1]) * r[2 * h], r[2 * h + 1] = u), p--);
+                }
+              }
+            }
+          }(e, t), R(r, l, e.bl_count);
+        },
+            O = function O(e, t, r) {
+          var n = void 0,
+              i = void 0,
+              s = -1,
+              a = t[1],
+              o = 0,
+              c = 7,
+              d = 4;for (0 === a && (c = 138, d = 3), t[2 * (r + 1) + 1] = 65535, n = 0; n <= r; n++) {
+            i = a, a = t[2 * (n + 1) + 1], ++o < c && i === a || (o < d ? e.bl_tree[2 * i] += o : 0 !== i ? (i !== s && e.bl_tree[2 * i]++, e.bl_tree[32]++) : o <= 10 ? e.bl_tree[34]++ : e.bl_tree[36]++, o = 0, s = i, 0 === a ? (c = 138, d = 3) : i === a ? (c = 6, d = 3) : (c = 7, d = 4));
+          }
+        },
+            N = function N(e, t, r) {
+          var n = void 0,
+              i = void 0,
+              s = -1,
+              a = t[1],
+              o = 0,
+              c = 7,
+              d = 4;for (0 === a && (c = 138, d = 3), n = 0; n <= r; n++) {
+            if (i = a, a = t[2 * (n + 1) + 1], !(++o < c && i === a)) {
+              if (o < d) do {
+                w(e, i, e.bl_tree);
+              } while (0 != --o);else 0 !== i ? (i !== s && (w(e, i, e.bl_tree), o--), w(e, 16, e.bl_tree), b(e, o - 3, 2)) : o <= 10 ? (w(e, 17, e.bl_tree), b(e, o - 3, 3)) : (w(e, 18, e.bl_tree), b(e, o - 11, 7));o = 0, s = i, 0 === a ? (c = 138, d = 3) : i === a ? (c = 6, d = 3) : (c = 7, d = 4);
+            }
+          }
+        };var M = !1;var L = function L(e, t, r, n) {
+          b(e, 0 + (n ? 1 : 0), 3), P(e), C(e, r), C(e, ~r), r && e.pending_buf.set(e.window.subarray(t, t + r), e.pending), e.pending += r;
+        };e.exports._tr_init = function (e) {
+          M || (function () {
+            var e = void 0,
+                t = void 0,
+                r = void 0,
+                d = void 0,
+                y = void 0;var T = new Array(16);for (r = 0, d = 0; d < 28; d++) {
+              for (f[d] = r, e = 0; e < 1 << a[d]; e++) {
+                u[r++] = d;
+              }
+            }for (u[r - 1] = d, y = 0, d = 0; d < 16; d++) {
+              for (m[d] = y, e = 0; e < 1 << o[d]; e++) {
+                h[y++] = d;
+              }
+            }for (y >>= 7; d < i; d++) {
+              for (m[d] = y << 7, e = 0; e < 1 << o[d] - 7; e++) {
+                h[256 + y++] = d;
+              }
+            }for (t = 0; t <= s; t++) {
+              T[t] = 0;
+            }for (e = 0; e <= 143;) {
+              l[2 * e + 1] = 8, e++, T[8]++;
+            }for (; e <= 255;) {
+              l[2 * e + 1] = 9, e++, T[9]++;
+            }for (; e <= 279;) {
+              l[2 * e + 1] = 7, e++, T[7]++;
+            }for (; e <= 287;) {
+              l[2 * e + 1] = 8, e++, T[8]++;
+            }for (R(l, 287, T), e = 0; e < i; e++) {
+              p[2 * e + 1] = 5, p[2 * e] = A(e, 5);
+            }g = new _(l, a, 257, n, s), v = new _(p, o, 0, i, s), E = new _(new Array(0), c, 0, 19, 7);
+          }(), M = !0), e.l_desc = new y(e.dyn_ltree, g), e.d_desc = new y(e.dyn_dtree, v), e.bl_desc = new y(e.bl_tree, E), e.bi_buf = 0, e.bi_valid = 0, S(e);
+        }, e.exports._tr_stored_block = L, e.exports._tr_flush_block = function (e, t, n, i) {
+          var s = void 0,
+              a = void 0,
+              o = 0;e.level > 0 ? (2 === e.strm.data_type && (e.strm.data_type = function (e) {
+            var t = void 0,
+                n = 4093624447;for (t = 0; t <= 31; t++, n >>>= 1) {
+              if (1 & n && 0 !== e.dyn_ltree[2 * t]) return 0;
+            }if (0 !== e.dyn_ltree[18] || 0 !== e.dyn_ltree[20] || 0 !== e.dyn_ltree[26]) return 1;for (t = 32; t < r; t++) {
+              if (0 !== e.dyn_ltree[2 * t]) return 1;
+            }return 0;
+          }(e)), D(e, e.l_desc), D(e, e.d_desc), o = function (e) {
+            var t = void 0;for (O(e, e.dyn_ltree, e.l_desc.max_code), O(e, e.dyn_dtree, e.d_desc.max_code), D(e, e.bl_desc), t = 18; t >= 3 && 0 === e.bl_tree[2 * d[t] + 1]; t--) {}return e.opt_len += 3 * (t + 1) + 5 + 5 + 4, t;
+          }(e), s = e.opt_len + 3 + 7 >>> 3, a = e.static_len + 3 + 7 >>> 3, a <= s && (s = a)) : s = a = n + 5, n + 4 <= s && -1 !== t ? L(e, t, n, i) : 4 === e.strategy || a === s ? (b(e, 2 + (i ? 1 : 0), 3), I(e, l, p)) : (b(e, 4 + (i ? 1 : 0), 3), function (e, t, r, n) {
+            var i = void 0;for (b(e, t - 257, 5), b(e, r - 1, 5), b(e, n - 4, 4), i = 0; i < n; i++) {
+              b(e, e.bl_tree[2 * d[i] + 1], 3);
+            }N(e, e.dyn_ltree, t - 1), N(e, e.dyn_dtree, r - 1);
+          }(e, e.l_desc.max_code + 1, e.d_desc.max_code + 1, o + 1), I(e, e.dyn_ltree, e.dyn_dtree)), S(e), i && P(e);
+        }, e.exports._tr_tally = function (e, t, n) {
+          return e.pending_buf[e.sym_buf + e.sym_next++] = t, e.pending_buf[e.sym_buf + e.sym_next++] = t >> 8, e.pending_buf[e.sym_buf + e.sym_next++] = n, 0 === t ? e.dyn_ltree[2 * n]++ : (e.matches++, t--, e.dyn_ltree[2 * (u[n] + r + 1)]++, e.dyn_dtree[2 * T(t)]++), e.sym_next === e.sym_end;
+        }, e.exports._tr_align = function (e) {
+          b(e, 2, 3), w(e, 256, l), function (e) {
+            16 === e.bi_valid ? (C(e, e.bi_buf), e.bi_buf = 0, e.bi_valid = 0) : e.bi_valid >= 8 && (e.pending_buf[e.pending++] = 255 & e.bi_buf, e.bi_buf >>= 8, e.bi_valid -= 8);
+          }(e);
+        };
+      }, 292: function _(e) {
+        "use strict";
+        e.exports = function () {
+          this.input = null, this.next_in = 0, this.avail_in = 0, this.total_in = 0, this.output = null, this.next_out = 0, this.avail_out = 0, this.total_out = 0, this.msg = "", this.state = null, this.data_type = 2, this.adler = 0;
+        };
+      }, 539: function _(e) {
+        "use strict";
+        var t = { generateIdentifier: function generateIdentifier() {
+            return Math.random().toString(36).substring(2, 12);
+          } };t.localCName = t.generateIdentifier(), t.splitLines = function (e) {
+          return e.trim().split("\n").map(function (e) {
+            return e.trim();
+          });
+        }, t.splitSections = function (e) {
+          return e.split("\nm=").map(function (e, t) {
+            return (t > 0 ? "m=" + e : e).trim() + "\r\n";
+          });
+        }, t.getDescription = function (e) {
+          var r = t.splitSections(e);return r && r[0];
+        }, t.getMediaSections = function (e) {
+          var r = t.splitSections(e);return r.shift(), r;
+        }, t.matchPrefix = function (e, r) {
+          return t.splitLines(e).filter(function (e) {
+            return 0 === e.indexOf(r);
+          });
+        }, t.parseCandidate = function (e) {
+          var t = void 0;t = 0 === e.indexOf("a=candidate:") ? e.substring(12).split(" ") : e.substring(10).split(" ");var r = { foundation: t[0], component: { 1: "rtp", 2: "rtcp" }[t[1]] || t[1], protocol: t[2].toLowerCase(), priority: parseInt(t[3], 10), ip: t[4], address: t[4], port: parseInt(t[5], 10), type: t[7] };for (var _e6 = 8; _e6 < t.length; _e6 += 2) {
+            switch (t[_e6]) {case "raddr":
+                r.relatedAddress = t[_e6 + 1];break;case "rport":
+                r.relatedPort = parseInt(t[_e6 + 1], 10);break;case "tcptype":
+                r.tcpType = t[_e6 + 1];break;case "ufrag":
+                r.ufrag = t[_e6 + 1], r.usernameFragment = t[_e6 + 1];break;default:
+                void 0 === r[t[_e6]] && (r[t[_e6]] = t[_e6 + 1]);}
+          }return r;
+        }, t.writeCandidate = function (e) {
+          var t = [];t.push(e.foundation);var r = e.component;"rtp" === r ? t.push(1) : "rtcp" === r ? t.push(2) : t.push(r), t.push(e.protocol.toUpperCase()), t.push(e.priority), t.push(e.address || e.ip), t.push(e.port);var n = e.type;return t.push("typ"), t.push(n), "host" !== n && e.relatedAddress && e.relatedPort && (t.push("raddr"), t.push(e.relatedAddress), t.push("rport"), t.push(e.relatedPort)), e.tcpType && "tcp" === e.protocol.toLowerCase() && (t.push("tcptype"), t.push(e.tcpType)), (e.usernameFragment || e.ufrag) && (t.push("ufrag"), t.push(e.usernameFragment || e.ufrag)), "candidate:" + t.join(" ");
+        }, t.parseIceOptions = function (e) {
+          return e.substring(14).split(" ");
+        }, t.parseRtpMap = function (e) {
+          var t = e.substring(9).split(" ");var r = { payloadType: parseInt(t.shift(), 10) };return t = t[0].split("/"), r.name = t[0], r.clockRate = parseInt(t[1], 10), r.channels = 3 === t.length ? parseInt(t[2], 10) : 1, r.numChannels = r.channels, r;
+        }, t.writeRtpMap = function (e) {
+          var t = e.payloadType;void 0 !== e.preferredPayloadType && (t = e.preferredPayloadType);var r = e.channels || e.numChannels || 1;return "a=rtpmap:" + t + " " + e.name + "/" + e.clockRate + (1 !== r ? "/" + r : "") + "\r\n";
+        }, t.parseExtmap = function (e) {
+          var t = e.substring(9).split(" ");return { id: parseInt(t[0], 10), direction: t[0].indexOf("/") > 0 ? t[0].split("/")[1] : "sendrecv", uri: t[1], attributes: t.slice(2).join(" ") };
+        }, t.writeExtmap = function (e) {
+          return "a=extmap:" + (e.id || e.preferredId) + (e.direction && "sendrecv" !== e.direction ? "/" + e.direction : "") + " " + e.uri + (e.attributes ? " " + e.attributes : "") + "\r\n";
+        }, t.parseFmtp = function (e) {
+          var t = {};var r = void 0;var n = e.substring(e.indexOf(" ") + 1).split(";");for (var _e7 = 0; _e7 < n.length; _e7++) {
+            r = n[_e7].trim().split("="), t[r[0].trim()] = r[1];
+          }return t;
+        }, t.writeFmtp = function (e) {
+          var t = "",
+              r = e.payloadType;if (void 0 !== e.preferredPayloadType && (r = e.preferredPayloadType), e.parameters && Object.keys(e.parameters).length) {
+            var _n11 = [];Object.keys(e.parameters).forEach(function (t) {
+              void 0 !== e.parameters[t] ? _n11.push(t + "=" + e.parameters[t]) : _n11.push(t);
+            }), t += "a=fmtp:" + r + " " + _n11.join(";") + "\r\n";
+          }return t;
+        }, t.parseRtcpFb = function (e) {
+          var t = e.substring(e.indexOf(" ") + 1).split(" ");return { type: t.shift(), parameter: t.join(" ") };
+        }, t.writeRtcpFb = function (e) {
+          var t = "",
+              r = e.payloadType;return void 0 !== e.preferredPayloadType && (r = e.preferredPayloadType), e.rtcpFeedback && e.rtcpFeedback.length && e.rtcpFeedback.forEach(function (e) {
+            t += "a=rtcp-fb:" + r + " " + e.type + (e.parameter && e.parameter.length ? " " + e.parameter : "") + "\r\n";
+          }), t;
+        }, t.parseSsrcMedia = function (e) {
+          var t = e.indexOf(" "),
+              r = { ssrc: parseInt(e.substring(7, t), 10) },
+              n = e.indexOf(":", t);return n > -1 ? (r.attribute = e.substring(t + 1, n), r.value = e.substring(n + 1)) : r.attribute = e.substring(t + 1), r;
+        }, t.parseSsrcGroup = function (e) {
+          var t = e.substring(13).split(" ");return { semantics: t.shift(), ssrcs: t.map(function (e) {
+              return parseInt(e, 10);
+            }) };
+        }, t.getMid = function (e) {
+          var r = t.matchPrefix(e, "a=mid:")[0];if (r) return r.substring(6);
+        }, t.parseFingerprint = function (e) {
+          var t = e.substring(14).split(" ");return { algorithm: t[0].toLowerCase(), value: t[1].toUpperCase() };
+        }, t.getDtlsParameters = function (e, r) {
+          return { role: "auto", fingerprints: t.matchPrefix(e + r, "a=fingerprint:").map(t.parseFingerprint) };
+        }, t.writeDtlsParameters = function (e, t) {
+          var r = "a=setup:" + t + "\r\n";return e.fingerprints.forEach(function (e) {
+            r += "a=fingerprint:" + e.algorithm + " " + e.value + "\r\n";
+          }), r;
+        }, t.parseCryptoLine = function (e) {
+          var t = e.substring(9).split(" ");return { tag: parseInt(t[0], 10), cryptoSuite: t[1], keyParams: t[2], sessionParams: t.slice(3) };
+        }, t.writeCryptoLine = function (e) {
+          return "a=crypto:" + e.tag + " " + e.cryptoSuite + " " + ("object" == (0, _typeof3.default)(e.keyParams) ? t.writeCryptoKeyParams(e.keyParams) : e.keyParams) + (e.sessionParams ? " " + e.sessionParams.join(" ") : "") + "\r\n";
+        }, t.parseCryptoKeyParams = function (e) {
+          if (0 !== e.indexOf("inline:")) return null;var t = e.substring(7).split("|");return { keyMethod: "inline", keySalt: t[0], lifeTime: t[1], mkiValue: t[2] ? t[2].split(":")[0] : void 0, mkiLength: t[2] ? t[2].split(":")[1] : void 0 };
+        }, t.writeCryptoKeyParams = function (e) {
+          return e.keyMethod + ":" + e.keySalt + (e.lifeTime ? "|" + e.lifeTime : "") + (e.mkiValue && e.mkiLength ? "|" + e.mkiValue + ":" + e.mkiLength : "");
+        }, t.getCryptoParameters = function (e, r) {
+          return t.matchPrefix(e + r, "a=crypto:").map(t.parseCryptoLine);
+        }, t.getIceParameters = function (e, r) {
+          var n = t.matchPrefix(e + r, "a=ice-ufrag:")[0],
+              i = t.matchPrefix(e + r, "a=ice-pwd:")[0];return n && i ? { usernameFragment: n.substring(12), password: i.substring(10) } : null;
+        }, t.writeIceParameters = function (e) {
+          var t = "a=ice-ufrag:" + e.usernameFragment + "\r\na=ice-pwd:" + e.password + "\r\n";return e.iceLite && (t += "a=ice-lite\r\n"), t;
+        }, t.parseRtpParameters = function (e) {
+          var r = { codecs: [], headerExtensions: [], fecMechanisms: [], rtcp: [] },
+              n = t.splitLines(e)[0].split(" ");r.profile = n[2];for (var _i3 = 3; _i3 < n.length; _i3++) {
+            var s = n[_i3],
+                a = t.matchPrefix(e, "a=rtpmap:" + s + " ")[0];if (a) {
+              var _n12 = t.parseRtpMap(a),
+                  _i4 = t.matchPrefix(e, "a=fmtp:" + s + " ");switch (_n12.parameters = _i4.length ? t.parseFmtp(_i4[0]) : {}, _n12.rtcpFeedback = t.matchPrefix(e, "a=rtcp-fb:" + s + " ").map(t.parseRtcpFb), r.codecs.push(_n12), _n12.name.toUpperCase()) {case "RED":case "ULPFEC":
+                  r.fecMechanisms.push(_n12.name.toUpperCase());}
+            }
+          }t.matchPrefix(e, "a=extmap:").forEach(function (e) {
+            r.headerExtensions.push(t.parseExtmap(e));
+          });var i = t.matchPrefix(e, "a=rtcp-fb:* ").map(t.parseRtcpFb);return r.codecs.forEach(function (e) {
+            i.forEach(function (t) {
+              e.rtcpFeedback.find(function (e) {
+                return e.type === t.type && e.parameter === t.parameter;
+              }) || e.rtcpFeedback.push(t);
+            });
+          }), r;
+        }, t.writeRtpDescription = function (e, r) {
+          var n = "";n += "m=" + e + " ", n += r.codecs.length > 0 ? "9" : "0", n += " " + (r.profile || "UDP/TLS/RTP/SAVPF") + " ", n += r.codecs.map(function (e) {
+            return void 0 !== e.preferredPayloadType ? e.preferredPayloadType : e.payloadType;
+          }).join(" ") + "\r\n", n += "c=IN IP4 0.0.0.0\r\n", n += "a=rtcp:9 IN IP4 0.0.0.0\r\n", r.codecs.forEach(function (e) {
+            n += t.writeRtpMap(e), n += t.writeFmtp(e), n += t.writeRtcpFb(e);
+          });var i = 0;return r.codecs.forEach(function (e) {
+            e.maxptime > i && (i = e.maxptime);
+          }), i > 0 && (n += "a=maxptime:" + i + "\r\n"), r.headerExtensions && r.headerExtensions.forEach(function (e) {
+            n += t.writeExtmap(e);
+          }), n;
+        }, t.parseRtpEncodingParameters = function (e) {
+          var r = [],
+              n = t.parseRtpParameters(e),
+              i = -1 !== n.fecMechanisms.indexOf("RED"),
+              s = -1 !== n.fecMechanisms.indexOf("ULPFEC"),
+              a = t.matchPrefix(e, "a=ssrc:").map(function (e) {
+            return t.parseSsrcMedia(e);
+          }).filter(function (e) {
+            return "cname" === e.attribute;
+          }),
+              o = a.length > 0 && a[0].ssrc;var c = void 0;var d = t.matchPrefix(e, "a=ssrc-group:FID").map(function (e) {
+            return e.substring(17).split(" ").map(function (e) {
+              return parseInt(e, 10);
+            });
+          });d.length > 0 && d[0].length > 1 && d[0][0] === o && (c = d[0][1]), n.codecs.forEach(function (e) {
+            if ("RTX" === e.name.toUpperCase() && e.parameters.apt) {
+              var _t14 = { ssrc: o, codecPayloadType: parseInt(e.parameters.apt, 10) };o && c && (_t14.rtx = { ssrc: c }), r.push(_t14), i && (_t14 = JSON.parse(JSON.stringify(_t14)), _t14.fec = { ssrc: o, mechanism: s ? "red+ulpfec" : "red" }, r.push(_t14));
+            }
+          }), 0 === r.length && o && r.push({ ssrc: o });var l = t.matchPrefix(e, "b=");return l.length && (l = 0 === l[0].indexOf("b=TIAS:") ? parseInt(l[0].substring(7), 10) : 0 === l[0].indexOf("b=AS:") ? 1e3 * parseInt(l[0].substring(5), 10) * .95 - 16e3 : void 0, r.forEach(function (e) {
+            e.maxBitrate = l;
+          })), r;
+        }, t.parseRtcpParameters = function (e) {
+          var r = {},
+              n = t.matchPrefix(e, "a=ssrc:").map(function (e) {
+            return t.parseSsrcMedia(e);
+          }).filter(function (e) {
+            return "cname" === e.attribute;
+          })[0];n && (r.cname = n.value, r.ssrc = n.ssrc);var i = t.matchPrefix(e, "a=rtcp-rsize");r.reducedSize = i.length > 0, r.compound = 0 === i.length;var s = t.matchPrefix(e, "a=rtcp-mux");return r.mux = s.length > 0, r;
+        }, t.writeRtcpParameters = function (e) {
+          var t = "";return e.reducedSize && (t += "a=rtcp-rsize\r\n"), e.mux && (t += "a=rtcp-mux\r\n"), void 0 !== e.ssrc && e.cname && (t += "a=ssrc:" + e.ssrc + " cname:" + e.cname + "\r\n"), t;
+        }, t.parseMsid = function (e) {
+          var r = void 0;var n = t.matchPrefix(e, "a=msid:");if (1 === n.length) return r = n[0].substring(7).split(" "), { stream: r[0], track: r[1] };var i = t.matchPrefix(e, "a=ssrc:").map(function (e) {
+            return t.parseSsrcMedia(e);
+          }).filter(function (e) {
+            return "msid" === e.attribute;
+          });return i.length > 0 ? (r = i[0].value.split(" "), { stream: r[0], track: r[1] }) : void 0;
+        }, t.parseSctpDescription = function (e) {
+          var r = t.parseMLine(e),
+              n = t.matchPrefix(e, "a=max-message-size:");var i = void 0;n.length > 0 && (i = parseInt(n[0].substring(19), 10)), isNaN(i) && (i = 65536);var s = t.matchPrefix(e, "a=sctp-port:");if (s.length > 0) return { port: parseInt(s[0].substring(12), 10), protocol: r.fmt, maxMessageSize: i };var a = t.matchPrefix(e, "a=sctpmap:");if (a.length > 0) {
+            var _e8 = a[0].substring(10).split(" ");return { port: parseInt(_e8[0], 10), protocol: _e8[1], maxMessageSize: i };
+          }
+        }, t.writeSctpDescription = function (e, t) {
+          var r = [];return r = "DTLS/SCTP" !== e.protocol ? ["m=" + e.kind + " 9 " + e.protocol + " " + t.protocol + "\r\n", "c=IN IP4 0.0.0.0\r\n", "a=sctp-port:" + t.port + "\r\n"] : ["m=" + e.kind + " 9 " + e.protocol + " " + t.port + "\r\n", "c=IN IP4 0.0.0.0\r\n", "a=sctpmap:" + t.port + " " + t.protocol + " 65535\r\n"], void 0 !== t.maxMessageSize && r.push("a=max-message-size:" + t.maxMessageSize + "\r\n"), r.join("");
+        }, t.generateSessionId = function () {
+          return Math.random().toString().substr(2, 22);
+        }, t.writeSessionBoilerplate = function (e, r, n) {
+          var i = void 0;var s = void 0 !== r ? r : 2;i = e || t.generateSessionId();return "v=0\r\no=" + (n || "thisisadapterortc") + " " + i + " " + s + " IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\n";
+        }, t.getDirection = function (e, r) {
+          var n = t.splitLines(e);for (var _e9 = 0; _e9 < n.length; _e9++) {
+            switch (n[_e9]) {case "a=sendrecv":case "a=sendonly":case "a=recvonly":case "a=inactive":
+                return n[_e9].substring(2);}
+          }return r ? t.getDirection(r) : "sendrecv";
+        }, t.getKind = function (e) {
+          return t.splitLines(e)[0].split(" ")[0].substring(2);
+        }, t.isRejected = function (e) {
+          return "0" === e.split(" ", 2)[1];
+        }, t.parseMLine = function (e) {
+          var r = t.splitLines(e)[0].substring(2).split(" ");return { kind: r[0], port: parseInt(r[1], 10), protocol: r[2], fmt: r.slice(3).join(" ") };
+        }, t.parseOLine = function (e) {
+          var r = t.matchPrefix(e, "o=")[0].substring(2).split(" ");return { username: r[0], sessionId: r[1], sessionVersion: parseInt(r[2], 10), netType: r[3], addressType: r[4], address: r[5] };
+        }, t.isValidSDP = function (e) {
+          if ("string" != typeof e || 0 === e.length) return !1;var r = t.splitLines(e);for (var _e10 = 0; _e10 < r.length; _e10++) {
+            if (r[_e10].length < 2 || "=" !== r[_e10].charAt(1)) return !1;
+          }return !0;
+        }, e.exports = t;
+      }, 86: function _(e, t, r) {
+        "use strict";
+        t.Z = void 0;var n = (0, r(338).adapterFactory)({ window: "undefined" == typeof window ? void 0 : window });t.Z = n;
+      }, 338: function _(e, t, r) {
+        "use strict";
+        function n(e) {
+          return n = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
+            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          } : function (e) {
+            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          }, n(e);
+        }Object.defineProperty(t, "__esModule", { value: !0 }), t.adapterFactory = function () {
+          var e = (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}).window,
+              t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : { shimChrome: !0, shimFirefox: !0, shimSafari: !0 },
+              r = i.log,
+              n = i.detectBrowser(e),
+              l = { browserDetails: n, commonShim: c, extractVersion: i.extractVersion, disableLog: i.disableLog, disableWarnings: i.disableWarnings, sdp: d };switch (n.browser) {case "chrome":
+              if (!s || !s.shimPeerConnection || !t.shimChrome) return r("Chrome shim is not included in this adapter release."), l;if (null === n.version) return r("Chrome shim can not determine version, not shimming."), l;r("adapter.js shimming chrome."), l.browserShim = s, c.shimAddIceCandidateNullOrEmpty(e, n), c.shimParameterlessSetLocalDescription(e, n), s.shimGetUserMedia(e, n), s.shimMediaStream(e, n), s.shimPeerConnection(e, n), s.shimOnTrack(e, n), s.shimAddTrackRemoveTrack(e, n), s.shimGetSendersWithDtmf(e, n), s.shimGetStats(e, n), s.shimSenderReceiverGetStats(e, n), s.fixNegotiationNeeded(e, n), c.shimRTCIceCandidate(e, n), c.shimRTCIceCandidateRelayProtocol(e, n), c.shimConnectionState(e, n), c.shimMaxMessageSize(e, n), c.shimSendThrowTypeError(e, n), c.removeExtmapAllowMixed(e, n);break;case "firefox":
+              if (!a || !a.shimPeerConnection || !t.shimFirefox) return r("Firefox shim is not included in this adapter release."), l;r("adapter.js shimming firefox."), l.browserShim = a, c.shimAddIceCandidateNullOrEmpty(e, n), c.shimParameterlessSetLocalDescription(e, n), a.shimGetUserMedia(e, n), a.shimPeerConnection(e, n), a.shimOnTrack(e, n), a.shimRemoveStream(e, n), a.shimSenderGetStats(e, n), a.shimReceiverGetStats(e, n), a.shimRTCDataChannel(e, n), a.shimAddTransceiver(e, n), a.shimGetParameters(e, n), a.shimCreateOffer(e, n), a.shimCreateAnswer(e, n), c.shimRTCIceCandidate(e, n), c.shimConnectionState(e, n), c.shimMaxMessageSize(e, n), c.shimSendThrowTypeError(e, n);break;case "safari":
+              if (!o || !t.shimSafari) return r("Safari shim is not included in this adapter release."), l;r("adapter.js shimming safari."), l.browserShim = o, c.shimAddIceCandidateNullOrEmpty(e, n), c.shimParameterlessSetLocalDescription(e, n), o.shimRTCIceServerUrls(e, n), o.shimCreateOfferLegacy(e, n), o.shimCallbacksAPI(e, n), o.shimLocalStreamsAPI(e, n), o.shimRemoteStreamsAPI(e, n), o.shimTrackEventTransceiver(e, n), o.shimGetUserMedia(e, n), o.shimAudioContext(e, n), c.shimRTCIceCandidate(e, n), c.shimRTCIceCandidateRelayProtocol(e, n), c.shimMaxMessageSize(e, n), c.shimSendThrowTypeError(e, n), c.removeExtmapAllowMixed(e, n);break;default:
+              r("Unsupported browser!");}return l;
+        };var i = p(r(288)),
+            s = p(r(30)),
+            a = p(r(311)),
+            o = p(r(540)),
+            c = p(r(401)),
+            d = p(r(539));function l(e) {
+          if ("function" != typeof WeakMap) return null;var t = new WeakMap(),
+              r = new WeakMap();return (l = function l(e) {
+            return e ? r : t;
+          })(e);
+        }function p(e, t) {
+          if (!t && e && e.__esModule) return e;if (null === e || "object" !== n(e) && "function" != typeof e) return { default: e };var r = l(t);if (r && r.has(e)) return r.get(e);var i = {},
+              s = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var a in e) {
+            if ("default" !== a && Object.prototype.hasOwnProperty.call(e, a)) {
+              var o = s ? Object.getOwnPropertyDescriptor(e, a) : null;o && (o.get || o.set) ? Object.defineProperty(i, a, o) : i[a] = e[a];
+            }
+          }return i.default = e, r && r.set(e, i), i;
+        }
+      }, 30: function _(e, t, r) {
+        "use strict";
+        Object.defineProperty(t, "__esModule", { value: !0 }), t.fixNegotiationNeeded = function (e, t) {
+          n.wrapPeerConnectionEvent(e, "negotiationneeded", function (e) {
+            var r = e.target;if (!(t.version < 72 || r.getConfiguration && "plan-b" === r.getConfiguration().sdpSemantics) || "stable" === r.signalingState) return e;
+          });
+        }, t.shimAddTrackRemoveTrack = function (e, t) {
+          if (!e.RTCPeerConnection) return;if (e.RTCPeerConnection.prototype.addTrack && t.version >= 65) return d(e);var r = e.RTCPeerConnection.prototype.getLocalStreams;e.RTCPeerConnection.prototype.getLocalStreams = function () {
+            var e = this,
+                t = r.apply(this);return this._reverseStreams = this._reverseStreams || {}, t.map(function (t) {
+              return e._reverseStreams[t.id];
+            });
+          };var n = e.RTCPeerConnection.prototype.addStream;e.RTCPeerConnection.prototype.addStream = function (t) {
+            var r = this;if (this._streams = this._streams || {}, this._reverseStreams = this._reverseStreams || {}, t.getTracks().forEach(function (e) {
+              if (r.getSenders().find(function (t) {
+                return t.track === e;
+              })) throw new DOMException("Track already exists.", "InvalidAccessError");
+            }), !this._reverseStreams[t.id]) {
+              var i = new e.MediaStream(t.getTracks());this._streams[t.id] = i, this._reverseStreams[i.id] = t, t = i;
+            }n.apply(this, [t]);
+          };var i = e.RTCPeerConnection.prototype.removeStream;function s(e, t) {
+            var r = t.sdp;return Object.keys(e._reverseStreams || []).forEach(function (t) {
+              var n = e._reverseStreams[t],
+                  i = e._streams[n.id];r = r.replace(new RegExp(i.id, "g"), n.id);
+            }), new RTCSessionDescription({ type: t.type, sdp: r });
+          }e.RTCPeerConnection.prototype.removeStream = function (e) {
+            this._streams = this._streams || {}, this._reverseStreams = this._reverseStreams || {}, i.apply(this, [this._streams[e.id] || e]), delete this._reverseStreams[this._streams[e.id] ? this._streams[e.id].id : e.id], delete this._streams[e.id];
+          }, e.RTCPeerConnection.prototype.addTrack = function (t, r) {
+            var n = this;if ("closed" === this.signalingState) throw new DOMException("The RTCPeerConnection's signalingState is 'closed'.", "InvalidStateError");var i = [].slice.call(arguments, 1);if (1 !== i.length || !i[0].getTracks().find(function (e) {
+              return e === t;
+            })) throw new DOMException("The adapter.js addTrack polyfill only supports a single  stream which is associated with the specified track.", "NotSupportedError");if (this.getSenders().find(function (e) {
+              return e.track === t;
+            })) throw new DOMException("Track already exists.", "InvalidAccessError");this._streams = this._streams || {}, this._reverseStreams = this._reverseStreams || {};var s = this._streams[r.id];if (s) s.addTrack(t), Promise.resolve().then(function () {
+              n.dispatchEvent(new Event("negotiationneeded"));
+            });else {
+              var a = new e.MediaStream([t]);this._streams[r.id] = a, this._reverseStreams[a.id] = r, this.addStream(a);
+            }return this.getSenders().find(function (e) {
+              return e.track === t;
+            });
+          }, ["createOffer", "createAnswer"].forEach(function (t) {
+            var r = e.RTCPeerConnection.prototype[t],
+                n = o({}, t, function () {
+              var e = this,
+                  t = arguments;return arguments.length && "function" == typeof arguments[0] ? r.apply(this, [function (r) {
+                var n = s(e, r);t[0].apply(null, [n]);
+              }, function (e) {
+                t[1] && t[1].apply(null, e);
+              }, arguments[2]]) : r.apply(this, arguments).then(function (t) {
+                return s(e, t);
+              });
+            });e.RTCPeerConnection.prototype[t] = n[t];
+          });var a = e.RTCPeerConnection.prototype.setLocalDescription;e.RTCPeerConnection.prototype.setLocalDescription = function () {
+            return arguments.length && arguments[0].type ? (arguments[0] = (e = this, r = (t = arguments[0]).sdp, Object.keys(e._reverseStreams || []).forEach(function (t) {
+              var n = e._reverseStreams[t],
+                  i = e._streams[n.id];r = r.replace(new RegExp(n.id, "g"), i.id);
+            }), new RTCSessionDescription({ type: t.type, sdp: r })), a.apply(this, arguments)) : a.apply(this, arguments);var e, t, r;
+          };var c = Object.getOwnPropertyDescriptor(e.RTCPeerConnection.prototype, "localDescription");Object.defineProperty(e.RTCPeerConnection.prototype, "localDescription", { get: function get() {
+              var e = c.get.apply(this);return "" === e.type ? e : s(this, e);
+            } }), e.RTCPeerConnection.prototype.removeTrack = function (e) {
+            var t,
+                r = this;if ("closed" === this.signalingState) throw new DOMException("The RTCPeerConnection's signalingState is 'closed'.", "InvalidStateError");if (!e._pc) throw new DOMException("Argument 1 of RTCPeerConnection.removeTrack does not implement interface RTCRtpSender.", "TypeError");if (!(e._pc === this)) throw new DOMException("Sender was not created by this connection.", "InvalidAccessError");this._streams = this._streams || {}, Object.keys(this._streams).forEach(function (n) {
+              r._streams[n].getTracks().find(function (t) {
+                return e.track === t;
+              }) && (t = r._streams[n]);
+            }), t && (1 === t.getTracks().length ? this.removeStream(this._reverseStreams[t.id]) : t.removeTrack(e.track), this.dispatchEvent(new Event("negotiationneeded")));
+          };
+        }, t.shimAddTrackRemoveTrackWithNative = d, Object.defineProperty(t, "shimGetDisplayMedia", { enumerable: !0, get: function get() {
+            return s.shimGetDisplayMedia;
+          } }), t.shimGetSendersWithDtmf = function (e) {
+          if ("object" === c(e) && e.RTCPeerConnection && !("getSenders" in e.RTCPeerConnection.prototype) && "createDTMFSender" in e.RTCPeerConnection.prototype) {
+            var t = function t(e, _t15) {
+              return { track: _t15, get dtmf() {
+                  return void 0 === this._dtmf && ("audio" === _t15.kind ? this._dtmf = e.createDTMFSender(_t15) : this._dtmf = null), this._dtmf;
+                }, _pc: e };
+            };if (!e.RTCPeerConnection.prototype.getSenders) {
+              e.RTCPeerConnection.prototype.getSenders = function () {
+                return this._senders = this._senders || [], this._senders.slice();
+              };var r = e.RTCPeerConnection.prototype.addTrack;e.RTCPeerConnection.prototype.addTrack = function (e, n) {
+                var i = r.apply(this, arguments);return i || (i = t(this, e), this._senders.push(i)), i;
+              };var n = e.RTCPeerConnection.prototype.removeTrack;e.RTCPeerConnection.prototype.removeTrack = function (e) {
+                n.apply(this, arguments);var t = this._senders.indexOf(e);-1 !== t && this._senders.splice(t, 1);
+              };
+            }var i = e.RTCPeerConnection.prototype.addStream;e.RTCPeerConnection.prototype.addStream = function (e) {
+              var r = this;this._senders = this._senders || [], i.apply(this, [e]), e.getTracks().forEach(function (e) {
+                r._senders.push(t(r, e));
+              });
+            };var s = e.RTCPeerConnection.prototype.removeStream;e.RTCPeerConnection.prototype.removeStream = function (e) {
+              var t = this;this._senders = this._senders || [], s.apply(this, [e]), e.getTracks().forEach(function (e) {
+                var r = t._senders.find(function (t) {
+                  return t.track === e;
+                });r && t._senders.splice(t._senders.indexOf(r), 1);
+              });
+            };
+          } else if ("object" === c(e) && e.RTCPeerConnection && "getSenders" in e.RTCPeerConnection.prototype && "createDTMFSender" in e.RTCPeerConnection.prototype && e.RTCRtpSender && !("dtmf" in e.RTCRtpSender.prototype)) {
+            var a = e.RTCPeerConnection.prototype.getSenders;e.RTCPeerConnection.prototype.getSenders = function () {
+              var e = this,
+                  t = a.apply(this, []);return t.forEach(function (t) {
+                return t._pc = e;
+              }), t;
+            }, Object.defineProperty(e.RTCRtpSender.prototype, "dtmf", { get: function get() {
+                return void 0 === this._dtmf && ("audio" === this.track.kind ? this._dtmf = this._pc.createDTMFSender(this.track) : this._dtmf = null), this._dtmf;
+              } });
+          }
+        }, t.shimGetStats = function (e) {
+          if (!e.RTCPeerConnection) return;var t = e.RTCPeerConnection.prototype.getStats;e.RTCPeerConnection.prototype.getStats = function () {
+            var e = this,
+                r = Array.prototype.slice.call(arguments),
+                n = r[0],
+                i = r[1],
+                s = r[2];if (arguments.length > 0 && "function" == typeof n) return t.apply(this, arguments);if (0 === t.length && (0 === arguments.length || "function" != typeof n)) return t.apply(this, []);var a = function a(e) {
+              var t = {};return e.result().forEach(function (e) {
+                var r = { id: e.id, timestamp: e.timestamp, type: { localcandidate: "local-candidate", remotecandidate: "remote-candidate" }[e.type] || e.type };e.names().forEach(function (t) {
+                  r[t] = e.stat(t);
+                }), t[r.id] = r;
+              }), t;
+            },
+                o = function o(e) {
+              return new Map(Object.keys(e).map(function (t) {
+                return [t, e[t]];
+              }));
+            };if (arguments.length >= 2) {
+              return t.apply(this, [function (e) {
+                i(o(a(e)));
+              }, n]);
+            }return new Promise(function (r, n) {
+              t.apply(e, [function (e) {
+                r(o(a(e)));
+              }, n]);
+            }).then(i, s);
+          };
+        }, Object.defineProperty(t, "shimGetUserMedia", { enumerable: !0, get: function get() {
+            return i.shimGetUserMedia;
+          } }), t.shimMediaStream = function (e) {
+          e.MediaStream = e.MediaStream || e.webkitMediaStream;
+        }, t.shimOnTrack = function (e) {
+          if ("object" === c(e) && e.RTCPeerConnection && !("ontrack" in e.RTCPeerConnection.prototype)) {
+            Object.defineProperty(e.RTCPeerConnection.prototype, "ontrack", { get: function get() {
+                return this._ontrack;
+              }, set: function set(e) {
+                this._ontrack && this.removeEventListener("track", this._ontrack), this.addEventListener("track", this._ontrack = e);
+              }, enumerable: !0, configurable: !0 });var t = e.RTCPeerConnection.prototype.setRemoteDescription;e.RTCPeerConnection.prototype.setRemoteDescription = function () {
+              var r = this;return this._ontrackpoly || (this._ontrackpoly = function (t) {
+                t.stream.addEventListener("addtrack", function (n) {
+                  var i;i = e.RTCPeerConnection.prototype.getReceivers ? r.getReceivers().find(function (e) {
+                    return e.track && e.track.id === n.track.id;
+                  }) : { track: n.track };var s = new Event("track");s.track = n.track, s.receiver = i, s.transceiver = { receiver: i }, s.streams = [t.stream], r.dispatchEvent(s);
+                }), t.stream.getTracks().forEach(function (n) {
+                  var i;i = e.RTCPeerConnection.prototype.getReceivers ? r.getReceivers().find(function (e) {
+                    return e.track && e.track.id === n.id;
+                  }) : { track: n };var s = new Event("track");s.track = n, s.receiver = i, s.transceiver = { receiver: i }, s.streams = [t.stream], r.dispatchEvent(s);
+                });
+              }, this.addEventListener("addstream", this._ontrackpoly)), t.apply(this, arguments);
+            };
+          } else n.wrapPeerConnectionEvent(e, "track", function (e) {
+            return e.transceiver || Object.defineProperty(e, "transceiver", { value: { receiver: e.receiver } }), e;
+          });
+        }, t.shimPeerConnection = function (e, t) {
+          !e.RTCPeerConnection && e.webkitRTCPeerConnection && (e.RTCPeerConnection = e.webkitRTCPeerConnection);if (!e.RTCPeerConnection) return;t.version < 53 && ["setLocalDescription", "setRemoteDescription", "addIceCandidate"].forEach(function (t) {
+            var r = e.RTCPeerConnection.prototype[t],
+                n = o({}, t, function () {
+              return arguments[0] = new ("addIceCandidate" === t ? e.RTCIceCandidate : e.RTCSessionDescription)(arguments[0]), r.apply(this, arguments);
+            });e.RTCPeerConnection.prototype[t] = n[t];
+          });
+        }, t.shimSenderReceiverGetStats = function (e) {
+          if (!("object" === c(e) && e.RTCPeerConnection && e.RTCRtpSender && e.RTCRtpReceiver)) return;if (!("getStats" in e.RTCRtpSender.prototype)) {
+            var t = e.RTCPeerConnection.prototype.getSenders;t && (e.RTCPeerConnection.prototype.getSenders = function () {
+              var e = this,
+                  r = t.apply(this, []);return r.forEach(function (t) {
+                return t._pc = e;
+              }), r;
+            });var r = e.RTCPeerConnection.prototype.addTrack;r && (e.RTCPeerConnection.prototype.addTrack = function () {
+              var e = r.apply(this, arguments);return e._pc = this, e;
+            }), e.RTCRtpSender.prototype.getStats = function () {
+              var e = this;return this._pc.getStats().then(function (t) {
+                return n.filterStats(t, e.track, !0);
+              });
+            };
+          }if (!("getStats" in e.RTCRtpReceiver.prototype)) {
+            var i = e.RTCPeerConnection.prototype.getReceivers;i && (e.RTCPeerConnection.prototype.getReceivers = function () {
+              var e = this,
+                  t = i.apply(this, []);return t.forEach(function (t) {
+                return t._pc = e;
+              }), t;
+            }), n.wrapPeerConnectionEvent(e, "track", function (e) {
+              return e.receiver._pc = e.srcElement, e;
+            }), e.RTCRtpReceiver.prototype.getStats = function () {
+              var e = this;return this._pc.getStats().then(function (t) {
+                return n.filterStats(t, e.track, !1);
+              });
+            };
+          }if (!("getStats" in e.RTCRtpSender.prototype) || !("getStats" in e.RTCRtpReceiver.prototype)) return;var s = e.RTCPeerConnection.prototype.getStats;e.RTCPeerConnection.prototype.getStats = function () {
+            if (arguments.length > 0 && arguments[0] instanceof e.MediaStreamTrack) {
+              var t,
+                  r,
+                  n,
+                  i = arguments[0];return this.getSenders().forEach(function (e) {
+                e.track === i && (t ? n = !0 : t = e);
+              }), this.getReceivers().forEach(function (e) {
+                return e.track === i && (r ? n = !0 : r = e), e.track === i;
+              }), n || t && r ? Promise.reject(new DOMException("There are more than one sender or receiver for the track.", "InvalidAccessError")) : t ? t.getStats() : r ? r.getStats() : Promise.reject(new DOMException("There is no sender or receiver for the track.", "InvalidAccessError"));
+            }return s.apply(this, arguments);
+          };
+        };var n = function (e, t) {
+          if (!t && e && e.__esModule) return e;if (null === e || "object" !== c(e) && "function" != typeof e) return { default: e };var r = a(t);if (r && r.has(e)) return r.get(e);var n = {},
+              i = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var s in e) {
+            if ("default" !== s && Object.prototype.hasOwnProperty.call(e, s)) {
+              var o = i ? Object.getOwnPropertyDescriptor(e, s) : null;o && (o.get || o.set) ? Object.defineProperty(n, s, o) : n[s] = e[s];
+            }
+          }n.default = e, r && r.set(e, n);return n;
+        }(r(288)),
+            i = r(87),
+            s = r(688);function a(e) {
+          if ("function" != typeof WeakMap) return null;var t = new WeakMap(),
+              r = new WeakMap();return (a = function a(e) {
+            return e ? r : t;
+          })(e);
+        }function o(e, t, r) {
+          return (t = function (e) {
+            var t = function (e, t) {
+              if ("object" !== c(e) || null === e) return e;var r = e[Symbol.toPrimitive];if (void 0 !== r) {
+                var n = r.call(e, t || "default");if ("object" !== c(n)) return n;throw new TypeError("@@toPrimitive must return a primitive value.");
+              }return ("string" === t ? String : Number)(e);
+            }(e, "string");return "symbol" === c(t) ? t : String(t);
+          }(t)) in e ? Object.defineProperty(e, t, { value: r, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = r, e;
+        }function c(e) {
+          return c = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
+            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          } : function (e) {
+            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          }, c(e);
+        }function d(e) {
+          e.RTCPeerConnection.prototype.getLocalStreams = function () {
+            var e = this;return this._shimmedLocalStreams = this._shimmedLocalStreams || {}, Object.keys(this._shimmedLocalStreams).map(function (t) {
+              return e._shimmedLocalStreams[t][0];
+            });
+          };var t = e.RTCPeerConnection.prototype.addTrack;e.RTCPeerConnection.prototype.addTrack = function (e, r) {
+            if (!r) return t.apply(this, arguments);this._shimmedLocalStreams = this._shimmedLocalStreams || {};var n = t.apply(this, arguments);return this._shimmedLocalStreams[r.id] ? -1 === this._shimmedLocalStreams[r.id].indexOf(n) && this._shimmedLocalStreams[r.id].push(n) : this._shimmedLocalStreams[r.id] = [r, n], n;
+          };var r = e.RTCPeerConnection.prototype.addStream;e.RTCPeerConnection.prototype.addStream = function (e) {
+            var t = this;this._shimmedLocalStreams = this._shimmedLocalStreams || {}, e.getTracks().forEach(function (e) {
+              if (t.getSenders().find(function (t) {
+                return t.track === e;
+              })) throw new DOMException("Track already exists.", "InvalidAccessError");
+            });var n = this.getSenders();r.apply(this, arguments);var i = this.getSenders().filter(function (e) {
+              return -1 === n.indexOf(e);
+            });this._shimmedLocalStreams[e.id] = [e].concat(i);
+          };var n = e.RTCPeerConnection.prototype.removeStream;e.RTCPeerConnection.prototype.removeStream = function (e) {
+            return this._shimmedLocalStreams = this._shimmedLocalStreams || {}, delete this._shimmedLocalStreams[e.id], n.apply(this, arguments);
+          };var i = e.RTCPeerConnection.prototype.removeTrack;e.RTCPeerConnection.prototype.removeTrack = function (e) {
+            var t = this;return this._shimmedLocalStreams = this._shimmedLocalStreams || {}, e && Object.keys(this._shimmedLocalStreams).forEach(function (r) {
+              var n = t._shimmedLocalStreams[r].indexOf(e);-1 !== n && t._shimmedLocalStreams[r].splice(n, 1), 1 === t._shimmedLocalStreams[r].length && delete t._shimmedLocalStreams[r];
+            }), i.apply(this, arguments);
+          };
+        }
+      }, 688: function _(e, t) {
+        "use strict";
+        Object.defineProperty(t, "__esModule", { value: !0 }), t.shimGetDisplayMedia = function (e, t) {
+          if (e.navigator.mediaDevices && "getDisplayMedia" in e.navigator.mediaDevices) return;if (!e.navigator.mediaDevices) return;if ("function" != typeof t) return void console.error("shimGetDisplayMedia: getSourceId argument is not a function");e.navigator.mediaDevices.getDisplayMedia = function (r) {
+            return t(r).then(function (t) {
+              var n = r.video && r.video.width,
+                  i = r.video && r.video.height,
+                  s = r.video && r.video.frameRate;return r.video = { mandatory: { chromeMediaSource: "desktop", chromeMediaSourceId: t, maxFrameRate: s || 3 } }, n && (r.video.mandatory.maxWidth = n), i && (r.video.mandatory.maxHeight = i), e.navigator.mediaDevices.getUserMedia(r);
+            });
+          };
+        };
+      }, 87: function _(e, t, r) {
+        "use strict";
+        function n(e) {
+          if ("function" != typeof WeakMap) return null;var t = new WeakMap(),
+              r = new WeakMap();return (n = function n(e) {
+            return e ? r : t;
+          })(e);
+        }function i(e) {
+          return i = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
+            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          } : function (e) {
+            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          }, i(e);
+        }Object.defineProperty(t, "__esModule", { value: !0 }), t.shimGetUserMedia = function (e, t) {
+          var r = e && e.navigator;if (!r.mediaDevices) return;var n = function n(e) {
+            if ("object" !== i(e) || e.mandatory || e.optional) return e;var t = {};return Object.keys(e).forEach(function (r) {
+              if ("require" !== r && "advanced" !== r && "mediaSource" !== r) {
+                var n = "object" === i(e[r]) ? e[r] : { ideal: e[r] };void 0 !== n.exact && "number" == typeof n.exact && (n.min = n.max = n.exact);var s = function s(e, t) {
+                  return e ? e + t.charAt(0).toUpperCase() + t.slice(1) : "deviceId" === t ? "sourceId" : t;
+                };if (void 0 !== n.ideal) {
+                  t.optional = t.optional || [];var a = {};"number" == typeof n.ideal ? (a[s("min", r)] = n.ideal, t.optional.push(a), (a = {})[s("max", r)] = n.ideal, t.optional.push(a)) : (a[s("", r)] = n.ideal, t.optional.push(a));
+                }void 0 !== n.exact && "number" != typeof n.exact ? (t.mandatory = t.mandatory || {}, t.mandatory[s("", r)] = n.exact) : ["min", "max"].forEach(function (e) {
+                  void 0 !== n[e] && (t.mandatory = t.mandatory || {}, t.mandatory[s(e, r)] = n[e]);
+                });
+              }
+            }), e.advanced && (t.optional = (t.optional || []).concat(e.advanced)), t;
+          },
+              a = function a(e, _a) {
+            if (t.version >= 61) return _a(e);if ((e = JSON.parse(JSON.stringify(e))) && "object" === i(e.audio)) {
+              var o = function o(e, t, r) {
+                t in e && !(r in e) && (e[r] = e[t], delete e[t]);
+              };o((e = JSON.parse(JSON.stringify(e))).audio, "autoGainControl", "googAutoGainControl"), o(e.audio, "noiseSuppression", "googNoiseSuppression"), e.audio = n(e.audio);
+            }if (e && "object" === i(e.video)) {
+              var c = e.video.facingMode;c = c && ("object" === i(c) ? c : { ideal: c });var d,
+                  l = t.version < 66;if (c && ("user" === c.exact || "environment" === c.exact || "user" === c.ideal || "environment" === c.ideal) && (!r.mediaDevices.getSupportedConstraints || !r.mediaDevices.getSupportedConstraints().facingMode || l)) if (delete e.video.facingMode, "environment" === c.exact || "environment" === c.ideal ? d = ["back", "rear"] : "user" !== c.exact && "user" !== c.ideal || (d = ["front"]), d) return r.mediaDevices.enumerateDevices().then(function (t) {
+                var r = (t = t.filter(function (e) {
+                  return "videoinput" === e.kind;
+                })).find(function (e) {
+                  return d.some(function (t) {
+                    return e.label.toLowerCase().includes(t);
+                  });
+                });return !r && t.length && d.includes("back") && (r = t[t.length - 1]), r && (e.video.deviceId = c.exact ? { exact: r.deviceId } : { ideal: r.deviceId }), e.video = n(e.video), s("chrome: " + JSON.stringify(e)), _a(e);
+              });e.video = n(e.video);
+            }return s("chrome: " + JSON.stringify(e)), _a(e);
+          },
+              o = function o(e) {
+            return t.version >= 64 ? e : { name: { PermissionDeniedError: "NotAllowedError", PermissionDismissedError: "NotAllowedError", InvalidStateError: "NotAllowedError", DevicesNotFoundError: "NotFoundError", ConstraintNotSatisfiedError: "OverconstrainedError", TrackStartError: "NotReadableError", MediaDeviceFailedDueToShutdown: "NotAllowedError", MediaDeviceKillSwitchOn: "NotAllowedError", TabCaptureError: "AbortError", ScreenCaptureError: "AbortError", DeviceCaptureError: "AbortError" }[e.name] || e.name, message: e.message, constraint: e.constraint || e.constraintName, toString: function toString() {
+                return this.name + (this.message && ": ") + this.message;
+              } };
+          };if (r.getUserMedia = function (e, t, n) {
+            a(e, function (e) {
+              r.webkitGetUserMedia(e, t, function (e) {
+                n && n(o(e));
+              });
+            });
+          }.bind(r), r.mediaDevices.getUserMedia) {
+            var c = r.mediaDevices.getUserMedia.bind(r.mediaDevices);r.mediaDevices.getUserMedia = function (e) {
+              return a(e, function (e) {
+                return c(e).then(function (t) {
+                  if (e.audio && !t.getAudioTracks().length || e.video && !t.getVideoTracks().length) throw t.getTracks().forEach(function (e) {
+                    e.stop();
+                  }), new DOMException("", "NotFoundError");return t;
+                }, function (e) {
+                  return Promise.reject(o(e));
+                });
+              });
+            };
+          }
+        };var s = function (e, t) {
+          if (!t && e && e.__esModule) return e;if (null === e || "object" !== i(e) && "function" != typeof e) return { default: e };var r = n(t);if (r && r.has(e)) return r.get(e);var s = {},
+              a = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var o in e) {
+            if ("default" !== o && Object.prototype.hasOwnProperty.call(e, o)) {
+              var c = a ? Object.getOwnPropertyDescriptor(e, o) : null;c && (c.get || c.set) ? Object.defineProperty(s, o, c) : s[o] = e[o];
+            }
+          }s.default = e, r && r.set(e, s);return s;
+        }(r(288)).log;
+      }, 401: function _(e, t, r) {
+        "use strict";
+        Object.defineProperty(t, "__esModule", { value: !0 }), t.removeExtmapAllowMixed = function (e, t) {
+          if (!e.RTCPeerConnection) return;if ("chrome" === t.browser && t.version >= 71) return;if ("safari" === t.browser && t.version >= 605) return;var r = e.RTCPeerConnection.prototype.setRemoteDescription;e.RTCPeerConnection.prototype.setRemoteDescription = function (t) {
+            if (t && t.sdp && -1 !== t.sdp.indexOf("\na=extmap-allow-mixed")) {
+              var n = t.sdp.split("\n").filter(function (e) {
+                return "a=extmap-allow-mixed" !== e.trim();
+              }).join("\n");e.RTCSessionDescription && t instanceof e.RTCSessionDescription ? arguments[0] = new e.RTCSessionDescription({ type: t.type, sdp: n }) : t.sdp = n;
+            }return r.apply(this, arguments);
+          };
+        }, t.shimAddIceCandidateNullOrEmpty = function (e, t) {
+          if (!e.RTCPeerConnection || !e.RTCPeerConnection.prototype) return;var r = e.RTCPeerConnection.prototype.addIceCandidate;if (!r || 0 === r.length) return;e.RTCPeerConnection.prototype.addIceCandidate = function () {
+            return arguments[0] ? ("chrome" === t.browser && t.version < 78 || "firefox" === t.browser && t.version < 68 || "safari" === t.browser) && arguments[0] && "" === arguments[0].candidate ? Promise.resolve() : r.apply(this, arguments) : (arguments[1] && arguments[1].apply(null), Promise.resolve());
+          };
+        }, t.shimConnectionState = function (e) {
+          if (!e.RTCPeerConnection || "connectionState" in e.RTCPeerConnection.prototype) return;var t = e.RTCPeerConnection.prototype;Object.defineProperty(t, "connectionState", { get: function get() {
+              return { completed: "connected", checking: "connecting" }[this.iceConnectionState] || this.iceConnectionState;
+            }, enumerable: !0, configurable: !0 }), Object.defineProperty(t, "onconnectionstatechange", { get: function get() {
+              return this._onconnectionstatechange || null;
+            }, set: function set(e) {
+              this._onconnectionstatechange && (this.removeEventListener("connectionstatechange", this._onconnectionstatechange), delete this._onconnectionstatechange), e && this.addEventListener("connectionstatechange", this._onconnectionstatechange = e);
+            }, enumerable: !0, configurable: !0 }), ["setLocalDescription", "setRemoteDescription"].forEach(function (e) {
+            var r = t[e];t[e] = function () {
+              return this._connectionstatechangepoly || (this._connectionstatechangepoly = function (e) {
+                var t = e.target;if (t._lastConnectionState !== t.connectionState) {
+                  t._lastConnectionState = t.connectionState;var r = new Event("connectionstatechange", e);t.dispatchEvent(r);
+                }return e;
+              }, this.addEventListener("iceconnectionstatechange", this._connectionstatechangepoly)), r.apply(this, arguments);
+            };
+          });
+        }, t.shimMaxMessageSize = function (e, t) {
+          if (!e.RTCPeerConnection) return;"sctp" in e.RTCPeerConnection.prototype || Object.defineProperty(e.RTCPeerConnection.prototype, "sctp", { get: function get() {
+              return void 0 === this._sctp ? null : this._sctp;
+            } });var r = e.RTCPeerConnection.prototype.setRemoteDescription;e.RTCPeerConnection.prototype.setRemoteDescription = function () {
+            var e, n;(this._sctp = null, "chrome" === t.browser && t.version >= 76) && "plan-b" === this.getConfiguration().sdpSemantics && Object.defineProperty(this, "sctp", { get: function get() {
+                return void 0 === this._sctp ? null : this._sctp;
+              }, enumerable: !0, configurable: !0 });if (function (e) {
+              if (!e || !e.sdp) return !1;var t = i.default.splitSections(e.sdp);return t.shift(), t.some(function (e) {
+                var t = i.default.parseMLine(e);return t && "application" === t.kind && -1 !== t.protocol.indexOf("SCTP");
+              });
+            }(arguments[0])) {
+              var s,
+                  a = function (e) {
+                var t = e.sdp.match(/mozilla...THIS_IS_SDPARTA-(\d+)/);if (null === t || t.length < 2) return -1;var r = parseInt(t[1], 10);return r != r ? -1 : r;
+              }(arguments[0]),
+                  o = (e = a, n = 65536, "firefox" === t.browser && (n = t.version < 57 ? -1 === e ? 16384 : 2147483637 : t.version < 60 ? 57 === t.version ? 65535 : 65536 : 2147483637), n),
+                  c = function (e, r) {
+                var n = 65536;"firefox" === t.browser && 57 === t.version && (n = 65535);var s = i.default.matchPrefix(e.sdp, "a=max-message-size:");return s.length > 0 ? n = parseInt(s[0].substring(19), 10) : "firefox" === t.browser && -1 !== r && (n = 2147483637), n;
+              }(arguments[0], a);s = 0 === o && 0 === c ? Number.POSITIVE_INFINITY : 0 === o || 0 === c ? Math.max(o, c) : Math.min(o, c);var d = {};Object.defineProperty(d, "maxMessageSize", { get: function get() {
+                  return s;
+                } }), this._sctp = d;
+            }return r.apply(this, arguments);
+          };
+        }, t.shimParameterlessSetLocalDescription = function (e, t) {
+          if (!e.RTCPeerConnection || !e.RTCPeerConnection.prototype) return;var r = e.RTCPeerConnection.prototype.setLocalDescription;if (!r || 0 === r.length) return;e.RTCPeerConnection.prototype.setLocalDescription = function () {
+            var e = this,
+                t = arguments[0] || {};if ("object" !== o(t) || t.type && t.sdp) return r.apply(this, arguments);if (!(t = { type: t.type, sdp: t.sdp }).type) switch (this.signalingState) {case "stable":case "have-local-offer":case "have-remote-pranswer":
+                t.type = "offer";break;default:
+                t.type = "answer";}return t.sdp || "offer" !== t.type && "answer" !== t.type ? r.apply(this, [t]) : ("offer" === t.type ? this.createOffer : this.createAnswer).apply(this).then(function (t) {
+              return r.apply(e, [t]);
+            });
+          };
+        }, t.shimRTCIceCandidate = function (e) {
+          if (!e.RTCIceCandidate || e.RTCIceCandidate && "foundation" in e.RTCIceCandidate.prototype) return;var t = e.RTCIceCandidate;e.RTCIceCandidate = function (e) {
+            if ("object" === o(e) && e.candidate && 0 === e.candidate.indexOf("a=") && ((e = JSON.parse(JSON.stringify(e))).candidate = e.candidate.substring(2)), e.candidate && e.candidate.length) {
+              var r = new t(e),
+                  n = i.default.parseCandidate(e.candidate);for (var s in n) {
+                s in r || Object.defineProperty(r, s, { value: n[s] });
+              }return r.toJSON = function () {
+                return { candidate: r.candidate, sdpMid: r.sdpMid, sdpMLineIndex: r.sdpMLineIndex, usernameFragment: r.usernameFragment };
+              }, r;
+            }return new t(e);
+          }, e.RTCIceCandidate.prototype = t.prototype, s.wrapPeerConnectionEvent(e, "icecandidate", function (t) {
+            return t.candidate && Object.defineProperty(t, "candidate", { value: new e.RTCIceCandidate(t.candidate), writable: "false" }), t;
+          });
+        }, t.shimRTCIceCandidateRelayProtocol = function (e) {
+          if (!e.RTCIceCandidate || e.RTCIceCandidate && "relayProtocol" in e.RTCIceCandidate.prototype) return;s.wrapPeerConnectionEvent(e, "icecandidate", function (e) {
+            if (e.candidate) {
+              var t = i.default.parseCandidate(e.candidate.candidate);"relay" === t.type && (e.candidate.relayProtocol = { 0: "tls", 1: "tcp", 2: "udp" }[t.priority >> 24]);
+            }return e;
+          });
+        }, t.shimSendThrowTypeError = function (e) {
+          if (!e.RTCPeerConnection || !("createDataChannel" in e.RTCPeerConnection.prototype)) return;function t(e, t) {
+            var r = e.send;e.send = function () {
+              var n = arguments[0],
+                  i = n.length || n.size || n.byteLength;if ("open" === e.readyState && t.sctp && i > t.sctp.maxMessageSize) throw new TypeError("Message too large (can send a maximum of " + t.sctp.maxMessageSize + " bytes)");return r.apply(e, arguments);
+            };
+          }var r = e.RTCPeerConnection.prototype.createDataChannel;e.RTCPeerConnection.prototype.createDataChannel = function () {
+            var e = r.apply(this, arguments);return t(e, this), e;
+          }, s.wrapPeerConnectionEvent(e, "datachannel", function (e) {
+            return t(e.channel, e.target), e;
+          });
+        };var n,
+            i = (n = r(539)) && n.__esModule ? n : { default: n },
+            s = function (e, t) {
+          if (!t && e && e.__esModule) return e;if (null === e || "object" !== o(e) && "function" != typeof e) return { default: e };var r = a(t);if (r && r.has(e)) return r.get(e);var n = {},
+              i = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var s in e) {
+            if ("default" !== s && Object.prototype.hasOwnProperty.call(e, s)) {
+              var c = i ? Object.getOwnPropertyDescriptor(e, s) : null;c && (c.get || c.set) ? Object.defineProperty(n, s, c) : n[s] = e[s];
+            }
+          }n.default = e, r && r.set(e, n);return n;
+        }(r(288));function a(e) {
+          if ("function" != typeof WeakMap) return null;var t = new WeakMap(),
+              r = new WeakMap();return (a = function a(e) {
+            return e ? r : t;
+          })(e);
+        }function o(e) {
+          return o = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
+            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          } : function (e) {
+            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          }, o(e);
+        }
+      }, 311: function _(e, t, r) {
+        "use strict";
+        Object.defineProperty(t, "__esModule", { value: !0 }), t.shimAddTransceiver = function (e) {
+          if ("object" !== c(e) || !e.RTCPeerConnection) return;var t = e.RTCPeerConnection.prototype.addTransceiver;t && (e.RTCPeerConnection.prototype.addTransceiver = function () {
+            this.setParametersPromises = [];var e,
+                r = arguments[1] && arguments[1].sendEncodings;void 0 === r && (r = []);var n = (r = function (e) {
+              if (Array.isArray(e)) return o(e);
+            }(e = r) || function (e) {
+              if ("undefined" != typeof Symbol && null != e[Symbol.iterator] || null != e["@@iterator"]) return Array.from(e);
+            }(e) || function (e, t) {
+              if (e) {
+                if ("string" == typeof e) return o(e, t);var r = Object.prototype.toString.call(e).slice(8, -1);return "Object" === r && e.constructor && (r = e.constructor.name), "Map" === r || "Set" === r ? Array.from(e) : "Arguments" === r || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r) ? o(e, t) : void 0;
+              }
+            }(e) || function () {
+              throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+            }()).length > 0;n && r.forEach(function (e) {
+              if ("rid" in e) {
+                if (!/^[a-z0-9]{0,16}$/i.test(e.rid)) throw new TypeError("Invalid RID value provided.");
+              }if ("scaleResolutionDownBy" in e && !(parseFloat(e.scaleResolutionDownBy) >= 1)) throw new RangeError("scale_resolution_down_by must be >= 1.0");if ("maxFramerate" in e && !(parseFloat(e.maxFramerate) >= 0)) throw new RangeError("max_framerate must be >= 0.0");
+            });var i = t.apply(this, arguments);if (n) {
+              var s = i.sender,
+                  a = s.getParameters();(!("encodings" in a) || 1 === a.encodings.length && 0 === Object.keys(a.encodings[0]).length) && (a.encodings = r, s.sendEncodings = r, this.setParametersPromises.push(s.setParameters(a).then(function () {
+                delete s.sendEncodings;
+              }).catch(function () {
+                delete s.sendEncodings;
+              })));
+            }return i;
+          });
+        }, t.shimCreateAnswer = function (e) {
+          if ("object" !== c(e) || !e.RTCPeerConnection) return;var t = e.RTCPeerConnection.prototype.createAnswer;e.RTCPeerConnection.prototype.createAnswer = function () {
+            var e = arguments,
+                r = this;return this.setParametersPromises && this.setParametersPromises.length ? Promise.all(this.setParametersPromises).then(function () {
+              return t.apply(r, e);
+            }).finally(function () {
+              r.setParametersPromises = [];
+            }) : t.apply(this, arguments);
+          };
+        }, t.shimCreateOffer = function (e) {
+          if ("object" !== c(e) || !e.RTCPeerConnection) return;var t = e.RTCPeerConnection.prototype.createOffer;e.RTCPeerConnection.prototype.createOffer = function () {
+            var e = arguments,
+                r = this;return this.setParametersPromises && this.setParametersPromises.length ? Promise.all(this.setParametersPromises).then(function () {
+              return t.apply(r, e);
+            }).finally(function () {
+              r.setParametersPromises = [];
+            }) : t.apply(this, arguments);
+          };
+        }, Object.defineProperty(t, "shimGetDisplayMedia", { enumerable: !0, get: function get() {
+            return s.shimGetDisplayMedia;
+          } }), t.shimGetParameters = function (e) {
+          if ("object" !== c(e) || !e.RTCRtpSender) return;var t = e.RTCRtpSender.prototype.getParameters;t && (e.RTCRtpSender.prototype.getParameters = function () {
+            var e = t.apply(this, arguments);return "encodings" in e || (e.encodings = [].concat(this.sendEncodings || [{}])), e;
+          });
+        }, Object.defineProperty(t, "shimGetUserMedia", { enumerable: !0, get: function get() {
+            return i.shimGetUserMedia;
+          } }), t.shimOnTrack = function (e) {
+          "object" === c(e) && e.RTCTrackEvent && "receiver" in e.RTCTrackEvent.prototype && !("transceiver" in e.RTCTrackEvent.prototype) && Object.defineProperty(e.RTCTrackEvent.prototype, "transceiver", { get: function get() {
+              return { receiver: this.receiver };
+            } });
+        }, t.shimPeerConnection = function (e, t) {
+          if ("object" !== c(e) || !e.RTCPeerConnection && !e.mozRTCPeerConnection) return;!e.RTCPeerConnection && e.mozRTCPeerConnection && (e.RTCPeerConnection = e.mozRTCPeerConnection);t.version < 53 && ["setLocalDescription", "setRemoteDescription", "addIceCandidate"].forEach(function (t) {
+            var r = e.RTCPeerConnection.prototype[t],
+                n = function (e, t, r) {
+              (t = function (e) {
+                var t = function (e, t) {
+                  if ("object" !== c(e) || null === e) return e;var r = e[Symbol.toPrimitive];if (void 0 !== r) {
+                    var n = r.call(e, t || "default");if ("object" !== c(n)) return n;throw new TypeError("@@toPrimitive must return a primitive value.");
+                  }return ("string" === t ? String : Number)(e);
+                }(e, "string");return "symbol" === c(t) ? t : String(t);
+              }(t)) in e ? Object.defineProperty(e, t, { value: r, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = r;return e;
+            }({}, t, function () {
+              return arguments[0] = new ("addIceCandidate" === t ? e.RTCIceCandidate : e.RTCSessionDescription)(arguments[0]), r.apply(this, arguments);
+            });e.RTCPeerConnection.prototype[t] = n[t];
+          });var r = { inboundrtp: "inbound-rtp", outboundrtp: "outbound-rtp", candidatepair: "candidate-pair", localcandidate: "local-candidate", remotecandidate: "remote-candidate" },
+              n = e.RTCPeerConnection.prototype.getStats;e.RTCPeerConnection.prototype.getStats = function () {
+            var e = Array.prototype.slice.call(arguments),
+                i = e[0],
+                s = e[1],
+                a = e[2];return n.apply(this, [i || null]).then(function (e) {
+              if (t.version < 53 && !s) try {
+                e.forEach(function (e) {
+                  e.type = r[e.type] || e.type;
+                });
+              } catch (t) {
+                if ("TypeError" !== t.name) throw t;e.forEach(function (t, n) {
+                  e.set(n, Object.assign({}, t, { type: r[t.type] || t.type }));
+                });
+              }return e;
+            }).then(s, a);
+          };
+        }, t.shimRTCDataChannel = function (e) {
+          e.DataChannel && !e.RTCDataChannel && (e.RTCDataChannel = e.DataChannel);
+        }, t.shimReceiverGetStats = function (e) {
+          if ("object" !== c(e) || !e.RTCPeerConnection || !e.RTCRtpSender) return;if (e.RTCRtpSender && "getStats" in e.RTCRtpReceiver.prototype) return;var t = e.RTCPeerConnection.prototype.getReceivers;t && (e.RTCPeerConnection.prototype.getReceivers = function () {
+            var e = this,
+                r = t.apply(this, []);return r.forEach(function (t) {
+              return t._pc = e;
+            }), r;
+          });n.wrapPeerConnectionEvent(e, "track", function (e) {
+            return e.receiver._pc = e.srcElement, e;
+          }), e.RTCRtpReceiver.prototype.getStats = function () {
+            return this._pc.getStats(this.track);
+          };
+        }, t.shimRemoveStream = function (e) {
+          if (!e.RTCPeerConnection || "removeStream" in e.RTCPeerConnection.prototype) return;e.RTCPeerConnection.prototype.removeStream = function (e) {
+            var t = this;n.deprecated("removeStream", "removeTrack"), this.getSenders().forEach(function (r) {
+              r.track && e.getTracks().includes(r.track) && t.removeTrack(r);
+            });
+          };
+        }, t.shimSenderGetStats = function (e) {
+          if ("object" !== c(e) || !e.RTCPeerConnection || !e.RTCRtpSender) return;if (e.RTCRtpSender && "getStats" in e.RTCRtpSender.prototype) return;var t = e.RTCPeerConnection.prototype.getSenders;t && (e.RTCPeerConnection.prototype.getSenders = function () {
+            var e = this,
+                r = t.apply(this, []);return r.forEach(function (t) {
+              return t._pc = e;
+            }), r;
+          });var r = e.RTCPeerConnection.prototype.addTrack;r && (e.RTCPeerConnection.prototype.addTrack = function () {
+            var e = r.apply(this, arguments);return e._pc = this, e;
+          });e.RTCRtpSender.prototype.getStats = function () {
+            return this.track ? this._pc.getStats(this.track) : Promise.resolve(new Map());
+          };
+        };var n = function (e, t) {
+          if (!t && e && e.__esModule) return e;if (null === e || "object" !== c(e) && "function" != typeof e) return { default: e };var r = a(t);if (r && r.has(e)) return r.get(e);var n = {},
+              i = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var s in e) {
+            if ("default" !== s && Object.prototype.hasOwnProperty.call(e, s)) {
+              var o = i ? Object.getOwnPropertyDescriptor(e, s) : null;o && (o.get || o.set) ? Object.defineProperty(n, s, o) : n[s] = e[s];
+            }
+          }n.default = e, r && r.set(e, n);return n;
+        }(r(288)),
+            i = r(532),
+            s = r(143);function a(e) {
+          if ("function" != typeof WeakMap) return null;var t = new WeakMap(),
+              r = new WeakMap();return (a = function a(e) {
+            return e ? r : t;
+          })(e);
+        }function o(e, t) {
+          (null == t || t > e.length) && (t = e.length);for (var r = 0, n = new Array(t); r < t; r++) {
+            n[r] = e[r];
+          }return n;
+        }function c(e) {
+          return c = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
+            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          } : function (e) {
+            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          }, c(e);
+        }
+      }, 143: function _(e, t) {
+        "use strict";
+        Object.defineProperty(t, "__esModule", { value: !0 }), t.shimGetDisplayMedia = function (e, t) {
+          if (e.navigator.mediaDevices && "getDisplayMedia" in e.navigator.mediaDevices) return;if (!e.navigator.mediaDevices) return;e.navigator.mediaDevices.getDisplayMedia = function (r) {
+            if (!r || !r.video) {
+              var n = new DOMException("getDisplayMedia without video constraints is undefined");return n.name = "NotFoundError", n.code = 8, Promise.reject(n);
+            }return !0 === r.video ? r.video = { mediaSource: t } : r.video.mediaSource = t, e.navigator.mediaDevices.getUserMedia(r);
+          };
+        };
+      }, 532: function _(e, t, r) {
+        "use strict";
+        Object.defineProperty(t, "__esModule", { value: !0 }), t.shimGetUserMedia = function (e, t) {
+          var r = e && e.navigator,
+              i = e && e.MediaStreamTrack;if (r.getUserMedia = function (e, t, i) {
+            n.deprecated("navigator.getUserMedia", "navigator.mediaDevices.getUserMedia"), r.mediaDevices.getUserMedia(e).then(t, i);
+          }, !(t.version > 55 && "autoGainControl" in r.mediaDevices.getSupportedConstraints())) {
+            var a = function a(e, t, r) {
+              t in e && !(r in e) && (e[r] = e[t], delete e[t]);
+            },
+                o = r.mediaDevices.getUserMedia.bind(r.mediaDevices);if (r.mediaDevices.getUserMedia = function (e) {
+              return "object" === s(e) && "object" === s(e.audio) && (e = JSON.parse(JSON.stringify(e)), a(e.audio, "autoGainControl", "mozAutoGainControl"), a(e.audio, "noiseSuppression", "mozNoiseSuppression")), o(e);
+            }, i && i.prototype.getSettings) {
+              var c = i.prototype.getSettings;i.prototype.getSettings = function () {
+                var e = c.apply(this, arguments);return a(e, "mozAutoGainControl", "autoGainControl"), a(e, "mozNoiseSuppression", "noiseSuppression"), e;
+              };
+            }if (i && i.prototype.applyConstraints) {
+              var d = i.prototype.applyConstraints;i.prototype.applyConstraints = function (e) {
+                return "audio" === this.kind && "object" === s(e) && (e = JSON.parse(JSON.stringify(e)), a(e, "autoGainControl", "mozAutoGainControl"), a(e, "noiseSuppression", "mozNoiseSuppression")), d.apply(this, [e]);
+              };
+            }
+          }
+        };var n = function (e, t) {
+          if (!t && e && e.__esModule) return e;if (null === e || "object" !== s(e) && "function" != typeof e) return { default: e };var r = i(t);if (r && r.has(e)) return r.get(e);var n = {},
+              a = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var o in e) {
+            if ("default" !== o && Object.prototype.hasOwnProperty.call(e, o)) {
+              var c = a ? Object.getOwnPropertyDescriptor(e, o) : null;c && (c.get || c.set) ? Object.defineProperty(n, o, c) : n[o] = e[o];
+            }
+          }n.default = e, r && r.set(e, n);return n;
+        }(r(288));function i(e) {
+          if ("function" != typeof WeakMap) return null;var t = new WeakMap(),
+              r = new WeakMap();return (i = function i(e) {
+            return e ? r : t;
+          })(e);
+        }function s(e) {
+          return s = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
+            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          } : function (e) {
+            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          }, s(e);
+        }
+      }, 540: function _(e, t, r) {
+        "use strict";
+        Object.defineProperty(t, "__esModule", { value: !0 }), t.shimAudioContext = function (e) {
+          if ("object" !== s(e) || e.AudioContext) return;e.AudioContext = e.webkitAudioContext;
+        }, t.shimCallbacksAPI = function (e) {
+          if ("object" !== s(e) || !e.RTCPeerConnection) return;var t = e.RTCPeerConnection.prototype,
+              r = t.createOffer,
+              n = t.createAnswer,
+              i = t.setLocalDescription,
+              a = t.setRemoteDescription,
+              o = t.addIceCandidate;t.createOffer = function (e, t) {
+            var n = arguments.length >= 2 ? arguments[2] : arguments[0],
+                i = r.apply(this, [n]);return t ? (i.then(e, t), Promise.resolve()) : i;
+          }, t.createAnswer = function (e, t) {
+            var r = arguments.length >= 2 ? arguments[2] : arguments[0],
+                i = n.apply(this, [r]);return t ? (i.then(e, t), Promise.resolve()) : i;
+          };var c = function c(e, t, r) {
+            var n = i.apply(this, [e]);return r ? (n.then(t, r), Promise.resolve()) : n;
+          };t.setLocalDescription = c, c = function c(e, t, r) {
+            var n = a.apply(this, [e]);return r ? (n.then(t, r), Promise.resolve()) : n;
+          }, t.setRemoteDescription = c, c = function c(e, t, r) {
+            var n = o.apply(this, [e]);return r ? (n.then(t, r), Promise.resolve()) : n;
+          }, t.addIceCandidate = c;
+        }, t.shimConstraints = a, t.shimCreateOfferLegacy = function (e) {
+          var t = e.RTCPeerConnection.prototype.createOffer;e.RTCPeerConnection.prototype.createOffer = function (e) {
+            if (e) {
+              void 0 !== e.offerToReceiveAudio && (e.offerToReceiveAudio = !!e.offerToReceiveAudio);var r = this.getTransceivers().find(function (e) {
+                return "audio" === e.receiver.track.kind;
+              });!1 === e.offerToReceiveAudio && r ? "sendrecv" === r.direction ? r.setDirection ? r.setDirection("sendonly") : r.direction = "sendonly" : "recvonly" === r.direction && (r.setDirection ? r.setDirection("inactive") : r.direction = "inactive") : !0 !== e.offerToReceiveAudio || r || this.addTransceiver("audio", { direction: "recvonly" }), void 0 !== e.offerToReceiveVideo && (e.offerToReceiveVideo = !!e.offerToReceiveVideo);var n = this.getTransceivers().find(function (e) {
+                return "video" === e.receiver.track.kind;
+              });!1 === e.offerToReceiveVideo && n ? "sendrecv" === n.direction ? n.setDirection ? n.setDirection("sendonly") : n.direction = "sendonly" : "recvonly" === n.direction && (n.setDirection ? n.setDirection("inactive") : n.direction = "inactive") : !0 !== e.offerToReceiveVideo || n || this.addTransceiver("video", { direction: "recvonly" });
+            }return t.apply(this, arguments);
+          };
+        }, t.shimGetUserMedia = function (e) {
+          var t = e && e.navigator;if (t.mediaDevices && t.mediaDevices.getUserMedia) {
+            var r = t.mediaDevices,
+                n = r.getUserMedia.bind(r);t.mediaDevices.getUserMedia = function (e) {
+              return n(a(e));
+            };
+          }!t.getUserMedia && t.mediaDevices && t.mediaDevices.getUserMedia && (t.getUserMedia = function (e, r, n) {
+            t.mediaDevices.getUserMedia(e).then(r, n);
+          }.bind(t));
+        }, t.shimLocalStreamsAPI = function (e) {
+          if ("object" !== s(e) || !e.RTCPeerConnection) return;"getLocalStreams" in e.RTCPeerConnection.prototype || (e.RTCPeerConnection.prototype.getLocalStreams = function () {
+            return this._localStreams || (this._localStreams = []), this._localStreams;
+          });if (!("addStream" in e.RTCPeerConnection.prototype)) {
+            var t = e.RTCPeerConnection.prototype.addTrack;e.RTCPeerConnection.prototype.addStream = function (e) {
+              var r = this;this._localStreams || (this._localStreams = []), this._localStreams.includes(e) || this._localStreams.push(e), e.getAudioTracks().forEach(function (n) {
+                return t.call(r, n, e);
+              }), e.getVideoTracks().forEach(function (n) {
+                return t.call(r, n, e);
+              });
+            }, e.RTCPeerConnection.prototype.addTrack = function (e) {
+              for (var r = this, n = arguments.length, i = new Array(n > 1 ? n - 1 : 0), s = 1; s < n; s++) {
+                i[s - 1] = arguments[s];
+              }return i && i.forEach(function (e) {
+                r._localStreams ? r._localStreams.includes(e) || r._localStreams.push(e) : r._localStreams = [e];
+              }), t.apply(this, arguments);
+            };
+          }"removeStream" in e.RTCPeerConnection.prototype || (e.RTCPeerConnection.prototype.removeStream = function (e) {
+            var t = this;this._localStreams || (this._localStreams = []);var r = this._localStreams.indexOf(e);if (-1 !== r) {
+              this._localStreams.splice(r, 1);var n = e.getTracks();this.getSenders().forEach(function (e) {
+                n.includes(e.track) && t.removeTrack(e);
+              });
+            }
+          });
+        }, t.shimRTCIceServerUrls = function (e) {
+          if (!e.RTCPeerConnection) return;var t = e.RTCPeerConnection;e.RTCPeerConnection = function (e, r) {
+            if (e && e.iceServers) {
+              for (var i = [], s = 0; s < e.iceServers.length; s++) {
+                var a = e.iceServers[s];void 0 === a.urls && a.url ? (n.deprecated("RTCIceServer.url", "RTCIceServer.urls"), (a = JSON.parse(JSON.stringify(a))).urls = a.url, delete a.url, i.push(a)) : i.push(e.iceServers[s]);
+              }e.iceServers = i;
+            }return new t(e, r);
+          }, e.RTCPeerConnection.prototype = t.prototype, "generateCertificate" in t && Object.defineProperty(e.RTCPeerConnection, "generateCertificate", { get: function get() {
+              return t.generateCertificate;
+            } });
+        }, t.shimRemoteStreamsAPI = function (e) {
+          if ("object" !== s(e) || !e.RTCPeerConnection) return;"getRemoteStreams" in e.RTCPeerConnection.prototype || (e.RTCPeerConnection.prototype.getRemoteStreams = function () {
+            return this._remoteStreams ? this._remoteStreams : [];
+          });if (!("onaddstream" in e.RTCPeerConnection.prototype)) {
+            Object.defineProperty(e.RTCPeerConnection.prototype, "onaddstream", { get: function get() {
+                return this._onaddstream;
+              }, set: function set(e) {
+                var t = this;this._onaddstream && (this.removeEventListener("addstream", this._onaddstream), this.removeEventListener("track", this._onaddstreampoly)), this.addEventListener("addstream", this._onaddstream = e), this.addEventListener("track", this._onaddstreampoly = function (e) {
+                  e.streams.forEach(function (e) {
+                    if (t._remoteStreams || (t._remoteStreams = []), !t._remoteStreams.includes(e)) {
+                      t._remoteStreams.push(e);var r = new Event("addstream");r.stream = e, t.dispatchEvent(r);
+                    }
+                  });
+                });
+              } });var t = e.RTCPeerConnection.prototype.setRemoteDescription;e.RTCPeerConnection.prototype.setRemoteDescription = function () {
+              var e = this;return this._onaddstreampoly || this.addEventListener("track", this._onaddstreampoly = function (t) {
+                t.streams.forEach(function (t) {
+                  if (e._remoteStreams || (e._remoteStreams = []), !(e._remoteStreams.indexOf(t) >= 0)) {
+                    e._remoteStreams.push(t);var r = new Event("addstream");r.stream = t, e.dispatchEvent(r);
+                  }
+                });
+              }), t.apply(e, arguments);
+            };
+          }
+        }, t.shimTrackEventTransceiver = function (e) {
+          "object" === s(e) && e.RTCTrackEvent && "receiver" in e.RTCTrackEvent.prototype && !("transceiver" in e.RTCTrackEvent.prototype) && Object.defineProperty(e.RTCTrackEvent.prototype, "transceiver", { get: function get() {
+              return { receiver: this.receiver };
+            } });
+        };var n = function (e, t) {
+          if (!t && e && e.__esModule) return e;if (null === e || "object" !== s(e) && "function" != typeof e) return { default: e };var r = i(t);if (r && r.has(e)) return r.get(e);var n = {},
+              a = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var o in e) {
+            if ("default" !== o && Object.prototype.hasOwnProperty.call(e, o)) {
+              var c = a ? Object.getOwnPropertyDescriptor(e, o) : null;c && (c.get || c.set) ? Object.defineProperty(n, o, c) : n[o] = e[o];
+            }
+          }n.default = e, r && r.set(e, n);return n;
+        }(r(288));function i(e) {
+          if ("function" != typeof WeakMap) return null;var t = new WeakMap(),
+              r = new WeakMap();return (i = function i(e) {
+            return e ? r : t;
+          })(e);
+        }function s(e) {
+          return s = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
+            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          } : function (e) {
+            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          }, s(e);
+        }function a(e) {
+          return e && void 0 !== e.video ? Object.assign({}, e, { video: n.compactObject(e.video) }) : e;
+        }
+      }, 288: function _(e, t) {
+        "use strict";
+        function r(e) {
+          return r = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
+            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          } : function (e) {
+            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
+          }, r(e);
+        }Object.defineProperty(t, "__esModule", { value: !0 }), t.compactObject = function e(t) {
+          if (!a(t)) return t;return Object.keys(t).reduce(function (n, i) {
+            var s = a(t[i]),
+                o = s ? e(t[i]) : t[i],
+                c = s && !Object.keys(o).length;return void 0 === o || c ? n : Object.assign(n, function (e, t, n) {
+              t = function (e) {
+                var t = function (e, t) {
+                  if ("object" !== r(e) || null === e) return e;var n = e[Symbol.toPrimitive];if (void 0 !== n) {
+                    var i = n.call(e, t || "default");if ("object" !== r(i)) return i;throw new TypeError("@@toPrimitive must return a primitive value.");
+                  }return ("string" === t ? String : Number)(e);
+                }(e, "string");return "symbol" === r(t) ? t : String(t);
+              }(t), t in e ? Object.defineProperty(e, t, { value: n, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = n;return e;
+            }({}, i, o));
+          }, {});
+        }, t.deprecated = function (e, t) {
+          if (!i) return;console.warn(e + " is deprecated, please use " + t + " instead.");
+        }, t.detectBrowser = function (e) {
+          var t = { browser: null, version: null };if (void 0 === e || !e.navigator || !e.navigator.userAgent) return t.browser = "Not a browser.", t;var r = e.navigator;if (r.mozGetUserMedia) t.browser = "firefox", t.version = s(r.userAgent, /Firefox\/(\d+)\./, 1);else if (r.webkitGetUserMedia || !1 === e.isSecureContext && e.webkitRTCPeerConnection) t.browser = "chrome", t.version = s(r.userAgent, /Chrom(e|ium)\/(\d+)\./, 2);else {
+            if (!e.RTCPeerConnection || !r.userAgent.match(/AppleWebKit\/(\d+)\./)) return t.browser = "Not a supported browser.", t;t.browser = "safari", t.version = s(r.userAgent, /AppleWebKit\/(\d+)\./, 1), t.supportsUnifiedPlan = e.RTCRtpTransceiver && "currentDirection" in e.RTCRtpTransceiver.prototype;
+          }return t;
+        }, t.disableLog = function (e) {
+          if ("boolean" != typeof e) return new Error("Argument type: " + r(e) + ". Please use a boolean.");return n = e, e ? "adapter.js logging disabled" : "adapter.js logging enabled";
+        }, t.disableWarnings = function (e) {
+          if ("boolean" != typeof e) return new Error("Argument type: " + r(e) + ". Please use a boolean.");return i = !e, "adapter.js deprecation warnings " + (e ? "disabled" : "enabled");
+        }, t.extractVersion = s, t.filterStats = function (e, t, r) {
+          var n = r ? "outbound-rtp" : "inbound-rtp",
+              i = new Map();if (null === t) return i;var s = [];return e.forEach(function (e) {
+            "track" === e.type && e.trackIdentifier === t.id && s.push(e);
+          }), s.forEach(function (t) {
+            e.forEach(function (r) {
+              r.type === n && r.trackId === t.id && o(e, r, i);
+            });
+          }), i;
+        }, t.log = function () {
+          if ("object" === ("undefined" == typeof window ? "undefined" : r(window))) {
+            if (n) return;"undefined" != typeof console && "function" == typeof console.log && console.log.apply(console, arguments);
+          }
+        }, t.walkStats = o, t.wrapPeerConnectionEvent = function (e, t, r) {
+          if (!e.RTCPeerConnection) return;var n = e.RTCPeerConnection.prototype,
+              i = n.addEventListener;n.addEventListener = function (e, n) {
+            if (e !== t) return i.apply(this, arguments);var s = function s(e) {
+              var t = r(e);t && (n.handleEvent ? n.handleEvent(t) : n(t));
+            };return this._eventMap = this._eventMap || {}, this._eventMap[t] || (this._eventMap[t] = new Map()), this._eventMap[t].set(n, s), i.apply(this, [e, s]);
+          };var s = n.removeEventListener;n.removeEventListener = function (e, r) {
+            if (e !== t || !this._eventMap || !this._eventMap[t]) return s.apply(this, arguments);if (!this._eventMap[t].has(r)) return s.apply(this, arguments);var n = this._eventMap[t].get(r);return this._eventMap[t].delete(r), 0 === this._eventMap[t].size && delete this._eventMap[t], 0 === Object.keys(this._eventMap).length && delete this._eventMap, s.apply(this, [e, n]);
+          }, Object.defineProperty(n, "on" + t, { get: function get() {
+              return this["_on" + t];
+            }, set: function set(e) {
+              this["_on" + t] && (this.removeEventListener(t, this["_on" + t]), delete this["_on" + t]), e && this.addEventListener(t, this["_on" + t] = e);
+            }, enumerable: !0, configurable: !0 });
+        };var n = !0,
+            i = !0;function s(e, t, r) {
+          var n = e.match(t);return n && n.length >= r && parseInt(n[r], 10);
+        }function a(e) {
+          return "[object Object]" === Object.prototype.toString.call(e);
+        }function o(e, t, r) {
+          t && !r.has(t.id) && (r.set(t.id, t), Object.keys(t).forEach(function (n) {
+            n.endsWith("Id") ? o(e, e.get(t[n]), r) : n.endsWith("Ids") && t[n].forEach(function (t) {
+              o(e, e.get(t), r);
+            });
+          }));
+        }
+      } },
+        t = {};function r(n) {
+      var i = t[n];if (void 0 !== i) return i.exports;var s = t[n] = { exports: {} };return e[n].call(s.exports, s, s.exports, r), s.exports;
+    }r.n = function (e) {
+      var t = e && e.__esModule ? function () {
+        return e.default;
+      } : function () {
+        return e;
+      };return r.d(t, { a: t }), t;
+    }, r.d = function (e, t) {
+      for (var n in t) {
+        r.o(t, n) && !r.o(e, n) && Object.defineProperty(e, n, { enumerable: !0, get: t[n] });
+      }
+    }, r.o = function (e, t) {
+      return Object.prototype.hasOwnProperty.call(e, t);
+    }, r.r = function (e) {
+      "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(e, "__esModule", { value: !0 });
+    };var n = {};return function () {
+      "use strict";
+      r.r(n), r.d(n, { DCVWebRTCRedirClient: function DCVWebRTCRedirClient() {
+          return g;
+        } });var e = { major: 0, minor: 3, patch: 1, buildNumber: 0, gitHash: "095db5cf9815180fcac836f02dfce117a1d0c60f", versionStr: "0.3.1+build.0" };var t = r(86),
+          i = r(43),
+          s = r.n(i);var a = Object.freeze({ HELLO_API_NAME: "hello", GETUSERMEDIA_API_NAME: "navigator.mediaDevices.getUserMedia", ENUMERATEDEVICES_API_NAME: "navigator.mediaDevices.enumerateDevices", GENERATE_CERTIFICATE_API_NAME: "RTCPeerConnection.generateCertificate", NEWRTCPEERCONNECTION_API_NAME: "new.RTCPeerConnection", PC_GET_CONFIGURATION: "pcs.getConfiguration", NEW_AUDIO_CONTEXT: "new.AudioContext", CREATE_WORKER: "new.Worker", WORKER_POST_MESSAGE: "workers.postMessage", WORKER_TERMINATE: "workers.terminate", AUDIO_CTX_CREATE_AUDIO_NODE: "audioContexts.createAudioNode", AUDIO_CTX_CLOSE: "audioContexts.close", AUDIO_NODE_CONNECT: "audioNodes.connect", AUDIO_NODE_DISCONNECT: "audioNodes.disconnect", AUDIO_PARAM_SET_VALUE_AT_TIME: "audioParams.setValueAtTime", AUDIO_PARAM_SET_RAMP_TO_VALUE_AT_TIME: "audioParams.linearRampToValueAtTime", AUDIO_NODE_SET_TYPE: "audioNodes.setType", AUDIO_NODE_START: "audioNodes.start", AUDIO_NODE_STOP: "audioNodes.stop", PC_CLOSE_API_NAME: "pcs.close", ADDSTREAM_API_NAME: "pcs.addStream", STREAM_REMOVE_TRACK: "streams.removeTrack", STREAM_ADD_TRACK: "streams.addTrack", GET_STATS_API_NAME: "pcs.getStats", CREATE_OFFER_API_NAME: "pcs.createOffer", SET_LOCAL_DESCRIPTION_API_NAME: "pcs.setLocalDescription", ADD_PC_EVENT_LISTENER: "pcs.addEventListener", ADD_TRACK_EVENT_LISTENER: "tracks.addEventListener", ADD_DTMF_EVENT_LISTENER: "dtmfs.addEventListener", ADD_WORKER_EVENT_LISTENER: "workers.addEventListener", SET_REMOTE_DESCRIPTION_API_NAME: "pcs.setRemoteDescription", ADD_ICE_CANDIDATE_API_NAME: "pcs.addIceCandidate", CREATE_MEDIA_ELEMENT_API_NAME: "document.createElement", MEDIA_ELEMENT_SET_SINK_ID_API_NAME: "mediaElements.setSinkId", MEDIA_ELEMENT_REMOVE: "mediaElements.remove", CREATE_ANSWER_API_NAME: "pcs.createAnswer", UNLOAD_EVENT_NAME: "unload", TOGGLE_TRACK_ENABLED_API_NAME: "tracks.enabled", TRACK_STOP_API_NAME: "tracks.stop", TRACK_GET_SETTINGS: "tracks.getSettings", GET_RECEIVERS_API_NAME: "pcs.getReceivers", ADD_TRACK_API_NAME: "pcs.addTrack", GET_SENDERS_API_NAME: "pcs.getSenders", GET_SENDER_STATS_API_NAME: "senders.getStats", GET_RECEIVER_STATS_API_NAME: "receivers.getStats", SET_MEDIA_SRC_OBJ_API_NAME: "mediaElements.srcObject", SET_MEDIA_HIDDEN_API_NAME: "mediaElements.hidden", SET_MEDIA_VOLUME_API_NAME: "mediaElements.volume", MEDIA_ELEMENT_PLAY_API_NAME: "mediaElements.play", MEDIA_ELEMENT_PAUSE_API_NAME: "mediaElements.pause", MEDIA_ELEMENT_MUTED: "mediaElements.muted", ADD_TRANSCEIVER_API_NAME: "pcs.addTransceiver", GET_TRANSCEIVERS_API_NAME: "pcs.getTransceivers", TRANSCEIVER_SET_CODEC_PREFS: "transceivers.setCodecPreferences", REPLACE_SENDER_TRACK_API_NAME: "senders.replaceTrack", PC_REMOVE_TRACK_API_NAME: "pcs.removeTrack", INSERT_DTMF_API_NAME: "dtmfSenders.insertDTMF", SENDER_CREATE_ENCODED_STREAMS: "senders.createEncodedStreams", RECEIVER_CREATE_ENCODED_STREAMS: "receivers.createEncodedStreams" }),
+          o = Object.freeze({ SIG_STATE_CHANGE: "signalingstatechange", TRACK: "track", CONN_STATE_CHANGE: "connectionstatechange", ICE_CONN_STATE_CHANGE: "iceconnectionstatechange", ICE_GATHER_STATE_CHANGE: "icegatheringstatechange", ICE_CANDIDATE: "icecandidate", NEGOTIATION_NEEDED: "negotiationneeded" }),
+          c = Object.freeze({ ENDED: "ended", MUTE: "mute", UNMUTE: "unmute" }),
+          d = Object.freeze({ TONECHANGE: "tonechange" }),
+          l = Object.freeze({ ERROR: "error", MESSAGE: "message", MESSAGE_ERROR: "messageerror" }),
+          p = Object.freeze({ CHROME: "diilpfplcnhehakckkpmcmibmhbingnd", EDGE: "kjbbkjjiecchbcdoollhgffghfjnbhef" });var h = r(114);var u = r(591);function f() {
+        return function () {
+          var e = window.navigator.userAgent.toLowerCase();return e.indexOf("edg/") > -1 || e.indexOf("edge") > -1;
+        }() ? p.EDGE : p.CHROME;
+      }
+      var m = function () {
+        function m(t) {
+          (0, _classCallCheck3.default)(this, m);
+          if (this.version = e, this.config = t, this.logger = t.logger, this.clientInfo = null, this.certParams = { name: "ECDSA", namedCurve: "P-256" }, this.extensionId = f(), this.pcProxies = new Map(), this.audioContextProxies = new Map(), this.audioNodeProxies = new Map(), this.workerProxies = new Map(), this.streamProxies = new Map(), this.eventListeners = new Map(), this.mediaElementProxies = new Map(), this.transceiverProxies = new Map(), this.senderProxies = new Map(), this.dtmfProxies = new Map(), this.receiverProxies = new Map(), this.trackProxies = new Map(), this.overridenApis = new Map(), this.decoder = new TextDecoder("utf-8"), this.logger.info("Checking for chrome extension.  Chrome runtime: " + chrome.runtime), void 0 === chrome.runtime) throw new Error("Chrome runtime not available.  DCV WebRTC chrome extension may not be active.");this.overridenApis.set("navigator.mediaDevices.getUserMedia", navigator.mediaDevices.getUserMedia), this.overridenApis.set("navigator.mediaDevices.enumerateDevices", navigator.mediaDevices.enumerateDevices), this.overridenApis.set("window.RTCPeerConnection", window.RTCPeerConnection), this.overridenApis.set("window.RTCPeerConnection.generateCertificate", window.RTCPeerConnection.generateCertificate), this.overridenApis.set("window.AudioContext", window.AudioContext), this.overridenApis.set("window.Worker", window.Worker);
+        }
+
+        (0, _createClass3.default)(m, [{
+          key: "makeMediaDeviceInfoProxies",
+          value: function makeMediaDeviceInfoProxies(e) {
+            return e.forEach(function (e) {
+              e.toJSON = function () {
+                return e;
+              };
+            }), e;
+          }
+        }, {
+          key: "makeTrackProxy",
+          value: function makeTrackProxy(e) {
+            var _this = this;
+
+            if (this.trackProxies.has(e.id)) {
+              var _t16 = this.trackProxies.get(e.id);return Object.assign(_t16, e), _t16;
+            }return this.trackProxies.set(e.id, e), e.pendingEvents = new Map(), e.stop = function () {
+              _this.sendApiRequest(a.TRACK_STOP_API_NAME, [e.id]);
+            }, e.getSettings = function () {
+              return _this.sendApiRequest(a.TRACK_GET_SETTINGS, [e.id]).then(function (t) {
+                e.settings = t;
+              }), e.settings;
+            }, e.addEventListener = function (t, r, n) {
+              _this.logger.debug("Setting ended event listener via addEventListener."), _this.addTrackEventListener(e.id, t, r, n);
+            }, e.removeEventListener = function (t, r) {
+              _this.removeEventListener(e.id, t, r);
+            }, Object.defineProperty(e, "onended", { set: function set(t) {
+                _this.addTrackEventListener(e.id, c.ENDED, t);
+              }, get: function get() {
+                return null;
+              } }), Object.defineProperty(e, "onmute", { set: function set(t) {
+                _this.addTrackEventListener(e.id, c.MUTE, t);
+              }, get: function get() {
+                return null;
+              } }), Object.defineProperty(e, "onunmute", { set: function set(t) {
+                _this.addTrackEventListener(e.id, c.UNMUTE, t);
+              }, get: function get() {
+                return null;
+              } }), e.trackEnabled = e.enabled, Object.defineProperty(e, "enabled", { set: function set(t) {
+                e.trackEnabled = t, _this.sendApiRequest(a.TOGGLE_TRACK_ENABLED_API_NAME, [e.id, t]).then(function (t) {
+                  _this.trackProxies.get(e.id).trackEnabled = t.enabled;
+                });
+              }, get: function get() {
+                return e.trackEnabled;
+              } }), this.preRegisterEvents(c, e, this.addTrackEventListener), e;
+          }
+        }, {
+          key: "makeStreamProxy",
+          value: function makeStreamProxy(e) {
+            var _this2 = this;
+
+            this.streamProxies.set(e.id, e);var t = new MediaStream();t.type = "proxy", t.proxy = e;var r = e.tracks ? e.tracks.map(function (e) {
+              return _this2.makeTrackProxy(e);
+            }) : [];return e.tracks = r, t.getTracks = function () {
+              return r;
+            }, t.getAudioTracks = function () {
+              return r.filter(function (e) {
+                return "audio" === e.kind;
+              });
+            }, t.getVideoTracks = function () {
+              return r.filter(function (e) {
+                return "video" === e.kind;
+              });
+            }, t.getTrackById = function (e) {
+              return r.find(function (t) {
+                return t.id === e;
+              });
+            }, t.createMediaElement = function (e) {
+              return _this2.createMediaElement(e);
+            }, t.addTrack = function (t) {
+              _this2.sendApiRequest(a.STREAM_ADD_TRACK, [e.id, t.id]);
+            }, t.removeTrack = function (t) {
+              _this2.sendApiRequest(a.STREAM_REMOVE_TRACK, [e.id, t.id]);
+            }, t;
+          }
+        }, {
+          key: "updateTransceiverProxy",
+          value: function updateTransceiverProxy(e) {
+            var t = this.transceiverProxies.get(e.id);return t || (t = {}), Object.assign(t, e), e.receiver && "proxy" === e.receiver.type && (t.receiver = this.updateReceiverProxy(e.receiver)), e.sender && "proxy" === e.sender.type && (t.sender = this.updateSenderProxy(e.sender)), this.transceiverProxies.set(e.id, t), t;
+          }
+        }, {
+          key: "updatePCSenders",
+          value: function updatePCSenders(e, t) {
+            var _this3 = this;
+
+            var r = t.map(function (e) {
+              return _this3.updateSenderProxy(e);
+            });this.pcProxies.get(e).senders = r;
+          }
+        }, {
+          key: "updatePCReceivers",
+          value: function updatePCReceivers(e, t) {
+            var _this4 = this;
+
+            var r = t.map(function (e) {
+              return _this4.updateReceiverProxy(e);
+            });this.pcProxies.get(e).receivers = r;
+          }
+        }, {
+          key: "updatePCTransceivers",
+          value: function updatePCTransceivers(e, t) {
+            var _this5 = this;
+
+            var r = t;r.forEach(function (e) {
+              _this5.updateTransceiverProxy(e);
+            }), this.pcProxies.get(e).transceivers = r;
+          }
+        }, {
+          key: "isValidApi",
+          value: function isValidApi(e) {
+            var t = !1;for (var _r10 in a) {
+              if (a[_r10] === e) {
+                t = !0;break;
+              }
+            }return t;
+          }
+        }, {
+          key: "sendApiRequest",
+          value: function () {
+            var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(e, t) {
+              var r = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : crypto.randomUUID();
+
+              var n, i, s, a, o, c, _e11, _e12, _t17, _e13, _e14;
+
+              return _regenerator2.default.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      this.logger.debug(e, t, r);n = { api: e, args: t }, i = u.deflateRaw(JSON.stringify(n));
+                      s = { requestId: r, message: i, type: "request" };
+                      this.logger.debug("Sending request:", JSON.stringify(s));_context.next = 6;
+                      return chrome.runtime.sendMessage(this.extensionId, s);
+
+                    case 6:
+                      a = _context.sent;
+                      i = a.message;o = u.inflateRaw(i), c = this.decoder.decode(o);
+
+                      if (!(a.message = JSON.parse(c), this.logger.debug("Received response: ", JSON.stringify(a)), !a || !a.message || !a.type)) {
+                        _context.next = 12;
+                        break;
+                      }
+
+                      _e11 = "Received empty message or type, extensionResponse: " + JSON.stringify(a) + ", request: " + JSON.stringify(s) + ", message: " + JSON.stringify(n);
+                      throw this.logger.error(_e11), new Error(_e11);
+
+                    case 12:
+                      if (!("error" === a.type)) {
+                        _context.next = 15;
+                        break;
+                      }
+
+                      _e12 = "Received error: " + JSON.stringify(a) + ", for request: " + JSON.stringify(s) + ", message: " + JSON.stringify(n), _t17 = null;
+                      throw this.logger.error(_e12), a.message.error && a.message.error.message && (_e12 = a.message.error.message), a.message.error && a.message.error.name && (_t17 = a.message.error.name), new DOMException(_e12, _t17);
+
+                    case 15:
+                      if (!("response" !== a.type && "event" !== a.type)) {
+                        _context.next = 18;
+                        break;
+                      }
+
+                      _e13 = "Received invalid message type, type: " + JSON.stringify(a.type) + ", event: " + JSON.stringify(a) + ", request: " + JSON.stringify(s) + ", message: " + JSON.stringify(n);
+                      throw this.logger.error(_e13), new Error(_e13);
+
+                    case 18:
+                      if (this.isValidApi(a.message.api)) {
+                        _context.next = 21;
+                        break;
+                      }
+
+                      _e14 = "Received invalid message api, event: " + JSON.stringify(a) + ", request: " + JSON.stringify(s) + ", message: " + JSON.stringify(n);
+                      throw this.logger.error(_e14), new Error(_e14);
+
+                    case 21:
+                      return _context.abrupt("return", "event" === a.type ? a.message.event : a.message.response);
+
+                    case 22:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
+
+            function sendApiRequest(_x2, _x3) {
+              return _ref.apply(this, arguments);
+            }
+
+            return sendApiRequest;
+          }()
+        }, {
+          key: "getUserMediaInternal",
+          value: function () {
+            var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(e) {
+              var t;
+              return _regenerator2.default.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.sendApiRequest(a.GETUSERMEDIA_API_NAME, [e]);
+
+                    case 2:
+                      t = _context2.sent;
+                      return _context2.abrupt("return", this.makeStreamProxy(t));
+
+                    case 4:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+
+            function getUserMediaInternal(_x4) {
+              return _ref2.apply(this, arguments);
+            }
+
+            return getUserMediaInternal;
+          }()
+        }, {
+          key: "getOverridenApi",
+          value: function getOverridenApi(e) {
+            return this.overridenApis.get(e);
+          }
+        }, {
+          key: "getUserMedia",
+          value: function () {
+            var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(e) {
+              var _t18, _r11, _t19, _t20, t;
+
+              return _regenerator2.default.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      if (!(e.audio && e.video)) {
+                        _context3.next = 13;
+                        break;
+                      }
+
+                      _context3.next = 3;
+                      return navigator.permissions.query({ name: "microphone" });
+
+                    case 3:
+                      _t18 = _context3.sent;
+                      _context3.next = 6;
+                      return navigator.permissions.query({ name: "camera" });
+
+                    case 6:
+                      _r11 = _context3.sent;
+
+                      if (!(_t18 && "granted" === _t18.state && _r11 && "granted" === _r11.state)) {
+                        _context3.next = 11;
+                        break;
+                      }
+
+                      _context3.next = 10;
+                      return this.getUserMediaInternal(e);
+
+                    case 10:
+                      return _context3.abrupt("return", _context3.sent);
+
+                    case 11:
+                      _context3.next = 31;
+                      break;
+
+                    case 13:
+                      if (!e.audio) {
+                        _context3.next = 23;
+                        break;
+                      }
+
+                      _context3.next = 16;
+                      return navigator.permissions.query({ name: "microphone" });
+
+                    case 16:
+                      _t19 = _context3.sent;
+
+                      if (!(_t19 && "granted" === _t19.state)) {
+                        _context3.next = 21;
+                        break;
+                      }
+
+                      _context3.next = 20;
+                      return this.getUserMediaInternal(e);
+
+                    case 20:
+                      return _context3.abrupt("return", _context3.sent);
+
+                    case 21:
+                      _context3.next = 31;
+                      break;
+
+                    case 23:
+                      if (!e.video) {
+                        _context3.next = 31;
+                        break;
+                      }
+
+                      _context3.next = 26;
+                      return navigator.permissions.query({ name: "camera" });
+
+                    case 26:
+                      _t20 = _context3.sent;
+
+                      if (!(_t20 && "granted" === _t20.state)) {
+                        _context3.next = 31;
+                        break;
+                      }
+
+                      _context3.next = 30;
+                      return this.getUserMediaInternal(e);
+
+                    case 30:
+                      return _context3.abrupt("return", _context3.sent);
+
+                    case 31:
+                      t = [];
+                      _context3.t0 = e.video;
+
+                      if (!_context3.t0) {
+                        _context3.next = 38;
+                        break;
+                      }
+
+                      _context3.next = 36;
+                      return this.getOverridenApi("navigator.mediaDevices.enumerateDevices").apply(navigator.mediaDevices);
+
+                    case 36:
+                      t = _context3.sent;
+                      t = t.filter(function (e) {
+                        return e.kind && e.kind.indexOf("video") > -1;
+                      });
+
+                    case 38:
+                      if (!(e.audio && !e.video || e.video && t.length > 0)) {
+                        _context3.next = 43;
+                        break;
+                      }
+
+                      _context3.next = 41;
+                      return this.getOverridenApi("navigator.mediaDevices.getUserMedia").apply(navigator.mediaDevices, [e]);
+
+                    case 41:
+                      _context3.t1 = function (e) {
+                        e.stop();
+                      };
+
+                      _context3.sent.getTracks().forEach(_context3.t1);
+
+                    case 43:
+                      _context3.next = 45;
+                      return this.getUserMediaInternal(e);
+
+                    case 45:
+                      return _context3.abrupt("return", _context3.sent);
+
+                    case 46:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }
+              }, _callee3, this);
+            }));
+
+            function getUserMedia(_x5) {
+              return _ref3.apply(this, arguments);
+            }
+
+            return getUserMedia;
+          }()
+        }, {
+          key: "enumerateDevices",
+          value: function () {
+            var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
+              var e;
+              return _regenerator2.default.wrap(function _callee4$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      _context4.next = 2;
+                      return this.sendApiRequest(a.ENUMERATEDEVICES_API_NAME, []);
+
+                    case 2:
+                      e = _context4.sent;
+                      return _context4.abrupt("return", this.makeMediaDeviceInfoProxies(e));
+
+                    case 4:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4, this);
+            }));
+
+            function enumerateDevices() {
+              return _ref4.apply(this, arguments);
+            }
+
+            return enumerateDevices;
+          }()
+        }, {
+          key: "getVersion",
+          value: function getVersion() {
+            return e;
+          }
+        }, {
+          key: "makeReceiverProxy",
+          value: function makeReceiverProxy(e) {
+            var _this6 = this;
+
+            return e.track && (e.track = this.makeTrackProxy(e.track)), e.getSynchronizationSources = function () {
+              return e.synchronizationSources;
+            }, e.getStats = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5() {
+              var t, r;
+              return _regenerator2.default.wrap(function _callee5$(_context5) {
+                while (1) {
+                  switch (_context5.prev = _context5.next) {
+                    case 0:
+                      _context5.next = 2;
+                      return _this6.sendApiRequest(a.GET_RECEIVER_STATS_API_NAME, [e.id]);
+
+                    case 2:
+                      t = _context5.sent;
+                      r = new Map();
+                      return _context5.abrupt("return", (t.forEach(function (e) {
+                        r.set(e.id, e);
+                      }), r));
+
+                    case 5:
+                    case "end":
+                      return _context5.stop();
+                  }
+                }
+              }, _callee5, _this6);
+            })), e.createEncodedStreams = function () {
+              var t = { id: crypto.randomUUID(), type: "proxy", readable: { id: crypto.randomUUID(), type: "proxy" }, writable: { id: crypto.randomUUID(), type: "proxy" } };return _this6.streamProxies.set(t.id, t), _this6.sendApiRequest(a.RECEIVER_CREATE_ENCODED_STREAMS, [e.id, t]), t;
+            }, this.receiverProxies.set(e.id, e), e;
+          }
+        }, {
+          key: "makeDTMFProxy",
+          value: function makeDTMFProxy(e) {
+            var _this7 = this;
+
+            var t = e;return this.dtmfProxies.has(t.id) ? (t = this.dtmfProxies.get(t.id), Object.assign(t, e)) : (this.dtmfProxies.set(t.id, t), t.pendingEvents = new Map(), t.insertDTMF = function (e, r, n) {
+              _this7.sendApiRequest(a.INSERT_DTMF_API_NAME, [t.id, e, r, n]);
+            }, t.addEventListener = function (e, r, n) {
+              _this7.addDtmfEventListener(t.id, e, r, n);
+            }, t.removeEventListener = function (e, r) {
+              _this7.removeEventListener(t.id, e, r);
+            }, Object.defineProperty(t, "ontonechange", { set: function set(e) {
+                _this7.addDtmfEventListener(t.id, d.TONECHANGE, e);
+              }, get: function get() {
+                return null;
+              } }), this.preRegisterEvents(d, t, this.addDtmfEventListener)), t;
+          }
+        }, {
+          key: "makeSenderProxy",
+          value: function makeSenderProxy(e) {
+            var _this8 = this;
+
+            return e.track && (e.track = this.makeTrackProxy(e.track)), e.dtmf && (e.dtmf = this.makeDTMFProxy(e.dtmf)), e.getStats = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6() {
+              var t;
+              return _regenerator2.default.wrap(function _callee6$(_context6) {
+                while (1) {
+                  switch (_context6.prev = _context6.next) {
+                    case 0:
+                      _context6.next = 2;
+                      return _this8.sendApiRequest(a.GET_SENDER_STATS_API_NAME, [e.id]);
+
+                    case 2:
+                      t = _context6.sent;
+                      return _context6.abrupt("return", (t.has = function (e) {
+                        return void 0 !== t.find(function (t) {
+                          return t.id === e;
+                        });
+                      }, t.get = function (e) {
+                        return t.find(function (t) {
+                          return t.id === e;
+                        });
+                      }, t));
+
+                    case 4:
+                    case "end":
+                      return _context6.stop();
+                  }
+                }
+              }, _callee6, _this8);
+            })), e.replaceTrack = function (t) {
+              return e.track = t, _this8.sendApiRequest(a.REPLACE_SENDER_TRACK_API_NAME, [e.id, t]);
+            }, e.createEncodedStreams = function () {
+              var t = { id: crypto.randomUUID(), type: "proxy", readable: { type: "proxy", id: crypto.randomUUID() }, writable: { type: "proxy", id: crypto.randomUUID() } };return _this8.streamProxies.set(t.id, t), _this8.sendApiRequest(a.SENDER_CREATE_ENCODED_STREAMS, [e.id, t]), t;
+            }, e;
+          }
+        }, {
+          key: "updateSenderProxy",
+          value: function updateSenderProxy(e) {
+            var t = this.senderProxies.get(e.id);return t ? Object.assign(t, e) : (t = e, this.senderProxies.set(e.id, t)), this.makeSenderProxy(t);
+          }
+        }, {
+          key: "updateReceiverProxy",
+          value: function updateReceiverProxy(e) {
+            var t = this.receiverProxies.get(e.id);return t ? Object.assign(t, e) : (t = e, this.receiverProxies.set(e.id, t)), this.makeReceiverProxy(t);
+          }
+        }, {
+          key: "addTrack",
+          value: function addTrack(e, t) {
+            var _this9 = this;
+
+            var r = crypto.randomUUID();this.sendApiRequest(a.ADD_TRACK_API_NAME, [r].concat(Array.prototype.slice.call(arguments))).then(function (e) {
+              _this9.updateSenderProxy(e), _this9.updatePCSenders(e.pcId, e.senders), _this9.updatePCReceivers(e.pcId, e.receivers), _this9.updatePCTransceivers(e.pcId, e.transceivers);
+            });var n = this.updateSenderProxy({ id: r });return this.pcProxies.get(e).senders.push(n), n;
+          }
+        }, {
+          key: "updatePeerConnectionProxy",
+          value: function updatePeerConnectionProxy(e) {
+            var t = this.pcProxies.get(e.pcId);Object.assign(t, e), this.updatePCSenders(e.pcId, e.senders), this.updatePCReceivers(e.pcId, e.receivers), this.updatePCTransceivers(e.pcId, e.transceivers);
+          }
+        }, {
+          key: "createPeerConnection",
+          value: function createPeerConnection(e, t) {
+            var _this10 = this;
+
+            var r = crypto.randomUUID(),
+                n = this;this.logger.debug("Creating RTCPeerConnection with id: " + r);var i = { type: "proxy", id: r, signalingState: "new", connectionState: "new", iceConnectionState: "new", iceGatheringState: "new", receivers: [], senders: [], transceivers: [], pendingEvents: new Map(), configuration: e, close: function close() {
+                _this10.close(r);
+              }, addStream: function addStream(e) {
+                _this10.addStream(r, e);
+              }, getConfiguration: function getConfiguration() {
+                return _this10.sendApiRequest(a.PC_GET_CONFIGURATION, [r]).then(function (e) {
+                  i.configuration = e;
+                }), i.configuration;
+              }, getStats: function getStats(e) {
+                return _this10.getStats(r, e);
+              }, createOffer: function createOffer(e) {
+                return _this10.createOffer(r, e);
+              }, createAnswer: function createAnswer(e) {
+                return _this10.createAnswer(r, e);
+              }, setLocalDescription: function setLocalDescription(e) {
+                return _this10.setLocalDescription(r, e);
+              }, addEventListener: function addEventListener(e, t) {
+                _this10.addPeerConnectionEventListener(r, e, t);
+              }, removeEventListener: function removeEventListener(e, t) {
+                _this10.removeEventListener(r, e, t);
+              }, getEventListener: function getEventListener(e) {
+                return _this10.eventListeners.get(r).get(e);
+              }, set onicecandidate(e) {
+                this.addEventListener(o.ICE_CANDIDATE, e);
+              }, get onicecandidate() {
+                return this.getEventListener(o.ICE_CANDIDATE);
+              }, set ontrack(e) {
+                this.addEventListener(o.TRACK, e);
+              }, get ontrack() {
+                return this.getEventListener(o.TRACK);
+              }, get onsignalingstatechange() {
+                return this.getEventListener(o.SIG_STATE_CHANGE);
+              }, set onsignalingstatechange(e) {
+                this.addEventListener(o.SIG_STATE_CHANGE, e);
+              }, get onconnectionstatechange() {
+                return this.getEventListener(o.CONN_STATE_CHANGE);
+              }, set onconnectionstatechange(e) {
+                this.addEventListener(o.CONN_STATE_CHANGE, e);
+              }, get oniceconnectionstatechange() {
+                return this.getEventListener(o.ICE_CONN_STATE_CHANGE);
+              }, set oniceconnectionstatechange(e) {
+                this.addEventListener(o.ICE_CONN_STATE_CHANGE, e);
+              }, get onicegatheringstatechange() {
+                return this.getEventListener(o.ICE_GATHER_STATE_CHANGE);
+              }, set onicegatheringstatechange(e) {
+                this.addEventListener(o.ICE_GATHER_STATE_CHANGE, e);
+              }, get onnegotiationneeded() {
+                return this.getEventListener(o.NEGOTIATION_NEEDED);
+              }, set onnegotiationneeded(e) {
+                this.addEventListener(o.NEGOTIATION_NEEDED, e);
+              }, setRemoteDescription: function setRemoteDescription(e) {
+                return _this10.setRemoteDescription(r, e);
+              }, addIceCandidate: function addIceCandidate(e) {
+                return _this10.addIceCandidate(r, e);
+              }, getRemoteStreams: function getRemoteStreams() {
+                return _this10.logger.warn("getRemoteStreams not implemented on proxy."), [];
+              }, getReceivers: function getReceivers() {
+                return _this10.getReceivers(r);
+              }, getSenders: function getSenders() {
+                return _this10.getSenders(r);
+              }, addTrack: function addTrack(e) {
+                var t = [r].concat(Array.prototype.slice.call(arguments));return n.addTrack.apply(n, t);
+              }, addTransceiver: function addTransceiver(e, t) {
+                return _this10.addTransceiver(r, e, t);
+              }, getTransceivers: function getTransceivers() {
+                return _this10.getTransceivers(r);
+              }, removeTrack: function removeTrack(e) {
+                _this10.removeTrack(r, e);
+              } };return this.pcProxies.set(r, i), this.sendApiRequest(a.NEWRTCPEERCONNECTION_API_NAME, [r, e, t], r).then(function (e) {
+              _this10.updatePeerConnectionProxy(e);
+            }, function (e) {
+              _this10.logger.error("Error creating proxied RTCPeerConnection: " + e);
+            }), this.preRegisterEvents(o, this.pcProxies.get(r), this.addPeerConnectionEventListener), this.pcProxies.get(r);
+          }
+        }, {
+          key: "preRegisterEvents",
+          value: function preRegisterEvents(e, t, r) {
+            for (var _n13 in e) {
+              "string" == typeof e[_n13] && r.apply(this, [t.id, e[_n13], function (e) {
+                t.pendingEvents.has(e.eventName) || t.pendingEvents.set(e.eventName, []), t.pendingEvents.get(e.eventName).push(e);
+              }]);
+            }
+          }
+        }, {
+          key: "updateAudioContextProxy",
+          value: function updateAudioContextProxy(e) {
+            var t = this.audioContextProxies.get(e.id);Object.assign(t, e);
+          }
+        }, {
+          key: "updateAudioNodeProxy",
+          value: function updateAudioNodeProxy(e) {
+            var t = this.audioNodeProxies.get(e.id);Object.assign(t, e), e.stream && this.makeStreamProxy(e.stream);
+          }
+        }, {
+          key: "makeAudioNodeProxy",
+          value: function makeAudioNodeProxy(e, t) {
+            var _this11 = this;
+
+            return { type: "proxy", id: t, context: this.audioContextProxies.get(e), connect: function connect(e, r, n) {
+                return _this11.sendApiRequest(a.AUDIO_NODE_CONNECT, [t, e, r, n]), e;
+              }, disconnect: function disconnect(e, r, n) {
+                _this11.sendApiRequest(a.AUDIO_NODE_DISCONNECT, [t, e, r, n]);
+              } };
+          }
+        }, {
+          key: "createAudioNode",
+          value: function createAudioNode(e, t, r) {
+            var _this12 = this;
+
+            var n = crypto.randomUUID();return this.audioNodeProxies.set(n, this.makeAudioNodeProxy(e, n)), this.sendApiRequest(a.AUDIO_CTX_CREATE_AUDIO_NODE, [e, n, t, r], n).then(function (e) {
+              _this12.updateAudioNodeProxy(e);
+            }, function (e) {
+              _this12.logger.error("Error creating proxied " + t + ": " + e);
+            }), this.audioNodeProxies.get(n);
+          }
+        }, {
+          key: "makeWorkerProxy",
+          value: function makeWorkerProxy(e) {
+            var _this13 = this;
+
+            var t = { id: e, pendingEvents: new Map(), type: "proxy", postMessage: function postMessage(t, r) {
+                _this13.sendApiRequest(a.WORKER_POST_MESSAGE, [e, t, r]);
+              }, terminate: function terminate() {
+                _this13.sendApiRequest(a.WORKER_TERMINATE, [e]);
+              }, addEventListener: function addEventListener(e, r, n) {
+                _this13.addWorkerEventListener(t.id, e, r, n);
+              }, removeEventListener: function removeEventListener(e, r) {
+                _this13.removeEventListener(t.id, e, r);
+              } };return Object.defineProperty(t, "onerror", { set: function set(e) {
+                _this13.addWorkerEventListener(t.id, l.ERROR, e);
+              }, get: function get() {
+                return null;
+              } }), Object.defineProperty(t, "onmessage", { set: function set(e) {
+                _this13.addWorkerEventListener(t.id, l.MESSAGE, e);
+              }, get: function get() {
+                return null;
+              } }), Object.defineProperty(t, "onmessageerror", { set: function set(e) {
+                _this13.addWorkerEventListener(t.id, l.MESSAGE_ERROR, e);
+              }, get: function get() {
+                return null;
+              } }), t;
+          }
+        }, {
+          key: "createWorker",
+          value: function createWorker(e, t) {
+            var _this14 = this;
+
+            var r = crypto.randomUUID(),
+                n = this.makeWorkerProxy(r);return this.workerProxies.set(r, n), fetch(e).then(function (e) {
+              e.blob().then(function (e) {
+                e.arrayBuffer().then(function (n) {
+                  var i = (0, h.encode)(n);_this14.sendApiRequest(a.CREATE_WORKER, [r, e.type, i, t]).then(function (e) {
+                    _this14.logger.debug("Created worker: " + JSON.stringify(e));
+                  });
+                });
+              });
+            }), this.logger.debug("Preregistering events for worker: " + JSON.stringify(n)), this.preRegisterEvents(l, n, this.addWorkerEventListener), n;
+          }
+        }, {
+          key: "createAudioContext",
+          value: function createAudioContext() {
+            var _this15 = this;
+
+            var e = crypto.randomUUID(),
+                t = crypto.randomUUID();return this.audioContextProxies.set(e, { type: "proxy", id: e, destination: this.makeAudioNodeProxy(e, t), createGain: function createGain() {
+                var t = _this15.createAudioNode(e, "Gain", []),
+                    r = { setValueAtTime: function setValueAtTime(e, n) {
+                    return r.currentValue = e, _this15.sendApiRequest(a.AUDIO_PARAM_SET_VALUE_AT_TIME, [t.id, e, n]), r;
+                  }, linearRampToValueAtTime: function linearRampToValueAtTime(e, n) {
+                    return _this15.sendApiRequest(a.AUDIO_PARAM_SET_RAMP_TO_VALUE_AT_TIME, [t.id, e, n]), r;
+                  } };return Object.defineProperty(r, "value", { set: function set(e) {
+                    return r.setValueAtTime(e, 0);
+                  }, get: function get() {
+                    return r.currentValue;
+                  } }), t.gain = r, t;
+              }, createOscillator: function createOscillator() {
+                var t = _this15.createAudioNode(e, "Oscillator", []);t.start = function () {
+                  var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+                  _this15.sendApiRequest(a.AUDIO_NODE_START, [t.id, e]);
+                }, t.stop = function () {
+                  var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+                  _this15.sendApiRequest(a.AUDIO_NODE_STOP, [t.id, e]);
+                }, Object.defineProperty(t, "type", { set: function set(e) {
+                    t.currentType = e, _this15.sendApiRequest(a.AUDIO_NODE_SET_TYPE, [t.id, e]);
+                  }, get: function get() {
+                    return t.currentType;
+                  } });var r = { setValueAtTime: function setValueAtTime(e, n) {
+                    return _this15.sendApiRequest(a.AUDIO_PARAM_SET_VALUE_AT_TIME, [t.id, e, n]), r;
+                  } };return Object.defineProperty(r, "value", { set: function set(e) {
+                    return r.setValueAtTime(e, 0);
+                  }, get: function get() {
+                    return r.currentValue;
+                  } }), t.frequency = r, t;
+              }, createMediaStreamSource: function createMediaStreamSource(t) {
+                return _this15.createAudioNode(e, "MediaStreamSource", [t.proxy]);
+              }, createAnalyser: function createAnalyser() {
+                return _this15.createAudioNode(e, "Analyser", []);
+              }, createMediaStreamDestination: function createMediaStreamDestination() {
+                var t = _this15.createAudioNode(e, "MediaStreamDestination", []);return t.stream = _this15.makeStreamProxy({ id: t.id, tracks: [{ id: t.id, kind: "audio" }] }), t;
+              }, close: function close() {
+                return _this15.sendApiRequest(a.AUDIO_CTX_CLOSE, [e]);
+              } }), this.sendApiRequest(a.NEW_AUDIO_CONTEXT, [e, t], e).then(function (e) {
+              _this15.updateAudioContextProxy(e);
+            }, function (e) {
+              _this15.logger.error("Error creating proxied AudioContext: " + e);
+            }), this.audioContextProxies.get(e);
+          }
+        }, {
+          key: "close",
+          value: function close(e) {
+            this.eventListeners.get(e).clear(), this.sendApiRequest(a.PC_CLOSE_API_NAME, [e]);
+          }
+        }, {
+          key: "addStream",
+          value: function addStream(e, t) {
+            this.sendApiRequest(a.ADDSTREAM_API_NAME, [e, t.proxy]);
+          }
+        }, {
+          key: "getStats",
+          value: function getStats(e, t) {
+            return "function" == typeof t ? Promise.reject(new Error("callback based getStats is obsolete.")) : this.sendApiRequest(a.GET_STATS_API_NAME, [e, t]);
+          }
+        }, {
+          key: "createOffer",
+          value: function createOffer(e, t) {
+            return this.sendApiRequest(a.CREATE_OFFER_API_NAME, [e, t]);
+          }
+        }, {
+          key: "createAnswer",
+          value: function createAnswer(e, t) {
+            return this.sendApiRequest(a.CREATE_ANSWER_API_NAME, [e, t]);
+          }
+        }, {
+          key: "setLocalDescription",
+          value: function setLocalDescription(e, t) {
+            return this.pcProxies.get(e).localDescription = t, this.sendApiRequest(a.SET_LOCAL_DESCRIPTION_API_NAME, [e, t]);
+          }
+        }, {
+          key: "setRemoteDescription",
+          value: function setRemoteDescription(e, t) {
+            return this.sendApiRequest(a.SET_REMOTE_DESCRIPTION_API_NAME, [e, t]);
+          }
+        }, {
+          key: "handleAddEventListenerResponse",
+          value: function handleAddEventListenerResponse(e) {
+            var _this16 = this;
+
+            e.eventName === o.SIG_STATE_CHANGE ? this.updatePeerConnectionProxy(e) : e.eventName === o.TRACK ? (e.streams = e.streams.map(function (e) {
+              return _this16.makeStreamProxy(e);
+            }), e.track = this.makeTrackProxy(e.track), this.updatePeerConnectionProxy(e)) : (e.eventName === o.CONN_STATE_CHANGE || e.eventName === o.ICE_CONN_STATE_CHANGE || e.eventName === o.ICE_GATHER_STATE_CHANGE || e.eventName === o.ICE_CANDIDATE || e.eventName === o.NEGOTIATION_NEEDED) && this.updatePeerConnectionProxy(e), this.fireUpEventHandlers(this.pcProxies.get(e.pcId), e), this.sendApiRequest(a.ADD_PC_EVENT_LISTENER, [e.pcId, e.eventName]).then(function (e) {
+              _this16.handleAddEventListenerResponse(e);
+            });
+          }
+        }, {
+          key: "fireUpEventHandlers",
+          value: function fireUpEventHandlers(e, t) {
+            if (this.eventListeners.get(e.id).has(t.eventName)) {
+              var _r12 = e.pendingEvents;this.eventListeners.get(e.id).get(t.eventName).forEach(function (e, n) {
+                0 === n ? e(t) : _r12.get(t.eventName).forEach(function (t) {
+                  e(t);
+                });
+              }), _r12.set(t.eventName, []);
+            }
+          }
+        }, {
+          key: "handleAddTrackEventListenerResponse",
+          value: function handleAddTrackEventListenerResponse(e) {
+            var _this17 = this;
+
+            "mute" !== e.eventName && "unmute" !== e.eventName || (this.trackProxies.get(e.trackId).muted = e.muted), this.fireUpEventHandlers(this.trackProxies.get(e.trackId), e), this.sendApiRequest(a.ADD_TRACK_EVENT_LISTENER, [e.trackId, e.eventName]).then(function (e) {
+              _this17.handleAddTrackEventListenerResponse(e);
+            });
+          }
+        }, {
+          key: "handleAddDtmfEventListenerResponse",
+          value: function handleAddDtmfEventListenerResponse(e) {
+            var _this18 = this;
+
+            this.fireUpEventHandlers(this.dtmfProxies.get(e.dtmfId), e), this.sendApiRequest(a.ADD_DTMF_EVENT_LISTENER, [e.dtmfId, e.eventName]).then(function (e) {
+              _this18.handleAddDtmfEventListenerResponse(e);
+            });
+          }
+        }, {
+          key: "handleAddWorkerEventListenerResponse",
+          value: function handleAddWorkerEventListenerResponse(e) {
+            var _this19 = this;
+
+            this.fireUpEventHandlers(this.workerProxies.get(e.wId), e), this.sendApiRequest(a.ADD_WORKER_EVENT_LISTENER, [e.wId, e.eventName]).then(function (e) {
+              _this19.handleAddWorkerEventListenerResponse(e);
+            });
+          }
+        }, {
+          key: "addEventListener",
+          value: function addEventListener(e, t, r) {
+            this.eventListeners.has(e) || this.eventListeners.set(e, new Map()), this.eventListeners.get(e).has(t) || this.eventListeners.get(e).set(t, []), this.eventListeners.get(e).get(t).push(r);
+          }
+        }, {
+          key: "addPeerConnectionEventListener",
+          value: function addPeerConnectionEventListener(e, t, r) {
+            var _this20 = this;
+
+            this.addEventListener(e, t, r), this.sendApiRequest(a.ADD_PC_EVENT_LISTENER, [e, t]).then(function (e) {
+              _this20.handleAddEventListenerResponse(e);
+            });
+          }
+        }, {
+          key: "addTrackEventListener",
+          value: function addTrackEventListener(e, t, r, n) {
+            var _this21 = this;
+
+            this.addEventListener(e, t, r), this.sendApiRequest(a.ADD_TRACK_EVENT_LISTENER, [e, t, n]).then(function (e) {
+              _this21.handleAddTrackEventListenerResponse(e);
+            });
+          }
+        }, {
+          key: "addDtmfEventListener",
+          value: function addDtmfEventListener(e, t, r, n) {
+            var _this22 = this;
+
+            this.addEventListener(e, t, r), this.sendApiRequest(a.ADD_DTMF_EVENT_LISTENER, [e, t, n]).then(function (e) {
+              _this22.handleAddDtmfEventListenerResponse(e);
+            });
+          }
+        }, {
+          key: "addWorkerEventListener",
+          value: function addWorkerEventListener(e, t, r) {
+            var _this23 = this;
+
+            this.addEventListener(e, t, r), this.sendApiRequest(a.ADD_WORKER_EVENT_LISTENER, [e, t]).then(function (e) {
+              _this23.handleAddWorkerEventListenerResponse(e);
+            });
+          }
+        }, {
+          key: "removeEventListener",
+          value: function removeEventListener(e, t, r) {
+            var n = this.eventListeners.get(e).get(t);var i = n.indexOf(r);i > -1 && n.splice(i, 1);
+          }
+        }, {
+          key: "addIceCandidate",
+          value: function addIceCandidate(e, t) {
+            var r = t ? { sdpMLineIndex: t.sdpMLineIndex, sdpMid: t.sdpMid, candidate: t.candidate } : null;return this.sendApiRequest(a.ADD_ICE_CANDIDATE_API_NAME, [e, r]);
+          }
+        }, {
+          key: "createMediaElement",
+          value: function createMediaElement(e) {
+            var _this24 = this;
+
+            var t = crypto.randomUUID();this.sendApiRequest(a.CREATE_MEDIA_ELEMENT_API_NAME, [t, e], t).then(function (e) {
+              _this24.mediaElementProxies.get(e.id).sinkId = e.sinkId;
+            });var r = { id: t, type: "proxy", classList: new Set(), isMuted: !1, play: function play() {
+                _this24.sendApiRequest(a.MEDIA_ELEMENT_PLAY_API_NAME, [t]);
+              }, pause: function pause() {
+                _this24.sendApiRequest(a.MEDIA_ELEMENT_PAUSE_API_NAME, [t]);
+              }, setSinkId: function setSinkId(e) {
+                return _this24.sendApiRequest(a.MEDIA_ELEMENT_SET_SINK_ID_API_NAME, [t, e]);
+              }, remove: function remove() {
+                return _this24.sendApiRequest(a.MEDIA_ELEMENT_REMOVE, [t]);
+              } };return this.mediaElementProxies.set(t, r), r.classList.remove = function (e) {
+              r.classList.delete(e);
+            }, Object.assign(r, e), Object.defineProperty(r, "srcObject", { set: function set(e) {
+                r.stream = e, _this24.sendApiRequest(a.SET_MEDIA_SRC_OBJ_API_NAME, [r.id, e && e.proxy ? e.proxy : e]);
+              }, get: function get() {
+                return r.stream;
+              } }), Object.defineProperty(r, "hidden", { set: function set(e) {
+                _this24.sendApiRequest(a.SET_MEDIA_HIDDEN_API_NAME, [r.id, e]);
+              }, get: function get() {
+                return r.hidden;
+              } }), Object.defineProperty(r, "volume", { set: function set(e) {
+                _this24.sendApiRequest(a.SET_MEDIA_VOLUME_API_NAME, [r.id, e]);
+              }, get: function get() {
+                return r.volume;
+              } }), Object.defineProperty(r, "muted", { set: function set(e) {
+                r.isMuted = e, _this24.sendApiRequest(a.MEDIA_ELEMENT_MUTED, [r.id, e]).then(function (e) {
+                  r.isMuted = e.muted;
+                });
+              }, get: function get() {
+                return r.isMuted;
+              } }), r;
+          }
+        }, {
+          key: "generateCertificate",
+          value: function generateCertificate(e) {
+            return this.sendApiRequest(a.GENERATE_CERTIFICATE_API_NAME, [e]);
+          }
+        }, {
+          key: "getReceivers",
+          value: function getReceivers(e) {
+            var _this25 = this;
+
+            return this.sendApiRequest(a.GET_RECEIVERS_API_NAME, [e]).then(function (e) {
+              _this25.updatePCReceivers(e.pcId, e.receivers);
+            }), this.pcProxies.get(e).receivers;
+          }
+        }, {
+          key: "getSenders",
+          value: function getSenders(e) {
+            var _this26 = this;
+
+            return this.sendApiRequest(a.GET_SENDERS_API_NAME, [e]).then(function (e) {
+              _this26.updatePCSenders(e.pcId, e.senders);
+            }), this.pcProxies.get(e).senders;
+          }
+        }, {
+          key: "removeTrack",
+          value: function removeTrack(e, t) {
+            this.sendApiRequest(a.PC_REMOVE_TRACK_API_NAME, [e, t]);
+          }
+        }, {
+          key: "getTransceivers",
+          value: function getTransceivers(e) {
+            var _this27 = this;
+
+            return this.sendApiRequest(a.GET_TRANSCEIVERS_API_NAME, [e]).then(function (e) {
+              _this27.updatePCTransceivers(e.pcId, e.transceivers);
+            }), this.pcProxies.get(e).transceivers;
+          }
+        }, {
+          key: "addTransceiver",
+          value: function addTransceiver(e, t, r) {
+            var _this28 = this;
+
+            var n = crypto.randomUUID(),
+                i = { type: "proxy", id: n, sender: this.makeSenderProxy({ id: crypto.randomUUID() }), receiver: this.makeReceiverProxy({ id: crypto.randomUUID() }), setCodecPreferences: function setCodecPreferences(e) {
+                _this28.sendApiRequest(a.TRANSCEIVER_SET_CODEC_PREFS, [n, e]);
+              } };return this.transceiverProxies.set(i.id, i), this.pcProxies.get(e).transceivers.push(i), this.pcProxies.get(e).receivers.push(i.receiver), this.pcProxies.get(e).senders.push(i.sender), this.sendApiRequest(a.ADD_TRANSCEIVER_API_NAME, [e, i, "string" == typeof t ? t : this.makeTrackProxy(t), r]).then(function (e) {
+              _this28.updateTransceiverProxy(e), _this28.updatePCSenders(e.pcId, e.senders), _this28.updatePCReceivers(e.pcId, e.receivers), _this28.updatePCTransceivers(e.pcId, e.transceivers);
+            }), i;
+          }
+        }, {
+          key: "setLogger",
+          value: function setLogger(e) {
+            this.logger = e;
+          }
+        }, {
+          key: "overrideWebRTC",
+          value: function overrideWebRTC() {
+            var _this29 = this;
+
+            this.logger.info("Overriding WebRTC interfaces for the current webapp.");var e = this;navigator.mediaDevices.getUserMedia = function (e) {
+              return _this29.getUserMedia(e);
+            }, navigator.mediaDevices.enumerateDevices = function () {
+              return _this29.enumerateDevices();
+            }, window.RTCPeerConnection = function (t, r) {
+              return e.createPeerConnection(t, r);
+            }, window.RTCPeerConnection.generateCertificate = function (t) {
+              return e.generateCertificate(t);
+            }, window.AudioContext = function () {
+              return e.createAudioContext();
+            }, window.Worker = function (t, r) {
+              return e.createWorker(t, r);
+            };
+          }
+        }, {
+          key: "sendHelloRequest",
+          value: function () {
+            var _ref7 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee7() {
+              var _this30 = this;
+
+              var t;
+              return _regenerator2.default.wrap(function _callee7$(_context7) {
+                while (1) {
+                  switch (_context7.prev = _context7.next) {
+                    case 0:
+                      _context7.next = 2;
+                      return this.sendApiRequest(a.HELLO_API_NAME, []);
+
+                    case 2:
+                      t = _context7.sent;
+                      return _context7.abrupt("return", (globalThis.DCVWebRTCRedirProxy || (this.logger.info("Running in a DCV WebRTC redirection env, proxy version: " + e.versionStr + " - " + e.gitHash), this.logger.info("Client info: " + JSON.stringify(t)), window.addEventListener("beforeunload", function (e) {
+                        var t = { pcIds: [], streamIds: [], mediaElementIds: [], transceiverIds: [], senderIds: [], receiverIds: [], trackIds: [], workerIds: [] };_this30.pcProxies.forEach(function (e, r) {
+                          t.pcIds.push(r);
+                        }), _this30.streamProxies.forEach(function (e, r) {
+                          t.streamIds.push(r);
+                        }), _this30.trackProxies.forEach(function (e, r) {
+                          t.trackIds.push(r);
+                        }), _this30.workerProxies.forEach(function (e, r) {
+                          t.workerIds.push(r);
+                        }), _this30.mediaElementProxies.forEach(function (e, r) {
+                          t.mediaElementIds.push(r);
+                        }), _this30.transceiverProxies.forEach(function (e, r) {
+                          t.transceiverIds.push(r);
+                        }), _this30.senderProxies.forEach(function (e, r) {
+                          t.senderIds.push(r);
+                        }), _this30.receiverProxies.forEach(function (e, r) {
+                          t.receiverIds.push(r);
+                        }), _this30.sendApiRequest(a.UNLOAD_EVENT_NAME, [t]);
+                      })), t));
+
+                    case 4:
+                    case "end":
+                      return _context7.stop();
+                  }
+                }
+              }, _callee7, this);
+            }));
+
+            function sendHelloRequest() {
+              return _ref7.apply(this, arguments);
+            }
+
+            return sendHelloRequest;
+          }()
+        }], [{
+          key: "setInitCallback",
+          value: function setInitCallback(e, t) {
+            var r = globalThis.DCVWebRTCRedirProxy;if (r) e({ success: !0, proxy: r });else {
+              m.initCallbacks || (m.initCallbacks = new Map());var _r13 = setTimeout(function (e) {
+                e({ success: !1, error: "Failed to initialize DCVWebRTCPeerConnectionProxy in " + t + "ms" }), m.initCallbacks.delete(e);
+              }, t, e);m.initCallbacks.set(e, _r13);
+            }
+          }
+        }]);
+        return m;
+      }();
+
+      var _ = r(591);
+      var g = function () {
+        function g(r) {
+          (0, _classCallCheck3.default)(this, g);
+          this.version = e, this.config = r, this.logger = r.logger ? r.logger : s(), this.channel = r.channel, this.decoder = new TextDecoder("utf-8"), this.messageBuffer = null, this.pcs = new Map(), this.pcPromises = new Map(), this.audioContexts = new Map(), this.audioNodes = new Map(), this.workers = new Map(), this.workerPromises = new Map(), this.certs = new Map(), this.streams = new Map(), this.tracks = new Map(), this.offers = new Map(), this.answers = new Map(), this.remoteDescriptions = new Map(), this.mediaElements = new Map(), this.audios = new Map(), this.senders = new Map(), this.dtmfSenders = new Map(), this.receivers = new Map(), this.transceivers = new Map(), this.logger.info("Created WebRTC Redirection Client version: " + e.versionStr + " - " + e.gitHash + " - " + JSON.stringify(t.Z.browserDetails));
+        }
+
+        (0, _createClass3.default)(g, [{
+          key: "encodeBase64",
+          value: function encodeBase64(e) {
+            return (0, h.encode)(e);
+          }
+        }, {
+          key: "decodeBase64",
+          value: function decodeBase64(e) {
+            return (0, h.decode)(e);
+          }
+        }, {
+          key: "getVersion",
+          value: function getVersion() {
+            return this.version;
+          }
+        }, {
+          key: "concatUint8Arrays",
+          value: function concatUint8Arrays(e) {
+            var t = e.reduce(function (e, t) {
+              return e + t.byteLength;
+            }, 0),
+                r = new Uint8Array(t);var n = 0;return e.forEach(function (e) {
+              r.set(e, n), n += e.byteLength;
+            }), r;
+          }
+        }, {
+          key: "parseHeader",
+          value: function parseHeader(e) {
+            return e[3] << 24 | e[2] << 16 | e[1] << 8 | e[0];
+          }
+        }, {
+          key: "onMessageReceived",
+          value: function onMessageReceived(e) {
+            this.logger.debug("onMessageReceived, binaryPayload.byteLength: " + e.byteLength);try {
+              var _t21 = 0;for (null === this.messageBuffer ? this.messageBuffer = new Uint8Array(e) : this.messageBuffer = this.concatUint8Arrays([this.messageBuffer, new Uint8Array(e)]), this.messageBuffer.byteLength >= 4 && (_t21 = this.parseHeader(this.messageBuffer)); _t21 > 0 && this.messageBuffer.byteLength >= _t21 + 4;) {
+                var _e15 = 4,
+                    _r14 = 4 + _t21,
+                    _n14 = this.messageBuffer.slice(_e15, _r14);this.logger.debug("Decoding payload: ", _n14);var _i5 = this.decoder.decode(_n14);this.logger.debug("Received message: " + _i5);var _s = JSON.parse(_i5);this.logger.debug("Received json: ", _s), this.handleMessage(_s), this.messageBuffer = this.messageBuffer.slice(_r14), _t21 = this.messageBuffer.byteLength >= 4 ? this.parseHeader(this.messageBuffer) : 0;
+              }
+            } catch (e) {
+              this.logger.error("Failed to parse JSON from binaryPayload: " + e), this.messageBuffer = null;
+            }
+          }
+        }, {
+          key: "getPeerConnection",
+          value: function getPeerConnection(e) {
+            var _this31 = this;
+
+            return this.pcs.has(e) ? this.pcs.get(e) : (this.pcPromises.has(e) || this.pcPromises.set(e, []), new Promise(function (t, r) {
+              _this31.pcPromises.get(e).push({ resolve: t, reject: r });
+            }));
+          }
+        }, {
+          key: "getPendingEvent",
+          value: function getPendingEvent(e, t) {
+            return e.pendingEvents.has(t) && e.pendingEvents.get(t).length > 0 ? e.pendingEvents.get(t).shift() : (e.eventPromises.has(t) || e.eventPromises.set(t, []), new Promise(function (r, n) {
+              e.eventPromises.get(t).push({ resolve: r, reject: n });
+            }));
+          }
+        }, {
+          key: "getStream",
+          value: function getStream(e) {
+            return this.streams.get(e);
+          }
+        }, {
+          key: "makeTrackTO",
+          value: function makeTrackTO(e) {
+            var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : e.id ? e.id : crypto.randomUUID();
+            return this.tracks.set(t, e), { type: "proxy", contentHint: e.contentHint, enabled: e.enabled, id: t, kind: e.kind, label: e.label, muted: e.muted, readyState: e.readyState, settings: e.getSettings() };
+          }
+        }, {
+          key: "makeStreamTO",
+          value: function makeStreamTO(e) {
+            var _this32 = this;
+
+            var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : e.id ? e.id : crypto.randomUUID();
+            this.streams.set(t, e);var r = e.getTracks().map(function (e) {
+              return _this32.makeTrackTO(e);
+            });return { type: "proxy", id: t, active: e.active, tracks: r };
+          }
+        }, {
+          key: "makeSyncronizationSourceTO",
+          value: function makeSyncronizationSourceTO(e) {
+            return { audioLevel: e.audioLevel, rtpTimestamp: e.rtpTimestamp, source: e.source, timestamp: e.timestamp };
+          }
+        }, {
+          key: "makeReceiverTO",
+          value: function makeReceiverTO(e) {
+            var _this33 = this;
+
+            var t = e.getSynchronizationSources();t = t.map(function (e) {
+              return _this33.makeSyncronizationSourceTO(e);
+            });var r = { id: e.id ? e.id : crypto.randomUUID(), type: "proxy", track: e.track ? this.makeTrackTO(e.track) : null, synchronizationSources: t, stats: [] };return e.id = r.id, this.receivers.set(r.id, e), r;
+          }
+        }, {
+          key: "makeDTMFSenderTO",
+          value: function makeDTMFSenderTO(e) {
+            var t = { id: e.id ? e.id : crypto.randomUUID(), type: "proxy", toneBuffer: e.toneBuffer };return e.id = t.id, this.dtmfSenders.set(t.id, e), t;
+          }
+        }, {
+          key: "makeSenderTO",
+          value: function makeSenderTO(e) {
+            var t = { id: e.id ? e.id : crypto.randomUUID(), type: "proxy", track: e.track ? this.makeTrackTO(e.track) : null, dtmf: e.dtmf ? this.makeDTMFSenderTO(e.dtmf) : null };return e.id = t.id, this.senders.set(t.id, e), t;
+          }
+        }, {
+          key: "makeTransceiverTO",
+          value: function makeTransceiverTO(e) {
+            return { id: e.id, type: "proxy", currentDirection: e.currentDirection, direction: e.direction, mid: e.mid, receiver: e.receiver ? this.makeReceiverTO(e.receiver) : null, sender: e.sender ? this.makeSenderTO(e.sender) : null, stopped: e.stopped };
+          }
+        }, {
+          key: "findProxySubject",
+          value: function findProxySubject(e) {
+            return this.pcs.has(e) ? this.pcs.get(e) : this.audioContexts.has(e) ? this.audioContexts.get(e) : this.audioNodes.has(e) ? this.audioNodes.get(e) : this.workers.has(e) ? this.workers.get(e) : this.certs.has(e) ? this.certs.get(e) : this.streams.has(e) ? this.streams.get(e) : this.offers.has(e) ? this.offers.get(e) : this.answers.has(e) ? this.answers.get(e) : this.remoteDescriptions.has(e) ? this.remoteDescriptions.get(e) : this.mediaElements.has(e) ? this.mediaElements.get(e) : this.audios.has(e) ? this.audios.get(e) : this.senders.has(e) ? this.senders.get(e) : this.dtmfSenders.has(e) ? this.dtmfSenders.get(e) : this.receivers.has(e) ? this.recevers.get(e) : this.transceivers.has(e) ? this.transceivers.get(e) : this.tracks.has(e) ? this.tracks.get(e) : null;
+          }
+        }, {
+          key: "traverse",
+          value: function traverse(e, t) {
+            if ("object" == (typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e))) for (var _r15 in e) {
+              Object.prototype.hasOwnProperty.call(e, _r15) && (t.apply(this, [e, _r15, e[_r15]]), null !== e[_r15] && "object" == (0, _typeof3.default)(e[_r15]) && this.traverse(e[_r15], t));
+            }
+          }
+        }, {
+          key: "getWorker",
+          value: function getWorker(e) {
+            var _this34 = this;
+
+            return this.workers.has(e) ? this.workers.get(e) : (this.workerPromises.has(e) || this.workerPromises.set(e, []), new Promise(function (t, r) {
+              _this34.workerPromises.get(e).push({ resolve: t, reject: r });
+            }));
+          }
+        }, {
+          key: "gatherPeerConnectionState",
+          value: function gatherPeerConnectionState(e, t) {
+            var _this35 = this;
+
+            e.canTrickleIceCandidates = t.canTrickleIceCandidates, e.connectionState = t.connectionState, e.currentLocalDescription = t.currentLocalDescription, e.currentRemoteDescription = t.currentRemoteDescription, e.iceConnectionState = t.iceConnectionState, e.iceGatheringState = t.iceGatheringState, e.iceGatheringState = t.iceGatheringState, e.localDescription = t.localDescription, e.peerIdentity = t.peerIdentity, e.pendingLocalDescription = t.pendingLocalDescription, e.pendingRemoteDescription = t.pendingRemoteDescription, e.remoteDescription = t.remoteDescription, e.sctp = t.sctp, e.signalingState = t.signalingState, e.configuration = t.getConfiguration(), e.transceivers = t.getTransceivers().map(function (e) {
+              return _this35.makeTransceiverTO(e);
+            }), e.senders = t.getSenders().map(function (e) {
+              return _this35.makeSenderTO(e);
+            }), e.receivers = t.getReceivers().map(function (e) {
+              return _this35.makeReceiverTO(e);
+            });
+          }
+        }, {
+          key: "callWebRTCApi",
+          value: function () {
+            var _ref8 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee8(e, r, n) {
+              var _this36 = this;
+
+              var _n15, _e16, _t22, _n16, _e17, _t23, _r16, _i6, _n17, _e18, _t24, _r17, _i7, _n18, _e19, _t25, _n19, _e20, _t26, _r18, _e21, _i8, _s2, _n20, _e22, _n21, _e23, _t27, _r19, _i9, _s3, _a2, _o, _c, _n22, _e24, _t28, _r20, _i10, _n23, _e25, _t29, _r21, _n24, _e26, _t30, _r22, _i11, _s4, _a3, _o2, _c2, _e27, _n25, _e28, _n26, _e29, _t31, _r23, _i12, _s5, _a4, _n27, _e30, _t32, _r24, _i13, _s6, _a5, _n28, _e31, _t33, _n29, _e32, _t34, _n30, _e33, _t35, _n31, _e34, _t36, _r25, _i14, _n32, _e35, _t37, _r26, _i15, _n33, _e36, _n34, _e37, _n35, _e38, _t38, _r27, _i16, _n36, _e39, _t39, _n37, _e40, _t40, _r28, _i17, _s7, _a6, _o3, _c3, _d, _n38, _e41, _t41, _r29, _i18, _s8, _e42, _a7, _o4, _n39, _e43, _n40, _e44, _t42, _r31, _n41, _e45, _t43, _r32, _i19, _s9, _n42, _e46, _t44, _r33, _n43, _e47, _t45, _r34, _n44, _e48, _t46, _r35, _i20, _n45, _e49, _t47, _r36, _i21, _n46, _e50, _t48, _i22, _s10, _n47, _e51, _t49, _i23, _s11, _n48, _e52, _t50, _r37, _i24, _s12, _n49, _e53, _t51, _r38, _n50, _e54, _t52, _r39, _n51, _e55, _t53, _i25, _e56, _n52, _n53, _e57, _t54, _i26, _s14, _e58, _n54, _n55, _e59, _t56, _i27, _e60, _n56, _n57, _e61, _t58, _i28, _s15, _e62, _n58, _n59, _e63, _t60, _r41, _n60, _e64, _t61, _r42, _n61, _e65, _t62, _r43, _n62, _e66, _t63, _n63, _e67, _t64, _r44, _n64, _e68, _t65, _n65, _e69, _n66, _e70, _n67, _e71, _n68, _e72, _t66, _r45, _n69, _e73, _t67, _n70, _e74, _n71, _e75, _t68, _r46, _n72, _e76, _t69, _r47, _n73, _e77;
+
+              return _regenerator2.default.wrap(function _callee8$(_context8) {
+                while (1) {
+                  switch (_context8.prev = _context8.next) {
+                    case 0:
+                      _context8.t0 = e;
+                      _context8.next = _context8.t0 === a.HELLO_API_NAME ? 3 : _context8.t0 === a.GETUSERMEDIA_API_NAME ? 4 : _context8.t0 === a.ENUMERATEDEVICES_API_NAME ? 10 : _context8.t0 === a.STREAM_ADD_TRACK ? 14 : _context8.t0 === a.STREAM_REMOVE_TRACK ? 16 : _context8.t0 === a.GENERATE_CERTIFICATE_API_NAME ? 18 : _context8.t0 === a.NEWRTCPEERCONNECTION_API_NAME ? 24 : _context8.t0 === a.PC_GET_CONFIGURATION ? 30 : _context8.t0 === a.CREATE_WORKER ? 34 : _context8.t0 === a.WORKER_POST_MESSAGE ? 36 : _context8.t0 === a.NEW_AUDIO_CONTEXT ? 44 : _context8.t0 === a.AUDIO_CTX_CREATE_AUDIO_NODE ? 46 : _context8.t0 === a.AUDIO_CTX_CLOSE ? 53 : _context8.t0 === a.AUDIO_NODE_CONNECT ? 55 : _context8.t0 === a.AUDIO_NODE_DISCONNECT ? 57 : _context8.t0 === a.AUDIO_NODE_SET_TYPE ? 59 : _context8.t0 === a.AUDIO_NODE_START ? 61 : _context8.t0 === a.AUDIO_NODE_STOP ? 63 : _context8.t0 === a.AUDIO_PARAM_SET_VALUE_AT_TIME ? 65 : _context8.t0 === a.AUDIO_PARAM_SET_RAMP_TO_VALUE_AT_TIME ? 67 : _context8.t0 === a.GET_RECEIVERS_API_NAME ? 69 : _context8.t0 === a.GET_SENDERS_API_NAME ? 76 : _context8.t0 === a.INSERT_DTMF_API_NAME ? 83 : _context8.t0 === a.GET_TRANSCEIVERS_API_NAME ? 85 : _context8.t0 === a.TRANSCEIVER_SET_CODEC_PREFS ? 91 : _context8.t0 === a.ADD_TRACK_API_NAME ? 92 : _context8.t0 === a.ADD_TRANSCEIVER_API_NAME ? 106 : _context8.t0 === a.PC_CLOSE_API_NAME ? 119 : _context8.t0 === a.ADDSTREAM_API_NAME ? 124 : _context8.t0 === a.GET_STATS_API_NAME ? 130 : _context8.t0 === a.GET_SENDER_STATS_API_NAME ? 141 : _context8.t0 === a.GET_RECEIVER_STATS_API_NAME ? 148 : _context8.t0 === a.REPLACE_SENDER_TRACK_API_NAME ? 155 : _context8.t0 === a.PC_REMOVE_TRACK_API_NAME ? 159 : _context8.t0 === a.CREATE_OFFER_API_NAME ? 167 : _context8.t0 === a.CREATE_ANSWER_API_NAME ? 177 : _context8.t0 === a.SET_LOCAL_DESCRIPTION_API_NAME ? 187 : _context8.t0 === a.SET_REMOTE_DESCRIPTION_API_NAME ? 195 : _context8.t0 === a.ADD_ICE_CANDIDATE_API_NAME ? 204 : _context8.t0 === a.ADD_PC_EVENT_LISTENER ? 210 : _context8.t0 === a.ADD_TRACK_EVENT_LISTENER ? 225 : _context8.t0 === a.ADD_WORKER_EVENT_LISTENER ? 235 : _context8.t0 === a.ADD_DTMF_EVENT_LISTENER ? 250 : _context8.t0 === a.CREATE_MEDIA_ELEMENT_API_NAME ? 260 : _context8.t0 === a.MEDIA_ELEMENT_SET_SINK_ID_API_NAME ? 265 : _context8.t0 === a.SET_MEDIA_SRC_OBJ_API_NAME ? 269 : _context8.t0 === a.MEDIA_ELEMENT_MUTED ? 271 : _context8.t0 === a.SET_MEDIA_HIDDEN_API_NAME ? 273 : _context8.t0 === a.SET_MEDIA_VOLUME_API_NAME ? 275 : _context8.t0 === a.MEDIA_ELEMENT_PLAY_API_NAME ? 277 : _context8.t0 === a.MEDIA_ELEMENT_PAUSE_API_NAME ? 279 : _context8.t0 === a.MEDIA_ELEMENT_REMOVE ? 281 : _context8.t0 === a.TOGGLE_TRACK_ENABLED_API_NAME ? 283 : _context8.t0 === a.TRACK_STOP_API_NAME ? 285 : _context8.t0 === a.TRACK_GET_SETTINGS ? 287 : _context8.t0 === a.SENDER_CREATE_ENCODED_STREAMS ? 289 : _context8.t0 === a.RECEIVER_CREATE_ENCODED_STREAMS ? 291 : _context8.t0 === a.UNLOAD_EVENT_NAME ? 293 : 295;
+                      break;
+
+                    case 3:
+                      return _context8.abrupt("return", { version: this.version, platform: "web", browserDetails: t.Z.browserDetails, userAgent: navigator.userAgent });
+
+                    case 4:
+                      _n15 = (0, _slicedToArray3.default)(n, 1);
+                      _e16 = _n15[0];
+                      _context8.next = 8;
+                      return navigator.mediaDevices.getUserMedia(_e16);
+
+                    case 8:
+                      _t22 = _context8.sent;
+                      return _context8.abrupt("return", this.makeStreamTO(_t22));
+
+                    case 10:
+                      _context8.next = 12;
+                      return navigator.mediaDevices.enumerateDevices();
+
+                    case 12:
+                      _context8.t1 = function (e) {
+                        return e.toJSON();
+                      };
+
+                      return _context8.abrupt("return", _context8.sent.map(_context8.t1));
+
+                    case 14:
+                      _n16 = (0, _slicedToArray3.default)(n, 2), _e17 = _n16[0], _t23 = _n16[1], _r16 = this.streams.get(_e17), _i6 = this.tracks.get(_t23);
+                      return _context8.abrupt("return", (_r16.addTrack(_i6), {}));
+
+                    case 16:
+                      _n17 = (0, _slicedToArray3.default)(n, 2), _e18 = _n17[0], _t24 = _n17[1], _r17 = this.streams.get(_e18), _i7 = this.tracks.get(_t24);
+                      return _context8.abrupt("return", (_r17.removeTrack(_i7), {}));
+
+                    case 18:
+                      _n18 = (0, _slicedToArray3.default)(n, 1);
+                      _e19 = _n18[0];
+                      _context8.next = 22;
+                      return RTCPeerConnection.generateCertificate(_e19);
+
+                    case 22:
+                      _t25 = _context8.sent;
+                      return _context8.abrupt("return", (this.certs.set(r, _t25), { type: "proxy", id: r, expires: _t25.expires, fingerprints: _t25.getFingerprints() }));
+
+                    case 24:
+                      _n19 = (0, _slicedToArray3.default)(n, 3), _e20 = _n19[0], _t26 = _n19[1], _r18 = _n19[2];
+                      if (_t26 && _t26.certificates) {
+                        _e21 = _t26.certificates.map(function (e) {
+                          return _this36.certs.get(e.id);
+                        });
+                        _t26.certificates = _e21;
+                      }_i8 = new RTCPeerConnection(_t26, _r18);
+                      this.pcs.set(_e20, _i8), this.pcPromises.has(_e20) && (this.pcPromises.get(_e20).forEach(function (e) {
+                        e.resolve(e);
+                      }), this.pcPromises.set(_e20, []));_s2 = { type: "proxy", pcId: _e20 };
+                      return _context8.abrupt("return", (this.gatherPeerConnectionState(_s2, _i8), _s2));
+
+                    case 30:
+                      _n20 = (0, _slicedToArray3.default)(n, 1), _e22 = _n20[0];
+                      _context8.next = 33;
+                      return this.getPeerConnection(_e22);
+
+                    case 33:
+                      return _context8.abrupt("return", _context8.sent.getConfiguration());
+
+                    case 34:
+                      _n21 = (0, _slicedToArray3.default)(n, 4), _e23 = _n21[0], _t27 = _n21[1], _r19 = _n21[2], _i9 = _n21[3], _s3 = (0, h.decode)(_r19), _a2 = new Blob([_s3], { type: _t27 }), _o = URL.createObjectURL(_a2), _c = new Worker(_o, _i9);
+                      return _context8.abrupt("return", (this.workers.set(_e23, _c), this.workerPromises.has(_e23) && (this.workerPromises.get(_e23).forEach(function (e) {
+                        e.resolve(_c);
+                      }), this.workerPromises.set(_e23, [])), { type: "proxy", id: _e23 }));
+
+                    case 36:
+                      _n22 = (0, _slicedToArray3.default)(n, 3);
+                      _e24 = _n22[0];
+                      _t28 = _n22[1];
+                      _r20 = _n22[2];
+                      _context8.next = 42;
+                      return this.getWorker(_e24);
+
+                    case 42:
+                      _i10 = _context8.sent;
+                      return _context8.abrupt("return", (this.logger.debug("Message before traversing: ", JSON.stringify(_t28)), this.traverse(_t28, function (e, t, r) {
+                        "proxy" === r.type && r.id && (e[t] = _this36.findProxySubject(r.id));
+                      }), this.logger.debug("Message after traversing: ", _t28), this.logger.debug("Options before traversing: ", JSON.stringify(_r20)), this.traverse(_r20, function (e, t, r) {
+                        "proxy" === r.type && r.id && (e[t] = _this36.findProxySubject(r.id));
+                      }), this.logger.debug("Options after traversing: ", _r20), _i10.postMessage(_t28, _r20), { type: "proxy", id: _e24 }));
+
+                    case 44:
+                      _n23 = (0, _slicedToArray3.default)(n, 2), _e25 = _n23[0], _t29 = _n23[1], _r21 = new AudioContext();
+                      return _context8.abrupt("return", (this.audioContexts.set(_e25, _r21), this.audioNodes.set(_t29, _r21.destination), { type: "proxy", id: _e25, baseLatency: _r21.baseLatency, currentTime: _r21.currentTime, outputLatency: _r21.outputLatency, sampleRate: _r21.sampleRate, sinkId: _r21.sinkId, state: _r21.state }));
+
+                    case 46:
+                      _n24 = (0, _slicedToArray3.default)(n, 4), _e26 = _n24[0], _t30 = _n24[1], _r22 = _n24[2], _i11 = _n24[3], _s4 = this.audioContexts.get(_e26), _a3 = _s4["create" + _r22];
+                      _i11 = _i11.map(function (e) {
+                        return "proxy" === e.type ? _this36.findProxySubject(e.id) : e;
+                      });_o2 = _a3.apply(_s4, _i11);
+                      this.audioNodes.set(_t30, _o2);_c2 = null;
+                      if (_o2.stream) {
+                        _e27 = _o2.stream.getTracks().map(function (e) {
+                          return _this36.makeTrackTO(e, _t30);
+                        });
+                        _c2 = this.makeStreamTO(_o2.stream, _t30), _c2.tracks = _e27;
+                      }return _context8.abrupt("return", { id: _t30, channelCount: _o2.channelCount, channelCountMode: _o2.channelCountMode, channelInterpretation: _o2.channelInterpretation, numberOfInputs: _o2.numberOfInputs, numberOfOutputs: _o2.numberOfOutputs, fftSize: _o2.fftSize, frequencyBinCount: _o2.frequencyBinCount, maxDecibels: _o2.maxDecibels, minDecibels: _o2.minDecibels, smoothingTimeConstant: _o2.smoothingTimeConstant, stream: _c2 });
+
+                    case 53:
+                      _n25 = (0, _slicedToArray3.default)(n, 1), _e28 = _n25[0];
+                      return _context8.abrupt("return", (this.audioContexts.get(_e28).close(), {}));
+
+                    case 55:
+                      _n26 = (0, _slicedToArray3.default)(n, 4), _e29 = _n26[0], _t31 = _n26[1], _r23 = _n26[2], _i12 = _n26[3], _s5 = this.audioNodes.get(_e29), _a4 = this.findProxySubject(_t31.id);
+                      return _context8.abrupt("return", (_s5.connect(_a4, _r23 || 0, _i12 || 0), {}));
+
+                    case 57:
+                      _n27 = (0, _slicedToArray3.default)(n, 4), _e30 = _n27[0], _t32 = _n27[1], _r24 = _n27[2], _i13 = _n27[3], _s6 = this.audioNodes.get(_e30), _a5 = this.findProxySubject(_t32.id);
+                      return _context8.abrupt("return", (_s6.disconnect(_a5, _r24 || 0, _i13 || 0), {}));
+
+                    case 59:
+                      _n28 = (0, _slicedToArray3.default)(n, 2), _e31 = _n28[0], _t33 = _n28[1];
+                      return _context8.abrupt("return", (this.audioNodes.get(_e31).type = _t33, {}));
+
+                    case 61:
+                      _n29 = (0, _slicedToArray3.default)(n, 2), _e32 = _n29[0], _t34 = _n29[1];
+                      return _context8.abrupt("return", (this.audioNodes.get(_e32).start(_t34), {}));
+
+                    case 63:
+                      _n30 = (0, _slicedToArray3.default)(n, 2), _e33 = _n30[0], _t35 = _n30[1];
+                      return _context8.abrupt("return", (this.audioNodes.get(_e33).stop(_t35), {}));
+
+                    case 65:
+                      _n31 = (0, _slicedToArray3.default)(n, 3), _e34 = _n31[0], _t36 = _n31[1], _r25 = _n31[2], _i14 = this.audioNodes.get(_e34);
+                      return _context8.abrupt("return", (_i14.gain ? _i14.gain.setValueAtTime(_t36, _r25 || _i14.context.currentTime) : _i14.frequency && _i14.frequency.setValueAtTime(_t36, _r25 || _i14.context.currentTime), {}));
+
+                    case 67:
+                      _n32 = (0, _slicedToArray3.default)(n, 3), _e35 = _n32[0], _t37 = _n32[1], _r26 = _n32[2], _i15 = this.audioNodes.get(_e35);
+                      return _context8.abrupt("return", (_i15.frequency && _i15.frequency.linearRampToValueAtTime(_t37, _r26 || _i15.context.currentTime), {}));
+
+                    case 69:
+                      _n33 = (0, _slicedToArray3.default)(n, 1), _e36 = _n33[0];
+                      _context8.t2 = _e36;
+                      _context8.next = 73;
+                      return this.getPeerConnection(_e36);
+
+                    case 73:
+                      _context8.t3 = function (e) {
+                        return _this36.makeReceiverTO(e);
+                      };
+
+                      _context8.t4 = _context8.sent.getReceivers().map(_context8.t3);
+                      return _context8.abrupt("return", {
+                        pcId: _context8.t2,
+                        receivers: _context8.t4
+                      });
+
+                    case 76:
+                      _n34 = (0, _slicedToArray3.default)(n, 1), _e37 = _n34[0];
+                      _context8.t5 = _e37;
+                      _context8.next = 80;
+                      return this.getPeerConnection(_e37);
+
+                    case 80:
+                      _context8.t6 = function (e) {
+                        return _this36.makeSenderTO(e);
+                      };
+
+                      _context8.t7 = _context8.sent.getSenders().map(_context8.t6);
+                      return _context8.abrupt("return", {
+                        pcId: _context8.t5,
+                        senders: _context8.t7
+                      });
+
+                    case 83:
+                      _n35 = (0, _slicedToArray3.default)(n, 4), _e38 = _n35[0], _t38 = _n35[1], _r27 = _n35[2], _i16 = _n35[3];
+                      return _context8.abrupt("return", (this.dtmfSenders.get(_e38).insertDTMF(_t38, _r27, _i16), {}));
+
+                    case 85:
+                      _n36 = (0, _slicedToArray3.default)(n, 1);
+                      _e39 = _n36[0];
+                      _context8.next = 89;
+                      return this.getPeerConnection(_e39);
+
+                    case 89:
+                      _t39 = _context8.sent.getTransceivers();
+                      return _context8.abrupt("return", (_t39 = _t39.map(function (e) {
+                        return e.id = e.id ? e.id : crypto.randomUUID(), _this36.makeTransceiverTO(e);
+                      }), { pcId: _e39, transceivers: _t39 }));
+
+                    case 91:
+                      return _context8.abrupt("return", {});
+
+                    case 92:
+                      _n37 = (0, _toArray3.default)(n);
+                      _e40 = _n37[0];
+                      _t40 = _n37[1];
+                      _r28 = _n37[2];
+                      _i17 = _n37.slice(3);
+                      _context8.next = 99;
+                      return this.getPeerConnection(_t40);
+
+                    case 99:
+                      _s7 = _context8.sent;
+                      _a6 = [];
+                      _i17.forEach(function (e) {
+                        var t = _this36.streams.get(e.proxy.id);t && _a6.push(t);
+                      });_o3 = [this.tracks.get(_r28.id)].concat(_a6), _c3 = _s7.addTrack.apply(_s7, _o3);
+                      _c3.id = _e40;_d = this.makeSenderTO(_c3);
+                      return _context8.abrupt("return", (_d.pcId = _t40, _d.senders = _s7.getSenders().map(function (e) {
+                        return _this36.makeSenderTO(e);
+                      }), _d.receivers = _s7.getReceivers().map(function (e) {
+                        return _this36.makeReceiverTO(e);
+                      }), _d.transceivers = _s7.getTransceivers().map(function (e) {
+                        return _this36.makeTransceiverTO(e);
+                      }), _d));
+
+                    case 106:
+                      _n38 = (0, _slicedToArray3.default)(n, 4);
+                      _e41 = _n38[0];
+                      _t41 = _n38[1];
+                      _r29 = _n38[2];
+                      _i18 = _n38[3];
+                      _context8.next = 113;
+                      return this.getPeerConnection(_e41);
+
+                    case 113:
+                      _s8 = _context8.sent;
+                      if ("string" != typeof _r29 && (_r29 = this.tracks.get(_r29.id)), _i18 && _i18.streams) {
+                        _e42 = [];
+                        _i18.streams.forEach(function (t) {
+                          if (t.proxy) {
+                            var _r30 = _this36.streams.get(t.proxy.id);_e42.push(_r30);
+                          }
+                        }), _i18.streams = _e42;
+                      }_a7 = _s8.addTransceiver(_r29, _i18);
+                      _a7.id = _t41.id, this.transceivers.set(_t41.id, _a7), _a7.sender && (_a7.sender.id = _t41.sender.id, this.senders.set(_t41.sender.id, _a7.sender)), _a7.receiver && (_a7.receiver.id = _t41.receiver.id, this.receivers.set(_t41.receiver.id, _a7.receiver));_o4 = this.makeTransceiverTO(_a7);
+                      return _context8.abrupt("return", (_o4.pcId = _e41, _o4.senders = _s8.getSenders().map(function (e) {
+                        return _this36.makeSenderTO(e);
+                      }), _o4.receivers = _s8.getReceivers().map(function (e) {
+                        return _this36.makeReceiverTO(e);
+                      }), _o4.transceivers = _s8.getTransceivers().map(function (e) {
+                        return _this36.makeTransceiverTO(e);
+                      }), _o4));
+
+                    case 119:
+                      _n39 = (0, _slicedToArray3.default)(n, 1), _e43 = _n39[0];
+                      _context8.next = 122;
+                      return this.getPeerConnection(_e43);
+
+                    case 122:
+                      _context8.sent.close();
+
+                      return _context8.abrupt("return", {});
+
+                    case 124:
+                      _n40 = (0, _slicedToArray3.default)(n, 2), _e44 = _n40[0], _t42 = _n40[1], _r31 = this.streams.get(_t42.id);
+                      _context8.next = 127;
+                      return this.getPeerConnection(_e44);
+
+                    case 127:
+                      _context8.t8 = _r31;
+
+                      _context8.sent.addStream(_context8.t8);
+
+                      return _context8.abrupt("return", _t42);
+
+                    case 130:
+                      _n41 = (0, _slicedToArray3.default)(n, 2);
+                      _e45 = _n41[0];
+                      _t43 = _n41[1];
+                      _context8.next = 135;
+                      return this.getPeerConnection(_e45);
+
+                    case 135:
+                      _r32 = _context8.sent;
+                      _context8.next = 138;
+                      return _r32.getStats(_t43);
+
+                    case 138:
+                      _i19 = _context8.sent;
+                      _s9 = [];
+                      return _context8.abrupt("return", (_i19.forEach(function (e) {
+                        var t = Object.assign({}, e);_s9.push(t);
+                      }), _s9));
+
+                    case 141:
+                      _n42 = (0, _slicedToArray3.default)(n, 1);
+                      _e46 = _n42[0];
+                      _context8.next = 145;
+                      return this.senders.get(_e46).getStats();
+
+                    case 145:
+                      _t44 = _context8.sent;
+                      _r33 = [];
+                      return _context8.abrupt("return", (_t44.forEach(function (e) {
+                        var t = Object.assign({}, e);_r33.push(t);
+                      }), _r33));
+
+                    case 148:
+                      _n43 = (0, _slicedToArray3.default)(n, 1);
+                      _e47 = _n43[0];
+                      _context8.next = 152;
+                      return this.receivers.get(_e47).getStats();
+
+                    case 152:
+                      _t45 = _context8.sent;
+                      _r34 = [];
+                      return _context8.abrupt("return", (_t45.forEach(function (e) {
+                        var t = { id: e.id ? e.id : crypto.randomUUID(), type: e.type, concealedSamples: e.concealedSamples };_r34.push(t);
+                      }), _r34));
+
+                    case 155:
+                      _n44 = (0, _slicedToArray3.default)(n, 2), _e48 = _n44[0], _t46 = _n44[1], _r35 = this.senders.get(_e48), _i20 = _t46 ? this.tracks.get(_t46.id) : null;
+                      _context8.next = 158;
+                      return _r35.replaceTrack(_i20);
+
+                    case 158:
+                      return _context8.abrupt("return", {});
+
+                    case 159:
+                      _n45 = (0, _slicedToArray3.default)(n, 2);
+                      _e49 = _n45[0];
+                      _t47 = _n45[1];
+                      _context8.next = 164;
+                      return this.getPeerConnection(_e49);
+
+                    case 164:
+                      _r36 = _context8.sent;
+                      _i21 = this.senders.get(_t47.id);
+                      return _context8.abrupt("return", (_r36.removeTrack(_i21), {}));
+
+                    case 167:
+                      _n46 = (0, _slicedToArray3.default)(n, 2);
+                      _e50 = _n46[0];
+                      _t48 = _n46[1];
+                      _context8.next = 172;
+                      return this.getPeerConnection(_e50);
+
+                    case 172:
+                      _i22 = _context8.sent;
+                      _context8.next = 175;
+                      return _i22.createOffer(_t48);
+
+                    case 175:
+                      _s10 = _context8.sent;
+                      return _context8.abrupt("return", (this.offers.set(r, _s10), { id: r, type: _s10.type, sdp: _s10.sdp }));
+
+                    case 177:
+                      _n47 = (0, _slicedToArray3.default)(n, 2);
+                      _e51 = _n47[0];
+                      _t49 = _n47[1];
+                      _context8.next = 182;
+                      return this.getPeerConnection(_e51);
+
+                    case 182:
+                      _i23 = _context8.sent;
+                      _context8.next = 185;
+                      return _i23.createAnswer(_t49);
+
+                    case 185:
+                      _s11 = _context8.sent;
+                      return _context8.abrupt("return", (this.answers.set(r, _s11), { id: r, type: _s11.type, sdp: _s11.sdp }));
+
+                    case 187:
+                      _n48 = (0, _slicedToArray3.default)(n, 2), _e52 = _n48[0], _t50 = _n48[1], _r37 = "offer" === _t50.type ? this.offers : this.answers, _i24 = _t50.id ? _r37.get(_t50.id) : _t50;
+                      _i24.sdp = _t50.sdp;_context8.next = 191;
+                      return this.getPeerConnection(_e52);
+
+                    case 191:
+                      _s12 = _context8.sent;
+                      _context8.next = 194;
+                      return _s12.setLocalDescription(_i24);
+
+                    case 194:
+                      return _context8.abrupt("return", _t50);
+
+                    case 195:
+                      _n49 = (0, _slicedToArray3.default)(n, 2);
+                      _e53 = _n49[0];
+                      _t51 = _n49[1];
+                      _context8.next = 200;
+                      return this.getPeerConnection(_e53);
+
+                    case 200:
+                      _r38 = _context8.sent;
+                      _context8.next = 203;
+                      return _r38.setRemoteDescription(_t51);
+
+                    case 203:
+                      return _context8.abrupt("return", _t51);
+
+                    case 204:
+                      _n50 = (0, _slicedToArray3.default)(n, 2), _e54 = _n50[0], _t52 = _n50[1], _r39 = _t52 ? new RTCIceCandidate({ sdpMLineIndex: _t52.sdpMLineIndex, candidate: _t52.candidate }) : null;
+                      _context8.next = 207;
+                      return this.getPeerConnection(_e54);
+
+                    case 207:
+                      _context8.t9 = _r39;
+
+                      _context8.sent.addIceCandidate(_context8.t9);
+
+                      return _context8.abrupt("return", _t52);
+
+                    case 210:
+                      _n51 = (0, _slicedToArray3.default)(n, 2);
+                      _e55 = _n51[0];
+                      _t53 = _n51[1];
+                      _context8.next = 215;
+                      return this.getPeerConnection(_e55);
+
+                    case 215:
+                      _i25 = _context8.sent;
+
+                      if (!(_i25.pendingEvents || (_i25.pendingEvents = new Map()), _i25.eventPromises || (_i25.eventPromises = new Map()), _i25.pendingEvents.has(_t53))) {
+                        _context8.next = 223;
+                        break;
+                      }
+
+                      _context8.next = 219;
+                      return this.getPendingEvent(_i25, _t53);
+
+                    case 219:
+                      _e56 = _context8.sent;
+                      this.sendEvent(a.ADD_PC_EVENT_LISTENER, r, _e56);_context8.next = 224;
+                      break;
+
+                    case 223:
+                      if (!_i25[_t53]) {
+                        _n52 = function _n52(t) {
+                          var n = null;if (t.type === o.ICE_CANDIDATE) {
+                            _this36.logger.debug("event: ", t);var _r40 = t.candidate,
+                                _s13 = null;_r40 && (_s13 = { sdpMLineIndex: _r40.sdpMLineIndex, sdpMid: _r40.sdpMid, candidate: _r40.candidate, type: _r40.type, foundation: _r40.foundation, protocol: _r40.protocol, address: _r40.address, port: _r40.port, priority: _r40.priority, url: _r40.url, relayProtocol: _r40.relayProtocol, component: _r40.compoonent, relatedAddress: _r40.relatedAddress, relatedPort: _r40.relatedPort, tcpType: _r40.tcpType, usernameFragment: _r40.usernameFragment }), n = { pcId: _e55, eventName: t.type, type: "proxy", candidate: _s13 }, _this36.gatherPeerConnectionState(n, _i25);
+                          } else t.type === o.SIG_STATE_CHANGE ? (n = { pcId: _e55, eventName: t.type, type: "proxy" }, _this36.gatherPeerConnectionState(n, _i25)) : t.type === o.TRACK ? (n = { pcId: _e55, eventName: t.type, type: "proxy", streams: [], senders: [], receivers: [], track: _this36.makeTrackTO(t.track) }, n.streams = t.streams.map(function (e) {
+                            return _this36.makeStreamTO(e);
+                          }), _this36.gatherPeerConnectionState(n, _i25)) : t.type === o.CONN_STATE_CHANGE || t.type === o.ICE_CONN_STATE_CHANGE || t.type === o.ICE_GATHER_STATE_CHANGE || t.type === o.NEGOTIATION_NEEDED ? (n = { pcId: _e55, eventName: t.type, type: "proxy" }, _this36.gatherPeerConnectionState(n, _i25)) : _this36.logger.warn("Ignored event, type: " + t.type + ", event: " + JSON.stringify(t));n && _this36.processPendingEvents(_i25, t, n, a.ADD_PC_EVENT_LISTENER, r);
+                        };
+
+                        _i25[_t53] = _n52, _i25.addEventListener(_t53, _n52);
+                      }
+
+                    case 224:
+                      return _context8.abrupt("return", null);
+
+                    case 225:
+                      _n53 = (0, _slicedToArray3.default)(n, 3), _e57 = _n53[0], _t54 = _n53[1], _i26 = _n53[2], _s14 = this.tracks.get(_e57);
+
+                      if (!(_s14.pendingEvents || (_s14.pendingEvents = new Map()), _s14.eventPromises || (_s14.eventPromises = new Map()), _s14.pendingEvents.has(_t54))) {
+                        _context8.next = 233;
+                        break;
+                      }
+
+                      _context8.next = 229;
+                      return this.getPendingEvent(_s14, _t54);
+
+                    case 229:
+                      _e58 = _context8.sent;
+                      this.sendEvent(a.ADD_TRACK_EVENT_LISTENER, r, _e58);_context8.next = 234;
+                      break;
+
+                    case 233:
+                      if (!_s14[_t54]) {
+                        _n54 = function _n54(n) {
+                          if (Object.values(c).includes(_t54)) {
+                            var _t55 = { trackId: _e57, eventName: n.type, type: "proxy" };_t55 && _this36.processPendingEvents(_s14, n, _t55, a.ADD_TRACK_EVENT_LISTENER, r);
+                          } else _this36.logger.warn("Ignored event: " + JSON.stringify(n));
+                        };
+
+                        _s14[_t54] = _n54, _s14.addEventListener(_t54, _n54, _i26);
+                      }
+
+                    case 234:
+                      return _context8.abrupt("return", null);
+
+                    case 235:
+                      _n55 = (0, _slicedToArray3.default)(n, 2);
+                      _e59 = _n55[0];
+                      _t56 = _n55[1];
+                      _context8.next = 240;
+                      return this.getWorker(_e59);
+
+                    case 240:
+                      _i27 = _context8.sent;
+
+                      if (!(_i27.pendingEvents || (_i27.pendingEvents = new Map()), _i27.eventPromises || (_i27.eventPromises = new Map()), _i27.pendingEvents.has(_t56))) {
+                        _context8.next = 248;
+                        break;
+                      }
+
+                      _context8.next = 244;
+                      return this.getPendingEvent(_i27, _t56);
+
+                    case 244:
+                      _e60 = _context8.sent;
+                      this.sendEvent(a.ADD_WORKER_EVENT_LISTENER, r, _e60);_context8.next = 249;
+                      break;
+
+                    case 248:
+                      if (!_i27[_t56]) {
+                        _n56 = function _n56(n) {
+                          if (_this36.logger.debug("Received event: ", n), Object.values(l).includes(_t56)) {
+                            var _t57 = { wId: _e59, eventName: n.type, type: "proxy", data: n.data };_t57 && _this36.processPendingEvents(_i27, n, _t57, a.ADD_WORKER_EVENT_LISTENER, r);
+                          } else _this36.logger.warn("Ignored event: " + JSON.stringify(n), n);
+                        };
+
+                        _i27[_t56] = _n56, _i27.addEventListener(_t56, _n56);
+                      }
+
+                    case 249:
+                      return _context8.abrupt("return", null);
+
+                    case 250:
+                      _n57 = (0, _slicedToArray3.default)(n, 3), _e61 = _n57[0], _t58 = _n57[1], _i28 = _n57[2], _s15 = this.dtmfSenders.get(_e61);
+
+                      if (!(_s15.pendingEvents || (_s15.pendingEvents = new Map()), _s15.eventPromises || (_s15.eventPromises = new Map()), _s15.pendingEvents.has(_t58))) {
+                        _context8.next = 258;
+                        break;
+                      }
+
+                      _context8.next = 254;
+                      return this.getPendingEvent(_s15, _t58);
+
+                    case 254:
+                      _e62 = _context8.sent;
+                      this.sendEvent(a.ADD_DTMF_EVENT_LISTENER, r, _e62);_context8.next = 259;
+                      break;
+
+                    case 258:
+                      if (!_s15[_t58]) {
+                        _n58 = function _n58(n) {
+                          if (Object.values(d).includes(_t58)) {
+                            var _t59 = { dtmfId: _e61, eventName: n.type, type: n.type, tone: n.tone };_this36.processPendingEvents(_s15, n, _t59, a.ADD_DTMF_EVENT_LISTENER, r);
+                          } else _this36.logger.warn("Ignored event: " + JSON.stringify(n));
+                        };
+
+                        _s15[_t58] = _n58, _s15.addEventListener(_t58, _n58, _i28);
+                      }
+
+                    case 259:
+                      return _context8.abrupt("return", null);
+
+                    case 260:
+                      _n59 = (0, _slicedToArray3.default)(n, 2), _e63 = _n59[0], _t60 = _n59[1];
+
+                      if (!("audio" !== _t60.kind && "video" !== _t60.kind)) {
+                        _context8.next = 263;
+                        break;
+                      }
+
+                      return _context8.abrupt("return", (this.logger.warn("Invalid media type: " + JSON.stringify(_t60)), null));
+
+                    case 263:
+                      _r41 = document.createElement(_t60.kind);
+                      return _context8.abrupt("return", (Object.assign(_r41, _t60), document.body.appendChild(_r41), this.mediaElements.set(_e63, _r41), { id: _e63, sinkId: _r41.sinkId }));
+
+                    case 265:
+                      _n60 = (0, _slicedToArray3.default)(n, 2), _e64 = _n60[0], _t61 = _n60[1], _r42 = this.mediaElements.get(_e64);
+                      _context8.next = 268;
+                      return _r42.setSinkId(_t61);
+
+                    case 268:
+                      return _context8.abrupt("return", { id: _e64, sinkId: _r42.sinkId });
+
+                    case 269:
+                      _n61 = (0, _slicedToArray3.default)(n, 2), _e65 = _n61[0], _t62 = _n61[1], _r43 = _t62 ? this.getStream(_t62.id) : null;
+                      return _context8.abrupt("return", (this.mediaElements.get(_e65).srcObject = _r43, {}));
+
+                    case 271:
+                      _n62 = (0, _slicedToArray3.default)(n, 2), _e66 = _n62[0], _t63 = _n62[1];
+                      return _context8.abrupt("return", (this.mediaElements.get(_e66).muted = _t63, { id: _e66, muted: _t63 }));
+
+                    case 273:
+                      _n63 = (0, _slicedToArray3.default)(n, 2), _e67 = _n63[0], _t64 = _n63[1], _r44 = this.mediaElements.get(_e67);
+                      return _context8.abrupt("return", (_r44 && (_r44.hidden = _t64), {}));
+
+                    case 275:
+                      _n64 = (0, _slicedToArray3.default)(n, 2), _e68 = _n64[0], _t65 = _n64[1];
+                      return _context8.abrupt("return", (this.mediaElements.get(_e68).volume = _t65, {}));
+
+                    case 277:
+                      _n65 = (0, _slicedToArray3.default)(n, 1), _e69 = _n65[0];
+                      return _context8.abrupt("return", (this.mediaElements.get(_e69).play(), {}));
+
+                    case 279:
+                      _n66 = (0, _slicedToArray3.default)(n, 1), _e70 = _n66[0];
+                      return _context8.abrupt("return", (this.mediaElements.get(_e70).pause(), {}));
+
+                    case 281:
+                      _n67 = (0, _slicedToArray3.default)(n, 1), _e71 = _n67[0];
+                      return _context8.abrupt("return", (this.mediaElements.get(_e71).remove(), {}));
+
+                    case 283:
+                      _n68 = (0, _slicedToArray3.default)(n, 2), _e72 = _n68[0], _t66 = _n68[1], _r45 = this.tracks.get(_e72);
+                      return _context8.abrupt("return", (_r45.enabled = _t66, this.makeTrackTO(_r45)));
+
+                    case 285:
+                      _n69 = (0, _slicedToArray3.default)(n, 1), _e73 = _n69[0], _t67 = this.tracks.get(_e73);
+                      return _context8.abrupt("return", (_t67 && _t67.stop(), {}));
+
+                    case 287:
+                      _n70 = (0, _slicedToArray3.default)(n, 1), _e74 = _n70[0];
+                      return _context8.abrupt("return", this.tracks.get(_e74).getSettings());
+
+                    case 289:
+                      _n71 = (0, _slicedToArray3.default)(n, 2), _e75 = _n71[0], _t68 = _n71[1], _r46 = this.senders.get(_e75).createEncodedStreams();
+                      return _context8.abrupt("return", (this.streams.set(_t68.id, _r46), this.streams.set(_t68.readable.id, _r46.readable), this.streams.set(_t68.writable.id, _r46.writable), _t68));
+
+                    case 291:
+                      _n72 = (0, _slicedToArray3.default)(n, 2), _e76 = _n72[0], _t69 = _n72[1], _r47 = this.receivers.get(_e76).createEncodedStreams();
+                      return _context8.abrupt("return", (this.streams.set(_t69.id, _r47), this.streams.set(_t69.readable.id, _r47.readable), this.streams.set(_t69.writable.id, _r47.writable), _t69));
+
+                    case 293:
+                      _n73 = (0, _slicedToArray3.default)(n, 1), _e77 = _n73[0];
+                      return _context8.abrupt("return", (_e77.pcIds.forEach(function (e) {
+                        _this36.pcs.delete(e);
+                      }), _e77.streamIds.forEach(function (e) {
+                        var t = _this36.streams.get(e);t && ("function" == typeof t.getTracks && t.getTracks().forEach(function (e) {
+                          e.stop();
+                        }), _this36.streams.delete(e));
+                      }), _e77.trackIds.forEach(function (e) {
+                        _this36.tracks.delete(e);
+                      }), _e77.workerIds.forEach(function (e) {
+                        var t = _this36.workers.get(e);t && t.terminate(), _this36.workers.delete(e);
+                      }), _e77.mediaElementIds.forEach(function (e) {
+                        var t = _this36.mediaElements.get(e);t && (t.remove(), _this36.mediaElements.delete(e));
+                      }), _e77.transceiverIds.forEach(function (e) {
+                        _this36.transceivers.delete(e);
+                      }), _e77.senderIds.forEach(function (e) {
+                        _this36.senders.delete(e);
+                      }), _e77.receiverIds.forEach(function (e) {
+                        _this36.receivers.delete(e);
+                      }), {}));
+
+                    case 295:
+                      return _context8.abrupt("return", null);
+
+                    case 296:
+                    case "end":
+                      return _context8.stop();
+                  }
+                }
+              }, _callee8, this);
+            }));
+
+            function callWebRTCApi(_x10, _x11, _x12) {
+              return _ref8.apply(this, arguments);
+            }
+
+            return callWebRTCApi;
+          }()
+        }, {
+          key: "sendMessage",
+          value: function sendMessage(e) {
+            this.logger.debug("Sending message: " + JSON.stringify(e));var t = e.message,
+                r = _.deflateRaw(JSON.stringify(t));e.message = r;var n = new TextEncoder().encode(JSON.stringify(e)),
+                i = n.byteLength,
+                s = new Uint8Array([i, i >> 8, i >> 16, i >> 24]);this.channel.sendMessage(s), this.channel.sendMessage(n);
+          }
+        }, {
+          key: "sendEvent",
+          value: function sendEvent(e, t, r) {
+            var n = { requestId: t, type: "event", message: { api: e, event: r } };this.sendMessage(n);
+          }
+        }, {
+          key: "sendResponse",
+          value: function sendResponse(e, t, r) {
+            var n = { requestId: t, type: "response", message: { api: e, response: r } };this.sendMessage(n);
+          }
+        }, {
+          key: "sendError",
+          value: function sendError(e, t, r) {
+            var n = { requestId: t, type: "error", message: { api: e, error: r } };this.sendMessage(n);
+          }
+        }, {
+          key: "handleWebRTCApi",
+          value: function () {
+            var _ref9 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee9(e) {
+              var _t70;
+
+              return _regenerator2.default.wrap(function _callee9$(_context9) {
+                while (1) {
+                  switch (_context9.prev = _context9.next) {
+                    case 0:
+                      _context9.prev = 0;
+                      _context9.next = 3;
+                      return this.callWebRTCApi(e.message.api, e.requestId, e.message.args);
+
+                    case 3:
+                      _t70 = _context9.sent;
+                      _t70 && this.sendResponse(e.message.api, e.requestId, _t70);_context9.next = 10;
+                      break;
+
+                    case 7:
+                      _context9.prev = 7;
+                      _context9.t0 = _context9["catch"](0);
+                      this.logger.error("Error handling WebRTC API: " + JSON.stringify(e) + ", message: " + (_context9.t0.message ? _context9.t0.message : "(no message)") + ", error: " + JSON.stringify(_context9.t0)), this.logger.trace(_context9.t0), this.sendError(e.message.api, e.requestId, { name: _context9.t0.name, message: _context9.t0.message });
+                    case 10:
+                    case "end":
+                      return _context9.stop();
+                  }
+                }
+              }, _callee9, this, [[0, 7]]);
+            }));
+
+            function handleWebRTCApi(_x13) {
+              return _ref9.apply(this, arguments);
+            }
+
+            return handleWebRTCApi;
+          }()
+        }, {
+          key: "processPendingEvents",
+          value: function processPendingEvents(e, t, r, n, i) {
+            if (e.pendingEvents.has(t.type)) {
+              e.pendingEvents.get(t.type).push(r);var _n74 = e.eventPromises.get(t.type);_n74 && _n74.forEach(function (e) {
+                e.resolve(r);
+              });
+            } else this.sendEvent(n, i, r), e.pendingEvents.set(t.type, []);
+          }
+        }, {
+          key: "handleMessage",
+          value: function handleMessage(e) {
+            var t = e.message,
+                r = _.inflateRaw(t),
+                n = this.decoder.decode(r);e.message = JSON.parse(n), e.message.api && e.requestId && e.message.args ? this.handleWebRTCApi(e) : (this.logger.error("Invalid message format: " + JSON.stringify(e)), this.logger.trace(e));
+          }
+        }, {
+          key: "onClose",
+          value: function onClose(e) {
+            this.logger.info("WebRTC redir custom channel closed: " + JSON.stringify(e) + "\""), this.release();
+          }
+        }, {
+          key: "release",
+          value: function release() {
+            this.streams.forEach(function (e) {
+              e.getTracks().forEach(function (e) {
+                e.stop();
+              });
+            }), this.mediaElements.forEach(function (e) {
+              e.remove();
+            });
+          }
+        }]);
+        return g;
+      }();
+
+      function v(e, t, r) {
+        globalThis.DCVWebRTCRedirProxy = t, m.initCallbacks ? (m.initCallbacks.forEach(function (n, i) {
+          clearTimeout(n), i({ success: e, proxy: t, error: r });
+        }), m.initCallbacks.clear()) : s().warn("No DCVWebRTCPeerConnectionProxy.initCallback was specified.");
+      }try {
+        window.DCVWebRTCPeerConnectionProxy = m;var _e78 = new m({ logger: s() });_e78.sendHelloRequest().then(function (t) {
+          _e78.logger.info("Successfully received hello response from client: " + JSON.stringify(t)), _e78.clientInfo = t, v(!0, _e78);
+        }).catch(function (e) {
+          var t = "Running in an invalid dcv webrtc env, skipping setting up proxy: " + JSON.stringify(e);s().warn(t), v(!1, null, t);
+        });
+      } catch (e) {
+        var _t71 = e.message;v(!1, null, _t71), s().info("Skipping setting up proxy in client env: " + _t71);
+      }
+    }(), n;
+  }();
+});
+
+},{"babel-runtime/helpers/asyncToGenerator":14,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/slicedToArray":20,"babel-runtime/helpers/toArray":21,"babel-runtime/helpers/typeof":22,"babel-runtime/regenerator":23}],2:[function(require,module,exports){
 (function (global){(function (){
 //===============================================
 // By using these Developer Materials, you accept and agree to comply with
@@ -653,23 +4912,29 @@ a.createMessageByid=function(a,b,c,d,h,p){for(var g=[],B=6;B<arguments.length;B+
 "";switch(a){default:b="req";break;case h.reply:b="reply";break;case h.event_req:b="event-req";break;case h.event_reply:b="event-reply"}return b};a._version=1;return a}();a.WsJsonUtil=b}},p={};return e(307)}()});
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
+module.exports = { "default": require("core-js/library/fn/array/from"), __esModule: true };
+},{"core-js/library/fn/array/from":24}],4:[function(require,module,exports){
+module.exports = { "default": require("core-js/library/fn/get-iterator"), __esModule: true };
+},{"core-js/library/fn/get-iterator":25}],5:[function(require,module,exports){
+module.exports = { "default": require("core-js/library/fn/is-iterable"), __esModule: true };
+},{"core-js/library/fn/is-iterable":26}],6:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/create"), __esModule: true };
-},{"core-js/library/fn/object/create":18}],3:[function(require,module,exports){
+},{"core-js/library/fn/object/create":27}],7:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/define-property"), __esModule: true };
-},{"core-js/library/fn/object/define-property":19}],4:[function(require,module,exports){
+},{"core-js/library/fn/object/define-property":28}],8:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/get-own-property-descriptor"), __esModule: true };
-},{"core-js/library/fn/object/get-own-property-descriptor":20}],5:[function(require,module,exports){
+},{"core-js/library/fn/object/get-own-property-descriptor":29}],9:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/get-prototype-of"), __esModule: true };
-},{"core-js/library/fn/object/get-prototype-of":21}],6:[function(require,module,exports){
+},{"core-js/library/fn/object/get-prototype-of":30}],10:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/set-prototype-of"), __esModule: true };
-},{"core-js/library/fn/object/set-prototype-of":22}],7:[function(require,module,exports){
+},{"core-js/library/fn/object/set-prototype-of":31}],11:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/promise"), __esModule: true };
-},{"core-js/library/fn/promise":23}],8:[function(require,module,exports){
+},{"core-js/library/fn/promise":32}],12:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/symbol"), __esModule: true };
-},{"core-js/library/fn/symbol":24}],9:[function(require,module,exports){
+},{"core-js/library/fn/symbol":33}],13:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/symbol/iterator"), __esModule: true };
-},{"core-js/library/fn/symbol/iterator":25}],10:[function(require,module,exports){
+},{"core-js/library/fn/symbol/iterator":34}],14:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -708,7 +4973,7 @@ exports.default = function (fn) {
     });
   };
 };
-},{"../core-js/promise":7}],11:[function(require,module,exports){
+},{"../core-js/promise":11}],15:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -718,7 +4983,7 @@ exports.default = function (instance, Constructor) {
     throw new TypeError("Cannot call a class as a function");
   }
 };
-},{}],12:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -746,7 +5011,7 @@ exports.default = function () {
     return Constructor;
   };
 }();
-},{"../core-js/object/define-property":3}],13:[function(require,module,exports){
+},{"../core-js/object/define-property":7}],17:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -785,7 +5050,7 @@ exports.default = function get(object, property, receiver) {
     return getter.call(receiver);
   }
 };
-},{"../core-js/object/get-own-property-descriptor":4,"../core-js/object/get-prototype-of":5}],14:[function(require,module,exports){
+},{"../core-js/object/get-own-property-descriptor":8,"../core-js/object/get-prototype-of":9}],18:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -819,7 +5084,7 @@ exports.default = function (subClass, superClass) {
   });
   if (superClass) _setPrototypeOf2.default ? (0, _setPrototypeOf2.default)(subClass, superClass) : subClass.__proto__ = superClass;
 };
-},{"../core-js/object/create":2,"../core-js/object/set-prototype-of":6,"../helpers/typeof":16}],15:[function(require,module,exports){
+},{"../core-js/object/create":6,"../core-js/object/set-prototype-of":10,"../helpers/typeof":22}],19:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -837,7 +5102,73 @@ exports.default = function (self, call) {
 
   return call && ((typeof call === "undefined" ? "undefined" : (0, _typeof3.default)(call)) === "object" || typeof call === "function") ? call : self;
 };
-},{"../helpers/typeof":16}],16:[function(require,module,exports){
+},{"../helpers/typeof":22}],20:[function(require,module,exports){
+"use strict";
+
+exports.__esModule = true;
+
+var _isIterable2 = require("../core-js/is-iterable");
+
+var _isIterable3 = _interopRequireDefault(_isIterable2);
+
+var _getIterator2 = require("../core-js/get-iterator");
+
+var _getIterator3 = _interopRequireDefault(_getIterator2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  function sliceIterator(arr, i) {
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _e = undefined;
+
+    try {
+      for (var _i = (0, _getIterator3.default)(arr), _s; !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+
+        if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"]) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+
+    return _arr;
+  }
+
+  return function (arr, i) {
+    if (Array.isArray(arr)) {
+      return arr;
+    } else if ((0, _isIterable3.default)(Object(arr))) {
+      return sliceIterator(arr, i);
+    } else {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance");
+    }
+  };
+}();
+},{"../core-js/get-iterator":4,"../core-js/is-iterable":5}],21:[function(require,module,exports){
+"use strict";
+
+exports.__esModule = true;
+
+var _from = require("../core-js/array/from");
+
+var _from2 = _interopRequireDefault(_from);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (arr) {
+  return Array.isArray(arr) ? arr : (0, _from2.default)(arr);
+};
+},{"../core-js/array/from":3}],22:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -859,39 +5190,54 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 } : function (obj) {
   return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
 };
-},{"../core-js/symbol":8,"../core-js/symbol/iterator":9}],17:[function(require,module,exports){
+},{"../core-js/symbol":12,"../core-js/symbol/iterator":13}],23:[function(require,module,exports){
 module.exports = require("regenerator-runtime");
 
-},{"regenerator-runtime":115}],18:[function(require,module,exports){
+},{"regenerator-runtime":128}],24:[function(require,module,exports){
+require('../../modules/es6.string.iterator');
+require('../../modules/es6.array.from');
+module.exports = require('../../modules/_core').Array.from;
+
+},{"../../modules/_core":42,"../../modules/es6.array.from":112,"../../modules/es6.string.iterator":121}],25:[function(require,module,exports){
+require('../modules/web.dom.iterable');
+require('../modules/es6.string.iterator');
+module.exports = require('../modules/core.get-iterator');
+
+},{"../modules/core.get-iterator":110,"../modules/es6.string.iterator":121,"../modules/web.dom.iterable":127}],26:[function(require,module,exports){
+require('../modules/web.dom.iterable');
+require('../modules/es6.string.iterator');
+module.exports = require('../modules/core.is-iterable');
+
+},{"../modules/core.is-iterable":111,"../modules/es6.string.iterator":121,"../modules/web.dom.iterable":127}],27:[function(require,module,exports){
 require('../../modules/es6.object.create');
 var $Object = require('../../modules/_core').Object;
 module.exports = function create(P, D) {
   return $Object.create(P, D);
 };
 
-},{"../../modules/_core":33,"../../modules/es6.object.create":101}],19:[function(require,module,exports){
+},{"../../modules/_core":42,"../../modules/es6.object.create":114}],28:[function(require,module,exports){
 require('../../modules/es6.object.define-property');
 var $Object = require('../../modules/_core').Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
 };
 
-},{"../../modules/_core":33,"../../modules/es6.object.define-property":102}],20:[function(require,module,exports){
+},{"../../modules/_core":42,"../../modules/es6.object.define-property":115}],29:[function(require,module,exports){
 require('../../modules/es6.object.get-own-property-descriptor');
 var $Object = require('../../modules/_core').Object;
 module.exports = function getOwnPropertyDescriptor(it, key) {
   return $Object.getOwnPropertyDescriptor(it, key);
 };
 
-},{"../../modules/_core":33,"../../modules/es6.object.get-own-property-descriptor":103}],21:[function(require,module,exports){
+},{"../../modules/_core":42,"../../modules/es6.object.get-own-property-descriptor":116}],30:[function(require,module,exports){
 require('../../modules/es6.object.get-prototype-of');
 module.exports = require('../../modules/_core').Object.getPrototypeOf;
 
-},{"../../modules/_core":33,"../../modules/es6.object.get-prototype-of":104}],22:[function(require,module,exports){
+},{"../../modules/_core":42,"../../modules/es6.object.get-prototype-of":117}],31:[function(require,module,exports){
 require('../../modules/es6.object.set-prototype-of');
 module.exports = require('../../modules/_core').Object.setPrototypeOf;
 
-},{"../../modules/_core":33,"../../modules/es6.object.set-prototype-of":105}],23:[function(require,module,exports){
+},{"../../modules/_core":42,"../../modules/es6.object.set-prototype-of":118}],32:[function(require,module,exports){
 require('../modules/es6.object.to-string');
 require('../modules/es6.string.iterator');
 require('../modules/web.dom.iterable');
@@ -900,42 +5246,42 @@ require('../modules/es7.promise.finally');
 require('../modules/es7.promise.try');
 module.exports = require('../modules/_core').Promise;
 
-},{"../modules/_core":33,"../modules/es6.object.to-string":106,"../modules/es6.promise":107,"../modules/es6.string.iterator":108,"../modules/es7.promise.finally":110,"../modules/es7.promise.try":111,"../modules/web.dom.iterable":114}],24:[function(require,module,exports){
+},{"../modules/_core":42,"../modules/es6.object.to-string":119,"../modules/es6.promise":120,"../modules/es6.string.iterator":121,"../modules/es7.promise.finally":123,"../modules/es7.promise.try":124,"../modules/web.dom.iterable":127}],33:[function(require,module,exports){
 require('../../modules/es6.symbol');
 require('../../modules/es6.object.to-string');
 require('../../modules/es7.symbol.async-iterator');
 require('../../modules/es7.symbol.observable');
 module.exports = require('../../modules/_core').Symbol;
 
-},{"../../modules/_core":33,"../../modules/es6.object.to-string":106,"../../modules/es6.symbol":109,"../../modules/es7.symbol.async-iterator":112,"../../modules/es7.symbol.observable":113}],25:[function(require,module,exports){
+},{"../../modules/_core":42,"../../modules/es6.object.to-string":119,"../../modules/es6.symbol":122,"../../modules/es7.symbol.async-iterator":125,"../../modules/es7.symbol.observable":126}],34:[function(require,module,exports){
 require('../../modules/es6.string.iterator');
 require('../../modules/web.dom.iterable');
 module.exports = require('../../modules/_wks-ext').f('iterator');
 
-},{"../../modules/_wks-ext":97,"../../modules/es6.string.iterator":108,"../../modules/web.dom.iterable":114}],26:[function(require,module,exports){
+},{"../../modules/_wks-ext":107,"../../modules/es6.string.iterator":121,"../../modules/web.dom.iterable":127}],35:[function(require,module,exports){
 module.exports = function (it) {
   if (typeof it != 'function') throw TypeError(it + ' is not a function!');
   return it;
 };
 
-},{}],27:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 module.exports = function () { /* empty */ };
 
-},{}],28:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 module.exports = function (it, Constructor, name, forbiddenField) {
   if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
     throw TypeError(name + ': incorrect invocation!');
   } return it;
 };
 
-},{}],29:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 var isObject = require('./_is-object');
 module.exports = function (it) {
   if (!isObject(it)) throw TypeError(it + ' is not an object!');
   return it;
 };
 
-},{"./_is-object":52}],30:[function(require,module,exports){
+},{"./_is-object":62}],39:[function(require,module,exports){
 // false -> Array#indexOf
 // true  -> Array#includes
 var toIObject = require('./_to-iobject');
@@ -960,7 +5306,7 @@ module.exports = function (IS_INCLUDES) {
   };
 };
 
-},{"./_to-absolute-index":88,"./_to-iobject":90,"./_to-length":91}],31:[function(require,module,exports){
+},{"./_to-absolute-index":98,"./_to-iobject":100,"./_to-length":101}],40:[function(require,module,exports){
 // getting tag from 19.1.3.6 Object.prototype.toString()
 var cof = require('./_cof');
 var TAG = require('./_wks')('toStringTag');
@@ -985,18 +5331,28 @@ module.exports = function (it) {
     : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
 };
 
-},{"./_cof":32,"./_wks":98}],32:[function(require,module,exports){
+},{"./_cof":41,"./_wks":108}],41:[function(require,module,exports){
 var toString = {}.toString;
 
 module.exports = function (it) {
   return toString.call(it).slice(8, -1);
 };
 
-},{}],33:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 var core = module.exports = { version: '2.6.12' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
-},{}],34:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
+'use strict';
+var $defineProperty = require('./_object-dp');
+var createDesc = require('./_property-desc');
+
+module.exports = function (object, index, value) {
+  if (index in object) $defineProperty.f(object, index, createDesc(0, value));
+  else object[index] = value;
+};
+
+},{"./_object-dp":74,"./_property-desc":87}],44:[function(require,module,exports){
 // optional / simple context binding
 var aFunction = require('./_a-function');
 module.exports = function (fn, that, length) {
@@ -1018,20 +5374,20 @@ module.exports = function (fn, that, length) {
   };
 };
 
-},{"./_a-function":26}],35:[function(require,module,exports){
+},{"./_a-function":35}],45:[function(require,module,exports){
 // 7.2.1 RequireObjectCoercible(argument)
 module.exports = function (it) {
   if (it == undefined) throw TypeError("Can't call method on  " + it);
   return it;
 };
 
-},{}],36:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 // Thank's IE8 for his funny defineProperty
 module.exports = !require('./_fails')(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
-},{"./_fails":41}],37:[function(require,module,exports){
+},{"./_fails":51}],47:[function(require,module,exports){
 var isObject = require('./_is-object');
 var document = require('./_global').document;
 // typeof document.createElement is 'object' in old IE
@@ -1040,13 +5396,13 @@ module.exports = function (it) {
   return is ? document.createElement(it) : {};
 };
 
-},{"./_global":43,"./_is-object":52}],38:[function(require,module,exports){
+},{"./_global":53,"./_is-object":62}],48:[function(require,module,exports){
 // IE 8- don't enum bug keys
 module.exports = (
   'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
 ).split(',');
 
-},{}],39:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 // all enumerable object keys, includes symbols
 var getKeys = require('./_object-keys');
 var gOPS = require('./_object-gops');
@@ -1063,7 +5419,7 @@ module.exports = function (it) {
   } return result;
 };
 
-},{"./_object-gops":69,"./_object-keys":72,"./_object-pie":73}],40:[function(require,module,exports){
+},{"./_object-gops":79,"./_object-keys":82,"./_object-pie":83}],50:[function(require,module,exports){
 var global = require('./_global');
 var core = require('./_core');
 var ctx = require('./_ctx');
@@ -1127,7 +5483,7 @@ $export.U = 64;  // safe
 $export.R = 128; // real proto method for `library`
 module.exports = $export;
 
-},{"./_core":33,"./_ctx":34,"./_global":43,"./_has":44,"./_hide":45}],41:[function(require,module,exports){
+},{"./_core":42,"./_ctx":44,"./_global":53,"./_has":54,"./_hide":55}],51:[function(require,module,exports){
 module.exports = function (exec) {
   try {
     return !!exec();
@@ -1136,7 +5492,7 @@ module.exports = function (exec) {
   }
 };
 
-},{}],42:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 var ctx = require('./_ctx');
 var call = require('./_iter-call');
 var isArrayIter = require('./_is-array-iter');
@@ -1163,7 +5519,7 @@ var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) 
 exports.BREAK = BREAK;
 exports.RETURN = RETURN;
 
-},{"./_an-object":29,"./_ctx":34,"./_is-array-iter":50,"./_iter-call":53,"./_to-length":91,"./core.get-iterator-method":99}],43:[function(require,module,exports){
+},{"./_an-object":38,"./_ctx":44,"./_is-array-iter":60,"./_iter-call":63,"./_to-length":101,"./core.get-iterator-method":109}],53:[function(require,module,exports){
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
 var global = module.exports = typeof window != 'undefined' && window.Math == Math
   ? window : typeof self != 'undefined' && self.Math == Math ? self
@@ -1171,13 +5527,13 @@ var global = module.exports = typeof window != 'undefined' && window.Math == Mat
   : Function('return this')();
 if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
-},{}],44:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 var hasOwnProperty = {}.hasOwnProperty;
 module.exports = function (it, key) {
   return hasOwnProperty.call(it, key);
 };
 
-},{}],45:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 var dP = require('./_object-dp');
 var createDesc = require('./_property-desc');
 module.exports = require('./_descriptors') ? function (object, key, value) {
@@ -1187,16 +5543,16 @@ module.exports = require('./_descriptors') ? function (object, key, value) {
   return object;
 };
 
-},{"./_descriptors":36,"./_object-dp":64,"./_property-desc":77}],46:[function(require,module,exports){
+},{"./_descriptors":46,"./_object-dp":74,"./_property-desc":87}],56:[function(require,module,exports){
 var document = require('./_global').document;
 module.exports = document && document.documentElement;
 
-},{"./_global":43}],47:[function(require,module,exports){
+},{"./_global":53}],57:[function(require,module,exports){
 module.exports = !require('./_descriptors') && !require('./_fails')(function () {
   return Object.defineProperty(require('./_dom-create')('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
-},{"./_descriptors":36,"./_dom-create":37,"./_fails":41}],48:[function(require,module,exports){
+},{"./_descriptors":46,"./_dom-create":47,"./_fails":51}],58:[function(require,module,exports){
 // fast apply, http://jsperf.lnkit.com/fast-apply/5
 module.exports = function (fn, args, that) {
   var un = that === undefined;
@@ -1214,7 +5570,7 @@ module.exports = function (fn, args, that) {
   } return fn.apply(that, args);
 };
 
-},{}],49:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
 var cof = require('./_cof');
 // eslint-disable-next-line no-prototype-builtins
@@ -1222,7 +5578,7 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
   return cof(it) == 'String' ? it.split('') : Object(it);
 };
 
-},{"./_cof":32}],50:[function(require,module,exports){
+},{"./_cof":41}],60:[function(require,module,exports){
 // check on default Array iterator
 var Iterators = require('./_iterators');
 var ITERATOR = require('./_wks')('iterator');
@@ -1232,19 +5588,19 @@ module.exports = function (it) {
   return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
 };
 
-},{"./_iterators":58,"./_wks":98}],51:[function(require,module,exports){
+},{"./_iterators":68,"./_wks":108}],61:[function(require,module,exports){
 // 7.2.2 IsArray(argument)
 var cof = require('./_cof');
 module.exports = Array.isArray || function isArray(arg) {
   return cof(arg) == 'Array';
 };
 
-},{"./_cof":32}],52:[function(require,module,exports){
+},{"./_cof":41}],62:[function(require,module,exports){
 module.exports = function (it) {
   return typeof it === 'object' ? it !== null : typeof it === 'function';
 };
 
-},{}],53:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 // call something on iterator step with safe closing on error
 var anObject = require('./_an-object');
 module.exports = function (iterator, fn, value, entries) {
@@ -1258,7 +5614,7 @@ module.exports = function (iterator, fn, value, entries) {
   }
 };
 
-},{"./_an-object":29}],54:[function(require,module,exports){
+},{"./_an-object":38}],64:[function(require,module,exports){
 'use strict';
 var create = require('./_object-create');
 var descriptor = require('./_property-desc');
@@ -1273,7 +5629,7 @@ module.exports = function (Constructor, NAME, next) {
   setToStringTag(Constructor, NAME + ' Iterator');
 };
 
-},{"./_hide":45,"./_object-create":63,"./_property-desc":77,"./_set-to-string-tag":82,"./_wks":98}],55:[function(require,module,exports){
+},{"./_hide":55,"./_object-create":73,"./_property-desc":87,"./_set-to-string-tag":92,"./_wks":108}],65:[function(require,module,exports){
 'use strict';
 var LIBRARY = require('./_library');
 var $export = require('./_export');
@@ -1344,7 +5700,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
   return methods;
 };
 
-},{"./_export":40,"./_hide":45,"./_iter-create":54,"./_iterators":58,"./_library":59,"./_object-gpo":70,"./_redefine":79,"./_set-to-string-tag":82,"./_wks":98}],56:[function(require,module,exports){
+},{"./_export":50,"./_hide":55,"./_iter-create":64,"./_iterators":68,"./_library":69,"./_object-gpo":80,"./_redefine":89,"./_set-to-string-tag":92,"./_wks":108}],66:[function(require,module,exports){
 var ITERATOR = require('./_wks')('iterator');
 var SAFE_CLOSING = false;
 
@@ -1368,18 +5724,18 @@ module.exports = function (exec, skipClosing) {
   return safe;
 };
 
-},{"./_wks":98}],57:[function(require,module,exports){
+},{"./_wks":108}],67:[function(require,module,exports){
 module.exports = function (done, value) {
   return { value: value, done: !!done };
 };
 
-},{}],58:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 module.exports = {};
 
-},{}],59:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 module.exports = true;
 
-},{}],60:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 var META = require('./_uid')('meta');
 var isObject = require('./_is-object');
 var has = require('./_has');
@@ -1434,7 +5790,7 @@ var meta = module.exports = {
   onFreeze: onFreeze
 };
 
-},{"./_fails":41,"./_has":44,"./_is-object":52,"./_object-dp":64,"./_uid":94}],61:[function(require,module,exports){
+},{"./_fails":51,"./_has":54,"./_is-object":62,"./_object-dp":74,"./_uid":104}],71:[function(require,module,exports){
 var global = require('./_global');
 var macrotask = require('./_task').set;
 var Observer = global.MutationObserver || global.WebKitMutationObserver;
@@ -1505,7 +5861,7 @@ module.exports = function () {
   };
 };
 
-},{"./_cof":32,"./_global":43,"./_task":87}],62:[function(require,module,exports){
+},{"./_cof":41,"./_global":53,"./_task":97}],72:[function(require,module,exports){
 'use strict';
 // 25.4.1.5 NewPromiseCapability(C)
 var aFunction = require('./_a-function');
@@ -1525,7 +5881,7 @@ module.exports.f = function (C) {
   return new PromiseCapability(C);
 };
 
-},{"./_a-function":26}],63:[function(require,module,exports){
+},{"./_a-function":35}],73:[function(require,module,exports){
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = require('./_an-object');
 var dPs = require('./_object-dps');
@@ -1568,7 +5924,7 @@ module.exports = Object.create || function create(O, Properties) {
   return Properties === undefined ? result : dPs(result, Properties);
 };
 
-},{"./_an-object":29,"./_dom-create":37,"./_enum-bug-keys":38,"./_html":46,"./_object-dps":65,"./_shared-key":83}],64:[function(require,module,exports){
+},{"./_an-object":38,"./_dom-create":47,"./_enum-bug-keys":48,"./_html":56,"./_object-dps":75,"./_shared-key":93}],74:[function(require,module,exports){
 var anObject = require('./_an-object');
 var IE8_DOM_DEFINE = require('./_ie8-dom-define');
 var toPrimitive = require('./_to-primitive');
@@ -1586,7 +5942,7 @@ exports.f = require('./_descriptors') ? Object.defineProperty : function defineP
   return O;
 };
 
-},{"./_an-object":29,"./_descriptors":36,"./_ie8-dom-define":47,"./_to-primitive":93}],65:[function(require,module,exports){
+},{"./_an-object":38,"./_descriptors":46,"./_ie8-dom-define":57,"./_to-primitive":103}],75:[function(require,module,exports){
 var dP = require('./_object-dp');
 var anObject = require('./_an-object');
 var getKeys = require('./_object-keys');
@@ -1601,7 +5957,7 @@ module.exports = require('./_descriptors') ? Object.defineProperties : function 
   return O;
 };
 
-},{"./_an-object":29,"./_descriptors":36,"./_object-dp":64,"./_object-keys":72}],66:[function(require,module,exports){
+},{"./_an-object":38,"./_descriptors":46,"./_object-dp":74,"./_object-keys":82}],76:[function(require,module,exports){
 var pIE = require('./_object-pie');
 var createDesc = require('./_property-desc');
 var toIObject = require('./_to-iobject');
@@ -1619,7 +5975,7 @@ exports.f = require('./_descriptors') ? gOPD : function getOwnPropertyDescriptor
   if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
 };
 
-},{"./_descriptors":36,"./_has":44,"./_ie8-dom-define":47,"./_object-pie":73,"./_property-desc":77,"./_to-iobject":90,"./_to-primitive":93}],67:[function(require,module,exports){
+},{"./_descriptors":46,"./_has":54,"./_ie8-dom-define":57,"./_object-pie":83,"./_property-desc":87,"./_to-iobject":100,"./_to-primitive":103}],77:[function(require,module,exports){
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 var toIObject = require('./_to-iobject');
 var gOPN = require('./_object-gopn').f;
@@ -1640,7 +5996,7 @@ module.exports.f = function getOwnPropertyNames(it) {
   return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
 };
 
-},{"./_object-gopn":68,"./_to-iobject":90}],68:[function(require,module,exports){
+},{"./_object-gopn":78,"./_to-iobject":100}],78:[function(require,module,exports){
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
 var $keys = require('./_object-keys-internal');
 var hiddenKeys = require('./_enum-bug-keys').concat('length', 'prototype');
@@ -1649,10 +6005,10 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return $keys(O, hiddenKeys);
 };
 
-},{"./_enum-bug-keys":38,"./_object-keys-internal":71}],69:[function(require,module,exports){
+},{"./_enum-bug-keys":48,"./_object-keys-internal":81}],79:[function(require,module,exports){
 exports.f = Object.getOwnPropertySymbols;
 
-},{}],70:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = require('./_has');
 var toObject = require('./_to-object');
@@ -1667,7 +6023,7 @@ module.exports = Object.getPrototypeOf || function (O) {
   } return O instanceof Object ? ObjectProto : null;
 };
 
-},{"./_has":44,"./_shared-key":83,"./_to-object":92}],71:[function(require,module,exports){
+},{"./_has":54,"./_shared-key":93,"./_to-object":102}],81:[function(require,module,exports){
 var has = require('./_has');
 var toIObject = require('./_to-iobject');
 var arrayIndexOf = require('./_array-includes')(false);
@@ -1686,7 +6042,7 @@ module.exports = function (object, names) {
   return result;
 };
 
-},{"./_array-includes":30,"./_has":44,"./_shared-key":83,"./_to-iobject":90}],72:[function(require,module,exports){
+},{"./_array-includes":39,"./_has":54,"./_shared-key":93,"./_to-iobject":100}],82:[function(require,module,exports){
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
 var $keys = require('./_object-keys-internal');
 var enumBugKeys = require('./_enum-bug-keys');
@@ -1695,10 +6051,10 @@ module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
 };
 
-},{"./_enum-bug-keys":38,"./_object-keys-internal":71}],73:[function(require,module,exports){
+},{"./_enum-bug-keys":48,"./_object-keys-internal":81}],83:[function(require,module,exports){
 exports.f = {}.propertyIsEnumerable;
 
-},{}],74:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 // most Object methods by ES6 should accept primitives
 var $export = require('./_export');
 var core = require('./_core');
@@ -1710,7 +6066,7 @@ module.exports = function (KEY, exec) {
   $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
 };
 
-},{"./_core":33,"./_export":40,"./_fails":41}],75:[function(require,module,exports){
+},{"./_core":42,"./_export":50,"./_fails":51}],85:[function(require,module,exports){
 module.exports = function (exec) {
   try {
     return { e: false, v: exec() };
@@ -1719,7 +6075,7 @@ module.exports = function (exec) {
   }
 };
 
-},{}],76:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 var anObject = require('./_an-object');
 var isObject = require('./_is-object');
 var newPromiseCapability = require('./_new-promise-capability');
@@ -1733,7 +6089,7 @@ module.exports = function (C, x) {
   return promiseCapability.promise;
 };
 
-},{"./_an-object":29,"./_is-object":52,"./_new-promise-capability":62}],77:[function(require,module,exports){
+},{"./_an-object":38,"./_is-object":62,"./_new-promise-capability":72}],87:[function(require,module,exports){
 module.exports = function (bitmap, value) {
   return {
     enumerable: !(bitmap & 1),
@@ -1743,7 +6099,7 @@ module.exports = function (bitmap, value) {
   };
 };
 
-},{}],78:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 var hide = require('./_hide');
 module.exports = function (target, src, safe) {
   for (var key in src) {
@@ -1752,10 +6108,10 @@ module.exports = function (target, src, safe) {
   } return target;
 };
 
-},{"./_hide":45}],79:[function(require,module,exports){
+},{"./_hide":55}],89:[function(require,module,exports){
 module.exports = require('./_hide');
 
-},{"./_hide":45}],80:[function(require,module,exports){
+},{"./_hide":55}],90:[function(require,module,exports){
 // Works with __proto__ only. Old v8 can't work with null proto objects.
 /* eslint-disable no-proto */
 var isObject = require('./_is-object');
@@ -1782,7 +6138,7 @@ module.exports = {
   check: check
 };
 
-},{"./_an-object":29,"./_ctx":34,"./_is-object":52,"./_object-gopd":66}],81:[function(require,module,exports){
+},{"./_an-object":38,"./_ctx":44,"./_is-object":62,"./_object-gopd":76}],91:[function(require,module,exports){
 'use strict';
 var global = require('./_global');
 var core = require('./_core');
@@ -1798,7 +6154,7 @@ module.exports = function (KEY) {
   });
 };
 
-},{"./_core":33,"./_descriptors":36,"./_global":43,"./_object-dp":64,"./_wks":98}],82:[function(require,module,exports){
+},{"./_core":42,"./_descriptors":46,"./_global":53,"./_object-dp":74,"./_wks":108}],92:[function(require,module,exports){
 var def = require('./_object-dp').f;
 var has = require('./_has');
 var TAG = require('./_wks')('toStringTag');
@@ -1807,14 +6163,14 @@ module.exports = function (it, tag, stat) {
   if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
 };
 
-},{"./_has":44,"./_object-dp":64,"./_wks":98}],83:[function(require,module,exports){
+},{"./_has":54,"./_object-dp":74,"./_wks":108}],93:[function(require,module,exports){
 var shared = require('./_shared')('keys');
 var uid = require('./_uid');
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
 
-},{"./_shared":84,"./_uid":94}],84:[function(require,module,exports){
+},{"./_shared":94,"./_uid":104}],94:[function(require,module,exports){
 var core = require('./_core');
 var global = require('./_global');
 var SHARED = '__core-js_shared__';
@@ -1828,7 +6184,7 @@ var store = global[SHARED] || (global[SHARED] = {});
   copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
 });
 
-},{"./_core":33,"./_global":43,"./_library":59}],85:[function(require,module,exports){
+},{"./_core":42,"./_global":53,"./_library":69}],95:[function(require,module,exports){
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
 var anObject = require('./_an-object');
 var aFunction = require('./_a-function');
@@ -1839,7 +6195,7 @@ module.exports = function (O, D) {
   return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
 };
 
-},{"./_a-function":26,"./_an-object":29,"./_wks":98}],86:[function(require,module,exports){
+},{"./_a-function":35,"./_an-object":38,"./_wks":108}],96:[function(require,module,exports){
 var toInteger = require('./_to-integer');
 var defined = require('./_defined');
 // true  -> String#at
@@ -1858,7 +6214,7 @@ module.exports = function (TO_STRING) {
   };
 };
 
-},{"./_defined":35,"./_to-integer":89}],87:[function(require,module,exports){
+},{"./_defined":45,"./_to-integer":99}],97:[function(require,module,exports){
 var ctx = require('./_ctx');
 var invoke = require('./_invoke');
 var html = require('./_html');
@@ -1944,7 +6300,7 @@ module.exports = {
   clear: clearTask
 };
 
-},{"./_cof":32,"./_ctx":34,"./_dom-create":37,"./_global":43,"./_html":46,"./_invoke":48}],88:[function(require,module,exports){
+},{"./_cof":41,"./_ctx":44,"./_dom-create":47,"./_global":53,"./_html":56,"./_invoke":58}],98:[function(require,module,exports){
 var toInteger = require('./_to-integer');
 var max = Math.max;
 var min = Math.min;
@@ -1953,7 +6309,7 @@ module.exports = function (index, length) {
   return index < 0 ? max(index + length, 0) : min(index, length);
 };
 
-},{"./_to-integer":89}],89:[function(require,module,exports){
+},{"./_to-integer":99}],99:[function(require,module,exports){
 // 7.1.4 ToInteger
 var ceil = Math.ceil;
 var floor = Math.floor;
@@ -1961,7 +6317,7 @@ module.exports = function (it) {
   return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
 };
 
-},{}],90:[function(require,module,exports){
+},{}],100:[function(require,module,exports){
 // to indexed object, toObject with fallback for non-array-like ES3 strings
 var IObject = require('./_iobject');
 var defined = require('./_defined');
@@ -1969,7 +6325,7 @@ module.exports = function (it) {
   return IObject(defined(it));
 };
 
-},{"./_defined":35,"./_iobject":49}],91:[function(require,module,exports){
+},{"./_defined":45,"./_iobject":59}],101:[function(require,module,exports){
 // 7.1.15 ToLength
 var toInteger = require('./_to-integer');
 var min = Math.min;
@@ -1977,14 +6333,14 @@ module.exports = function (it) {
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
 };
 
-},{"./_to-integer":89}],92:[function(require,module,exports){
+},{"./_to-integer":99}],102:[function(require,module,exports){
 // 7.1.13 ToObject(argument)
 var defined = require('./_defined');
 module.exports = function (it) {
   return Object(defined(it));
 };
 
-},{"./_defined":35}],93:[function(require,module,exports){
+},{"./_defined":45}],103:[function(require,module,exports){
 // 7.1.1 ToPrimitive(input [, PreferredType])
 var isObject = require('./_is-object');
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
@@ -1998,20 +6354,20 @@ module.exports = function (it, S) {
   throw TypeError("Can't convert object to primitive value");
 };
 
-},{"./_is-object":52}],94:[function(require,module,exports){
+},{"./_is-object":62}],104:[function(require,module,exports){
 var id = 0;
 var px = Math.random();
 module.exports = function (key) {
   return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
 };
 
-},{}],95:[function(require,module,exports){
+},{}],105:[function(require,module,exports){
 var global = require('./_global');
 var navigator = global.navigator;
 
 module.exports = navigator && navigator.userAgent || '';
 
-},{"./_global":43}],96:[function(require,module,exports){
+},{"./_global":53}],106:[function(require,module,exports){
 var global = require('./_global');
 var core = require('./_core');
 var LIBRARY = require('./_library');
@@ -2022,10 +6378,10 @@ module.exports = function (name) {
   if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
 };
 
-},{"./_core":33,"./_global":43,"./_library":59,"./_object-dp":64,"./_wks-ext":97}],97:[function(require,module,exports){
+},{"./_core":42,"./_global":53,"./_library":69,"./_object-dp":74,"./_wks-ext":107}],107:[function(require,module,exports){
 exports.f = require('./_wks');
 
-},{"./_wks":98}],98:[function(require,module,exports){
+},{"./_wks":108}],108:[function(require,module,exports){
 var store = require('./_shared')('wks');
 var uid = require('./_uid');
 var Symbol = require('./_global').Symbol;
@@ -2038,7 +6394,7 @@ var $exports = module.exports = function (name) {
 
 $exports.store = store;
 
-},{"./_global":43,"./_shared":84,"./_uid":94}],99:[function(require,module,exports){
+},{"./_global":53,"./_shared":94,"./_uid":104}],109:[function(require,module,exports){
 var classof = require('./_classof');
 var ITERATOR = require('./_wks')('iterator');
 var Iterators = require('./_iterators');
@@ -2048,7 +6404,67 @@ module.exports = require('./_core').getIteratorMethod = function (it) {
     || Iterators[classof(it)];
 };
 
-},{"./_classof":31,"./_core":33,"./_iterators":58,"./_wks":98}],100:[function(require,module,exports){
+},{"./_classof":40,"./_core":42,"./_iterators":68,"./_wks":108}],110:[function(require,module,exports){
+var anObject = require('./_an-object');
+var get = require('./core.get-iterator-method');
+module.exports = require('./_core').getIterator = function (it) {
+  var iterFn = get(it);
+  if (typeof iterFn != 'function') throw TypeError(it + ' is not iterable!');
+  return anObject(iterFn.call(it));
+};
+
+},{"./_an-object":38,"./_core":42,"./core.get-iterator-method":109}],111:[function(require,module,exports){
+var classof = require('./_classof');
+var ITERATOR = require('./_wks')('iterator');
+var Iterators = require('./_iterators');
+module.exports = require('./_core').isIterable = function (it) {
+  var O = Object(it);
+  return O[ITERATOR] !== undefined
+    || '@@iterator' in O
+    // eslint-disable-next-line no-prototype-builtins
+    || Iterators.hasOwnProperty(classof(O));
+};
+
+},{"./_classof":40,"./_core":42,"./_iterators":68,"./_wks":108}],112:[function(require,module,exports){
+'use strict';
+var ctx = require('./_ctx');
+var $export = require('./_export');
+var toObject = require('./_to-object');
+var call = require('./_iter-call');
+var isArrayIter = require('./_is-array-iter');
+var toLength = require('./_to-length');
+var createProperty = require('./_create-property');
+var getIterFn = require('./core.get-iterator-method');
+
+$export($export.S + $export.F * !require('./_iter-detect')(function (iter) { Array.from(iter); }), 'Array', {
+  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
+  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
+    var O = toObject(arrayLike);
+    var C = typeof this == 'function' ? this : Array;
+    var aLen = arguments.length;
+    var mapfn = aLen > 1 ? arguments[1] : undefined;
+    var mapping = mapfn !== undefined;
+    var index = 0;
+    var iterFn = getIterFn(O);
+    var length, result, step, iterator;
+    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
+    // if object isn't iterable or it's array with default iterator - use simple case
+    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
+      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
+        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
+      }
+    } else {
+      length = toLength(O.length);
+      for (result = new C(length); length > index; index++) {
+        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
+      }
+    }
+    result.length = index;
+    return result;
+  }
+});
+
+},{"./_create-property":43,"./_ctx":44,"./_export":50,"./_is-array-iter":60,"./_iter-call":63,"./_iter-detect":66,"./_to-length":101,"./_to-object":102,"./core.get-iterator-method":109}],113:[function(require,module,exports){
 'use strict';
 var addToUnscopables = require('./_add-to-unscopables');
 var step = require('./_iter-step');
@@ -2084,17 +6500,17 @@ addToUnscopables('keys');
 addToUnscopables('values');
 addToUnscopables('entries');
 
-},{"./_add-to-unscopables":27,"./_iter-define":55,"./_iter-step":57,"./_iterators":58,"./_to-iobject":90}],101:[function(require,module,exports){
+},{"./_add-to-unscopables":36,"./_iter-define":65,"./_iter-step":67,"./_iterators":68,"./_to-iobject":100}],114:[function(require,module,exports){
 var $export = require('./_export');
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 $export($export.S, 'Object', { create: require('./_object-create') });
 
-},{"./_export":40,"./_object-create":63}],102:[function(require,module,exports){
+},{"./_export":50,"./_object-create":73}],115:[function(require,module,exports){
 var $export = require('./_export');
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
 $export($export.S + $export.F * !require('./_descriptors'), 'Object', { defineProperty: require('./_object-dp').f });
 
-},{"./_descriptors":36,"./_export":40,"./_object-dp":64}],103:[function(require,module,exports){
+},{"./_descriptors":46,"./_export":50,"./_object-dp":74}],116:[function(require,module,exports){
 // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
 var toIObject = require('./_to-iobject');
 var $getOwnPropertyDescriptor = require('./_object-gopd').f;
@@ -2105,7 +6521,7 @@ require('./_object-sap')('getOwnPropertyDescriptor', function () {
   };
 });
 
-},{"./_object-gopd":66,"./_object-sap":74,"./_to-iobject":90}],104:[function(require,module,exports){
+},{"./_object-gopd":76,"./_object-sap":84,"./_to-iobject":100}],117:[function(require,module,exports){
 // 19.1.2.9 Object.getPrototypeOf(O)
 var toObject = require('./_to-object');
 var $getPrototypeOf = require('./_object-gpo');
@@ -2116,14 +6532,14 @@ require('./_object-sap')('getPrototypeOf', function () {
   };
 });
 
-},{"./_object-gpo":70,"./_object-sap":74,"./_to-object":92}],105:[function(require,module,exports){
+},{"./_object-gpo":80,"./_object-sap":84,"./_to-object":102}],118:[function(require,module,exports){
 // 19.1.3.19 Object.setPrototypeOf(O, proto)
 var $export = require('./_export');
 $export($export.S, 'Object', { setPrototypeOf: require('./_set-proto').set });
 
-},{"./_export":40,"./_set-proto":80}],106:[function(require,module,exports){
+},{"./_export":50,"./_set-proto":90}],119:[function(require,module,exports){
 
-},{}],107:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 'use strict';
 var LIBRARY = require('./_library');
 var global = require('./_global');
@@ -2411,7 +6827,7 @@ $export($export.S + $export.F * !(USE_NATIVE && require('./_iter-detect')(functi
   }
 });
 
-},{"./_a-function":26,"./_an-instance":28,"./_classof":31,"./_core":33,"./_ctx":34,"./_export":40,"./_for-of":42,"./_global":43,"./_is-object":52,"./_iter-detect":56,"./_library":59,"./_microtask":61,"./_new-promise-capability":62,"./_perform":75,"./_promise-resolve":76,"./_redefine-all":78,"./_set-species":81,"./_set-to-string-tag":82,"./_species-constructor":85,"./_task":87,"./_user-agent":95,"./_wks":98}],108:[function(require,module,exports){
+},{"./_a-function":35,"./_an-instance":37,"./_classof":40,"./_core":42,"./_ctx":44,"./_export":50,"./_for-of":52,"./_global":53,"./_is-object":62,"./_iter-detect":66,"./_library":69,"./_microtask":71,"./_new-promise-capability":72,"./_perform":85,"./_promise-resolve":86,"./_redefine-all":88,"./_set-species":91,"./_set-to-string-tag":92,"./_species-constructor":95,"./_task":97,"./_user-agent":105,"./_wks":108}],121:[function(require,module,exports){
 'use strict';
 var $at = require('./_string-at')(true);
 
@@ -2430,7 +6846,7 @@ require('./_iter-define')(String, 'String', function (iterated) {
   return { value: point, done: false };
 });
 
-},{"./_iter-define":55,"./_string-at":86}],109:[function(require,module,exports){
+},{"./_iter-define":65,"./_string-at":96}],122:[function(require,module,exports){
 'use strict';
 // ECMAScript 6 symbols shim
 var global = require('./_global');
@@ -2678,7 +7094,7 @@ setToStringTag(Math, 'Math', true);
 // 24.3.3 JSON[@@toStringTag]
 setToStringTag(global.JSON, 'JSON', true);
 
-},{"./_an-object":29,"./_descriptors":36,"./_enum-keys":39,"./_export":40,"./_fails":41,"./_global":43,"./_has":44,"./_hide":45,"./_is-array":51,"./_is-object":52,"./_library":59,"./_meta":60,"./_object-create":63,"./_object-dp":64,"./_object-gopd":66,"./_object-gopn":68,"./_object-gopn-ext":67,"./_object-gops":69,"./_object-keys":72,"./_object-pie":73,"./_property-desc":77,"./_redefine":79,"./_set-to-string-tag":82,"./_shared":84,"./_to-iobject":90,"./_to-object":92,"./_to-primitive":93,"./_uid":94,"./_wks":98,"./_wks-define":96,"./_wks-ext":97}],110:[function(require,module,exports){
+},{"./_an-object":38,"./_descriptors":46,"./_enum-keys":49,"./_export":50,"./_fails":51,"./_global":53,"./_has":54,"./_hide":55,"./_is-array":61,"./_is-object":62,"./_library":69,"./_meta":70,"./_object-create":73,"./_object-dp":74,"./_object-gopd":76,"./_object-gopn":78,"./_object-gopn-ext":77,"./_object-gops":79,"./_object-keys":82,"./_object-pie":83,"./_property-desc":87,"./_redefine":89,"./_set-to-string-tag":92,"./_shared":94,"./_to-iobject":100,"./_to-object":102,"./_to-primitive":103,"./_uid":104,"./_wks":108,"./_wks-define":106,"./_wks-ext":107}],123:[function(require,module,exports){
 // https://github.com/tc39/proposal-promise-finally
 'use strict';
 var $export = require('./_export');
@@ -2700,7 +7116,7 @@ $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
   );
 } });
 
-},{"./_core":33,"./_export":40,"./_global":43,"./_promise-resolve":76,"./_species-constructor":85}],111:[function(require,module,exports){
+},{"./_core":42,"./_export":50,"./_global":53,"./_promise-resolve":86,"./_species-constructor":95}],124:[function(require,module,exports){
 'use strict';
 // https://github.com/tc39/proposal-promise-try
 var $export = require('./_export');
@@ -2714,13 +7130,13 @@ $export($export.S, 'Promise', { 'try': function (callbackfn) {
   return promiseCapability.promise;
 } });
 
-},{"./_export":40,"./_new-promise-capability":62,"./_perform":75}],112:[function(require,module,exports){
+},{"./_export":50,"./_new-promise-capability":72,"./_perform":85}],125:[function(require,module,exports){
 require('./_wks-define')('asyncIterator');
 
-},{"./_wks-define":96}],113:[function(require,module,exports){
+},{"./_wks-define":106}],126:[function(require,module,exports){
 require('./_wks-define')('observable');
 
-},{"./_wks-define":96}],114:[function(require,module,exports){
+},{"./_wks-define":106}],127:[function(require,module,exports){
 require('./es6.array.iterator');
 var global = require('./_global');
 var hide = require('./_hide');
@@ -2741,7 +7157,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
   Iterators[NAME] = Iterators.Array;
 }
 
-},{"./_global":43,"./_hide":45,"./_iterators":58,"./_wks":98,"./es6.array.iterator":100}],115:[function(require,module,exports){
+},{"./_global":53,"./_hide":55,"./_iterators":68,"./_wks":108,"./es6.array.iterator":113}],128:[function(require,module,exports){
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -2778,7 +7194,7 @@ if (hadRuntime) {
   }
 }
 
-},{"./runtime":116}],116:[function(require,module,exports){
+},{"./runtime":129}],129:[function(require,module,exports){
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -3507,7 +7923,7 @@ if (hadRuntime) {
   (function() { return this })() || Function("return this")()
 );
 
-},{}],117:[function(require,module,exports){
+},{}],130:[function(require,module,exports){
 /*
  *  Copyright (c) 2017 The WebRTC project authors. All Rights Reserved.
  *
@@ -5366,7 +9782,7 @@ module.exports = function(window, edgeVersion) {
   return RTCPeerConnection;
 };
 
-},{"sdp":118}],118:[function(require,module,exports){
+},{"sdp":131}],131:[function(require,module,exports){
 /* eslint-env node */
 'use strict';
 
@@ -6193,7 +10609,7 @@ if (typeof module === 'object') {
   module.exports = SDPUtils;
 }
 
-},{}],119:[function(require,module,exports){
+},{}],132:[function(require,module,exports){
 /**
  * Convert array of 16 byte values to UUID string format of the form:
  * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
@@ -6221,7 +10637,7 @@ function bytesToUuid(buf, offset) {
 
 module.exports = bytesToUuid;
 
-},{}],120:[function(require,module,exports){
+},{}],133:[function(require,module,exports){
 // Unique ID creation requires a high quality random # generator.  In the
 // browser this is a little complicated due to unknown quality of Math.random()
 // and inconsistent support for the `crypto` API.  We do the best we can via
@@ -6257,7 +10673,7 @@ if (getRandomValues) {
   };
 }
 
-},{}],121:[function(require,module,exports){
+},{}],134:[function(require,module,exports){
 var rng = require('./lib/rng');
 var bytesToUuid = require('./lib/bytesToUuid');
 
@@ -6288,7 +10704,7 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
-},{"./lib/bytesToUuid":119,"./lib/rng":120}],122:[function(require,module,exports){
+},{"./lib/bytesToUuid":132,"./lib/rng":133}],135:[function(require,module,exports){
 (function (global){(function (){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
@@ -6305,7 +10721,7 @@ var adapterFactory = require('./adapter_factory.js');
 module.exports = adapterFactory({window: global.window});
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./adapter_factory.js":123}],123:[function(require,module,exports){
+},{"./adapter_factory.js":136}],136:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -6462,7 +10878,7 @@ module.exports = function(dependencies, opts) {
   return adapter;
 };
 
-},{"./chrome/chrome_shim":124,"./common_shim":126,"./edge/edge_shim":127,"./firefox/firefox_shim":130,"./safari/safari_shim":132,"./utils":133}],124:[function(require,module,exports){
+},{"./chrome/chrome_shim":137,"./common_shim":139,"./edge/edge_shim":140,"./firefox/firefox_shim":143,"./safari/safari_shim":145,"./utils":146}],137:[function(require,module,exports){
 
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
@@ -7401,7 +11817,7 @@ module.exports = {
   }
 };
 
-},{"../utils.js":133,"./getusermedia":125}],125:[function(require,module,exports){
+},{"../utils.js":146,"./getusermedia":138}],138:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -7650,7 +12066,7 @@ module.exports = function(window) {
   }
 };
 
-},{"../utils.js":133}],126:[function(require,module,exports){
+},{"../utils.js":146}],139:[function(require,module,exports){
 /*
  *  Copyright (c) 2017 The WebRTC project authors. All Rights Reserved.
  *
@@ -7942,7 +12358,7 @@ module.exports = {
   }
 };
 
-},{"./utils":133,"sdp":118}],127:[function(require,module,exports){
+},{"./utils":146,"sdp":131}],140:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -8048,7 +12464,7 @@ module.exports = {
   }
 };
 
-},{"../utils":133,"./filtericeservers":128,"./getusermedia":129,"rtcpeerconnection-shim":117}],128:[function(require,module,exports){
+},{"../utils":146,"./filtericeservers":141,"./getusermedia":142,"rtcpeerconnection-shim":130}],141:[function(require,module,exports){
 /*
  *  Copyright (c) 2018 The WebRTC project authors. All Rights Reserved.
  *
@@ -8099,7 +12515,7 @@ module.exports = function(iceServers, edgeVersion) {
   });
 };
 
-},{"../utils":133}],129:[function(require,module,exports){
+},{"../utils":146}],142:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -8135,7 +12551,7 @@ module.exports = function(window) {
   };
 };
 
-},{}],130:[function(require,module,exports){
+},{}],143:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -8454,7 +12870,7 @@ module.exports = {
   }
 };
 
-},{"../utils":133,"./getusermedia":131}],131:[function(require,module,exports){
+},{"../utils":146,"./getusermedia":144}],144:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -8665,7 +13081,7 @@ module.exports = function(window) {
   };
 };
 
-},{"../utils":133}],132:[function(require,module,exports){
+},{"../utils":146}],145:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -8981,7 +13397,7 @@ module.exports = {
   }
 };
 
-},{"../utils":133}],133:[function(require,module,exports){
+},{"../utils":146}],146:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -9163,7 +13579,19 @@ module.exports = {
   }
 };
 
-},{}],134:[function(require,module,exports){
+},{}],147:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var UNDEFINED = exports.UNDEFINED = 'undefined';
+var DCV_STRATEGY = exports.DCV_STRATEGY = 'DCVStrategy';
+var AUDIO = exports.AUDIO = 'audio';
+var ANSWER = exports.ANSWER = 'answer';
+var CHROME = exports.CHROME = 'chrome';
+
+},{}],148:[function(require,module,exports){
 (function (global){(function (){
 'use strict';
 
@@ -9191,28 +13619,18 @@ var _CitrixVDIStrategy = require('./strategies/CitrixVDIStrategy');
 
 var _CitrixVDIStrategy2 = _interopRequireDefault(_CitrixVDIStrategy);
 
+var _DCVWebRTCStrategy = require('./strategies/DCVWebRTCStrategy');
+
+var _DCVWebRTCStrategy2 = _interopRequireDefault(_DCVWebRTCStrategy);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * @license
- * License info for uuid module assembled into js bundle:
+ * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
- * The MIT License (MIT)
- *
- * Copyright (c) 2010-2016 Robert Kieffer and other contributors
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * SPDX-License-Identifier: Apache-2.0
  */
-global.connect = global.connect || {}; /**
-                                        * @license
-                                        * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-                                        *
-                                        * SPDX-License-Identifier: Apache-2.0
-                                        */
 /**
  * @license
  * License info for webrtc-adapter module assembled into js bundle:
@@ -9235,6 +13653,21 @@ global.connect = global.connect || {}; /**
  *
  * See https://www.npmjs.com/package/sdp
  */
+global.connect = global.connect || {};
+/**
+ * @license
+ * License info for uuid module assembled into js bundle:
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2010-2016 Robert Kieffer and other contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 global.connect.RTCSession = _rtc_session2.default;
 global.connect.RTCErrors = _rtc_const.RTC_ERRORS;
@@ -9242,13 +13675,14 @@ global.connect.RtcPeerConnectionFactory = _rtc_peer_connection_factory2.default;
 global.connect.uuid = _v2.default;
 global.connect.StandardStrategy = _StandardStrategy2.default;
 global.connect.CitrixVDIStrategy = _CitrixVDIStrategy2.default;
+global.connect.DCVWebRTCStrategy = _DCVWebRTCStrategy2.default;
 
 global.lily = global.lily || {};
 global.lily.RTCSession = _rtc_session2.default;
 global.lily.RTCErrors = _rtc_const.RTC_ERRORS;
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./rtc_const":136,"./rtc_peer_connection_factory":137,"./rtc_session":138,"./strategies/CitrixVDIStrategy":143,"./strategies/StandardStrategy":144,"uuid/v4":121,"webrtc-adapter":122}],135:[function(require,module,exports){
+},{"./rtc_const":150,"./rtc_peer_connection_factory":151,"./rtc_session":152,"./strategies/CitrixVDIStrategy":157,"./strategies/DCVWebRTCStrategy":158,"./strategies/StandardStrategy":159,"uuid/v4":134,"webrtc-adapter":135}],149:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -9411,7 +13845,7 @@ var UnknownSignalingError = exports.UnknownSignalingError = function (_Error7) {
     return UnknownSignalingError;
 }(Error);
 
-},{"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/inherits":14,"babel-runtime/helpers/possibleConstructorReturn":15}],136:[function(require,module,exports){
+},{"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19}],150:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9512,7 +13946,7 @@ var PEER_CONNECTION_STATE = exports.PEER_CONNECTION_STATE = {
     CLOSED: 'closed'
 };
 
-},{}],137:[function(require,module,exports){
+},{}],151:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -9690,7 +14124,7 @@ var RtcPeerConnectionFactory = function () {
 
 exports.default = RtcPeerConnectionFactory;
 
-},{"./rtc_const":136,"./strategies/CCPInitiationStrategyInterface":142,"./strategies/StandardStrategy":144,"./utils":145,"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12}],138:[function(require,module,exports){
+},{"./rtc_const":150,"./strategies/CCPInitiationStrategyInterface":156,"./strategies/StandardStrategy":159,"./utils":160,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16}],152:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11337,7 +15771,7 @@ var RtcSession = function () {
 
 exports.default = RtcSession;
 
-},{"./exceptions":135,"./rtc_const":136,"./rtp-stats":139,"./session_report":140,"./signaling":141,"./strategies/CCPInitiationStrategyInterface":142,"./strategies/StandardStrategy":144,"./utils":145,"babel-runtime/helpers/asyncToGenerator":10,"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12,"babel-runtime/helpers/get":13,"babel-runtime/helpers/inherits":14,"babel-runtime/helpers/possibleConstructorReturn":15,"babel-runtime/helpers/typeof":16,"babel-runtime/regenerator":17,"sdp":118,"uuid/v4":121}],139:[function(require,module,exports){
+},{"./exceptions":149,"./rtc_const":150,"./rtp-stats":153,"./session_report":154,"./signaling":155,"./strategies/CCPInitiationStrategyInterface":156,"./strategies/StandardStrategy":159,"./utils":160,"babel-runtime/helpers/asyncToGenerator":14,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/get":17,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19,"babel-runtime/helpers/typeof":22,"babel-runtime/regenerator":23,"sdp":131,"uuid/v4":134}],153:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11551,7 +15985,7 @@ var MediaRtpStats = function () {
     return MediaRtpStats;
 }();
 
-},{"./utils":145,"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12}],140:[function(require,module,exports){
+},{"./utils":160,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16}],154:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11608,7 +16042,7 @@ var SessionReport = exports.SessionReport = function () {
         this._noRemoteIceCandidateFailure = null;
         this._setRemoteDescriptionFailure = null;
         this._streamStats = [];
-        this._rtcJsVersion = "1.1.24";
+        this._rtcJsVersion = "1.1.25";
     }
     /**
      *Timestamp when RTCSession started.
@@ -11928,7 +16362,7 @@ var SessionReport = exports.SessionReport = function () {
     return SessionReport;
 }();
 
-},{"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12}],141:[function(require,module,exports){
+},{"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16}],155:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -12771,7 +17205,7 @@ var AmznRtcSignaling = function () {
 
 exports.default = AmznRtcSignaling;
 
-},{"./exceptions":135,"./rtc_const":136,"./utils":145,"./virtual_wss_connection_manager":146,"babel-runtime/helpers/asyncToGenerator":10,"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12,"babel-runtime/helpers/inherits":14,"babel-runtime/helpers/possibleConstructorReturn":15,"babel-runtime/regenerator":17,"uuid/v4":121}],142:[function(require,module,exports){
+},{"./exceptions":149,"./rtc_const":150,"./utils":160,"./virtual_wss_connection_manager":161,"babel-runtime/helpers/asyncToGenerator":14,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19,"babel-runtime/regenerator":23,"uuid/v4":134}],156:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12868,7 +17302,7 @@ var CCPInitiationStrategyInterface = function () {
 
 exports.default = CCPInitiationStrategyInterface;
 
-},{"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12}],143:[function(require,module,exports){
+},{"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16}],157:[function(require,module,exports){
 (function (global){(function (){
 "use strict";
 
@@ -13068,7 +17502,208 @@ var CitrixVDIStrategy = function (_CCPInitiationStrateg) {
 exports.default = CitrixVDIStrategy;
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../rtc_const":136,"../rtc_session":138,"./CCPInitiationStrategyInterface":142,"@citrix/ucsdk/CitrixWebRTC":1,"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12,"babel-runtime/helpers/inherits":14,"babel-runtime/helpers/possibleConstructorReturn":15}],144:[function(require,module,exports){
+},{"../rtc_const":150,"../rtc_session":152,"./CCPInitiationStrategyInterface":156,"@citrix/ucsdk/CitrixWebRTC":2,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19}],158:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _typeof2 = require("babel-runtime/helpers/typeof");
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require("babel-runtime/helpers/createClass");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require("babel-runtime/helpers/possibleConstructorReturn");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require("babel-runtime/helpers/inherits");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _CCPInitiationStrategyInterface = require("./CCPInitiationStrategyInterface");
+
+var _CCPInitiationStrategyInterface2 = _interopRequireDefault(_CCPInitiationStrategyInterface);
+
+var _rtc_session = require("../rtc_session");
+
+var _rtc_const = require("../rtc_const");
+
+var _constants = require("../config/constants");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CHROME_SUPPORTED_VERSION = 59;
+
+var DCVWebRTCStrategy = function (_CCPInitiationStrateg) {
+    (0, _inherits3.default)(DCVWebRTCStrategy, _CCPInitiationStrateg);
+
+    function DCVWebRTCStrategy() {
+        (0, _classCallCheck3.default)(this, DCVWebRTCStrategy);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (DCVWebRTCStrategy.__proto__ || Object.getPrototypeOf(DCVWebRTCStrategy)).call(this));
+
+        if (window.DCVWebRTCPeerConnectionProxy) {
+            window.DCVWebRTCPeerConnectionProxy.setInitCallback(function (result) {
+                if (result.success) {
+                    // This is only created when:
+                    // 1) the dcv webrtc chrome extension is installed and enabled and
+                    // 2) this browser is running within a DCV server environment and
+                    // 3) the dcv server is connected from a WebRTC redirection-enabled client
+                    _this.proxy = window.DCVWebRTCRedirProxy;
+                    _this.proxy.overrideWebRTC();
+                    console.log('DCVStrategy initialized');
+                } else {
+                    throw new Error('DCV WebRTC redirection feature is NOT supported!');
+                }
+            }, 5000);
+        } else {
+            throw new Error('DCV WebRTC redirection feature is NOT supported!');
+        }
+        return _this;
+    }
+
+    (0, _createClass3.default)(DCVWebRTCStrategy, [{
+        key: "isChromeBrowser",
+        value: function isChromeBrowser() {
+            return this.proxy.clientInfo.browserDetails.browser === _constants.CHROME;
+        }
+    }, {
+        key: "getChromeBrowserVersion",
+        value: function getChromeBrowserVersion() {
+            return this.proxy.clientInfo.browserDetails.version;
+        }
+    }, {
+        key: "_isEarlyMediaConnectionSupported",
+        value: function _isEarlyMediaConnectionSupported() {
+            return this.isChromeBrowser() && this.getChromeBrowserVersion() >= CHROME_SUPPORTED_VERSION;
+        }
+    }, {
+        key: "_createRtcPeerConnection",
+        value: function _createRtcPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig) {
+            return this.proxy.createPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig);
+        }
+    }, {
+        key: "_buildMediaConstraints",
+        value: function _buildMediaConstraints(self, mediaConstraints) {
+            if (self._enableAudio) {
+                var audioConstraints = {};
+                if ((0, _typeof3.default)(self._echoCancellation) !== _constants.UNDEFINED) {
+                    audioConstraints.echoCancellation = !!self._echoCancellation;
+                }
+                if (Object.keys(audioConstraints).length > 0) {
+                    mediaConstraints.audio = audioConstraints;
+                } else {
+                    mediaConstraints.audio = true;
+                }
+            } else {
+                mediaConstraints.audio = false;
+            }
+        }
+    }, {
+        key: "_gUM",
+        value: function _gUM(constraints) {
+            return this.proxy.getUserMedia(constraints);
+        }
+    }, {
+        key: "_createPeerConnection",
+        value: function _createPeerConnection(configuration, optionalConfiguration) {
+            return this.proxy.createPeerConnection(configuration, optionalConfiguration);
+        }
+    }, {
+        key: "addStream",
+        value: function addStream(_pc, stream) {
+            stream.getTracks().forEach(function (track) {
+                var transceiver = _pc.addTransceiver(track.kind, {
+                    streams: [stream]
+                });
+                transceiver.sender.replaceTrack(track);
+            });
+        }
+    }, {
+        key: "setRemoteDescription",
+        value: function setRemoteDescription(self, rtcSession) {
+            var setRemoteDescriptionPromise = rtcSession._pc.setRemoteDescription(self._createSessionDescription({
+                type: _constants.ANSWER,
+                sdp: self._sdp
+            }));
+            setRemoteDescriptionPromise.catch(function (e) {
+                self.logger.error('SetRemoteDescription failed', e);
+            });
+            setRemoteDescriptionPromise.then(function () {
+                var remoteCandidatePromises = Promise.all(self._candidates.map(function (candidate) {
+                    var remoteCandidate = self._createRemoteCandidate(candidate);
+                    self.logger.info('Adding remote candidate', remoteCandidate);
+                    return rtcSession._pc.addIceCandidate(remoteCandidate);
+                }));
+                remoteCandidatePromises.catch(function (reason) {
+                    self.logger.warn('Error adding remote candidate', reason);
+                });
+                return remoteCandidatePromises;
+            }).then(function () {
+                rtcSession._sessionReport.setRemoteDescriptionFailure = false;
+                self._remoteDescriptionSet = true;
+                self._checkAndTransit();
+            }).catch(function () {
+                rtcSession._stopSession();
+                rtcSession._sessionReport.setRemoteDescriptionFailure = true;
+                self.transit(new _rtc_session.FailedState(rtcSession, _rtc_const.RTC_ERRORS.SET_REMOTE_DESCRIPTION_FAILURE));
+            });
+        }
+    }, {
+        key: "onIceStateChange",
+        value: function onIceStateChange(evt, _pc) {
+            return _pc.iceConnectionState;
+        }
+    }, {
+        key: "onPeerConnectionStateChange",
+        value: function onPeerConnectionStateChange(_pc) {
+            return _pc.connectionState;
+        }
+    }, {
+        key: "_ontrack",
+        value: function _ontrack(self, evt) {
+            if (evt.streams.length > 1) {
+                console.warn('Found more than 1 streams for ' + evt.track.kind + ' track ' + evt.track.id + ' : ' + evt.streams.map(function (stream) {
+                    return stream.id;
+                }).join(','));
+            }
+            var stream = evt.streams[0];
+            self._remoteAudioElement = this.createMediaElement(stream);
+            self._remoteAudioStream = stream;
+            self._remoteAudioElement.srcObject = stream;
+        }
+    }, {
+        key: "createMediaElement",
+        value: function createMediaElement(stream) {
+            var props = {
+                kind: _constants.AUDIO,
+                autoplay: true
+            };
+            var element = stream.createMediaElement(props);
+            console.log("Creating proxied media element.");
+            return element;
+        }
+    }, {
+        key: "getStrategyName",
+        value: function getStrategyName() {
+            return _constants.DCV_STRATEGY;
+        }
+    }]);
+    return DCVWebRTCStrategy;
+}(_CCPInitiationStrategyInterface2.default);
+
+exports.default = DCVWebRTCStrategy;
+
+},{"../config/constants":147,"../rtc_const":150,"../rtc_session":152,"./CCPInitiationStrategyInterface":156,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19,"babel-runtime/helpers/typeof":22}],159:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13232,7 +17867,7 @@ var StandardStrategy = function (_CCPInitiationStrateg) {
 
 exports.default = StandardStrategy;
 
-},{"../rtc_const":136,"../rtc_session":138,"../utils":145,"./CCPInitiationStrategyInterface":142,"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12,"babel-runtime/helpers/inherits":14,"babel-runtime/helpers/possibleConstructorReturn":15}],145:[function(require,module,exports){
+},{"../rtc_const":150,"../rtc_session":152,"../utils":160,"./CCPInitiationStrategyInterface":156,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19}],160:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -13551,7 +18186,7 @@ function getRedactedSdp(sdp) {
     return sdp.replace(pattern, 'a=ice-pwd:[redacted]');
 }
 
-},{"./exceptions":135,"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12,"sdp":118}],146:[function(require,module,exports){
+},{"./exceptions":149,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"sdp":131}],161:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -13639,4 +18274,4 @@ var VirtualWssConnectionManager = function () {
 
 exports.default = VirtualWssConnectionManager;
 
-},{"./rtc_const":136,"./utils":145,"babel-runtime/helpers/classCallCheck":11,"babel-runtime/helpers/createClass":12}]},{},[134]);
+},{"./rtc_const":150,"./utils":160,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16}]},{},[1,148]);
