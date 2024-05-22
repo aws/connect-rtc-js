@@ -64,8 +64,8 @@ export default class RtcPeerConnectionFactory {
     // For the supported browser, this method will request for new peerConnection after returning the existing peerConnection
     get(iceServers) {
         var self = this;
-        var pc = self._pc;
-        self._pc = null;
+        var pc = self._idlePc;
+        self._idlePc = null;
         if (pc == null) {
             pc = self._createRtcPeerConnection(iceServers);
         }
@@ -87,7 +87,7 @@ export default class RtcPeerConnectionFactory {
         if (!self._peerConnectionRequestInFlight && self._earlyMediaConnectionSupported) {
             self._peerConnectionRequestInFlight = true;
             self._requestIceAccess().then(function (response) {
-                    self._pc = self._createRtcPeerConnection(response);
+                    self._idlePc = self._createRtcPeerConnection(response);
                     self._peerConnectionRequestInFlight = false;
                     self._idleRtcPeerConnectionTimerId = setTimeout(hitch(self, self._refreshRtcPeerConnection), RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS);
                 },
@@ -101,10 +101,10 @@ export default class RtcPeerConnectionFactory {
     _networkConnectivityChecker() {
         var self = this;
         setInterval(function () {
-            if (!navigator.onLine && self._pc) {
+            if (!navigator.onLine && self._idlePc) {
                 self._logger.log("Network offline. Cleaning up early connection");
-                self._pc.close();
-                self._pc = null;
+                self._idlePc.close();
+                self._idlePc = null;
             }
         }, NETWORK_CONNECTIVITY_CHECK_INTERVAL_MS);
     }
@@ -129,9 +129,16 @@ export default class RtcPeerConnectionFactory {
     }
 
     _closeRTCPeerConnection() {
-        if (this._pc) {
-            this._pc.close();
-            this._pc = null;
+        if (this._idlePc) {
+            this._idlePc.close();
+            this._idlePc = null;
         }
+    }
+
+    // Clear idle peer connection timer first and then close the idle peer connection.
+    close() {
+        this._logger.log("close method invoked. Clear timer and close idle peer connection " + this._clientId);
+        this.clearIdleRtcPeerConnectionTimerId();
+        this._closeRTCPeerConnection();
     }
 }
