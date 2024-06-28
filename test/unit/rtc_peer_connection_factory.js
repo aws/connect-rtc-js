@@ -16,8 +16,10 @@ describe('RTC Peer Connection Factory', () => {
     sinon.stub(RtcPeerConnectionFactory.prototype, '_initializeWebSocketEventListeners').returns({});
     sinon.stub(RtcPeerConnectionFactory.prototype, '_networkConnectivityChecker').returns({});
     sinon.stub(RtcPeerConnectionFactory.prototype, '_isEarlyMediaConnectionSupported').returns(true);
-    var createPeerConnectionStub = sinon.stub(RtcPeerConnectionFactory.prototype, '_createRtcPeerConnection').returns({});
+    var closePeerConnectionStub = sinon.stub();
+    var createPeerConnectionStub = sinon.stub(RtcPeerConnectionFactory.prototype, '_createRtcPeerConnection').returns({ close: closePeerConnectionStub });
     var requestAccessStub = sinon.stub().resolves('iceServer');
+    var setTimeoutSpy = sinon.spy(global, "setTimeout");
 
     describe('StandardStrategy', () => {
         var pcFactory = new RtcPeerConnectionFactory(console, null, null, requestAccessStub, sinon.stub(), new StandardStrategy());
@@ -30,6 +32,24 @@ describe('RTC Peer Connection Factory', () => {
             await chai.assert(requestAccessStub.calledOnce);
             chai.assert(createPeerConnectionStub.calledOnce);
             chai.assert(createPeerConnectionStub.calledWith('iceServer'));
+            chai.assert.isFalse(pcFactory._peerConnectionRequestInFlight);
+        });
+
+        it('check _idleRtcPeerConnectionTimerId is set and _refreshRtcPeerConnection is set to invoke in 1 minute', async() => {
+            chai.assert.isNotNull(pcFactory._idleRtcPeerConnectionTimerId);
+            chai.expect(pcFactory._idleRtcPeerConnectionTimerId).to.have.property('_idleTimeout');
+            chai.assert(setTimeoutSpy.calledOnce);
+            setTimeoutSpy.calledWithExactly(pcFactory._refreshRtcPeerConnection, 60000);
+        });
+
+        it('check _refreshPeerConnection will close idle peer connection and request a new one', async() => {
+            requestAccessStub.resetHistory();
+            createPeerConnectionStub.resetHistory();
+            pcFactory._refreshRtcPeerConnection();
+            chai.assert(closePeerConnectionStub.calledOnce);
+            chai.assert.isTrue(pcFactory._peerConnectionRequestInFlight);
+            await chai.assert(requestAccessStub.calledOnce);
+            chai.assert(createPeerConnectionStub.calledOnce);
             chai.assert.isFalse(pcFactory._peerConnectionRequestInFlight);
         });
 
@@ -71,6 +91,16 @@ describe('RTC Peer Connection Factory', () => {
             chai.assert.isNotNull(pcFactory._idleRtcPeerConnectionTimerId);
             pcFactory.clearIdleRtcPeerConnectionTimerId();
             chai.assert.isNull(pcFactory._idleRtcPeerConnectionTimerId);
+        });
+
+        it('check close clears _idleRtcPeerConnectionTimerId and closes idle peer connection', () => {
+            closePeerConnectionStub.resetHistory();
+            pcFactory._idleRtcPeerConnectionTimerId = setTimeout(() => {console.log('clearIdleRtcPeerConnectionTimerIdTest');}, 0);
+            chai.assert.isNotNull(pcFactory._idleRtcPeerConnectionTimerId);
+            pcFactory.close();
+            chai.assert.isNull(pcFactory._idleRtcPeerConnectionTimerId);
+            chai.assert(closePeerConnectionStub.calledOnce);
+            chai.assert.isNull(pcFactory._idlePc);
         });
     });
 });
