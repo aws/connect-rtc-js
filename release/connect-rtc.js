@@ -1,4 +1,5 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+(function (global){(function (){
 "use strict";
 
 var _toArray2 = require("babel-runtime/helpers/toArray");
@@ -32,4232 +33,3246 @@ var _typeof3 = _interopRequireDefault(_typeof2);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 !function (e, t) {
-  "object" == (typeof exports === "undefined" ? "undefined" : (0, _typeof3.default)(exports)) && "object" == (typeof module === "undefined" ? "undefined" : (0, _typeof3.default)(module)) ? module.exports = t() : "function" == typeof define && define.amd ? define([], t) : "object" == (typeof exports === "undefined" ? "undefined" : (0, _typeof3.default)(exports)) ? exports.dcvwebrtcredir = t() : e.dcvwebrtcredir = t();
-}(self, function () {
-  return function () {
-    var e = { 114: function _(e, t) {
-        !function (e) {
-          "use strict";
-          for (var t = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", r = "undefined" == typeof Uint8Array ? [] : new Uint8Array(256), n = 0; n < t.length; n++) {
-            r[t.charCodeAt(n)] = n;
-          }var i = function i(e) {
-            var r,
-                n = new Uint8Array(e),
-                i = n.length,
-                s = "";for (r = 0; r < i; r += 3) {
-              s += t[n[r] >> 2], s += t[(3 & n[r]) << 4 | n[r + 1] >> 4], s += t[(15 & n[r + 1]) << 2 | n[r + 2] >> 6], s += t[63 & n[r + 2]];
-            }return i % 3 == 2 ? s = s.substring(0, s.length - 1) + "=" : i % 3 == 1 && (s = s.substring(0, s.length - 2) + "=="), s;
-          },
-              s = function s(e) {
-            var t,
-                n,
-                i,
-                s,
-                a,
-                o = .75 * e.length,
-                c = e.length,
-                d = 0;"=" === e[e.length - 1] && (o--, "=" === e[e.length - 2] && o--);var l = new ArrayBuffer(o),
-                p = new Uint8Array(l);for (t = 0; t < c; t += 4) {
-              n = r[e.charCodeAt(t)], i = r[e.charCodeAt(t + 1)], s = r[e.charCodeAt(t + 2)], a = r[e.charCodeAt(t + 3)], p[d++] = n << 2 | i >> 4, p[d++] = (15 & i) << 4 | s >> 2, p[d++] = (3 & s) << 6 | 63 & a;
-            }return l;
-          };e.decode = s, e.encode = i, Object.defineProperty(e, "__esModule", { value: !0 });
-        }(t);
-      }, 43: function _(e, t, r) {
-        var n, i;!function (s, a) {
-          "use strict";
-          n = function n() {
+    "object" == (typeof exports === "undefined" ? "undefined" : (0, _typeof3.default)(exports)) && "undefined" != typeof module ? t(exports) : "function" == typeof define && define.amd ? define(["exports"], t) : t((e = "undefined" != typeof globalThis ? git : e || self).dcvwebrtc = {});
+}(undefined, function (e) {
+    "use strict";
+    var t = { major: 0, minor: 3, patch: 3, buildNumber: 0, gitHash: "2a04538bd16eaa144c6a87ab71a77e2e314f348f", versionStr: "0.3.3+build.0" },
+        n = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof window ? window : "undefined" != typeof global ? global : "undefined" != typeof self ? self : {};function r(e) {
+        return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
+    }var i = { exports: {} };!function (e) {
+        var t, r;t = n, r = function r() {
             var e = function e() {},
                 t = "undefined",
-                r = (typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t && (0, _typeof3.default)(window.navigator) !== t && /Trident\/|MSIE /.test(window.navigator.userAgent),
-                n = ["trace", "debug", "info", "warn", "error"];function i(e, t) {
-              var r = e[t];if ("function" == typeof r.bind) return r.bind(e);try {
-                return Function.prototype.bind.call(r, e);
-              } catch (t) {
+                n = (typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t && (0, _typeof3.default)(window.navigator) !== t && /Trident\/|MSIE /.test(window.navigator.userAgent),
+                r = ["trace", "debug", "info", "warn", "error"],
+                i = {},
+                s = null;function a(e, t) {
+                var n = e[t];if ("function" == typeof n.bind) return n.bind(e);try {
+                    return Function.prototype.bind.call(n, e);
+                } catch (t) {
+                    return function () {
+                        return Function.prototype.apply.apply(n, [e, arguments]);
+                    };
+                }
+            }function o() {
+                console.log && (console.log.apply ? console.log.apply(console, arguments) : Function.prototype.apply.apply(console.log, [console, arguments])), console.trace && console.trace();
+            }function d() {
+                for (var n = this.getLevel(), i = 0; i < r.length; i++) {
+                    var s = r[i];this[s] = i < n ? e : this.methodFactory(s, n, this.name);
+                }if (this.log = this.debug, (typeof console === "undefined" ? "undefined" : (0, _typeof3.default)(console)) === t && n < this.levels.SILENT) return "No console available for logging";
+            }function c(e) {
                 return function () {
-                  return Function.prototype.apply.apply(r, [e, arguments]);
+                    (typeof console === "undefined" ? "undefined" : (0, _typeof3.default)(console)) !== t && (d.call(this), this[e].apply(this, arguments));
                 };
-              }
-            }function s() {
-              console.log && (console.log.apply ? console.log.apply(console, arguments) : Function.prototype.apply.apply(console.log, [console, arguments])), console.trace && console.trace();
-            }function a(n) {
-              return "debug" === n && (n = "log"), (typeof console === "undefined" ? "undefined" : (0, _typeof3.default)(console)) !== t && ("trace" === n && r ? s : void 0 !== console[n] ? i(console, n) : void 0 !== console.log ? i(console, "log") : e);
-            }function o(t, r) {
-              for (var i = 0; i < n.length; i++) {
-                var s = n[i];this[s] = i < t ? e : this.methodFactory(s, t, r);
-              }this.log = this.debug;
-            }function c(e, r, n) {
-              return function () {
-                (typeof console === "undefined" ? "undefined" : (0, _typeof3.default)(console)) !== t && (o.call(this, r, n), this[e].apply(this, arguments));
-              };
-            }function d(e, t, r) {
-              return a(e) || c.apply(this, arguments);
-            }function l(e, r, i) {
-              var s,
-                  a = this;r = null == r ? "WARN" : r;var c = "loglevel";function l(e) {
-                var r = (n[e] || "silent").toUpperCase();if ((typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t && c) {
-                  try {
-                    return void (window.localStorage[c] = r);
-                  } catch (e) {}try {
-                    window.document.cookie = encodeURIComponent(c) + "=" + r + ";";
-                  } catch (e) {}
-                }
-              }function p() {
-                var e;if ((typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t && c) {
-                  try {
-                    e = window.localStorage[c];
-                  } catch (e) {}if ((typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e)) === t) try {
-                    var r = window.document.cookie,
-                        n = r.indexOf(encodeURIComponent(c) + "=");-1 !== n && (e = /^([^;]+)/.exec(r.slice(n))[1]);
-                  } catch (e) {}return void 0 === a.levels[e] && (e = void 0), e;
-                }
-              }function h() {
-                if ((typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t && c) {
-                  try {
-                    return void window.localStorage.removeItem(c);
-                  } catch (e) {}try {
-                    window.document.cookie = encodeURIComponent(c) + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-                  } catch (e) {}
-                }
-              }"string" == typeof e ? c += ":" + e : "symbol" == (typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e)) && (c = void 0), a.name = e, a.levels = { TRACE: 0, DEBUG: 1, INFO: 2, WARN: 3, ERROR: 4, SILENT: 5 }, a.methodFactory = i || d, a.getLevel = function () {
-                return s;
-              }, a.setLevel = function (r, n) {
-                if ("string" == typeof r && void 0 !== a.levels[r.toUpperCase()] && (r = a.levels[r.toUpperCase()]), !("number" == typeof r && r >= 0 && r <= a.levels.SILENT)) throw "log.setLevel() called with invalid level: " + r;if (s = r, !1 !== n && l(r), o.call(a, r, e), (typeof console === "undefined" ? "undefined" : (0, _typeof3.default)(console)) === t && r < a.levels.SILENT) return "No console available for logging";
-              }, a.setDefaultLevel = function (e) {
-                r = e, p() || a.setLevel(e, !1);
-              }, a.resetLevel = function () {
-                a.setLevel(r, !1), h();
-              }, a.enableAll = function (e) {
-                a.setLevel(a.levels.TRACE, e);
-              }, a.disableAll = function (e) {
-                a.setLevel(a.levels.SILENT, e);
-              };var u = p();null == u && (u = r), a.setLevel(u, !1);
-            }var p = new l(),
-                h = {};p.getLogger = function (e) {
-              if ("symbol" != (typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e)) && "string" != typeof e || "" === e) throw new TypeError("You must supply a name when creating a logger.");var t = h[e];return t || (t = h[e] = new l(e, p.getLevel(), p.methodFactory)), t;
-            };var u = (typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t ? window.log : void 0;return p.noConflict = function () {
-              return (typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t && window.log === p && (window.log = u), p;
-            }, p.getLoggers = function () {
-              return h;
-            }, p.default = p, p;
-          }, void 0 === (i = "function" == typeof n ? n.call(t, r, t, e) : n) || (e.exports = i);
-        }();
-      }, 591: function _(e, t, r) {
-        "use strict";
-
-        var _r = r(555),
-            n = _r.Deflate,
-            i = _r.deflate,
-            s = _r.deflateRaw,
-            a = _r.gzip,
-            _r2 = r(843),
-            o = _r2.Inflate,
-            c = _r2.inflate,
-            d = _r2.inflateRaw,
-            l = _r2.ungzip,
-            p = r(619);
-
-        e.exports.Deflate = n, e.exports.deflate = i, e.exports.deflateRaw = s, e.exports.gzip = a, e.exports.Inflate = o, e.exports.inflate = c, e.exports.inflateRaw = d, e.exports.ungzip = l, e.exports.constants = p;
-      }, 555: function _(e, t, r) {
-        "use strict";
-        var n = r(405),
-            i = r(236),
-            s = r(373),
-            a = r(898),
-            o = r(292),
-            c = Object.prototype.toString,
-            _r3 = r(619),
-            d = _r3.Z_NO_FLUSH,
-            l = _r3.Z_SYNC_FLUSH,
-            p = _r3.Z_FULL_FLUSH,
-            h = _r3.Z_FINISH,
-            u = _r3.Z_OK,
-            f = _r3.Z_STREAM_END,
-            m = _r3.Z_DEFAULT_COMPRESSION,
-            _ = _r3.Z_DEFAULT_STRATEGY,
-            g = _r3.Z_DEFLATED;function v(e) {
-          this.options = i.assign({ level: m, method: g, chunkSize: 16384, windowBits: 15, memLevel: 8, strategy: _ }, e || {});var t = this.options;t.raw && t.windowBits > 0 ? t.windowBits = -t.windowBits : t.gzip && t.windowBits > 0 && t.windowBits < 16 && (t.windowBits += 16), this.err = 0, this.msg = "", this.ended = !1, this.chunks = [], this.strm = new o(), this.strm.avail_out = 0;var r = n.deflateInit2(this.strm, t.level, t.method, t.windowBits, t.memLevel, t.strategy);if (r !== u) throw new Error(a[r]);if (t.header && n.deflateSetHeader(this.strm, t.header), t.dictionary) {
-            var _e = void 0;if (_e = "string" == typeof t.dictionary ? s.string2buf(t.dictionary) : "[object ArrayBuffer]" === c.call(t.dictionary) ? new Uint8Array(t.dictionary) : t.dictionary, r = n.deflateSetDictionary(this.strm, _e), r !== u) throw new Error(a[r]);this._dict_set = !0;
-          }
-        }function E(e, t) {
-          var r = new v(t);if (r.push(e, !0), r.err) throw r.msg || a[r.err];return r.result;
-        }v.prototype.push = function (e, t) {
-          var r = this.strm,
-              i = this.options.chunkSize;var a = void 0,
-              o = void 0;if (this.ended) return !1;for (o = t === ~~t ? t : !0 === t ? h : d, "string" == typeof e ? r.input = s.string2buf(e) : "[object ArrayBuffer]" === c.call(e) ? r.input = new Uint8Array(e) : r.input = e, r.next_in = 0, r.avail_in = r.input.length;;) {
-            if (0 === r.avail_out && (r.output = new Uint8Array(i), r.next_out = 0, r.avail_out = i), (o === l || o === p) && r.avail_out <= 6) this.onData(r.output.subarray(0, r.next_out)), r.avail_out = 0;else {
-              if (a = n.deflate(r, o), a === f) return r.next_out > 0 && this.onData(r.output.subarray(0, r.next_out)), a = n.deflateEnd(this.strm), this.onEnd(a), this.ended = !0, a === u;if (0 !== r.avail_out) {
-                if (o > 0 && r.next_out > 0) this.onData(r.output.subarray(0, r.next_out)), r.avail_out = 0;else if (0 === r.avail_in) break;
-              } else this.onData(r.output);
-            }
-          }return !0;
-        }, v.prototype.onData = function (e) {
-          this.chunks.push(e);
-        }, v.prototype.onEnd = function (e) {
-          e === u && (this.result = i.flattenChunks(this.chunks)), this.chunks = [], this.err = e, this.msg = this.strm.msg;
-        }, e.exports.Deflate = v, e.exports.deflate = E, e.exports.deflateRaw = function (e, t) {
-          return (t = t || {}).raw = !0, E(e, t);
-        }, e.exports.gzip = function (e, t) {
-          return (t = t || {}).gzip = !0, E(e, t);
-        }, e.exports.constants = r(619);
-      }, 843: function _(e, t, r) {
-        "use strict";
-        var n = r(948),
-            i = r(236),
-            s = r(373),
-            a = r(898),
-            o = r(292),
-            c = r(188),
-            d = Object.prototype.toString,
-            _r4 = r(619),
-            l = _r4.Z_NO_FLUSH,
-            p = _r4.Z_FINISH,
-            h = _r4.Z_OK,
-            u = _r4.Z_STREAM_END,
-            f = _r4.Z_NEED_DICT,
-            m = _r4.Z_STREAM_ERROR,
-            _ = _r4.Z_DATA_ERROR,
-            g = _r4.Z_MEM_ERROR;function v(e) {
-          this.options = i.assign({ chunkSize: 65536, windowBits: 15, to: "" }, e || {});var t = this.options;t.raw && t.windowBits >= 0 && t.windowBits < 16 && (t.windowBits = -t.windowBits, 0 === t.windowBits && (t.windowBits = -15)), !(t.windowBits >= 0 && t.windowBits < 16) || e && e.windowBits || (t.windowBits += 32), t.windowBits > 15 && t.windowBits < 48 && 0 == (15 & t.windowBits) && (t.windowBits |= 15), this.err = 0, this.msg = "", this.ended = !1, this.chunks = [], this.strm = new o(), this.strm.avail_out = 0;var r = n.inflateInit2(this.strm, t.windowBits);if (r !== h) throw new Error(a[r]);if (this.header = new c(), n.inflateGetHeader(this.strm, this.header), t.dictionary && ("string" == typeof t.dictionary ? t.dictionary = s.string2buf(t.dictionary) : "[object ArrayBuffer]" === d.call(t.dictionary) && (t.dictionary = new Uint8Array(t.dictionary)), t.raw && (r = n.inflateSetDictionary(this.strm, t.dictionary), r !== h))) throw new Error(a[r]);
-        }function E(e, t) {
-          var r = new v(t);if (r.push(e), r.err) throw r.msg || a[r.err];return r.result;
-        }v.prototype.push = function (e, t) {
-          var r = this.strm,
-              i = this.options.chunkSize,
-              a = this.options.dictionary;var o = void 0,
-              c = void 0,
-              v = void 0;if (this.ended) return !1;for (c = t === ~~t ? t : !0 === t ? p : l, "[object ArrayBuffer]" === d.call(e) ? r.input = new Uint8Array(e) : r.input = e, r.next_in = 0, r.avail_in = r.input.length;;) {
-            for (0 === r.avail_out && (r.output = new Uint8Array(i), r.next_out = 0, r.avail_out = i), o = n.inflate(r, c), o === f && a && (o = n.inflateSetDictionary(r, a), o === h ? o = n.inflate(r, c) : o === _ && (o = f)); r.avail_in > 0 && o === u && r.state.wrap > 0 && 0 !== e[r.next_in];) {
-              n.inflateReset(r), o = n.inflate(r, c);
-            }switch (o) {case m:case _:case f:case g:
-                return this.onEnd(o), this.ended = !0, !1;}if (v = r.avail_out, r.next_out && (0 === r.avail_out || o === u)) if ("string" === this.options.to) {
-              var _e2 = s.utf8border(r.output, r.next_out),
-                  _t = r.next_out - _e2,
-                  _n = s.buf2string(r.output, _e2);r.next_out = _t, r.avail_out = i - _t, _t && r.output.set(r.output.subarray(_e2, _e2 + _t), 0), this.onData(_n);
-            } else this.onData(r.output.length === r.next_out ? r.output : r.output.subarray(0, r.next_out));if (o !== h || 0 !== v) {
-              if (o === u) return o = n.inflateEnd(this.strm), this.onEnd(o), this.ended = !0, !0;if (0 === r.avail_in) break;
-            }
-          }return !0;
-        }, v.prototype.onData = function (e) {
-          this.chunks.push(e);
-        }, v.prototype.onEnd = function (e) {
-          e === h && ("string" === this.options.to ? this.result = this.chunks.join("") : this.result = i.flattenChunks(this.chunks)), this.chunks = [], this.err = e, this.msg = this.strm.msg;
-        }, e.exports.Inflate = v, e.exports.inflate = E, e.exports.inflateRaw = function (e, t) {
-          return (t = t || {}).raw = !0, E(e, t);
-        }, e.exports.ungzip = E, e.exports.constants = r(619);
-      }, 236: function _(e) {
-        "use strict";
-        var t = function t(e, _t2) {
-          return Object.prototype.hasOwnProperty.call(e, _t2);
-        };e.exports.assign = function (e) {
-          var r = Array.prototype.slice.call(arguments, 1);for (; r.length;) {
-            var _n2 = r.shift();if (_n2) {
-              if ("object" != (typeof _n2 === "undefined" ? "undefined" : (0, _typeof3.default)(_n2))) throw new TypeError(_n2 + "must be non-object");for (var _r5 in _n2) {
-                t(_n2, _r5) && (e[_r5] = _n2[_r5]);
-              }
-            }
-          }return e;
-        }, e.exports.flattenChunks = function (e) {
-          var t = 0;for (var _r6 = 0, _n3 = e.length; _r6 < _n3; _r6++) {
-            t += e[_r6].length;
-          }var r = new Uint8Array(t);for (var _t3 = 0, _n4 = 0, i = e.length; _t3 < i; _t3++) {
-            var i = e[_t3];r.set(i, _n4), _n4 += i.length;
-          }return r;
-        };
-      }, 373: function _(e) {
-        "use strict";
-        var t = !0;try {
-          String.fromCharCode.apply(null, new Uint8Array(1));
-        } catch (e) {
-          t = !1;
-        }var r = new Uint8Array(256);for (var _e3 = 0; _e3 < 256; _e3++) {
-          r[_e3] = _e3 >= 252 ? 6 : _e3 >= 248 ? 5 : _e3 >= 240 ? 4 : _e3 >= 224 ? 3 : _e3 >= 192 ? 2 : 1;
-        }r[254] = r[254] = 1, e.exports.string2buf = function (e) {
-          if ("function" == typeof TextEncoder && TextEncoder.prototype.encode) return new TextEncoder().encode(e);var t = void 0,
-              r = void 0,
-              n = void 0,
-              i = void 0,
-              s = void 0,
-              a = e.length,
-              o = 0;for (i = 0; i < a; i++) {
-            r = e.charCodeAt(i), 55296 == (64512 & r) && i + 1 < a && (n = e.charCodeAt(i + 1), 56320 == (64512 & n) && (r = 65536 + (r - 55296 << 10) + (n - 56320), i++)), o += r < 128 ? 1 : r < 2048 ? 2 : r < 65536 ? 3 : 4;
-          }for (t = new Uint8Array(o), s = 0, i = 0; s < o; i++) {
-            r = e.charCodeAt(i), 55296 == (64512 & r) && i + 1 < a && (n = e.charCodeAt(i + 1), 56320 == (64512 & n) && (r = 65536 + (r - 55296 << 10) + (n - 56320), i++)), r < 128 ? t[s++] = r : r < 2048 ? (t[s++] = 192 | r >>> 6, t[s++] = 128 | 63 & r) : r < 65536 ? (t[s++] = 224 | r >>> 12, t[s++] = 128 | r >>> 6 & 63, t[s++] = 128 | 63 & r) : (t[s++] = 240 | r >>> 18, t[s++] = 128 | r >>> 12 & 63, t[s++] = 128 | r >>> 6 & 63, t[s++] = 128 | 63 & r);
-          }return t;
-        };e.exports.buf2string = function (e, n) {
-          var i = n || e.length;if ("function" == typeof TextDecoder && TextDecoder.prototype.decode) return new TextDecoder().decode(e.subarray(0, n));var s = void 0,
-              a = void 0;var o = new Array(2 * i);for (a = 0, s = 0; s < i;) {
-            var _t4 = e[s++];if (_t4 < 128) {
-              o[a++] = _t4;continue;
-            }var _n5 = r[_t4];if (_n5 > 4) o[a++] = 65533, s += _n5 - 1;else {
-              for (_t4 &= 2 === _n5 ? 31 : 3 === _n5 ? 15 : 7; _n5 > 1 && s < i;) {
-                _t4 = _t4 << 6 | 63 & e[s++], _n5--;
-              }_n5 > 1 ? o[a++] = 65533 : _t4 < 65536 ? o[a++] = _t4 : (_t4 -= 65536, o[a++] = 55296 | _t4 >> 10 & 1023, o[a++] = 56320 | 1023 & _t4);
-            }
-          }return function (e, r) {
-            if (r < 65534 && e.subarray && t) return String.fromCharCode.apply(null, e.length === r ? e : e.subarray(0, r));var n = "";for (var _t5 = 0; _t5 < r; _t5++) {
-              n += String.fromCharCode(e[_t5]);
-            }return n;
-          }(o, a);
-        }, e.exports.utf8border = function (e, t) {
-          (t = t || e.length) > e.length && (t = e.length);var n = t - 1;for (; n >= 0 && 128 == (192 & e[n]);) {
-            n--;
-          }return n < 0 || 0 === n ? t : n + r[e[n]] > t ? n : t;
-        };
-      }, 69: function _(e) {
-        "use strict";
-        e.exports = function (e, t, r, n) {
-          var i = 65535 & e | 0,
-              s = e >>> 16 & 65535 | 0,
-              a = 0;for (; 0 !== r;) {
-            a = r > 2e3 ? 2e3 : r, r -= a;do {
-              i = i + t[n++] | 0, s = s + i | 0;
-            } while (--a);i %= 65521, s %= 65521;
-          }return i | s << 16 | 0;
-        };
-      }, 619: function _(e) {
-        "use strict";
-        e.exports = { Z_NO_FLUSH: 0, Z_PARTIAL_FLUSH: 1, Z_SYNC_FLUSH: 2, Z_FULL_FLUSH: 3, Z_FINISH: 4, Z_BLOCK: 5, Z_TREES: 6, Z_OK: 0, Z_STREAM_END: 1, Z_NEED_DICT: 2, Z_ERRNO: -1, Z_STREAM_ERROR: -2, Z_DATA_ERROR: -3, Z_MEM_ERROR: -4, Z_BUF_ERROR: -5, Z_NO_COMPRESSION: 0, Z_BEST_SPEED: 1, Z_BEST_COMPRESSION: 9, Z_DEFAULT_COMPRESSION: -1, Z_FILTERED: 1, Z_HUFFMAN_ONLY: 2, Z_RLE: 3, Z_FIXED: 4, Z_DEFAULT_STRATEGY: 0, Z_BINARY: 0, Z_TEXT: 1, Z_UNKNOWN: 2, Z_DEFLATED: 8 };
-      }, 869: function _(e) {
-        "use strict";
-        var t = new Uint32Array(function () {
-          var e = void 0,
-              t = [];for (var r = 0; r < 256; r++) {
-            e = r;for (var n = 0; n < 8; n++) {
-              e = 1 & e ? 3988292384 ^ e >>> 1 : e >>> 1;
-            }t[r] = e;
-          }return t;
-        }());e.exports = function (e, r, n, i) {
-          var s = t,
-              a = i + n;e ^= -1;for (var _t6 = i; _t6 < a; _t6++) {
-            e = e >>> 8 ^ s[255 & (e ^ r[_t6])];
-          }return -1 ^ e;
-        };
-      }, 405: function _(e, t, r) {
-        "use strict";
-
-        var _r7 = r(342),
-            n = _r7._tr_init,
-            i = _r7._tr_stored_block,
-            s = _r7._tr_flush_block,
-            a = _r7._tr_tally,
-            o = _r7._tr_align,
-            c = r(69),
-            d = r(869),
-            l = r(898),
-            _r8 = r(619),
-            p = _r8.Z_NO_FLUSH,
-            h = _r8.Z_PARTIAL_FLUSH,
-            u = _r8.Z_FULL_FLUSH,
-            f = _r8.Z_FINISH,
-            m = _r8.Z_BLOCK,
-            _ = _r8.Z_OK,
-            g = _r8.Z_STREAM_END,
-            v = _r8.Z_STREAM_ERROR,
-            E = _r8.Z_DATA_ERROR,
-            y = _r8.Z_BUF_ERROR,
-            T = _r8.Z_DEFAULT_COMPRESSION,
-            C = _r8.Z_FILTERED,
-            b = _r8.Z_HUFFMAN_ONLY,
-            w = _r8.Z_RLE,
-            A = _r8.Z_FIXED,
-            R = _r8.Z_DEFAULT_STRATEGY,
-            S = _r8.Z_UNKNOWN,
-            P = _r8.Z_DEFLATED,
-            k = 258,
-            x = 262,
-            I = 42,
-            D = 113,
-            O = 666,
-            N = function N(e, t) {
-          return e.msg = l[t], t;
-        },
-            M = function M(e) {
-          return 2 * e - (e > 4 ? 9 : 0);
-        },
-            L = function L(e) {
-          var t = e.length;for (; --t >= 0;) {
-            e[t] = 0;
-          }
-        },
-            U = function U(e) {
-          var t = void 0,
-              r = void 0,
-              n = void 0,
-              i = e.w_size;t = e.hash_size, n = t;do {
-            r = e.head[--n], e.head[n] = r >= i ? r - i : 0;
-          } while (--t);t = i, n = t;do {
-            r = e.prev[--n], e.prev[n] = r >= i ? r - i : 0;
-          } while (--t);
-        };
-
-        var j = function j(e, t, r) {
-          return (t << e.hash_shift ^ r) & e.hash_mask;
-        };var z = function z(e) {
-          var t = e.state;var r = t.pending;r > e.avail_out && (r = e.avail_out), 0 !== r && (e.output.set(t.pending_buf.subarray(t.pending_out, t.pending_out + r), e.next_out), e.next_out += r, t.pending_out += r, e.total_out += r, e.avail_out -= r, t.pending -= r, 0 === t.pending && (t.pending_out = 0));
-        },
-            G = function G(e, t) {
-          s(e, e.block_start >= 0 ? e.block_start : -1, e.strstart - e.block_start, t), e.block_start = e.strstart, z(e.strm);
-        },
-            F = function F(e, t) {
-          e.pending_buf[e.pending++] = t;
-        },
-            V = function V(e, t) {
-          e.pending_buf[e.pending++] = t >>> 8 & 255, e.pending_buf[e.pending++] = 255 & t;
-        },
-            W = function W(e, t, r, n) {
-          var i = e.avail_in;return i > n && (i = n), 0 === i ? 0 : (e.avail_in -= i, t.set(e.input.subarray(e.next_in, e.next_in + i), r), 1 === e.state.wrap ? e.adler = c(e.adler, t, i, r) : 2 === e.state.wrap && (e.adler = d(e.adler, t, i, r)), e.next_in += i, e.total_in += i, i);
-        },
-            q = function q(e, t) {
-          var r = void 0,
-              n = void 0,
-              i = e.max_chain_length,
-              s = e.strstart,
-              a = e.prev_length,
-              o = e.nice_match;var c = e.strstart > e.w_size - x ? e.strstart - (e.w_size - x) : 0,
-              d = e.window,
-              l = e.w_mask,
-              p = e.prev,
-              h = e.strstart + k;var u = d[s + a - 1],
-              f = d[s + a];e.prev_length >= e.good_match && (i >>= 2), o > e.lookahead && (o = e.lookahead);do {
-            if (r = t, d[r + a] === f && d[r + a - 1] === u && d[r] === d[s] && d[++r] === d[s + 1]) {
-              s += 2, r++;do {} while (d[++s] === d[++r] && d[++s] === d[++r] && d[++s] === d[++r] && d[++s] === d[++r] && d[++s] === d[++r] && d[++s] === d[++r] && d[++s] === d[++r] && d[++s] === d[++r] && s < h);if (n = k - (h - s), s = h - k, n > a) {
-                if (e.match_start = t, a = n, n >= o) break;u = d[s + a - 1], f = d[s + a];
-              }
-            }
-          } while ((t = p[t & l]) > c && 0 != --i);return a <= e.lookahead ? a : e.lookahead;
-        },
-            Z = function Z(e) {
-          var t = e.w_size;var r = void 0,
-              n = void 0,
-              i = void 0;do {
-            if (n = e.window_size - e.lookahead - e.strstart, e.strstart >= t + (t - x) && (e.window.set(e.window.subarray(t, t + t - n), 0), e.match_start -= t, e.strstart -= t, e.block_start -= t, e.insert > e.strstart && (e.insert = e.strstart), U(e), n += t), 0 === e.strm.avail_in) break;if (r = W(e.strm, e.window, e.strstart + e.lookahead, n), e.lookahead += r, e.lookahead + e.insert >= 3) for (i = e.strstart - e.insert, e.ins_h = e.window[i], e.ins_h = j(e, e.ins_h, e.window[i + 1]); e.insert && (e.ins_h = j(e, e.ins_h, e.window[i + 3 - 1]), e.prev[i & e.w_mask] = e.head[e.ins_h], e.head[e.ins_h] = i, i++, e.insert--, !(e.lookahead + e.insert < 3));) {}
-          } while (e.lookahead < x && 0 !== e.strm.avail_in);
-        },
-            B = function B(e, t) {
-          var r = void 0,
-              n = void 0,
-              s = void 0,
-              a = e.pending_buf_size - 5 > e.w_size ? e.w_size : e.pending_buf_size - 5,
-              o = 0,
-              c = e.strm.avail_in;do {
-            if (r = 65535, s = e.bi_valid + 42 >> 3, e.strm.avail_out < s) break;if (s = e.strm.avail_out - s, n = e.strstart - e.block_start, r > n + e.strm.avail_in && (r = n + e.strm.avail_in), r > s && (r = s), r < a && (0 === r && t !== f || t === p || r !== n + e.strm.avail_in)) break;o = t === f && r === n + e.strm.avail_in ? 1 : 0, i(e, 0, 0, o), e.pending_buf[e.pending - 4] = r, e.pending_buf[e.pending - 3] = r >> 8, e.pending_buf[e.pending - 2] = ~r, e.pending_buf[e.pending - 1] = ~r >> 8, z(e.strm), n && (n > r && (n = r), e.strm.output.set(e.window.subarray(e.block_start, e.block_start + n), e.strm.next_out), e.strm.next_out += n, e.strm.avail_out -= n, e.strm.total_out += n, e.block_start += n, r -= n), r && (W(e.strm, e.strm.output, e.strm.next_out, r), e.strm.next_out += r, e.strm.avail_out -= r, e.strm.total_out += r);
-          } while (0 === o);return c -= e.strm.avail_in, c && (c >= e.w_size ? (e.matches = 2, e.window.set(e.strm.input.subarray(e.strm.next_in - e.w_size, e.strm.next_in), 0), e.strstart = e.w_size, e.insert = e.strstart) : (e.window_size - e.strstart <= c && (e.strstart -= e.w_size, e.window.set(e.window.subarray(e.w_size, e.w_size + e.strstart), 0), e.matches < 2 && e.matches++, e.insert > e.strstart && (e.insert = e.strstart)), e.window.set(e.strm.input.subarray(e.strm.next_in - c, e.strm.next_in), e.strstart), e.strstart += c, e.insert += c > e.w_size - e.insert ? e.w_size - e.insert : c), e.block_start = e.strstart), e.high_water < e.strstart && (e.high_water = e.strstart), o ? 4 : t !== p && t !== f && 0 === e.strm.avail_in && e.strstart === e.block_start ? 2 : (s = e.window_size - e.strstart, e.strm.avail_in > s && e.block_start >= e.w_size && (e.block_start -= e.w_size, e.strstart -= e.w_size, e.window.set(e.window.subarray(e.w_size, e.w_size + e.strstart), 0), e.matches < 2 && e.matches++, s += e.w_size, e.insert > e.strstart && (e.insert = e.strstart)), s > e.strm.avail_in && (s = e.strm.avail_in), s && (W(e.strm, e.window, e.strstart, s), e.strstart += s, e.insert += s > e.w_size - e.insert ? e.w_size - e.insert : s), e.high_water < e.strstart && (e.high_water = e.strstart), s = e.bi_valid + 42 >> 3, s = e.pending_buf_size - s > 65535 ? 65535 : e.pending_buf_size - s, a = s > e.w_size ? e.w_size : s, n = e.strstart - e.block_start, (n >= a || (n || t === f) && t !== p && 0 === e.strm.avail_in && n <= s) && (r = n > s ? s : n, o = t === f && 0 === e.strm.avail_in && r === n ? 1 : 0, i(e, e.block_start, r, o), e.block_start += r, z(e.strm)), o ? 3 : 1);
-        },
-            H = function H(e, t) {
-          var r = void 0,
-              n = void 0;for (;;) {
-            if (e.lookahead < x) {
-              if (Z(e), e.lookahead < x && t === p) return 1;if (0 === e.lookahead) break;
-            }if (r = 0, e.lookahead >= 3 && (e.ins_h = j(e, e.ins_h, e.window[e.strstart + 3 - 1]), r = e.prev[e.strstart & e.w_mask] = e.head[e.ins_h], e.head[e.ins_h] = e.strstart), 0 !== r && e.strstart - r <= e.w_size - x && (e.match_length = q(e, r)), e.match_length >= 3) {
-              if (n = a(e, e.strstart - e.match_start, e.match_length - 3), e.lookahead -= e.match_length, e.match_length <= e.max_lazy_match && e.lookahead >= 3) {
-                e.match_length--;do {
-                  e.strstart++, e.ins_h = j(e, e.ins_h, e.window[e.strstart + 3 - 1]), r = e.prev[e.strstart & e.w_mask] = e.head[e.ins_h], e.head[e.ins_h] = e.strstart;
-                } while (0 != --e.match_length);e.strstart++;
-              } else e.strstart += e.match_length, e.match_length = 0, e.ins_h = e.window[e.strstart], e.ins_h = j(e, e.ins_h, e.window[e.strstart + 1]);
-            } else n = a(e, 0, e.window[e.strstart]), e.lookahead--, e.strstart++;if (n && (G(e, !1), 0 === e.strm.avail_out)) return 1;
-          }return e.insert = e.strstart < 2 ? e.strstart : 2, t === f ? (G(e, !0), 0 === e.strm.avail_out ? 3 : 4) : e.sym_next && (G(e, !1), 0 === e.strm.avail_out) ? 1 : 2;
-        },
-            K = function K(e, t) {
-          var r = void 0,
-              n = void 0,
-              i = void 0;for (;;) {
-            if (e.lookahead < x) {
-              if (Z(e), e.lookahead < x && t === p) return 1;if (0 === e.lookahead) break;
-            }if (r = 0, e.lookahead >= 3 && (e.ins_h = j(e, e.ins_h, e.window[e.strstart + 3 - 1]), r = e.prev[e.strstart & e.w_mask] = e.head[e.ins_h], e.head[e.ins_h] = e.strstart), e.prev_length = e.match_length, e.prev_match = e.match_start, e.match_length = 2, 0 !== r && e.prev_length < e.max_lazy_match && e.strstart - r <= e.w_size - x && (e.match_length = q(e, r), e.match_length <= 5 && (e.strategy === C || 3 === e.match_length && e.strstart - e.match_start > 4096) && (e.match_length = 2)), e.prev_length >= 3 && e.match_length <= e.prev_length) {
-              i = e.strstart + e.lookahead - 3, n = a(e, e.strstart - 1 - e.prev_match, e.prev_length - 3), e.lookahead -= e.prev_length - 1, e.prev_length -= 2;do {
-                ++e.strstart <= i && (e.ins_h = j(e, e.ins_h, e.window[e.strstart + 3 - 1]), r = e.prev[e.strstart & e.w_mask] = e.head[e.ins_h], e.head[e.ins_h] = e.strstart);
-              } while (0 != --e.prev_length);if (e.match_available = 0, e.match_length = 2, e.strstart++, n && (G(e, !1), 0 === e.strm.avail_out)) return 1;
-            } else if (e.match_available) {
-              if (n = a(e, 0, e.window[e.strstart - 1]), n && G(e, !1), e.strstart++, e.lookahead--, 0 === e.strm.avail_out) return 1;
-            } else e.match_available = 1, e.strstart++, e.lookahead--;
-          }return e.match_available && (n = a(e, 0, e.window[e.strstart - 1]), e.match_available = 0), e.insert = e.strstart < 2 ? e.strstart : 2, t === f ? (G(e, !0), 0 === e.strm.avail_out ? 3 : 4) : e.sym_next && (G(e, !1), 0 === e.strm.avail_out) ? 1 : 2;
-        };function J(e, t, r, n, i) {
-          this.good_length = e, this.max_lazy = t, this.nice_length = r, this.max_chain = n, this.func = i;
-        }var $ = [new J(0, 0, 0, 0, B), new J(4, 4, 8, 4, H), new J(4, 5, 16, 8, H), new J(4, 6, 32, 32, H), new J(4, 4, 16, 16, K), new J(8, 16, 32, 32, K), new J(8, 16, 128, 128, K), new J(8, 32, 128, 256, K), new J(32, 128, 258, 1024, K), new J(32, 258, 258, 4096, K)];function Y() {
-          this.strm = null, this.status = 0, this.pending_buf = null, this.pending_buf_size = 0, this.pending_out = 0, this.pending = 0, this.wrap = 0, this.gzhead = null, this.gzindex = 0, this.method = P, this.last_flush = -1, this.w_size = 0, this.w_bits = 0, this.w_mask = 0, this.window = null, this.window_size = 0, this.prev = null, this.head = null, this.ins_h = 0, this.hash_size = 0, this.hash_bits = 0, this.hash_mask = 0, this.hash_shift = 0, this.block_start = 0, this.match_length = 0, this.prev_match = 0, this.match_available = 0, this.strstart = 0, this.match_start = 0, this.lookahead = 0, this.prev_length = 0, this.max_chain_length = 0, this.max_lazy_match = 0, this.level = 0, this.strategy = 0, this.good_match = 0, this.nice_match = 0, this.dyn_ltree = new Uint16Array(1146), this.dyn_dtree = new Uint16Array(122), this.bl_tree = new Uint16Array(78), L(this.dyn_ltree), L(this.dyn_dtree), L(this.bl_tree), this.l_desc = null, this.d_desc = null, this.bl_desc = null, this.bl_count = new Uint16Array(16), this.heap = new Uint16Array(573), L(this.heap), this.heap_len = 0, this.heap_max = 0, this.depth = new Uint16Array(573), L(this.depth), this.sym_buf = 0, this.lit_bufsize = 0, this.sym_next = 0, this.sym_end = 0, this.opt_len = 0, this.static_len = 0, this.matches = 0, this.insert = 0, this.bi_buf = 0, this.bi_valid = 0;
-        }var X = function X(e) {
-          if (!e) return 1;var t = e.state;return !t || t.strm !== e || t.status !== I && 57 !== t.status && 69 !== t.status && 73 !== t.status && 91 !== t.status && 103 !== t.status && t.status !== D && t.status !== O ? 1 : 0;
-        },
-            Q = function Q(e) {
-          if (X(e)) return N(e, v);e.total_in = e.total_out = 0, e.data_type = S;var t = e.state;return t.pending = 0, t.pending_out = 0, t.wrap < 0 && (t.wrap = -t.wrap), t.status = 2 === t.wrap ? 57 : t.wrap ? I : D, e.adler = 2 === t.wrap ? 0 : 1, t.last_flush = -2, n(t), _;
-        },
-            ee = function ee(e) {
-          var t = Q(e);var r;return t === _ && ((r = e.state).window_size = 2 * r.w_size, L(r.head), r.max_lazy_match = $[r.level].max_lazy, r.good_match = $[r.level].good_length, r.nice_match = $[r.level].nice_length, r.max_chain_length = $[r.level].max_chain, r.strstart = 0, r.block_start = 0, r.lookahead = 0, r.insert = 0, r.match_length = r.prev_length = 2, r.match_available = 0, r.ins_h = 0), t;
-        },
-            te = function te(e, t, r, n, i, s) {
-          if (!e) return v;var a = 1;if (t === T && (t = 6), n < 0 ? (a = 0, n = -n) : n > 15 && (a = 2, n -= 16), i < 1 || i > 9 || r !== P || n < 8 || n > 15 || t < 0 || t > 9 || s < 0 || s > A || 8 === n && 1 !== a) return N(e, v);8 === n && (n = 9);var o = new Y();return e.state = o, o.strm = e, o.status = I, o.wrap = a, o.gzhead = null, o.w_bits = n, o.w_size = 1 << o.w_bits, o.w_mask = o.w_size - 1, o.hash_bits = i + 7, o.hash_size = 1 << o.hash_bits, o.hash_mask = o.hash_size - 1, o.hash_shift = ~~((o.hash_bits + 3 - 1) / 3), o.window = new Uint8Array(2 * o.w_size), o.head = new Uint16Array(o.hash_size), o.prev = new Uint16Array(o.w_size), o.lit_bufsize = 1 << i + 6, o.pending_buf_size = 4 * o.lit_bufsize, o.pending_buf = new Uint8Array(o.pending_buf_size), o.sym_buf = o.lit_bufsize, o.sym_end = 3 * (o.lit_bufsize - 1), o.level = t, o.strategy = s, o.method = r, ee(e);
-        };e.exports.deflateInit = function (e, t) {
-          return te(e, t, P, 15, 8, R);
-        }, e.exports.deflateInit2 = te, e.exports.deflateReset = ee, e.exports.deflateResetKeep = Q, e.exports.deflateSetHeader = function (e, t) {
-          return X(e) || 2 !== e.state.wrap ? v : (e.state.gzhead = t, _);
-        }, e.exports.deflate = function (e, t) {
-          if (X(e) || t > m || t < 0) return e ? N(e, v) : v;var r = e.state;if (!e.output || 0 !== e.avail_in && !e.input || r.status === O && t !== f) return N(e, 0 === e.avail_out ? y : v);var n = r.last_flush;if (r.last_flush = t, 0 !== r.pending) {
-            if (z(e), 0 === e.avail_out) return r.last_flush = -1, _;
-          } else if (0 === e.avail_in && M(t) <= M(n) && t !== f) return N(e, y);if (r.status === O && 0 !== e.avail_in) return N(e, y);if (r.status === I && 0 === r.wrap && (r.status = D), r.status === I) {
-            var _t7 = P + (r.w_bits - 8 << 4) << 8,
-                _n6 = -1;if (_n6 = r.strategy >= b || r.level < 2 ? 0 : r.level < 6 ? 1 : 6 === r.level ? 2 : 3, _t7 |= _n6 << 6, 0 !== r.strstart && (_t7 |= 32), _t7 += 31 - _t7 % 31, V(r, _t7), 0 !== r.strstart && (V(r, e.adler >>> 16), V(r, 65535 & e.adler)), e.adler = 1, r.status = D, z(e), 0 !== r.pending) return r.last_flush = -1, _;
-          }if (57 === r.status) if (e.adler = 0, F(r, 31), F(r, 139), F(r, 8), r.gzhead) F(r, (r.gzhead.text ? 1 : 0) + (r.gzhead.hcrc ? 2 : 0) + (r.gzhead.extra ? 4 : 0) + (r.gzhead.name ? 8 : 0) + (r.gzhead.comment ? 16 : 0)), F(r, 255 & r.gzhead.time), F(r, r.gzhead.time >> 8 & 255), F(r, r.gzhead.time >> 16 & 255), F(r, r.gzhead.time >> 24 & 255), F(r, 9 === r.level ? 2 : r.strategy >= b || r.level < 2 ? 4 : 0), F(r, 255 & r.gzhead.os), r.gzhead.extra && r.gzhead.extra.length && (F(r, 255 & r.gzhead.extra.length), F(r, r.gzhead.extra.length >> 8 & 255)), r.gzhead.hcrc && (e.adler = d(e.adler, r.pending_buf, r.pending, 0)), r.gzindex = 0, r.status = 69;else if (F(r, 0), F(r, 0), F(r, 0), F(r, 0), F(r, 0), F(r, 9 === r.level ? 2 : r.strategy >= b || r.level < 2 ? 4 : 0), F(r, 3), r.status = D, z(e), 0 !== r.pending) return r.last_flush = -1, _;if (69 === r.status) {
-            if (r.gzhead.extra) {
-              var _t8 = r.pending,
-                  _n7 = (65535 & r.gzhead.extra.length) - r.gzindex;for (; r.pending + _n7 > r.pending_buf_size;) {
-                var _i2 = r.pending_buf_size - r.pending;if (r.pending_buf.set(r.gzhead.extra.subarray(r.gzindex, r.gzindex + _i2), r.pending), r.pending = r.pending_buf_size, r.gzhead.hcrc && r.pending > _t8 && (e.adler = d(e.adler, r.pending_buf, r.pending - _t8, _t8)), r.gzindex += _i2, z(e), 0 !== r.pending) return r.last_flush = -1, _;_t8 = 0, _n7 -= _i2;
-              }var _i = new Uint8Array(r.gzhead.extra);r.pending_buf.set(_i.subarray(r.gzindex, r.gzindex + _n7), r.pending), r.pending += _n7, r.gzhead.hcrc && r.pending > _t8 && (e.adler = d(e.adler, r.pending_buf, r.pending - _t8, _t8)), r.gzindex = 0;
-            }r.status = 73;
-          }if (73 === r.status) {
-            if (r.gzhead.name) {
-              var _t9 = void 0,
-                  _n8 = r.pending;do {
-                if (r.pending === r.pending_buf_size) {
-                  if (r.gzhead.hcrc && r.pending > _n8 && (e.adler = d(e.adler, r.pending_buf, r.pending - _n8, _n8)), z(e), 0 !== r.pending) return r.last_flush = -1, _;_n8 = 0;
-                }_t9 = r.gzindex < r.gzhead.name.length ? 255 & r.gzhead.name.charCodeAt(r.gzindex++) : 0, F(r, _t9);
-              } while (0 !== _t9);r.gzhead.hcrc && r.pending > _n8 && (e.adler = d(e.adler, r.pending_buf, r.pending - _n8, _n8)), r.gzindex = 0;
-            }r.status = 91;
-          }if (91 === r.status) {
-            if (r.gzhead.comment) {
-              var _t10 = void 0,
-                  _n9 = r.pending;do {
-                if (r.pending === r.pending_buf_size) {
-                  if (r.gzhead.hcrc && r.pending > _n9 && (e.adler = d(e.adler, r.pending_buf, r.pending - _n9, _n9)), z(e), 0 !== r.pending) return r.last_flush = -1, _;_n9 = 0;
-                }_t10 = r.gzindex < r.gzhead.comment.length ? 255 & r.gzhead.comment.charCodeAt(r.gzindex++) : 0, F(r, _t10);
-              } while (0 !== _t10);r.gzhead.hcrc && r.pending > _n9 && (e.adler = d(e.adler, r.pending_buf, r.pending - _n9, _n9));
-            }r.status = 103;
-          }if (103 === r.status) {
-            if (r.gzhead.hcrc) {
-              if (r.pending + 2 > r.pending_buf_size && (z(e), 0 !== r.pending)) return r.last_flush = -1, _;F(r, 255 & e.adler), F(r, e.adler >> 8 & 255), e.adler = 0;
-            }if (r.status = D, z(e), 0 !== r.pending) return r.last_flush = -1, _;
-          }if (0 !== e.avail_in || 0 !== r.lookahead || t !== p && r.status !== O) {
-            var _n10 = 0 === r.level ? B(r, t) : r.strategy === b ? function (e, t) {
-              var r = void 0;for (;;) {
-                if (0 === e.lookahead && (Z(e), 0 === e.lookahead)) {
-                  if (t === p) return 1;break;
-                }if (e.match_length = 0, r = a(e, 0, e.window[e.strstart]), e.lookahead--, e.strstart++, r && (G(e, !1), 0 === e.strm.avail_out)) return 1;
-              }return e.insert = 0, t === f ? (G(e, !0), 0 === e.strm.avail_out ? 3 : 4) : e.sym_next && (G(e, !1), 0 === e.strm.avail_out) ? 1 : 2;
-            }(r, t) : r.strategy === w ? function (e, t) {
-              var r = void 0,
-                  n = void 0,
-                  i = void 0,
-                  s = void 0;var o = e.window;for (;;) {
-                if (e.lookahead <= k) {
-                  if (Z(e), e.lookahead <= k && t === p) return 1;if (0 === e.lookahead) break;
-                }if (e.match_length = 0, e.lookahead >= 3 && e.strstart > 0 && (i = e.strstart - 1, n = o[i], n === o[++i] && n === o[++i] && n === o[++i])) {
-                  s = e.strstart + k;do {} while (n === o[++i] && n === o[++i] && n === o[++i] && n === o[++i] && n === o[++i] && n === o[++i] && n === o[++i] && n === o[++i] && i < s);e.match_length = k - (s - i), e.match_length > e.lookahead && (e.match_length = e.lookahead);
-                }if (e.match_length >= 3 ? (r = a(e, 1, e.match_length - 3), e.lookahead -= e.match_length, e.strstart += e.match_length, e.match_length = 0) : (r = a(e, 0, e.window[e.strstart]), e.lookahead--, e.strstart++), r && (G(e, !1), 0 === e.strm.avail_out)) return 1;
-              }return e.insert = 0, t === f ? (G(e, !0), 0 === e.strm.avail_out ? 3 : 4) : e.sym_next && (G(e, !1), 0 === e.strm.avail_out) ? 1 : 2;
-            }(r, t) : $[r.level].func(r, t);if (3 !== _n10 && 4 !== _n10 || (r.status = O), 1 === _n10 || 3 === _n10) return 0 === e.avail_out && (r.last_flush = -1), _;if (2 === _n10 && (t === h ? o(r) : t !== m && (i(r, 0, 0, !1), t === u && (L(r.head), 0 === r.lookahead && (r.strstart = 0, r.block_start = 0, r.insert = 0))), z(e), 0 === e.avail_out)) return r.last_flush = -1, _;
-          }return t !== f ? _ : r.wrap <= 0 ? g : (2 === r.wrap ? (F(r, 255 & e.adler), F(r, e.adler >> 8 & 255), F(r, e.adler >> 16 & 255), F(r, e.adler >> 24 & 255), F(r, 255 & e.total_in), F(r, e.total_in >> 8 & 255), F(r, e.total_in >> 16 & 255), F(r, e.total_in >> 24 & 255)) : (V(r, e.adler >>> 16), V(r, 65535 & e.adler)), z(e), r.wrap > 0 && (r.wrap = -r.wrap), 0 !== r.pending ? _ : g);
-        }, e.exports.deflateEnd = function (e) {
-          if (X(e)) return v;var t = e.state.status;return e.state = null, t === D ? N(e, E) : _;
-        }, e.exports.deflateSetDictionary = function (e, t) {
-          var r = t.length;if (X(e)) return v;var n = e.state,
-              i = n.wrap;if (2 === i || 1 === i && n.status !== I || n.lookahead) return v;if (1 === i && (e.adler = c(e.adler, t, r, 0)), n.wrap = 0, r >= n.w_size) {
-            0 === i && (L(n.head), n.strstart = 0, n.block_start = 0, n.insert = 0);var _e4 = new Uint8Array(n.w_size);_e4.set(t.subarray(r - n.w_size, r), 0), t = _e4, r = n.w_size;
-          }var s = e.avail_in,
-              a = e.next_in,
-              o = e.input;for (e.avail_in = r, e.next_in = 0, e.input = t, Z(n); n.lookahead >= 3;) {
-            var _e5 = n.strstart,
-                _t11 = n.lookahead - 2;do {
-              n.ins_h = j(n, n.ins_h, n.window[_e5 + 3 - 1]), n.prev[_e5 & n.w_mask] = n.head[n.ins_h], n.head[n.ins_h] = _e5, _e5++;
-            } while (--_t11);n.strstart = _e5, n.lookahead = 2, Z(n);
-          }return n.strstart += n.lookahead, n.block_start = n.strstart, n.insert = n.lookahead, n.lookahead = 0, n.match_length = n.prev_length = 2, n.match_available = 0, e.next_in = a, e.input = o, e.avail_in = s, n.wrap = i, _;
-        }, e.exports.deflateInfo = "pako deflate (from Nodeca project)";
-      }, 188: function _(e) {
-        "use strict";
-        e.exports = function () {
-          this.text = 0, this.time = 0, this.xflags = 0, this.os = 0, this.extra = null, this.extra_len = 0, this.name = "", this.comment = "", this.hcrc = 0, this.done = !1;
-        };
-      }, 264: function _(e) {
-        "use strict";
-        var t = 16209;e.exports = function (e, r) {
-          var n = void 0,
-              i = void 0,
-              s = void 0,
-              a = void 0,
-              o = void 0,
-              c = void 0,
-              d = void 0,
-              l = void 0,
-              p = void 0,
-              h = void 0,
-              u = void 0,
-              f = void 0,
-              m = void 0,
-              _ = void 0,
-              g = void 0,
-              v = void 0,
-              E = void 0,
-              y = void 0,
-              T = void 0,
-              C = void 0,
-              b = void 0,
-              w = void 0,
-              A = void 0,
-              R = void 0;var S = e.state;n = e.next_in, A = e.input, i = n + (e.avail_in - 5), s = e.next_out, R = e.output, a = s - (r - e.avail_out), o = s + (e.avail_out - 257), c = S.dmax, d = S.wsize, l = S.whave, p = S.wnext, h = S.window, u = S.hold, f = S.bits, m = S.lencode, _ = S.distcode, g = (1 << S.lenbits) - 1, v = (1 << S.distbits) - 1;e: do {
-            f < 15 && (u += A[n++] << f, f += 8, u += A[n++] << f, f += 8), E = m[u & g];t: for (;;) {
-              if (y = E >>> 24, u >>>= y, f -= y, y = E >>> 16 & 255, 0 === y) R[s++] = 65535 & E;else {
-                if (!(16 & y)) {
-                  if (0 == (64 & y)) {
-                    E = m[(65535 & E) + (u & (1 << y) - 1)];continue t;
-                  }if (32 & y) {
-                    S.mode = 16191;break e;
-                  }e.msg = "invalid literal/length code", S.mode = t;break e;
-                }T = 65535 & E, y &= 15, y && (f < y && (u += A[n++] << f, f += 8), T += u & (1 << y) - 1, u >>>= y, f -= y), f < 15 && (u += A[n++] << f, f += 8, u += A[n++] << f, f += 8), E = _[u & v];r: for (;;) {
-                  if (y = E >>> 24, u >>>= y, f -= y, y = E >>> 16 & 255, !(16 & y)) {
-                    if (0 == (64 & y)) {
-                      E = _[(65535 & E) + (u & (1 << y) - 1)];continue r;
-                    }e.msg = "invalid distance code", S.mode = t;break e;
-                  }if (C = 65535 & E, y &= 15, f < y && (u += A[n++] << f, f += 8, f < y && (u += A[n++] << f, f += 8)), C += u & (1 << y) - 1, C > c) {
-                    e.msg = "invalid distance too far back", S.mode = t;break e;
-                  }if (u >>>= y, f -= y, y = s - a, C > y) {
-                    if (y = C - y, y > l && S.sane) {
-                      e.msg = "invalid distance too far back", S.mode = t;break e;
-                    }if (b = 0, w = h, 0 === p) {
-                      if (b += d - y, y < T) {
-                        T -= y;do {
-                          R[s++] = h[b++];
-                        } while (--y);b = s - C, w = R;
-                      }
-                    } else if (p < y) {
-                      if (b += d + p - y, y -= p, y < T) {
-                        T -= y;do {
-                          R[s++] = h[b++];
-                        } while (--y);if (b = 0, p < T) {
-                          y = p, T -= y;do {
-                            R[s++] = h[b++];
-                          } while (--y);b = s - C, w = R;
+            }function l(r, i, s) {
+                return function (r) {
+                    return "debug" === r && (r = "log"), (typeof console === "undefined" ? "undefined" : (0, _typeof3.default)(console)) !== t && ("trace" === r && n ? o : void 0 !== console[r] ? a(console, r) : void 0 !== console.log ? a(console, "log") : e);
+                }(r) || c.apply(this, arguments);
+            }function h(e, n) {
+                var a,
+                    o,
+                    c,
+                    h = this,
+                    u = "loglevel";function _() {
+                    var e;if ((typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t && u) {
+                        try {
+                            e = window.localStorage[u];
+                        } catch (e) {}if ((typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e)) === t) try {
+                            var n = window.document.cookie,
+                                r = encodeURIComponent(u),
+                                i = n.indexOf(r + "=");-1 !== i && (e = /^([^;]+)/.exec(n.slice(i + r.length + 1))[1]);
+                        } catch (e) {}return void 0 === h.levels[e] && (e = void 0), e;
+                    }
+                }function f(e) {
+                    var t = e;if ("string" == typeof t && void 0 !== h.levels[t.toUpperCase()] && (t = h.levels[t.toUpperCase()]), "number" == typeof t && t >= 0 && t <= h.levels.SILENT) return t;throw new TypeError("log.setLevel() called with invalid level: " + e);
+                }"string" == typeof e ? u += ":" + e : "symbol" == (typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e)) && (u = void 0), h.name = e, h.levels = { TRACE: 0, DEBUG: 1, INFO: 2, WARN: 3, ERROR: 4, SILENT: 5 }, h.methodFactory = n || l, h.getLevel = function () {
+                    return null != c ? c : null != o ? o : a;
+                }, h.setLevel = function (e, n) {
+                    return c = f(e), !1 !== n && function (e) {
+                        var n = (r[e] || "silent").toUpperCase();if ((typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t && u) {
+                            try {
+                                return void (window.localStorage[u] = n);
+                            } catch (e) {}try {
+                                window.document.cookie = encodeURIComponent(u) + "=" + n + ";";
+                            } catch (e) {}
                         }
-                      }
-                    } else if (b += p - y, y < T) {
-                      T -= y;do {
-                        R[s++] = h[b++];
-                      } while (--y);b = s - C, w = R;
-                    }for (; T > 2;) {
-                      R[s++] = w[b++], R[s++] = w[b++], R[s++] = w[b++], T -= 3;
-                    }T && (R[s++] = w[b++], T > 1 && (R[s++] = w[b++]));
-                  } else {
-                    b = s - C;do {
-                      R[s++] = R[b++], R[s++] = R[b++], R[s++] = R[b++], T -= 3;
-                    } while (T > 2);T && (R[s++] = R[b++], T > 1 && (R[s++] = R[b++]));
-                  }break;
-                }
-              }break;
-            }
-          } while (n < i && s < o);T = f >> 3, n -= T, f -= T << 3, u &= (1 << f) - 1, e.next_in = n, e.next_out = s, e.avail_in = n < i ? i - n + 5 : 5 - (n - i), e.avail_out = s < o ? o - s + 257 : 257 - (s - o), S.hold = u, S.bits = f;
-        };
-      }, 948: function _(e, t, r) {
-        "use strict";
-        var n = r(69),
-            i = r(869),
-            s = r(264),
-            a = r(241),
-            _r9 = r(619),
-            o = _r9.Z_FINISH,
-            c = _r9.Z_BLOCK,
-            d = _r9.Z_TREES,
-            l = _r9.Z_OK,
-            p = _r9.Z_STREAM_END,
-            h = _r9.Z_NEED_DICT,
-            u = _r9.Z_STREAM_ERROR,
-            f = _r9.Z_DATA_ERROR,
-            m = _r9.Z_MEM_ERROR,
-            _ = _r9.Z_BUF_ERROR,
-            g = _r9.Z_DEFLATED,
-            v = 16180,
-            E = 16190,
-            y = 16191,
-            T = 16192,
-            C = 16194,
-            b = 16199,
-            w = 16200,
-            A = 16206,
-            R = 16209,
-            S = 16210,
-            P = function P(e) {
-          return (e >>> 24 & 255) + (e >>> 8 & 65280) + ((65280 & e) << 8) + ((255 & e) << 24);
-        };function k() {
-          this.strm = null, this.mode = 0, this.last = !1, this.wrap = 0, this.havedict = !1, this.flags = 0, this.dmax = 0, this.check = 0, this.total = 0, this.head = null, this.wbits = 0, this.wsize = 0, this.whave = 0, this.wnext = 0, this.window = null, this.hold = 0, this.bits = 0, this.length = 0, this.offset = 0, this.extra = 0, this.lencode = null, this.distcode = null, this.lenbits = 0, this.distbits = 0, this.ncode = 0, this.nlen = 0, this.ndist = 0, this.have = 0, this.next = null, this.lens = new Uint16Array(320), this.work = new Uint16Array(288), this.lendyn = null, this.distdyn = null, this.sane = 0, this.back = 0, this.was = 0;
-        }var x = function x(e) {
-          if (!e) return 1;var t = e.state;return !t || t.strm !== e || t.mode < v || t.mode > 16211 ? 1 : 0;
-        },
-            I = function I(e) {
-          if (x(e)) return u;var t = e.state;return e.total_in = e.total_out = t.total = 0, e.msg = "", t.wrap && (e.adler = 1 & t.wrap), t.mode = v, t.last = 0, t.havedict = 0, t.flags = -1, t.dmax = 32768, t.head = null, t.hold = 0, t.bits = 0, t.lencode = t.lendyn = new Int32Array(852), t.distcode = t.distdyn = new Int32Array(592), t.sane = 1, t.back = -1, l;
-        },
-            D = function D(e) {
-          if (x(e)) return u;var t = e.state;return t.wsize = 0, t.whave = 0, t.wnext = 0, I(e);
-        },
-            O = function O(e, t) {
-          var r = void 0;if (x(e)) return u;var n = e.state;return t < 0 ? (r = 0, t = -t) : (r = 5 + (t >> 4), t < 48 && (t &= 15)), t && (t < 8 || t > 15) ? u : (null !== n.window && n.wbits !== t && (n.window = null), n.wrap = r, n.wbits = t, D(e));
-        },
-            N = function N(e, t) {
-          if (!e) return u;var r = new k();e.state = r, r.strm = e, r.window = null, r.mode = v;var n = O(e, t);return n !== l && (e.state = null), n;
-        };var M = void 0,
-            L = void 0,
-            U = !0;var j = function j(e) {
-          if (U) {
-            M = new Int32Array(512), L = new Int32Array(32);var _t12 = 0;for (; _t12 < 144;) {
-              e.lens[_t12++] = 8;
-            }for (; _t12 < 256;) {
-              e.lens[_t12++] = 9;
-            }for (; _t12 < 280;) {
-              e.lens[_t12++] = 7;
-            }for (; _t12 < 288;) {
-              e.lens[_t12++] = 8;
-            }for (a(1, e.lens, 0, 288, M, 0, e.work, { bits: 9 }), _t12 = 0; _t12 < 32;) {
-              e.lens[_t12++] = 5;
-            }a(2, e.lens, 0, 32, L, 0, e.work, { bits: 5 }), U = !1;
-          }e.lencode = M, e.lenbits = 9, e.distcode = L, e.distbits = 5;
-        },
-            z = function z(e, t, r, n) {
-          var i = void 0;var s = e.state;return null === s.window && (s.wsize = 1 << s.wbits, s.wnext = 0, s.whave = 0, s.window = new Uint8Array(s.wsize)), n >= s.wsize ? (s.window.set(t.subarray(r - s.wsize, r), 0), s.wnext = 0, s.whave = s.wsize) : (i = s.wsize - s.wnext, i > n && (i = n), s.window.set(t.subarray(r - n, r - n + i), s.wnext), (n -= i) ? (s.window.set(t.subarray(r - n, r), 0), s.wnext = n, s.whave = s.wsize) : (s.wnext += i, s.wnext === s.wsize && (s.wnext = 0), s.whave < s.wsize && (s.whave += i))), 0;
-        };e.exports.inflateReset = D, e.exports.inflateReset2 = O, e.exports.inflateResetKeep = I, e.exports.inflateInit = function (e) {
-          return N(e, 15);
-        }, e.exports.inflateInit2 = N, e.exports.inflate = function (e, t) {
-          var r = void 0,
-              k = void 0,
-              I = void 0,
-              D = void 0,
-              O = void 0,
-              N = void 0,
-              M = void 0,
-              L = void 0,
-              U = void 0,
-              G = void 0,
-              F = void 0,
-              V = void 0,
-              W = void 0,
-              q = void 0,
-              Z = void 0,
-              B = void 0,
-              H = void 0,
-              K = void 0,
-              J = void 0,
-              $ = void 0,
-              Y = void 0,
-              X = void 0,
-              Q = 0;var ee = new Uint8Array(4);var te = void 0,
-              re = void 0;var ne = new Uint8Array([16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15]);if (x(e) || !e.output || !e.input && 0 !== e.avail_in) return u;r = e.state, r.mode === y && (r.mode = T), O = e.next_out, I = e.output, M = e.avail_out, D = e.next_in, k = e.input, N = e.avail_in, L = r.hold, U = r.bits, G = N, F = M, X = l;e: for (;;) {
-            switch (r.mode) {case v:
-                if (0 === r.wrap) {
-                  r.mode = T;break;
-                }for (; U < 16;) {
-                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                }if (2 & r.wrap && 35615 === L) {
-                  0 === r.wbits && (r.wbits = 15), r.check = 0, ee[0] = 255 & L, ee[1] = L >>> 8 & 255, r.check = i(r.check, ee, 2, 0), L = 0, U = 0, r.mode = 16181;break;
-                }if (r.head && (r.head.done = !1), !(1 & r.wrap) || (((255 & L) << 8) + (L >> 8)) % 31) {
-                  e.msg = "incorrect header check", r.mode = R;break;
-                }if ((15 & L) !== g) {
-                  e.msg = "unknown compression method", r.mode = R;break;
-                }if (L >>>= 4, U -= 4, Y = 8 + (15 & L), 0 === r.wbits && (r.wbits = Y), Y > 15 || Y > r.wbits) {
-                  e.msg = "invalid window size", r.mode = R;break;
-                }r.dmax = 1 << r.wbits, r.flags = 0, e.adler = r.check = 1, r.mode = 512 & L ? 16189 : y, L = 0, U = 0;break;case 16181:
-                for (; U < 16;) {
-                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                }if (r.flags = L, (255 & r.flags) !== g) {
-                  e.msg = "unknown compression method", r.mode = R;break;
-                }if (57344 & r.flags) {
-                  e.msg = "unknown header flags set", r.mode = R;break;
-                }r.head && (r.head.text = L >> 8 & 1), 512 & r.flags && 4 & r.wrap && (ee[0] = 255 & L, ee[1] = L >>> 8 & 255, r.check = i(r.check, ee, 2, 0)), L = 0, U = 0, r.mode = 16182;case 16182:
-                for (; U < 32;) {
-                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                }r.head && (r.head.time = L), 512 & r.flags && 4 & r.wrap && (ee[0] = 255 & L, ee[1] = L >>> 8 & 255, ee[2] = L >>> 16 & 255, ee[3] = L >>> 24 & 255, r.check = i(r.check, ee, 4, 0)), L = 0, U = 0, r.mode = 16183;case 16183:
-                for (; U < 16;) {
-                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                }r.head && (r.head.xflags = 255 & L, r.head.os = L >> 8), 512 & r.flags && 4 & r.wrap && (ee[0] = 255 & L, ee[1] = L >>> 8 & 255, r.check = i(r.check, ee, 2, 0)), L = 0, U = 0, r.mode = 16184;case 16184:
-                if (1024 & r.flags) {
-                  for (; U < 16;) {
-                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                  }r.length = L, r.head && (r.head.extra_len = L), 512 & r.flags && 4 & r.wrap && (ee[0] = 255 & L, ee[1] = L >>> 8 & 255, r.check = i(r.check, ee, 2, 0)), L = 0, U = 0;
-                } else r.head && (r.head.extra = null);r.mode = 16185;case 16185:
-                if (1024 & r.flags && (V = r.length, V > N && (V = N), V && (r.head && (Y = r.head.extra_len - r.length, r.head.extra || (r.head.extra = new Uint8Array(r.head.extra_len)), r.head.extra.set(k.subarray(D, D + V), Y)), 512 & r.flags && 4 & r.wrap && (r.check = i(r.check, k, V, D)), N -= V, D += V, r.length -= V), r.length)) break e;r.length = 0, r.mode = 16186;case 16186:
-                if (2048 & r.flags) {
-                  if (0 === N) break e;V = 0;do {
-                    Y = k[D + V++], r.head && Y && r.length < 65536 && (r.head.name += String.fromCharCode(Y));
-                  } while (Y && V < N);if (512 & r.flags && 4 & r.wrap && (r.check = i(r.check, k, V, D)), N -= V, D += V, Y) break e;
-                } else r.head && (r.head.name = null);r.length = 0, r.mode = 16187;case 16187:
-                if (4096 & r.flags) {
-                  if (0 === N) break e;V = 0;do {
-                    Y = k[D + V++], r.head && Y && r.length < 65536 && (r.head.comment += String.fromCharCode(Y));
-                  } while (Y && V < N);if (512 & r.flags && 4 & r.wrap && (r.check = i(r.check, k, V, D)), N -= V, D += V, Y) break e;
-                } else r.head && (r.head.comment = null);r.mode = 16188;case 16188:
-                if (512 & r.flags) {
-                  for (; U < 16;) {
-                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                  }if (4 & r.wrap && L !== (65535 & r.check)) {
-                    e.msg = "header crc mismatch", r.mode = R;break;
-                  }L = 0, U = 0;
-                }r.head && (r.head.hcrc = r.flags >> 9 & 1, r.head.done = !0), e.adler = r.check = 0, r.mode = y;break;case 16189:
-                for (; U < 32;) {
-                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                }e.adler = r.check = P(L), L = 0, U = 0, r.mode = E;case E:
-                if (0 === r.havedict) return e.next_out = O, e.avail_out = M, e.next_in = D, e.avail_in = N, r.hold = L, r.bits = U, h;e.adler = r.check = 1, r.mode = y;case y:
-                if (t === c || t === d) break e;case T:
-                if (r.last) {
-                  L >>>= 7 & U, U -= 7 & U, r.mode = A;break;
-                }for (; U < 3;) {
-                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                }switch (r.last = 1 & L, L >>>= 1, U -= 1, 3 & L) {case 0:
-                    r.mode = 16193;break;case 1:
-                    if (j(r), r.mode = b, t === d) {
-                      L >>>= 2, U -= 2;break e;
-                    }break;case 2:
-                    r.mode = 16196;break;case 3:
-                    e.msg = "invalid block type", r.mode = R;}L >>>= 2, U -= 2;break;case 16193:
-                for (L >>>= 7 & U, U -= 7 & U; U < 32;) {
-                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                }if ((65535 & L) != (L >>> 16 ^ 65535)) {
-                  e.msg = "invalid stored block lengths", r.mode = R;break;
-                }if (r.length = 65535 & L, L = 0, U = 0, r.mode = C, t === d) break e;case C:
-                r.mode = 16195;case 16195:
-                if (V = r.length, V) {
-                  if (V > N && (V = N), V > M && (V = M), 0 === V) break e;I.set(k.subarray(D, D + V), O), N -= V, D += V, M -= V, O += V, r.length -= V;break;
-                }r.mode = y;break;case 16196:
-                for (; U < 14;) {
-                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                }if (r.nlen = 257 + (31 & L), L >>>= 5, U -= 5, r.ndist = 1 + (31 & L), L >>>= 5, U -= 5, r.ncode = 4 + (15 & L), L >>>= 4, U -= 4, r.nlen > 286 || r.ndist > 30) {
-                  e.msg = "too many length or distance symbols", r.mode = R;break;
-                }r.have = 0, r.mode = 16197;case 16197:
-                for (; r.have < r.ncode;) {
-                  for (; U < 3;) {
-                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                  }r.lens[ne[r.have++]] = 7 & L, L >>>= 3, U -= 3;
-                }for (; r.have < 19;) {
-                  r.lens[ne[r.have++]] = 0;
-                }if (r.lencode = r.lendyn, r.lenbits = 7, te = { bits: r.lenbits }, X = a(0, r.lens, 0, 19, r.lencode, 0, r.work, te), r.lenbits = te.bits, X) {
-                  e.msg = "invalid code lengths set", r.mode = R;break;
-                }r.have = 0, r.mode = 16198;case 16198:
-                for (; r.have < r.nlen + r.ndist;) {
-                  for (; Q = r.lencode[L & (1 << r.lenbits) - 1], Z = Q >>> 24, B = Q >>> 16 & 255, H = 65535 & Q, !(Z <= U);) {
-                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                  }if (H < 16) L >>>= Z, U -= Z, r.lens[r.have++] = H;else {
-                    if (16 === H) {
-                      for (re = Z + 2; U < re;) {
-                        if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                      }if (L >>>= Z, U -= Z, 0 === r.have) {
-                        e.msg = "invalid bit length repeat", r.mode = R;break;
-                      }Y = r.lens[r.have - 1], V = 3 + (3 & L), L >>>= 2, U -= 2;
-                    } else if (17 === H) {
-                      for (re = Z + 3; U < re;) {
-                        if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                      }L >>>= Z, U -= Z, Y = 0, V = 3 + (7 & L), L >>>= 3, U -= 3;
-                    } else {
-                      for (re = Z + 7; U < re;) {
-                        if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                      }L >>>= Z, U -= Z, Y = 0, V = 11 + (127 & L), L >>>= 7, U -= 7;
-                    }if (r.have + V > r.nlen + r.ndist) {
-                      e.msg = "invalid bit length repeat", r.mode = R;break;
-                    }for (; V--;) {
-                      r.lens[r.have++] = Y;
+                    }(c), d.call(h);
+                }, h.setDefaultLevel = function (e) {
+                    o = f(e), _() || h.setLevel(e, !1);
+                }, h.resetLevel = function () {
+                    c = null, function () {
+                        if ((typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t && u) {
+                            try {
+                                window.localStorage.removeItem(u);
+                            } catch (e) {}try {
+                                window.document.cookie = encodeURIComponent(u) + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+                            } catch (e) {}
+                        }
+                    }(), d.call(h);
+                }, h.enableAll = function (e) {
+                    h.setLevel(h.levels.TRACE, e);
+                }, h.disableAll = function (e) {
+                    h.setLevel(h.levels.SILENT, e);
+                }, h.rebuild = function () {
+                    if (s !== h && (a = f(s.getLevel())), d.call(h), s === h) for (var e in i) {
+                        i[e].rebuild();
                     }
-                  }
-                }if (r.mode === R) break;if (0 === r.lens[256]) {
-                  e.msg = "invalid code -- missing end-of-block", r.mode = R;break;
-                }if (r.lenbits = 9, te = { bits: r.lenbits }, X = a(1, r.lens, 0, r.nlen, r.lencode, 0, r.work, te), r.lenbits = te.bits, X) {
-                  e.msg = "invalid literal/lengths set", r.mode = R;break;
-                }if (r.distbits = 6, r.distcode = r.distdyn, te = { bits: r.distbits }, X = a(2, r.lens, r.nlen, r.ndist, r.distcode, 0, r.work, te), r.distbits = te.bits, X) {
-                  e.msg = "invalid distances set", r.mode = R;break;
-                }if (r.mode = b, t === d) break e;case b:
-                r.mode = w;case w:
-                if (N >= 6 && M >= 258) {
-                  e.next_out = O, e.avail_out = M, e.next_in = D, e.avail_in = N, r.hold = L, r.bits = U, s(e, F), O = e.next_out, I = e.output, M = e.avail_out, D = e.next_in, k = e.input, N = e.avail_in, L = r.hold, U = r.bits, r.mode === y && (r.back = -1);break;
-                }for (r.back = 0; Q = r.lencode[L & (1 << r.lenbits) - 1], Z = Q >>> 24, B = Q >>> 16 & 255, H = 65535 & Q, !(Z <= U);) {
-                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                }if (B && 0 == (240 & B)) {
-                  for (K = Z, J = B, $ = H; Q = r.lencode[$ + ((L & (1 << K + J) - 1) >> K)], Z = Q >>> 24, B = Q >>> 16 & 255, H = 65535 & Q, !(K + Z <= U);) {
-                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                  }L >>>= K, U -= K, r.back += K;
-                }if (L >>>= Z, U -= Z, r.back += Z, r.length = H, 0 === B) {
-                  r.mode = 16205;break;
-                }if (32 & B) {
-                  r.back = -1, r.mode = y;break;
-                }if (64 & B) {
-                  e.msg = "invalid literal/length code", r.mode = R;break;
-                }r.extra = 15 & B, r.mode = 16201;case 16201:
-                if (r.extra) {
-                  for (re = r.extra; U < re;) {
-                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                  }r.length += L & (1 << r.extra) - 1, L >>>= r.extra, U -= r.extra, r.back += r.extra;
-                }r.was = r.length, r.mode = 16202;case 16202:
-                for (; Q = r.distcode[L & (1 << r.distbits) - 1], Z = Q >>> 24, B = Q >>> 16 & 255, H = 65535 & Q, !(Z <= U);) {
-                  if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                }if (0 == (240 & B)) {
-                  for (K = Z, J = B, $ = H; Q = r.distcode[$ + ((L & (1 << K + J) - 1) >> K)], Z = Q >>> 24, B = Q >>> 16 & 255, H = 65535 & Q, !(K + Z <= U);) {
-                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                  }L >>>= K, U -= K, r.back += K;
-                }if (L >>>= Z, U -= Z, r.back += Z, 64 & B) {
-                  e.msg = "invalid distance code", r.mode = R;break;
-                }r.offset = H, r.extra = 15 & B, r.mode = 16203;case 16203:
-                if (r.extra) {
-                  for (re = r.extra; U < re;) {
-                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                  }r.offset += L & (1 << r.extra) - 1, L >>>= r.extra, U -= r.extra, r.back += r.extra;
-                }if (r.offset > r.dmax) {
-                  e.msg = "invalid distance too far back", r.mode = R;break;
-                }r.mode = 16204;case 16204:
-                if (0 === M) break e;if (V = F - M, r.offset > V) {
-                  if (V = r.offset - V, V > r.whave && r.sane) {
-                    e.msg = "invalid distance too far back", r.mode = R;break;
-                  }V > r.wnext ? (V -= r.wnext, W = r.wsize - V) : W = r.wnext - V, V > r.length && (V = r.length), q = r.window;
-                } else q = I, W = O - r.offset, V = r.length;V > M && (V = M), M -= V, r.length -= V;do {
-                  I[O++] = q[W++];
-                } while (--V);0 === r.length && (r.mode = w);break;case 16205:
-                if (0 === M) break e;I[O++] = r.length, M--, r.mode = w;break;case A:
-                if (r.wrap) {
-                  for (; U < 32;) {
-                    if (0 === N) break e;N--, L |= k[D++] << U, U += 8;
-                  }if (F -= M, e.total_out += F, r.total += F, 4 & r.wrap && F && (e.adler = r.check = r.flags ? i(r.check, I, F, O - F) : n(r.check, I, F, O - F)), F = M, 4 & r.wrap && (r.flags ? L : P(L)) !== r.check) {
-                    e.msg = "incorrect data check", r.mode = R;break;
-                  }L = 0, U = 0;
-                }r.mode = 16207;case 16207:
-                if (r.wrap && r.flags) {
-                  for (; U < 32;) {
-                    if (0 === N) break e;N--, L += k[D++] << U, U += 8;
-                  }if (4 & r.wrap && L !== (4294967295 & r.total)) {
-                    e.msg = "incorrect length check", r.mode = R;break;
-                  }L = 0, U = 0;
-                }r.mode = 16208;case 16208:
-                X = p;break e;case R:
-                X = f;break e;case S:
-                return m;default:
-                return u;}
-          }return e.next_out = O, e.avail_out = M, e.next_in = D, e.avail_in = N, r.hold = L, r.bits = U, (r.wsize || F !== e.avail_out && r.mode < R && (r.mode < A || t !== o)) && z(e, e.output, e.next_out, F - e.avail_out) ? (r.mode = S, m) : (G -= e.avail_in, F -= e.avail_out, e.total_in += G, e.total_out += F, r.total += F, 4 & r.wrap && F && (e.adler = r.check = r.flags ? i(r.check, I, F, e.next_out - F) : n(r.check, I, F, e.next_out - F)), e.data_type = r.bits + (r.last ? 64 : 0) + (r.mode === y ? 128 : 0) + (r.mode === b || r.mode === C ? 256 : 0), (0 === G && 0 === F || t === o) && X === l && (X = _), X);
-        }, e.exports.inflateEnd = function (e) {
-          if (x(e)) return u;var t = e.state;return t.window && (t.window = null), e.state = null, l;
-        }, e.exports.inflateGetHeader = function (e, t) {
-          if (x(e)) return u;var r = e.state;return 0 == (2 & r.wrap) ? u : (r.head = t, t.done = !1, l);
-        }, e.exports.inflateSetDictionary = function (e, t) {
-          var r = t.length;var i = void 0,
-              s = void 0,
-              a = void 0;return x(e) ? u : (i = e.state, 0 !== i.wrap && i.mode !== E ? u : i.mode === E && (s = 1, s = n(s, t, r, 0), s !== i.check) ? f : (a = z(e, t, r, r), a ? (i.mode = S, m) : (i.havedict = 1, l)));
-        }, e.exports.inflateInfo = "pako inflate (from Nodeca project)";
-      }, 241: function _(e) {
-        "use strict";
-        var t = 15,
-            r = new Uint16Array([3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258, 0, 0]),
-            n = new Uint8Array([16, 16, 16, 16, 16, 16, 16, 16, 17, 17, 17, 17, 18, 18, 18, 18, 19, 19, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21, 16, 72, 78]),
-            i = new Uint16Array([1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193, 257, 385, 513, 769, 1025, 1537, 2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577, 0, 0]),
-            s = new Uint8Array([16, 16, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23, 24, 24, 25, 25, 26, 26, 27, 27, 28, 28, 29, 29, 64, 64]);e.exports = function (e, a, o, c, d, l, p, h) {
-          var u = h.bits;var f = void 0,
-              m = void 0,
-              _ = void 0,
-              g = void 0,
-              v = void 0,
-              E = void 0,
-              y = 0,
-              T = 0,
-              C = 0,
-              b = 0,
-              w = 0,
-              A = 0,
-              R = 0,
-              S = 0,
-              P = 0,
-              k = 0,
-              x = null;var I = new Uint16Array(16),
-              D = new Uint16Array(16);var O = void 0,
-              N = void 0,
-              M = void 0,
-              L = null;for (y = 0; y <= t; y++) {
-            I[y] = 0;
-          }for (T = 0; T < c; T++) {
-            I[a[o + T]]++;
-          }for (w = u, b = t; b >= 1 && 0 === I[b]; b--) {}if (w > b && (w = b), 0 === b) return d[l++] = 20971520, d[l++] = 20971520, h.bits = 1, 0;for (C = 1; C < b && 0 === I[C]; C++) {}for (w < C && (w = C), S = 1, y = 1; y <= t; y++) {
-            if (S <<= 1, S -= I[y], S < 0) return -1;
-          }if (S > 0 && (0 === e || 1 !== b)) return -1;for (D[1] = 0, y = 1; y < t; y++) {
-            D[y + 1] = D[y] + I[y];
-          }for (T = 0; T < c; T++) {
-            0 !== a[o + T] && (p[D[a[o + T]]++] = T);
-          }if (0 === e ? (x = L = p, E = 20) : 1 === e ? (x = r, L = n, E = 257) : (x = i, L = s, E = 0), k = 0, T = 0, y = C, v = l, A = w, R = 0, _ = -1, P = 1 << w, g = P - 1, 1 === e && P > 852 || 2 === e && P > 592) return 1;for (;;) {
-            O = y - R, p[T] + 1 < E ? (N = 0, M = p[T]) : p[T] >= E ? (N = L[p[T] - E], M = x[p[T] - E]) : (N = 96, M = 0), f = 1 << y - R, m = 1 << A, C = m;do {
-              m -= f, d[v + (k >> R) + m] = O << 24 | N << 16 | M | 0;
-            } while (0 !== m);for (f = 1 << y - 1; k & f;) {
-              f >>= 1;
-            }if (0 !== f ? (k &= f - 1, k += f) : k = 0, T++, 0 == --I[y]) {
-              if (y === b) break;y = a[o + p[T]];
-            }if (y > w && (k & g) !== _) {
-              for (0 === R && (R = w), v += C, A = y - R, S = 1 << A; A + R < b && (S -= I[A + R], !(S <= 0));) {
-                A++, S <<= 1;
-              }if (P += 1 << A, 1 === e && P > 852 || 2 === e && P > 592) return 1;_ = k & g, d[_] = w << 24 | A << 16 | v - l | 0;
-            }
-          }return 0 !== k && (d[v + k] = y - R << 24 | 64 << 16 | 0), h.bits = w, 0;
-        };
-      }, 898: function _(e) {
-        "use strict";
-        e.exports = { 2: "need dictionary", 1: "stream end", 0: "", "-1": "file error", "-2": "stream error", "-3": "data error", "-4": "insufficient memory", "-5": "buffer error", "-6": "incompatible version" };
-      }, 342: function _(e) {
-        "use strict";
-        function t(e) {
-          var t = e.length;for (; --t >= 0;) {
-            e[t] = 0;
-          }
-        }var r = 256,
-            n = 286,
-            i = 30,
-            s = 15,
-            a = new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0]),
-            o = new Uint8Array([0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13]),
-            c = new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 7]),
-            d = new Uint8Array([16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15]),
-            l = new Array(576);t(l);var p = new Array(60);t(p);var h = new Array(512);t(h);var u = new Array(256);t(u);var f = new Array(29);t(f);var m = new Array(i);function _(e, t, r, n, i) {
-          this.static_tree = e, this.extra_bits = t, this.extra_base = r, this.elems = n, this.max_length = i, this.has_stree = e && e.length;
-        }var g = void 0,
-            v = void 0,
-            E = void 0;function y(e, t) {
-          this.dyn_tree = e, this.max_code = 0, this.stat_desc = t;
-        }t(m);var T = function T(e) {
-          return e < 256 ? h[e] : h[256 + (e >>> 7)];
-        },
-            C = function C(e, t) {
-          e.pending_buf[e.pending++] = 255 & t, e.pending_buf[e.pending++] = t >>> 8 & 255;
-        },
-            b = function b(e, t, r) {
-          e.bi_valid > 16 - r ? (e.bi_buf |= t << e.bi_valid & 65535, C(e, e.bi_buf), e.bi_buf = t >> 16 - e.bi_valid, e.bi_valid += r - 16) : (e.bi_buf |= t << e.bi_valid & 65535, e.bi_valid += r);
-        },
-            w = function w(e, t, r) {
-          b(e, r[2 * t], r[2 * t + 1]);
-        },
-            A = function A(e, t) {
-          var r = 0;do {
-            r |= 1 & e, e >>>= 1, r <<= 1;
-          } while (--t > 0);return r >>> 1;
-        },
-            R = function R(e, t, r) {
-          var n = new Array(16);var i = void 0,
-              a = void 0,
-              o = 0;for (i = 1; i <= s; i++) {
-            o = o + r[i - 1] << 1, n[i] = o;
-          }for (a = 0; a <= t; a++) {
-            var _t13 = e[2 * a + 1];0 !== _t13 && (e[2 * a] = A(n[_t13]++, _t13));
-          }
-        },
-            S = function S(e) {
-          var t = void 0;for (t = 0; t < n; t++) {
-            e.dyn_ltree[2 * t] = 0;
-          }for (t = 0; t < i; t++) {
-            e.dyn_dtree[2 * t] = 0;
-          }for (t = 0; t < 19; t++) {
-            e.bl_tree[2 * t] = 0;
-          }e.dyn_ltree[512] = 1, e.opt_len = e.static_len = 0, e.sym_next = e.matches = 0;
-        },
-            P = function P(e) {
-          e.bi_valid > 8 ? C(e, e.bi_buf) : e.bi_valid > 0 && (e.pending_buf[e.pending++] = e.bi_buf), e.bi_buf = 0, e.bi_valid = 0;
-        },
-            k = function k(e, t, r, n) {
-          var i = 2 * t,
-              s = 2 * r;return e[i] < e[s] || e[i] === e[s] && n[t] <= n[r];
-        },
-            x = function x(e, t, r) {
-          var n = e.heap[r];var i = r << 1;for (; i <= e.heap_len && (i < e.heap_len && k(t, e.heap[i + 1], e.heap[i], e.depth) && i++, !k(t, n, e.heap[i], e.depth));) {
-            e.heap[r] = e.heap[i], r = i, i <<= 1;
-          }e.heap[r] = n;
-        },
-            I = function I(e, t, n) {
-          var i = void 0,
-              s = void 0,
-              c = void 0,
-              d = void 0,
-              l = 0;if (0 !== e.sym_next) do {
-            i = 255 & e.pending_buf[e.sym_buf + l++], i += (255 & e.pending_buf[e.sym_buf + l++]) << 8, s = e.pending_buf[e.sym_buf + l++], 0 === i ? w(e, s, t) : (c = u[s], w(e, c + r + 1, t), d = a[c], 0 !== d && (s -= f[c], b(e, s, d)), i--, c = T(i), w(e, c, n), d = o[c], 0 !== d && (i -= m[c], b(e, i, d)));
-          } while (l < e.sym_next);w(e, 256, t);
-        },
-            D = function D(e, t) {
-          var r = t.dyn_tree,
-              n = t.stat_desc.static_tree,
-              i = t.stat_desc.has_stree,
-              a = t.stat_desc.elems;var o = void 0,
-              c = void 0,
-              d = void 0,
-              l = -1;for (e.heap_len = 0, e.heap_max = 573, o = 0; o < a; o++) {
-            0 !== r[2 * o] ? (e.heap[++e.heap_len] = l = o, e.depth[o] = 0) : r[2 * o + 1] = 0;
-          }for (; e.heap_len < 2;) {
-            d = e.heap[++e.heap_len] = l < 2 ? ++l : 0, r[2 * d] = 1, e.depth[d] = 0, e.opt_len--, i && (e.static_len -= n[2 * d + 1]);
-          }for (t.max_code = l, o = e.heap_len >> 1; o >= 1; o--) {
-            x(e, r, o);
-          }d = a;do {
-            o = e.heap[1], e.heap[1] = e.heap[e.heap_len--], x(e, r, 1), c = e.heap[1], e.heap[--e.heap_max] = o, e.heap[--e.heap_max] = c, r[2 * d] = r[2 * o] + r[2 * c], e.depth[d] = (e.depth[o] >= e.depth[c] ? e.depth[o] : e.depth[c]) + 1, r[2 * o + 1] = r[2 * c + 1] = d, e.heap[1] = d++, x(e, r, 1);
-          } while (e.heap_len >= 2);e.heap[--e.heap_max] = e.heap[1], function (e, t) {
-            var r = t.dyn_tree,
-                n = t.max_code,
-                i = t.stat_desc.static_tree,
-                a = t.stat_desc.has_stree,
-                o = t.stat_desc.extra_bits,
-                c = t.stat_desc.extra_base,
-                d = t.stat_desc.max_length;var l = void 0,
-                p = void 0,
-                h = void 0,
-                u = void 0,
-                f = void 0,
+                }, a = f(s ? s.getLevel() : "WARN");var E = _();null != E && (c = f(E)), d.call(h);
+            }(s = new h()).getLogger = function (e) {
+                if ("symbol" != (typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e)) && "string" != typeof e || "" === e) throw new TypeError("You must supply a name when creating a logger.");var t = i[e];return t || (t = i[e] = new h(e, s.methodFactory)), t;
+            };var u = (typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t ? window.log : void 0;return s.noConflict = function () {
+                return (typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== t && window.log === s && (window.log = u), s;
+            }, s.getLoggers = function () {
+                return i;
+            }, s.default = s, s;
+        }, e.exports ? e.exports = r() : t.log = r();
+    }(i);var s = r(i.exports);var a = Object.freeze({ HELLO_API_NAME: "hello", GETUSERMEDIA_API_NAME: "navigator.mediaDevices.getUserMedia", ENUMERATEDEVICES_API_NAME: "navigator.mediaDevices.enumerateDevices", GENERATE_CERTIFICATE_API_NAME: "RTCPeerConnection.generateCertificate", NEWRTCPEERCONNECTION_API_NAME: "new.RTCPeerConnection", PC_GET_CONFIGURATION: "pcs.getConfiguration", NEW_AUDIO_CONTEXT: "new.AudioContext", CREATE_WORKER: "new.Worker", WORKER_POST_MESSAGE: "workers.postMessage", WORKER_TERMINATE: "workers.terminate", AUDIO_CTX_CREATE_AUDIO_NODE: "audioContexts.createAudioNode", AUDIO_CTX_CLOSE: "audioContexts.close", AUDIO_NODE_CONNECT: "audioNodes.connect", AUDIO_NODE_DISCONNECT: "audioNodes.disconnect", AUDIO_PARAM_SET_VALUE_AT_TIME: "audioParams.setValueAtTime", AUDIO_PARAM_SET_RAMP_TO_VALUE_AT_TIME: "audioParams.linearRampToValueAtTime", AUDIO_NODE_SET_TYPE: "audioNodes.setType", AUDIO_NODE_START: "audioNodes.start", AUDIO_NODE_STOP: "audioNodes.stop", PC_CLOSE_API_NAME: "pcs.close", ADDSTREAM_API_NAME: "pcs.addStream", STREAM_REMOVE_TRACK: "streams.removeTrack", STREAM_ADD_TRACK: "streams.addTrack", GET_STATS_API_NAME: "pcs.getStats", CREATE_OFFER_API_NAME: "pcs.createOffer", SET_LOCAL_DESCRIPTION_API_NAME: "pcs.setLocalDescription", ADD_PC_EVENT_LISTENER: "pcs.addEventListener", ADD_TRACK_EVENT_LISTENER: "tracks.addEventListener", ADD_DTMF_EVENT_LISTENER: "dtmfs.addEventListener", ADD_WORKER_EVENT_LISTENER: "workers.addEventListener", SET_REMOTE_DESCRIPTION_API_NAME: "pcs.setRemoteDescription", ADD_ICE_CANDIDATE_API_NAME: "pcs.addIceCandidate", CREATE_MEDIA_ELEMENT_API_NAME: "document.createElement", MEDIA_ELEMENT_SET_SINK_ID_API_NAME: "mediaElements.setSinkId", MEDIA_ELEMENT_REMOVE: "mediaElements.remove", CREATE_ANSWER_API_NAME: "pcs.createAnswer", UNLOAD_EVENT_NAME: "unload", TOGGLE_TRACK_ENABLED_API_NAME: "tracks.enabled", TRACK_STOP_API_NAME: "tracks.stop", TRACK_GET_SETTINGS: "tracks.getSettings", GET_RECEIVERS_API_NAME: "pcs.getReceivers", ADD_TRACK_API_NAME: "pcs.addTrack", GET_SENDERS_API_NAME: "pcs.getSenders", GET_SENDER_STATS_API_NAME: "senders.getStats", GET_RECEIVER_STATS_API_NAME: "receivers.getStats", SET_MEDIA_SRC_OBJ_API_NAME: "mediaElements.srcObject", SET_MEDIA_HIDDEN_API_NAME: "mediaElements.hidden", SET_MEDIA_VOLUME_API_NAME: "mediaElements.volume", MEDIA_ELEMENT_PLAY_API_NAME: "mediaElements.play", MEDIA_ELEMENT_PAUSE_API_NAME: "mediaElements.pause", MEDIA_ELEMENT_MUTED: "mediaElements.muted", ADD_TRANSCEIVER_API_NAME: "pcs.addTransceiver", GET_TRANSCEIVERS_API_NAME: "pcs.getTransceivers", TRANSCEIVER_SET_CODEC_PREFS: "transceivers.setCodecPreferences", REPLACE_SENDER_TRACK_API_NAME: "senders.replaceTrack", PC_REMOVE_TRACK_API_NAME: "pcs.removeTrack", INSERT_DTMF_API_NAME: "dtmfSenders.insertDTMF", SENDER_CREATE_ENCODED_STREAMS: "senders.createEncodedStreams", RECEIVER_CREATE_ENCODED_STREAMS: "receivers.createEncodedStreams" }),
+        o = Object.freeze({ SIG_STATE_CHANGE: "signalingstatechange", TRACK: "track", CONN_STATE_CHANGE: "connectionstatechange", ICE_CONN_STATE_CHANGE: "iceconnectionstatechange", ICE_GATHER_STATE_CHANGE: "icegatheringstatechange", ICE_CANDIDATE: "icecandidate", NEGOTIATION_NEEDED: "negotiationneeded" }),
+        d = Object.freeze({ ENDED: "ended", MUTE: "mute", UNMUTE: "unmute" }),
+        c = Object.freeze({ TONECHANGE: "tonechange" }),
+        l = Object.freeze({ ERROR: "error", MESSAGE: "message", MESSAGE_ERROR: "messageerror" }),
+        h = Object.freeze({ NEW: "new", AVAILABLE: "available", UNAVAILABLE: "unavailable" }),
+        u = Object.freeze({ CHROME: "diilpfplcnhehakckkpmcmibmhbingnd", EDGE: "kjbbkjjiecchbcdoollhgffghfjnbhef" });for (var _ = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", f = "undefined" == typeof Uint8Array ? [] : new Uint8Array(256), E = 0; E < 64; E++) {
+        f[_.charCodeAt(E)] = E;
+    }var p = function p(e) {
+        var t,
+            n = new Uint8Array(e),
+            r = n.length,
+            i = "";for (t = 0; t < r; t += 3) {
+            i += _[n[t] >> 2], i += _[(3 & n[t]) << 4 | n[t + 1] >> 4], i += _[(15 & n[t + 1]) << 2 | n[t + 2] >> 6], i += _[63 & n[t + 2]];
+        }return r % 3 == 2 ? i = i.substring(0, i.length - 1) + "=" : r % 3 == 1 && (i = i.substring(0, i.length - 2) + "=="), i;
+    },
+        g = function g(e) {
+        var t,
+            n,
+            r,
+            i,
+            s,
+            a = .75 * e.length,
+            o = e.length,
+            d = 0;"=" === e[e.length - 1] && (a--, "=" === e[e.length - 2] && a--);var c = new ArrayBuffer(a),
+            l = new Uint8Array(c);for (t = 0; t < o; t += 4) {
+            n = f[e.charCodeAt(t)], r = f[e.charCodeAt(t + 1)], i = f[e.charCodeAt(t + 2)], s = f[e.charCodeAt(t + 3)], l[d++] = n << 2 | r >> 4, l[d++] = (15 & r) << 4 | i >> 2, l[d++] = (3 & i) << 6 | 63 & s;
+        }return c;
+    },
+        m = { exports: {} };
+    /*! pako 2.1.0 https://github.com/nodeca/pako @license (MIT AND Zlib) */
+    !function (e, t) {
+        !function (e) {
+            function t(e) {
+                var t = e.length;for (; --t >= 0;) {
+                    e[t] = 0;
+                }
+            }var n = 256,
+                r = 286,
+                i = 30,
+                s = 15,
+                a = new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0]),
+                o = new Uint8Array([0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13]),
+                d = new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 7]),
+                c = new Uint8Array([16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15]),
+                l = new Array(576);t(l);var h = new Array(60);t(h);var u = new Array(512);t(u);var _ = new Array(256);t(_);var f = new Array(29);t(f);var E = new Array(i);function p(e, t, n, r, i) {
+                this.static_tree = e, this.extra_bits = t, this.extra_base = n, this.elems = r, this.max_length = i, this.has_stree = e && e.length;
+            }var g = void 0,
                 m = void 0,
-                _ = 0;for (u = 0; u <= s; u++) {
-              e.bl_count[u] = 0;
-            }for (r[2 * e.heap[e.heap_max] + 1] = 0, l = e.heap_max + 1; l < 573; l++) {
-              p = e.heap[l], u = r[2 * r[2 * p + 1] + 1] + 1, u > d && (u = d, _++), r[2 * p + 1] = u, p > n || (e.bl_count[u]++, f = 0, p >= c && (f = o[p - c]), m = r[2 * p], e.opt_len += m * (u + f), a && (e.static_len += m * (i[2 * p + 1] + f)));
-            }if (0 !== _) {
-              do {
-                for (u = d - 1; 0 === e.bl_count[u];) {
-                  u--;
-                }e.bl_count[u]--, e.bl_count[u + 1] += 2, e.bl_count[d]--, _ -= 2;
-              } while (_ > 0);for (u = d; 0 !== u; u--) {
-                for (p = e.bl_count[u]; 0 !== p;) {
-                  h = e.heap[--l], h > n || (r[2 * h + 1] !== u && (e.opt_len += (u - r[2 * h + 1]) * r[2 * h], r[2 * h + 1] = u), p--);
+                A = void 0;function v(e, t) {
+                this.dyn_tree = e, this.max_code = 0, this.stat_desc = t;
+            }t(E);var w = function w(e) {
+                return e < 256 ? u[e] : u[256 + (e >>> 7)];
+            },
+                T = function T(e, t) {
+                e.pending_buf[e.pending++] = 255 & t, e.pending_buf[e.pending++] = t >>> 8 & 255;
+            },
+                y = function y(e, t, n) {
+                e.bi_valid > 16 - n ? (e.bi_buf |= t << e.bi_valid & 65535, T(e, e.bi_buf), e.bi_buf = t >> 16 - e.bi_valid, e.bi_valid += n - 16) : (e.bi_buf |= t << e.bi_valid & 65535, e.bi_valid += n);
+            },
+                b = function b(e, t, n) {
+                y(e, n[2 * t], n[2 * t + 1]);
+            },
+                R = function R(e, t) {
+                var n = 0;do {
+                    n |= 1 & e, e >>>= 1, n <<= 1;
+                } while (--t > 0);return n >>> 1;
+            },
+                k = function k(e, t, n) {
+                var r = new Array(16);var i = void 0,
+                    a = void 0,
+                    o = 0;for (i = 1; i <= s; i++) {
+                    o = o + n[i - 1] << 1, r[i] = o;
+                }for (a = 0; a <= t; a++) {
+                    var _t2 = e[2 * a + 1];0 !== _t2 && (e[2 * a] = R(r[_t2]++, _t2));
                 }
-              }
-            }
-          }(e, t), R(r, l, e.bl_count);
-        },
-            O = function O(e, t, r) {
-          var n = void 0,
-              i = void 0,
-              s = -1,
-              a = t[1],
-              o = 0,
-              c = 7,
-              d = 4;for (0 === a && (c = 138, d = 3), t[2 * (r + 1) + 1] = 65535, n = 0; n <= r; n++) {
-            i = a, a = t[2 * (n + 1) + 1], ++o < c && i === a || (o < d ? e.bl_tree[2 * i] += o : 0 !== i ? (i !== s && e.bl_tree[2 * i]++, e.bl_tree[32]++) : o <= 10 ? e.bl_tree[34]++ : e.bl_tree[36]++, o = 0, s = i, 0 === a ? (c = 138, d = 3) : i === a ? (c = 6, d = 3) : (c = 7, d = 4));
-          }
-        },
-            N = function N(e, t, r) {
-          var n = void 0,
-              i = void 0,
-              s = -1,
-              a = t[1],
-              o = 0,
-              c = 7,
-              d = 4;for (0 === a && (c = 138, d = 3), n = 0; n <= r; n++) {
-            if (i = a, a = t[2 * (n + 1) + 1], !(++o < c && i === a)) {
-              if (o < d) do {
-                w(e, i, e.bl_tree);
-              } while (0 != --o);else 0 !== i ? (i !== s && (w(e, i, e.bl_tree), o--), w(e, 16, e.bl_tree), b(e, o - 3, 2)) : o <= 10 ? (w(e, 17, e.bl_tree), b(e, o - 3, 3)) : (w(e, 18, e.bl_tree), b(e, o - 11, 7));o = 0, s = i, 0 === a ? (c = 138, d = 3) : i === a ? (c = 6, d = 3) : (c = 7, d = 4);
-            }
-          }
-        };var M = !1;var L = function L(e, t, r, n) {
-          b(e, 0 + (n ? 1 : 0), 3), P(e), C(e, r), C(e, ~r), r && e.pending_buf.set(e.window.subarray(t, t + r), e.pending), e.pending += r;
-        };e.exports._tr_init = function (e) {
-          M || (function () {
-            var e = void 0,
-                t = void 0,
-                r = void 0,
-                d = void 0,
-                y = void 0;var T = new Array(16);for (r = 0, d = 0; d < 28; d++) {
-              for (f[d] = r, e = 0; e < 1 << a[d]; e++) {
-                u[r++] = d;
-              }
-            }for (u[r - 1] = d, y = 0, d = 0; d < 16; d++) {
-              for (m[d] = y, e = 0; e < 1 << o[d]; e++) {
-                h[y++] = d;
-              }
-            }for (y >>= 7; d < i; d++) {
-              for (m[d] = y << 7, e = 0; e < 1 << o[d] - 7; e++) {
-                h[256 + y++] = d;
-              }
-            }for (t = 0; t <= s; t++) {
-              T[t] = 0;
-            }for (e = 0; e <= 143;) {
-              l[2 * e + 1] = 8, e++, T[8]++;
-            }for (; e <= 255;) {
-              l[2 * e + 1] = 9, e++, T[9]++;
-            }for (; e <= 279;) {
-              l[2 * e + 1] = 7, e++, T[7]++;
-            }for (; e <= 287;) {
-              l[2 * e + 1] = 8, e++, T[8]++;
-            }for (R(l, 287, T), e = 0; e < i; e++) {
-              p[2 * e + 1] = 5, p[2 * e] = A(e, 5);
-            }g = new _(l, a, 257, n, s), v = new _(p, o, 0, i, s), E = new _(new Array(0), c, 0, 19, 7);
-          }(), M = !0), e.l_desc = new y(e.dyn_ltree, g), e.d_desc = new y(e.dyn_dtree, v), e.bl_desc = new y(e.bl_tree, E), e.bi_buf = 0, e.bi_valid = 0, S(e);
-        }, e.exports._tr_stored_block = L, e.exports._tr_flush_block = function (e, t, n, i) {
-          var s = void 0,
-              a = void 0,
-              o = 0;e.level > 0 ? (2 === e.strm.data_type && (e.strm.data_type = function (e) {
-            var t = void 0,
-                n = 4093624447;for (t = 0; t <= 31; t++, n >>>= 1) {
-              if (1 & n && 0 !== e.dyn_ltree[2 * t]) return 0;
-            }if (0 !== e.dyn_ltree[18] || 0 !== e.dyn_ltree[20] || 0 !== e.dyn_ltree[26]) return 1;for (t = 32; t < r; t++) {
-              if (0 !== e.dyn_ltree[2 * t]) return 1;
-            }return 0;
-          }(e)), D(e, e.l_desc), D(e, e.d_desc), o = function (e) {
-            var t = void 0;for (O(e, e.dyn_ltree, e.l_desc.max_code), O(e, e.dyn_dtree, e.d_desc.max_code), D(e, e.bl_desc), t = 18; t >= 3 && 0 === e.bl_tree[2 * d[t] + 1]; t--) {}return e.opt_len += 3 * (t + 1) + 5 + 5 + 4, t;
-          }(e), s = e.opt_len + 3 + 7 >>> 3, a = e.static_len + 3 + 7 >>> 3, a <= s && (s = a)) : s = a = n + 5, n + 4 <= s && -1 !== t ? L(e, t, n, i) : 4 === e.strategy || a === s ? (b(e, 2 + (i ? 1 : 0), 3), I(e, l, p)) : (b(e, 4 + (i ? 1 : 0), 3), function (e, t, r, n) {
-            var i = void 0;for (b(e, t - 257, 5), b(e, r - 1, 5), b(e, n - 4, 4), i = 0; i < n; i++) {
-              b(e, e.bl_tree[2 * d[i] + 1], 3);
-            }N(e, e.dyn_ltree, t - 1), N(e, e.dyn_dtree, r - 1);
-          }(e, e.l_desc.max_code + 1, e.d_desc.max_code + 1, o + 1), I(e, e.dyn_ltree, e.dyn_dtree)), S(e), i && P(e);
-        }, e.exports._tr_tally = function (e, t, n) {
-          return e.pending_buf[e.sym_buf + e.sym_next++] = t, e.pending_buf[e.sym_buf + e.sym_next++] = t >> 8, e.pending_buf[e.sym_buf + e.sym_next++] = n, 0 === t ? e.dyn_ltree[2 * n]++ : (e.matches++, t--, e.dyn_ltree[2 * (u[n] + r + 1)]++, e.dyn_dtree[2 * T(t)]++), e.sym_next === e.sym_end;
-        }, e.exports._tr_align = function (e) {
-          b(e, 2, 3), w(e, 256, l), function (e) {
-            16 === e.bi_valid ? (C(e, e.bi_buf), e.bi_buf = 0, e.bi_valid = 0) : e.bi_valid >= 8 && (e.pending_buf[e.pending++] = 255 & e.bi_buf, e.bi_buf >>= 8, e.bi_valid -= 8);
-          }(e);
-        };
-      }, 292: function _(e) {
-        "use strict";
-        e.exports = function () {
-          this.input = null, this.next_in = 0, this.avail_in = 0, this.total_in = 0, this.output = null, this.next_out = 0, this.avail_out = 0, this.total_out = 0, this.msg = "", this.state = null, this.data_type = 2, this.adler = 0;
-        };
-      }, 539: function _(e) {
-        "use strict";
-        var t = { generateIdentifier: function generateIdentifier() {
-            return Math.random().toString(36).substring(2, 12);
-          } };t.localCName = t.generateIdentifier(), t.splitLines = function (e) {
-          return e.trim().split("\n").map(function (e) {
-            return e.trim();
-          });
-        }, t.splitSections = function (e) {
-          return e.split("\nm=").map(function (e, t) {
-            return (t > 0 ? "m=" + e : e).trim() + "\r\n";
-          });
-        }, t.getDescription = function (e) {
-          var r = t.splitSections(e);return r && r[0];
-        }, t.getMediaSections = function (e) {
-          var r = t.splitSections(e);return r.shift(), r;
-        }, t.matchPrefix = function (e, r) {
-          return t.splitLines(e).filter(function (e) {
-            return 0 === e.indexOf(r);
-          });
-        }, t.parseCandidate = function (e) {
-          var t = void 0;t = 0 === e.indexOf("a=candidate:") ? e.substring(12).split(" ") : e.substring(10).split(" ");var r = { foundation: t[0], component: { 1: "rtp", 2: "rtcp" }[t[1]] || t[1], protocol: t[2].toLowerCase(), priority: parseInt(t[3], 10), ip: t[4], address: t[4], port: parseInt(t[5], 10), type: t[7] };for (var _e6 = 8; _e6 < t.length; _e6 += 2) {
-            switch (t[_e6]) {case "raddr":
-                r.relatedAddress = t[_e6 + 1];break;case "rport":
-                r.relatedPort = parseInt(t[_e6 + 1], 10);break;case "tcptype":
-                r.tcpType = t[_e6 + 1];break;case "ufrag":
-                r.ufrag = t[_e6 + 1], r.usernameFragment = t[_e6 + 1];break;default:
-                void 0 === r[t[_e6]] && (r[t[_e6]] = t[_e6 + 1]);}
-          }return r;
-        }, t.writeCandidate = function (e) {
-          var t = [];t.push(e.foundation);var r = e.component;"rtp" === r ? t.push(1) : "rtcp" === r ? t.push(2) : t.push(r), t.push(e.protocol.toUpperCase()), t.push(e.priority), t.push(e.address || e.ip), t.push(e.port);var n = e.type;return t.push("typ"), t.push(n), "host" !== n && e.relatedAddress && e.relatedPort && (t.push("raddr"), t.push(e.relatedAddress), t.push("rport"), t.push(e.relatedPort)), e.tcpType && "tcp" === e.protocol.toLowerCase() && (t.push("tcptype"), t.push(e.tcpType)), (e.usernameFragment || e.ufrag) && (t.push("ufrag"), t.push(e.usernameFragment || e.ufrag)), "candidate:" + t.join(" ");
-        }, t.parseIceOptions = function (e) {
-          return e.substring(14).split(" ");
-        }, t.parseRtpMap = function (e) {
-          var t = e.substring(9).split(" ");var r = { payloadType: parseInt(t.shift(), 10) };return t = t[0].split("/"), r.name = t[0], r.clockRate = parseInt(t[1], 10), r.channels = 3 === t.length ? parseInt(t[2], 10) : 1, r.numChannels = r.channels, r;
-        }, t.writeRtpMap = function (e) {
-          var t = e.payloadType;void 0 !== e.preferredPayloadType && (t = e.preferredPayloadType);var r = e.channels || e.numChannels || 1;return "a=rtpmap:" + t + " " + e.name + "/" + e.clockRate + (1 !== r ? "/" + r : "") + "\r\n";
-        }, t.parseExtmap = function (e) {
-          var t = e.substring(9).split(" ");return { id: parseInt(t[0], 10), direction: t[0].indexOf("/") > 0 ? t[0].split("/")[1] : "sendrecv", uri: t[1], attributes: t.slice(2).join(" ") };
-        }, t.writeExtmap = function (e) {
-          return "a=extmap:" + (e.id || e.preferredId) + (e.direction && "sendrecv" !== e.direction ? "/" + e.direction : "") + " " + e.uri + (e.attributes ? " " + e.attributes : "") + "\r\n";
-        }, t.parseFmtp = function (e) {
-          var t = {};var r = void 0;var n = e.substring(e.indexOf(" ") + 1).split(";");for (var _e7 = 0; _e7 < n.length; _e7++) {
-            r = n[_e7].trim().split("="), t[r[0].trim()] = r[1];
-          }return t;
-        }, t.writeFmtp = function (e) {
-          var t = "",
-              r = e.payloadType;if (void 0 !== e.preferredPayloadType && (r = e.preferredPayloadType), e.parameters && Object.keys(e.parameters).length) {
-            var _n11 = [];Object.keys(e.parameters).forEach(function (t) {
-              void 0 !== e.parameters[t] ? _n11.push(t + "=" + e.parameters[t]) : _n11.push(t);
-            }), t += "a=fmtp:" + r + " " + _n11.join(";") + "\r\n";
-          }return t;
-        }, t.parseRtcpFb = function (e) {
-          var t = e.substring(e.indexOf(" ") + 1).split(" ");return { type: t.shift(), parameter: t.join(" ") };
-        }, t.writeRtcpFb = function (e) {
-          var t = "",
-              r = e.payloadType;return void 0 !== e.preferredPayloadType && (r = e.preferredPayloadType), e.rtcpFeedback && e.rtcpFeedback.length && e.rtcpFeedback.forEach(function (e) {
-            t += "a=rtcp-fb:" + r + " " + e.type + (e.parameter && e.parameter.length ? " " + e.parameter : "") + "\r\n";
-          }), t;
-        }, t.parseSsrcMedia = function (e) {
-          var t = e.indexOf(" "),
-              r = { ssrc: parseInt(e.substring(7, t), 10) },
-              n = e.indexOf(":", t);return n > -1 ? (r.attribute = e.substring(t + 1, n), r.value = e.substring(n + 1)) : r.attribute = e.substring(t + 1), r;
-        }, t.parseSsrcGroup = function (e) {
-          var t = e.substring(13).split(" ");return { semantics: t.shift(), ssrcs: t.map(function (e) {
-              return parseInt(e, 10);
-            }) };
-        }, t.getMid = function (e) {
-          var r = t.matchPrefix(e, "a=mid:")[0];if (r) return r.substring(6);
-        }, t.parseFingerprint = function (e) {
-          var t = e.substring(14).split(" ");return { algorithm: t[0].toLowerCase(), value: t[1].toUpperCase() };
-        }, t.getDtlsParameters = function (e, r) {
-          return { role: "auto", fingerprints: t.matchPrefix(e + r, "a=fingerprint:").map(t.parseFingerprint) };
-        }, t.writeDtlsParameters = function (e, t) {
-          var r = "a=setup:" + t + "\r\n";return e.fingerprints.forEach(function (e) {
-            r += "a=fingerprint:" + e.algorithm + " " + e.value + "\r\n";
-          }), r;
-        }, t.parseCryptoLine = function (e) {
-          var t = e.substring(9).split(" ");return { tag: parseInt(t[0], 10), cryptoSuite: t[1], keyParams: t[2], sessionParams: t.slice(3) };
-        }, t.writeCryptoLine = function (e) {
-          return "a=crypto:" + e.tag + " " + e.cryptoSuite + " " + ("object" == (0, _typeof3.default)(e.keyParams) ? t.writeCryptoKeyParams(e.keyParams) : e.keyParams) + (e.sessionParams ? " " + e.sessionParams.join(" ") : "") + "\r\n";
-        }, t.parseCryptoKeyParams = function (e) {
-          if (0 !== e.indexOf("inline:")) return null;var t = e.substring(7).split("|");return { keyMethod: "inline", keySalt: t[0], lifeTime: t[1], mkiValue: t[2] ? t[2].split(":")[0] : void 0, mkiLength: t[2] ? t[2].split(":")[1] : void 0 };
-        }, t.writeCryptoKeyParams = function (e) {
-          return e.keyMethod + ":" + e.keySalt + (e.lifeTime ? "|" + e.lifeTime : "") + (e.mkiValue && e.mkiLength ? "|" + e.mkiValue + ":" + e.mkiLength : "");
-        }, t.getCryptoParameters = function (e, r) {
-          return t.matchPrefix(e + r, "a=crypto:").map(t.parseCryptoLine);
-        }, t.getIceParameters = function (e, r) {
-          var n = t.matchPrefix(e + r, "a=ice-ufrag:")[0],
-              i = t.matchPrefix(e + r, "a=ice-pwd:")[0];return n && i ? { usernameFragment: n.substring(12), password: i.substring(10) } : null;
-        }, t.writeIceParameters = function (e) {
-          var t = "a=ice-ufrag:" + e.usernameFragment + "\r\na=ice-pwd:" + e.password + "\r\n";return e.iceLite && (t += "a=ice-lite\r\n"), t;
-        }, t.parseRtpParameters = function (e) {
-          var r = { codecs: [], headerExtensions: [], fecMechanisms: [], rtcp: [] },
-              n = t.splitLines(e)[0].split(" ");r.profile = n[2];for (var _i3 = 3; _i3 < n.length; _i3++) {
-            var s = n[_i3],
-                a = t.matchPrefix(e, "a=rtpmap:" + s + " ")[0];if (a) {
-              var _n12 = t.parseRtpMap(a),
-                  _i4 = t.matchPrefix(e, "a=fmtp:" + s + " ");switch (_n12.parameters = _i4.length ? t.parseFmtp(_i4[0]) : {}, _n12.rtcpFeedback = t.matchPrefix(e, "a=rtcp-fb:" + s + " ").map(t.parseRtcpFb), r.codecs.push(_n12), _n12.name.toUpperCase()) {case "RED":case "ULPFEC":
-                  r.fecMechanisms.push(_n12.name.toUpperCase());}
-            }
-          }t.matchPrefix(e, "a=extmap:").forEach(function (e) {
-            r.headerExtensions.push(t.parseExtmap(e));
-          });var i = t.matchPrefix(e, "a=rtcp-fb:* ").map(t.parseRtcpFb);return r.codecs.forEach(function (e) {
-            i.forEach(function (t) {
-              e.rtcpFeedback.find(function (e) {
-                return e.type === t.type && e.parameter === t.parameter;
-              }) || e.rtcpFeedback.push(t);
-            });
-          }), r;
-        }, t.writeRtpDescription = function (e, r) {
-          var n = "";n += "m=" + e + " ", n += r.codecs.length > 0 ? "9" : "0", n += " " + (r.profile || "UDP/TLS/RTP/SAVPF") + " ", n += r.codecs.map(function (e) {
-            return void 0 !== e.preferredPayloadType ? e.preferredPayloadType : e.payloadType;
-          }).join(" ") + "\r\n", n += "c=IN IP4 0.0.0.0\r\n", n += "a=rtcp:9 IN IP4 0.0.0.0\r\n", r.codecs.forEach(function (e) {
-            n += t.writeRtpMap(e), n += t.writeFmtp(e), n += t.writeRtcpFb(e);
-          });var i = 0;return r.codecs.forEach(function (e) {
-            e.maxptime > i && (i = e.maxptime);
-          }), i > 0 && (n += "a=maxptime:" + i + "\r\n"), r.headerExtensions && r.headerExtensions.forEach(function (e) {
-            n += t.writeExtmap(e);
-          }), n;
-        }, t.parseRtpEncodingParameters = function (e) {
-          var r = [],
-              n = t.parseRtpParameters(e),
-              i = -1 !== n.fecMechanisms.indexOf("RED"),
-              s = -1 !== n.fecMechanisms.indexOf("ULPFEC"),
-              a = t.matchPrefix(e, "a=ssrc:").map(function (e) {
-            return t.parseSsrcMedia(e);
-          }).filter(function (e) {
-            return "cname" === e.attribute;
-          }),
-              o = a.length > 0 && a[0].ssrc;var c = void 0;var d = t.matchPrefix(e, "a=ssrc-group:FID").map(function (e) {
-            return e.substring(17).split(" ").map(function (e) {
-              return parseInt(e, 10);
-            });
-          });d.length > 0 && d[0].length > 1 && d[0][0] === o && (c = d[0][1]), n.codecs.forEach(function (e) {
-            if ("RTX" === e.name.toUpperCase() && e.parameters.apt) {
-              var _t14 = { ssrc: o, codecPayloadType: parseInt(e.parameters.apt, 10) };o && c && (_t14.rtx = { ssrc: c }), r.push(_t14), i && (_t14 = JSON.parse(JSON.stringify(_t14)), _t14.fec = { ssrc: o, mechanism: s ? "red+ulpfec" : "red" }, r.push(_t14));
-            }
-          }), 0 === r.length && o && r.push({ ssrc: o });var l = t.matchPrefix(e, "b=");return l.length && (l = 0 === l[0].indexOf("b=TIAS:") ? parseInt(l[0].substring(7), 10) : 0 === l[0].indexOf("b=AS:") ? 1e3 * parseInt(l[0].substring(5), 10) * .95 - 16e3 : void 0, r.forEach(function (e) {
-            e.maxBitrate = l;
-          })), r;
-        }, t.parseRtcpParameters = function (e) {
-          var r = {},
-              n = t.matchPrefix(e, "a=ssrc:").map(function (e) {
-            return t.parseSsrcMedia(e);
-          }).filter(function (e) {
-            return "cname" === e.attribute;
-          })[0];n && (r.cname = n.value, r.ssrc = n.ssrc);var i = t.matchPrefix(e, "a=rtcp-rsize");r.reducedSize = i.length > 0, r.compound = 0 === i.length;var s = t.matchPrefix(e, "a=rtcp-mux");return r.mux = s.length > 0, r;
-        }, t.writeRtcpParameters = function (e) {
-          var t = "";return e.reducedSize && (t += "a=rtcp-rsize\r\n"), e.mux && (t += "a=rtcp-mux\r\n"), void 0 !== e.ssrc && e.cname && (t += "a=ssrc:" + e.ssrc + " cname:" + e.cname + "\r\n"), t;
-        }, t.parseMsid = function (e) {
-          var r = void 0;var n = t.matchPrefix(e, "a=msid:");if (1 === n.length) return r = n[0].substring(7).split(" "), { stream: r[0], track: r[1] };var i = t.matchPrefix(e, "a=ssrc:").map(function (e) {
-            return t.parseSsrcMedia(e);
-          }).filter(function (e) {
-            return "msid" === e.attribute;
-          });return i.length > 0 ? (r = i[0].value.split(" "), { stream: r[0], track: r[1] }) : void 0;
-        }, t.parseSctpDescription = function (e) {
-          var r = t.parseMLine(e),
-              n = t.matchPrefix(e, "a=max-message-size:");var i = void 0;n.length > 0 && (i = parseInt(n[0].substring(19), 10)), isNaN(i) && (i = 65536);var s = t.matchPrefix(e, "a=sctp-port:");if (s.length > 0) return { port: parseInt(s[0].substring(12), 10), protocol: r.fmt, maxMessageSize: i };var a = t.matchPrefix(e, "a=sctpmap:");if (a.length > 0) {
-            var _e8 = a[0].substring(10).split(" ");return { port: parseInt(_e8[0], 10), protocol: _e8[1], maxMessageSize: i };
-          }
-        }, t.writeSctpDescription = function (e, t) {
-          var r = [];return r = "DTLS/SCTP" !== e.protocol ? ["m=" + e.kind + " 9 " + e.protocol + " " + t.protocol + "\r\n", "c=IN IP4 0.0.0.0\r\n", "a=sctp-port:" + t.port + "\r\n"] : ["m=" + e.kind + " 9 " + e.protocol + " " + t.port + "\r\n", "c=IN IP4 0.0.0.0\r\n", "a=sctpmap:" + t.port + " " + t.protocol + " 65535\r\n"], void 0 !== t.maxMessageSize && r.push("a=max-message-size:" + t.maxMessageSize + "\r\n"), r.join("");
-        }, t.generateSessionId = function () {
-          return Math.random().toString().substr(2, 22);
-        }, t.writeSessionBoilerplate = function (e, r, n) {
-          var i = void 0;var s = void 0 !== r ? r : 2;i = e || t.generateSessionId();return "v=0\r\no=" + (n || "thisisadapterortc") + " " + i + " " + s + " IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\n";
-        }, t.getDirection = function (e, r) {
-          var n = t.splitLines(e);for (var _e9 = 0; _e9 < n.length; _e9++) {
-            switch (n[_e9]) {case "a=sendrecv":case "a=sendonly":case "a=recvonly":case "a=inactive":
-                return n[_e9].substring(2);}
-          }return r ? t.getDirection(r) : "sendrecv";
-        }, t.getKind = function (e) {
-          return t.splitLines(e)[0].split(" ")[0].substring(2);
-        }, t.isRejected = function (e) {
-          return "0" === e.split(" ", 2)[1];
-        }, t.parseMLine = function (e) {
-          var r = t.splitLines(e)[0].substring(2).split(" ");return { kind: r[0], port: parseInt(r[1], 10), protocol: r[2], fmt: r.slice(3).join(" ") };
-        }, t.parseOLine = function (e) {
-          var r = t.matchPrefix(e, "o=")[0].substring(2).split(" ");return { username: r[0], sessionId: r[1], sessionVersion: parseInt(r[2], 10), netType: r[3], addressType: r[4], address: r[5] };
-        }, t.isValidSDP = function (e) {
-          if ("string" != typeof e || 0 === e.length) return !1;var r = t.splitLines(e);for (var _e10 = 0; _e10 < r.length; _e10++) {
-            if (r[_e10].length < 2 || "=" !== r[_e10].charAt(1)) return !1;
-          }return !0;
-        }, e.exports = t;
-      }, 86: function _(e, t, r) {
-        "use strict";
-        t.Z = void 0;var n = (0, r(338).adapterFactory)({ window: "undefined" == typeof window ? void 0 : window });t.Z = n;
-      }, 338: function _(e, t, r) {
-        "use strict";
-        function n(e) {
-          return n = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
-            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          } : function (e) {
-            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          }, n(e);
-        }Object.defineProperty(t, "__esModule", { value: !0 }), t.adapterFactory = function () {
-          var e = (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}).window,
-              t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : { shimChrome: !0, shimFirefox: !0, shimSafari: !0 },
-              r = i.log,
-              n = i.detectBrowser(e),
-              l = { browserDetails: n, commonShim: c, extractVersion: i.extractVersion, disableLog: i.disableLog, disableWarnings: i.disableWarnings, sdp: d };switch (n.browser) {case "chrome":
-              if (!s || !s.shimPeerConnection || !t.shimChrome) return r("Chrome shim is not included in this adapter release."), l;if (null === n.version) return r("Chrome shim can not determine version, not shimming."), l;r("adapter.js shimming chrome."), l.browserShim = s, c.shimAddIceCandidateNullOrEmpty(e, n), c.shimParameterlessSetLocalDescription(e, n), s.shimGetUserMedia(e, n), s.shimMediaStream(e, n), s.shimPeerConnection(e, n), s.shimOnTrack(e, n), s.shimAddTrackRemoveTrack(e, n), s.shimGetSendersWithDtmf(e, n), s.shimGetStats(e, n), s.shimSenderReceiverGetStats(e, n), s.fixNegotiationNeeded(e, n), c.shimRTCIceCandidate(e, n), c.shimRTCIceCandidateRelayProtocol(e, n), c.shimConnectionState(e, n), c.shimMaxMessageSize(e, n), c.shimSendThrowTypeError(e, n), c.removeExtmapAllowMixed(e, n);break;case "firefox":
-              if (!a || !a.shimPeerConnection || !t.shimFirefox) return r("Firefox shim is not included in this adapter release."), l;r("adapter.js shimming firefox."), l.browserShim = a, c.shimAddIceCandidateNullOrEmpty(e, n), c.shimParameterlessSetLocalDescription(e, n), a.shimGetUserMedia(e, n), a.shimPeerConnection(e, n), a.shimOnTrack(e, n), a.shimRemoveStream(e, n), a.shimSenderGetStats(e, n), a.shimReceiverGetStats(e, n), a.shimRTCDataChannel(e, n), a.shimAddTransceiver(e, n), a.shimGetParameters(e, n), a.shimCreateOffer(e, n), a.shimCreateAnswer(e, n), c.shimRTCIceCandidate(e, n), c.shimConnectionState(e, n), c.shimMaxMessageSize(e, n), c.shimSendThrowTypeError(e, n);break;case "safari":
-              if (!o || !t.shimSafari) return r("Safari shim is not included in this adapter release."), l;r("adapter.js shimming safari."), l.browserShim = o, c.shimAddIceCandidateNullOrEmpty(e, n), c.shimParameterlessSetLocalDescription(e, n), o.shimRTCIceServerUrls(e, n), o.shimCreateOfferLegacy(e, n), o.shimCallbacksAPI(e, n), o.shimLocalStreamsAPI(e, n), o.shimRemoteStreamsAPI(e, n), o.shimTrackEventTransceiver(e, n), o.shimGetUserMedia(e, n), o.shimAudioContext(e, n), c.shimRTCIceCandidate(e, n), c.shimRTCIceCandidateRelayProtocol(e, n), c.shimMaxMessageSize(e, n), c.shimSendThrowTypeError(e, n), c.removeExtmapAllowMixed(e, n);break;default:
-              r("Unsupported browser!");}return l;
-        };var i = p(r(288)),
-            s = p(r(30)),
-            a = p(r(311)),
-            o = p(r(540)),
-            c = p(r(401)),
-            d = p(r(539));function l(e) {
-          if ("function" != typeof WeakMap) return null;var t = new WeakMap(),
-              r = new WeakMap();return (l = function l(e) {
-            return e ? r : t;
-          })(e);
-        }function p(e, t) {
-          if (!t && e && e.__esModule) return e;if (null === e || "object" !== n(e) && "function" != typeof e) return { default: e };var r = l(t);if (r && r.has(e)) return r.get(e);var i = {},
-              s = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var a in e) {
-            if ("default" !== a && Object.prototype.hasOwnProperty.call(e, a)) {
-              var o = s ? Object.getOwnPropertyDescriptor(e, a) : null;o && (o.get || o.set) ? Object.defineProperty(i, a, o) : i[a] = e[a];
-            }
-          }return i.default = e, r && r.set(e, i), i;
-        }
-      }, 30: function _(e, t, r) {
-        "use strict";
-        Object.defineProperty(t, "__esModule", { value: !0 }), t.fixNegotiationNeeded = function (e, t) {
-          n.wrapPeerConnectionEvent(e, "negotiationneeded", function (e) {
-            var r = e.target;if (!(t.version < 72 || r.getConfiguration && "plan-b" === r.getConfiguration().sdpSemantics) || "stable" === r.signalingState) return e;
-          });
-        }, t.shimAddTrackRemoveTrack = function (e, t) {
-          if (!e.RTCPeerConnection) return;if (e.RTCPeerConnection.prototype.addTrack && t.version >= 65) return d(e);var r = e.RTCPeerConnection.prototype.getLocalStreams;e.RTCPeerConnection.prototype.getLocalStreams = function () {
-            var e = this,
-                t = r.apply(this);return this._reverseStreams = this._reverseStreams || {}, t.map(function (t) {
-              return e._reverseStreams[t.id];
-            });
-          };var n = e.RTCPeerConnection.prototype.addStream;e.RTCPeerConnection.prototype.addStream = function (t) {
-            var r = this;if (this._streams = this._streams || {}, this._reverseStreams = this._reverseStreams || {}, t.getTracks().forEach(function (e) {
-              if (r.getSenders().find(function (t) {
-                return t.track === e;
-              })) throw new DOMException("Track already exists.", "InvalidAccessError");
-            }), !this._reverseStreams[t.id]) {
-              var i = new e.MediaStream(t.getTracks());this._streams[t.id] = i, this._reverseStreams[i.id] = t, t = i;
-            }n.apply(this, [t]);
-          };var i = e.RTCPeerConnection.prototype.removeStream;function s(e, t) {
-            var r = t.sdp;return Object.keys(e._reverseStreams || []).forEach(function (t) {
-              var n = e._reverseStreams[t],
-                  i = e._streams[n.id];r = r.replace(new RegExp(i.id, "g"), n.id);
-            }), new RTCSessionDescription({ type: t.type, sdp: r });
-          }e.RTCPeerConnection.prototype.removeStream = function (e) {
-            this._streams = this._streams || {}, this._reverseStreams = this._reverseStreams || {}, i.apply(this, [this._streams[e.id] || e]), delete this._reverseStreams[this._streams[e.id] ? this._streams[e.id].id : e.id], delete this._streams[e.id];
-          }, e.RTCPeerConnection.prototype.addTrack = function (t, r) {
-            var n = this;if ("closed" === this.signalingState) throw new DOMException("The RTCPeerConnection's signalingState is 'closed'.", "InvalidStateError");var i = [].slice.call(arguments, 1);if (1 !== i.length || !i[0].getTracks().find(function (e) {
-              return e === t;
-            })) throw new DOMException("The adapter.js addTrack polyfill only supports a single  stream which is associated with the specified track.", "NotSupportedError");if (this.getSenders().find(function (e) {
-              return e.track === t;
-            })) throw new DOMException("Track already exists.", "InvalidAccessError");this._streams = this._streams || {}, this._reverseStreams = this._reverseStreams || {};var s = this._streams[r.id];if (s) s.addTrack(t), Promise.resolve().then(function () {
-              n.dispatchEvent(new Event("negotiationneeded"));
-            });else {
-              var a = new e.MediaStream([t]);this._streams[r.id] = a, this._reverseStreams[a.id] = r, this.addStream(a);
-            }return this.getSenders().find(function (e) {
-              return e.track === t;
-            });
-          }, ["createOffer", "createAnswer"].forEach(function (t) {
-            var r = e.RTCPeerConnection.prototype[t],
-                n = o({}, t, function () {
-              var e = this,
-                  t = arguments;return arguments.length && "function" == typeof arguments[0] ? r.apply(this, [function (r) {
-                var n = s(e, r);t[0].apply(null, [n]);
-              }, function (e) {
-                t[1] && t[1].apply(null, e);
-              }, arguments[2]]) : r.apply(this, arguments).then(function (t) {
-                return s(e, t);
-              });
-            });e.RTCPeerConnection.prototype[t] = n[t];
-          });var a = e.RTCPeerConnection.prototype.setLocalDescription;e.RTCPeerConnection.prototype.setLocalDescription = function () {
-            return arguments.length && arguments[0].type ? (arguments[0] = (e = this, r = (t = arguments[0]).sdp, Object.keys(e._reverseStreams || []).forEach(function (t) {
-              var n = e._reverseStreams[t],
-                  i = e._streams[n.id];r = r.replace(new RegExp(n.id, "g"), i.id);
-            }), new RTCSessionDescription({ type: t.type, sdp: r })), a.apply(this, arguments)) : a.apply(this, arguments);var e, t, r;
-          };var c = Object.getOwnPropertyDescriptor(e.RTCPeerConnection.prototype, "localDescription");Object.defineProperty(e.RTCPeerConnection.prototype, "localDescription", { get: function get() {
-              var e = c.get.apply(this);return "" === e.type ? e : s(this, e);
-            } }), e.RTCPeerConnection.prototype.removeTrack = function (e) {
-            var t,
-                r = this;if ("closed" === this.signalingState) throw new DOMException("The RTCPeerConnection's signalingState is 'closed'.", "InvalidStateError");if (!e._pc) throw new DOMException("Argument 1 of RTCPeerConnection.removeTrack does not implement interface RTCRtpSender.", "TypeError");if (!(e._pc === this)) throw new DOMException("Sender was not created by this connection.", "InvalidAccessError");this._streams = this._streams || {}, Object.keys(this._streams).forEach(function (n) {
-              r._streams[n].getTracks().find(function (t) {
-                return e.track === t;
-              }) && (t = r._streams[n]);
-            }), t && (1 === t.getTracks().length ? this.removeStream(this._reverseStreams[t.id]) : t.removeTrack(e.track), this.dispatchEvent(new Event("negotiationneeded")));
-          };
-        }, t.shimAddTrackRemoveTrackWithNative = d, Object.defineProperty(t, "shimGetDisplayMedia", { enumerable: !0, get: function get() {
-            return s.shimGetDisplayMedia;
-          } }), t.shimGetSendersWithDtmf = function (e) {
-          if ("object" === c(e) && e.RTCPeerConnection && !("getSenders" in e.RTCPeerConnection.prototype) && "createDTMFSender" in e.RTCPeerConnection.prototype) {
-            var t = function t(e, _t15) {
-              return { track: _t15, get dtmf() {
-                  return void 0 === this._dtmf && ("audio" === _t15.kind ? this._dtmf = e.createDTMFSender(_t15) : this._dtmf = null), this._dtmf;
-                }, _pc: e };
-            };if (!e.RTCPeerConnection.prototype.getSenders) {
-              e.RTCPeerConnection.prototype.getSenders = function () {
-                return this._senders = this._senders || [], this._senders.slice();
-              };var r = e.RTCPeerConnection.prototype.addTrack;e.RTCPeerConnection.prototype.addTrack = function (e, n) {
-                var i = r.apply(this, arguments);return i || (i = t(this, e), this._senders.push(i)), i;
-              };var n = e.RTCPeerConnection.prototype.removeTrack;e.RTCPeerConnection.prototype.removeTrack = function (e) {
-                n.apply(this, arguments);var t = this._senders.indexOf(e);-1 !== t && this._senders.splice(t, 1);
-              };
-            }var i = e.RTCPeerConnection.prototype.addStream;e.RTCPeerConnection.prototype.addStream = function (e) {
-              var r = this;this._senders = this._senders || [], i.apply(this, [e]), e.getTracks().forEach(function (e) {
-                r._senders.push(t(r, e));
-              });
-            };var s = e.RTCPeerConnection.prototype.removeStream;e.RTCPeerConnection.prototype.removeStream = function (e) {
-              var t = this;this._senders = this._senders || [], s.apply(this, [e]), e.getTracks().forEach(function (e) {
-                var r = t._senders.find(function (t) {
-                  return t.track === e;
-                });r && t._senders.splice(t._senders.indexOf(r), 1);
-              });
-            };
-          } else if ("object" === c(e) && e.RTCPeerConnection && "getSenders" in e.RTCPeerConnection.prototype && "createDTMFSender" in e.RTCPeerConnection.prototype && e.RTCRtpSender && !("dtmf" in e.RTCRtpSender.prototype)) {
-            var a = e.RTCPeerConnection.prototype.getSenders;e.RTCPeerConnection.prototype.getSenders = function () {
-              var e = this,
-                  t = a.apply(this, []);return t.forEach(function (t) {
-                return t._pc = e;
-              }), t;
-            }, Object.defineProperty(e.RTCRtpSender.prototype, "dtmf", { get: function get() {
-                return void 0 === this._dtmf && ("audio" === this.track.kind ? this._dtmf = this._pc.createDTMFSender(this.track) : this._dtmf = null), this._dtmf;
-              } });
-          }
-        }, t.shimGetStats = function (e) {
-          if (!e.RTCPeerConnection) return;var t = e.RTCPeerConnection.prototype.getStats;e.RTCPeerConnection.prototype.getStats = function () {
-            var e = this,
-                r = Array.prototype.slice.call(arguments),
-                n = r[0],
-                i = r[1],
-                s = r[2];if (arguments.length > 0 && "function" == typeof n) return t.apply(this, arguments);if (0 === t.length && (0 === arguments.length || "function" != typeof n)) return t.apply(this, []);var a = function a(e) {
-              var t = {};return e.result().forEach(function (e) {
-                var r = { id: e.id, timestamp: e.timestamp, type: { localcandidate: "local-candidate", remotecandidate: "remote-candidate" }[e.type] || e.type };e.names().forEach(function (t) {
-                  r[t] = e.stat(t);
-                }), t[r.id] = r;
-              }), t;
             },
-                o = function o(e) {
-              return new Map(Object.keys(e).map(function (t) {
-                return [t, e[t]];
-              }));
-            };if (arguments.length >= 2) {
-              return t.apply(this, [function (e) {
-                i(o(a(e)));
-              }, n]);
-            }return new Promise(function (r, n) {
-              t.apply(e, [function (e) {
-                r(o(a(e)));
-              }, n]);
-            }).then(i, s);
-          };
-        }, Object.defineProperty(t, "shimGetUserMedia", { enumerable: !0, get: function get() {
-            return i.shimGetUserMedia;
-          } }), t.shimMediaStream = function (e) {
-          e.MediaStream = e.MediaStream || e.webkitMediaStream;
-        }, t.shimOnTrack = function (e) {
-          if ("object" === c(e) && e.RTCPeerConnection && !("ontrack" in e.RTCPeerConnection.prototype)) {
-            Object.defineProperty(e.RTCPeerConnection.prototype, "ontrack", { get: function get() {
-                return this._ontrack;
-              }, set: function set(e) {
-                this._ontrack && this.removeEventListener("track", this._ontrack), this.addEventListener("track", this._ontrack = e);
-              }, enumerable: !0, configurable: !0 });var t = e.RTCPeerConnection.prototype.setRemoteDescription;e.RTCPeerConnection.prototype.setRemoteDescription = function () {
-              var r = this;return this._ontrackpoly || (this._ontrackpoly = function (t) {
-                t.stream.addEventListener("addtrack", function (n) {
-                  var i;i = e.RTCPeerConnection.prototype.getReceivers ? r.getReceivers().find(function (e) {
-                    return e.track && e.track.id === n.track.id;
-                  }) : { track: n.track };var s = new Event("track");s.track = n.track, s.receiver = i, s.transceiver = { receiver: i }, s.streams = [t.stream], r.dispatchEvent(s);
-                }), t.stream.getTracks().forEach(function (n) {
-                  var i;i = e.RTCPeerConnection.prototype.getReceivers ? r.getReceivers().find(function (e) {
-                    return e.track && e.track.id === n.id;
-                  }) : { track: n };var s = new Event("track");s.track = n, s.receiver = i, s.transceiver = { receiver: i }, s.streams = [t.stream], r.dispatchEvent(s);
-                });
-              }, this.addEventListener("addstream", this._ontrackpoly)), t.apply(this, arguments);
-            };
-          } else n.wrapPeerConnectionEvent(e, "track", function (e) {
-            return e.transceiver || Object.defineProperty(e, "transceiver", { value: { receiver: e.receiver } }), e;
-          });
-        }, t.shimPeerConnection = function (e, t) {
-          !e.RTCPeerConnection && e.webkitRTCPeerConnection && (e.RTCPeerConnection = e.webkitRTCPeerConnection);if (!e.RTCPeerConnection) return;t.version < 53 && ["setLocalDescription", "setRemoteDescription", "addIceCandidate"].forEach(function (t) {
-            var r = e.RTCPeerConnection.prototype[t],
-                n = o({}, t, function () {
-              return arguments[0] = new ("addIceCandidate" === t ? e.RTCIceCandidate : e.RTCSessionDescription)(arguments[0]), r.apply(this, arguments);
-            });e.RTCPeerConnection.prototype[t] = n[t];
-          });
-        }, t.shimSenderReceiverGetStats = function (e) {
-          if (!("object" === c(e) && e.RTCPeerConnection && e.RTCRtpSender && e.RTCRtpReceiver)) return;if (!("getStats" in e.RTCRtpSender.prototype)) {
-            var t = e.RTCPeerConnection.prototype.getSenders;t && (e.RTCPeerConnection.prototype.getSenders = function () {
-              var e = this,
-                  r = t.apply(this, []);return r.forEach(function (t) {
-                return t._pc = e;
-              }), r;
-            });var r = e.RTCPeerConnection.prototype.addTrack;r && (e.RTCPeerConnection.prototype.addTrack = function () {
-              var e = r.apply(this, arguments);return e._pc = this, e;
-            }), e.RTCRtpSender.prototype.getStats = function () {
-              var e = this;return this._pc.getStats().then(function (t) {
-                return n.filterStats(t, e.track, !0);
-              });
-            };
-          }if (!("getStats" in e.RTCRtpReceiver.prototype)) {
-            var i = e.RTCPeerConnection.prototype.getReceivers;i && (e.RTCPeerConnection.prototype.getReceivers = function () {
-              var e = this,
-                  t = i.apply(this, []);return t.forEach(function (t) {
-                return t._pc = e;
-              }), t;
-            }), n.wrapPeerConnectionEvent(e, "track", function (e) {
-              return e.receiver._pc = e.srcElement, e;
-            }), e.RTCRtpReceiver.prototype.getStats = function () {
-              var e = this;return this._pc.getStats().then(function (t) {
-                return n.filterStats(t, e.track, !1);
-              });
-            };
-          }if (!("getStats" in e.RTCRtpSender.prototype) || !("getStats" in e.RTCRtpReceiver.prototype)) return;var s = e.RTCPeerConnection.prototype.getStats;e.RTCPeerConnection.prototype.getStats = function () {
-            if (arguments.length > 0 && arguments[0] instanceof e.MediaStreamTrack) {
-              var t,
-                  r,
-                  n,
-                  i = arguments[0];return this.getSenders().forEach(function (e) {
-                e.track === i && (t ? n = !0 : t = e);
-              }), this.getReceivers().forEach(function (e) {
-                return e.track === i && (r ? n = !0 : r = e), e.track === i;
-              }), n || t && r ? Promise.reject(new DOMException("There are more than one sender or receiver for the track.", "InvalidAccessError")) : t ? t.getStats() : r ? r.getStats() : Promise.reject(new DOMException("There is no sender or receiver for the track.", "InvalidAccessError"));
-            }return s.apply(this, arguments);
-          };
-        };var n = function (e, t) {
-          if (!t && e && e.__esModule) return e;if (null === e || "object" !== c(e) && "function" != typeof e) return { default: e };var r = a(t);if (r && r.has(e)) return r.get(e);var n = {},
-              i = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var s in e) {
-            if ("default" !== s && Object.prototype.hasOwnProperty.call(e, s)) {
-              var o = i ? Object.getOwnPropertyDescriptor(e, s) : null;o && (o.get || o.set) ? Object.defineProperty(n, s, o) : n[s] = e[s];
-            }
-          }n.default = e, r && r.set(e, n);return n;
-        }(r(288)),
-            i = r(87),
-            s = r(688);function a(e) {
-          if ("function" != typeof WeakMap) return null;var t = new WeakMap(),
-              r = new WeakMap();return (a = function a(e) {
-            return e ? r : t;
-          })(e);
-        }function o(e, t, r) {
-          return (t = function (e) {
-            var t = function (e, t) {
-              if ("object" !== c(e) || null === e) return e;var r = e[Symbol.toPrimitive];if (void 0 !== r) {
-                var n = r.call(e, t || "default");if ("object" !== c(n)) return n;throw new TypeError("@@toPrimitive must return a primitive value.");
-              }return ("string" === t ? String : Number)(e);
-            }(e, "string");return "symbol" === c(t) ? t : String(t);
-          }(t)) in e ? Object.defineProperty(e, t, { value: r, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = r, e;
-        }function c(e) {
-          return c = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
-            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          } : function (e) {
-            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          }, c(e);
-        }function d(e) {
-          e.RTCPeerConnection.prototype.getLocalStreams = function () {
-            var e = this;return this._shimmedLocalStreams = this._shimmedLocalStreams || {}, Object.keys(this._shimmedLocalStreams).map(function (t) {
-              return e._shimmedLocalStreams[t][0];
-            });
-          };var t = e.RTCPeerConnection.prototype.addTrack;e.RTCPeerConnection.prototype.addTrack = function (e, r) {
-            if (!r) return t.apply(this, arguments);this._shimmedLocalStreams = this._shimmedLocalStreams || {};var n = t.apply(this, arguments);return this._shimmedLocalStreams[r.id] ? -1 === this._shimmedLocalStreams[r.id].indexOf(n) && this._shimmedLocalStreams[r.id].push(n) : this._shimmedLocalStreams[r.id] = [r, n], n;
-          };var r = e.RTCPeerConnection.prototype.addStream;e.RTCPeerConnection.prototype.addStream = function (e) {
-            var t = this;this._shimmedLocalStreams = this._shimmedLocalStreams || {}, e.getTracks().forEach(function (e) {
-              if (t.getSenders().find(function (t) {
-                return t.track === e;
-              })) throw new DOMException("Track already exists.", "InvalidAccessError");
-            });var n = this.getSenders();r.apply(this, arguments);var i = this.getSenders().filter(function (e) {
-              return -1 === n.indexOf(e);
-            });this._shimmedLocalStreams[e.id] = [e].concat(i);
-          };var n = e.RTCPeerConnection.prototype.removeStream;e.RTCPeerConnection.prototype.removeStream = function (e) {
-            return this._shimmedLocalStreams = this._shimmedLocalStreams || {}, delete this._shimmedLocalStreams[e.id], n.apply(this, arguments);
-          };var i = e.RTCPeerConnection.prototype.removeTrack;e.RTCPeerConnection.prototype.removeTrack = function (e) {
-            var t = this;return this._shimmedLocalStreams = this._shimmedLocalStreams || {}, e && Object.keys(this._shimmedLocalStreams).forEach(function (r) {
-              var n = t._shimmedLocalStreams[r].indexOf(e);-1 !== n && t._shimmedLocalStreams[r].splice(n, 1), 1 === t._shimmedLocalStreams[r].length && delete t._shimmedLocalStreams[r];
-            }), i.apply(this, arguments);
-          };
-        }
-      }, 688: function _(e, t) {
-        "use strict";
-        Object.defineProperty(t, "__esModule", { value: !0 }), t.shimGetDisplayMedia = function (e, t) {
-          if (e.navigator.mediaDevices && "getDisplayMedia" in e.navigator.mediaDevices) return;if (!e.navigator.mediaDevices) return;if ("function" != typeof t) return void console.error("shimGetDisplayMedia: getSourceId argument is not a function");e.navigator.mediaDevices.getDisplayMedia = function (r) {
-            return t(r).then(function (t) {
-              var n = r.video && r.video.width,
-                  i = r.video && r.video.height,
-                  s = r.video && r.video.frameRate;return r.video = { mandatory: { chromeMediaSource: "desktop", chromeMediaSourceId: t, maxFrameRate: s || 3 } }, n && (r.video.mandatory.maxWidth = n), i && (r.video.mandatory.maxHeight = i), e.navigator.mediaDevices.getUserMedia(r);
-            });
-          };
-        };
-      }, 87: function _(e, t, r) {
-        "use strict";
-        function n(e) {
-          if ("function" != typeof WeakMap) return null;var t = new WeakMap(),
-              r = new WeakMap();return (n = function n(e) {
-            return e ? r : t;
-          })(e);
-        }function i(e) {
-          return i = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
-            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          } : function (e) {
-            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          }, i(e);
-        }Object.defineProperty(t, "__esModule", { value: !0 }), t.shimGetUserMedia = function (e, t) {
-          var r = e && e.navigator;if (!r.mediaDevices) return;var n = function n(e) {
-            if ("object" !== i(e) || e.mandatory || e.optional) return e;var t = {};return Object.keys(e).forEach(function (r) {
-              if ("require" !== r && "advanced" !== r && "mediaSource" !== r) {
-                var n = "object" === i(e[r]) ? e[r] : { ideal: e[r] };void 0 !== n.exact && "number" == typeof n.exact && (n.min = n.max = n.exact);var s = function s(e, t) {
-                  return e ? e + t.charAt(0).toUpperCase() + t.slice(1) : "deviceId" === t ? "sourceId" : t;
-                };if (void 0 !== n.ideal) {
-                  t.optional = t.optional || [];var a = {};"number" == typeof n.ideal ? (a[s("min", r)] = n.ideal, t.optional.push(a), (a = {})[s("max", r)] = n.ideal, t.optional.push(a)) : (a[s("", r)] = n.ideal, t.optional.push(a));
-                }void 0 !== n.exact && "number" != typeof n.exact ? (t.mandatory = t.mandatory || {}, t.mandatory[s("", r)] = n.exact) : ["min", "max"].forEach(function (e) {
-                  void 0 !== n[e] && (t.mandatory = t.mandatory || {}, t.mandatory[s(e, r)] = n[e]);
-                });
-              }
-            }), e.advanced && (t.optional = (t.optional || []).concat(e.advanced)), t;
-          },
-              a = function a(e, _a) {
-            if (t.version >= 61) return _a(e);if ((e = JSON.parse(JSON.stringify(e))) && "object" === i(e.audio)) {
-              var o = function o(e, t, r) {
-                t in e && !(r in e) && (e[r] = e[t], delete e[t]);
-              };o((e = JSON.parse(JSON.stringify(e))).audio, "autoGainControl", "googAutoGainControl"), o(e.audio, "noiseSuppression", "googNoiseSuppression"), e.audio = n(e.audio);
-            }if (e && "object" === i(e.video)) {
-              var c = e.video.facingMode;c = c && ("object" === i(c) ? c : { ideal: c });var d,
-                  l = t.version < 66;if (c && ("user" === c.exact || "environment" === c.exact || "user" === c.ideal || "environment" === c.ideal) && (!r.mediaDevices.getSupportedConstraints || !r.mediaDevices.getSupportedConstraints().facingMode || l)) if (delete e.video.facingMode, "environment" === c.exact || "environment" === c.ideal ? d = ["back", "rear"] : "user" !== c.exact && "user" !== c.ideal || (d = ["front"]), d) return r.mediaDevices.enumerateDevices().then(function (t) {
-                var r = (t = t.filter(function (e) {
-                  return "videoinput" === e.kind;
-                })).find(function (e) {
-                  return d.some(function (t) {
-                    return e.label.toLowerCase().includes(t);
-                  });
-                });return !r && t.length && d.includes("back") && (r = t[t.length - 1]), r && (e.video.deviceId = c.exact ? { exact: r.deviceId } : { ideal: r.deviceId }), e.video = n(e.video), s("chrome: " + JSON.stringify(e)), _a(e);
-              });e.video = n(e.video);
-            }return s("chrome: " + JSON.stringify(e)), _a(e);
-          },
-              o = function o(e) {
-            return t.version >= 64 ? e : { name: { PermissionDeniedError: "NotAllowedError", PermissionDismissedError: "NotAllowedError", InvalidStateError: "NotAllowedError", DevicesNotFoundError: "NotFoundError", ConstraintNotSatisfiedError: "OverconstrainedError", TrackStartError: "NotReadableError", MediaDeviceFailedDueToShutdown: "NotAllowedError", MediaDeviceKillSwitchOn: "NotAllowedError", TabCaptureError: "AbortError", ScreenCaptureError: "AbortError", DeviceCaptureError: "AbortError" }[e.name] || e.name, message: e.message, constraint: e.constraint || e.constraintName, toString: function toString() {
-                return this.name + (this.message && ": ") + this.message;
-              } };
-          };if (r.getUserMedia = function (e, t, n) {
-            a(e, function (e) {
-              r.webkitGetUserMedia(e, t, function (e) {
-                n && n(o(e));
-              });
-            });
-          }.bind(r), r.mediaDevices.getUserMedia) {
-            var c = r.mediaDevices.getUserMedia.bind(r.mediaDevices);r.mediaDevices.getUserMedia = function (e) {
-              return a(e, function (e) {
-                return c(e).then(function (t) {
-                  if (e.audio && !t.getAudioTracks().length || e.video && !t.getVideoTracks().length) throw t.getTracks().forEach(function (e) {
-                    e.stop();
-                  }), new DOMException("", "NotFoundError");return t;
-                }, function (e) {
-                  return Promise.reject(o(e));
-                });
-              });
-            };
-          }
-        };var s = function (e, t) {
-          if (!t && e && e.__esModule) return e;if (null === e || "object" !== i(e) && "function" != typeof e) return { default: e };var r = n(t);if (r && r.has(e)) return r.get(e);var s = {},
-              a = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var o in e) {
-            if ("default" !== o && Object.prototype.hasOwnProperty.call(e, o)) {
-              var c = a ? Object.getOwnPropertyDescriptor(e, o) : null;c && (c.get || c.set) ? Object.defineProperty(s, o, c) : s[o] = e[o];
-            }
-          }s.default = e, r && r.set(e, s);return s;
-        }(r(288)).log;
-      }, 401: function _(e, t, r) {
-        "use strict";
-        Object.defineProperty(t, "__esModule", { value: !0 }), t.removeExtmapAllowMixed = function (e, t) {
-          if (!e.RTCPeerConnection) return;if ("chrome" === t.browser && t.version >= 71) return;if ("safari" === t.browser && t.version >= 605) return;var r = e.RTCPeerConnection.prototype.setRemoteDescription;e.RTCPeerConnection.prototype.setRemoteDescription = function (t) {
-            if (t && t.sdp && -1 !== t.sdp.indexOf("\na=extmap-allow-mixed")) {
-              var n = t.sdp.split("\n").filter(function (e) {
-                return "a=extmap-allow-mixed" !== e.trim();
-              }).join("\n");e.RTCSessionDescription && t instanceof e.RTCSessionDescription ? arguments[0] = new e.RTCSessionDescription({ type: t.type, sdp: n }) : t.sdp = n;
-            }return r.apply(this, arguments);
-          };
-        }, t.shimAddIceCandidateNullOrEmpty = function (e, t) {
-          if (!e.RTCPeerConnection || !e.RTCPeerConnection.prototype) return;var r = e.RTCPeerConnection.prototype.addIceCandidate;if (!r || 0 === r.length) return;e.RTCPeerConnection.prototype.addIceCandidate = function () {
-            return arguments[0] ? ("chrome" === t.browser && t.version < 78 || "firefox" === t.browser && t.version < 68 || "safari" === t.browser) && arguments[0] && "" === arguments[0].candidate ? Promise.resolve() : r.apply(this, arguments) : (arguments[1] && arguments[1].apply(null), Promise.resolve());
-          };
-        }, t.shimConnectionState = function (e) {
-          if (!e.RTCPeerConnection || "connectionState" in e.RTCPeerConnection.prototype) return;var t = e.RTCPeerConnection.prototype;Object.defineProperty(t, "connectionState", { get: function get() {
-              return { completed: "connected", checking: "connecting" }[this.iceConnectionState] || this.iceConnectionState;
-            }, enumerable: !0, configurable: !0 }), Object.defineProperty(t, "onconnectionstatechange", { get: function get() {
-              return this._onconnectionstatechange || null;
-            }, set: function set(e) {
-              this._onconnectionstatechange && (this.removeEventListener("connectionstatechange", this._onconnectionstatechange), delete this._onconnectionstatechange), e && this.addEventListener("connectionstatechange", this._onconnectionstatechange = e);
-            }, enumerable: !0, configurable: !0 }), ["setLocalDescription", "setRemoteDescription"].forEach(function (e) {
-            var r = t[e];t[e] = function () {
-              return this._connectionstatechangepoly || (this._connectionstatechangepoly = function (e) {
-                var t = e.target;if (t._lastConnectionState !== t.connectionState) {
-                  t._lastConnectionState = t.connectionState;var r = new Event("connectionstatechange", e);t.dispatchEvent(r);
-                }return e;
-              }, this.addEventListener("iceconnectionstatechange", this._connectionstatechangepoly)), r.apply(this, arguments);
-            };
-          });
-        }, t.shimMaxMessageSize = function (e, t) {
-          if (!e.RTCPeerConnection) return;"sctp" in e.RTCPeerConnection.prototype || Object.defineProperty(e.RTCPeerConnection.prototype, "sctp", { get: function get() {
-              return void 0 === this._sctp ? null : this._sctp;
-            } });var r = e.RTCPeerConnection.prototype.setRemoteDescription;e.RTCPeerConnection.prototype.setRemoteDescription = function () {
-            var e, n;(this._sctp = null, "chrome" === t.browser && t.version >= 76) && "plan-b" === this.getConfiguration().sdpSemantics && Object.defineProperty(this, "sctp", { get: function get() {
-                return void 0 === this._sctp ? null : this._sctp;
-              }, enumerable: !0, configurable: !0 });if (function (e) {
-              if (!e || !e.sdp) return !1;var t = i.default.splitSections(e.sdp);return t.shift(), t.some(function (e) {
-                var t = i.default.parseMLine(e);return t && "application" === t.kind && -1 !== t.protocol.indexOf("SCTP");
-              });
-            }(arguments[0])) {
-              var s,
-                  a = function (e) {
-                var t = e.sdp.match(/mozilla...THIS_IS_SDPARTA-(\d+)/);if (null === t || t.length < 2) return -1;var r = parseInt(t[1], 10);return r != r ? -1 : r;
-              }(arguments[0]),
-                  o = (e = a, n = 65536, "firefox" === t.browser && (n = t.version < 57 ? -1 === e ? 16384 : 2147483637 : t.version < 60 ? 57 === t.version ? 65535 : 65536 : 2147483637), n),
-                  c = function (e, r) {
-                var n = 65536;"firefox" === t.browser && 57 === t.version && (n = 65535);var s = i.default.matchPrefix(e.sdp, "a=max-message-size:");return s.length > 0 ? n = parseInt(s[0].substring(19), 10) : "firefox" === t.browser && -1 !== r && (n = 2147483637), n;
-              }(arguments[0], a);s = 0 === o && 0 === c ? Number.POSITIVE_INFINITY : 0 === o || 0 === c ? Math.max(o, c) : Math.min(o, c);var d = {};Object.defineProperty(d, "maxMessageSize", { get: function get() {
-                  return s;
-                } }), this._sctp = d;
-            }return r.apply(this, arguments);
-          };
-        }, t.shimParameterlessSetLocalDescription = function (e, t) {
-          if (!e.RTCPeerConnection || !e.RTCPeerConnection.prototype) return;var r = e.RTCPeerConnection.prototype.setLocalDescription;if (!r || 0 === r.length) return;e.RTCPeerConnection.prototype.setLocalDescription = function () {
-            var e = this,
-                t = arguments[0] || {};if ("object" !== o(t) || t.type && t.sdp) return r.apply(this, arguments);if (!(t = { type: t.type, sdp: t.sdp }).type) switch (this.signalingState) {case "stable":case "have-local-offer":case "have-remote-pranswer":
-                t.type = "offer";break;default:
-                t.type = "answer";}return t.sdp || "offer" !== t.type && "answer" !== t.type ? r.apply(this, [t]) : ("offer" === t.type ? this.createOffer : this.createAnswer).apply(this).then(function (t) {
-              return r.apply(e, [t]);
-            });
-          };
-        }, t.shimRTCIceCandidate = function (e) {
-          if (!e.RTCIceCandidate || e.RTCIceCandidate && "foundation" in e.RTCIceCandidate.prototype) return;var t = e.RTCIceCandidate;e.RTCIceCandidate = function (e) {
-            if ("object" === o(e) && e.candidate && 0 === e.candidate.indexOf("a=") && ((e = JSON.parse(JSON.stringify(e))).candidate = e.candidate.substring(2)), e.candidate && e.candidate.length) {
-              var r = new t(e),
-                  n = i.default.parseCandidate(e.candidate);for (var s in n) {
-                s in r || Object.defineProperty(r, s, { value: n[s] });
-              }return r.toJSON = function () {
-                return { candidate: r.candidate, sdpMid: r.sdpMid, sdpMLineIndex: r.sdpMLineIndex, usernameFragment: r.usernameFragment };
-              }, r;
-            }return new t(e);
-          }, e.RTCIceCandidate.prototype = t.prototype, s.wrapPeerConnectionEvent(e, "icecandidate", function (t) {
-            return t.candidate && Object.defineProperty(t, "candidate", { value: new e.RTCIceCandidate(t.candidate), writable: "false" }), t;
-          });
-        }, t.shimRTCIceCandidateRelayProtocol = function (e) {
-          if (!e.RTCIceCandidate || e.RTCIceCandidate && "relayProtocol" in e.RTCIceCandidate.prototype) return;s.wrapPeerConnectionEvent(e, "icecandidate", function (e) {
-            if (e.candidate) {
-              var t = i.default.parseCandidate(e.candidate.candidate);"relay" === t.type && (e.candidate.relayProtocol = { 0: "tls", 1: "tcp", 2: "udp" }[t.priority >> 24]);
-            }return e;
-          });
-        }, t.shimSendThrowTypeError = function (e) {
-          if (!e.RTCPeerConnection || !("createDataChannel" in e.RTCPeerConnection.prototype)) return;function t(e, t) {
-            var r = e.send;e.send = function () {
-              var n = arguments[0],
-                  i = n.length || n.size || n.byteLength;if ("open" === e.readyState && t.sctp && i > t.sctp.maxMessageSize) throw new TypeError("Message too large (can send a maximum of " + t.sctp.maxMessageSize + " bytes)");return r.apply(e, arguments);
-            };
-          }var r = e.RTCPeerConnection.prototype.createDataChannel;e.RTCPeerConnection.prototype.createDataChannel = function () {
-            var e = r.apply(this, arguments);return t(e, this), e;
-          }, s.wrapPeerConnectionEvent(e, "datachannel", function (e) {
-            return t(e.channel, e.target), e;
-          });
-        };var n,
-            i = (n = r(539)) && n.__esModule ? n : { default: n },
-            s = function (e, t) {
-          if (!t && e && e.__esModule) return e;if (null === e || "object" !== o(e) && "function" != typeof e) return { default: e };var r = a(t);if (r && r.has(e)) return r.get(e);var n = {},
-              i = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var s in e) {
-            if ("default" !== s && Object.prototype.hasOwnProperty.call(e, s)) {
-              var c = i ? Object.getOwnPropertyDescriptor(e, s) : null;c && (c.get || c.set) ? Object.defineProperty(n, s, c) : n[s] = e[s];
-            }
-          }n.default = e, r && r.set(e, n);return n;
-        }(r(288));function a(e) {
-          if ("function" != typeof WeakMap) return null;var t = new WeakMap(),
-              r = new WeakMap();return (a = function a(e) {
-            return e ? r : t;
-          })(e);
-        }function o(e) {
-          return o = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
-            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          } : function (e) {
-            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          }, o(e);
-        }
-      }, 311: function _(e, t, r) {
-        "use strict";
-        Object.defineProperty(t, "__esModule", { value: !0 }), t.shimAddTransceiver = function (e) {
-          if ("object" !== c(e) || !e.RTCPeerConnection) return;var t = e.RTCPeerConnection.prototype.addTransceiver;t && (e.RTCPeerConnection.prototype.addTransceiver = function () {
-            this.setParametersPromises = [];var e,
-                r = arguments[1] && arguments[1].sendEncodings;void 0 === r && (r = []);var n = (r = function (e) {
-              if (Array.isArray(e)) return o(e);
-            }(e = r) || function (e) {
-              if ("undefined" != typeof Symbol && null != e[Symbol.iterator] || null != e["@@iterator"]) return Array.from(e);
-            }(e) || function (e, t) {
-              if (e) {
-                if ("string" == typeof e) return o(e, t);var r = Object.prototype.toString.call(e).slice(8, -1);return "Object" === r && e.constructor && (r = e.constructor.name), "Map" === r || "Set" === r ? Array.from(e) : "Arguments" === r || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r) ? o(e, t) : void 0;
-              }
-            }(e) || function () {
-              throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-            }()).length > 0;n && r.forEach(function (e) {
-              if ("rid" in e) {
-                if (!/^[a-z0-9]{0,16}$/i.test(e.rid)) throw new TypeError("Invalid RID value provided.");
-              }if ("scaleResolutionDownBy" in e && !(parseFloat(e.scaleResolutionDownBy) >= 1)) throw new RangeError("scale_resolution_down_by must be >= 1.0");if ("maxFramerate" in e && !(parseFloat(e.maxFramerate) >= 0)) throw new RangeError("max_framerate must be >= 0.0");
-            });var i = t.apply(this, arguments);if (n) {
-              var s = i.sender,
-                  a = s.getParameters();(!("encodings" in a) || 1 === a.encodings.length && 0 === Object.keys(a.encodings[0]).length) && (a.encodings = r, s.sendEncodings = r, this.setParametersPromises.push(s.setParameters(a).then(function () {
-                delete s.sendEncodings;
-              }).catch(function () {
-                delete s.sendEncodings;
-              })));
-            }return i;
-          });
-        }, t.shimCreateAnswer = function (e) {
-          if ("object" !== c(e) || !e.RTCPeerConnection) return;var t = e.RTCPeerConnection.prototype.createAnswer;e.RTCPeerConnection.prototype.createAnswer = function () {
-            var e = arguments,
-                r = this;return this.setParametersPromises && this.setParametersPromises.length ? Promise.all(this.setParametersPromises).then(function () {
-              return t.apply(r, e);
-            }).finally(function () {
-              r.setParametersPromises = [];
-            }) : t.apply(this, arguments);
-          };
-        }, t.shimCreateOffer = function (e) {
-          if ("object" !== c(e) || !e.RTCPeerConnection) return;var t = e.RTCPeerConnection.prototype.createOffer;e.RTCPeerConnection.prototype.createOffer = function () {
-            var e = arguments,
-                r = this;return this.setParametersPromises && this.setParametersPromises.length ? Promise.all(this.setParametersPromises).then(function () {
-              return t.apply(r, e);
-            }).finally(function () {
-              r.setParametersPromises = [];
-            }) : t.apply(this, arguments);
-          };
-        }, Object.defineProperty(t, "shimGetDisplayMedia", { enumerable: !0, get: function get() {
-            return s.shimGetDisplayMedia;
-          } }), t.shimGetParameters = function (e) {
-          if ("object" !== c(e) || !e.RTCRtpSender) return;var t = e.RTCRtpSender.prototype.getParameters;t && (e.RTCRtpSender.prototype.getParameters = function () {
-            var e = t.apply(this, arguments);return "encodings" in e || (e.encodings = [].concat(this.sendEncodings || [{}])), e;
-          });
-        }, Object.defineProperty(t, "shimGetUserMedia", { enumerable: !0, get: function get() {
-            return i.shimGetUserMedia;
-          } }), t.shimOnTrack = function (e) {
-          "object" === c(e) && e.RTCTrackEvent && "receiver" in e.RTCTrackEvent.prototype && !("transceiver" in e.RTCTrackEvent.prototype) && Object.defineProperty(e.RTCTrackEvent.prototype, "transceiver", { get: function get() {
-              return { receiver: this.receiver };
-            } });
-        }, t.shimPeerConnection = function (e, t) {
-          if ("object" !== c(e) || !e.RTCPeerConnection && !e.mozRTCPeerConnection) return;!e.RTCPeerConnection && e.mozRTCPeerConnection && (e.RTCPeerConnection = e.mozRTCPeerConnection);t.version < 53 && ["setLocalDescription", "setRemoteDescription", "addIceCandidate"].forEach(function (t) {
-            var r = e.RTCPeerConnection.prototype[t],
-                n = function (e, t, r) {
-              (t = function (e) {
-                var t = function (e, t) {
-                  if ("object" !== c(e) || null === e) return e;var r = e[Symbol.toPrimitive];if (void 0 !== r) {
-                    var n = r.call(e, t || "default");if ("object" !== c(n)) return n;throw new TypeError("@@toPrimitive must return a primitive value.");
-                  }return ("string" === t ? String : Number)(e);
-                }(e, "string");return "symbol" === c(t) ? t : String(t);
-              }(t)) in e ? Object.defineProperty(e, t, { value: r, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = r;return e;
-            }({}, t, function () {
-              return arguments[0] = new ("addIceCandidate" === t ? e.RTCIceCandidate : e.RTCSessionDescription)(arguments[0]), r.apply(this, arguments);
-            });e.RTCPeerConnection.prototype[t] = n[t];
-          });var r = { inboundrtp: "inbound-rtp", outboundrtp: "outbound-rtp", candidatepair: "candidate-pair", localcandidate: "local-candidate", remotecandidate: "remote-candidate" },
-              n = e.RTCPeerConnection.prototype.getStats;e.RTCPeerConnection.prototype.getStats = function () {
-            var e = Array.prototype.slice.call(arguments),
-                i = e[0],
-                s = e[1],
-                a = e[2];return n.apply(this, [i || null]).then(function (e) {
-              if (t.version < 53 && !s) try {
-                e.forEach(function (e) {
-                  e.type = r[e.type] || e.type;
-                });
-              } catch (t) {
-                if ("TypeError" !== t.name) throw t;e.forEach(function (t, n) {
-                  e.set(n, Object.assign({}, t, { type: r[t.type] || t.type }));
-                });
-              }return e;
-            }).then(s, a);
-          };
-        }, t.shimRTCDataChannel = function (e) {
-          e.DataChannel && !e.RTCDataChannel && (e.RTCDataChannel = e.DataChannel);
-        }, t.shimReceiverGetStats = function (e) {
-          if ("object" !== c(e) || !e.RTCPeerConnection || !e.RTCRtpSender) return;if (e.RTCRtpSender && "getStats" in e.RTCRtpReceiver.prototype) return;var t = e.RTCPeerConnection.prototype.getReceivers;t && (e.RTCPeerConnection.prototype.getReceivers = function () {
-            var e = this,
-                r = t.apply(this, []);return r.forEach(function (t) {
-              return t._pc = e;
-            }), r;
-          });n.wrapPeerConnectionEvent(e, "track", function (e) {
-            return e.receiver._pc = e.srcElement, e;
-          }), e.RTCRtpReceiver.prototype.getStats = function () {
-            return this._pc.getStats(this.track);
-          };
-        }, t.shimRemoveStream = function (e) {
-          if (!e.RTCPeerConnection || "removeStream" in e.RTCPeerConnection.prototype) return;e.RTCPeerConnection.prototype.removeStream = function (e) {
-            var t = this;n.deprecated("removeStream", "removeTrack"), this.getSenders().forEach(function (r) {
-              r.track && e.getTracks().includes(r.track) && t.removeTrack(r);
-            });
-          };
-        }, t.shimSenderGetStats = function (e) {
-          if ("object" !== c(e) || !e.RTCPeerConnection || !e.RTCRtpSender) return;if (e.RTCRtpSender && "getStats" in e.RTCRtpSender.prototype) return;var t = e.RTCPeerConnection.prototype.getSenders;t && (e.RTCPeerConnection.prototype.getSenders = function () {
-            var e = this,
-                r = t.apply(this, []);return r.forEach(function (t) {
-              return t._pc = e;
-            }), r;
-          });var r = e.RTCPeerConnection.prototype.addTrack;r && (e.RTCPeerConnection.prototype.addTrack = function () {
-            var e = r.apply(this, arguments);return e._pc = this, e;
-          });e.RTCRtpSender.prototype.getStats = function () {
-            return this.track ? this._pc.getStats(this.track) : Promise.resolve(new Map());
-          };
-        };var n = function (e, t) {
-          if (!t && e && e.__esModule) return e;if (null === e || "object" !== c(e) && "function" != typeof e) return { default: e };var r = a(t);if (r && r.has(e)) return r.get(e);var n = {},
-              i = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var s in e) {
-            if ("default" !== s && Object.prototype.hasOwnProperty.call(e, s)) {
-              var o = i ? Object.getOwnPropertyDescriptor(e, s) : null;o && (o.get || o.set) ? Object.defineProperty(n, s, o) : n[s] = e[s];
-            }
-          }n.default = e, r && r.set(e, n);return n;
-        }(r(288)),
-            i = r(532),
-            s = r(143);function a(e) {
-          if ("function" != typeof WeakMap) return null;var t = new WeakMap(),
-              r = new WeakMap();return (a = function a(e) {
-            return e ? r : t;
-          })(e);
-        }function o(e, t) {
-          (null == t || t > e.length) && (t = e.length);for (var r = 0, n = new Array(t); r < t; r++) {
-            n[r] = e[r];
-          }return n;
-        }function c(e) {
-          return c = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
-            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          } : function (e) {
-            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          }, c(e);
-        }
-      }, 143: function _(e, t) {
-        "use strict";
-        Object.defineProperty(t, "__esModule", { value: !0 }), t.shimGetDisplayMedia = function (e, t) {
-          if (e.navigator.mediaDevices && "getDisplayMedia" in e.navigator.mediaDevices) return;if (!e.navigator.mediaDevices) return;e.navigator.mediaDevices.getDisplayMedia = function (r) {
-            if (!r || !r.video) {
-              var n = new DOMException("getDisplayMedia without video constraints is undefined");return n.name = "NotFoundError", n.code = 8, Promise.reject(n);
-            }return !0 === r.video ? r.video = { mediaSource: t } : r.video.mediaSource = t, e.navigator.mediaDevices.getUserMedia(r);
-          };
-        };
-      }, 532: function _(e, t, r) {
-        "use strict";
-        Object.defineProperty(t, "__esModule", { value: !0 }), t.shimGetUserMedia = function (e, t) {
-          var r = e && e.navigator,
-              i = e && e.MediaStreamTrack;if (r.getUserMedia = function (e, t, i) {
-            n.deprecated("navigator.getUserMedia", "navigator.mediaDevices.getUserMedia"), r.mediaDevices.getUserMedia(e).then(t, i);
-          }, !(t.version > 55 && "autoGainControl" in r.mediaDevices.getSupportedConstraints())) {
-            var a = function a(e, t, r) {
-              t in e && !(r in e) && (e[r] = e[t], delete e[t]);
+                I = function I(e) {
+                var t = void 0;for (t = 0; t < r; t++) {
+                    e.dyn_ltree[2 * t] = 0;
+                }for (t = 0; t < i; t++) {
+                    e.dyn_dtree[2 * t] = 0;
+                }for (t = 0; t < 19; t++) {
+                    e.bl_tree[2 * t] = 0;
+                }e.dyn_ltree[512] = 1, e.opt_len = e.static_len = 0, e.sym_next = e.matches = 0;
             },
-                o = r.mediaDevices.getUserMedia.bind(r.mediaDevices);if (r.mediaDevices.getUserMedia = function (e) {
-              return "object" === s(e) && "object" === s(e.audio) && (e = JSON.parse(JSON.stringify(e)), a(e.audio, "autoGainControl", "mozAutoGainControl"), a(e.audio, "noiseSuppression", "mozNoiseSuppression")), o(e);
-            }, i && i.prototype.getSettings) {
-              var c = i.prototype.getSettings;i.prototype.getSettings = function () {
-                var e = c.apply(this, arguments);return a(e, "mozAutoGainControl", "autoGainControl"), a(e, "mozNoiseSuppression", "noiseSuppression"), e;
-              };
-            }if (i && i.prototype.applyConstraints) {
-              var d = i.prototype.applyConstraints;i.prototype.applyConstraints = function (e) {
-                return "audio" === this.kind && "object" === s(e) && (e = JSON.parse(JSON.stringify(e)), a(e, "autoGainControl", "mozAutoGainControl"), a(e, "noiseSuppression", "mozNoiseSuppression")), d.apply(this, [e]);
-              };
-            }
-          }
-        };var n = function (e, t) {
-          if (!t && e && e.__esModule) return e;if (null === e || "object" !== s(e) && "function" != typeof e) return { default: e };var r = i(t);if (r && r.has(e)) return r.get(e);var n = {},
-              a = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var o in e) {
-            if ("default" !== o && Object.prototype.hasOwnProperty.call(e, o)) {
-              var c = a ? Object.getOwnPropertyDescriptor(e, o) : null;c && (c.get || c.set) ? Object.defineProperty(n, o, c) : n[o] = e[o];
-            }
-          }n.default = e, r && r.set(e, n);return n;
-        }(r(288));function i(e) {
-          if ("function" != typeof WeakMap) return null;var t = new WeakMap(),
-              r = new WeakMap();return (i = function i(e) {
-            return e ? r : t;
-          })(e);
-        }function s(e) {
-          return s = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
-            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          } : function (e) {
-            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          }, s(e);
-        }
-      }, 540: function _(e, t, r) {
-        "use strict";
-        Object.defineProperty(t, "__esModule", { value: !0 }), t.shimAudioContext = function (e) {
-          if ("object" !== s(e) || e.AudioContext) return;e.AudioContext = e.webkitAudioContext;
-        }, t.shimCallbacksAPI = function (e) {
-          if ("object" !== s(e) || !e.RTCPeerConnection) return;var t = e.RTCPeerConnection.prototype,
-              r = t.createOffer,
-              n = t.createAnswer,
-              i = t.setLocalDescription,
-              a = t.setRemoteDescription,
-              o = t.addIceCandidate;t.createOffer = function (e, t) {
-            var n = arguments.length >= 2 ? arguments[2] : arguments[0],
-                i = r.apply(this, [n]);return t ? (i.then(e, t), Promise.resolve()) : i;
-          }, t.createAnswer = function (e, t) {
-            var r = arguments.length >= 2 ? arguments[2] : arguments[0],
-                i = n.apply(this, [r]);return t ? (i.then(e, t), Promise.resolve()) : i;
-          };var c = function c(e, t, r) {
-            var n = i.apply(this, [e]);return r ? (n.then(t, r), Promise.resolve()) : n;
-          };t.setLocalDescription = c, c = function c(e, t, r) {
-            var n = a.apply(this, [e]);return r ? (n.then(t, r), Promise.resolve()) : n;
-          }, t.setRemoteDescription = c, c = function c(e, t, r) {
-            var n = o.apply(this, [e]);return r ? (n.then(t, r), Promise.resolve()) : n;
-          }, t.addIceCandidate = c;
-        }, t.shimConstraints = a, t.shimCreateOfferLegacy = function (e) {
-          var t = e.RTCPeerConnection.prototype.createOffer;e.RTCPeerConnection.prototype.createOffer = function (e) {
-            if (e) {
-              void 0 !== e.offerToReceiveAudio && (e.offerToReceiveAudio = !!e.offerToReceiveAudio);var r = this.getTransceivers().find(function (e) {
-                return "audio" === e.receiver.track.kind;
-              });!1 === e.offerToReceiveAudio && r ? "sendrecv" === r.direction ? r.setDirection ? r.setDirection("sendonly") : r.direction = "sendonly" : "recvonly" === r.direction && (r.setDirection ? r.setDirection("inactive") : r.direction = "inactive") : !0 !== e.offerToReceiveAudio || r || this.addTransceiver("audio", { direction: "recvonly" }), void 0 !== e.offerToReceiveVideo && (e.offerToReceiveVideo = !!e.offerToReceiveVideo);var n = this.getTransceivers().find(function (e) {
-                return "video" === e.receiver.track.kind;
-              });!1 === e.offerToReceiveVideo && n ? "sendrecv" === n.direction ? n.setDirection ? n.setDirection("sendonly") : n.direction = "sendonly" : "recvonly" === n.direction && (n.setDirection ? n.setDirection("inactive") : n.direction = "inactive") : !0 !== e.offerToReceiveVideo || n || this.addTransceiver("video", { direction: "recvonly" });
-            }return t.apply(this, arguments);
-          };
-        }, t.shimGetUserMedia = function (e) {
-          var t = e && e.navigator;if (t.mediaDevices && t.mediaDevices.getUserMedia) {
-            var r = t.mediaDevices,
-                n = r.getUserMedia.bind(r);t.mediaDevices.getUserMedia = function (e) {
-              return n(a(e));
-            };
-          }!t.getUserMedia && t.mediaDevices && t.mediaDevices.getUserMedia && (t.getUserMedia = function (e, r, n) {
-            t.mediaDevices.getUserMedia(e).then(r, n);
-          }.bind(t));
-        }, t.shimLocalStreamsAPI = function (e) {
-          if ("object" !== s(e) || !e.RTCPeerConnection) return;"getLocalStreams" in e.RTCPeerConnection.prototype || (e.RTCPeerConnection.prototype.getLocalStreams = function () {
-            return this._localStreams || (this._localStreams = []), this._localStreams;
-          });if (!("addStream" in e.RTCPeerConnection.prototype)) {
-            var t = e.RTCPeerConnection.prototype.addTrack;e.RTCPeerConnection.prototype.addStream = function (e) {
-              var r = this;this._localStreams || (this._localStreams = []), this._localStreams.includes(e) || this._localStreams.push(e), e.getAudioTracks().forEach(function (n) {
-                return t.call(r, n, e);
-              }), e.getVideoTracks().forEach(function (n) {
-                return t.call(r, n, e);
-              });
-            }, e.RTCPeerConnection.prototype.addTrack = function (e) {
-              for (var r = this, n = arguments.length, i = new Array(n > 1 ? n - 1 : 0), s = 1; s < n; s++) {
-                i[s - 1] = arguments[s];
-              }return i && i.forEach(function (e) {
-                r._localStreams ? r._localStreams.includes(e) || r._localStreams.push(e) : r._localStreams = [e];
-              }), t.apply(this, arguments);
-            };
-          }"removeStream" in e.RTCPeerConnection.prototype || (e.RTCPeerConnection.prototype.removeStream = function (e) {
-            var t = this;this._localStreams || (this._localStreams = []);var r = this._localStreams.indexOf(e);if (-1 !== r) {
-              this._localStreams.splice(r, 1);var n = e.getTracks();this.getSenders().forEach(function (e) {
-                n.includes(e.track) && t.removeTrack(e);
-              });
-            }
-          });
-        }, t.shimRTCIceServerUrls = function (e) {
-          if (!e.RTCPeerConnection) return;var t = e.RTCPeerConnection;e.RTCPeerConnection = function (e, r) {
-            if (e && e.iceServers) {
-              for (var i = [], s = 0; s < e.iceServers.length; s++) {
-                var a = e.iceServers[s];void 0 === a.urls && a.url ? (n.deprecated("RTCIceServer.url", "RTCIceServer.urls"), (a = JSON.parse(JSON.stringify(a))).urls = a.url, delete a.url, i.push(a)) : i.push(e.iceServers[s]);
-              }e.iceServers = i;
-            }return new t(e, r);
-          }, e.RTCPeerConnection.prototype = t.prototype, "generateCertificate" in t && Object.defineProperty(e.RTCPeerConnection, "generateCertificate", { get: function get() {
-              return t.generateCertificate;
-            } });
-        }, t.shimRemoteStreamsAPI = function (e) {
-          if ("object" !== s(e) || !e.RTCPeerConnection) return;"getRemoteStreams" in e.RTCPeerConnection.prototype || (e.RTCPeerConnection.prototype.getRemoteStreams = function () {
-            return this._remoteStreams ? this._remoteStreams : [];
-          });if (!("onaddstream" in e.RTCPeerConnection.prototype)) {
-            Object.defineProperty(e.RTCPeerConnection.prototype, "onaddstream", { get: function get() {
-                return this._onaddstream;
-              }, set: function set(e) {
-                var t = this;this._onaddstream && (this.removeEventListener("addstream", this._onaddstream), this.removeEventListener("track", this._onaddstreampoly)), this.addEventListener("addstream", this._onaddstream = e), this.addEventListener("track", this._onaddstreampoly = function (e) {
-                  e.streams.forEach(function (e) {
-                    if (t._remoteStreams || (t._remoteStreams = []), !t._remoteStreams.includes(e)) {
-                      t._remoteStreams.push(e);var r = new Event("addstream");r.stream = e, t.dispatchEvent(r);
+                N = function N(e) {
+                e.bi_valid > 8 ? T(e, e.bi_buf) : e.bi_valid > 0 && (e.pending_buf[e.pending++] = e.bi_buf), e.bi_buf = 0, e.bi_valid = 0;
+            },
+                S = function S(e, t, n, r) {
+                var i = 2 * t,
+                    s = 2 * n;return e[i] < e[s] || e[i] === e[s] && r[t] <= r[n];
+            },
+                C = function C(e, t, n) {
+                var r = e.heap[n];var i = n << 1;for (; i <= e.heap_len && (i < e.heap_len && S(t, e.heap[i + 1], e.heap[i], e.depth) && i++, !S(t, r, e.heap[i], e.depth));) {
+                    e.heap[n] = e.heap[i], n = i, i <<= 1;
+                }e.heap[n] = r;
+            },
+                P = function P(e, t, r) {
+                var i = void 0,
+                    s = void 0,
+                    d = void 0,
+                    c = void 0,
+                    l = 0;if (0 !== e.sym_next) do {
+                    i = 255 & e.pending_buf[e.sym_buf + l++], i += (255 & e.pending_buf[e.sym_buf + l++]) << 8, s = e.pending_buf[e.sym_buf + l++], 0 === i ? b(e, s, t) : (d = _[s], b(e, d + n + 1, t), c = a[d], 0 !== c && (s -= f[d], y(e, s, c)), i--, d = w(i), b(e, d, r), c = o[d], 0 !== c && (i -= E[d], y(e, i, c)));
+                } while (l < e.sym_next);b(e, 256, t);
+            },
+                D = function D(e, t) {
+                var n = t.dyn_tree,
+                    r = t.stat_desc.static_tree,
+                    i = t.stat_desc.has_stree,
+                    a = t.stat_desc.elems;var o = void 0,
+                    d = void 0,
+                    c = void 0,
+                    l = -1;for (e.heap_len = 0, e.heap_max = 573, o = 0; o < a; o++) {
+                    0 !== n[2 * o] ? (e.heap[++e.heap_len] = l = o, e.depth[o] = 0) : n[2 * o + 1] = 0;
+                }for (; e.heap_len < 2;) {
+                    c = e.heap[++e.heap_len] = l < 2 ? ++l : 0, n[2 * c] = 1, e.depth[c] = 0, e.opt_len--, i && (e.static_len -= r[2 * c + 1]);
+                }for (t.max_code = l, o = e.heap_len >> 1; o >= 1; o--) {
+                    C(e, n, o);
+                }c = a;do {
+                    o = e.heap[1], e.heap[1] = e.heap[e.heap_len--], C(e, n, 1), d = e.heap[1], e.heap[--e.heap_max] = o, e.heap[--e.heap_max] = d, n[2 * c] = n[2 * o] + n[2 * d], e.depth[c] = (e.depth[o] >= e.depth[d] ? e.depth[o] : e.depth[d]) + 1, n[2 * o + 1] = n[2 * d + 1] = c, e.heap[1] = c++, C(e, n, 1);
+                } while (e.heap_len >= 2);e.heap[--e.heap_max] = e.heap[1], function (e, t) {
+                    var n = t.dyn_tree,
+                        r = t.max_code,
+                        i = t.stat_desc.static_tree,
+                        a = t.stat_desc.has_stree,
+                        o = t.stat_desc.extra_bits,
+                        d = t.stat_desc.extra_base,
+                        c = t.stat_desc.max_length;var l = void 0,
+                        h = void 0,
+                        u = void 0,
+                        _ = void 0,
+                        f = void 0,
+                        E = void 0,
+                        p = 0;for (_ = 0; _ <= s; _++) {
+                        e.bl_count[_] = 0;
+                    }for (n[2 * e.heap[e.heap_max] + 1] = 0, l = e.heap_max + 1; l < 573; l++) {
+                        h = e.heap[l], _ = n[2 * n[2 * h + 1] + 1] + 1, _ > c && (_ = c, p++), n[2 * h + 1] = _, h > r || (e.bl_count[_]++, f = 0, h >= d && (f = o[h - d]), E = n[2 * h], e.opt_len += E * (_ + f), a && (e.static_len += E * (i[2 * h + 1] + f)));
+                    }if (0 !== p) {
+                        do {
+                            for (_ = c - 1; 0 === e.bl_count[_];) {
+                                _--;
+                            }e.bl_count[_]--, e.bl_count[_ + 1] += 2, e.bl_count[c]--, p -= 2;
+                        } while (p > 0);for (_ = c; 0 !== _; _--) {
+                            for (h = e.bl_count[_]; 0 !== h;) {
+                                u = e.heap[--l], u > r || (n[2 * u + 1] !== _ && (e.opt_len += (_ - n[2 * u + 1]) * n[2 * u], n[2 * u + 1] = _), h--);
+                            }
+                        }
                     }
-                  });
-                });
-              } });var t = e.RTCPeerConnection.prototype.setRemoteDescription;e.RTCPeerConnection.prototype.setRemoteDescription = function () {
-              var e = this;return this._onaddstreampoly || this.addEventListener("track", this._onaddstreampoly = function (t) {
-                t.streams.forEach(function (t) {
-                  if (e._remoteStreams || (e._remoteStreams = []), !(e._remoteStreams.indexOf(t) >= 0)) {
-                    e._remoteStreams.push(t);var r = new Event("addstream");r.stream = t, e.dispatchEvent(r);
-                  }
-                });
-              }), t.apply(e, arguments);
+                }(e, t), k(n, l, e.bl_count);
+            },
+                x = function x(e, t, n) {
+                var r = void 0,
+                    i = void 0,
+                    s = -1,
+                    a = t[1],
+                    o = 0,
+                    d = 7,
+                    c = 4;for (0 === a && (d = 138, c = 3), t[2 * (n + 1) + 1] = 65535, r = 0; r <= n; r++) {
+                    i = a, a = t[2 * (r + 1) + 1], ++o < d && i === a || (o < c ? e.bl_tree[2 * i] += o : 0 !== i ? (i !== s && e.bl_tree[2 * i]++, e.bl_tree[32]++) : o <= 10 ? e.bl_tree[34]++ : e.bl_tree[36]++, o = 0, s = i, 0 === a ? (d = 138, c = 3) : i === a ? (d = 6, c = 3) : (d = 7, c = 4));
+                }
+            },
+                O = function O(e, t, n) {
+                var r = void 0,
+                    i = void 0,
+                    s = -1,
+                    a = t[1],
+                    o = 0,
+                    d = 7,
+                    c = 4;for (0 === a && (d = 138, c = 3), r = 0; r <= n; r++) {
+                    if (i = a, a = t[2 * (r + 1) + 1], !(++o < d && i === a)) {
+                        if (o < c) do {
+                            b(e, i, e.bl_tree);
+                        } while (0 != --o);else 0 !== i ? (i !== s && (b(e, i, e.bl_tree), o--), b(e, 16, e.bl_tree), y(e, o - 3, 2)) : o <= 10 ? (b(e, 17, e.bl_tree), y(e, o - 3, 3)) : (b(e, 18, e.bl_tree), y(e, o - 11, 7));o = 0, s = i, 0 === a ? (d = 138, c = 3) : i === a ? (d = 6, c = 3) : (d = 7, c = 4);
+                    }
+                }
+            };var M = !1;var L = function L(e, t, n, r) {
+                y(e, 0 + (r ? 1 : 0), 3), N(e), T(e, n), T(e, ~n), n && e.pending_buf.set(e.window.subarray(t, t + n), e.pending), e.pending += n;
+            };var U = function U(e, t, r, i) {
+                var s = void 0,
+                    a = void 0,
+                    o = 0;e.level > 0 ? (2 === e.strm.data_type && (e.strm.data_type = function (e) {
+                    var t = void 0,
+                        r = 4093624447;for (t = 0; t <= 31; t++, r >>>= 1) {
+                        if (1 & r && 0 !== e.dyn_ltree[2 * t]) return 0;
+                    }if (0 !== e.dyn_ltree[18] || 0 !== e.dyn_ltree[20] || 0 !== e.dyn_ltree[26]) return 1;for (t = 32; t < n; t++) {
+                        if (0 !== e.dyn_ltree[2 * t]) return 1;
+                    }return 0;
+                }(e)), D(e, e.l_desc), D(e, e.d_desc), o = function (e) {
+                    var t = void 0;for (x(e, e.dyn_ltree, e.l_desc.max_code), x(e, e.dyn_dtree, e.d_desc.max_code), D(e, e.bl_desc), t = 18; t >= 3 && 0 === e.bl_tree[2 * c[t] + 1]; t--) {}return e.opt_len += 3 * (t + 1) + 5 + 5 + 4, t;
+                }(e), s = e.opt_len + 3 + 7 >>> 3, a = e.static_len + 3 + 7 >>> 3, a <= s && (s = a)) : s = a = r + 5, r + 4 <= s && -1 !== t ? L(e, t, r, i) : 4 === e.strategy || a === s ? (y(e, 2 + (i ? 1 : 0), 3), P(e, l, h)) : (y(e, 4 + (i ? 1 : 0), 3), function (e, t, n, r) {
+                    var i = void 0;for (y(e, t - 257, 5), y(e, n - 1, 5), y(e, r - 4, 4), i = 0; i < r; i++) {
+                        y(e, e.bl_tree[2 * c[i] + 1], 3);
+                    }O(e, e.dyn_ltree, t - 1), O(e, e.dyn_dtree, n - 1);
+                }(e, e.l_desc.max_code + 1, e.d_desc.max_code + 1, o + 1), P(e, e.dyn_ltree, e.dyn_dtree)), I(e), i && N(e);
+            },
+                z = { _tr_init: function _tr_init(e) {
+                    M || (function () {
+                        var e = void 0,
+                            t = void 0,
+                            n = void 0,
+                            c = void 0,
+                            v = void 0;var w = new Array(16);for (n = 0, c = 0; c < 28; c++) {
+                            for (f[c] = n, e = 0; e < 1 << a[c]; e++) {
+                                _[n++] = c;
+                            }
+                        }for (_[n - 1] = c, v = 0, c = 0; c < 16; c++) {
+                            for (E[c] = v, e = 0; e < 1 << o[c]; e++) {
+                                u[v++] = c;
+                            }
+                        }for (v >>= 7; c < i; c++) {
+                            for (E[c] = v << 7, e = 0; e < 1 << o[c] - 7; e++) {
+                                u[256 + v++] = c;
+                            }
+                        }for (t = 0; t <= s; t++) {
+                            w[t] = 0;
+                        }for (e = 0; e <= 143;) {
+                            l[2 * e + 1] = 8, e++, w[8]++;
+                        }for (; e <= 255;) {
+                            l[2 * e + 1] = 9, e++, w[9]++;
+                        }for (; e <= 279;) {
+                            l[2 * e + 1] = 7, e++, w[7]++;
+                        }for (; e <= 287;) {
+                            l[2 * e + 1] = 8, e++, w[8]++;
+                        }for (k(l, 287, w), e = 0; e < i; e++) {
+                            h[2 * e + 1] = 5, h[2 * e] = R(e, 5);
+                        }g = new p(l, a, 257, r, s), m = new p(h, o, 0, i, s), A = new p(new Array(0), d, 0, 19, 7);
+                    }(), M = !0), e.l_desc = new v(e.dyn_ltree, g), e.d_desc = new v(e.dyn_dtree, m), e.bl_desc = new v(e.bl_tree, A), e.bi_buf = 0, e.bi_valid = 0, I(e);
+                }, _tr_stored_block: L, _tr_flush_block: U, _tr_tally: function _tr_tally(e, t, r) {
+                    return e.pending_buf[e.sym_buf + e.sym_next++] = t, e.pending_buf[e.sym_buf + e.sym_next++] = t >> 8, e.pending_buf[e.sym_buf + e.sym_next++] = r, 0 === t ? e.dyn_ltree[2 * r]++ : (e.matches++, t--, e.dyn_ltree[2 * (_[r] + n + 1)]++, e.dyn_dtree[2 * w(t)]++), e.sym_next === e.sym_end;
+                }, _tr_align: function _tr_align(e) {
+                    y(e, 2, 3), b(e, 256, l), function (e) {
+                        16 === e.bi_valid ? (T(e, e.bi_buf), e.bi_buf = 0, e.bi_valid = 0) : e.bi_valid >= 8 && (e.pending_buf[e.pending++] = 255 & e.bi_buf, e.bi_buf >>= 8, e.bi_valid -= 8);
+                    }(e);
+                } },
+                G = function G(e, t, n, r) {
+                var i = 65535 & e,
+                    s = e >>> 16 & 65535,
+                    a = 0;for (; 0 !== n;) {
+                    a = n > 2e3 ? 2e3 : n, n -= a;do {
+                        i = i + t[r++] | 0, s = s + i | 0;
+                    } while (--a);i %= 65521, s %= 65521;
+                }return i | s << 16;
+            };var V = new Uint32Array(function () {
+                var e = void 0,
+                    t = [];for (var n = 0; n < 256; n++) {
+                    e = n;for (var r = 0; r < 8; r++) {
+                        e = 1 & e ? 3988292384 ^ e >>> 1 : e >>> 1;
+                    }t[n] = e;
+                }return t;
+            }());var q = function q(e, t, n, r) {
+                var i = V,
+                    s = r + n;e ^= -1;for (var _n2 = r; _n2 < s; _n2++) {
+                    e = e >>> 8 ^ i[255 & (e ^ t[_n2])];
+                }return ~e;
+            },
+                F = { 2: "need dictionary", 1: "stream end", 0: "", "-1": "file error", "-2": "stream error", "-3": "data error", "-4": "insufficient memory", "-5": "buffer error", "-6": "incompatible version" },
+                H = { Z_NO_FLUSH: 0, Z_PARTIAL_FLUSH: 1, Z_SYNC_FLUSH: 2, Z_FULL_FLUSH: 3, Z_FINISH: 4, Z_BLOCK: 5, Z_TREES: 6, Z_OK: 0, Z_STREAM_END: 1, Z_NEED_DICT: 2, Z_ERRNO: -1, Z_STREAM_ERROR: -2, Z_DATA_ERROR: -3, Z_MEM_ERROR: -4, Z_BUF_ERROR: -5, Z_NO_COMPRESSION: 0, Z_BEST_SPEED: 1, Z_BEST_COMPRESSION: 9, Z_DEFAULT_COMPRESSION: -1, Z_FILTERED: 1, Z_HUFFMAN_ONLY: 2, Z_RLE: 3, Z_FIXED: 4, Z_DEFAULT_STRATEGY: 0, Z_BINARY: 0, Z_TEXT: 1, Z_UNKNOWN: 2, Z_DEFLATED: 8 };
+            var j = z._tr_init,
+                B = z._tr_stored_block,
+                Z = z._tr_flush_block,
+                W = z._tr_tally,
+                K = z._tr_align,
+                $ = H.Z_NO_FLUSH,
+                J = H.Z_PARTIAL_FLUSH,
+                Y = H.Z_FULL_FLUSH,
+                X = H.Z_FINISH,
+                Q = H.Z_BLOCK,
+                ee = H.Z_OK,
+                te = H.Z_STREAM_END,
+                ne = H.Z_STREAM_ERROR,
+                re = H.Z_DATA_ERROR,
+                ie = H.Z_BUF_ERROR,
+                se = H.Z_DEFAULT_COMPRESSION,
+                ae = H.Z_FILTERED,
+                oe = H.Z_HUFFMAN_ONLY,
+                de = H.Z_RLE,
+                ce = H.Z_FIXED,
+                le = H.Z_DEFAULT_STRATEGY,
+                he = H.Z_UNKNOWN,
+                ue = H.Z_DEFLATED,
+                _e = 258,
+                fe = 262,
+                Ee = 42,
+                pe = 113,
+                ge = 666,
+                me = function me(e, t) {
+                return e.msg = F[t], t;
+            },
+                Ae = function Ae(e) {
+                return 2 * e - (e > 4 ? 9 : 0);
+            },
+                ve = function ve(e) {
+                var t = e.length;for (; --t >= 0;) {
+                    e[t] = 0;
+                }
+            },
+                we = function we(e) {
+                var t = void 0,
+                    n = void 0,
+                    r = void 0,
+                    i = e.w_size;t = e.hash_size, r = t;do {
+                    n = e.head[--r], e.head[r] = n >= i ? n - i : 0;
+                } while (--t);t = i, r = t;do {
+                    n = e.prev[--r], e.prev[r] = n >= i ? n - i : 0;
+                } while (--t);
             };
-          }
-        }, t.shimTrackEventTransceiver = function (e) {
-          "object" === s(e) && e.RTCTrackEvent && "receiver" in e.RTCTrackEvent.prototype && !("transceiver" in e.RTCTrackEvent.prototype) && Object.defineProperty(e.RTCTrackEvent.prototype, "transceiver", { get: function get() {
-              return { receiver: this.receiver };
-            } });
-        };var n = function (e, t) {
-          if (!t && e && e.__esModule) return e;if (null === e || "object" !== s(e) && "function" != typeof e) return { default: e };var r = i(t);if (r && r.has(e)) return r.get(e);var n = {},
-              a = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var o in e) {
-            if ("default" !== o && Object.prototype.hasOwnProperty.call(e, o)) {
-              var c = a ? Object.getOwnPropertyDescriptor(e, o) : null;c && (c.get || c.set) ? Object.defineProperty(n, o, c) : n[o] = e[o];
-            }
-          }n.default = e, r && r.set(e, n);return n;
-        }(r(288));function i(e) {
-          if ("function" != typeof WeakMap) return null;var t = new WeakMap(),
-              r = new WeakMap();return (i = function i(e) {
-            return e ? r : t;
-          })(e);
-        }function s(e) {
-          return s = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
-            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          } : function (e) {
-            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          }, s(e);
-        }function a(e) {
-          return e && void 0 !== e.video ? Object.assign({}, e, { video: n.compactObject(e.video) }) : e;
-        }
-      }, 288: function _(e, t) {
-        "use strict";
-        function r(e) {
-          return r = "function" == typeof Symbol && "symbol" == (0, _typeof3.default)(Symbol.iterator) ? function (e) {
-            return typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          } : function (e) {
-            return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e);
-          }, r(e);
-        }Object.defineProperty(t, "__esModule", { value: !0 }), t.compactObject = function e(t) {
-          if (!a(t)) return t;return Object.keys(t).reduce(function (n, i) {
-            var s = a(t[i]),
-                o = s ? e(t[i]) : t[i],
-                c = s && !Object.keys(o).length;return void 0 === o || c ? n : Object.assign(n, function (e, t, n) {
-              t = function (e) {
-                var t = function (e, t) {
-                  if ("object" !== r(e) || null === e) return e;var n = e[Symbol.toPrimitive];if (void 0 !== n) {
-                    var i = n.call(e, t || "default");if ("object" !== r(i)) return i;throw new TypeError("@@toPrimitive must return a primitive value.");
-                  }return ("string" === t ? String : Number)(e);
-                }(e, "string");return "symbol" === r(t) ? t : String(t);
-              }(t), t in e ? Object.defineProperty(e, t, { value: n, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = n;return e;
-            }({}, i, o));
-          }, {});
-        }, t.deprecated = function (e, t) {
-          if (!i) return;console.warn(e + " is deprecated, please use " + t + " instead.");
-        }, t.detectBrowser = function (e) {
-          var t = { browser: null, version: null };if (void 0 === e || !e.navigator || !e.navigator.userAgent) return t.browser = "Not a browser.", t;var r = e.navigator;if (r.mozGetUserMedia) t.browser = "firefox", t.version = s(r.userAgent, /Firefox\/(\d+)\./, 1);else if (r.webkitGetUserMedia || !1 === e.isSecureContext && e.webkitRTCPeerConnection) t.browser = "chrome", t.version = s(r.userAgent, /Chrom(e|ium)\/(\d+)\./, 2);else {
-            if (!e.RTCPeerConnection || !r.userAgent.match(/AppleWebKit\/(\d+)\./)) return t.browser = "Not a supported browser.", t;t.browser = "safari", t.version = s(r.userAgent, /AppleWebKit\/(\d+)\./, 1), t.supportsUnifiedPlan = e.RTCRtpTransceiver && "currentDirection" in e.RTCRtpTransceiver.prototype;
-          }return t;
-        }, t.disableLog = function (e) {
-          if ("boolean" != typeof e) return new Error("Argument type: " + r(e) + ". Please use a boolean.");return n = e, e ? "adapter.js logging disabled" : "adapter.js logging enabled";
-        }, t.disableWarnings = function (e) {
-          if ("boolean" != typeof e) return new Error("Argument type: " + r(e) + ". Please use a boolean.");return i = !e, "adapter.js deprecation warnings " + (e ? "disabled" : "enabled");
-        }, t.extractVersion = s, t.filterStats = function (e, t, r) {
-          var n = r ? "outbound-rtp" : "inbound-rtp",
-              i = new Map();if (null === t) return i;var s = [];return e.forEach(function (e) {
-            "track" === e.type && e.trackIdentifier === t.id && s.push(e);
-          }), s.forEach(function (t) {
-            e.forEach(function (r) {
-              r.type === n && r.trackId === t.id && o(e, r, i);
-            });
-          }), i;
-        }, t.log = function () {
-          if ("object" === ("undefined" == typeof window ? "undefined" : r(window))) {
-            if (n) return;"undefined" != typeof console && "function" == typeof console.log && console.log.apply(console, arguments);
-          }
-        }, t.walkStats = o, t.wrapPeerConnectionEvent = function (e, t, r) {
-          if (!e.RTCPeerConnection) return;var n = e.RTCPeerConnection.prototype,
-              i = n.addEventListener;n.addEventListener = function (e, n) {
-            if (e !== t) return i.apply(this, arguments);var s = function s(e) {
-              var t = r(e);t && (n.handleEvent ? n.handleEvent(t) : n(t));
-            };return this._eventMap = this._eventMap || {}, this._eventMap[t] || (this._eventMap[t] = new Map()), this._eventMap[t].set(n, s), i.apply(this, [e, s]);
-          };var s = n.removeEventListener;n.removeEventListener = function (e, r) {
-            if (e !== t || !this._eventMap || !this._eventMap[t]) return s.apply(this, arguments);if (!this._eventMap[t].has(r)) return s.apply(this, arguments);var n = this._eventMap[t].get(r);return this._eventMap[t].delete(r), 0 === this._eventMap[t].size && delete this._eventMap[t], 0 === Object.keys(this._eventMap).length && delete this._eventMap, s.apply(this, [e, n]);
-          }, Object.defineProperty(n, "on" + t, { get: function get() {
-              return this["_on" + t];
-            }, set: function set(e) {
-              this["_on" + t] && (this.removeEventListener(t, this["_on" + t]), delete this["_on" + t]), e && this.addEventListener(t, this["_on" + t] = e);
-            }, enumerable: !0, configurable: !0 });
-        };var n = !0,
-            i = !0;function s(e, t, r) {
-          var n = e.match(t);return n && n.length >= r && parseInt(n[r], 10);
-        }function a(e) {
-          return "[object Object]" === Object.prototype.toString.call(e);
-        }function o(e, t, r) {
-          t && !r.has(t.id) && (r.set(t.id, t), Object.keys(t).forEach(function (n) {
-            n.endsWith("Id") ? o(e, e.get(t[n]), r) : n.endsWith("Ids") && t[n].forEach(function (t) {
-              o(e, e.get(t), r);
-            });
-          }));
-        }
-      } },
-        t = {};function r(n) {
-      var i = t[n];if (void 0 !== i) return i.exports;var s = t[n] = { exports: {} };return e[n].call(s.exports, s, s.exports, r), s.exports;
-    }r.n = function (e) {
-      var t = e && e.__esModule ? function () {
-        return e.default;
-      } : function () {
-        return e;
-      };return r.d(t, { a: t }), t;
-    }, r.d = function (e, t) {
-      for (var n in t) {
-        r.o(t, n) && !r.o(e, n) && Object.defineProperty(e, n, { enumerable: !0, get: t[n] });
-      }
-    }, r.o = function (e, t) {
-      return Object.prototype.hasOwnProperty.call(e, t);
-    }, r.r = function (e) {
-      "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(e, "__esModule", { value: !0 });
-    };var n = {};return function () {
-      "use strict";
-      r.r(n), r.d(n, { DCVWebRTCRedirClient: function DCVWebRTCRedirClient() {
-          return g;
-        } });var e = { major: 0, minor: 3, patch: 1, buildNumber: 0, gitHash: "095db5cf9815180fcac836f02dfce117a1d0c60f", versionStr: "0.3.1+build.0" };var t = r(86),
-          i = r(43),
-          s = r.n(i);var a = Object.freeze({ HELLO_API_NAME: "hello", GETUSERMEDIA_API_NAME: "navigator.mediaDevices.getUserMedia", ENUMERATEDEVICES_API_NAME: "navigator.mediaDevices.enumerateDevices", GENERATE_CERTIFICATE_API_NAME: "RTCPeerConnection.generateCertificate", NEWRTCPEERCONNECTION_API_NAME: "new.RTCPeerConnection", PC_GET_CONFIGURATION: "pcs.getConfiguration", NEW_AUDIO_CONTEXT: "new.AudioContext", CREATE_WORKER: "new.Worker", WORKER_POST_MESSAGE: "workers.postMessage", WORKER_TERMINATE: "workers.terminate", AUDIO_CTX_CREATE_AUDIO_NODE: "audioContexts.createAudioNode", AUDIO_CTX_CLOSE: "audioContexts.close", AUDIO_NODE_CONNECT: "audioNodes.connect", AUDIO_NODE_DISCONNECT: "audioNodes.disconnect", AUDIO_PARAM_SET_VALUE_AT_TIME: "audioParams.setValueAtTime", AUDIO_PARAM_SET_RAMP_TO_VALUE_AT_TIME: "audioParams.linearRampToValueAtTime", AUDIO_NODE_SET_TYPE: "audioNodes.setType", AUDIO_NODE_START: "audioNodes.start", AUDIO_NODE_STOP: "audioNodes.stop", PC_CLOSE_API_NAME: "pcs.close", ADDSTREAM_API_NAME: "pcs.addStream", STREAM_REMOVE_TRACK: "streams.removeTrack", STREAM_ADD_TRACK: "streams.addTrack", GET_STATS_API_NAME: "pcs.getStats", CREATE_OFFER_API_NAME: "pcs.createOffer", SET_LOCAL_DESCRIPTION_API_NAME: "pcs.setLocalDescription", ADD_PC_EVENT_LISTENER: "pcs.addEventListener", ADD_TRACK_EVENT_LISTENER: "tracks.addEventListener", ADD_DTMF_EVENT_LISTENER: "dtmfs.addEventListener", ADD_WORKER_EVENT_LISTENER: "workers.addEventListener", SET_REMOTE_DESCRIPTION_API_NAME: "pcs.setRemoteDescription", ADD_ICE_CANDIDATE_API_NAME: "pcs.addIceCandidate", CREATE_MEDIA_ELEMENT_API_NAME: "document.createElement", MEDIA_ELEMENT_SET_SINK_ID_API_NAME: "mediaElements.setSinkId", MEDIA_ELEMENT_REMOVE: "mediaElements.remove", CREATE_ANSWER_API_NAME: "pcs.createAnswer", UNLOAD_EVENT_NAME: "unload", TOGGLE_TRACK_ENABLED_API_NAME: "tracks.enabled", TRACK_STOP_API_NAME: "tracks.stop", TRACK_GET_SETTINGS: "tracks.getSettings", GET_RECEIVERS_API_NAME: "pcs.getReceivers", ADD_TRACK_API_NAME: "pcs.addTrack", GET_SENDERS_API_NAME: "pcs.getSenders", GET_SENDER_STATS_API_NAME: "senders.getStats", GET_RECEIVER_STATS_API_NAME: "receivers.getStats", SET_MEDIA_SRC_OBJ_API_NAME: "mediaElements.srcObject", SET_MEDIA_HIDDEN_API_NAME: "mediaElements.hidden", SET_MEDIA_VOLUME_API_NAME: "mediaElements.volume", MEDIA_ELEMENT_PLAY_API_NAME: "mediaElements.play", MEDIA_ELEMENT_PAUSE_API_NAME: "mediaElements.pause", MEDIA_ELEMENT_MUTED: "mediaElements.muted", ADD_TRANSCEIVER_API_NAME: "pcs.addTransceiver", GET_TRANSCEIVERS_API_NAME: "pcs.getTransceivers", TRANSCEIVER_SET_CODEC_PREFS: "transceivers.setCodecPreferences", REPLACE_SENDER_TRACK_API_NAME: "senders.replaceTrack", PC_REMOVE_TRACK_API_NAME: "pcs.removeTrack", INSERT_DTMF_API_NAME: "dtmfSenders.insertDTMF", SENDER_CREATE_ENCODED_STREAMS: "senders.createEncodedStreams", RECEIVER_CREATE_ENCODED_STREAMS: "receivers.createEncodedStreams" }),
-          o = Object.freeze({ SIG_STATE_CHANGE: "signalingstatechange", TRACK: "track", CONN_STATE_CHANGE: "connectionstatechange", ICE_CONN_STATE_CHANGE: "iceconnectionstatechange", ICE_GATHER_STATE_CHANGE: "icegatheringstatechange", ICE_CANDIDATE: "icecandidate", NEGOTIATION_NEEDED: "negotiationneeded" }),
-          c = Object.freeze({ ENDED: "ended", MUTE: "mute", UNMUTE: "unmute" }),
-          d = Object.freeze({ TONECHANGE: "tonechange" }),
-          l = Object.freeze({ ERROR: "error", MESSAGE: "message", MESSAGE_ERROR: "messageerror" }),
-          p = Object.freeze({ CHROME: "diilpfplcnhehakckkpmcmibmhbingnd", EDGE: "kjbbkjjiecchbcdoollhgffghfjnbhef" });var h = r(114);var u = r(591);function f() {
-        return function () {
-          var e = window.navigator.userAgent.toLowerCase();return e.indexOf("edg/") > -1 || e.indexOf("edge") > -1;
-        }() ? p.EDGE : p.CHROME;
-      }
-      var m = function () {
-        function m(t) {
-          (0, _classCallCheck3.default)(this, m);
-          if (this.version = e, this.config = t, this.logger = t.logger, this.clientInfo = null, this.certParams = { name: "ECDSA", namedCurve: "P-256" }, this.extensionId = f(), this.pcProxies = new Map(), this.audioContextProxies = new Map(), this.audioNodeProxies = new Map(), this.workerProxies = new Map(), this.streamProxies = new Map(), this.eventListeners = new Map(), this.mediaElementProxies = new Map(), this.transceiverProxies = new Map(), this.senderProxies = new Map(), this.dtmfProxies = new Map(), this.receiverProxies = new Map(), this.trackProxies = new Map(), this.overridenApis = new Map(), this.decoder = new TextDecoder("utf-8"), this.logger.info("Checking for chrome extension.  Chrome runtime: " + chrome.runtime), void 0 === chrome.runtime) throw new Error("Chrome runtime not available.  DCV WebRTC chrome extension may not be active.");this.overridenApis.set("navigator.mediaDevices.getUserMedia", navigator.mediaDevices.getUserMedia), this.overridenApis.set("navigator.mediaDevices.enumerateDevices", navigator.mediaDevices.enumerateDevices), this.overridenApis.set("window.RTCPeerConnection", window.RTCPeerConnection), this.overridenApis.set("window.RTCPeerConnection.generateCertificate", window.RTCPeerConnection.generateCertificate), this.overridenApis.set("window.AudioContext", window.AudioContext), this.overridenApis.set("window.Worker", window.Worker);
-        }
 
-        (0, _createClass3.default)(m, [{
-          key: "makeMediaDeviceInfoProxies",
-          value: function makeMediaDeviceInfoProxies(e) {
-            return e.forEach(function (e) {
-              e.toJSON = function () {
-                return e;
-              };
-            }), e;
-          }
-        }, {
-          key: "makeTrackProxy",
-          value: function makeTrackProxy(e) {
-            var _this = this;
-
-            if (this.trackProxies.has(e.id)) {
-              var _t16 = this.trackProxies.get(e.id);return Object.assign(_t16, e), _t16;
-            }return this.trackProxies.set(e.id, e), e.pendingEvents = new Map(), e.stop = function () {
-              _this.sendApiRequest(a.TRACK_STOP_API_NAME, [e.id]);
-            }, e.getSettings = function () {
-              return _this.sendApiRequest(a.TRACK_GET_SETTINGS, [e.id]).then(function (t) {
-                e.settings = t;
-              }), e.settings;
-            }, e.addEventListener = function (t, r, n) {
-              _this.logger.debug("Setting ended event listener via addEventListener."), _this.addTrackEventListener(e.id, t, r, n);
-            }, e.removeEventListener = function (t, r) {
-              _this.removeEventListener(e.id, t, r);
-            }, Object.defineProperty(e, "onended", { set: function set(t) {
-                _this.addTrackEventListener(e.id, c.ENDED, t);
-              }, get: function get() {
-                return null;
-              } }), Object.defineProperty(e, "onmute", { set: function set(t) {
-                _this.addTrackEventListener(e.id, c.MUTE, t);
-              }, get: function get() {
-                return null;
-              } }), Object.defineProperty(e, "onunmute", { set: function set(t) {
-                _this.addTrackEventListener(e.id, c.UNMUTE, t);
-              }, get: function get() {
-                return null;
-              } }), e.trackEnabled = e.enabled, Object.defineProperty(e, "enabled", { set: function set(t) {
-                e.trackEnabled = t, _this.sendApiRequest(a.TOGGLE_TRACK_ENABLED_API_NAME, [e.id, t]).then(function (t) {
-                  _this.trackProxies.get(e.id).trackEnabled = t.enabled;
-                });
-              }, get: function get() {
-                return e.trackEnabled;
-              } }), this.preRegisterEvents(c, e, this.addTrackEventListener), e;
-          }
-        }, {
-          key: "makeStreamProxy",
-          value: function makeStreamProxy(e) {
-            var _this2 = this;
-
-            this.streamProxies.set(e.id, e);var t = new MediaStream();t.type = "proxy", t.proxy = e;var r = e.tracks ? e.tracks.map(function (e) {
-              return _this2.makeTrackProxy(e);
-            }) : [];return e.tracks = r, t.getTracks = function () {
-              return r;
-            }, t.getAudioTracks = function () {
-              return r.filter(function (e) {
-                return "audio" === e.kind;
-              });
-            }, t.getVideoTracks = function () {
-              return r.filter(function (e) {
-                return "video" === e.kind;
-              });
-            }, t.getTrackById = function (e) {
-              return r.find(function (t) {
-                return t.id === e;
-              });
-            }, t.createMediaElement = function (e) {
-              return _this2.createMediaElement(e);
-            }, t.addTrack = function (t) {
-              _this2.sendApiRequest(a.STREAM_ADD_TRACK, [e.id, t.id]);
-            }, t.removeTrack = function (t) {
-              _this2.sendApiRequest(a.STREAM_REMOVE_TRACK, [e.id, t.id]);
-            }, t;
-          }
-        }, {
-          key: "updateTransceiverProxy",
-          value: function updateTransceiverProxy(e) {
-            var t = this.transceiverProxies.get(e.id);return t || (t = {}), Object.assign(t, e), e.receiver && "proxy" === e.receiver.type && (t.receiver = this.updateReceiverProxy(e.receiver)), e.sender && "proxy" === e.sender.type && (t.sender = this.updateSenderProxy(e.sender)), this.transceiverProxies.set(e.id, t), t;
-          }
-        }, {
-          key: "updatePCSenders",
-          value: function updatePCSenders(e, t) {
-            var _this3 = this;
-
-            var r = t.map(function (e) {
-              return _this3.updateSenderProxy(e);
-            });this.pcProxies.get(e).senders = r;
-          }
-        }, {
-          key: "updatePCReceivers",
-          value: function updatePCReceivers(e, t) {
-            var _this4 = this;
-
-            var r = t.map(function (e) {
-              return _this4.updateReceiverProxy(e);
-            });this.pcProxies.get(e).receivers = r;
-          }
-        }, {
-          key: "updatePCTransceivers",
-          value: function updatePCTransceivers(e, t) {
-            var _this5 = this;
-
-            var r = t;r.forEach(function (e) {
-              _this5.updateTransceiverProxy(e);
-            }), this.pcProxies.get(e).transceivers = r;
-          }
-        }, {
-          key: "isValidApi",
-          value: function isValidApi(e) {
-            var t = !1;for (var _r10 in a) {
-              if (a[_r10] === e) {
-                t = !0;break;
-              }
-            }return t;
-          }
-        }, {
-          key: "sendApiRequest",
-          value: function () {
-            var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(e, t) {
-              var r = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : crypto.randomUUID();
-
-              var n, i, s, a, o, c, _e11, _e12, _t17, _e13, _e14;
-
-              return _regenerator2.default.wrap(function _callee$(_context) {
-                while (1) {
-                  switch (_context.prev = _context.next) {
-                    case 0:
-                      this.logger.debug(e, t, r);n = { api: e, args: t }, i = u.deflateRaw(JSON.stringify(n));
-                      s = { requestId: r, message: i, type: "request" };
-                      this.logger.debug("Sending request:", JSON.stringify(s));_context.next = 6;
-                      return chrome.runtime.sendMessage(this.extensionId, s);
-
-                    case 6:
-                      a = _context.sent;
-                      i = a.message;o = u.inflateRaw(i), c = this.decoder.decode(o);
-
-                      if (!(a.message = JSON.parse(c), this.logger.debug("Received response: ", JSON.stringify(a)), !a || !a.message || !a.type)) {
-                        _context.next = 12;
-                        break;
-                      }
-
-                      _e11 = "Received empty message or type, extensionResponse: " + JSON.stringify(a) + ", request: " + JSON.stringify(s) + ", message: " + JSON.stringify(n);
-                      throw this.logger.error(_e11), new Error(_e11);
-
-                    case 12:
-                      if (!("error" === a.type)) {
-                        _context.next = 15;
-                        break;
-                      }
-
-                      _e12 = "Received error: " + JSON.stringify(a) + ", for request: " + JSON.stringify(s) + ", message: " + JSON.stringify(n), _t17 = null;
-                      throw this.logger.error(_e12), a.message.error && a.message.error.message && (_e12 = a.message.error.message), a.message.error && a.message.error.name && (_t17 = a.message.error.name), new DOMException(_e12, _t17);
-
-                    case 15:
-                      if (!("response" !== a.type && "event" !== a.type)) {
-                        _context.next = 18;
-                        break;
-                      }
-
-                      _e13 = "Received invalid message type, type: " + JSON.stringify(a.type) + ", event: " + JSON.stringify(a) + ", request: " + JSON.stringify(s) + ", message: " + JSON.stringify(n);
-                      throw this.logger.error(_e13), new Error(_e13);
-
-                    case 18:
-                      if (this.isValidApi(a.message.api)) {
-                        _context.next = 21;
-                        break;
-                      }
-
-                      _e14 = "Received invalid message api, event: " + JSON.stringify(a) + ", request: " + JSON.stringify(s) + ", message: " + JSON.stringify(n);
-                      throw this.logger.error(_e14), new Error(_e14);
-
-                    case 21:
-                      return _context.abrupt("return", "event" === a.type ? a.message.event : a.message.response);
-
-                    case 22:
-                    case "end":
-                      return _context.stop();
-                  }
-                }
-              }, _callee, this);
-            }));
-
-            function sendApiRequest(_x2, _x3) {
-              return _ref.apply(this, arguments);
-            }
-
-            return sendApiRequest;
-          }()
-        }, {
-          key: "getUserMediaInternal",
-          value: function () {
-            var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(e) {
-              var t;
-              return _regenerator2.default.wrap(function _callee2$(_context2) {
-                while (1) {
-                  switch (_context2.prev = _context2.next) {
-                    case 0:
-                      _context2.next = 2;
-                      return this.sendApiRequest(a.GETUSERMEDIA_API_NAME, [e]);
-
-                    case 2:
-                      t = _context2.sent;
-                      return _context2.abrupt("return", this.makeStreamProxy(t));
-
-                    case 4:
-                    case "end":
-                      return _context2.stop();
-                  }
-                }
-              }, _callee2, this);
-            }));
-
-            function getUserMediaInternal(_x4) {
-              return _ref2.apply(this, arguments);
-            }
-
-            return getUserMediaInternal;
-          }()
-        }, {
-          key: "getOverridenApi",
-          value: function getOverridenApi(e) {
-            return this.overridenApis.get(e);
-          }
-        }, {
-          key: "getUserMedia",
-          value: function () {
-            var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(e) {
-              var _t18, _r11, _t19, _t20, t;
-
-              return _regenerator2.default.wrap(function _callee3$(_context3) {
-                while (1) {
-                  switch (_context3.prev = _context3.next) {
-                    case 0:
-                      if (!(e.audio && e.video)) {
-                        _context3.next = 13;
-                        break;
-                      }
-
-                      _context3.next = 3;
-                      return navigator.permissions.query({ name: "microphone" });
-
-                    case 3:
-                      _t18 = _context3.sent;
-                      _context3.next = 6;
-                      return navigator.permissions.query({ name: "camera" });
-
-                    case 6:
-                      _r11 = _context3.sent;
-
-                      if (!(_t18 && "granted" === _t18.state && _r11 && "granted" === _r11.state)) {
-                        _context3.next = 11;
-                        break;
-                      }
-
-                      _context3.next = 10;
-                      return this.getUserMediaInternal(e);
-
-                    case 10:
-                      return _context3.abrupt("return", _context3.sent);
-
-                    case 11:
-                      _context3.next = 31;
-                      break;
-
-                    case 13:
-                      if (!e.audio) {
-                        _context3.next = 23;
-                        break;
-                      }
-
-                      _context3.next = 16;
-                      return navigator.permissions.query({ name: "microphone" });
-
-                    case 16:
-                      _t19 = _context3.sent;
-
-                      if (!(_t19 && "granted" === _t19.state)) {
-                        _context3.next = 21;
-                        break;
-                      }
-
-                      _context3.next = 20;
-                      return this.getUserMediaInternal(e);
-
-                    case 20:
-                      return _context3.abrupt("return", _context3.sent);
-
-                    case 21:
-                      _context3.next = 31;
-                      break;
-
-                    case 23:
-                      if (!e.video) {
-                        _context3.next = 31;
-                        break;
-                      }
-
-                      _context3.next = 26;
-                      return navigator.permissions.query({ name: "camera" });
-
-                    case 26:
-                      _t20 = _context3.sent;
-
-                      if (!(_t20 && "granted" === _t20.state)) {
-                        _context3.next = 31;
-                        break;
-                      }
-
-                      _context3.next = 30;
-                      return this.getUserMediaInternal(e);
-
-                    case 30:
-                      return _context3.abrupt("return", _context3.sent);
-
-                    case 31:
-                      t = [];
-                      _context3.t0 = e.video;
-
-                      if (!_context3.t0) {
-                        _context3.next = 38;
-                        break;
-                      }
-
-                      _context3.next = 36;
-                      return this.getOverridenApi("navigator.mediaDevices.enumerateDevices").apply(navigator.mediaDevices);
-
-                    case 36:
-                      t = _context3.sent;
-                      t = t.filter(function (e) {
-                        return e.kind && e.kind.indexOf("video") > -1;
-                      });
-
-                    case 38:
-                      if (!(e.audio && !e.video || e.video && t.length > 0)) {
-                        _context3.next = 43;
-                        break;
-                      }
-
-                      _context3.next = 41;
-                      return this.getOverridenApi("navigator.mediaDevices.getUserMedia").apply(navigator.mediaDevices, [e]);
-
-                    case 41:
-                      _context3.t1 = function (e) {
-                        e.stop();
-                      };
-
-                      _context3.sent.getTracks().forEach(_context3.t1);
-
-                    case 43:
-                      _context3.next = 45;
-                      return this.getUserMediaInternal(e);
-
-                    case 45:
-                      return _context3.abrupt("return", _context3.sent);
-
-                    case 46:
-                    case "end":
-                      return _context3.stop();
-                  }
-                }
-              }, _callee3, this);
-            }));
-
-            function getUserMedia(_x5) {
-              return _ref3.apply(this, arguments);
-            }
-
-            return getUserMedia;
-          }()
-        }, {
-          key: "enumerateDevices",
-          value: function () {
-            var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
-              var e;
-              return _regenerator2.default.wrap(function _callee4$(_context4) {
-                while (1) {
-                  switch (_context4.prev = _context4.next) {
-                    case 0:
-                      _context4.next = 2;
-                      return this.sendApiRequest(a.ENUMERATEDEVICES_API_NAME, []);
-
-                    case 2:
-                      e = _context4.sent;
-                      return _context4.abrupt("return", this.makeMediaDeviceInfoProxies(e));
-
-                    case 4:
-                    case "end":
-                      return _context4.stop();
-                  }
-                }
-              }, _callee4, this);
-            }));
-
-            function enumerateDevices() {
-              return _ref4.apply(this, arguments);
-            }
-
-            return enumerateDevices;
-          }()
-        }, {
-          key: "getVersion",
-          value: function getVersion() {
-            return e;
-          }
-        }, {
-          key: "makeReceiverProxy",
-          value: function makeReceiverProxy(e) {
-            var _this6 = this;
-
-            return e.track && (e.track = this.makeTrackProxy(e.track)), e.getSynchronizationSources = function () {
-              return e.synchronizationSources;
-            }, e.getStats = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5() {
-              var t, r;
-              return _regenerator2.default.wrap(function _callee5$(_context5) {
-                while (1) {
-                  switch (_context5.prev = _context5.next) {
-                    case 0:
-                      _context5.next = 2;
-                      return _this6.sendApiRequest(a.GET_RECEIVER_STATS_API_NAME, [e.id]);
-
-                    case 2:
-                      t = _context5.sent;
-                      r = new Map();
-                      return _context5.abrupt("return", (t.forEach(function (e) {
-                        r.set(e.id, e);
-                      }), r));
-
-                    case 5:
-                    case "end":
-                      return _context5.stop();
-                  }
-                }
-              }, _callee5, _this6);
-            })), e.createEncodedStreams = function () {
-              var t = { id: crypto.randomUUID(), type: "proxy", readable: { id: crypto.randomUUID(), type: "proxy" }, writable: { id: crypto.randomUUID(), type: "proxy" } };return _this6.streamProxies.set(t.id, t), _this6.sendApiRequest(a.RECEIVER_CREATE_ENCODED_STREAMS, [e.id, t]), t;
-            }, this.receiverProxies.set(e.id, e), e;
-          }
-        }, {
-          key: "makeDTMFProxy",
-          value: function makeDTMFProxy(e) {
-            var _this7 = this;
-
-            var t = e;return this.dtmfProxies.has(t.id) ? (t = this.dtmfProxies.get(t.id), Object.assign(t, e)) : (this.dtmfProxies.set(t.id, t), t.pendingEvents = new Map(), t.insertDTMF = function (e, r, n) {
-              _this7.sendApiRequest(a.INSERT_DTMF_API_NAME, [t.id, e, r, n]);
-            }, t.addEventListener = function (e, r, n) {
-              _this7.addDtmfEventListener(t.id, e, r, n);
-            }, t.removeEventListener = function (e, r) {
-              _this7.removeEventListener(t.id, e, r);
-            }, Object.defineProperty(t, "ontonechange", { set: function set(e) {
-                _this7.addDtmfEventListener(t.id, d.TONECHANGE, e);
-              }, get: function get() {
-                return null;
-              } }), this.preRegisterEvents(d, t, this.addDtmfEventListener)), t;
-          }
-        }, {
-          key: "makeSenderProxy",
-          value: function makeSenderProxy(e) {
-            var _this8 = this;
-
-            return e.track && (e.track = this.makeTrackProxy(e.track)), e.dtmf && (e.dtmf = this.makeDTMFProxy(e.dtmf)), e.getStats = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6() {
-              var t;
-              return _regenerator2.default.wrap(function _callee6$(_context6) {
-                while (1) {
-                  switch (_context6.prev = _context6.next) {
-                    case 0:
-                      _context6.next = 2;
-                      return _this8.sendApiRequest(a.GET_SENDER_STATS_API_NAME, [e.id]);
-
-                    case 2:
-                      t = _context6.sent;
-                      return _context6.abrupt("return", (t.has = function (e) {
-                        return void 0 !== t.find(function (t) {
-                          return t.id === e;
-                        });
-                      }, t.get = function (e) {
-                        return t.find(function (t) {
-                          return t.id === e;
-                        });
-                      }, t));
-
-                    case 4:
-                    case "end":
-                      return _context6.stop();
-                  }
-                }
-              }, _callee6, _this8);
-            })), e.replaceTrack = function (t) {
-              return e.track = t, _this8.sendApiRequest(a.REPLACE_SENDER_TRACK_API_NAME, [e.id, t]);
-            }, e.createEncodedStreams = function () {
-              var t = { id: crypto.randomUUID(), type: "proxy", readable: { type: "proxy", id: crypto.randomUUID() }, writable: { type: "proxy", id: crypto.randomUUID() } };return _this8.streamProxies.set(t.id, t), _this8.sendApiRequest(a.SENDER_CREATE_ENCODED_STREAMS, [e.id, t]), t;
-            }, e;
-          }
-        }, {
-          key: "updateSenderProxy",
-          value: function updateSenderProxy(e) {
-            var t = this.senderProxies.get(e.id);return t ? Object.assign(t, e) : (t = e, this.senderProxies.set(e.id, t)), this.makeSenderProxy(t);
-          }
-        }, {
-          key: "updateReceiverProxy",
-          value: function updateReceiverProxy(e) {
-            var t = this.receiverProxies.get(e.id);return t ? Object.assign(t, e) : (t = e, this.receiverProxies.set(e.id, t)), this.makeReceiverProxy(t);
-          }
-        }, {
-          key: "addTrack",
-          value: function addTrack(e, t) {
-            var _this9 = this;
-
-            var r = crypto.randomUUID();this.sendApiRequest(a.ADD_TRACK_API_NAME, [r].concat(Array.prototype.slice.call(arguments))).then(function (e) {
-              _this9.updateSenderProxy(e), _this9.updatePCSenders(e.pcId, e.senders), _this9.updatePCReceivers(e.pcId, e.receivers), _this9.updatePCTransceivers(e.pcId, e.transceivers);
-            });var n = this.updateSenderProxy({ id: r });return this.pcProxies.get(e).senders.push(n), n;
-          }
-        }, {
-          key: "updatePeerConnectionProxy",
-          value: function updatePeerConnectionProxy(e) {
-            var t = this.pcProxies.get(e.pcId);Object.assign(t, e), this.updatePCSenders(e.pcId, e.senders), this.updatePCReceivers(e.pcId, e.receivers), this.updatePCTransceivers(e.pcId, e.transceivers);
-          }
-        }, {
-          key: "createPeerConnection",
-          value: function createPeerConnection(e, t) {
-            var _this10 = this;
-
-            var r = crypto.randomUUID(),
-                n = this;this.logger.debug("Creating RTCPeerConnection with id: " + r);var i = { type: "proxy", id: r, signalingState: "new", connectionState: "new", iceConnectionState: "new", iceGatheringState: "new", receivers: [], senders: [], transceivers: [], pendingEvents: new Map(), configuration: e, close: function close() {
-                _this10.close(r);
-              }, addStream: function addStream(e) {
-                _this10.addStream(r, e);
-              }, getConfiguration: function getConfiguration() {
-                return _this10.sendApiRequest(a.PC_GET_CONFIGURATION, [r]).then(function (e) {
-                  i.configuration = e;
-                }), i.configuration;
-              }, getStats: function getStats(e) {
-                return _this10.getStats(r, e);
-              }, createOffer: function createOffer(e) {
-                return _this10.createOffer(r, e);
-              }, createAnswer: function createAnswer(e) {
-                return _this10.createAnswer(r, e);
-              }, setLocalDescription: function setLocalDescription(e) {
-                return _this10.setLocalDescription(r, e);
-              }, addEventListener: function addEventListener(e, t) {
-                _this10.addPeerConnectionEventListener(r, e, t);
-              }, removeEventListener: function removeEventListener(e, t) {
-                _this10.removeEventListener(r, e, t);
-              }, getEventListener: function getEventListener(e) {
-                return _this10.eventListeners.get(r).get(e);
-              }, set onicecandidate(e) {
-                this.addEventListener(o.ICE_CANDIDATE, e);
-              }, get onicecandidate() {
-                return this.getEventListener(o.ICE_CANDIDATE);
-              }, set ontrack(e) {
-                this.addEventListener(o.TRACK, e);
-              }, get ontrack() {
-                return this.getEventListener(o.TRACK);
-              }, get onsignalingstatechange() {
-                return this.getEventListener(o.SIG_STATE_CHANGE);
-              }, set onsignalingstatechange(e) {
-                this.addEventListener(o.SIG_STATE_CHANGE, e);
-              }, get onconnectionstatechange() {
-                return this.getEventListener(o.CONN_STATE_CHANGE);
-              }, set onconnectionstatechange(e) {
-                this.addEventListener(o.CONN_STATE_CHANGE, e);
-              }, get oniceconnectionstatechange() {
-                return this.getEventListener(o.ICE_CONN_STATE_CHANGE);
-              }, set oniceconnectionstatechange(e) {
-                this.addEventListener(o.ICE_CONN_STATE_CHANGE, e);
-              }, get onicegatheringstatechange() {
-                return this.getEventListener(o.ICE_GATHER_STATE_CHANGE);
-              }, set onicegatheringstatechange(e) {
-                this.addEventListener(o.ICE_GATHER_STATE_CHANGE, e);
-              }, get onnegotiationneeded() {
-                return this.getEventListener(o.NEGOTIATION_NEEDED);
-              }, set onnegotiationneeded(e) {
-                this.addEventListener(o.NEGOTIATION_NEEDED, e);
-              }, setRemoteDescription: function setRemoteDescription(e) {
-                return _this10.setRemoteDescription(r, e);
-              }, addIceCandidate: function addIceCandidate(e) {
-                return _this10.addIceCandidate(r, e);
-              }, getRemoteStreams: function getRemoteStreams() {
-                return _this10.logger.warn("getRemoteStreams not implemented on proxy."), [];
-              }, getReceivers: function getReceivers() {
-                return _this10.getReceivers(r);
-              }, getSenders: function getSenders() {
-                return _this10.getSenders(r);
-              }, addTrack: function addTrack(e) {
-                var t = [r].concat(Array.prototype.slice.call(arguments));return n.addTrack.apply(n, t);
-              }, addTransceiver: function addTransceiver(e, t) {
-                return _this10.addTransceiver(r, e, t);
-              }, getTransceivers: function getTransceivers() {
-                return _this10.getTransceivers(r);
-              }, removeTrack: function removeTrack(e) {
-                _this10.removeTrack(r, e);
-              } };return this.pcProxies.set(r, i), this.sendApiRequest(a.NEWRTCPEERCONNECTION_API_NAME, [r, e, t], r).then(function (e) {
-              _this10.updatePeerConnectionProxy(e);
-            }, function (e) {
-              _this10.logger.error("Error creating proxied RTCPeerConnection: " + e);
-            }), this.preRegisterEvents(o, this.pcProxies.get(r), this.addPeerConnectionEventListener), this.pcProxies.get(r);
-          }
-        }, {
-          key: "preRegisterEvents",
-          value: function preRegisterEvents(e, t, r) {
-            for (var _n13 in e) {
-              "string" == typeof e[_n13] && r.apply(this, [t.id, e[_n13], function (e) {
-                t.pendingEvents.has(e.eventName) || t.pendingEvents.set(e.eventName, []), t.pendingEvents.get(e.eventName).push(e);
-              }]);
-            }
-          }
-        }, {
-          key: "updateAudioContextProxy",
-          value: function updateAudioContextProxy(e) {
-            var t = this.audioContextProxies.get(e.id);Object.assign(t, e);
-          }
-        }, {
-          key: "updateAudioNodeProxy",
-          value: function updateAudioNodeProxy(e) {
-            var t = this.audioNodeProxies.get(e.id);Object.assign(t, e), e.stream && this.makeStreamProxy(e.stream);
-          }
-        }, {
-          key: "makeAudioNodeProxy",
-          value: function makeAudioNodeProxy(e, t) {
-            var _this11 = this;
-
-            return { type: "proxy", id: t, context: this.audioContextProxies.get(e), connect: function connect(e, r, n) {
-                return _this11.sendApiRequest(a.AUDIO_NODE_CONNECT, [t, e, r, n]), e;
-              }, disconnect: function disconnect(e, r, n) {
-                _this11.sendApiRequest(a.AUDIO_NODE_DISCONNECT, [t, e, r, n]);
-              } };
-          }
-        }, {
-          key: "createAudioNode",
-          value: function createAudioNode(e, t, r) {
-            var _this12 = this;
-
-            var n = crypto.randomUUID();return this.audioNodeProxies.set(n, this.makeAudioNodeProxy(e, n)), this.sendApiRequest(a.AUDIO_CTX_CREATE_AUDIO_NODE, [e, n, t, r], n).then(function (e) {
-              _this12.updateAudioNodeProxy(e);
-            }, function (e) {
-              _this12.logger.error("Error creating proxied " + t + ": " + e);
-            }), this.audioNodeProxies.get(n);
-          }
-        }, {
-          key: "makeWorkerProxy",
-          value: function makeWorkerProxy(e) {
-            var _this13 = this;
-
-            var t = { id: e, pendingEvents: new Map(), type: "proxy", postMessage: function postMessage(t, r) {
-                _this13.sendApiRequest(a.WORKER_POST_MESSAGE, [e, t, r]);
-              }, terminate: function terminate() {
-                _this13.sendApiRequest(a.WORKER_TERMINATE, [e]);
-              }, addEventListener: function addEventListener(e, r, n) {
-                _this13.addWorkerEventListener(t.id, e, r, n);
-              }, removeEventListener: function removeEventListener(e, r) {
-                _this13.removeEventListener(t.id, e, r);
-              } };return Object.defineProperty(t, "onerror", { set: function set(e) {
-                _this13.addWorkerEventListener(t.id, l.ERROR, e);
-              }, get: function get() {
-                return null;
-              } }), Object.defineProperty(t, "onmessage", { set: function set(e) {
-                _this13.addWorkerEventListener(t.id, l.MESSAGE, e);
-              }, get: function get() {
-                return null;
-              } }), Object.defineProperty(t, "onmessageerror", { set: function set(e) {
-                _this13.addWorkerEventListener(t.id, l.MESSAGE_ERROR, e);
-              }, get: function get() {
-                return null;
-              } }), t;
-          }
-        }, {
-          key: "createWorker",
-          value: function createWorker(e, t) {
-            var _this14 = this;
-
-            var r = crypto.randomUUID(),
-                n = this.makeWorkerProxy(r);return this.workerProxies.set(r, n), fetch(e).then(function (e) {
-              e.blob().then(function (e) {
-                e.arrayBuffer().then(function (n) {
-                  var i = (0, h.encode)(n);_this14.sendApiRequest(a.CREATE_WORKER, [r, e.type, i, t]).then(function (e) {
-                    _this14.logger.debug("Created worker: " + JSON.stringify(e));
-                  });
-                });
-              });
-            }), this.logger.debug("Preregistering events for worker: " + JSON.stringify(n)), this.preRegisterEvents(l, n, this.addWorkerEventListener), n;
-          }
-        }, {
-          key: "createAudioContext",
-          value: function createAudioContext() {
-            var _this15 = this;
-
-            var e = crypto.randomUUID(),
-                t = crypto.randomUUID();return this.audioContextProxies.set(e, { type: "proxy", id: e, destination: this.makeAudioNodeProxy(e, t), createGain: function createGain() {
-                var t = _this15.createAudioNode(e, "Gain", []),
-                    r = { setValueAtTime: function setValueAtTime(e, n) {
-                    return r.currentValue = e, _this15.sendApiRequest(a.AUDIO_PARAM_SET_VALUE_AT_TIME, [t.id, e, n]), r;
-                  }, linearRampToValueAtTime: function linearRampToValueAtTime(e, n) {
-                    return _this15.sendApiRequest(a.AUDIO_PARAM_SET_RAMP_TO_VALUE_AT_TIME, [t.id, e, n]), r;
-                  } };return Object.defineProperty(r, "value", { set: function set(e) {
-                    return r.setValueAtTime(e, 0);
-                  }, get: function get() {
-                    return r.currentValue;
-                  } }), t.gain = r, t;
-              }, createOscillator: function createOscillator() {
-                var t = _this15.createAudioNode(e, "Oscillator", []);t.start = function () {
-                  var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-                  _this15.sendApiRequest(a.AUDIO_NODE_START, [t.id, e]);
-                }, t.stop = function () {
-                  var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-                  _this15.sendApiRequest(a.AUDIO_NODE_STOP, [t.id, e]);
-                }, Object.defineProperty(t, "type", { set: function set(e) {
-                    t.currentType = e, _this15.sendApiRequest(a.AUDIO_NODE_SET_TYPE, [t.id, e]);
-                  }, get: function get() {
-                    return t.currentType;
-                  } });var r = { setValueAtTime: function setValueAtTime(e, n) {
-                    return _this15.sendApiRequest(a.AUDIO_PARAM_SET_VALUE_AT_TIME, [t.id, e, n]), r;
-                  } };return Object.defineProperty(r, "value", { set: function set(e) {
-                    return r.setValueAtTime(e, 0);
-                  }, get: function get() {
-                    return r.currentValue;
-                  } }), t.frequency = r, t;
-              }, createMediaStreamSource: function createMediaStreamSource(t) {
-                return _this15.createAudioNode(e, "MediaStreamSource", [t.proxy]);
-              }, createAnalyser: function createAnalyser() {
-                return _this15.createAudioNode(e, "Analyser", []);
-              }, createMediaStreamDestination: function createMediaStreamDestination() {
-                var t = _this15.createAudioNode(e, "MediaStreamDestination", []);return t.stream = _this15.makeStreamProxy({ id: t.id, tracks: [{ id: t.id, kind: "audio" }] }), t;
-              }, close: function close() {
-                return _this15.sendApiRequest(a.AUDIO_CTX_CLOSE, [e]);
-              } }), this.sendApiRequest(a.NEW_AUDIO_CONTEXT, [e, t], e).then(function (e) {
-              _this15.updateAudioContextProxy(e);
-            }, function (e) {
-              _this15.logger.error("Error creating proxied AudioContext: " + e);
-            }), this.audioContextProxies.get(e);
-          }
-        }, {
-          key: "close",
-          value: function close(e) {
-            this.eventListeners.get(e).clear(), this.sendApiRequest(a.PC_CLOSE_API_NAME, [e]);
-          }
-        }, {
-          key: "addStream",
-          value: function addStream(e, t) {
-            this.sendApiRequest(a.ADDSTREAM_API_NAME, [e, t.proxy]);
-          }
-        }, {
-          key: "getStats",
-          value: function getStats(e, t) {
-            return "function" == typeof t ? Promise.reject(new Error("callback based getStats is obsolete.")) : this.sendApiRequest(a.GET_STATS_API_NAME, [e, t]);
-          }
-        }, {
-          key: "createOffer",
-          value: function createOffer(e, t) {
-            return this.sendApiRequest(a.CREATE_OFFER_API_NAME, [e, t]);
-          }
-        }, {
-          key: "createAnswer",
-          value: function createAnswer(e, t) {
-            return this.sendApiRequest(a.CREATE_ANSWER_API_NAME, [e, t]);
-          }
-        }, {
-          key: "setLocalDescription",
-          value: function setLocalDescription(e, t) {
-            return this.pcProxies.get(e).localDescription = t, this.sendApiRequest(a.SET_LOCAL_DESCRIPTION_API_NAME, [e, t]);
-          }
-        }, {
-          key: "setRemoteDescription",
-          value: function setRemoteDescription(e, t) {
-            return this.sendApiRequest(a.SET_REMOTE_DESCRIPTION_API_NAME, [e, t]);
-          }
-        }, {
-          key: "handleAddEventListenerResponse",
-          value: function handleAddEventListenerResponse(e) {
-            var _this16 = this;
-
-            e.eventName === o.SIG_STATE_CHANGE ? this.updatePeerConnectionProxy(e) : e.eventName === o.TRACK ? (e.streams = e.streams.map(function (e) {
-              return _this16.makeStreamProxy(e);
-            }), e.track = this.makeTrackProxy(e.track), this.updatePeerConnectionProxy(e)) : (e.eventName === o.CONN_STATE_CHANGE || e.eventName === o.ICE_CONN_STATE_CHANGE || e.eventName === o.ICE_GATHER_STATE_CHANGE || e.eventName === o.ICE_CANDIDATE || e.eventName === o.NEGOTIATION_NEEDED) && this.updatePeerConnectionProxy(e), this.fireUpEventHandlers(this.pcProxies.get(e.pcId), e), this.sendApiRequest(a.ADD_PC_EVENT_LISTENER, [e.pcId, e.eventName]).then(function (e) {
-              _this16.handleAddEventListenerResponse(e);
-            });
-          }
-        }, {
-          key: "fireUpEventHandlers",
-          value: function fireUpEventHandlers(e, t) {
-            if (this.eventListeners.get(e.id).has(t.eventName)) {
-              var _r12 = e.pendingEvents;this.eventListeners.get(e.id).get(t.eventName).forEach(function (e, n) {
-                0 === n ? e(t) : _r12.get(t.eventName).forEach(function (t) {
-                  e(t);
-                });
-              }), _r12.set(t.eventName, []);
-            }
-          }
-        }, {
-          key: "handleAddTrackEventListenerResponse",
-          value: function handleAddTrackEventListenerResponse(e) {
-            var _this17 = this;
-
-            "mute" !== e.eventName && "unmute" !== e.eventName || (this.trackProxies.get(e.trackId).muted = e.muted), this.fireUpEventHandlers(this.trackProxies.get(e.trackId), e), this.sendApiRequest(a.ADD_TRACK_EVENT_LISTENER, [e.trackId, e.eventName]).then(function (e) {
-              _this17.handleAddTrackEventListenerResponse(e);
-            });
-          }
-        }, {
-          key: "handleAddDtmfEventListenerResponse",
-          value: function handleAddDtmfEventListenerResponse(e) {
-            var _this18 = this;
-
-            this.fireUpEventHandlers(this.dtmfProxies.get(e.dtmfId), e), this.sendApiRequest(a.ADD_DTMF_EVENT_LISTENER, [e.dtmfId, e.eventName]).then(function (e) {
-              _this18.handleAddDtmfEventListenerResponse(e);
-            });
-          }
-        }, {
-          key: "handleAddWorkerEventListenerResponse",
-          value: function handleAddWorkerEventListenerResponse(e) {
-            var _this19 = this;
-
-            this.fireUpEventHandlers(this.workerProxies.get(e.wId), e), this.sendApiRequest(a.ADD_WORKER_EVENT_LISTENER, [e.wId, e.eventName]).then(function (e) {
-              _this19.handleAddWorkerEventListenerResponse(e);
-            });
-          }
-        }, {
-          key: "addEventListener",
-          value: function addEventListener(e, t, r) {
-            this.eventListeners.has(e) || this.eventListeners.set(e, new Map()), this.eventListeners.get(e).has(t) || this.eventListeners.get(e).set(t, []), this.eventListeners.get(e).get(t).push(r);
-          }
-        }, {
-          key: "addPeerConnectionEventListener",
-          value: function addPeerConnectionEventListener(e, t, r) {
-            var _this20 = this;
-
-            this.addEventListener(e, t, r), this.sendApiRequest(a.ADD_PC_EVENT_LISTENER, [e, t]).then(function (e) {
-              _this20.handleAddEventListenerResponse(e);
-            });
-          }
-        }, {
-          key: "addTrackEventListener",
-          value: function addTrackEventListener(e, t, r, n) {
-            var _this21 = this;
-
-            this.addEventListener(e, t, r), this.sendApiRequest(a.ADD_TRACK_EVENT_LISTENER, [e, t, n]).then(function (e) {
-              _this21.handleAddTrackEventListenerResponse(e);
-            });
-          }
-        }, {
-          key: "addDtmfEventListener",
-          value: function addDtmfEventListener(e, t, r, n) {
-            var _this22 = this;
-
-            this.addEventListener(e, t, r), this.sendApiRequest(a.ADD_DTMF_EVENT_LISTENER, [e, t, n]).then(function (e) {
-              _this22.handleAddDtmfEventListenerResponse(e);
-            });
-          }
-        }, {
-          key: "addWorkerEventListener",
-          value: function addWorkerEventListener(e, t, r) {
-            var _this23 = this;
-
-            this.addEventListener(e, t, r), this.sendApiRequest(a.ADD_WORKER_EVENT_LISTENER, [e, t]).then(function (e) {
-              _this23.handleAddWorkerEventListenerResponse(e);
-            });
-          }
-        }, {
-          key: "removeEventListener",
-          value: function removeEventListener(e, t, r) {
-            var n = this.eventListeners.get(e).get(t);var i = n.indexOf(r);i > -1 && n.splice(i, 1);
-          }
-        }, {
-          key: "addIceCandidate",
-          value: function addIceCandidate(e, t) {
-            var r = t ? { sdpMLineIndex: t.sdpMLineIndex, sdpMid: t.sdpMid, candidate: t.candidate } : null;return this.sendApiRequest(a.ADD_ICE_CANDIDATE_API_NAME, [e, r]);
-          }
-        }, {
-          key: "createMediaElement",
-          value: function createMediaElement(e) {
-            var _this24 = this;
-
-            var t = crypto.randomUUID();this.sendApiRequest(a.CREATE_MEDIA_ELEMENT_API_NAME, [t, e], t).then(function (e) {
-              _this24.mediaElementProxies.get(e.id).sinkId = e.sinkId;
-            });var r = { id: t, type: "proxy", classList: new Set(), isMuted: !1, play: function play() {
-                _this24.sendApiRequest(a.MEDIA_ELEMENT_PLAY_API_NAME, [t]);
-              }, pause: function pause() {
-                _this24.sendApiRequest(a.MEDIA_ELEMENT_PAUSE_API_NAME, [t]);
-              }, setSinkId: function setSinkId(e) {
-                return _this24.sendApiRequest(a.MEDIA_ELEMENT_SET_SINK_ID_API_NAME, [t, e]);
-              }, remove: function remove() {
-                return _this24.sendApiRequest(a.MEDIA_ELEMENT_REMOVE, [t]);
-              } };return this.mediaElementProxies.set(t, r), r.classList.remove = function (e) {
-              r.classList.delete(e);
-            }, Object.assign(r, e), Object.defineProperty(r, "srcObject", { set: function set(e) {
-                r.stream = e, _this24.sendApiRequest(a.SET_MEDIA_SRC_OBJ_API_NAME, [r.id, e && e.proxy ? e.proxy : e]);
-              }, get: function get() {
-                return r.stream;
-              } }), Object.defineProperty(r, "hidden", { set: function set(e) {
-                _this24.sendApiRequest(a.SET_MEDIA_HIDDEN_API_NAME, [r.id, e]);
-              }, get: function get() {
-                return r.hidden;
-              } }), Object.defineProperty(r, "volume", { set: function set(e) {
-                _this24.sendApiRequest(a.SET_MEDIA_VOLUME_API_NAME, [r.id, e]);
-              }, get: function get() {
-                return r.volume;
-              } }), Object.defineProperty(r, "muted", { set: function set(e) {
-                r.isMuted = e, _this24.sendApiRequest(a.MEDIA_ELEMENT_MUTED, [r.id, e]).then(function (e) {
-                  r.isMuted = e.muted;
-                });
-              }, get: function get() {
-                return r.isMuted;
-              } }), r;
-          }
-        }, {
-          key: "generateCertificate",
-          value: function generateCertificate(e) {
-            return this.sendApiRequest(a.GENERATE_CERTIFICATE_API_NAME, [e]);
-          }
-        }, {
-          key: "getReceivers",
-          value: function getReceivers(e) {
-            var _this25 = this;
-
-            return this.sendApiRequest(a.GET_RECEIVERS_API_NAME, [e]).then(function (e) {
-              _this25.updatePCReceivers(e.pcId, e.receivers);
-            }), this.pcProxies.get(e).receivers;
-          }
-        }, {
-          key: "getSenders",
-          value: function getSenders(e) {
-            var _this26 = this;
-
-            return this.sendApiRequest(a.GET_SENDERS_API_NAME, [e]).then(function (e) {
-              _this26.updatePCSenders(e.pcId, e.senders);
-            }), this.pcProxies.get(e).senders;
-          }
-        }, {
-          key: "removeTrack",
-          value: function removeTrack(e, t) {
-            this.sendApiRequest(a.PC_REMOVE_TRACK_API_NAME, [e, t]);
-          }
-        }, {
-          key: "getTransceivers",
-          value: function getTransceivers(e) {
-            var _this27 = this;
-
-            return this.sendApiRequest(a.GET_TRANSCEIVERS_API_NAME, [e]).then(function (e) {
-              _this27.updatePCTransceivers(e.pcId, e.transceivers);
-            }), this.pcProxies.get(e).transceivers;
-          }
-        }, {
-          key: "addTransceiver",
-          value: function addTransceiver(e, t, r) {
-            var _this28 = this;
-
-            var n = crypto.randomUUID(),
-                i = { type: "proxy", id: n, sender: this.makeSenderProxy({ id: crypto.randomUUID() }), receiver: this.makeReceiverProxy({ id: crypto.randomUUID() }), setCodecPreferences: function setCodecPreferences(e) {
-                _this28.sendApiRequest(a.TRANSCEIVER_SET_CODEC_PREFS, [n, e]);
-              } };return this.transceiverProxies.set(i.id, i), this.pcProxies.get(e).transceivers.push(i), this.pcProxies.get(e).receivers.push(i.receiver), this.pcProxies.get(e).senders.push(i.sender), this.sendApiRequest(a.ADD_TRANSCEIVER_API_NAME, [e, i, "string" == typeof t ? t : this.makeTrackProxy(t), r]).then(function (e) {
-              _this28.updateTransceiverProxy(e), _this28.updatePCSenders(e.pcId, e.senders), _this28.updatePCReceivers(e.pcId, e.receivers), _this28.updatePCTransceivers(e.pcId, e.transceivers);
-            }), i;
-          }
-        }, {
-          key: "setLogger",
-          value: function setLogger(e) {
-            this.logger = e;
-          }
-        }, {
-          key: "overrideWebRTC",
-          value: function overrideWebRTC() {
-            var _this29 = this;
-
-            this.logger.info("Overriding WebRTC interfaces for the current webapp.");var e = this;navigator.mediaDevices.getUserMedia = function (e) {
-              return _this29.getUserMedia(e);
-            }, navigator.mediaDevices.enumerateDevices = function () {
-              return _this29.enumerateDevices();
-            }, window.RTCPeerConnection = function (t, r) {
-              return e.createPeerConnection(t, r);
-            }, window.RTCPeerConnection.generateCertificate = function (t) {
-              return e.generateCertificate(t);
-            }, window.AudioContext = function () {
-              return e.createAudioContext();
-            }, window.Worker = function (t, r) {
-              return e.createWorker(t, r);
-            };
-          }
-        }, {
-          key: "sendHelloRequest",
-          value: function () {
-            var _ref7 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee7() {
-              var _this30 = this;
-
-              var t;
-              return _regenerator2.default.wrap(function _callee7$(_context7) {
-                while (1) {
-                  switch (_context7.prev = _context7.next) {
-                    case 0:
-                      _context7.next = 2;
-                      return this.sendApiRequest(a.HELLO_API_NAME, []);
-
-                    case 2:
-                      t = _context7.sent;
-                      return _context7.abrupt("return", (globalThis.DCVWebRTCRedirProxy || (this.logger.info("Running in a DCV WebRTC redirection env, proxy version: " + e.versionStr + " - " + e.gitHash), this.logger.info("Client info: " + JSON.stringify(t)), window.addEventListener("beforeunload", function (e) {
-                        var t = { pcIds: [], streamIds: [], mediaElementIds: [], transceiverIds: [], senderIds: [], receiverIds: [], trackIds: [], workerIds: [] };_this30.pcProxies.forEach(function (e, r) {
-                          t.pcIds.push(r);
-                        }), _this30.streamProxies.forEach(function (e, r) {
-                          t.streamIds.push(r);
-                        }), _this30.trackProxies.forEach(function (e, r) {
-                          t.trackIds.push(r);
-                        }), _this30.workerProxies.forEach(function (e, r) {
-                          t.workerIds.push(r);
-                        }), _this30.mediaElementProxies.forEach(function (e, r) {
-                          t.mediaElementIds.push(r);
-                        }), _this30.transceiverProxies.forEach(function (e, r) {
-                          t.transceiverIds.push(r);
-                        }), _this30.senderProxies.forEach(function (e, r) {
-                          t.senderIds.push(r);
-                        }), _this30.receiverProxies.forEach(function (e, r) {
-                          t.receiverIds.push(r);
-                        }), _this30.sendApiRequest(a.UNLOAD_EVENT_NAME, [t]);
-                      })), t));
-
-                    case 4:
-                    case "end":
-                      return _context7.stop();
-                  }
-                }
-              }, _callee7, this);
-            }));
-
-            function sendHelloRequest() {
-              return _ref7.apply(this, arguments);
-            }
-
-            return sendHelloRequest;
-          }()
-        }], [{
-          key: "setInitCallback",
-          value: function setInitCallback(e, t) {
-            var r = globalThis.DCVWebRTCRedirProxy;if (r) e({ success: !0, proxy: r });else {
-              m.initCallbacks || (m.initCallbacks = new Map());var _r13 = setTimeout(function (e) {
-                e({ success: !1, error: "Failed to initialize DCVWebRTCPeerConnectionProxy in " + t + "ms" }), m.initCallbacks.delete(e);
-              }, t, e);m.initCallbacks.set(e, _r13);
-            }
-          }
-        }]);
-        return m;
-      }();
-
-      var _ = r(591);
-      var g = function () {
-        function g(r) {
-          (0, _classCallCheck3.default)(this, g);
-          this.version = e, this.config = r, this.logger = r.logger ? r.logger : s(), this.channel = r.channel, this.decoder = new TextDecoder("utf-8"), this.messageBuffer = null, this.pcs = new Map(), this.pcPromises = new Map(), this.audioContexts = new Map(), this.audioNodes = new Map(), this.workers = new Map(), this.workerPromises = new Map(), this.certs = new Map(), this.streams = new Map(), this.tracks = new Map(), this.offers = new Map(), this.answers = new Map(), this.remoteDescriptions = new Map(), this.mediaElements = new Map(), this.audios = new Map(), this.senders = new Map(), this.dtmfSenders = new Map(), this.receivers = new Map(), this.transceivers = new Map(), this.logger.info("Created WebRTC Redirection Client version: " + e.versionStr + " - " + e.gitHash + " - " + JSON.stringify(t.Z.browserDetails));
-        }
-
-        (0, _createClass3.default)(g, [{
-          key: "encodeBase64",
-          value: function encodeBase64(e) {
-            return (0, h.encode)(e);
-          }
-        }, {
-          key: "decodeBase64",
-          value: function decodeBase64(e) {
-            return (0, h.decode)(e);
-          }
-        }, {
-          key: "getVersion",
-          value: function getVersion() {
-            return this.version;
-          }
-        }, {
-          key: "concatUint8Arrays",
-          value: function concatUint8Arrays(e) {
-            var t = e.reduce(function (e, t) {
-              return e + t.byteLength;
-            }, 0),
-                r = new Uint8Array(t);var n = 0;return e.forEach(function (e) {
-              r.set(e, n), n += e.byteLength;
-            }), r;
-          }
-        }, {
-          key: "parseHeader",
-          value: function parseHeader(e) {
-            return e[3] << 24 | e[2] << 16 | e[1] << 8 | e[0];
-          }
-        }, {
-          key: "onMessageReceived",
-          value: function onMessageReceived(e) {
-            this.logger.debug("onMessageReceived, binaryPayload.byteLength: " + e.byteLength);try {
-              var _t21 = 0;for (null === this.messageBuffer ? this.messageBuffer = new Uint8Array(e) : this.messageBuffer = this.concatUint8Arrays([this.messageBuffer, new Uint8Array(e)]), this.messageBuffer.byteLength >= 4 && (_t21 = this.parseHeader(this.messageBuffer)); _t21 > 0 && this.messageBuffer.byteLength >= _t21 + 4;) {
-                var _e15 = 4,
-                    _r14 = 4 + _t21,
-                    _n14 = this.messageBuffer.slice(_e15, _r14);this.logger.debug("Decoding payload: ", _n14);var _i5 = this.decoder.decode(_n14);this.logger.debug("Received message: " + _i5);var _s = JSON.parse(_i5);this.logger.debug("Received json: ", _s), this.handleMessage(_s), this.messageBuffer = this.messageBuffer.slice(_r14), _t21 = this.messageBuffer.byteLength >= 4 ? this.parseHeader(this.messageBuffer) : 0;
-              }
+            var Te = function Te(e, t, n) {
+                return (t << e.hash_shift ^ n) & e.hash_mask;
+            };var ye = function ye(e) {
+                var t = e.state;var n = t.pending;n > e.avail_out && (n = e.avail_out), 0 !== n && (e.output.set(t.pending_buf.subarray(t.pending_out, t.pending_out + n), e.next_out), e.next_out += n, t.pending_out += n, e.total_out += n, e.avail_out -= n, t.pending -= n, 0 === t.pending && (t.pending_out = 0));
+            },
+                be = function be(e, t) {
+                Z(e, e.block_start >= 0 ? e.block_start : -1, e.strstart - e.block_start, t), e.block_start = e.strstart, ye(e.strm);
+            },
+                Re = function Re(e, t) {
+                e.pending_buf[e.pending++] = t;
+            },
+                ke = function ke(e, t) {
+                e.pending_buf[e.pending++] = t >>> 8 & 255, e.pending_buf[e.pending++] = 255 & t;
+            },
+                Ie = function Ie(e, t, n, r) {
+                var i = e.avail_in;return i > r && (i = r), 0 === i ? 0 : (e.avail_in -= i, t.set(e.input.subarray(e.next_in, e.next_in + i), n), 1 === e.state.wrap ? e.adler = G(e.adler, t, i, n) : 2 === e.state.wrap && (e.adler = q(e.adler, t, i, n)), e.next_in += i, e.total_in += i, i);
+            },
+                Ne = function Ne(e, t) {
+                var n = void 0,
+                    r = void 0,
+                    i = e.max_chain_length,
+                    s = e.strstart,
+                    a = e.prev_length,
+                    o = e.nice_match;var d = e.strstart > e.w_size - fe ? e.strstart - (e.w_size - fe) : 0,
+                    c = e.window,
+                    l = e.w_mask,
+                    h = e.prev,
+                    u = e.strstart + _e;var _ = c[s + a - 1],
+                    f = c[s + a];e.prev_length >= e.good_match && (i >>= 2), o > e.lookahead && (o = e.lookahead);do {
+                    if (n = t, c[n + a] === f && c[n + a - 1] === _ && c[n] === c[s] && c[++n] === c[s + 1]) {
+                        s += 2, n++;do {} while (c[++s] === c[++n] && c[++s] === c[++n] && c[++s] === c[++n] && c[++s] === c[++n] && c[++s] === c[++n] && c[++s] === c[++n] && c[++s] === c[++n] && c[++s] === c[++n] && s < u);if (r = _e - (u - s), s = u - _e, r > a) {
+                            if (e.match_start = t, a = r, r >= o) break;_ = c[s + a - 1], f = c[s + a];
+                        }
+                    }
+                } while ((t = h[t & l]) > d && 0 != --i);return a <= e.lookahead ? a : e.lookahead;
+            },
+                Se = function Se(e) {
+                var t = e.w_size;var n = void 0,
+                    r = void 0,
+                    i = void 0;do {
+                    if (r = e.window_size - e.lookahead - e.strstart, e.strstart >= t + (t - fe) && (e.window.set(e.window.subarray(t, t + t - r), 0), e.match_start -= t, e.strstart -= t, e.block_start -= t, e.insert > e.strstart && (e.insert = e.strstart), we(e), r += t), 0 === e.strm.avail_in) break;if (n = Ie(e.strm, e.window, e.strstart + e.lookahead, r), e.lookahead += n, e.lookahead + e.insert >= 3) for (i = e.strstart - e.insert, e.ins_h = e.window[i], e.ins_h = Te(e, e.ins_h, e.window[i + 1]); e.insert && (e.ins_h = Te(e, e.ins_h, e.window[i + 3 - 1]), e.prev[i & e.w_mask] = e.head[e.ins_h], e.head[e.ins_h] = i, i++, e.insert--, !(e.lookahead + e.insert < 3));) {}
+                } while (e.lookahead < fe && 0 !== e.strm.avail_in);
+            },
+                Ce = function Ce(e, t) {
+                var n = void 0,
+                    r = void 0,
+                    i = void 0,
+                    s = e.pending_buf_size - 5 > e.w_size ? e.w_size : e.pending_buf_size - 5,
+                    a = 0,
+                    o = e.strm.avail_in;do {
+                    if (n = 65535, i = e.bi_valid + 42 >> 3, e.strm.avail_out < i) break;if (i = e.strm.avail_out - i, r = e.strstart - e.block_start, n > r + e.strm.avail_in && (n = r + e.strm.avail_in), n > i && (n = i), n < s && (0 === n && t !== X || t === $ || n !== r + e.strm.avail_in)) break;a = t === X && n === r + e.strm.avail_in ? 1 : 0, B(e, 0, 0, a), e.pending_buf[e.pending - 4] = n, e.pending_buf[e.pending - 3] = n >> 8, e.pending_buf[e.pending - 2] = ~n, e.pending_buf[e.pending - 1] = ~n >> 8, ye(e.strm), r && (r > n && (r = n), e.strm.output.set(e.window.subarray(e.block_start, e.block_start + r), e.strm.next_out), e.strm.next_out += r, e.strm.avail_out -= r, e.strm.total_out += r, e.block_start += r, n -= r), n && (Ie(e.strm, e.strm.output, e.strm.next_out, n), e.strm.next_out += n, e.strm.avail_out -= n, e.strm.total_out += n);
+                } while (0 === a);return o -= e.strm.avail_in, o && (o >= e.w_size ? (e.matches = 2, e.window.set(e.strm.input.subarray(e.strm.next_in - e.w_size, e.strm.next_in), 0), e.strstart = e.w_size, e.insert = e.strstart) : (e.window_size - e.strstart <= o && (e.strstart -= e.w_size, e.window.set(e.window.subarray(e.w_size, e.w_size + e.strstart), 0), e.matches < 2 && e.matches++, e.insert > e.strstart && (e.insert = e.strstart)), e.window.set(e.strm.input.subarray(e.strm.next_in - o, e.strm.next_in), e.strstart), e.strstart += o, e.insert += o > e.w_size - e.insert ? e.w_size - e.insert : o), e.block_start = e.strstart), e.high_water < e.strstart && (e.high_water = e.strstart), a ? 4 : t !== $ && t !== X && 0 === e.strm.avail_in && e.strstart === e.block_start ? 2 : (i = e.window_size - e.strstart, e.strm.avail_in > i && e.block_start >= e.w_size && (e.block_start -= e.w_size, e.strstart -= e.w_size, e.window.set(e.window.subarray(e.w_size, e.w_size + e.strstart), 0), e.matches < 2 && e.matches++, i += e.w_size, e.insert > e.strstart && (e.insert = e.strstart)), i > e.strm.avail_in && (i = e.strm.avail_in), i && (Ie(e.strm, e.window, e.strstart, i), e.strstart += i, e.insert += i > e.w_size - e.insert ? e.w_size - e.insert : i), e.high_water < e.strstart && (e.high_water = e.strstart), i = e.bi_valid + 42 >> 3, i = e.pending_buf_size - i > 65535 ? 65535 : e.pending_buf_size - i, s = i > e.w_size ? e.w_size : i, r = e.strstart - e.block_start, (r >= s || (r || t === X) && t !== $ && 0 === e.strm.avail_in && r <= i) && (n = r > i ? i : r, a = t === X && 0 === e.strm.avail_in && n === r ? 1 : 0, B(e, e.block_start, n, a), e.block_start += n, ye(e.strm)), a ? 3 : 1);
+            },
+                Pe = function Pe(e, t) {
+                var n = void 0,
+                    r = void 0;for (;;) {
+                    if (e.lookahead < fe) {
+                        if (Se(e), e.lookahead < fe && t === $) return 1;if (0 === e.lookahead) break;
+                    }if (n = 0, e.lookahead >= 3 && (e.ins_h = Te(e, e.ins_h, e.window[e.strstart + 3 - 1]), n = e.prev[e.strstart & e.w_mask] = e.head[e.ins_h], e.head[e.ins_h] = e.strstart), 0 !== n && e.strstart - n <= e.w_size - fe && (e.match_length = Ne(e, n)), e.match_length >= 3) {
+                        if (r = W(e, e.strstart - e.match_start, e.match_length - 3), e.lookahead -= e.match_length, e.match_length <= e.max_lazy_match && e.lookahead >= 3) {
+                            e.match_length--;do {
+                                e.strstart++, e.ins_h = Te(e, e.ins_h, e.window[e.strstart + 3 - 1]), n = e.prev[e.strstart & e.w_mask] = e.head[e.ins_h], e.head[e.ins_h] = e.strstart;
+                            } while (0 != --e.match_length);e.strstart++;
+                        } else e.strstart += e.match_length, e.match_length = 0, e.ins_h = e.window[e.strstart], e.ins_h = Te(e, e.ins_h, e.window[e.strstart + 1]);
+                    } else r = W(e, 0, e.window[e.strstart]), e.lookahead--, e.strstart++;if (r && (be(e, !1), 0 === e.strm.avail_out)) return 1;
+                }return e.insert = e.strstart < 2 ? e.strstart : 2, t === X ? (be(e, !0), 0 === e.strm.avail_out ? 3 : 4) : e.sym_next && (be(e, !1), 0 === e.strm.avail_out) ? 1 : 2;
+            },
+                De = function De(e, t) {
+                var n = void 0,
+                    r = void 0,
+                    i = void 0;for (;;) {
+                    if (e.lookahead < fe) {
+                        if (Se(e), e.lookahead < fe && t === $) return 1;if (0 === e.lookahead) break;
+                    }if (n = 0, e.lookahead >= 3 && (e.ins_h = Te(e, e.ins_h, e.window[e.strstart + 3 - 1]), n = e.prev[e.strstart & e.w_mask] = e.head[e.ins_h], e.head[e.ins_h] = e.strstart), e.prev_length = e.match_length, e.prev_match = e.match_start, e.match_length = 2, 0 !== n && e.prev_length < e.max_lazy_match && e.strstart - n <= e.w_size - fe && (e.match_length = Ne(e, n), e.match_length <= 5 && (e.strategy === ae || 3 === e.match_length && e.strstart - e.match_start > 4096) && (e.match_length = 2)), e.prev_length >= 3 && e.match_length <= e.prev_length) {
+                        i = e.strstart + e.lookahead - 3, r = W(e, e.strstart - 1 - e.prev_match, e.prev_length - 3), e.lookahead -= e.prev_length - 1, e.prev_length -= 2;do {
+                            ++e.strstart <= i && (e.ins_h = Te(e, e.ins_h, e.window[e.strstart + 3 - 1]), n = e.prev[e.strstart & e.w_mask] = e.head[e.ins_h], e.head[e.ins_h] = e.strstart);
+                        } while (0 != --e.prev_length);if (e.match_available = 0, e.match_length = 2, e.strstart++, r && (be(e, !1), 0 === e.strm.avail_out)) return 1;
+                    } else if (e.match_available) {
+                        if (r = W(e, 0, e.window[e.strstart - 1]), r && be(e, !1), e.strstart++, e.lookahead--, 0 === e.strm.avail_out) return 1;
+                    } else e.match_available = 1, e.strstart++, e.lookahead--;
+                }return e.match_available && (r = W(e, 0, e.window[e.strstart - 1]), e.match_available = 0), e.insert = e.strstart < 2 ? e.strstart : 2, t === X ? (be(e, !0), 0 === e.strm.avail_out ? 3 : 4) : e.sym_next && (be(e, !1), 0 === e.strm.avail_out) ? 1 : 2;
+            };function xe(e, t, n, r, i) {
+                this.good_length = e, this.max_lazy = t, this.nice_length = n, this.max_chain = r, this.func = i;
+            }var Oe = [new xe(0, 0, 0, 0, Ce), new xe(4, 4, 8, 4, Pe), new xe(4, 5, 16, 8, Pe), new xe(4, 6, 32, 32, Pe), new xe(4, 4, 16, 16, De), new xe(8, 16, 32, 32, De), new xe(8, 16, 128, 128, De), new xe(8, 32, 128, 256, De), new xe(32, 128, 258, 1024, De), new xe(32, 258, 258, 4096, De)];function Me() {
+                this.strm = null, this.status = 0, this.pending_buf = null, this.pending_buf_size = 0, this.pending_out = 0, this.pending = 0, this.wrap = 0, this.gzhead = null, this.gzindex = 0, this.method = ue, this.last_flush = -1, this.w_size = 0, this.w_bits = 0, this.w_mask = 0, this.window = null, this.window_size = 0, this.prev = null, this.head = null, this.ins_h = 0, this.hash_size = 0, this.hash_bits = 0, this.hash_mask = 0, this.hash_shift = 0, this.block_start = 0, this.match_length = 0, this.prev_match = 0, this.match_available = 0, this.strstart = 0, this.match_start = 0, this.lookahead = 0, this.prev_length = 0, this.max_chain_length = 0, this.max_lazy_match = 0, this.level = 0, this.strategy = 0, this.good_match = 0, this.nice_match = 0, this.dyn_ltree = new Uint16Array(1146), this.dyn_dtree = new Uint16Array(122), this.bl_tree = new Uint16Array(78), ve(this.dyn_ltree), ve(this.dyn_dtree), ve(this.bl_tree), this.l_desc = null, this.d_desc = null, this.bl_desc = null, this.bl_count = new Uint16Array(16), this.heap = new Uint16Array(573), ve(this.heap), this.heap_len = 0, this.heap_max = 0, this.depth = new Uint16Array(573), ve(this.depth), this.sym_buf = 0, this.lit_bufsize = 0, this.sym_next = 0, this.sym_end = 0, this.opt_len = 0, this.static_len = 0, this.matches = 0, this.insert = 0, this.bi_buf = 0, this.bi_valid = 0;
+            }var Le = function Le(e) {
+                if (!e) return 1;var t = e.state;return !t || t.strm !== e || t.status !== Ee && 57 !== t.status && 69 !== t.status && 73 !== t.status && 91 !== t.status && 103 !== t.status && t.status !== pe && t.status !== ge ? 1 : 0;
+            },
+                Ue = function Ue(e) {
+                if (Le(e)) return me(e, ne);e.total_in = e.total_out = 0, e.data_type = he;var t = e.state;return t.pending = 0, t.pending_out = 0, t.wrap < 0 && (t.wrap = -t.wrap), t.status = 2 === t.wrap ? 57 : t.wrap ? Ee : pe, e.adler = 2 === t.wrap ? 0 : 1, t.last_flush = -2, j(t), ee;
+            },
+                ze = function ze(e) {
+                var t = Ue(e);var n;return t === ee && ((n = e.state).window_size = 2 * n.w_size, ve(n.head), n.max_lazy_match = Oe[n.level].max_lazy, n.good_match = Oe[n.level].good_length, n.nice_match = Oe[n.level].nice_length, n.max_chain_length = Oe[n.level].max_chain, n.strstart = 0, n.block_start = 0, n.lookahead = 0, n.insert = 0, n.match_length = n.prev_length = 2, n.match_available = 0, n.ins_h = 0), t;
+            },
+                Ge = function Ge(e, t, n, r, i, s) {
+                if (!e) return ne;var a = 1;if (t === se && (t = 6), r < 0 ? (a = 0, r = -r) : r > 15 && (a = 2, r -= 16), i < 1 || i > 9 || n !== ue || r < 8 || r > 15 || t < 0 || t > 9 || s < 0 || s > ce || 8 === r && 1 !== a) return me(e, ne);8 === r && (r = 9);var o = new Me();return e.state = o, o.strm = e, o.status = Ee, o.wrap = a, o.gzhead = null, o.w_bits = r, o.w_size = 1 << o.w_bits, o.w_mask = o.w_size - 1, o.hash_bits = i + 7, o.hash_size = 1 << o.hash_bits, o.hash_mask = o.hash_size - 1, o.hash_shift = ~~((o.hash_bits + 3 - 1) / 3), o.window = new Uint8Array(2 * o.w_size), o.head = new Uint16Array(o.hash_size), o.prev = new Uint16Array(o.w_size), o.lit_bufsize = 1 << i + 6, o.pending_buf_size = 4 * o.lit_bufsize, o.pending_buf = new Uint8Array(o.pending_buf_size), o.sym_buf = o.lit_bufsize, o.sym_end = 3 * (o.lit_bufsize - 1), o.level = t, o.strategy = s, o.method = n, ze(e);
+            };var Ve = { deflateInit: function deflateInit(e, t) {
+                    return Ge(e, t, ue, 15, 8, le);
+                }, deflateInit2: Ge, deflateReset: ze, deflateResetKeep: Ue, deflateSetHeader: function deflateSetHeader(e, t) {
+                    return Le(e) || 2 !== e.state.wrap ? ne : (e.state.gzhead = t, ee);
+                }, deflate: function deflate(e, t) {
+                    if (Le(e) || t > Q || t < 0) return e ? me(e, ne) : ne;var n = e.state;if (!e.output || 0 !== e.avail_in && !e.input || n.status === ge && t !== X) return me(e, 0 === e.avail_out ? ie : ne);var r = n.last_flush;if (n.last_flush = t, 0 !== n.pending) {
+                        if (ye(e), 0 === e.avail_out) return n.last_flush = -1, ee;
+                    } else if (0 === e.avail_in && Ae(t) <= Ae(r) && t !== X) return me(e, ie);if (n.status === ge && 0 !== e.avail_in) return me(e, ie);if (n.status === Ee && 0 === n.wrap && (n.status = pe), n.status === Ee) {
+                        var _t3 = ue + (n.w_bits - 8 << 4) << 8,
+                            _r = -1;if (_r = n.strategy >= oe || n.level < 2 ? 0 : n.level < 6 ? 1 : 6 === n.level ? 2 : 3, _t3 |= _r << 6, 0 !== n.strstart && (_t3 |= 32), _t3 += 31 - _t3 % 31, ke(n, _t3), 0 !== n.strstart && (ke(n, e.adler >>> 16), ke(n, 65535 & e.adler)), e.adler = 1, n.status = pe, ye(e), 0 !== n.pending) return n.last_flush = -1, ee;
+                    }if (57 === n.status) if (e.adler = 0, Re(n, 31), Re(n, 139), Re(n, 8), n.gzhead) Re(n, (n.gzhead.text ? 1 : 0) + (n.gzhead.hcrc ? 2 : 0) + (n.gzhead.extra ? 4 : 0) + (n.gzhead.name ? 8 : 0) + (n.gzhead.comment ? 16 : 0)), Re(n, 255 & n.gzhead.time), Re(n, n.gzhead.time >> 8 & 255), Re(n, n.gzhead.time >> 16 & 255), Re(n, n.gzhead.time >> 24 & 255), Re(n, 9 === n.level ? 2 : n.strategy >= oe || n.level < 2 ? 4 : 0), Re(n, 255 & n.gzhead.os), n.gzhead.extra && n.gzhead.extra.length && (Re(n, 255 & n.gzhead.extra.length), Re(n, n.gzhead.extra.length >> 8 & 255)), n.gzhead.hcrc && (e.adler = q(e.adler, n.pending_buf, n.pending, 0)), n.gzindex = 0, n.status = 69;else if (Re(n, 0), Re(n, 0), Re(n, 0), Re(n, 0), Re(n, 0), Re(n, 9 === n.level ? 2 : n.strategy >= oe || n.level < 2 ? 4 : 0), Re(n, 3), n.status = pe, ye(e), 0 !== n.pending) return n.last_flush = -1, ee;if (69 === n.status) {
+                        if (n.gzhead.extra) {
+                            var _t4 = n.pending,
+                                _r2 = (65535 & n.gzhead.extra.length) - n.gzindex;for (; n.pending + _r2 > n.pending_buf_size;) {
+                                var _i2 = n.pending_buf_size - n.pending;if (n.pending_buf.set(n.gzhead.extra.subarray(n.gzindex, n.gzindex + _i2), n.pending), n.pending = n.pending_buf_size, n.gzhead.hcrc && n.pending > _t4 && (e.adler = q(e.adler, n.pending_buf, n.pending - _t4, _t4)), n.gzindex += _i2, ye(e), 0 !== n.pending) return n.last_flush = -1, ee;_t4 = 0, _r2 -= _i2;
+                            }var _i = new Uint8Array(n.gzhead.extra);n.pending_buf.set(_i.subarray(n.gzindex, n.gzindex + _r2), n.pending), n.pending += _r2, n.gzhead.hcrc && n.pending > _t4 && (e.adler = q(e.adler, n.pending_buf, n.pending - _t4, _t4)), n.gzindex = 0;
+                        }n.status = 73;
+                    }if (73 === n.status) {
+                        if (n.gzhead.name) {
+                            var _t5 = void 0,
+                                _r3 = n.pending;do {
+                                if (n.pending === n.pending_buf_size) {
+                                    if (n.gzhead.hcrc && n.pending > _r3 && (e.adler = q(e.adler, n.pending_buf, n.pending - _r3, _r3)), ye(e), 0 !== n.pending) return n.last_flush = -1, ee;_r3 = 0;
+                                }_t5 = n.gzindex < n.gzhead.name.length ? 255 & n.gzhead.name.charCodeAt(n.gzindex++) : 0, Re(n, _t5);
+                            } while (0 !== _t5);n.gzhead.hcrc && n.pending > _r3 && (e.adler = q(e.adler, n.pending_buf, n.pending - _r3, _r3)), n.gzindex = 0;
+                        }n.status = 91;
+                    }if (91 === n.status) {
+                        if (n.gzhead.comment) {
+                            var _t6 = void 0,
+                                _r4 = n.pending;do {
+                                if (n.pending === n.pending_buf_size) {
+                                    if (n.gzhead.hcrc && n.pending > _r4 && (e.adler = q(e.adler, n.pending_buf, n.pending - _r4, _r4)), ye(e), 0 !== n.pending) return n.last_flush = -1, ee;_r4 = 0;
+                                }_t6 = n.gzindex < n.gzhead.comment.length ? 255 & n.gzhead.comment.charCodeAt(n.gzindex++) : 0, Re(n, _t6);
+                            } while (0 !== _t6);n.gzhead.hcrc && n.pending > _r4 && (e.adler = q(e.adler, n.pending_buf, n.pending - _r4, _r4));
+                        }n.status = 103;
+                    }if (103 === n.status) {
+                        if (n.gzhead.hcrc) {
+                            if (n.pending + 2 > n.pending_buf_size && (ye(e), 0 !== n.pending)) return n.last_flush = -1, ee;Re(n, 255 & e.adler), Re(n, e.adler >> 8 & 255), e.adler = 0;
+                        }if (n.status = pe, ye(e), 0 !== n.pending) return n.last_flush = -1, ee;
+                    }if (0 !== e.avail_in || 0 !== n.lookahead || t !== $ && n.status !== ge) {
+                        var _r5 = 0 === n.level ? Ce(n, t) : n.strategy === oe ? function (e, t) {
+                            var n = void 0;for (;;) {
+                                if (0 === e.lookahead && (Se(e), 0 === e.lookahead)) {
+                                    if (t === $) return 1;break;
+                                }if (e.match_length = 0, n = W(e, 0, e.window[e.strstart]), e.lookahead--, e.strstart++, n && (be(e, !1), 0 === e.strm.avail_out)) return 1;
+                            }return e.insert = 0, t === X ? (be(e, !0), 0 === e.strm.avail_out ? 3 : 4) : e.sym_next && (be(e, !1), 0 === e.strm.avail_out) ? 1 : 2;
+                        }(n, t) : n.strategy === de ? function (e, t) {
+                            var n = void 0,
+                                r = void 0,
+                                i = void 0,
+                                s = void 0;var a = e.window;for (;;) {
+                                if (e.lookahead <= _e) {
+                                    if (Se(e), e.lookahead <= _e && t === $) return 1;if (0 === e.lookahead) break;
+                                }if (e.match_length = 0, e.lookahead >= 3 && e.strstart > 0 && (i = e.strstart - 1, r = a[i], r === a[++i] && r === a[++i] && r === a[++i])) {
+                                    s = e.strstart + _e;do {} while (r === a[++i] && r === a[++i] && r === a[++i] && r === a[++i] && r === a[++i] && r === a[++i] && r === a[++i] && r === a[++i] && i < s);e.match_length = _e - (s - i), e.match_length > e.lookahead && (e.match_length = e.lookahead);
+                                }if (e.match_length >= 3 ? (n = W(e, 1, e.match_length - 3), e.lookahead -= e.match_length, e.strstart += e.match_length, e.match_length = 0) : (n = W(e, 0, e.window[e.strstart]), e.lookahead--, e.strstart++), n && (be(e, !1), 0 === e.strm.avail_out)) return 1;
+                            }return e.insert = 0, t === X ? (be(e, !0), 0 === e.strm.avail_out ? 3 : 4) : e.sym_next && (be(e, !1), 0 === e.strm.avail_out) ? 1 : 2;
+                        }(n, t) : Oe[n.level].func(n, t);if (3 !== _r5 && 4 !== _r5 || (n.status = ge), 1 === _r5 || 3 === _r5) return 0 === e.avail_out && (n.last_flush = -1), ee;if (2 === _r5 && (t === J ? K(n) : t !== Q && (B(n, 0, 0, !1), t === Y && (ve(n.head), 0 === n.lookahead && (n.strstart = 0, n.block_start = 0, n.insert = 0))), ye(e), 0 === e.avail_out)) return n.last_flush = -1, ee;
+                    }return t !== X ? ee : n.wrap <= 0 ? te : (2 === n.wrap ? (Re(n, 255 & e.adler), Re(n, e.adler >> 8 & 255), Re(n, e.adler >> 16 & 255), Re(n, e.adler >> 24 & 255), Re(n, 255 & e.total_in), Re(n, e.total_in >> 8 & 255), Re(n, e.total_in >> 16 & 255), Re(n, e.total_in >> 24 & 255)) : (ke(n, e.adler >>> 16), ke(n, 65535 & e.adler)), ye(e), n.wrap > 0 && (n.wrap = -n.wrap), 0 !== n.pending ? ee : te);
+                }, deflateEnd: function deflateEnd(e) {
+                    if (Le(e)) return ne;var t = e.state.status;return e.state = null, t === pe ? me(e, re) : ee;
+                }, deflateSetDictionary: function deflateSetDictionary(e, t) {
+                    var n = t.length;if (Le(e)) return ne;var r = e.state,
+                        i = r.wrap;if (2 === i || 1 === i && r.status !== Ee || r.lookahead) return ne;if (1 === i && (e.adler = G(e.adler, t, n, 0)), r.wrap = 0, n >= r.w_size) {
+                        0 === i && (ve(r.head), r.strstart = 0, r.block_start = 0, r.insert = 0);var _e2 = new Uint8Array(r.w_size);_e2.set(t.subarray(n - r.w_size, n), 0), t = _e2, n = r.w_size;
+                    }var s = e.avail_in,
+                        a = e.next_in,
+                        o = e.input;for (e.avail_in = n, e.next_in = 0, e.input = t, Se(r); r.lookahead >= 3;) {
+                        var _e3 = r.strstart,
+                            _t7 = r.lookahead - 2;do {
+                            r.ins_h = Te(r, r.ins_h, r.window[_e3 + 3 - 1]), r.prev[_e3 & r.w_mask] = r.head[r.ins_h], r.head[r.ins_h] = _e3, _e3++;
+                        } while (--_t7);r.strstart = _e3, r.lookahead = 2, Se(r);
+                    }return r.strstart += r.lookahead, r.block_start = r.strstart, r.insert = r.lookahead, r.lookahead = 0, r.match_length = r.prev_length = 2, r.match_available = 0, e.next_in = a, e.input = o, e.avail_in = s, r.wrap = i, ee;
+                }, deflateInfo: "pako deflate (from Nodeca project)" };var qe = function qe(e, t) {
+                return Object.prototype.hasOwnProperty.call(e, t);
+            };var Fe = function Fe(e) {
+                var t = Array.prototype.slice.call(arguments, 1);for (; t.length;) {
+                    var _n3 = t.shift();if (_n3) {
+                        if ("object" != (typeof _n3 === "undefined" ? "undefined" : (0, _typeof3.default)(_n3))) throw new TypeError(_n3 + "must be non-object");for (var _t8 in _n3) {
+                            qe(_n3, _t8) && (e[_t8] = _n3[_t8]);
+                        }
+                    }
+                }return e;
+            },
+                He = function He(e) {
+                var t = 0;for (var _n4 = 0, _r6 = e.length; _n4 < _r6; _n4++) {
+                    t += e[_n4].length;
+                }var n = new Uint8Array(t);for (var _t9 = 0, _r7 = 0, _i3 = e.length; _t9 < _i3; _t9++) {
+                    var _i4 = e[_t9];n.set(_i4, _r7), _r7 += _i4.length;
+                }return n;
+            };var je = !0;try {
+                String.fromCharCode.apply(null, new Uint8Array(1));
             } catch (e) {
-              this.logger.error("Failed to parse JSON from binaryPayload: " + e), this.messageBuffer = null;
-            }
-          }
-        }, {
-          key: "getPeerConnection",
-          value: function getPeerConnection(e) {
-            var _this31 = this;
-
-            return this.pcs.has(e) ? this.pcs.get(e) : (this.pcPromises.has(e) || this.pcPromises.set(e, []), new Promise(function (t, r) {
-              _this31.pcPromises.get(e).push({ resolve: t, reject: r });
-            }));
-          }
-        }, {
-          key: "getPendingEvent",
-          value: function getPendingEvent(e, t) {
-            return e.pendingEvents.has(t) && e.pendingEvents.get(t).length > 0 ? e.pendingEvents.get(t).shift() : (e.eventPromises.has(t) || e.eventPromises.set(t, []), new Promise(function (r, n) {
-              e.eventPromises.get(t).push({ resolve: r, reject: n });
-            }));
-          }
-        }, {
-          key: "getStream",
-          value: function getStream(e) {
-            return this.streams.get(e);
-          }
-        }, {
-          key: "makeTrackTO",
-          value: function makeTrackTO(e) {
-            var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : e.id ? e.id : crypto.randomUUID();
-            return this.tracks.set(t, e), { type: "proxy", contentHint: e.contentHint, enabled: e.enabled, id: t, kind: e.kind, label: e.label, muted: e.muted, readyState: e.readyState, settings: e.getSettings() };
-          }
-        }, {
-          key: "makeStreamTO",
-          value: function makeStreamTO(e) {
-            var _this32 = this;
-
-            var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : e.id ? e.id : crypto.randomUUID();
-            this.streams.set(t, e);var r = e.getTracks().map(function (e) {
-              return _this32.makeTrackTO(e);
-            });return { type: "proxy", id: t, active: e.active, tracks: r };
-          }
-        }, {
-          key: "makeSyncronizationSourceTO",
-          value: function makeSyncronizationSourceTO(e) {
-            return { audioLevel: e.audioLevel, rtpTimestamp: e.rtpTimestamp, source: e.source, timestamp: e.timestamp };
-          }
-        }, {
-          key: "makeReceiverTO",
-          value: function makeReceiverTO(e) {
-            var _this33 = this;
-
-            var t = e.getSynchronizationSources();t = t.map(function (e) {
-              return _this33.makeSyncronizationSourceTO(e);
-            });var r = { id: e.id ? e.id : crypto.randomUUID(), type: "proxy", track: e.track ? this.makeTrackTO(e.track) : null, synchronizationSources: t, stats: [] };return e.id = r.id, this.receivers.set(r.id, e), r;
-          }
-        }, {
-          key: "makeDTMFSenderTO",
-          value: function makeDTMFSenderTO(e) {
-            var t = { id: e.id ? e.id : crypto.randomUUID(), type: "proxy", toneBuffer: e.toneBuffer };return e.id = t.id, this.dtmfSenders.set(t.id, e), t;
-          }
-        }, {
-          key: "makeSenderTO",
-          value: function makeSenderTO(e) {
-            var t = { id: e.id ? e.id : crypto.randomUUID(), type: "proxy", track: e.track ? this.makeTrackTO(e.track) : null, dtmf: e.dtmf ? this.makeDTMFSenderTO(e.dtmf) : null };return e.id = t.id, this.senders.set(t.id, e), t;
-          }
-        }, {
-          key: "makeTransceiverTO",
-          value: function makeTransceiverTO(e) {
-            return { id: e.id, type: "proxy", currentDirection: e.currentDirection, direction: e.direction, mid: e.mid, receiver: e.receiver ? this.makeReceiverTO(e.receiver) : null, sender: e.sender ? this.makeSenderTO(e.sender) : null, stopped: e.stopped };
-          }
-        }, {
-          key: "findProxySubject",
-          value: function findProxySubject(e) {
-            return this.pcs.has(e) ? this.pcs.get(e) : this.audioContexts.has(e) ? this.audioContexts.get(e) : this.audioNodes.has(e) ? this.audioNodes.get(e) : this.workers.has(e) ? this.workers.get(e) : this.certs.has(e) ? this.certs.get(e) : this.streams.has(e) ? this.streams.get(e) : this.offers.has(e) ? this.offers.get(e) : this.answers.has(e) ? this.answers.get(e) : this.remoteDescriptions.has(e) ? this.remoteDescriptions.get(e) : this.mediaElements.has(e) ? this.mediaElements.get(e) : this.audios.has(e) ? this.audios.get(e) : this.senders.has(e) ? this.senders.get(e) : this.dtmfSenders.has(e) ? this.dtmfSenders.get(e) : this.receivers.has(e) ? this.recevers.get(e) : this.transceivers.has(e) ? this.transceivers.get(e) : this.tracks.has(e) ? this.tracks.get(e) : null;
-          }
-        }, {
-          key: "traverse",
-          value: function traverse(e, t) {
-            if ("object" == (typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e))) for (var _r15 in e) {
-              Object.prototype.hasOwnProperty.call(e, _r15) && (t.apply(this, [e, _r15, e[_r15]]), null !== e[_r15] && "object" == (0, _typeof3.default)(e[_r15]) && this.traverse(e[_r15], t));
-            }
-          }
-        }, {
-          key: "getWorker",
-          value: function getWorker(e) {
-            var _this34 = this;
-
-            return this.workers.has(e) ? this.workers.get(e) : (this.workerPromises.has(e) || this.workerPromises.set(e, []), new Promise(function (t, r) {
-              _this34.workerPromises.get(e).push({ resolve: t, reject: r });
-            }));
-          }
-        }, {
-          key: "gatherPeerConnectionState",
-          value: function gatherPeerConnectionState(e, t) {
-            var _this35 = this;
-
-            e.canTrickleIceCandidates = t.canTrickleIceCandidates, e.connectionState = t.connectionState, e.currentLocalDescription = t.currentLocalDescription, e.currentRemoteDescription = t.currentRemoteDescription, e.iceConnectionState = t.iceConnectionState, e.iceGatheringState = t.iceGatheringState, e.iceGatheringState = t.iceGatheringState, e.localDescription = t.localDescription, e.peerIdentity = t.peerIdentity, e.pendingLocalDescription = t.pendingLocalDescription, e.pendingRemoteDescription = t.pendingRemoteDescription, e.remoteDescription = t.remoteDescription, e.sctp = t.sctp, e.signalingState = t.signalingState, e.configuration = t.getConfiguration(), e.transceivers = t.getTransceivers().map(function (e) {
-              return _this35.makeTransceiverTO(e);
-            }), e.senders = t.getSenders().map(function (e) {
-              return _this35.makeSenderTO(e);
-            }), e.receivers = t.getReceivers().map(function (e) {
-              return _this35.makeReceiverTO(e);
-            });
-          }
-        }, {
-          key: "callWebRTCApi",
-          value: function () {
-            var _ref8 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee8(e, r, n) {
-              var _this36 = this;
-
-              var _n15, _e16, _t22, _n16, _e17, _t23, _r16, _i6, _n17, _e18, _t24, _r17, _i7, _n18, _e19, _t25, _n19, _e20, _t26, _r18, _e21, _i8, _s2, _n20, _e22, _n21, _e23, _t27, _r19, _i9, _s3, _a2, _o, _c, _n22, _e24, _t28, _r20, _i10, _n23, _e25, _t29, _r21, _n24, _e26, _t30, _r22, _i11, _s4, _a3, _o2, _c2, _e27, _n25, _e28, _n26, _e29, _t31, _r23, _i12, _s5, _a4, _n27, _e30, _t32, _r24, _i13, _s6, _a5, _n28, _e31, _t33, _n29, _e32, _t34, _n30, _e33, _t35, _n31, _e34, _t36, _r25, _i14, _n32, _e35, _t37, _r26, _i15, _n33, _e36, _n34, _e37, _n35, _e38, _t38, _r27, _i16, _n36, _e39, _t39, _n37, _e40, _t40, _r28, _i17, _s7, _a6, _o3, _c3, _d, _n38, _e41, _t41, _r29, _i18, _s8, _e42, _a7, _o4, _n39, _e43, _n40, _e44, _t42, _r31, _n41, _e45, _t43, _r32, _i19, _s9, _n42, _e46, _t44, _r33, _n43, _e47, _t45, _r34, _n44, _e48, _t46, _r35, _i20, _n45, _e49, _t47, _r36, _i21, _n46, _e50, _t48, _i22, _s10, _n47, _e51, _t49, _i23, _s11, _n48, _e52, _t50, _r37, _i24, _s12, _n49, _e53, _t51, _r38, _n50, _e54, _t52, _r39, _n51, _e55, _t53, _i25, _e56, _n52, _n53, _e57, _t54, _i26, _s14, _e58, _n54, _n55, _e59, _t56, _i27, _e60, _n56, _n57, _e61, _t58, _i28, _s15, _e62, _n58, _n59, _e63, _t60, _r41, _n60, _e64, _t61, _r42, _n61, _e65, _t62, _r43, _n62, _e66, _t63, _n63, _e67, _t64, _r44, _n64, _e68, _t65, _n65, _e69, _n66, _e70, _n67, _e71, _n68, _e72, _t66, _r45, _n69, _e73, _t67, _n70, _e74, _n71, _e75, _t68, _r46, _n72, _e76, _t69, _r47, _n73, _e77;
-
-              return _regenerator2.default.wrap(function _callee8$(_context8) {
-                while (1) {
-                  switch (_context8.prev = _context8.next) {
-                    case 0:
-                      _context8.t0 = e;
-                      _context8.next = _context8.t0 === a.HELLO_API_NAME ? 3 : _context8.t0 === a.GETUSERMEDIA_API_NAME ? 4 : _context8.t0 === a.ENUMERATEDEVICES_API_NAME ? 10 : _context8.t0 === a.STREAM_ADD_TRACK ? 14 : _context8.t0 === a.STREAM_REMOVE_TRACK ? 16 : _context8.t0 === a.GENERATE_CERTIFICATE_API_NAME ? 18 : _context8.t0 === a.NEWRTCPEERCONNECTION_API_NAME ? 24 : _context8.t0 === a.PC_GET_CONFIGURATION ? 30 : _context8.t0 === a.CREATE_WORKER ? 34 : _context8.t0 === a.WORKER_POST_MESSAGE ? 36 : _context8.t0 === a.NEW_AUDIO_CONTEXT ? 44 : _context8.t0 === a.AUDIO_CTX_CREATE_AUDIO_NODE ? 46 : _context8.t0 === a.AUDIO_CTX_CLOSE ? 53 : _context8.t0 === a.AUDIO_NODE_CONNECT ? 55 : _context8.t0 === a.AUDIO_NODE_DISCONNECT ? 57 : _context8.t0 === a.AUDIO_NODE_SET_TYPE ? 59 : _context8.t0 === a.AUDIO_NODE_START ? 61 : _context8.t0 === a.AUDIO_NODE_STOP ? 63 : _context8.t0 === a.AUDIO_PARAM_SET_VALUE_AT_TIME ? 65 : _context8.t0 === a.AUDIO_PARAM_SET_RAMP_TO_VALUE_AT_TIME ? 67 : _context8.t0 === a.GET_RECEIVERS_API_NAME ? 69 : _context8.t0 === a.GET_SENDERS_API_NAME ? 76 : _context8.t0 === a.INSERT_DTMF_API_NAME ? 83 : _context8.t0 === a.GET_TRANSCEIVERS_API_NAME ? 85 : _context8.t0 === a.TRANSCEIVER_SET_CODEC_PREFS ? 91 : _context8.t0 === a.ADD_TRACK_API_NAME ? 92 : _context8.t0 === a.ADD_TRANSCEIVER_API_NAME ? 106 : _context8.t0 === a.PC_CLOSE_API_NAME ? 119 : _context8.t0 === a.ADDSTREAM_API_NAME ? 124 : _context8.t0 === a.GET_STATS_API_NAME ? 130 : _context8.t0 === a.GET_SENDER_STATS_API_NAME ? 141 : _context8.t0 === a.GET_RECEIVER_STATS_API_NAME ? 148 : _context8.t0 === a.REPLACE_SENDER_TRACK_API_NAME ? 155 : _context8.t0 === a.PC_REMOVE_TRACK_API_NAME ? 159 : _context8.t0 === a.CREATE_OFFER_API_NAME ? 167 : _context8.t0 === a.CREATE_ANSWER_API_NAME ? 177 : _context8.t0 === a.SET_LOCAL_DESCRIPTION_API_NAME ? 187 : _context8.t0 === a.SET_REMOTE_DESCRIPTION_API_NAME ? 195 : _context8.t0 === a.ADD_ICE_CANDIDATE_API_NAME ? 204 : _context8.t0 === a.ADD_PC_EVENT_LISTENER ? 210 : _context8.t0 === a.ADD_TRACK_EVENT_LISTENER ? 225 : _context8.t0 === a.ADD_WORKER_EVENT_LISTENER ? 235 : _context8.t0 === a.ADD_DTMF_EVENT_LISTENER ? 250 : _context8.t0 === a.CREATE_MEDIA_ELEMENT_API_NAME ? 260 : _context8.t0 === a.MEDIA_ELEMENT_SET_SINK_ID_API_NAME ? 265 : _context8.t0 === a.SET_MEDIA_SRC_OBJ_API_NAME ? 269 : _context8.t0 === a.MEDIA_ELEMENT_MUTED ? 271 : _context8.t0 === a.SET_MEDIA_HIDDEN_API_NAME ? 273 : _context8.t0 === a.SET_MEDIA_VOLUME_API_NAME ? 275 : _context8.t0 === a.MEDIA_ELEMENT_PLAY_API_NAME ? 277 : _context8.t0 === a.MEDIA_ELEMENT_PAUSE_API_NAME ? 279 : _context8.t0 === a.MEDIA_ELEMENT_REMOVE ? 281 : _context8.t0 === a.TOGGLE_TRACK_ENABLED_API_NAME ? 283 : _context8.t0 === a.TRACK_STOP_API_NAME ? 285 : _context8.t0 === a.TRACK_GET_SETTINGS ? 287 : _context8.t0 === a.SENDER_CREATE_ENCODED_STREAMS ? 289 : _context8.t0 === a.RECEIVER_CREATE_ENCODED_STREAMS ? 291 : _context8.t0 === a.UNLOAD_EVENT_NAME ? 293 : 295;
-                      break;
-
-                    case 3:
-                      return _context8.abrupt("return", { version: this.version, platform: "web", browserDetails: t.Z.browserDetails, userAgent: navigator.userAgent });
-
-                    case 4:
-                      _n15 = (0, _slicedToArray3.default)(n, 1);
-                      _e16 = _n15[0];
-                      _context8.next = 8;
-                      return navigator.mediaDevices.getUserMedia(_e16);
-
-                    case 8:
-                      _t22 = _context8.sent;
-                      return _context8.abrupt("return", this.makeStreamTO(_t22));
-
-                    case 10:
-                      _context8.next = 12;
-                      return navigator.mediaDevices.enumerateDevices();
-
-                    case 12:
-                      _context8.t1 = function (e) {
-                        return e.toJSON();
-                      };
-
-                      return _context8.abrupt("return", _context8.sent.map(_context8.t1));
-
-                    case 14:
-                      _n16 = (0, _slicedToArray3.default)(n, 2), _e17 = _n16[0], _t23 = _n16[1], _r16 = this.streams.get(_e17), _i6 = this.tracks.get(_t23);
-                      return _context8.abrupt("return", (_r16.addTrack(_i6), {}));
-
-                    case 16:
-                      _n17 = (0, _slicedToArray3.default)(n, 2), _e18 = _n17[0], _t24 = _n17[1], _r17 = this.streams.get(_e18), _i7 = this.tracks.get(_t24);
-                      return _context8.abrupt("return", (_r17.removeTrack(_i7), {}));
-
-                    case 18:
-                      _n18 = (0, _slicedToArray3.default)(n, 1);
-                      _e19 = _n18[0];
-                      _context8.next = 22;
-                      return RTCPeerConnection.generateCertificate(_e19);
-
-                    case 22:
-                      _t25 = _context8.sent;
-                      return _context8.abrupt("return", (this.certs.set(r, _t25), { type: "proxy", id: r, expires: _t25.expires, fingerprints: _t25.getFingerprints() }));
-
-                    case 24:
-                      _n19 = (0, _slicedToArray3.default)(n, 3), _e20 = _n19[0], _t26 = _n19[1], _r18 = _n19[2];
-                      if (_t26 && _t26.certificates) {
-                        _e21 = _t26.certificates.map(function (e) {
-                          return _this36.certs.get(e.id);
-                        });
-                        _t26.certificates = _e21;
-                      }_i8 = new RTCPeerConnection(_t26, _r18);
-                      this.pcs.set(_e20, _i8), this.pcPromises.has(_e20) && (this.pcPromises.get(_e20).forEach(function (e) {
-                        e.resolve(e);
-                      }), this.pcPromises.set(_e20, []));_s2 = { type: "proxy", pcId: _e20 };
-                      return _context8.abrupt("return", (this.gatherPeerConnectionState(_s2, _i8), _s2));
-
-                    case 30:
-                      _n20 = (0, _slicedToArray3.default)(n, 1), _e22 = _n20[0];
-                      _context8.next = 33;
-                      return this.getPeerConnection(_e22);
-
-                    case 33:
-                      return _context8.abrupt("return", _context8.sent.getConfiguration());
-
-                    case 34:
-                      _n21 = (0, _slicedToArray3.default)(n, 4), _e23 = _n21[0], _t27 = _n21[1], _r19 = _n21[2], _i9 = _n21[3], _s3 = (0, h.decode)(_r19), _a2 = new Blob([_s3], { type: _t27 }), _o = URL.createObjectURL(_a2), _c = new Worker(_o, _i9);
-                      return _context8.abrupt("return", (this.workers.set(_e23, _c), this.workerPromises.has(_e23) && (this.workerPromises.get(_e23).forEach(function (e) {
-                        e.resolve(_c);
-                      }), this.workerPromises.set(_e23, [])), { type: "proxy", id: _e23 }));
-
-                    case 36:
-                      _n22 = (0, _slicedToArray3.default)(n, 3);
-                      _e24 = _n22[0];
-                      _t28 = _n22[1];
-                      _r20 = _n22[2];
-                      _context8.next = 42;
-                      return this.getWorker(_e24);
-
-                    case 42:
-                      _i10 = _context8.sent;
-                      return _context8.abrupt("return", (this.logger.debug("Message before traversing: ", JSON.stringify(_t28)), this.traverse(_t28, function (e, t, r) {
-                        "proxy" === r.type && r.id && (e[t] = _this36.findProxySubject(r.id));
-                      }), this.logger.debug("Message after traversing: ", _t28), this.logger.debug("Options before traversing: ", JSON.stringify(_r20)), this.traverse(_r20, function (e, t, r) {
-                        "proxy" === r.type && r.id && (e[t] = _this36.findProxySubject(r.id));
-                      }), this.logger.debug("Options after traversing: ", _r20), _i10.postMessage(_t28, _r20), { type: "proxy", id: _e24 }));
-
-                    case 44:
-                      _n23 = (0, _slicedToArray3.default)(n, 2), _e25 = _n23[0], _t29 = _n23[1], _r21 = new AudioContext();
-                      return _context8.abrupt("return", (this.audioContexts.set(_e25, _r21), this.audioNodes.set(_t29, _r21.destination), { type: "proxy", id: _e25, baseLatency: _r21.baseLatency, currentTime: _r21.currentTime, outputLatency: _r21.outputLatency, sampleRate: _r21.sampleRate, sinkId: _r21.sinkId, state: _r21.state }));
-
-                    case 46:
-                      _n24 = (0, _slicedToArray3.default)(n, 4), _e26 = _n24[0], _t30 = _n24[1], _r22 = _n24[2], _i11 = _n24[3], _s4 = this.audioContexts.get(_e26), _a3 = _s4["create" + _r22];
-                      _i11 = _i11.map(function (e) {
-                        return "proxy" === e.type ? _this36.findProxySubject(e.id) : e;
-                      });_o2 = _a3.apply(_s4, _i11);
-                      this.audioNodes.set(_t30, _o2);_c2 = null;
-                      if (_o2.stream) {
-                        _e27 = _o2.stream.getTracks().map(function (e) {
-                          return _this36.makeTrackTO(e, _t30);
-                        });
-                        _c2 = this.makeStreamTO(_o2.stream, _t30), _c2.tracks = _e27;
-                      }return _context8.abrupt("return", { id: _t30, channelCount: _o2.channelCount, channelCountMode: _o2.channelCountMode, channelInterpretation: _o2.channelInterpretation, numberOfInputs: _o2.numberOfInputs, numberOfOutputs: _o2.numberOfOutputs, fftSize: _o2.fftSize, frequencyBinCount: _o2.frequencyBinCount, maxDecibels: _o2.maxDecibels, minDecibels: _o2.minDecibels, smoothingTimeConstant: _o2.smoothingTimeConstant, stream: _c2 });
-
-                    case 53:
-                      _n25 = (0, _slicedToArray3.default)(n, 1), _e28 = _n25[0];
-                      return _context8.abrupt("return", (this.audioContexts.get(_e28).close(), {}));
-
-                    case 55:
-                      _n26 = (0, _slicedToArray3.default)(n, 4), _e29 = _n26[0], _t31 = _n26[1], _r23 = _n26[2], _i12 = _n26[3], _s5 = this.audioNodes.get(_e29), _a4 = this.findProxySubject(_t31.id);
-                      return _context8.abrupt("return", (_s5.connect(_a4, _r23 || 0, _i12 || 0), {}));
-
-                    case 57:
-                      _n27 = (0, _slicedToArray3.default)(n, 4), _e30 = _n27[0], _t32 = _n27[1], _r24 = _n27[2], _i13 = _n27[3], _s6 = this.audioNodes.get(_e30), _a5 = this.findProxySubject(_t32.id);
-                      return _context8.abrupt("return", (_s6.disconnect(_a5, _r24 || 0, _i13 || 0), {}));
-
-                    case 59:
-                      _n28 = (0, _slicedToArray3.default)(n, 2), _e31 = _n28[0], _t33 = _n28[1];
-                      return _context8.abrupt("return", (this.audioNodes.get(_e31).type = _t33, {}));
-
-                    case 61:
-                      _n29 = (0, _slicedToArray3.default)(n, 2), _e32 = _n29[0], _t34 = _n29[1];
-                      return _context8.abrupt("return", (this.audioNodes.get(_e32).start(_t34), {}));
-
-                    case 63:
-                      _n30 = (0, _slicedToArray3.default)(n, 2), _e33 = _n30[0], _t35 = _n30[1];
-                      return _context8.abrupt("return", (this.audioNodes.get(_e33).stop(_t35), {}));
-
-                    case 65:
-                      _n31 = (0, _slicedToArray3.default)(n, 3), _e34 = _n31[0], _t36 = _n31[1], _r25 = _n31[2], _i14 = this.audioNodes.get(_e34);
-                      return _context8.abrupt("return", (_i14.gain ? _i14.gain.setValueAtTime(_t36, _r25 || _i14.context.currentTime) : _i14.frequency && _i14.frequency.setValueAtTime(_t36, _r25 || _i14.context.currentTime), {}));
-
-                    case 67:
-                      _n32 = (0, _slicedToArray3.default)(n, 3), _e35 = _n32[0], _t37 = _n32[1], _r26 = _n32[2], _i15 = this.audioNodes.get(_e35);
-                      return _context8.abrupt("return", (_i15.frequency && _i15.frequency.linearRampToValueAtTime(_t37, _r26 || _i15.context.currentTime), {}));
-
-                    case 69:
-                      _n33 = (0, _slicedToArray3.default)(n, 1), _e36 = _n33[0];
-                      _context8.t2 = _e36;
-                      _context8.next = 73;
-                      return this.getPeerConnection(_e36);
-
-                    case 73:
-                      _context8.t3 = function (e) {
-                        return _this36.makeReceiverTO(e);
-                      };
-
-                      _context8.t4 = _context8.sent.getReceivers().map(_context8.t3);
-                      return _context8.abrupt("return", {
-                        pcId: _context8.t2,
-                        receivers: _context8.t4
-                      });
-
-                    case 76:
-                      _n34 = (0, _slicedToArray3.default)(n, 1), _e37 = _n34[0];
-                      _context8.t5 = _e37;
-                      _context8.next = 80;
-                      return this.getPeerConnection(_e37);
-
-                    case 80:
-                      _context8.t6 = function (e) {
-                        return _this36.makeSenderTO(e);
-                      };
-
-                      _context8.t7 = _context8.sent.getSenders().map(_context8.t6);
-                      return _context8.abrupt("return", {
-                        pcId: _context8.t5,
-                        senders: _context8.t7
-                      });
-
-                    case 83:
-                      _n35 = (0, _slicedToArray3.default)(n, 4), _e38 = _n35[0], _t38 = _n35[1], _r27 = _n35[2], _i16 = _n35[3];
-                      return _context8.abrupt("return", (this.dtmfSenders.get(_e38).insertDTMF(_t38, _r27, _i16), {}));
-
-                    case 85:
-                      _n36 = (0, _slicedToArray3.default)(n, 1);
-                      _e39 = _n36[0];
-                      _context8.next = 89;
-                      return this.getPeerConnection(_e39);
-
-                    case 89:
-                      _t39 = _context8.sent.getTransceivers();
-                      return _context8.abrupt("return", (_t39 = _t39.map(function (e) {
-                        return e.id = e.id ? e.id : crypto.randomUUID(), _this36.makeTransceiverTO(e);
-                      }), { pcId: _e39, transceivers: _t39 }));
-
-                    case 91:
-                      return _context8.abrupt("return", {});
-
-                    case 92:
-                      _n37 = (0, _toArray3.default)(n);
-                      _e40 = _n37[0];
-                      _t40 = _n37[1];
-                      _r28 = _n37[2];
-                      _i17 = _n37.slice(3);
-                      _context8.next = 99;
-                      return this.getPeerConnection(_t40);
-
-                    case 99:
-                      _s7 = _context8.sent;
-                      _a6 = [];
-                      _i17.forEach(function (e) {
-                        var t = _this36.streams.get(e.proxy.id);t && _a6.push(t);
-                      });_o3 = [this.tracks.get(_r28.id)].concat(_a6), _c3 = _s7.addTrack.apply(_s7, _o3);
-                      _c3.id = _e40;_d = this.makeSenderTO(_c3);
-                      return _context8.abrupt("return", (_d.pcId = _t40, _d.senders = _s7.getSenders().map(function (e) {
-                        return _this36.makeSenderTO(e);
-                      }), _d.receivers = _s7.getReceivers().map(function (e) {
-                        return _this36.makeReceiverTO(e);
-                      }), _d.transceivers = _s7.getTransceivers().map(function (e) {
-                        return _this36.makeTransceiverTO(e);
-                      }), _d));
-
-                    case 106:
-                      _n38 = (0, _slicedToArray3.default)(n, 4);
-                      _e41 = _n38[0];
-                      _t41 = _n38[1];
-                      _r29 = _n38[2];
-                      _i18 = _n38[3];
-                      _context8.next = 113;
-                      return this.getPeerConnection(_e41);
-
-                    case 113:
-                      _s8 = _context8.sent;
-                      if ("string" != typeof _r29 && (_r29 = this.tracks.get(_r29.id)), _i18 && _i18.streams) {
-                        _e42 = [];
-                        _i18.streams.forEach(function (t) {
-                          if (t.proxy) {
-                            var _r30 = _this36.streams.get(t.proxy.id);_e42.push(_r30);
-                          }
-                        }), _i18.streams = _e42;
-                      }_a7 = _s8.addTransceiver(_r29, _i18);
-                      _a7.id = _t41.id, this.transceivers.set(_t41.id, _a7), _a7.sender && (_a7.sender.id = _t41.sender.id, this.senders.set(_t41.sender.id, _a7.sender)), _a7.receiver && (_a7.receiver.id = _t41.receiver.id, this.receivers.set(_t41.receiver.id, _a7.receiver));_o4 = this.makeTransceiverTO(_a7);
-                      return _context8.abrupt("return", (_o4.pcId = _e41, _o4.senders = _s8.getSenders().map(function (e) {
-                        return _this36.makeSenderTO(e);
-                      }), _o4.receivers = _s8.getReceivers().map(function (e) {
-                        return _this36.makeReceiverTO(e);
-                      }), _o4.transceivers = _s8.getTransceivers().map(function (e) {
-                        return _this36.makeTransceiverTO(e);
-                      }), _o4));
-
-                    case 119:
-                      _n39 = (0, _slicedToArray3.default)(n, 1), _e43 = _n39[0];
-                      _context8.next = 122;
-                      return this.getPeerConnection(_e43);
-
-                    case 122:
-                      _context8.sent.close();
-
-                      return _context8.abrupt("return", {});
-
-                    case 124:
-                      _n40 = (0, _slicedToArray3.default)(n, 2), _e44 = _n40[0], _t42 = _n40[1], _r31 = this.streams.get(_t42.id);
-                      _context8.next = 127;
-                      return this.getPeerConnection(_e44);
-
-                    case 127:
-                      _context8.t8 = _r31;
-
-                      _context8.sent.addStream(_context8.t8);
-
-                      return _context8.abrupt("return", _t42);
-
-                    case 130:
-                      _n41 = (0, _slicedToArray3.default)(n, 2);
-                      _e45 = _n41[0];
-                      _t43 = _n41[1];
-                      _context8.next = 135;
-                      return this.getPeerConnection(_e45);
-
-                    case 135:
-                      _r32 = _context8.sent;
-                      _context8.next = 138;
-                      return _r32.getStats(_t43);
-
-                    case 138:
-                      _i19 = _context8.sent;
-                      _s9 = [];
-                      return _context8.abrupt("return", (_i19.forEach(function (e) {
-                        var t = Object.assign({}, e);_s9.push(t);
-                      }), _s9));
-
-                    case 141:
-                      _n42 = (0, _slicedToArray3.default)(n, 1);
-                      _e46 = _n42[0];
-                      _context8.next = 145;
-                      return this.senders.get(_e46).getStats();
-
-                    case 145:
-                      _t44 = _context8.sent;
-                      _r33 = [];
-                      return _context8.abrupt("return", (_t44.forEach(function (e) {
-                        var t = Object.assign({}, e);_r33.push(t);
-                      }), _r33));
-
-                    case 148:
-                      _n43 = (0, _slicedToArray3.default)(n, 1);
-                      _e47 = _n43[0];
-                      _context8.next = 152;
-                      return this.receivers.get(_e47).getStats();
-
-                    case 152:
-                      _t45 = _context8.sent;
-                      _r34 = [];
-                      return _context8.abrupt("return", (_t45.forEach(function (e) {
-                        var t = { id: e.id ? e.id : crypto.randomUUID(), type: e.type, concealedSamples: e.concealedSamples };_r34.push(t);
-                      }), _r34));
-
-                    case 155:
-                      _n44 = (0, _slicedToArray3.default)(n, 2), _e48 = _n44[0], _t46 = _n44[1], _r35 = this.senders.get(_e48), _i20 = _t46 ? this.tracks.get(_t46.id) : null;
-                      _context8.next = 158;
-                      return _r35.replaceTrack(_i20);
-
-                    case 158:
-                      return _context8.abrupt("return", {});
-
-                    case 159:
-                      _n45 = (0, _slicedToArray3.default)(n, 2);
-                      _e49 = _n45[0];
-                      _t47 = _n45[1];
-                      _context8.next = 164;
-                      return this.getPeerConnection(_e49);
-
-                    case 164:
-                      _r36 = _context8.sent;
-                      _i21 = this.senders.get(_t47.id);
-                      return _context8.abrupt("return", (_r36.removeTrack(_i21), {}));
-
-                    case 167:
-                      _n46 = (0, _slicedToArray3.default)(n, 2);
-                      _e50 = _n46[0];
-                      _t48 = _n46[1];
-                      _context8.next = 172;
-                      return this.getPeerConnection(_e50);
-
-                    case 172:
-                      _i22 = _context8.sent;
-                      _context8.next = 175;
-                      return _i22.createOffer(_t48);
-
-                    case 175:
-                      _s10 = _context8.sent;
-                      return _context8.abrupt("return", (this.offers.set(r, _s10), { id: r, type: _s10.type, sdp: _s10.sdp }));
-
-                    case 177:
-                      _n47 = (0, _slicedToArray3.default)(n, 2);
-                      _e51 = _n47[0];
-                      _t49 = _n47[1];
-                      _context8.next = 182;
-                      return this.getPeerConnection(_e51);
-
-                    case 182:
-                      _i23 = _context8.sent;
-                      _context8.next = 185;
-                      return _i23.createAnswer(_t49);
-
-                    case 185:
-                      _s11 = _context8.sent;
-                      return _context8.abrupt("return", (this.answers.set(r, _s11), { id: r, type: _s11.type, sdp: _s11.sdp }));
-
-                    case 187:
-                      _n48 = (0, _slicedToArray3.default)(n, 2), _e52 = _n48[0], _t50 = _n48[1], _r37 = "offer" === _t50.type ? this.offers : this.answers, _i24 = _t50.id ? _r37.get(_t50.id) : _t50;
-                      _i24.sdp = _t50.sdp;_context8.next = 191;
-                      return this.getPeerConnection(_e52);
-
-                    case 191:
-                      _s12 = _context8.sent;
-                      _context8.next = 194;
-                      return _s12.setLocalDescription(_i24);
-
-                    case 194:
-                      return _context8.abrupt("return", _t50);
-
-                    case 195:
-                      _n49 = (0, _slicedToArray3.default)(n, 2);
-                      _e53 = _n49[0];
-                      _t51 = _n49[1];
-                      _context8.next = 200;
-                      return this.getPeerConnection(_e53);
-
-                    case 200:
-                      _r38 = _context8.sent;
-                      _context8.next = 203;
-                      return _r38.setRemoteDescription(_t51);
-
-                    case 203:
-                      return _context8.abrupt("return", _t51);
-
-                    case 204:
-                      _n50 = (0, _slicedToArray3.default)(n, 2), _e54 = _n50[0], _t52 = _n50[1], _r39 = _t52 ? new RTCIceCandidate({ sdpMLineIndex: _t52.sdpMLineIndex, candidate: _t52.candidate }) : null;
-                      _context8.next = 207;
-                      return this.getPeerConnection(_e54);
-
-                    case 207:
-                      _context8.t9 = _r39;
-
-                      _context8.sent.addIceCandidate(_context8.t9);
-
-                      return _context8.abrupt("return", _t52);
-
-                    case 210:
-                      _n51 = (0, _slicedToArray3.default)(n, 2);
-                      _e55 = _n51[0];
-                      _t53 = _n51[1];
-                      _context8.next = 215;
-                      return this.getPeerConnection(_e55);
-
-                    case 215:
-                      _i25 = _context8.sent;
-
-                      if (!(_i25.pendingEvents || (_i25.pendingEvents = new Map()), _i25.eventPromises || (_i25.eventPromises = new Map()), _i25.pendingEvents.has(_t53))) {
-                        _context8.next = 223;
-                        break;
-                      }
-
-                      _context8.next = 219;
-                      return this.getPendingEvent(_i25, _t53);
-
-                    case 219:
-                      _e56 = _context8.sent;
-                      this.sendEvent(a.ADD_PC_EVENT_LISTENER, r, _e56);_context8.next = 224;
-                      break;
-
-                    case 223:
-                      if (!_i25[_t53]) {
-                        _n52 = function _n52(t) {
-                          var n = null;if (t.type === o.ICE_CANDIDATE) {
-                            _this36.logger.debug("event: ", t);var _r40 = t.candidate,
-                                _s13 = null;_r40 && (_s13 = { sdpMLineIndex: _r40.sdpMLineIndex, sdpMid: _r40.sdpMid, candidate: _r40.candidate, type: _r40.type, foundation: _r40.foundation, protocol: _r40.protocol, address: _r40.address, port: _r40.port, priority: _r40.priority, url: _r40.url, relayProtocol: _r40.relayProtocol, component: _r40.compoonent, relatedAddress: _r40.relatedAddress, relatedPort: _r40.relatedPort, tcpType: _r40.tcpType, usernameFragment: _r40.usernameFragment }), n = { pcId: _e55, eventName: t.type, type: "proxy", candidate: _s13 }, _this36.gatherPeerConnectionState(n, _i25);
-                          } else t.type === o.SIG_STATE_CHANGE ? (n = { pcId: _e55, eventName: t.type, type: "proxy" }, _this36.gatherPeerConnectionState(n, _i25)) : t.type === o.TRACK ? (n = { pcId: _e55, eventName: t.type, type: "proxy", streams: [], senders: [], receivers: [], track: _this36.makeTrackTO(t.track) }, n.streams = t.streams.map(function (e) {
-                            return _this36.makeStreamTO(e);
-                          }), _this36.gatherPeerConnectionState(n, _i25)) : t.type === o.CONN_STATE_CHANGE || t.type === o.ICE_CONN_STATE_CHANGE || t.type === o.ICE_GATHER_STATE_CHANGE || t.type === o.NEGOTIATION_NEEDED ? (n = { pcId: _e55, eventName: t.type, type: "proxy" }, _this36.gatherPeerConnectionState(n, _i25)) : _this36.logger.warn("Ignored event, type: " + t.type + ", event: " + JSON.stringify(t));n && _this36.processPendingEvents(_i25, t, n, a.ADD_PC_EVENT_LISTENER, r);
-                        };
-
-                        _i25[_t53] = _n52, _i25.addEventListener(_t53, _n52);
-                      }
-
-                    case 224:
-                      return _context8.abrupt("return", null);
-
-                    case 225:
-                      _n53 = (0, _slicedToArray3.default)(n, 3), _e57 = _n53[0], _t54 = _n53[1], _i26 = _n53[2], _s14 = this.tracks.get(_e57);
-
-                      if (!(_s14.pendingEvents || (_s14.pendingEvents = new Map()), _s14.eventPromises || (_s14.eventPromises = new Map()), _s14.pendingEvents.has(_t54))) {
-                        _context8.next = 233;
-                        break;
-                      }
-
-                      _context8.next = 229;
-                      return this.getPendingEvent(_s14, _t54);
-
-                    case 229:
-                      _e58 = _context8.sent;
-                      this.sendEvent(a.ADD_TRACK_EVENT_LISTENER, r, _e58);_context8.next = 234;
-                      break;
-
-                    case 233:
-                      if (!_s14[_t54]) {
-                        _n54 = function _n54(n) {
-                          if (Object.values(c).includes(_t54)) {
-                            var _t55 = { trackId: _e57, eventName: n.type, type: "proxy" };_t55 && _this36.processPendingEvents(_s14, n, _t55, a.ADD_TRACK_EVENT_LISTENER, r);
-                          } else _this36.logger.warn("Ignored event: " + JSON.stringify(n));
-                        };
-
-                        _s14[_t54] = _n54, _s14.addEventListener(_t54, _n54, _i26);
-                      }
-
-                    case 234:
-                      return _context8.abrupt("return", null);
-
-                    case 235:
-                      _n55 = (0, _slicedToArray3.default)(n, 2);
-                      _e59 = _n55[0];
-                      _t56 = _n55[1];
-                      _context8.next = 240;
-                      return this.getWorker(_e59);
-
-                    case 240:
-                      _i27 = _context8.sent;
-
-                      if (!(_i27.pendingEvents || (_i27.pendingEvents = new Map()), _i27.eventPromises || (_i27.eventPromises = new Map()), _i27.pendingEvents.has(_t56))) {
-                        _context8.next = 248;
-                        break;
-                      }
-
-                      _context8.next = 244;
-                      return this.getPendingEvent(_i27, _t56);
-
-                    case 244:
-                      _e60 = _context8.sent;
-                      this.sendEvent(a.ADD_WORKER_EVENT_LISTENER, r, _e60);_context8.next = 249;
-                      break;
-
-                    case 248:
-                      if (!_i27[_t56]) {
-                        _n56 = function _n56(n) {
-                          if (_this36.logger.debug("Received event: ", n), Object.values(l).includes(_t56)) {
-                            var _t57 = { wId: _e59, eventName: n.type, type: "proxy", data: n.data };_t57 && _this36.processPendingEvents(_i27, n, _t57, a.ADD_WORKER_EVENT_LISTENER, r);
-                          } else _this36.logger.warn("Ignored event: " + JSON.stringify(n), n);
-                        };
-
-                        _i27[_t56] = _n56, _i27.addEventListener(_t56, _n56);
-                      }
-
-                    case 249:
-                      return _context8.abrupt("return", null);
-
-                    case 250:
-                      _n57 = (0, _slicedToArray3.default)(n, 3), _e61 = _n57[0], _t58 = _n57[1], _i28 = _n57[2], _s15 = this.dtmfSenders.get(_e61);
-
-                      if (!(_s15.pendingEvents || (_s15.pendingEvents = new Map()), _s15.eventPromises || (_s15.eventPromises = new Map()), _s15.pendingEvents.has(_t58))) {
-                        _context8.next = 258;
-                        break;
-                      }
-
-                      _context8.next = 254;
-                      return this.getPendingEvent(_s15, _t58);
-
-                    case 254:
-                      _e62 = _context8.sent;
-                      this.sendEvent(a.ADD_DTMF_EVENT_LISTENER, r, _e62);_context8.next = 259;
-                      break;
-
-                    case 258:
-                      if (!_s15[_t58]) {
-                        _n58 = function _n58(n) {
-                          if (Object.values(d).includes(_t58)) {
-                            var _t59 = { dtmfId: _e61, eventName: n.type, type: n.type, tone: n.tone };_this36.processPendingEvents(_s15, n, _t59, a.ADD_DTMF_EVENT_LISTENER, r);
-                          } else _this36.logger.warn("Ignored event: " + JSON.stringify(n));
-                        };
-
-                        _s15[_t58] = _n58, _s15.addEventListener(_t58, _n58, _i28);
-                      }
-
-                    case 259:
-                      return _context8.abrupt("return", null);
-
-                    case 260:
-                      _n59 = (0, _slicedToArray3.default)(n, 2), _e63 = _n59[0], _t60 = _n59[1];
-
-                      if (!("audio" !== _t60.kind && "video" !== _t60.kind)) {
-                        _context8.next = 263;
-                        break;
-                      }
-
-                      return _context8.abrupt("return", (this.logger.warn("Invalid media type: " + JSON.stringify(_t60)), null));
-
-                    case 263:
-                      _r41 = document.createElement(_t60.kind);
-                      return _context8.abrupt("return", (Object.assign(_r41, _t60), document.body.appendChild(_r41), this.mediaElements.set(_e63, _r41), { id: _e63, sinkId: _r41.sinkId }));
-
-                    case 265:
-                      _n60 = (0, _slicedToArray3.default)(n, 2), _e64 = _n60[0], _t61 = _n60[1], _r42 = this.mediaElements.get(_e64);
-                      _context8.next = 268;
-                      return _r42.setSinkId(_t61);
-
-                    case 268:
-                      return _context8.abrupt("return", { id: _e64, sinkId: _r42.sinkId });
-
-                    case 269:
-                      _n61 = (0, _slicedToArray3.default)(n, 2), _e65 = _n61[0], _t62 = _n61[1], _r43 = _t62 ? this.getStream(_t62.id) : null;
-                      return _context8.abrupt("return", (this.mediaElements.get(_e65).srcObject = _r43, {}));
-
-                    case 271:
-                      _n62 = (0, _slicedToArray3.default)(n, 2), _e66 = _n62[0], _t63 = _n62[1];
-                      return _context8.abrupt("return", (this.mediaElements.get(_e66).muted = _t63, { id: _e66, muted: _t63 }));
-
-                    case 273:
-                      _n63 = (0, _slicedToArray3.default)(n, 2), _e67 = _n63[0], _t64 = _n63[1], _r44 = this.mediaElements.get(_e67);
-                      return _context8.abrupt("return", (_r44 && (_r44.hidden = _t64), {}));
-
-                    case 275:
-                      _n64 = (0, _slicedToArray3.default)(n, 2), _e68 = _n64[0], _t65 = _n64[1];
-                      return _context8.abrupt("return", (this.mediaElements.get(_e68).volume = _t65, {}));
-
-                    case 277:
-                      _n65 = (0, _slicedToArray3.default)(n, 1), _e69 = _n65[0];
-                      return _context8.abrupt("return", (this.mediaElements.get(_e69).play(), {}));
-
-                    case 279:
-                      _n66 = (0, _slicedToArray3.default)(n, 1), _e70 = _n66[0];
-                      return _context8.abrupt("return", (this.mediaElements.get(_e70).pause(), {}));
-
-                    case 281:
-                      _n67 = (0, _slicedToArray3.default)(n, 1), _e71 = _n67[0];
-                      return _context8.abrupt("return", (this.mediaElements.get(_e71).remove(), {}));
-
-                    case 283:
-                      _n68 = (0, _slicedToArray3.default)(n, 2), _e72 = _n68[0], _t66 = _n68[1], _r45 = this.tracks.get(_e72);
-                      return _context8.abrupt("return", (_r45.enabled = _t66, this.makeTrackTO(_r45)));
-
-                    case 285:
-                      _n69 = (0, _slicedToArray3.default)(n, 1), _e73 = _n69[0], _t67 = this.tracks.get(_e73);
-                      return _context8.abrupt("return", (_t67 && _t67.stop(), {}));
-
-                    case 287:
-                      _n70 = (0, _slicedToArray3.default)(n, 1), _e74 = _n70[0];
-                      return _context8.abrupt("return", this.tracks.get(_e74).getSettings());
-
-                    case 289:
-                      _n71 = (0, _slicedToArray3.default)(n, 2), _e75 = _n71[0], _t68 = _n71[1], _r46 = this.senders.get(_e75).createEncodedStreams();
-                      return _context8.abrupt("return", (this.streams.set(_t68.id, _r46), this.streams.set(_t68.readable.id, _r46.readable), this.streams.set(_t68.writable.id, _r46.writable), _t68));
-
-                    case 291:
-                      _n72 = (0, _slicedToArray3.default)(n, 2), _e76 = _n72[0], _t69 = _n72[1], _r47 = this.receivers.get(_e76).createEncodedStreams();
-                      return _context8.abrupt("return", (this.streams.set(_t69.id, _r47), this.streams.set(_t69.readable.id, _r47.readable), this.streams.set(_t69.writable.id, _r47.writable), _t69));
-
-                    case 293:
-                      _n73 = (0, _slicedToArray3.default)(n, 1), _e77 = _n73[0];
-                      return _context8.abrupt("return", (_e77.pcIds.forEach(function (e) {
-                        _this36.pcs.delete(e);
-                      }), _e77.streamIds.forEach(function (e) {
-                        var t = _this36.streams.get(e);t && ("function" == typeof t.getTracks && t.getTracks().forEach(function (e) {
-                          e.stop();
-                        }), _this36.streams.delete(e));
-                      }), _e77.trackIds.forEach(function (e) {
-                        _this36.tracks.delete(e);
-                      }), _e77.workerIds.forEach(function (e) {
-                        var t = _this36.workers.get(e);t && t.terminate(), _this36.workers.delete(e);
-                      }), _e77.mediaElementIds.forEach(function (e) {
-                        var t = _this36.mediaElements.get(e);t && (t.remove(), _this36.mediaElements.delete(e));
-                      }), _e77.transceiverIds.forEach(function (e) {
-                        _this36.transceivers.delete(e);
-                      }), _e77.senderIds.forEach(function (e) {
-                        _this36.senders.delete(e);
-                      }), _e77.receiverIds.forEach(function (e) {
-                        _this36.receivers.delete(e);
-                      }), {}));
-
-                    case 295:
-                      return _context8.abrupt("return", null);
-
-                    case 296:
-                    case "end":
-                      return _context8.stop();
-                  }
+                je = !1;
+            }var Be = new Uint8Array(256);for (var _e4 = 0; _e4 < 256; _e4++) {
+                Be[_e4] = _e4 >= 252 ? 6 : _e4 >= 248 ? 5 : _e4 >= 240 ? 4 : _e4 >= 224 ? 3 : _e4 >= 192 ? 2 : 1;
+            }Be[254] = Be[254] = 1;var Ze = function Ze(e) {
+                if ("function" == typeof TextEncoder && TextEncoder.prototype.encode) return new TextEncoder().encode(e);var t = void 0,
+                    n = void 0,
+                    r = void 0,
+                    i = void 0,
+                    s = void 0,
+                    a = e.length,
+                    o = 0;for (i = 0; i < a; i++) {
+                    n = e.charCodeAt(i), 55296 == (64512 & n) && i + 1 < a && (r = e.charCodeAt(i + 1), 56320 == (64512 & r) && (n = 65536 + (n - 55296 << 10) + (r - 56320), i++)), o += n < 128 ? 1 : n < 2048 ? 2 : n < 65536 ? 3 : 4;
+                }for (t = new Uint8Array(o), s = 0, i = 0; s < o; i++) {
+                    n = e.charCodeAt(i), 55296 == (64512 & n) && i + 1 < a && (r = e.charCodeAt(i + 1), 56320 == (64512 & r) && (n = 65536 + (n - 55296 << 10) + (r - 56320), i++)), n < 128 ? t[s++] = n : n < 2048 ? (t[s++] = 192 | n >>> 6, t[s++] = 128 | 63 & n) : n < 65536 ? (t[s++] = 224 | n >>> 12, t[s++] = 128 | n >>> 6 & 63, t[s++] = 128 | 63 & n) : (t[s++] = 240 | n >>> 18, t[s++] = 128 | n >>> 12 & 63, t[s++] = 128 | n >>> 6 & 63, t[s++] = 128 | 63 & n);
+                }return t;
+            },
+                We = function We(e, t) {
+                var n = t || e.length;if ("function" == typeof TextDecoder && TextDecoder.prototype.decode) return new TextDecoder().decode(e.subarray(0, t));var r = void 0,
+                    i = void 0;var s = new Array(2 * n);for (i = 0, r = 0; r < n;) {
+                    var _t10 = e[r++];if (_t10 < 128) {
+                        s[i++] = _t10;continue;
+                    }var _a = Be[_t10];if (_a > 4) s[i++] = 65533, r += _a - 1;else {
+                        for (_t10 &= 2 === _a ? 31 : 3 === _a ? 15 : 7; _a > 1 && r < n;) {
+                            _t10 = _t10 << 6 | 63 & e[r++], _a--;
+                        }_a > 1 ? s[i++] = 65533 : _t10 < 65536 ? s[i++] = _t10 : (_t10 -= 65536, s[i++] = 55296 | _t10 >> 10 & 1023, s[i++] = 56320 | 1023 & _t10);
+                    }
+                }return function (e, t) {
+                    if (t < 65534 && e.subarray && je) return String.fromCharCode.apply(null, e.length === t ? e : e.subarray(0, t));var n = "";for (var _r8 = 0; _r8 < t; _r8++) {
+                        n += String.fromCharCode(e[_r8]);
+                    }return n;
+                }(s, i);
+            },
+                Ke = function Ke(e, t) {
+                (t = t || e.length) > e.length && (t = e.length);var n = t - 1;for (; n >= 0 && 128 == (192 & e[n]);) {
+                    n--;
+                }return n < 0 || 0 === n ? t : n + Be[e[n]] > t ? n : t;
+            },
+                $e = function $e() {
+                this.input = null, this.next_in = 0, this.avail_in = 0, this.total_in = 0, this.output = null, this.next_out = 0, this.avail_out = 0, this.total_out = 0, this.msg = "", this.state = null, this.data_type = 2, this.adler = 0;
+            };var Je = Object.prototype.toString,
+                Ye = H.Z_NO_FLUSH,
+                Xe = H.Z_SYNC_FLUSH,
+                Qe = H.Z_FULL_FLUSH,
+                et = H.Z_FINISH,
+                tt = H.Z_OK,
+                nt = H.Z_STREAM_END,
+                rt = H.Z_DEFAULT_COMPRESSION,
+                it = H.Z_DEFAULT_STRATEGY,
+                st = H.Z_DEFLATED;function at(e) {
+                this.options = Fe({ level: rt, method: st, chunkSize: 16384, windowBits: 15, memLevel: 8, strategy: it }, e || {});var t = this.options;t.raw && t.windowBits > 0 ? t.windowBits = -t.windowBits : t.gzip && t.windowBits > 0 && t.windowBits < 16 && (t.windowBits += 16), this.err = 0, this.msg = "", this.ended = !1, this.chunks = [], this.strm = new $e(), this.strm.avail_out = 0;var n = Ve.deflateInit2(this.strm, t.level, t.method, t.windowBits, t.memLevel, t.strategy);if (n !== tt) throw new Error(F[n]);if (t.header && Ve.deflateSetHeader(this.strm, t.header), t.dictionary) {
+                    var _e5 = void 0;if (_e5 = "string" == typeof t.dictionary ? Ze(t.dictionary) : "[object ArrayBuffer]" === Je.call(t.dictionary) ? new Uint8Array(t.dictionary) : t.dictionary, n = Ve.deflateSetDictionary(this.strm, _e5), n !== tt) throw new Error(F[n]);this._dict_set = !0;
                 }
-              }, _callee8, this);
-            }));
+            }function ot(e, t) {
+                var n = new at(t);if (n.push(e, !0), n.err) throw n.msg || F[n.err];return n.result;
+            }at.prototype.push = function (e, t) {
+                var n = this.strm,
+                    r = this.options.chunkSize;var i = void 0,
+                    s = void 0;if (this.ended) return !1;for (s = t === ~~t ? t : !0 === t ? et : Ye, "string" == typeof e ? n.input = Ze(e) : "[object ArrayBuffer]" === Je.call(e) ? n.input = new Uint8Array(e) : n.input = e, n.next_in = 0, n.avail_in = n.input.length;;) {
+                    if (0 === n.avail_out && (n.output = new Uint8Array(r), n.next_out = 0, n.avail_out = r), (s === Xe || s === Qe) && n.avail_out <= 6) this.onData(n.output.subarray(0, n.next_out)), n.avail_out = 0;else {
+                        if (i = Ve.deflate(n, s), i === nt) return n.next_out > 0 && this.onData(n.output.subarray(0, n.next_out)), i = Ve.deflateEnd(this.strm), this.onEnd(i), this.ended = !0, i === tt;if (0 !== n.avail_out) {
+                            if (s > 0 && n.next_out > 0) this.onData(n.output.subarray(0, n.next_out)), n.avail_out = 0;else if (0 === n.avail_in) break;
+                        } else this.onData(n.output);
+                    }
+                }return !0;
+            }, at.prototype.onData = function (e) {
+                this.chunks.push(e);
+            }, at.prototype.onEnd = function (e) {
+                e === tt && (this.result = He(this.chunks)), this.chunks = [], this.err = e, this.msg = this.strm.msg;
+            };var dt = { Deflate: at, deflate: ot, deflateRaw: function deflateRaw(e, t) {
+                    return (t = t || {}).raw = !0, ot(e, t);
+                }, gzip: function gzip(e, t) {
+                    return (t = t || {}).gzip = !0, ot(e, t);
+                }, constants: H };var ct = 16209;var lt = function lt(e, t) {
+                var n = void 0,
+                    r = void 0,
+                    i = void 0,
+                    s = void 0,
+                    a = void 0,
+                    o = void 0,
+                    d = void 0,
+                    c = void 0,
+                    l = void 0,
+                    h = void 0,
+                    u = void 0,
+                    _ = void 0,
+                    f = void 0,
+                    E = void 0,
+                    p = void 0,
+                    g = void 0,
+                    m = void 0,
+                    A = void 0,
+                    v = void 0,
+                    w = void 0,
+                    T = void 0,
+                    y = void 0,
+                    b = void 0,
+                    R = void 0;var k = e.state;n = e.next_in, b = e.input, r = n + (e.avail_in - 5), i = e.next_out, R = e.output, s = i - (t - e.avail_out), a = i + (e.avail_out - 257), o = k.dmax, d = k.wsize, c = k.whave, l = k.wnext, h = k.window, u = k.hold, _ = k.bits, f = k.lencode, E = k.distcode, p = (1 << k.lenbits) - 1, g = (1 << k.distbits) - 1;e: do {
+                    _ < 15 && (u += b[n++] << _, _ += 8, u += b[n++] << _, _ += 8), m = f[u & p];t: for (;;) {
+                        if (A = m >>> 24, u >>>= A, _ -= A, A = m >>> 16 & 255, 0 === A) R[i++] = 65535 & m;else {
+                            if (!(16 & A)) {
+                                if (!(64 & A)) {
+                                    m = f[(65535 & m) + (u & (1 << A) - 1)];continue t;
+                                }if (32 & A) {
+                                    k.mode = 16191;break e;
+                                }e.msg = "invalid literal/length code", k.mode = ct;break e;
+                            }v = 65535 & m, A &= 15, A && (_ < A && (u += b[n++] << _, _ += 8), v += u & (1 << A) - 1, u >>>= A, _ -= A), _ < 15 && (u += b[n++] << _, _ += 8, u += b[n++] << _, _ += 8), m = E[u & g];n: for (;;) {
+                                if (A = m >>> 24, u >>>= A, _ -= A, A = m >>> 16 & 255, !(16 & A)) {
+                                    if (!(64 & A)) {
+                                        m = E[(65535 & m) + (u & (1 << A) - 1)];continue n;
+                                    }e.msg = "invalid distance code", k.mode = ct;break e;
+                                }if (w = 65535 & m, A &= 15, _ < A && (u += b[n++] << _, _ += 8, _ < A && (u += b[n++] << _, _ += 8)), w += u & (1 << A) - 1, w > o) {
+                                    e.msg = "invalid distance too far back", k.mode = ct;break e;
+                                }if (u >>>= A, _ -= A, A = i - s, w > A) {
+                                    if (A = w - A, A > c && k.sane) {
+                                        e.msg = "invalid distance too far back", k.mode = ct;break e;
+                                    }if (T = 0, y = h, 0 === l) {
+                                        if (T += d - A, A < v) {
+                                            v -= A;do {
+                                                R[i++] = h[T++];
+                                            } while (--A);T = i - w, y = R;
+                                        }
+                                    } else if (l < A) {
+                                        if (T += d + l - A, A -= l, A < v) {
+                                            v -= A;do {
+                                                R[i++] = h[T++];
+                                            } while (--A);if (T = 0, l < v) {
+                                                A = l, v -= A;do {
+                                                    R[i++] = h[T++];
+                                                } while (--A);T = i - w, y = R;
+                                            }
+                                        }
+                                    } else if (T += l - A, A < v) {
+                                        v -= A;do {
+                                            R[i++] = h[T++];
+                                        } while (--A);T = i - w, y = R;
+                                    }for (; v > 2;) {
+                                        R[i++] = y[T++], R[i++] = y[T++], R[i++] = y[T++], v -= 3;
+                                    }v && (R[i++] = y[T++], v > 1 && (R[i++] = y[T++]));
+                                } else {
+                                    T = i - w;do {
+                                        R[i++] = R[T++], R[i++] = R[T++], R[i++] = R[T++], v -= 3;
+                                    } while (v > 2);v && (R[i++] = R[T++], v > 1 && (R[i++] = R[T++]));
+                                }break;
+                            }
+                        }break;
+                    }
+                } while (n < r && i < a);v = _ >> 3, n -= v, _ -= v << 3, u &= (1 << _) - 1, e.next_in = n, e.next_out = i, e.avail_in = n < r ? r - n + 5 : 5 - (n - r), e.avail_out = i < a ? a - i + 257 : 257 - (i - a), k.hold = u, k.bits = _;
+            };var ht = 15,
+                ut = new Uint16Array([3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258, 0, 0]),
+                _t = new Uint8Array([16, 16, 16, 16, 16, 16, 16, 16, 17, 17, 17, 17, 18, 18, 18, 18, 19, 19, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21, 16, 72, 78]),
+                ft = new Uint16Array([1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193, 257, 385, 513, 769, 1025, 1537, 2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577, 0, 0]),
+                Et = new Uint8Array([16, 16, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23, 24, 24, 25, 25, 26, 26, 27, 27, 28, 28, 29, 29, 64, 64]);var pt = function pt(e, t, n, r, i, s, a, o) {
+                var d = o.bits;var c = void 0,
+                    l = void 0,
+                    h = void 0,
+                    u = void 0,
+                    _ = void 0,
+                    f = void 0,
+                    E = 0,
+                    p = 0,
+                    g = 0,
+                    m = 0,
+                    A = 0,
+                    v = 0,
+                    w = 0,
+                    T = 0,
+                    y = 0,
+                    b = 0,
+                    R = null;var k = new Uint16Array(16),
+                    I = new Uint16Array(16);var N = void 0,
+                    S = void 0,
+                    C = void 0,
+                    P = null;for (E = 0; E <= ht; E++) {
+                    k[E] = 0;
+                }for (p = 0; p < r; p++) {
+                    k[t[n + p]]++;
+                }for (A = d, m = ht; m >= 1 && 0 === k[m]; m--) {}if (A > m && (A = m), 0 === m) return i[s++] = 20971520, i[s++] = 20971520, o.bits = 1, 0;for (g = 1; g < m && 0 === k[g]; g++) {}for (A < g && (A = g), T = 1, E = 1; E <= ht; E++) {
+                    if (T <<= 1, T -= k[E], T < 0) return -1;
+                }if (T > 0 && (0 === e || 1 !== m)) return -1;for (I[1] = 0, E = 1; E < ht; E++) {
+                    I[E + 1] = I[E] + k[E];
+                }for (p = 0; p < r; p++) {
+                    0 !== t[n + p] && (a[I[t[n + p]]++] = p);
+                }if (0 === e ? (R = P = a, f = 20) : 1 === e ? (R = ut, P = _t, f = 257) : (R = ft, P = Et, f = 0), b = 0, p = 0, E = g, _ = s, v = A, w = 0, h = -1, y = 1 << A, u = y - 1, 1 === e && y > 852 || 2 === e && y > 592) return 1;for (;;) {
+                    N = E - w, a[p] + 1 < f ? (S = 0, C = a[p]) : a[p] >= f ? (S = P[a[p] - f], C = R[a[p] - f]) : (S = 96, C = 0), c = 1 << E - w, l = 1 << v, g = l;do {
+                        l -= c, i[_ + (b >> w) + l] = N << 24 | S << 16 | C;
+                    } while (0 !== l);for (c = 1 << E - 1; b & c;) {
+                        c >>= 1;
+                    }if (0 !== c ? (b &= c - 1, b += c) : b = 0, p++, 0 == --k[E]) {
+                        if (E === m) break;E = t[n + a[p]];
+                    }if (E > A && (b & u) !== h) {
+                        for (0 === w && (w = A), _ += g, v = E - w, T = 1 << v; v + w < m && (T -= k[v + w], !(T <= 0));) {
+                            v++, T <<= 1;
+                        }if (y += 1 << v, 1 === e && y > 852 || 2 === e && y > 592) return 1;h = b & u, i[h] = A << 24 | v << 16 | _ - s;
+                    }
+                }return 0 !== b && (i[_ + b] = E - w << 24 | 64 << 16), o.bits = A, 0;
+            };
+            var gt = H.Z_FINISH,
+                mt = H.Z_BLOCK,
+                At = H.Z_TREES,
+                vt = H.Z_OK,
+                wt = H.Z_STREAM_END,
+                Tt = H.Z_NEED_DICT,
+                yt = H.Z_STREAM_ERROR,
+                bt = H.Z_DATA_ERROR,
+                Rt = H.Z_MEM_ERROR,
+                kt = H.Z_BUF_ERROR,
+                It = H.Z_DEFLATED,
+                Nt = 16180,
+                St = 16190,
+                Ct = 16191,
+                Pt = 16192,
+                Dt = 16194,
+                xt = 16199,
+                Ot = 16200,
+                Mt = 16206,
+                Lt = 16209,
+                Ut = function Ut(e) {
+                return (e >>> 24 & 255) + (e >>> 8 & 65280) + ((65280 & e) << 8) + ((255 & e) << 24);
+            };
 
-            function callWebRTCApi(_x10, _x11, _x12) {
-              return _ref8.apply(this, arguments);
+            function zt() {
+                this.strm = null, this.mode = 0, this.last = !1, this.wrap = 0, this.havedict = !1, this.flags = 0, this.dmax = 0, this.check = 0, this.total = 0, this.head = null, this.wbits = 0, this.wsize = 0, this.whave = 0, this.wnext = 0, this.window = null, this.hold = 0, this.bits = 0, this.length = 0, this.offset = 0, this.extra = 0, this.lencode = null, this.distcode = null, this.lenbits = 0, this.distbits = 0, this.ncode = 0, this.nlen = 0, this.ndist = 0, this.have = 0, this.next = null, this.lens = new Uint16Array(320), this.work = new Uint16Array(288), this.lendyn = null, this.distdyn = null, this.sane = 0, this.back = 0, this.was = 0;
+            }var Gt = function Gt(e) {
+                if (!e) return 1;var t = e.state;return !t || t.strm !== e || t.mode < Nt || t.mode > 16211 ? 1 : 0;
+            },
+                Vt = function Vt(e) {
+                if (Gt(e)) return yt;var t = e.state;return e.total_in = e.total_out = t.total = 0, e.msg = "", t.wrap && (e.adler = 1 & t.wrap), t.mode = Nt, t.last = 0, t.havedict = 0, t.flags = -1, t.dmax = 32768, t.head = null, t.hold = 0, t.bits = 0, t.lencode = t.lendyn = new Int32Array(852), t.distcode = t.distdyn = new Int32Array(592), t.sane = 1, t.back = -1, vt;
+            },
+                qt = function qt(e) {
+                if (Gt(e)) return yt;var t = e.state;return t.wsize = 0, t.whave = 0, t.wnext = 0, Vt(e);
+            },
+                Ft = function Ft(e, t) {
+                var n = void 0;if (Gt(e)) return yt;var r = e.state;return t < 0 ? (n = 0, t = -t) : (n = 5 + (t >> 4), t < 48 && (t &= 15)), t && (t < 8 || t > 15) ? yt : (null !== r.window && r.wbits !== t && (r.window = null), r.wrap = n, r.wbits = t, qt(e));
+            },
+                Ht = function Ht(e, t) {
+                if (!e) return yt;var n = new zt();e.state = n, n.strm = e, n.window = null, n.mode = Nt;var r = Ft(e, t);return r !== vt && (e.state = null), r;
+            };var jt = void 0,
+                Bt = void 0,
+                Zt = !0;var Wt = function Wt(e) {
+                if (Zt) {
+                    jt = new Int32Array(512), Bt = new Int32Array(32);var _t11 = 0;for (; _t11 < 144;) {
+                        e.lens[_t11++] = 8;
+                    }for (; _t11 < 256;) {
+                        e.lens[_t11++] = 9;
+                    }for (; _t11 < 280;) {
+                        e.lens[_t11++] = 7;
+                    }for (; _t11 < 288;) {
+                        e.lens[_t11++] = 8;
+                    }for (pt(1, e.lens, 0, 288, jt, 0, e.work, { bits: 9 }), _t11 = 0; _t11 < 32;) {
+                        e.lens[_t11++] = 5;
+                    }pt(2, e.lens, 0, 32, Bt, 0, e.work, { bits: 5 }), Zt = !1;
+                }e.lencode = jt, e.lenbits = 9, e.distcode = Bt, e.distbits = 5;
+            },
+                Kt = function Kt(e, t, n, r) {
+                var i = void 0;var s = e.state;return null === s.window && (s.wsize = 1 << s.wbits, s.wnext = 0, s.whave = 0, s.window = new Uint8Array(s.wsize)), r >= s.wsize ? (s.window.set(t.subarray(n - s.wsize, n), 0), s.wnext = 0, s.whave = s.wsize) : (i = s.wsize - s.wnext, i > r && (i = r), s.window.set(t.subarray(n - r, n - r + i), s.wnext), (r -= i) ? (s.window.set(t.subarray(n - r, n), 0), s.wnext = r, s.whave = s.wsize) : (s.wnext += i, s.wnext === s.wsize && (s.wnext = 0), s.whave < s.wsize && (s.whave += i))), 0;
+            };var $t = { inflateReset: qt, inflateReset2: Ft, inflateResetKeep: Vt, inflateInit: function inflateInit(e) {
+                    return Ht(e, 15);
+                }, inflateInit2: Ht, inflate: function inflate(e, t) {
+                    var n = void 0,
+                        r = void 0,
+                        i = void 0,
+                        s = void 0,
+                        a = void 0,
+                        o = void 0,
+                        d = void 0,
+                        c = void 0,
+                        l = void 0,
+                        h = void 0,
+                        u = void 0,
+                        _ = void 0,
+                        f = void 0,
+                        E = void 0,
+                        p = void 0,
+                        g = void 0,
+                        m = void 0,
+                        A = void 0,
+                        v = void 0,
+                        w = void 0,
+                        T = void 0,
+                        y = void 0,
+                        b = 0;var R = new Uint8Array(4);var k = void 0,
+                        I = void 0;var N = new Uint8Array([16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15]);if (Gt(e) || !e.output || !e.input && 0 !== e.avail_in) return yt;n = e.state, n.mode === Ct && (n.mode = Pt), a = e.next_out, i = e.output, d = e.avail_out, s = e.next_in, r = e.input, o = e.avail_in, c = n.hold, l = n.bits, h = o, u = d, y = vt;e: for (;;) {
+                        switch (n.mode) {case Nt:
+                                if (0 === n.wrap) {
+                                    n.mode = Pt;break;
+                                }for (; l < 16;) {
+                                    if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                }if (2 & n.wrap && 35615 === c) {
+                                    0 === n.wbits && (n.wbits = 15), n.check = 0, R[0] = 255 & c, R[1] = c >>> 8 & 255, n.check = q(n.check, R, 2, 0), c = 0, l = 0, n.mode = 16181;break;
+                                }if (n.head && (n.head.done = !1), !(1 & n.wrap) || (((255 & c) << 8) + (c >> 8)) % 31) {
+                                    e.msg = "incorrect header check", n.mode = Lt;break;
+                                }if ((15 & c) !== It) {
+                                    e.msg = "unknown compression method", n.mode = Lt;break;
+                                }if (c >>>= 4, l -= 4, T = 8 + (15 & c), 0 === n.wbits && (n.wbits = T), T > 15 || T > n.wbits) {
+                                    e.msg = "invalid window size", n.mode = Lt;break;
+                                }n.dmax = 1 << n.wbits, n.flags = 0, e.adler = n.check = 1, n.mode = 512 & c ? 16189 : Ct, c = 0, l = 0;break;case 16181:
+                                for (; l < 16;) {
+                                    if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                }if (n.flags = c, (255 & n.flags) !== It) {
+                                    e.msg = "unknown compression method", n.mode = Lt;break;
+                                }if (57344 & n.flags) {
+                                    e.msg = "unknown header flags set", n.mode = Lt;break;
+                                }n.head && (n.head.text = c >> 8 & 1), 512 & n.flags && 4 & n.wrap && (R[0] = 255 & c, R[1] = c >>> 8 & 255, n.check = q(n.check, R, 2, 0)), c = 0, l = 0, n.mode = 16182;case 16182:
+                                for (; l < 32;) {
+                                    if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                }n.head && (n.head.time = c), 512 & n.flags && 4 & n.wrap && (R[0] = 255 & c, R[1] = c >>> 8 & 255, R[2] = c >>> 16 & 255, R[3] = c >>> 24 & 255, n.check = q(n.check, R, 4, 0)), c = 0, l = 0, n.mode = 16183;case 16183:
+                                for (; l < 16;) {
+                                    if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                }n.head && (n.head.xflags = 255 & c, n.head.os = c >> 8), 512 & n.flags && 4 & n.wrap && (R[0] = 255 & c, R[1] = c >>> 8 & 255, n.check = q(n.check, R, 2, 0)), c = 0, l = 0, n.mode = 16184;case 16184:
+                                if (1024 & n.flags) {
+                                    for (; l < 16;) {
+                                        if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                    }n.length = c, n.head && (n.head.extra_len = c), 512 & n.flags && 4 & n.wrap && (R[0] = 255 & c, R[1] = c >>> 8 & 255, n.check = q(n.check, R, 2, 0)), c = 0, l = 0;
+                                } else n.head && (n.head.extra = null);n.mode = 16185;case 16185:
+                                if (1024 & n.flags && (_ = n.length, _ > o && (_ = o), _ && (n.head && (T = n.head.extra_len - n.length, n.head.extra || (n.head.extra = new Uint8Array(n.head.extra_len)), n.head.extra.set(r.subarray(s, s + _), T)), 512 & n.flags && 4 & n.wrap && (n.check = q(n.check, r, _, s)), o -= _, s += _, n.length -= _), n.length)) break e;n.length = 0, n.mode = 16186;case 16186:
+                                if (2048 & n.flags) {
+                                    if (0 === o) break e;_ = 0;do {
+                                        T = r[s + _++], n.head && T && n.length < 65536 && (n.head.name += String.fromCharCode(T));
+                                    } while (T && _ < o);if (512 & n.flags && 4 & n.wrap && (n.check = q(n.check, r, _, s)), o -= _, s += _, T) break e;
+                                } else n.head && (n.head.name = null);n.length = 0, n.mode = 16187;case 16187:
+                                if (4096 & n.flags) {
+                                    if (0 === o) break e;_ = 0;do {
+                                        T = r[s + _++], n.head && T && n.length < 65536 && (n.head.comment += String.fromCharCode(T));
+                                    } while (T && _ < o);if (512 & n.flags && 4 & n.wrap && (n.check = q(n.check, r, _, s)), o -= _, s += _, T) break e;
+                                } else n.head && (n.head.comment = null);n.mode = 16188;case 16188:
+                                if (512 & n.flags) {
+                                    for (; l < 16;) {
+                                        if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                    }if (4 & n.wrap && c !== (65535 & n.check)) {
+                                        e.msg = "header crc mismatch", n.mode = Lt;break;
+                                    }c = 0, l = 0;
+                                }n.head && (n.head.hcrc = n.flags >> 9 & 1, n.head.done = !0), e.adler = n.check = 0, n.mode = Ct;break;case 16189:
+                                for (; l < 32;) {
+                                    if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                }e.adler = n.check = Ut(c), c = 0, l = 0, n.mode = St;case St:
+                                if (0 === n.havedict) return e.next_out = a, e.avail_out = d, e.next_in = s, e.avail_in = o, n.hold = c, n.bits = l, Tt;e.adler = n.check = 1, n.mode = Ct;case Ct:
+                                if (t === mt || t === At) break e;case Pt:
+                                if (n.last) {
+                                    c >>>= 7 & l, l -= 7 & l, n.mode = Mt;break;
+                                }for (; l < 3;) {
+                                    if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                }switch (n.last = 1 & c, c >>>= 1, l -= 1, 3 & c) {case 0:
+                                        n.mode = 16193;break;case 1:
+                                        if (Wt(n), n.mode = xt, t === At) {
+                                            c >>>= 2, l -= 2;break e;
+                                        }break;case 2:
+                                        n.mode = 16196;break;case 3:
+                                        e.msg = "invalid block type", n.mode = Lt;}c >>>= 2, l -= 2;break;case 16193:
+                                for (c >>>= 7 & l, l -= 7 & l; l < 32;) {
+                                    if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                }if ((65535 & c) != (c >>> 16 ^ 65535)) {
+                                    e.msg = "invalid stored block lengths", n.mode = Lt;break;
+                                }if (n.length = 65535 & c, c = 0, l = 0, n.mode = Dt, t === At) break e;case Dt:
+                                n.mode = 16195;case 16195:
+                                if (_ = n.length, _) {
+                                    if (_ > o && (_ = o), _ > d && (_ = d), 0 === _) break e;i.set(r.subarray(s, s + _), a), o -= _, s += _, d -= _, a += _, n.length -= _;break;
+                                }n.mode = Ct;break;case 16196:
+                                for (; l < 14;) {
+                                    if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                }if (n.nlen = 257 + (31 & c), c >>>= 5, l -= 5, n.ndist = 1 + (31 & c), c >>>= 5, l -= 5, n.ncode = 4 + (15 & c), c >>>= 4, l -= 4, n.nlen > 286 || n.ndist > 30) {
+                                    e.msg = "too many length or distance symbols", n.mode = Lt;break;
+                                }n.have = 0, n.mode = 16197;case 16197:
+                                for (; n.have < n.ncode;) {
+                                    for (; l < 3;) {
+                                        if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                    }n.lens[N[n.have++]] = 7 & c, c >>>= 3, l -= 3;
+                                }for (; n.have < 19;) {
+                                    n.lens[N[n.have++]] = 0;
+                                }if (n.lencode = n.lendyn, n.lenbits = 7, k = { bits: n.lenbits }, y = pt(0, n.lens, 0, 19, n.lencode, 0, n.work, k), n.lenbits = k.bits, y) {
+                                    e.msg = "invalid code lengths set", n.mode = Lt;break;
+                                }n.have = 0, n.mode = 16198;case 16198:
+                                for (; n.have < n.nlen + n.ndist;) {
+                                    for (; b = n.lencode[c & (1 << n.lenbits) - 1], p = b >>> 24, g = b >>> 16 & 255, m = 65535 & b, !(p <= l);) {
+                                        if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                    }if (m < 16) c >>>= p, l -= p, n.lens[n.have++] = m;else {
+                                        if (16 === m) {
+                                            for (I = p + 2; l < I;) {
+                                                if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                            }if (c >>>= p, l -= p, 0 === n.have) {
+                                                e.msg = "invalid bit length repeat", n.mode = Lt;break;
+                                            }T = n.lens[n.have - 1], _ = 3 + (3 & c), c >>>= 2, l -= 2;
+                                        } else if (17 === m) {
+                                            for (I = p + 3; l < I;) {
+                                                if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                            }c >>>= p, l -= p, T = 0, _ = 3 + (7 & c), c >>>= 3, l -= 3;
+                                        } else {
+                                            for (I = p + 7; l < I;) {
+                                                if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                            }c >>>= p, l -= p, T = 0, _ = 11 + (127 & c), c >>>= 7, l -= 7;
+                                        }if (n.have + _ > n.nlen + n.ndist) {
+                                            e.msg = "invalid bit length repeat", n.mode = Lt;break;
+                                        }for (; _--;) {
+                                            n.lens[n.have++] = T;
+                                        }
+                                    }
+                                }if (n.mode === Lt) break;if (0 === n.lens[256]) {
+                                    e.msg = "invalid code -- missing end-of-block", n.mode = Lt;break;
+                                }if (n.lenbits = 9, k = { bits: n.lenbits }, y = pt(1, n.lens, 0, n.nlen, n.lencode, 0, n.work, k), n.lenbits = k.bits, y) {
+                                    e.msg = "invalid literal/lengths set", n.mode = Lt;break;
+                                }if (n.distbits = 6, n.distcode = n.distdyn, k = { bits: n.distbits }, y = pt(2, n.lens, n.nlen, n.ndist, n.distcode, 0, n.work, k), n.distbits = k.bits, y) {
+                                    e.msg = "invalid distances set", n.mode = Lt;break;
+                                }if (n.mode = xt, t === At) break e;case xt:
+                                n.mode = Ot;case Ot:
+                                if (o >= 6 && d >= 258) {
+                                    e.next_out = a, e.avail_out = d, e.next_in = s, e.avail_in = o, n.hold = c, n.bits = l, lt(e, u), a = e.next_out, i = e.output, d = e.avail_out, s = e.next_in, r = e.input, o = e.avail_in, c = n.hold, l = n.bits, n.mode === Ct && (n.back = -1);break;
+                                }for (n.back = 0; b = n.lencode[c & (1 << n.lenbits) - 1], p = b >>> 24, g = b >>> 16 & 255, m = 65535 & b, !(p <= l);) {
+                                    if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                }if (g && !(240 & g)) {
+                                    for (A = p, v = g, w = m; b = n.lencode[w + ((c & (1 << A + v) - 1) >> A)], p = b >>> 24, g = b >>> 16 & 255, m = 65535 & b, !(A + p <= l);) {
+                                        if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                    }c >>>= A, l -= A, n.back += A;
+                                }if (c >>>= p, l -= p, n.back += p, n.length = m, 0 === g) {
+                                    n.mode = 16205;break;
+                                }if (32 & g) {
+                                    n.back = -1, n.mode = Ct;break;
+                                }if (64 & g) {
+                                    e.msg = "invalid literal/length code", n.mode = Lt;break;
+                                }n.extra = 15 & g, n.mode = 16201;case 16201:
+                                if (n.extra) {
+                                    for (I = n.extra; l < I;) {
+                                        if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                    }n.length += c & (1 << n.extra) - 1, c >>>= n.extra, l -= n.extra, n.back += n.extra;
+                                }n.was = n.length, n.mode = 16202;case 16202:
+                                for (; b = n.distcode[c & (1 << n.distbits) - 1], p = b >>> 24, g = b >>> 16 & 255, m = 65535 & b, !(p <= l);) {
+                                    if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                }if (!(240 & g)) {
+                                    for (A = p, v = g, w = m; b = n.distcode[w + ((c & (1 << A + v) - 1) >> A)], p = b >>> 24, g = b >>> 16 & 255, m = 65535 & b, !(A + p <= l);) {
+                                        if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                    }c >>>= A, l -= A, n.back += A;
+                                }if (c >>>= p, l -= p, n.back += p, 64 & g) {
+                                    e.msg = "invalid distance code", n.mode = Lt;break;
+                                }n.offset = m, n.extra = 15 & g, n.mode = 16203;case 16203:
+                                if (n.extra) {
+                                    for (I = n.extra; l < I;) {
+                                        if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                    }n.offset += c & (1 << n.extra) - 1, c >>>= n.extra, l -= n.extra, n.back += n.extra;
+                                }if (n.offset > n.dmax) {
+                                    e.msg = "invalid distance too far back", n.mode = Lt;break;
+                                }n.mode = 16204;case 16204:
+                                if (0 === d) break e;if (_ = u - d, n.offset > _) {
+                                    if (_ = n.offset - _, _ > n.whave && n.sane) {
+                                        e.msg = "invalid distance too far back", n.mode = Lt;break;
+                                    }_ > n.wnext ? (_ -= n.wnext, f = n.wsize - _) : f = n.wnext - _, _ > n.length && (_ = n.length), E = n.window;
+                                } else E = i, f = a - n.offset, _ = n.length;_ > d && (_ = d), d -= _, n.length -= _;do {
+                                    i[a++] = E[f++];
+                                } while (--_);0 === n.length && (n.mode = Ot);break;case 16205:
+                                if (0 === d) break e;i[a++] = n.length, d--, n.mode = Ot;break;case Mt:
+                                if (n.wrap) {
+                                    for (; l < 32;) {
+                                        if (0 === o) break e;o--, c |= r[s++] << l, l += 8;
+                                    }if (u -= d, e.total_out += u, n.total += u, 4 & n.wrap && u && (e.adler = n.check = n.flags ? q(n.check, i, u, a - u) : G(n.check, i, u, a - u)), u = d, 4 & n.wrap && (n.flags ? c : Ut(c)) !== n.check) {
+                                        e.msg = "incorrect data check", n.mode = Lt;break;
+                                    }c = 0, l = 0;
+                                }n.mode = 16207;case 16207:
+                                if (n.wrap && n.flags) {
+                                    for (; l < 32;) {
+                                        if (0 === o) break e;o--, c += r[s++] << l, l += 8;
+                                    }if (4 & n.wrap && c !== (4294967295 & n.total)) {
+                                        e.msg = "incorrect length check", n.mode = Lt;break;
+                                    }c = 0, l = 0;
+                                }n.mode = 16208;case 16208:
+                                y = wt;break e;case Lt:
+                                y = bt;break e;case 16210:
+                                return Rt;default:
+                                return yt;}
+                    }return e.next_out = a, e.avail_out = d, e.next_in = s, e.avail_in = o, n.hold = c, n.bits = l, (n.wsize || u !== e.avail_out && n.mode < Lt && (n.mode < Mt || t !== gt)) && Kt(e, e.output, e.next_out, u - e.avail_out), h -= e.avail_in, u -= e.avail_out, e.total_in += h, e.total_out += u, n.total += u, 4 & n.wrap && u && (e.adler = n.check = n.flags ? q(n.check, i, u, e.next_out - u) : G(n.check, i, u, e.next_out - u)), e.data_type = n.bits + (n.last ? 64 : 0) + (n.mode === Ct ? 128 : 0) + (n.mode === xt || n.mode === Dt ? 256 : 0), (0 === h && 0 === u || t === gt) && y === vt && (y = kt), y;
+                }, inflateEnd: function inflateEnd(e) {
+                    if (Gt(e)) return yt;var t = e.state;return t.window && (t.window = null), e.state = null, vt;
+                }, inflateGetHeader: function inflateGetHeader(e, t) {
+                    if (Gt(e)) return yt;var n = e.state;return 2 & n.wrap ? (n.head = t, t.done = !1, vt) : yt;
+                }, inflateSetDictionary: function inflateSetDictionary(e, t) {
+                    var n = t.length;var r = void 0,
+                        i = void 0,
+                        s = void 0;return Gt(e) ? yt : (r = e.state, 0 !== r.wrap && r.mode !== St ? yt : r.mode === St && (i = 1, i = G(i, t, n, 0), i !== r.check) ? bt : (s = Kt(e, t, n, n), s ? (r.mode = 16210, Rt) : (r.havedict = 1, vt)));
+                }, inflateInfo: "pako inflate (from Nodeca project)" },
+                Jt = function Jt() {
+                this.text = 0, this.time = 0, this.xflags = 0, this.os = 0, this.extra = null, this.extra_len = 0, this.name = "", this.comment = "", this.hcrc = 0, this.done = !1;
+            };var Yt = Object.prototype.toString,
+                Xt = H.Z_NO_FLUSH,
+                Qt = H.Z_FINISH,
+                en = H.Z_OK,
+                tn = H.Z_STREAM_END,
+                nn = H.Z_NEED_DICT,
+                rn = H.Z_STREAM_ERROR,
+                sn = H.Z_DATA_ERROR,
+                an = H.Z_MEM_ERROR;function on(e) {
+                this.options = Fe({ chunkSize: 65536, windowBits: 15, to: "" }, e || {});var t = this.options;t.raw && t.windowBits >= 0 && t.windowBits < 16 && (t.windowBits = -t.windowBits, 0 === t.windowBits && (t.windowBits = -15)), !(t.windowBits >= 0 && t.windowBits < 16) || e && e.windowBits || (t.windowBits += 32), t.windowBits > 15 && t.windowBits < 48 && !(15 & t.windowBits) && (t.windowBits |= 15), this.err = 0, this.msg = "", this.ended = !1, this.chunks = [], this.strm = new $e(), this.strm.avail_out = 0;var n = $t.inflateInit2(this.strm, t.windowBits);if (n !== en) throw new Error(F[n]);if (this.header = new Jt(), $t.inflateGetHeader(this.strm, this.header), t.dictionary && ("string" == typeof t.dictionary ? t.dictionary = Ze(t.dictionary) : "[object ArrayBuffer]" === Yt.call(t.dictionary) && (t.dictionary = new Uint8Array(t.dictionary)), t.raw && (n = $t.inflateSetDictionary(this.strm, t.dictionary), n !== en))) throw new Error(F[n]);
+            }function dn(e, t) {
+                var n = new on(t);if (n.push(e), n.err) throw n.msg || F[n.err];return n.result;
+            }on.prototype.push = function (e, t) {
+                var n = this.strm,
+                    r = this.options.chunkSize,
+                    i = this.options.dictionary;var s = void 0,
+                    a = void 0,
+                    o = void 0;if (this.ended) return !1;for (a = t === ~~t ? t : !0 === t ? Qt : Xt, "[object ArrayBuffer]" === Yt.call(e) ? n.input = new Uint8Array(e) : n.input = e, n.next_in = 0, n.avail_in = n.input.length;;) {
+                    for (0 === n.avail_out && (n.output = new Uint8Array(r), n.next_out = 0, n.avail_out = r), s = $t.inflate(n, a), s === nn && i && (s = $t.inflateSetDictionary(n, i), s === en ? s = $t.inflate(n, a) : s === sn && (s = nn)); n.avail_in > 0 && s === tn && n.state.wrap > 0 && 0 !== e[n.next_in];) {
+                        $t.inflateReset(n), s = $t.inflate(n, a);
+                    }switch (s) {case rn:case sn:case nn:case an:
+                            return this.onEnd(s), this.ended = !0, !1;}if (o = n.avail_out, n.next_out && (0 === n.avail_out || s === tn)) if ("string" === this.options.to) {
+                        var _e6 = Ke(n.output, n.next_out),
+                            _t12 = n.next_out - _e6,
+                            _i5 = We(n.output, _e6);n.next_out = _t12, n.avail_out = r - _t12, _t12 && n.output.set(n.output.subarray(_e6, _e6 + _t12), 0), this.onData(_i5);
+                    } else this.onData(n.output.length === n.next_out ? n.output : n.output.subarray(0, n.next_out));if (s !== en || 0 !== o) {
+                        if (s === tn) return s = $t.inflateEnd(this.strm), this.onEnd(s), this.ended = !0, !0;if (0 === n.avail_in) break;
+                    }
+                }return !0;
+            }, on.prototype.onData = function (e) {
+                this.chunks.push(e);
+            }, on.prototype.onEnd = function (e) {
+                e === en && ("string" === this.options.to ? this.result = this.chunks.join("") : this.result = He(this.chunks)), this.chunks = [], this.err = e, this.msg = this.strm.msg;
+            };var cn = { Inflate: on, inflate: dn, inflateRaw: function inflateRaw(e, t) {
+                    return (t = t || {}).raw = !0, dn(e, t);
+                }, ungzip: dn, constants: H };var ln = dt.Deflate,
+                hn = dt.deflate,
+                un = dt.deflateRaw,
+                _n = dt.gzip,
+                fn = cn.Inflate,
+                En = cn.inflate,
+                pn = cn.inflateRaw,
+                gn = cn.ungzip;
+            var mn = ln,
+                An = hn,
+                vn = un,
+                wn = _n,
+                Tn = fn,
+                yn = En,
+                bn = pn,
+                Rn = gn,
+                kn = H,
+                In = { Deflate: mn, deflate: An, deflateRaw: vn, gzip: wn, Inflate: Tn, inflate: yn, inflateRaw: bn, ungzip: Rn, constants: kn };e.Deflate = mn, e.Inflate = Tn, e.constants = kn, e.default = In, e.deflate = An, e.deflateRaw = vn, e.gzip = wn, e.inflate = yn, e.inflateRaw = bn, e.ungzip = Rn, Object.defineProperty(e, "__esModule", { value: !0 });
+        }(t);
+    }(0, m.exports);var A = r(m.exports);function v() {
+        return function () {
+            var e = window.navigator.userAgent.toLowerCase();return e.indexOf("edg/") > -1 || e.indexOf("edge") > -1;
+        }() ? u.EDGE : u.CHROME;
+    }
+    var w = function () {
+        function w(e) {
+            (0, _classCallCheck3.default)(this, w);
+            if (this.version = t, this.config = e, this.logger = e.logger, this.clientInfo = null, this.certParams = { name: "ECDSA", namedCurve: "P-256" }, this.extensionId = v(), this.pcProxies = new Map(), this.audioContextProxies = new Map(), this.audioNodeProxies = new Map(), this.workerProxies = new Map(), this.streamProxies = new Map(), this.eventListeners = new Map(), this.mediaElementProxies = new Map(), this.transceiverProxies = new Map(), this.senderProxies = new Map(), this.dtmfProxies = new Map(), this.receiverProxies = new Map(), this.trackProxies = new Map(), this.overridenApis = new Map(), this.decoder = new TextDecoder("utf-8"), this.logger.debug("Checking for chrome extension.  Chrome runtime: " + chrome.runtime), void 0 === chrome.runtime) throw new Error("Chrome runtime not available.  DCV WebRTC chrome extension may not be active.");this.overridenApis.set("navigator.mediaDevices.getUserMedia", navigator.mediaDevices.getUserMedia), this.overridenApis.set("navigator.mediaDevices.enumerateDevices", navigator.mediaDevices.enumerateDevices), this.overridenApis.set("window.RTCPeerConnection", window.RTCPeerConnection), this.overridenApis.set("window.RTCPeerConnection.generateCertificate", window.RTCPeerConnection.generateCertificate), this.overridenApis.set("window.AudioContext", window.AudioContext), this.overridenApis.set("window.Worker", window.Worker), this.status = h.NEW, this.statusChangeEventListeners = [], this.lastHeartbeat = Date.now(), this.heartbeatTimeout = null, this.heartbeatTimeoutMs = 1e4, this.heartbeatIntervalPeriodMs = 1e3, this.heartbeatInterval = null;
+        }
+
+        (0, _createClass3.default)(w, [{
+            key: "clearHeartbeatInterval",
+            value: function clearHeartbeatInterval() {
+                this.heartbeatTimeout && (clearTimeout(this.heartbeatTimeout), this.heartbeatTimeout = null), this.hearbeatInterval && (clearInterval(this.hearbeatInterval), this.hearbeatInterval = null);
             }
+        }, {
+            key: "resetHeartbeat",
+            value: function resetHeartbeat(e) {
+                var t = this;this.clearHeartbeatInterval(), this.heartbeatTimeoutMs = e && e.heartbeatTimeoutMs ? e.heartbeatTimeoutMs : this.heartbeatTimeoutMs, this.heartbeatIntervalPeriodMs = e && e.heartbeatIntervalPeriodMs ? e.heartbeatIntervalPeriodMs : this.heartbeatIntervalPeriodMs, this.hearbeatInterval = setInterval((0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+                    return _regenerator2.default.wrap(function _callee$(_context) {
+                        while (1) {
+                            switch (_context.prev = _context.next) {
+                                case 0:
+                                    t.heartbeatTimeout || (t.heartbeatTimeout = setTimeout(function () {
+                                        t.logger.debug("heartbeatTimeout reached, current status: " + t.status + ", last hb: " + (Date.now() - t.lastHeartbeat) + "ms ago."), t.status !== h.UNAVAILABLE && (t.status = h.UNAVAILABLE, t.statusChangeEventListeners.forEach(function (e) {
+                                            e({ status: t.status, data: t.clientInfo, lastHeartbeat: t.lastHeartbeat });
+                                        }));
+                                    }, t.heartbeatTimeoutMs));_context.prev = 1;
+                                    _context.next = 4;
+                                    return t.sendApiRequest(a.HELLO_API_NAME, []);
 
-            return callWebRTCApi;
-          }()
-        }, {
-          key: "sendMessage",
-          value: function sendMessage(e) {
-            this.logger.debug("Sending message: " + JSON.stringify(e));var t = e.message,
-                r = _.deflateRaw(JSON.stringify(t));e.message = r;var n = new TextEncoder().encode(JSON.stringify(e)),
-                i = n.byteLength,
-                s = new Uint8Array([i, i >> 8, i >> 16, i >> 24]);this.channel.sendMessage(s), this.channel.sendMessage(n);
-          }
-        }, {
-          key: "sendEvent",
-          value: function sendEvent(e, t, r) {
-            var n = { requestId: t, type: "event", message: { api: e, event: r } };this.sendMessage(n);
-          }
-        }, {
-          key: "sendResponse",
-          value: function sendResponse(e, t, r) {
-            var n = { requestId: t, type: "response", message: { api: e, response: r } };this.sendMessage(n);
-          }
-        }, {
-          key: "sendError",
-          value: function sendError(e, t, r) {
-            var n = { requestId: t, type: "error", message: { api: e, error: r } };this.sendMessage(n);
-          }
-        }, {
-          key: "handleWebRTCApi",
-          value: function () {
-            var _ref9 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee9(e) {
-              var _t70;
+                                case 4:
+                                    t.clientInfo = _context.sent;
 
-              return _regenerator2.default.wrap(function _callee9$(_context9) {
-                while (1) {
-                  switch (_context9.prev = _context9.next) {
-                    case 0:
-                      _context9.prev = 0;
-                      _context9.next = 3;
-                      return this.callWebRTCApi(e.message.api, e.requestId, e.message.args);
+                                    if (t.clientInfo) {
+                                        _context.next = 7;
+                                        break;
+                                    }
 
-                    case 3:
-                      _t70 = _context9.sent;
-                      _t70 && this.sendResponse(e.message.api, e.requestId, _t70);_context9.next = 10;
-                      break;
+                                    throw new Error("Failed to get clientInfo.");
 
-                    case 7:
-                      _context9.prev = 7;
-                      _context9.t0 = _context9["catch"](0);
-                      this.logger.error("Error handling WebRTC API: " + JSON.stringify(e) + ", message: " + (_context9.t0.message ? _context9.t0.message : "(no message)") + ", error: " + JSON.stringify(_context9.t0)), this.logger.trace(_context9.t0), this.sendError(e.message.api, e.requestId, { name: _context9.t0.name, message: _context9.t0.message });
-                    case 10:
-                    case "end":
-                      return _context9.stop();
-                  }
+                                case 7:
+                                    t.heartbeatTimeout && (clearTimeout(t.heartbeatTimeout), t.heartbeatTimeout = null), t.status !== h.AVAILABLE && (t.status = h.AVAILABLE, t.statusChangeEventListeners.forEach(function (e) {
+                                        e({ status: t.status, data: t.clientInfo });
+                                    })), t.lastHeartbeat = Date.now();_context.next = 13;
+                                    break;
+
+                                case 10:
+                                    _context.prev = 10;
+                                    _context.t0 = _context["catch"](1);
+                                    t.logger.debug("Heartbeat ping failed.  Last heartbeat received " + (Date.now() - t.lastHeartbeat) + "ms ago.");
+                                case 13:
+                                case "end":
+                                    return _context.stop();
+                            }
+                        }
+                    }, _callee, this, [[1, 10]]);
+                })), this.heartbeatIntervalPeriodMs);
+            }
+        }, {
+            key: "makeMediaDeviceInfoProxies",
+            value: function makeMediaDeviceInfoProxies(e) {
+                return e.forEach(function (e) {
+                    e.toJSON = function () {
+                        return e;
+                    };
+                }), e;
+            }
+        }, {
+            key: "makeTrackProxy",
+            value: function makeTrackProxy(e) {
+                var t = this;if (this.trackProxies.has(e.id)) {
+                    var _t13 = this.trackProxies.get(e.id);return Object.assign(_t13, e), _t13;
+                }return this.trackProxies.set(e.id, e), e.pendingEvents = new Map(), e.stop = function () {
+                    t.sendApiRequest(a.TRACK_STOP_API_NAME, [e.id]);
+                }, e.getSettings = function () {
+                    return t.sendApiRequest(a.TRACK_GET_SETTINGS, [e.id]).then(function (t) {
+                        t && (e.settings = t);
+                    }), e.settings;
+                }, e.addEventListener = function (n, r, i) {
+                    t.logger.debug("Setting ended event listener via addEventListener."), t.addTrackEventListener(e.id, n, r, i);
+                }, e.removeEventListener = function (n, r) {
+                    t.removeEventListener(e.id, n, r);
+                }, Object.defineProperty(e, "onended", { set: function set(n) {
+                        t.addTrackEventListener(e.id, d.ENDED, n);
+                    }, get: function get() {
+                        return null;
+                    } }), Object.defineProperty(e, "onmute", { set: function set(n) {
+                        t.addTrackEventListener(e.id, d.MUTE, n);
+                    }, get: function get() {
+                        return null;
+                    } }), Object.defineProperty(e, "onunmute", { set: function set(n) {
+                        t.addTrackEventListener(e.id, d.UNMUTE, n);
+                    }, get: function get() {
+                        return null;
+                    } }), e.trackEnabled = e.enabled, Object.defineProperty(e, "enabled", { set: function set(n) {
+                        e.trackEnabled = n, t.sendApiRequest(a.TOGGLE_TRACK_ENABLED_API_NAME, [e.id, n]).then(function (n) {
+                            n && (t.trackProxies.get(e.id).trackEnabled = n.enabled);
+                        });
+                    }, get: function get() {
+                        return e.trackEnabled;
+                    } }), this.preRegisterEvents(d, e, this.addTrackEventListener), e;
+            }
+        }, {
+            key: "makeStreamProxy",
+            value: function makeStreamProxy(e) {
+                var t = this;this.streamProxies.set(e.id, e);var n = new MediaStream();n.type = "proxy", n.proxy = e;var r = e.tracks ? e.tracks.map(function (e) {
+                    return t.makeTrackProxy(e);
+                }) : [];return e.tracks = r, n.getTracks = function () {
+                    return r;
+                }, n.getAudioTracks = function () {
+                    return r.filter(function (e) {
+                        return "audio" === e.kind;
+                    });
+                }, n.getVideoTracks = function () {
+                    return r.filter(function (e) {
+                        return "video" === e.kind;
+                    });
+                }, n.getTrackById = function (e) {
+                    return r.find(function (t) {
+                        return t.id === e;
+                    });
+                }, n.createMediaElement = function (e) {
+                    return t.createMediaElement(e);
+                }, n.addTrack = function (n) {
+                    t.sendApiRequest(a.STREAM_ADD_TRACK, [e.id, n.id]);
+                }, n.removeTrack = function (n) {
+                    t.sendApiRequest(a.STREAM_REMOVE_TRACK, [e.id, n.id]);
+                }, n;
+            }
+        }, {
+            key: "updateTransceiverProxy",
+            value: function updateTransceiverProxy(e) {
+                var t = this.transceiverProxies.get(e.id);return t || (t = {}), Object.assign(t, e), e.receiver && "proxy" === e.receiver.type && (t.receiver = this.updateReceiverProxy(e.receiver)), e.sender && "proxy" === e.sender.type && (t.sender = this.updateSenderProxy(e.sender)), this.transceiverProxies.set(e.id, t), t;
+            }
+        }, {
+            key: "updatePCSenders",
+            value: function updatePCSenders(e, t) {
+                var n = this;var r = t.map(function (e) {
+                    return n.updateSenderProxy(e);
+                });this.pcProxies.get(e).senders = r;
+            }
+        }, {
+            key: "updatePCReceivers",
+            value: function updatePCReceivers(e, t) {
+                var n = this;var r = t.map(function (e) {
+                    return n.updateReceiverProxy(e);
+                });this.pcProxies.get(e).receivers = r;
+            }
+        }, {
+            key: "updatePCTransceivers",
+            value: function updatePCTransceivers(e, t) {
+                var n = this;var r = t;r.forEach(function (e) {
+                    n.updateTransceiverProxy(e);
+                }), this.pcProxies.get(e).transceivers = r;
+            }
+        }, {
+            key: "isValidApi",
+            value: function isValidApi(e) {
+                var t = !1;for (var _n5 in a) {
+                    if (a[_n5] === e) {
+                        t = !0;break;
+                    }
+                }return t;
+            }
+        }, {
+            key: "sendApiRequest",
+            value: function () {
+                var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(e, t) {
+                    var n = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : crypto.randomUUID();
+
+                    var _r9, _i6, _s, _a2, _o, _d, _e7, _e8, _t14, _e9, _e10;
+
+                    return _regenerator2.default.wrap(function _callee2$(_context2) {
+                        while (1) {
+                            switch (_context2.prev = _context2.next) {
+                                case 0:
+                                    this.logger.debug(e, t, n);_context2.prev = 1;
+                                    _r9 = { api: e, args: t };
+                                    _i6 = A.deflateRaw(JSON.stringify(_r9));
+                                    _s = { requestId: n, message: _i6, type: "request" };
+                                    this.logger.debug("Sending request:", JSON.stringify(_s));_context2.next = 8;
+                                    return chrome.runtime.sendMessage(this.extensionId, _s);
+
+                                case 8:
+                                    _a2 = _context2.sent;
+                                    _i6 = _a2.message;_o = A.inflateRaw(_i6), _d = this.decoder.decode(_o);
+
+                                    if (!(_a2.message = JSON.parse(_d), this.logger.debug("Received response: ", JSON.stringify(_a2)), !_a2 || !_a2.message || !_a2.type)) {
+                                        _context2.next = 14;
+                                        break;
+                                    }
+
+                                    _e7 = "Received empty message or type, extensionResponse: " + JSON.stringify(_a2) + ", request: " + JSON.stringify(_s) + ", message: " + JSON.stringify(_r9);
+                                    return _context2.abrupt("return", (this.logger.warn(_e7), null));
+
+                                case 14:
+                                    if (!("error" === _a2.type)) {
+                                        _context2.next = 19;
+                                        break;
+                                    }
+
+                                    _e8 = "Received error: " + JSON.stringify(_a2) + ", for request: " + JSON.stringify(_s) + ", message: " + JSON.stringify(_r9), _t14 = null;
+
+                                    if (!(this.logger.debug(_e8), _a2.message.error && _a2.message.error.message && _a2.message.error && _a2.message.error.name)) {
+                                        _context2.next = 18;
+                                        break;
+                                    }
+
+                                    throw _e8 = _a2.message.error.message, _t14 = _a2.message.error.name, new DOMException(_e8, _t14);
+
+                                case 18:
+                                    return _context2.abrupt("return", null);
+
+                                case 19:
+                                    if (!("response" !== _a2.type && "event" !== _a2.type && "error" !== _a2.type)) {
+                                        _context2.next = 22;
+                                        break;
+                                    }
+
+                                    _e9 = "Received invalid message type, type: " + JSON.stringify(_a2.type) + ", event: " + JSON.stringify(_a2) + ", request: " + JSON.stringify(_s) + ", message: " + JSON.stringify(_r9);
+                                    return _context2.abrupt("return", (this.logger.warn(_e9), null));
+
+                                case 22:
+                                    if (!(_a2.message.api && !this.isValidApi(_a2.message.api))) {
+                                        _context2.next = 25;
+                                        break;
+                                    }
+
+                                    _e10 = "Received invalid message api, event: " + JSON.stringify(_a2) + ", request: " + JSON.stringify(_s) + ", message: " + JSON.stringify(_r9);
+                                    return _context2.abrupt("return", (this.logger.warn(_e10), null));
+
+                                case 25:
+                                    return _context2.abrupt("return", "event" === _a2.type ? _a2.message.event : _a2.message.response);
+
+                                case 28:
+                                    _context2.prev = 28;
+                                    _context2.t0 = _context2["catch"](1);
+                                    return _context2.abrupt("return", (this.logger.warn("Failed to send api request: api: " + e + ", args: " + t + ", requestId: " + n, _context2.t0), null));
+
+                                case 31:
+                                case "end":
+                                    return _context2.stop();
+                            }
+                        }
+                    }, _callee2, this, [[1, 28]]);
+                }));
+
+                function sendApiRequest(_x2, _x3) {
+                    return _ref2.apply(this, arguments);
                 }
-              }, _callee9, this, [[0, 7]]);
-            }));
 
-            function handleWebRTCApi(_x13) {
-              return _ref9.apply(this, arguments);
+                return sendApiRequest;
+            }()
+        }, {
+            key: "getUserMediaInternal",
+            value: function () {
+                var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(e) {
+                    var t;
+                    return _regenerator2.default.wrap(function _callee3$(_context3) {
+                        while (1) {
+                            switch (_context3.prev = _context3.next) {
+                                case 0:
+                                    _context3.next = 2;
+                                    return this.sendApiRequest(a.GETUSERMEDIA_API_NAME, [e]);
+
+                                case 2:
+                                    t = _context3.sent;
+                                    return _context3.abrupt("return", t ? this.makeStreamProxy(t) : null);
+
+                                case 4:
+                                case "end":
+                                    return _context3.stop();
+                            }
+                        }
+                    }, _callee3, this);
+                }));
+
+                function getUserMediaInternal(_x4) {
+                    return _ref3.apply(this, arguments);
+                }
+
+                return getUserMediaInternal;
+            }()
+        }, {
+            key: "getOverridenApi",
+            value: function getOverridenApi(e) {
+                return this.overridenApis.get(e);
             }
+        }, {
+            key: "getUserMedia",
+            value: function () {
+                var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(e) {
+                    var t, _e11, _n6, _e12, _e13, n;
 
-            return handleWebRTCApi;
-          }()
+                    return _regenerator2.default.wrap(function _callee4$(_context4) {
+                        while (1) {
+                            switch (_context4.prev = _context4.next) {
+                                case 0:
+                                    t = Object.freeze(e);
+
+                                    if (!(t.audio && t.video)) {
+                                        _context4.next = 14;
+                                        break;
+                                    }
+
+                                    _context4.next = 4;
+                                    return navigator.permissions.query({ name: "microphone" });
+
+                                case 4:
+                                    _e11 = _context4.sent;
+                                    _context4.next = 7;
+                                    return navigator.permissions.query({ name: "camera" });
+
+                                case 7:
+                                    _n6 = _context4.sent;
+
+                                    if (!(_e11 && "granted" === _e11.state && _n6 && "granted" === _n6.state)) {
+                                        _context4.next = 12;
+                                        break;
+                                    }
+
+                                    _context4.next = 11;
+                                    return this.getUserMediaInternal(t);
+
+                                case 11:
+                                    return _context4.abrupt("return", _context4.sent);
+
+                                case 12:
+                                    _context4.next = 32;
+                                    break;
+
+                                case 14:
+                                    if (!t.audio) {
+                                        _context4.next = 24;
+                                        break;
+                                    }
+
+                                    _context4.next = 17;
+                                    return navigator.permissions.query({ name: "microphone" });
+
+                                case 17:
+                                    _e12 = _context4.sent;
+
+                                    if (!(_e12 && "granted" === _e12.state)) {
+                                        _context4.next = 22;
+                                        break;
+                                    }
+
+                                    _context4.next = 21;
+                                    return this.getUserMediaInternal(t);
+
+                                case 21:
+                                    return _context4.abrupt("return", _context4.sent);
+
+                                case 22:
+                                    _context4.next = 32;
+                                    break;
+
+                                case 24:
+                                    if (!t.video) {
+                                        _context4.next = 32;
+                                        break;
+                                    }
+
+                                    _context4.next = 27;
+                                    return navigator.permissions.query({ name: "camera" });
+
+                                case 27:
+                                    _e13 = _context4.sent;
+
+                                    if (!(_e13 && "granted" === _e13.state)) {
+                                        _context4.next = 32;
+                                        break;
+                                    }
+
+                                    _context4.next = 31;
+                                    return this.getUserMediaInternal(t);
+
+                                case 31:
+                                    return _context4.abrupt("return", _context4.sent);
+
+                                case 32:
+                                    n = [];
+                                    _context4.t0 = t.video;
+
+                                    if (!_context4.t0) {
+                                        _context4.next = 39;
+                                        break;
+                                    }
+
+                                    _context4.next = 37;
+                                    return this.getOverridenApi("navigator.mediaDevices.enumerateDevices").apply(navigator.mediaDevices);
+
+                                case 37:
+                                    n = _context4.sent;
+                                    n = n.filter(function (e) {
+                                        return e.kind && e.kind.indexOf("video") > -1;
+                                    });
+
+                                case 39:
+                                    if (!(t.audio && !t.video || t.video && n.length > 0)) {
+                                        _context4.next = 44;
+                                        break;
+                                    }
+
+                                    _context4.next = 42;
+                                    return this.getOverridenApi("navigator.mediaDevices.getUserMedia").apply(navigator.mediaDevices, [t]);
+
+                                case 42:
+                                    _context4.t1 = function (e) {
+                                        e.stop();
+                                    };
+
+                                    _context4.sent.getTracks().forEach(_context4.t1);
+
+                                case 44:
+                                    _context4.next = 46;
+                                    return this.getUserMediaInternal(t);
+
+                                case 46:
+                                    return _context4.abrupt("return", _context4.sent);
+
+                                case 47:
+                                case "end":
+                                    return _context4.stop();
+                            }
+                        }
+                    }, _callee4, this);
+                }));
+
+                function getUserMedia(_x5) {
+                    return _ref4.apply(this, arguments);
+                }
+
+                return getUserMedia;
+            }()
         }, {
-          key: "processPendingEvents",
-          value: function processPendingEvents(e, t, r, n, i) {
-            if (e.pendingEvents.has(t.type)) {
-              e.pendingEvents.get(t.type).push(r);var _n74 = e.eventPromises.get(t.type);_n74 && _n74.forEach(function (e) {
-                e.resolve(r);
-              });
-            } else this.sendEvent(n, i, r), e.pendingEvents.set(t.type, []);
-          }
+            key: "enumerateDevices",
+            value: function () {
+                var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5() {
+                    var e;
+                    return _regenerator2.default.wrap(function _callee5$(_context5) {
+                        while (1) {
+                            switch (_context5.prev = _context5.next) {
+                                case 0:
+                                    _context5.next = 2;
+                                    return this.sendApiRequest(a.ENUMERATEDEVICES_API_NAME, []);
+
+                                case 2:
+                                    e = _context5.sent;
+                                    return _context5.abrupt("return", e ? this.makeMediaDeviceInfoProxies(e) : null);
+
+                                case 4:
+                                case "end":
+                                    return _context5.stop();
+                            }
+                        }
+                    }, _callee5, this);
+                }));
+
+                function enumerateDevices() {
+                    return _ref5.apply(this, arguments);
+                }
+
+                return enumerateDevices;
+            }()
         }, {
-          key: "handleMessage",
-          value: function handleMessage(e) {
-            var t = e.message,
-                r = _.inflateRaw(t),
-                n = this.decoder.decode(r);e.message = JSON.parse(n), e.message.api && e.requestId && e.message.args ? this.handleWebRTCApi(e) : (this.logger.error("Invalid message format: " + JSON.stringify(e)), this.logger.trace(e));
-          }
+            key: "getVersion",
+            value: function getVersion() {
+                return t;
+            }
         }, {
-          key: "onClose",
-          value: function onClose(e) {
-            this.logger.info("WebRTC redir custom channel closed: " + JSON.stringify(e) + "\""), this.release();
-          }
+            key: "makeReceiverProxy",
+            value: function makeReceiverProxy(e) {
+                var t = this;return e.track && (e.track = this.makeTrackProxy(e.track)), e.getSynchronizationSources = function () {
+                    return e.synchronizationSources;
+                }, e.getStats = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6() {
+                    var n, r;
+                    return _regenerator2.default.wrap(function _callee6$(_context6) {
+                        while (1) {
+                            switch (_context6.prev = _context6.next) {
+                                case 0:
+                                    _context6.next = 2;
+                                    return t.sendApiRequest(a.GET_RECEIVER_STATS_API_NAME, [e.id]);
+
+                                case 2:
+                                    n = _context6.sent;
+                                    r = new Map();
+                                    return _context6.abrupt("return", (n && n.forEach(function (e) {
+                                        r.set(e.id, e);
+                                    }), r));
+
+                                case 5:
+                                case "end":
+                                    return _context6.stop();
+                            }
+                        }
+                    }, _callee6, this);
+                })), e.createEncodedStreams = function () {
+                    var n = { id: crypto.randomUUID(), type: "proxy", readable: { id: crypto.randomUUID(), type: "proxy" }, writable: { id: crypto.randomUUID(), type: "proxy" } };return t.streamProxies.set(n.id, n), t.sendApiRequest(a.RECEIVER_CREATE_ENCODED_STREAMS, [e.id, n]), n;
+                }, this.receiverProxies.set(e.id, e), e;
+            }
         }, {
-          key: "release",
-          value: function release() {
-            this.streams.forEach(function (e) {
-              e.getTracks().forEach(function (e) {
-                e.stop();
-              });
-            }), this.mediaElements.forEach(function (e) {
-              e.remove();
-            });
-          }
+            key: "makeDTMFProxy",
+            value: function makeDTMFProxy(e) {
+                var t = this;var n = e;return this.dtmfProxies.has(n.id) ? (n = this.dtmfProxies.get(n.id), Object.assign(n, e)) : (this.dtmfProxies.set(n.id, n), n.pendingEvents = new Map(), n.insertDTMF = function (e, r, i) {
+                    t.sendApiRequest(a.INSERT_DTMF_API_NAME, [n.id, e, r, i]);
+                }, n.addEventListener = function (e, r, i) {
+                    t.addDtmfEventListener(n.id, e, r, i);
+                }, n.removeEventListener = function (e, r) {
+                    t.removeEventListener(n.id, e, r);
+                }, Object.defineProperty(n, "ontonechange", { set: function set(e) {
+                        t.addDtmfEventListener(n.id, c.TONECHANGE, e);
+                    }, get: function get() {
+                        return null;
+                    } }), this.preRegisterEvents(c, n, this.addDtmfEventListener)), n;
+            }
+        }, {
+            key: "makeSenderProxy",
+            value: function makeSenderProxy(e) {
+                var t = this;return e.track && (e.track = this.makeTrackProxy(e.track)), e.dtmf && (e.dtmf = this.makeDTMFProxy(e.dtmf)), e.getStats = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee7() {
+                    var n;
+                    return _regenerator2.default.wrap(function _callee7$(_context7) {
+                        while (1) {
+                            switch (_context7.prev = _context7.next) {
+                                case 0:
+                                    _context7.next = 2;
+                                    return t.sendApiRequest(a.GET_SENDER_STATS_API_NAME, [e.id]);
+
+                                case 2:
+                                    n = _context7.sent;
+                                    return _context7.abrupt("return", (n && (n.has = function (e) {
+                                        return void 0 !== n.find(function (t) {
+                                            return t.id === e;
+                                        });
+                                    }, n.get = function (e) {
+                                        return n.find(function (t) {
+                                            return t.id === e;
+                                        });
+                                    }), n));
+
+                                case 4:
+                                case "end":
+                                    return _context7.stop();
+                            }
+                        }
+                    }, _callee7, this);
+                })), e.replaceTrack = function (n) {
+                    return e.track = n, t.sendApiRequest(a.REPLACE_SENDER_TRACK_API_NAME, [e.id, n]);
+                }, e.createEncodedStreams = function () {
+                    var n = { id: crypto.randomUUID(), type: "proxy", readable: { type: "proxy", id: crypto.randomUUID() }, writable: { type: "proxy", id: crypto.randomUUID() } };return t.streamProxies.set(n.id, n), t.sendApiRequest(a.SENDER_CREATE_ENCODED_STREAMS, [e.id, n]), n;
+                }, e;
+            }
+        }, {
+            key: "updateSenderProxy",
+            value: function updateSenderProxy(e) {
+                var t = this.senderProxies.get(e.id);return t ? Object.assign(t, e) : (t = e, this.senderProxies.set(e.id, t)), this.makeSenderProxy(t);
+            }
+        }, {
+            key: "updateReceiverProxy",
+            value: function updateReceiverProxy(e) {
+                var t = this.receiverProxies.get(e.id);return t ? Object.assign(t, e) : (t = e, this.receiverProxies.set(e.id, t)), this.makeReceiverProxy(t);
+            }
+        }, {
+            key: "addTrack",
+            value: function addTrack(e, t) {
+                var n = this;var r = crypto.randomUUID();this.sendApiRequest(a.ADD_TRACK_API_NAME, [r].concat(Array.prototype.slice.call(arguments))).then(function (e) {
+                    e && (n.updateSenderProxy(e), n.updatePCSenders(e.pcId, e.senders), n.updatePCReceivers(e.pcId, e.receivers), n.updatePCTransceivers(e.pcId, e.transceivers));
+                });var i = this.updateSenderProxy({ id: r });return this.pcProxies.get(e).senders.push(i), i;
+            }
+        }, {
+            key: "updatePeerConnectionProxy",
+            value: function updatePeerConnectionProxy(e) {
+                var t = this.pcProxies.get(e.pcId);Object.assign(t, e), this.updatePCSenders(e.pcId, e.senders), this.updatePCReceivers(e.pcId, e.receivers), this.updatePCTransceivers(e.pcId, e.transceivers);
+            }
+        }, {
+            key: "createPeerConnection",
+            value: function createPeerConnection(e, t) {
+                var n = this;var r = crypto.randomUUID(),
+                    i = this;this.logger.debug("Creating RTCPeerConnection with id: " + r);var s = { type: "proxy", id: r, signalingState: "new", connectionState: "new", iceConnectionState: "new", iceGatheringState: "new", receivers: [], senders: [], transceivers: [], pendingEvents: new Map(), configuration: e, close: function close() {
+                        n.close(r);
+                    }, addStream: function addStream(e) {
+                        n.addStream(r, e);
+                    }, getConfiguration: function getConfiguration() {
+                        return n.sendApiRequest(a.PC_GET_CONFIGURATION, [r]).then(function (e) {
+                            e && (s.configuration = e);
+                        }), s.configuration;
+                    }, getStats: function getStats(e) {
+                        return n.getStats(r, e);
+                    }, createOffer: function createOffer(e) {
+                        return n.createOffer(r, e);
+                    }, createAnswer: function createAnswer(e) {
+                        return n.createAnswer(r, e);
+                    }, setLocalDescription: function setLocalDescription(e) {
+                        return n.setLocalDescription(r, e);
+                    }, addEventListener: function addEventListener(e, t) {
+                        n.addPeerConnectionEventListener(r, e, t);
+                    }, removeEventListener: function removeEventListener(e, t) {
+                        n.removeEventListener(r, e, t);
+                    }, getEventListener: function getEventListener(e) {
+                        return n.eventListeners.get(r).get(e);
+                    }, set onicecandidate(e) {
+                        this.addEventListener(o.ICE_CANDIDATE, e);
+                    }, get onicecandidate() {
+                        return this.getEventListener(o.ICE_CANDIDATE);
+                    }, set ontrack(e) {
+                        this.addEventListener(o.TRACK, e);
+                    }, get ontrack() {
+                        return this.getEventListener(o.TRACK);
+                    }, get onsignalingstatechange() {
+                        return this.getEventListener(o.SIG_STATE_CHANGE);
+                    }, set onsignalingstatechange(e) {
+                        this.addEventListener(o.SIG_STATE_CHANGE, e);
+                    }, get onconnectionstatechange() {
+                        return this.getEventListener(o.CONN_STATE_CHANGE);
+                    }, set onconnectionstatechange(e) {
+                        this.addEventListener(o.CONN_STATE_CHANGE, e);
+                    }, get oniceconnectionstatechange() {
+                        return this.getEventListener(o.ICE_CONN_STATE_CHANGE);
+                    }, set oniceconnectionstatechange(e) {
+                        this.addEventListener(o.ICE_CONN_STATE_CHANGE, e);
+                    }, get onicegatheringstatechange() {
+                        return this.getEventListener(o.ICE_GATHER_STATE_CHANGE);
+                    }, set onicegatheringstatechange(e) {
+                        this.addEventListener(o.ICE_GATHER_STATE_CHANGE, e);
+                    }, get onnegotiationneeded() {
+                        return this.getEventListener(o.NEGOTIATION_NEEDED);
+                    }, set onnegotiationneeded(e) {
+                        this.addEventListener(o.NEGOTIATION_NEEDED, e);
+                    }, setRemoteDescription: function setRemoteDescription(e) {
+                        return n.setRemoteDescription(r, e);
+                    }, addIceCandidate: function addIceCandidate(e) {
+                        return n.addIceCandidate(r, e);
+                    }, getRemoteStreams: function getRemoteStreams() {
+                        return n.logger.warn("getRemoteStreams not implemented on proxy."), [];
+                    }, getReceivers: function getReceivers() {
+                        return n.getReceivers(r);
+                    }, getSenders: function getSenders() {
+                        return n.getSenders(r);
+                    }, addTrack: function addTrack(e) {
+                        var t = [r].concat(Array.prototype.slice.call(arguments));return i.addTrack.apply(i, t);
+                    }, addTransceiver: function addTransceiver(e, t) {
+                        return n.addTransceiver(r, e, t);
+                    }, getTransceivers: function getTransceivers() {
+                        return n.getTransceivers(r);
+                    }, removeTrack: function removeTrack(e) {
+                        n.removeTrack(r, e);
+                    } };return this.pcProxies.set(r, s), this.sendApiRequest(a.NEWRTCPEERCONNECTION_API_NAME, [r, e, t], r).then(function (e) {
+                    e && n.updatePeerConnectionProxy(e);
+                }, function (e) {
+                    n.logger.error("Error creating proxied RTCPeerConnection: " + e);
+                }), this.preRegisterEvents(o, this.pcProxies.get(r), this.addPeerConnectionEventListener), this.pcProxies.get(r);
+            }
+        }, {
+            key: "preRegisterEvents",
+            value: function preRegisterEvents(e, t, n) {
+                for (var _r10 in e) {
+                    "string" == typeof e[_r10] && n.apply(this, [t.id, e[_r10], function (e) {
+                        t.pendingEvents.has(e.eventName) || t.pendingEvents.set(e.eventName, []), t.pendingEvents.get(e.eventName).push(e);
+                    }]);
+                }
+            }
+        }, {
+            key: "updateAudioContextProxy",
+            value: function updateAudioContextProxy(e) {
+                var t = this.audioContextProxies.get(e.id);Object.assign(t, e);
+            }
+        }, {
+            key: "updateAudioNodeProxy",
+            value: function updateAudioNodeProxy(e) {
+                var t = this.audioNodeProxies.get(e.id);Object.assign(t, e), e.stream && this.makeStreamProxy(e.stream);
+            }
+        }, {
+            key: "makeAudioNodeProxy",
+            value: function makeAudioNodeProxy(e, t) {
+                var n = this;return { type: "proxy", id: t, context: this.audioContextProxies.get(e), connect: function connect(e, r, i) {
+                        return n.sendApiRequest(a.AUDIO_NODE_CONNECT, [t, e, r, i]), e;
+                    }, disconnect: function disconnect(e, r, i) {
+                        n.sendApiRequest(a.AUDIO_NODE_DISCONNECT, [t, e, r, i]);
+                    } };
+            }
+        }, {
+            key: "createAudioNode",
+            value: function createAudioNode(e, t, n) {
+                var r = this;var i = crypto.randomUUID();return this.audioNodeProxies.set(i, this.makeAudioNodeProxy(e, i)), this.sendApiRequest(a.AUDIO_CTX_CREATE_AUDIO_NODE, [e, i, t, n], i).then(function (e) {
+                    e && r.updateAudioNodeProxy(e);
+                }, function (e) {
+                    r.logger.error("Error creating proxied " + t + ": " + e);
+                }), this.audioNodeProxies.get(i);
+            }
+        }, {
+            key: "makeWorkerProxy",
+            value: function makeWorkerProxy(e) {
+                var t = this;var n = { id: e, pendingEvents: new Map(), type: "proxy", postMessage: function postMessage(n, r) {
+                        t.sendApiRequest(a.WORKER_POST_MESSAGE, [e, n, r]);
+                    }, terminate: function terminate() {
+                        t.sendApiRequest(a.WORKER_TERMINATE, [e]);
+                    }, addEventListener: function addEventListener(e, r, i) {
+                        t.addWorkerEventListener(n.id, e, r, i);
+                    }, removeEventListener: function removeEventListener(e, r) {
+                        t.removeEventListener(n.id, e, r);
+                    } };return Object.defineProperty(n, "onerror", { set: function set(e) {
+                        t.addWorkerEventListener(n.id, l.ERROR, e);
+                    }, get: function get() {
+                        return null;
+                    } }), Object.defineProperty(n, "onmessage", { set: function set(e) {
+                        t.addWorkerEventListener(n.id, l.MESSAGE, e);
+                    }, get: function get() {
+                        return null;
+                    } }), Object.defineProperty(n, "onmessageerror", { set: function set(e) {
+                        t.addWorkerEventListener(n.id, l.MESSAGE_ERROR, e);
+                    }, get: function get() {
+                        return null;
+                    } }), n;
+            }
+        }, {
+            key: "createWorker",
+            value: function createWorker(e, t) {
+                var n = this;var r = crypto.randomUUID(),
+                    i = this.makeWorkerProxy(r);return this.workerProxies.set(r, i), fetch(e).then(function (e) {
+                    e.blob().then(function (e) {
+                        e.arrayBuffer().then(function (i) {
+                            var s = p(i);n.sendApiRequest(a.CREATE_WORKER, [r, e.type, s, t]).then(function (e) {
+                                n.logger.debug("Created worker: " + JSON.stringify(e));
+                            });
+                        });
+                    });
+                }), this.logger.debug("Preregistering events for worker: " + JSON.stringify(i)), this.preRegisterEvents(l, i, this.addWorkerEventListener), i;
+            }
+        }, {
+            key: "createAudioContext",
+            value: function createAudioContext() {
+                var e = this;var t = crypto.randomUUID(),
+                    n = crypto.randomUUID();return this.audioContextProxies.set(t, { type: "proxy", id: t, destination: this.makeAudioNodeProxy(t, n), createGain: function createGain() {
+                        var n = e.createAudioNode(t, "Gain", []),
+                            r = { setValueAtTime: function setValueAtTime(t, i) {
+                                return r.currentValue = t, e.sendApiRequest(a.AUDIO_PARAM_SET_VALUE_AT_TIME, [n.id, t, i]), r;
+                            }, linearRampToValueAtTime: function linearRampToValueAtTime(t, i) {
+                                return e.sendApiRequest(a.AUDIO_PARAM_SET_RAMP_TO_VALUE_AT_TIME, [n.id, t, i]), r;
+                            } };return Object.defineProperty(r, "value", { set: function set(e) {
+                                return r.setValueAtTime(e, 0);
+                            }, get: function get() {
+                                return r.currentValue;
+                            } }), n.gain = r, n;
+                    }, createOscillator: function createOscillator() {
+                        var n = e.createAudioNode(t, "Oscillator", []);n.start = function () {
+                            var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+                            e.sendApiRequest(a.AUDIO_NODE_START, [n.id, t]);
+                        }, n.stop = function () {
+                            var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+                            e.sendApiRequest(a.AUDIO_NODE_STOP, [n.id, t]);
+                        }, Object.defineProperty(n, "type", { set: function set(t) {
+                                n.currentType = t, e.sendApiRequest(a.AUDIO_NODE_SET_TYPE, [n.id, t]);
+                            }, get: function get() {
+                                return n.currentType;
+                            } });var r = { setValueAtTime: function setValueAtTime(t, i) {
+                                return e.sendApiRequest(a.AUDIO_PARAM_SET_VALUE_AT_TIME, [n.id, t, i]), r;
+                            } };return Object.defineProperty(r, "value", { set: function set(e) {
+                                return r.setValueAtTime(e, 0);
+                            }, get: function get() {
+                                return r.currentValue;
+                            } }), n.frequency = r, n;
+                    }, createMediaStreamSource: function createMediaStreamSource(n) {
+                        return e.createAudioNode(t, "MediaStreamSource", [n.proxy]);
+                    }, createAnalyser: function createAnalyser() {
+                        return e.createAudioNode(t, "Analyser", []);
+                    }, createMediaStreamDestination: function createMediaStreamDestination() {
+                        var n = e.createAudioNode(t, "MediaStreamDestination", []);return n.stream = e.makeStreamProxy({ id: n.id, tracks: [{ id: n.id, kind: "audio" }] }), n;
+                    }, close: function close() {
+                        return e.sendApiRequest(a.AUDIO_CTX_CLOSE, [t]);
+                    } }), this.sendApiRequest(a.NEW_AUDIO_CONTEXT, [t, n], t).then(function (t) {
+                    t && e.updateAudioContextProxy(t);
+                }, function (t) {
+                    e.logger.error("Error creating proxied AudioContext: " + t);
+                }), this.audioContextProxies.get(t);
+            }
+        }, {
+            key: "close",
+            value: function close(e) {
+                this.eventListeners.get(e).clear(), this.sendApiRequest(a.PC_CLOSE_API_NAME, [e]);
+            }
+        }, {
+            key: "addStream",
+            value: function addStream(e, t) {
+                this.sendApiRequest(a.ADDSTREAM_API_NAME, [e, t.proxy]);
+            }
+        }, {
+            key: "getStats",
+            value: function getStats(e, t) {
+                return "function" == typeof t ? Promise.reject(new Error("callback based getStats is obsolete.")) : this.sendApiRequest(a.GET_STATS_API_NAME, [e, t]);
+            }
+        }, {
+            key: "createOffer",
+            value: function createOffer(e, t) {
+                return this.sendApiRequest(a.CREATE_OFFER_API_NAME, [e, t]);
+            }
+        }, {
+            key: "createAnswer",
+            value: function createAnswer(e, t) {
+                return this.sendApiRequest(a.CREATE_ANSWER_API_NAME, [e, t]);
+            }
+        }, {
+            key: "setLocalDescription",
+            value: function setLocalDescription(e, t) {
+                return this.pcProxies.get(e).localDescription = t, this.sendApiRequest(a.SET_LOCAL_DESCRIPTION_API_NAME, [e, t]);
+            }
+        }, {
+            key: "setRemoteDescription",
+            value: function setRemoteDescription(e, t) {
+                return this.sendApiRequest(a.SET_REMOTE_DESCRIPTION_API_NAME, [e, t]);
+            }
+        }, {
+            key: "handleAddEventListenerResponse",
+            value: function handleAddEventListenerResponse(e) {
+                var t = this;e.eventName === o.SIG_STATE_CHANGE ? this.updatePeerConnectionProxy(e) : e.eventName === o.TRACK ? (e.streams = e.streams.map(function (e) {
+                    return t.makeStreamProxy(e);
+                }), e.track = this.makeTrackProxy(e.track), this.updatePeerConnectionProxy(e)) : (e.eventName === o.CONN_STATE_CHANGE || e.eventName === o.ICE_CONN_STATE_CHANGE || e.eventName === o.ICE_GATHER_STATE_CHANGE || e.eventName === o.ICE_CANDIDATE || e.eventName === o.NEGOTIATION_NEEDED) && this.updatePeerConnectionProxy(e), this.fireUpEventHandlers(this.pcProxies.get(e.pcId), e), this.sendApiRequest(a.ADD_PC_EVENT_LISTENER, [e.pcId, e.eventName]).then(function (e) {
+                    e && t.handleAddEventListenerResponse(e);
+                });
+            }
+        }, {
+            key: "fireUpEventHandlers",
+            value: function fireUpEventHandlers(e, t) {
+                if (e && this.eventListeners.get(e.id).has(t.eventName)) {
+                    var _n7 = e.pendingEvents;this.eventListeners.get(e.id).get(t.eventName).forEach(function (e, r) {
+                        0 === r ? e(t) : _n7.get(t.eventName).forEach(function (t) {
+                            e(t);
+                        });
+                    }), _n7.set(t.eventName, []);
+                }
+            }
+        }, {
+            key: "handleAddTrackEventListenerResponse",
+            value: function handleAddTrackEventListenerResponse(e) {
+                var t = this;"mute" !== e.eventName && "unmute" !== e.eventName || (this.trackProxies.get(e.trackId).muted = e.muted), this.fireUpEventHandlers(this.trackProxies.get(e.trackId), e), this.sendApiRequest(a.ADD_TRACK_EVENT_LISTENER, [e.trackId, e.eventName]).then(function (e) {
+                    e && t.handleAddTrackEventListenerResponse(e);
+                });
+            }
+        }, {
+            key: "handleAddDtmfEventListenerResponse",
+            value: function handleAddDtmfEventListenerResponse(e) {
+                var t = this;this.fireUpEventHandlers(this.dtmfProxies.get(e.dtmfId), e), this.sendApiRequest(a.ADD_DTMF_EVENT_LISTENER, [e.dtmfId, e.eventName]).then(function (e) {
+                    e && t.handleAddDtmfEventListenerResponse(e);
+                });
+            }
+        }, {
+            key: "handleAddWorkerEventListenerResponse",
+            value: function handleAddWorkerEventListenerResponse(e) {
+                var t = this;this.fireUpEventHandlers(this.workerProxies.get(e.wId), e), this.sendApiRequest(a.ADD_WORKER_EVENT_LISTENER, [e.wId, e.eventName]).then(function (e) {
+                    e && t.handleAddWorkerEventListenerResponse(e);
+                });
+            }
+        }, {
+            key: "addEventListener",
+            value: function addEventListener(e, t, n) {
+                this.eventListeners.has(e) || this.eventListeners.set(e, new Map()), this.eventListeners.get(e).has(t) || this.eventListeners.get(e).set(t, []), this.eventListeners.get(e).get(t).push(n);
+            }
+        }, {
+            key: "addPeerConnectionEventListener",
+            value: function addPeerConnectionEventListener(e, t, n) {
+                var r = this;this.addEventListener(e, t, n), this.sendApiRequest(a.ADD_PC_EVENT_LISTENER, [e, t]).then(function (e) {
+                    e && r.handleAddEventListenerResponse(e);
+                });
+            }
+        }, {
+            key: "addTrackEventListener",
+            value: function addTrackEventListener(e, t, n, r) {
+                var i = this;this.addEventListener(e, t, n), this.sendApiRequest(a.ADD_TRACK_EVENT_LISTENER, [e, t, r]).then(function (e) {
+                    e && i.handleAddTrackEventListenerResponse(e);
+                });
+            }
+        }, {
+            key: "addDtmfEventListener",
+            value: function addDtmfEventListener(e, t, n, r) {
+                var i = this;this.addEventListener(e, t, n), this.sendApiRequest(a.ADD_DTMF_EVENT_LISTENER, [e, t, r]).then(function (e) {
+                    e && i.handleAddDtmfEventListenerResponse(e);
+                });
+            }
+        }, {
+            key: "addWorkerEventListener",
+            value: function addWorkerEventListener(e, t, n) {
+                var r = this;this.addEventListener(e, t, n), this.sendApiRequest(a.ADD_WORKER_EVENT_LISTENER, [e, t]).then(function (e) {
+                    e && r.handleAddWorkerEventListenerResponse(e);
+                });
+            }
+        }, {
+            key: "removeEventListener",
+            value: function removeEventListener(e, t, n) {
+                var r = this.eventListeners.get(e).get(t);var i = r.indexOf(n);i > -1 && r.splice(i, 1);
+            }
+        }, {
+            key: "addIceCandidate",
+            value: function addIceCandidate(e, t) {
+                var n = t ? { sdpMLineIndex: t.sdpMLineIndex, sdpMid: t.sdpMid, candidate: t.candidate } : null;return this.sendApiRequest(a.ADD_ICE_CANDIDATE_API_NAME, [e, n]);
+            }
+        }, {
+            key: "createMediaElement",
+            value: function createMediaElement(e) {
+                var t = this;var n = crypto.randomUUID();this.sendApiRequest(a.CREATE_MEDIA_ELEMENT_API_NAME, [n, e], n).then(function (e) {
+                    if (e) {
+                        t.mediaElementProxies.get(e.id).sinkId = e.sinkId;
+                    }
+                });var r = { id: n, type: "proxy", classList: new Set(), isMuted: !1, play: function play() {
+                        t.sendApiRequest(a.MEDIA_ELEMENT_PLAY_API_NAME, [n]);
+                    }, pause: function pause() {
+                        t.sendApiRequest(a.MEDIA_ELEMENT_PAUSE_API_NAME, [n]);
+                    }, setSinkId: function setSinkId(e) {
+                        return t.sendApiRequest(a.MEDIA_ELEMENT_SET_SINK_ID_API_NAME, [n, e]);
+                    }, remove: function remove() {
+                        return t.sendApiRequest(a.MEDIA_ELEMENT_REMOVE, [n]);
+                    } };return this.mediaElementProxies.set(n, r), r.classList.remove = function (e) {
+                    r.classList.delete(e);
+                }, Object.assign(r, e), Object.defineProperty(r, "srcObject", { set: function set(e) {
+                        r.stream = e, t.sendApiRequest(a.SET_MEDIA_SRC_OBJ_API_NAME, [r.id, e && e.proxy ? e.proxy : e]);
+                    }, get: function get() {
+                        return r.stream;
+                    } }), Object.defineProperty(r, "hidden", { set: function set(e) {
+                        t.sendApiRequest(a.SET_MEDIA_HIDDEN_API_NAME, [r.id, e]);
+                    }, get: function get() {
+                        return r.hidden;
+                    } }), Object.defineProperty(r, "volume", { set: function set(e) {
+                        t.sendApiRequest(a.SET_MEDIA_VOLUME_API_NAME, [r.id, e]);
+                    }, get: function get() {
+                        return r.volume;
+                    } }), Object.defineProperty(r, "muted", { set: function set(e) {
+                        r.isMuted = e, t.sendApiRequest(a.MEDIA_ELEMENT_MUTED, [r.id, e]).then(function (e) {
+                            e && (r.isMuted = e.muted);
+                        });
+                    }, get: function get() {
+                        return r.isMuted;
+                    } }), r;
+            }
+        }, {
+            key: "generateCertificate",
+            value: function generateCertificate(e) {
+                return this.sendApiRequest(a.GENERATE_CERTIFICATE_API_NAME, [e]);
+            }
+        }, {
+            key: "getReceivers",
+            value: function getReceivers(e) {
+                var t = this;return this.sendApiRequest(a.GET_RECEIVERS_API_NAME, [e]).then(function (e) {
+                    e && t.updatePCReceivers(e.pcId, e.receivers);
+                }), this.pcProxies.get(e).receivers;
+            }
+        }, {
+            key: "getSenders",
+            value: function getSenders(e) {
+                var t = this;return this.sendApiRequest(a.GET_SENDERS_API_NAME, [e]).then(function (e) {
+                    e && t.updatePCSenders(e.pcId, e.senders);
+                }), this.pcProxies.get(e).senders;
+            }
+        }, {
+            key: "removeTrack",
+            value: function removeTrack(e, t) {
+                this.sendApiRequest(a.PC_REMOVE_TRACK_API_NAME, [e, t]);
+            }
+        }, {
+            key: "getTransceivers",
+            value: function getTransceivers(e) {
+                var t = this;return this.sendApiRequest(a.GET_TRANSCEIVERS_API_NAME, [e]).then(function (e) {
+                    e && t.updatePCTransceivers(e.pcId, e.transceivers);
+                }), this.pcProxies.get(e).transceivers;
+            }
+        }, {
+            key: "addTransceiver",
+            value: function addTransceiver(e, t, n) {
+                var r = this;var i = crypto.randomUUID(),
+                    s = { type: "proxy", id: i, sender: this.makeSenderProxy({ id: crypto.randomUUID() }), receiver: this.makeReceiverProxy({ id: crypto.randomUUID() }), setCodecPreferences: function setCodecPreferences(e) {
+                        r.sendApiRequest(a.TRANSCEIVER_SET_CODEC_PREFS, [i, e]);
+                    } };return this.transceiverProxies.set(s.id, s), this.pcProxies.get(e).transceivers.push(s), this.pcProxies.get(e).receivers.push(s.receiver), this.pcProxies.get(e).senders.push(s.sender), this.sendApiRequest(a.ADD_TRANSCEIVER_API_NAME, [e, s, "string" == typeof t ? t : this.makeTrackProxy(t), n]).then(function (e) {
+                    e && (r.updateTransceiverProxy(e), r.updatePCSenders(e.pcId, e.senders), r.updatePCReceivers(e.pcId, e.receivers), r.updatePCTransceivers(e.pcId, e.transceivers));
+                }), s;
+            }
+        }, {
+            key: "setLogger",
+            value: function setLogger(e) {
+                this.logger = e;
+            }
+        }, {
+            key: "overrideWebRTC",
+            value: function overrideWebRTC() {
+                var e = this;this.logger.info("Overriding WebRTC interfaces for the current webapp.");var t = this;navigator.mediaDevices.getUserMedia = function (t) {
+                    return e.getUserMedia(t);
+                }, navigator.mediaDevices.enumerateDevices = function () {
+                    return e.enumerateDevices();
+                }, window.RTCPeerConnection = function (e, n) {
+                    return t.createPeerConnection(e, n);
+                }, window.RTCPeerConnection.generateCertificate = function (e) {
+                    return t.generateCertificate(e);
+                }, window.AudioContext = function () {
+                    return t.createAudioContext();
+                }, window.Worker = function (e, n) {
+                    return t.createWorker(e, n);
+                };
+            }
+        }, {
+            key: "removeStatusChangeEventListener",
+            value: function removeStatusChangeEventListener(e) {
+                this.statusChangeEventListeners = this.statusChangeEventListeners.filter(function (t) {
+                    return t !== e;
+                });
+            }
+        }, {
+            key: "addStatusChangeEventListener",
+            value: function addStatusChangeEventListener(e) {
+                this.statusChangeEventListeners.push(e);
+            }
+        }, {
+            key: "sendHelloRequest",
+            value: function () {
+                var _ref8 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee8() {
+                    var e, n;
+                    return _regenerator2.default.wrap(function _callee8$(_context8) {
+                        while (1) {
+                            switch (_context8.prev = _context8.next) {
+                                case 0:
+                                    e = this;
+                                    _context8.next = 3;
+                                    return this.sendApiRequest(a.HELLO_API_NAME, []);
+
+                                case 3:
+                                    n = _context8.sent;
+                                    return _context8.abrupt("return", (n && !globalThis.DCVWebRTCRedirProxy && (this.status = h.AVAILABLE, this.logger.info("Running in a DCV WebRTC redirection env, proxy version: " + t.versionStr + " - " + t.gitHash), this.logger.info("Client info: " + JSON.stringify(n)), window.addEventListener("beforeunload", function (t) {
+                                        var n = { pcIds: [], streamIds: [], mediaElementIds: [], transceiverIds: [], senderIds: [], receiverIds: [], trackIds: [], workerIds: [] };e.pcProxies.forEach(function (e, t) {
+                                            n.pcIds.push(t);
+                                        }), e.streamProxies.forEach(function (e, t) {
+                                            n.streamIds.push(t);
+                                        }), e.trackProxies.forEach(function (e, t) {
+                                            n.trackIds.push(t);
+                                        }), e.workerProxies.forEach(function (e, t) {
+                                            n.workerIds.push(t);
+                                        }), e.mediaElementProxies.forEach(function (e, t) {
+                                            n.mediaElementIds.push(t);
+                                        }), e.transceiverProxies.forEach(function (e, t) {
+                                            n.transceiverIds.push(t);
+                                        }), e.senderProxies.forEach(function (e, t) {
+                                            n.senderIds.push(t);
+                                        }), e.receiverProxies.forEach(function (e, t) {
+                                            n.receiverIds.push(t);
+                                        }), e.sendApiRequest(a.UNLOAD_EVENT_NAME, [n]);
+                                    })), n));
+
+                                case 5:
+                                case "end":
+                                    return _context8.stop();
+                            }
+                        }
+                    }, _callee8, this);
+                }));
+
+                function sendHelloRequest() {
+                    return _ref8.apply(this, arguments);
+                }
+
+                return sendHelloRequest;
+            }()
+        }], [{
+            key: "setInitCallback",
+            value: function setInitCallback(e, t) {
+                var n = globalThis.DCVWebRTCRedirProxy;if (n) e({ success: !0, proxy: n });else {
+                    w.initCallbacks || (w.initCallbacks = new Map());var _n8 = setTimeout(function (e) {
+                        e({ success: !1, error: "Failed to initialize DCVWebRTCPeerConnectionProxy in " + t + "ms" }), w.initCallbacks.delete(e);
+                    }, t, e);w.initCallbacks.set(e, _n8);
+                }
+            }
         }]);
-        return g;
-      }();
+        return w;
+    }();
 
-      function v(e, t, r) {
-        globalThis.DCVWebRTCRedirProxy = t, m.initCallbacks ? (m.initCallbacks.forEach(function (n, i) {
-          clearTimeout(n), i({ success: e, proxy: t, error: r });
-        }), m.initCallbacks.clear()) : s().warn("No DCVWebRTCPeerConnectionProxy.initCallback was specified.");
-      }try {
-        window.DCVWebRTCPeerConnectionProxy = m;var _e78 = new m({ logger: s() });_e78.sendHelloRequest().then(function (t) {
-          _e78.logger.info("Successfully received hello response from client: " + JSON.stringify(t)), _e78.clientInfo = t, v(!0, _e78);
+    function T(e, t, n) {
+        globalThis.DCVWebRTCRedirProxy = t, w.initCallbacks ? (w.initCallbacks.forEach(function (r, i) {
+            clearTimeout(r), i({ success: e, proxy: t, error: n });
+        }), w.initCallbacks.clear()) : s.debug("No DCVWebRTCPeerConnectionProxy.initCallback was specified.");
+    }try {
+        window.DCVWebRTCPeerConnectionProxy = w;var _e14 = new w({ logger: s });_e14.sendHelloRequest().then(function (t) {
+            s.debug("Successfully received hello response from client: " + JSON.stringify(t)), _e14.clientInfo = t, _e14.resetHeartbeat(null), T(!0, _e14);
         }).catch(function (e) {
-          var t = "Running in an invalid dcv webrtc env, skipping setting up proxy: " + JSON.stringify(e);s().warn(t), v(!1, null, t);
+            var t = "Running in an invalid dcv webrtc env, skipping setting up proxy: " + JSON.stringify(e);s.debug(t), T(!1, null, t);
         });
-      } catch (e) {
-        var _t71 = e.message;v(!1, null, _t71), s().info("Skipping setting up proxy in client env: " + _t71);
-      }
-    }(), n;
-  }();
+    } catch (e) {
+        var _t15 = e.message;T(!1, null, _t15), s.debug("Skipping setting up proxy in client env: " + _t15);
+    }e.DCVWebRTCRedirClient = function () {
+        function _class(e) {
+            (0, _classCallCheck3.default)(this, _class);
+            this.version = t, this.config = e, this.logger = e.logger ? e.logger : s, this.channel = e.channel, this.decoder = new TextDecoder("utf-8"), this.messageBuffer = null, this.pcs = new Map(), this.pcPromises = new Map(), this.audioContexts = new Map(), this.audioNodes = new Map(), this.workers = new Map(), this.workerPromises = new Map(), this.certs = new Map(), this.streams = new Map(), this.tracks = new Map(), this.offers = new Map(), this.answers = new Map(), this.remoteDescriptions = new Map(), this.mediaElements = new Map(), this.senders = new Map(), this.dtmfSenders = new Map(), this.receivers = new Map(), this.transceivers = new Map(), this.logger.info("Created WebRTC Redirection Client version: " + t.versionStr + " - " + t.gitHash);
+        }
+
+        (0, _createClass3.default)(_class, [{
+            key: "encodeBase64",
+            value: function encodeBase64(e) {
+                return p(e);
+            }
+        }, {
+            key: "decodeBase64",
+            value: function decodeBase64(e) {
+                return g(e);
+            }
+        }, {
+            key: "getVersion",
+            value: function getVersion() {
+                return this.version;
+            }
+        }, {
+            key: "concatUint8Arrays",
+            value: function concatUint8Arrays(e) {
+                var t = e.reduce(function (e, t) {
+                    return e + t.byteLength;
+                }, 0),
+                    n = new Uint8Array(t);var r = 0;return e.forEach(function (e) {
+                    n.set(e, r), r += e.byteLength;
+                }), n;
+            }
+        }, {
+            key: "parseHeader",
+            value: function parseHeader(e) {
+                return e[3] << 24 | e[2] << 16 | e[1] << 8 | e[0];
+            }
+        }, {
+            key: "onMessageReceived",
+            value: function onMessageReceived(e) {
+                this.logger.debug("onMessageReceived, binaryPayload.byteLength: " + e.byteLength);try {
+                    var _t16 = 0;for (null === this.messageBuffer ? this.messageBuffer = new Uint8Array(e) : this.messageBuffer = this.concatUint8Arrays([this.messageBuffer, new Uint8Array(e)]), this.messageBuffer.byteLength >= 4 && (_t16 = this.parseHeader(this.messageBuffer)); _t16 > 0 && this.messageBuffer.byteLength >= _t16 + 4;) {
+                        var _e15 = 4,
+                            _n9 = 4 + _t16,
+                            _r11 = this.messageBuffer.slice(_e15, _n9);this.logger.debug("Decoding payload: ", _r11);var _i7 = this.decoder.decode(_r11);this.logger.debug("Received message: " + _i7);var _s2 = JSON.parse(_i7);this.logger.debug("Received json: ", _s2), this.handleMessage(_s2), this.messageBuffer = this.messageBuffer.slice(_n9), _t16 = this.messageBuffer.byteLength >= 4 ? this.parseHeader(this.messageBuffer) : 0;
+                    }
+                } catch (e) {
+                    this.logger.error("Failed to parse JSON from binaryPayload: " + e), this.messageBuffer = null;
+                }
+            }
+        }, {
+            key: "getPeerConnection",
+            value: function getPeerConnection(e) {
+                var t = this;return this.pcs.has(e) ? this.pcs.get(e) : (this.pcPromises.has(e) || this.pcPromises.set(e, []), new Promise(function (n, r) {
+                    t.pcPromises.get(e).push({ resolve: n, reject: r });
+                }));
+            }
+        }, {
+            key: "closePeerConnection",
+            value: function closePeerConnection(e) {
+                var t = this;if (this.pcs.has(e)) {
+                    var _n10 = this.pcs.get(e);_n10.getTransceivers().forEach(function (e) {
+                        e.sender && (e.sender.dtmf && t.dtmfSenders.forEach(function (n, r) {
+                            n === e.sender.dtmf && t.dtmfSenders.delete(r);
+                        }), t.senders.forEach(function (n, r) {
+                            n === e.sender && t.senders.delete(r);
+                        })), e.receiver && t.receivers.forEach(function (n, r) {
+                            n === e.receiver && t.receivers.delete(r);
+                        }), t.transceivers.forEach(function (n, r) {
+                            n === e && t.transceivers.delete(r);
+                        });
+                    }), _n10.getSenders().forEach(function (e) {
+                        t.senders.forEach(function (n, r) {
+                            n === e && t.senders.delete(r);
+                        });
+                    }), _n10.getReceivers(function (e) {
+                        t.receivers.forEach(function (n, r) {
+                            n === e && t.receivers.delete(r);
+                        });
+                    }), _n10.localDescription && (this.offers.forEach(function (e, r) {
+                        _n10.localDescription.type === e.type && _n10.localDescription.sdp === e.sdp && t.offers.delete(r);
+                    }), this.answers.forEach(function (e, r) {
+                        _n10.localDescription.type === e.type && _n10.localDescription.sdp === e.sdp && t.offers.delete(r);
+                    })), _n10.remoteDescription && this.remoteDescriptions.forEach(function (e, r) {
+                        _n10.remoteDescription.type === e.type && _n10.remoteDescription.sdp === e.sdp && t.remoteDescriptions.delete(r);
+                    }), this.pcPromises.has(e) && (this.pcPromises.get(e).forEach(function (e) {
+                        e.reject(null);
+                    }), this.pcPromises.delete(e)), _n10.close(), this.pcs.delete(e);
+                }
+            }
+        }, {
+            key: "getPendingEvent",
+            value: function getPendingEvent(e, t) {
+                return e.pendingEvents.has(t) && e.pendingEvents.get(t).length > 0 ? e.pendingEvents.get(t).shift() : (e.eventPromises.has(t) || e.eventPromises.set(t, []), new Promise(function (n, r) {
+                    e.eventPromises.get(t).push({ resolve: n, reject: r });
+                }));
+            }
+        }, {
+            key: "getStream",
+            value: function getStream(e) {
+                return this.streams.get(e);
+            }
+        }, {
+            key: "makeTrackTO",
+            value: function makeTrackTO(e) {
+                var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : e.id ? e.id : crypto.randomUUID();
+                return this.tracks.set(t, e), { type: "proxy", contentHint: e.contentHint, enabled: e.enabled, id: t, kind: e.kind, label: e.label, muted: e.muted, readyState: e.readyState, settings: e.getSettings() };
+            }
+        }, {
+            key: "makeStreamTO",
+            value: function makeStreamTO(e) {
+                var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : e.id ? e.id : crypto.randomUUID();
+                var n = this;this.streams.set(t, e);var r = e.getTracks().map(function (e) {
+                    return n.makeTrackTO(e);
+                });return { type: "proxy", id: t, active: e.active, tracks: r };
+            }
+        }, {
+            key: "makeSyncronizationSourceTO",
+            value: function makeSyncronizationSourceTO(e) {
+                return { audioLevel: e.audioLevel, rtpTimestamp: e.rtpTimestamp, source: e.source, timestamp: e.timestamp };
+            }
+        }, {
+            key: "makeReceiverTO",
+            value: function makeReceiverTO(e) {
+                var t = this;var n = e.getSynchronizationSources();n = n.map(function (e) {
+                    return t.makeSyncronizationSourceTO(e);
+                });var r = { id: e.id ? e.id : crypto.randomUUID(), type: "proxy", track: e.track ? this.makeTrackTO(e.track) : null, synchronizationSources: n, stats: [] };return e.id = r.id, this.receivers.set(r.id, e), r;
+            }
+        }, {
+            key: "makeDTMFSenderTO",
+            value: function makeDTMFSenderTO(e) {
+                var t = { id: e.id ? e.id : crypto.randomUUID(), type: "proxy", toneBuffer: e.toneBuffer };return e.id = t.id, this.dtmfSenders.set(t.id, e), t;
+            }
+        }, {
+            key: "makeSenderTO",
+            value: function makeSenderTO(e) {
+                var t = { id: e.id ? e.id : crypto.randomUUID(), type: "proxy", track: e.track ? this.makeTrackTO(e.track) : null, dtmf: e.dtmf ? this.makeDTMFSenderTO(e.dtmf) : null };return e.id = t.id, this.senders.set(t.id, e), t;
+            }
+        }, {
+            key: "makeTransceiverTO",
+            value: function makeTransceiverTO(e) {
+                return { id: e.id, type: "proxy", currentDirection: e.currentDirection, direction: e.direction, mid: e.mid, receiver: e.receiver ? this.makeReceiverTO(e.receiver) : null, sender: e.sender ? this.makeSenderTO(e.sender) : null, stopped: e.stopped };
+            }
+        }, {
+            key: "findProxySubject",
+            value: function findProxySubject(e) {
+                return this.pcs.has(e) ? this.pcs.get(e) : this.audioContexts.has(e) ? this.audioContexts.get(e) : this.audioNodes.has(e) ? this.audioNodes.get(e) : this.workers.has(e) ? this.workers.get(e) : this.certs.has(e) ? this.certs.get(e) : this.streams.has(e) ? this.streams.get(e) : this.offers.has(e) ? this.offers.get(e) : this.answers.has(e) ? this.answers.get(e) : this.remoteDescriptions.has(e) ? this.remoteDescriptions.get(e) : this.mediaElements.has(e) ? this.mediaElements.get(e) : this.senders.has(e) ? this.senders.get(e) : this.dtmfSenders.has(e) ? this.dtmfSenders.get(e) : this.receivers.has(e) ? this.receivers.get(e) : this.transceivers.has(e) ? this.transceivers.get(e) : this.tracks.has(e) ? this.tracks.get(e) : null;
+            }
+        }, {
+            key: "traverse",
+            value: function traverse(e, t) {
+                if ("object" == (typeof e === "undefined" ? "undefined" : (0, _typeof3.default)(e))) for (var _n11 in e) {
+                    Object.prototype.hasOwnProperty.call(e, _n11) && (t.apply(this, [e, _n11, e[_n11]]), null !== e[_n11] && "object" == (0, _typeof3.default)(e[_n11]) && this.traverse(e[_n11], t));
+                }
+            }
+        }, {
+            key: "getWorker",
+            value: function getWorker(e) {
+                var t = this;return this.workers.has(e) ? this.workers.get(e) : (this.workerPromises.has(e) || this.workerPromises.set(e, []), new Promise(function (n, r) {
+                    t.workerPromises.get(e).push({ resolve: n, reject: r });
+                }));
+            }
+        }, {
+            key: "gatherPeerConnectionState",
+            value: function gatherPeerConnectionState(e, t) {
+                var n = this;e.canTrickleIceCandidates = t.canTrickleIceCandidates, e.connectionState = t.connectionState, e.currentLocalDescription = t.currentLocalDescription, e.currentRemoteDescription = t.currentRemoteDescription, e.iceConnectionState = t.iceConnectionState, e.iceGatheringState = t.iceGatheringState, e.iceGatheringState = t.iceGatheringState, e.localDescription = t.localDescription, e.peerIdentity = t.peerIdentity, e.pendingLocalDescription = t.pendingLocalDescription, e.pendingRemoteDescription = t.pendingRemoteDescription, e.remoteDescription = t.remoteDescription, e.sctp = t.sctp, e.signalingState = t.signalingState, e.configuration = t.getConfiguration(), e.transceivers = t.getTransceivers().map(function (e) {
+                    return n.makeTransceiverTO(e);
+                }), e.senders = t.getSenders().map(function (e) {
+                    return n.makeSenderTO(e);
+                }), e.receivers = t.getReceivers().map(function (e) {
+                    return n.makeReceiverTO(e);
+                });
+            }
+        }, {
+            key: "callWebRTCApi",
+            value: function () {
+                var _ref9 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee9(e, t, n) {
+                    var r, _n12, _e16, _t17, _n13, _e17, _t18, _r12, _i8, _n14, _e18, _t19, _r13, _i9, _n15, _e19, _r14, _n16, _e20, _t20, _i10, _e21, _s3, _a3, _n17, _e22, _n18, _e23, _t21, _r15, _i11, _s4, _a4, _o2, _d2, _n19, _e24, _n20, _e25, _t22, _i12, _s5, _n21, _e26, _t23, _r16, _n22, _e27, _t24, _i13, _s6, _n23, _a5, _o3, _d3, _e28, _n24, _e29, _n25, _e30, _t25, _r17, _i14, _s7, _a6, _n26, _e31, _t26, _r18, _i15, _s8, _a7, _n27, _e32, _t27, _n28, _e33, _t28, _n29, _e34, _t29, _n30, _e35, _t30, _r19, _n31, _n32, _e36, _t31, _r20, _n33, _n34, _e37, _n35, _e38, _n36, _e39, _t32, _r21, _i16, _s9, _n37, _e40, _t33, _n38, _e41, _t34, _i17, _s10, _a8, _o4, _d4, _n39, _i18, _s11, _n40, _e42, _t35, _i19, _s12, _a9, _e43, _o5, _d5, _n42, _e44, _n43, _e45, _t36, _r22, _n44, _e46, _t37, _r23, _i20, _s13, _n45, _e47, _t38, _n46, _n47, _e48, _t39, _n48, _n49, _e49, _t40, _r24, _i21, _n50, _e50, _t41, _r25, _i22, _n51, _e51, _r26, _i23, _s14, _n52, _e52, _r27, _i24, _s15, _n53, _e53, _t42, _r28, _i25, _n54, _n55, _e54, _t43, _r29, _n56, _e55, _t44, _r30, _n57, _e56, _i26, _s16, _e57, _n58, _n59, _e58, _i27, _s17, _o6, _e59, _n60, _n61, _e60, _i29, _s18, _e61, _n62, _n63, _e62, _i31, _s19, _o7, _e63, _n64, _n65, _e64, _t46, _r31, _n66, _e65, _t47, _r32, _n67, _e66, _t48, _r33, _n68, _e67, _t49, _n69, _e68, _t50, _r34, _n70, _e69, _t51, _n71, _e70, _n72, _e71, _n73, _e72, _n74, _e73, _t52, _r35, _n75, _e74, _t53, _n76, _e75, _t54, _n77, _e76, _t55, _n78, _n79, _e77, _t56, _n80, _n81, _e78;
+
+                    return _regenerator2.default.wrap(function _callee9$(_context9) {
+                        while (1) {
+                            switch (_context9.prev = _context9.next) {
+                                case 0:
+                                    r = this;
+                                    _context9.t0 = e;
+                                    _context9.next = _context9.t0 === a.HELLO_API_NAME ? 4 : _context9.t0 === a.GETUSERMEDIA_API_NAME ? 5 : _context9.t0 === a.ENUMERATEDEVICES_API_NAME ? 11 : _context9.t0 === a.STREAM_ADD_TRACK ? 15 : _context9.t0 === a.STREAM_REMOVE_TRACK ? 17 : _context9.t0 === a.GENERATE_CERTIFICATE_API_NAME ? 19 : _context9.t0 === a.NEWRTCPEERCONNECTION_API_NAME ? 25 : _context9.t0 === a.PC_GET_CONFIGURATION ? 31 : _context9.t0 === a.CREATE_WORKER ? 35 : _context9.t0 === a.WORKER_TERMINATE ? 37 : _context9.t0 === a.WORKER_POST_MESSAGE ? 39 : _context9.t0 === a.NEW_AUDIO_CONTEXT ? 47 : _context9.t0 === a.AUDIO_CTX_CREATE_AUDIO_NODE ? 49 : _context9.t0 === a.AUDIO_CTX_CLOSE ? 59 : _context9.t0 === a.AUDIO_NODE_CONNECT ? 62 : _context9.t0 === a.AUDIO_NODE_DISCONNECT ? 64 : _context9.t0 === a.AUDIO_NODE_SET_TYPE ? 66 : _context9.t0 === a.AUDIO_NODE_START ? 69 : _context9.t0 === a.AUDIO_NODE_STOP ? 72 : _context9.t0 === a.AUDIO_PARAM_SET_VALUE_AT_TIME ? 75 : _context9.t0 === a.AUDIO_PARAM_SET_RAMP_TO_VALUE_AT_TIME ? 78 : _context9.t0 === a.GET_RECEIVERS_API_NAME ? 81 : _context9.t0 === a.GET_SENDERS_API_NAME ? 88 : _context9.t0 === a.INSERT_DTMF_API_NAME ? 95 : _context9.t0 === a.GET_TRANSCEIVERS_API_NAME ? 97 : _context9.t0 === a.TRANSCEIVER_SET_CODEC_PREFS ? 103 : _context9.t0 === a.ADD_TRACK_API_NAME ? 104 : _context9.t0 === a.ADD_TRANSCEIVER_API_NAME ? 121 : _context9.t0 === a.PC_CLOSE_API_NAME ? 134 : _context9.t0 === a.ADDSTREAM_API_NAME ? 136 : _context9.t0 === a.GET_STATS_API_NAME ? 142 : _context9.t0 === a.GET_SENDER_STATS_API_NAME ? 153 : _context9.t0 === a.GET_RECEIVER_STATS_API_NAME ? 161 : _context9.t0 === a.REPLACE_SENDER_TRACK_API_NAME ? 169 : _context9.t0 === a.PC_REMOVE_TRACK_API_NAME ? 175 : _context9.t0 === a.CREATE_OFFER_API_NAME ? 183 : _context9.t0 === a.CREATE_ANSWER_API_NAME ? 193 : _context9.t0 === a.SET_LOCAL_DESCRIPTION_API_NAME ? 203 : _context9.t0 === a.SET_REMOTE_DESCRIPTION_API_NAME ? 213 : _context9.t0 === a.ADD_ICE_CANDIDATE_API_NAME ? 222 : _context9.t0 === a.ADD_PC_EVENT_LISTENER ? 228 : _context9.t0 === a.ADD_TRACK_EVENT_LISTENER ? 243 : _context9.t0 === a.ADD_WORKER_EVENT_LISTENER ? 255 : _context9.t0 === a.ADD_DTMF_EVENT_LISTENER ? 270 : _context9.t0 === a.CREATE_MEDIA_ELEMENT_API_NAME ? 280 : _context9.t0 === a.MEDIA_ELEMENT_SET_SINK_ID_API_NAME ? 285 : _context9.t0 === a.SET_MEDIA_SRC_OBJ_API_NAME ? 291 : _context9.t0 === a.MEDIA_ELEMENT_MUTED ? 293 : _context9.t0 === a.SET_MEDIA_HIDDEN_API_NAME ? 295 : _context9.t0 === a.SET_MEDIA_VOLUME_API_NAME ? 297 : _context9.t0 === a.MEDIA_ELEMENT_PLAY_API_NAME ? 299 : _context9.t0 === a.MEDIA_ELEMENT_PAUSE_API_NAME ? 301 : _context9.t0 === a.MEDIA_ELEMENT_REMOVE ? 303 : _context9.t0 === a.TOGGLE_TRACK_ENABLED_API_NAME ? 305 : _context9.t0 === a.TRACK_STOP_API_NAME ? 307 : _context9.t0 === a.TRACK_GET_SETTINGS ? 309 : _context9.t0 === a.SENDER_CREATE_ENCODED_STREAMS ? 311 : _context9.t0 === a.RECEIVER_CREATE_ENCODED_STREAMS ? 316 : _context9.t0 === a.UNLOAD_EVENT_NAME ? 321 : 323;
+                                    break;
+
+                                case 4:
+                                    return _context9.abrupt("return", { version: this.version, platform: "web", userAgent: navigator.userAgent });
+
+                                case 5:
+                                    _n12 = (0, _slicedToArray3.default)(n, 1);
+                                    _e16 = _n12[0];
+                                    _context9.next = 9;
+                                    return navigator.mediaDevices.getUserMedia(_e16);
+
+                                case 9:
+                                    _t17 = _context9.sent;
+                                    return _context9.abrupt("return", this.makeStreamTO(_t17));
+
+                                case 11:
+                                    _context9.next = 13;
+                                    return navigator.mediaDevices.enumerateDevices();
+
+                                case 13:
+                                    _context9.t1 = function (e) {
+                                        return e.toJSON();
+                                    };
+
+                                    return _context9.abrupt("return", _context9.sent.map(_context9.t1));
+
+                                case 15:
+                                    _n13 = (0, _slicedToArray3.default)(n, 2), _e17 = _n13[0], _t18 = _n13[1], _r12 = this.streams.get(_e17), _i8 = this.tracks.get(_t18);
+                                    return _context9.abrupt("return", (_r12 && _i8 && _r12.addTrack(_i8), {}));
+
+                                case 17:
+                                    _n14 = (0, _slicedToArray3.default)(n, 2), _e18 = _n14[0], _t19 = _n14[1], _r13 = this.streams.get(_e18), _i9 = this.tracks.get(_t19);
+                                    return _context9.abrupt("return", (_r13 && _i9 && _r13.removeTrack(_i9), {}));
+
+                                case 19:
+                                    _n15 = (0, _slicedToArray3.default)(n, 1);
+                                    _e19 = _n15[0];
+                                    _context9.next = 23;
+                                    return RTCPeerConnection.generateCertificate(_e19);
+
+                                case 23:
+                                    _r14 = _context9.sent;
+                                    return _context9.abrupt("return", (this.certs.set(t, _r14), { type: "proxy", id: t, expires: _r14.expires, fingerprints: _r14.getFingerprints() }));
+
+                                case 25:
+                                    _n16 = (0, _slicedToArray3.default)(n, 3), _e20 = _n16[0], _t20 = _n16[1], _i10 = _n16[2];
+                                    if (_t20 && _t20.certificates) {
+                                        _e21 = _t20.certificates.map(function (e) {
+                                            return r.certs.get(e.id);
+                                        });
+                                        _t20.certificates = _e21;
+                                    }_s3 = new RTCPeerConnection(_t20, _i10);
+                                    this.pcs.set(_e20, _s3), this.pcPromises.has(_e20) && (this.pcPromises.get(_e20).forEach(function (e) {
+                                        e.resolve(e);
+                                    }), this.pcPromises.set(_e20, []));_a3 = { type: "proxy", pcId: _e20 };
+                                    return _context9.abrupt("return", (this.gatherPeerConnectionState(_a3, _s3), _a3));
+
+                                case 31:
+                                    _n17 = (0, _slicedToArray3.default)(n, 1), _e22 = _n17[0];
+                                    _context9.next = 34;
+                                    return this.getPeerConnection(_e22);
+
+                                case 34:
+                                    return _context9.abrupt("return", _context9.sent.getConfiguration());
+
+                                case 35:
+                                    _n18 = (0, _slicedToArray3.default)(n, 4), _e23 = _n18[0], _t21 = _n18[1], _r15 = _n18[2], _i11 = _n18[3], _s4 = g(_r15), _a4 = new Blob([_s4], { type: _t21 }), _o2 = URL.createObjectURL(_a4), _d2 = new Worker(_o2, _i11);
+                                    return _context9.abrupt("return", (this.workers.set(_e23, _d2), this.workerPromises.has(_e23) && (this.workerPromises.get(_e23).forEach(function (e) {
+                                        e.resolve(_d2);
+                                    }), this.workerPromises.set(_e23, [])), { type: "proxy", id: _e23 }));
+
+                                case 37:
+                                    _n19 = (0, _slicedToArray3.default)(n, 1), _e24 = _n19[0];
+                                    return _context9.abrupt("return", (this.workers.has(_e24) && (this.workers.get(_e24).terminate(), this.workerPromises.has(_e24) && this.workerPromises.get(_e24).forEach(function (e) {
+                                        e.reject(null);
+                                    }), this.workerPromises.delete(_e24), this.workers.delete(_e24)), {}));
+
+                                case 39:
+                                    _n20 = (0, _slicedToArray3.default)(n, 3);
+                                    _e25 = _n20[0];
+                                    _t22 = _n20[1];
+                                    _i12 = _n20[2];
+                                    _context9.next = 45;
+                                    return this.getWorker(_e25);
+
+                                case 45:
+                                    _s5 = _context9.sent;
+                                    return _context9.abrupt("return", (this.logger.debug("Message before traversing: ", JSON.stringify(_t22)), this.traverse(_t22, function (e, t, n) {
+                                        "proxy" === n.type && n.id && (e[t] = r.findProxySubject(n.id));
+                                    }), this.logger.debug("Message after traversing: ", _t22), this.logger.debug("Options before traversing: ", JSON.stringify(_i12)), this.traverse(_i12, function (e, t, n) {
+                                        "proxy" === n.type && n.id && (e[t] = r.findProxySubject(n.id));
+                                    }), this.logger.debug("Options after traversing: ", _i12), _s5.postMessage(_t22, _i12), { type: "proxy", id: _e25 }));
+
+                                case 47:
+                                    _n21 = (0, _slicedToArray3.default)(n, 2), _e26 = _n21[0], _t23 = _n21[1], _r16 = new AudioContext();
+                                    return _context9.abrupt("return", (this.audioContexts.set(_e26, _r16), this.audioNodes.set(_t23, _r16.destination), { type: "proxy", id: _e26, baseLatency: _r16.baseLatency, currentTime: _r16.currentTime, outputLatency: _r16.outputLatency, sampleRate: _r16.sampleRate, sinkId: _r16.sinkId, state: _r16.state }));
+
+                                case 49:
+                                    _n22 = (0, _slicedToArray3.default)(n, 4), _e27 = _n22[0], _t24 = _n22[1], _i13 = _n22[2], _s6 = _n22[3];
+
+                                    if (!this.audioContexts.has(_e27)) {
+                                        _context9.next = 58;
+                                        break;
+                                    }
+
+                                    _n23 = this.audioContexts.get(_e27), _a5 = _n23["create" + _i13];
+                                    _s6 = _s6.map(function (e) {
+                                        return "proxy" === e.type ? r.findProxySubject(e.id) : e;
+                                    });_o3 = _a5.apply(_n23, _s6);
+                                    this.audioNodes.set(_t24, _o3);_d3 = null;
+                                    if (_o3.stream) {
+                                        _e28 = _o3.stream.getTracks().map(function (e) {
+                                            return r.makeTrackTO(e, _t24);
+                                        });
+                                        _d3 = this.makeStreamTO(_o3.stream, _t24), _d3.tracks = _e28;
+                                    }return _context9.abrupt("return", { id: _t24, channelCount: _o3.channelCount, channelCountMode: _o3.channelCountMode, channelInterpretation: _o3.channelInterpretation, numberOfInputs: _o3.numberOfInputs, numberOfOutputs: _o3.numberOfOutputs, fftSize: _o3.fftSize, frequencyBinCount: _o3.frequencyBinCount, maxDecibels: _o3.maxDecibels, minDecibels: _o3.minDecibels, smoothingTimeConstant: _o3.smoothingTimeConstant, stream: _d3 });
+
+                                case 58:
+                                    return _context9.abrupt("return", {});
+
+                                case 59:
+                                    _n24 = (0, _slicedToArray3.default)(n, 1), _e29 = _n24[0];
+                                    if (this.audioContexts.has(_e29)) {
+                                        this.audioContexts.get(_e29).close(), this.audioContexts.delete(_e29);
+                                    }return _context9.abrupt("return", {});
+
+                                case 62:
+                                    _n25 = (0, _slicedToArray3.default)(n, 4), _e30 = _n25[0], _t25 = _n25[1], _r17 = _n25[2], _i14 = _n25[3], _s7 = this.audioNodes.get(_e30), _a6 = this.findProxySubject(_t25.id);
+                                    return _context9.abrupt("return", (_s7 && _a6 && _s7.connect(_a6, _r17 || 0, _i14 || 0), {}));
+
+                                case 64:
+                                    _n26 = (0, _slicedToArray3.default)(n, 4), _e31 = _n26[0], _t26 = _n26[1], _r18 = _n26[2], _i15 = _n26[3], _s8 = this.audioNodes.get(_e31), _a7 = this.findProxySubject(_t26.id);
+                                    return _context9.abrupt("return", (_s8 && _a7 && _s8.disconnect(_a7, _r18 || 0, _i15 || 0), {}));
+
+                                case 66:
+                                    _n27 = (0, _slicedToArray3.default)(n, 2), _e32 = _n27[0], _t27 = _n27[1];
+                                    if (this.audioNodes.has(_e32)) {
+                                        this.audioNodes.get(_e32).type = _t27;
+                                    }return _context9.abrupt("return", {});
+
+                                case 69:
+                                    _n28 = (0, _slicedToArray3.default)(n, 2), _e33 = _n28[0], _t28 = _n28[1];
+                                    if (this.audioNodes.has(_e33)) {
+                                        this.audioNodes.get(_e33).start(_t28);
+                                    }return _context9.abrupt("return", {});
+
+                                case 72:
+                                    _n29 = (0, _slicedToArray3.default)(n, 2), _e34 = _n29[0], _t29 = _n29[1];
+                                    if (this.audioNodes.has(_e34)) {
+                                        this.audioNodes.get(_e34).stop(_t29);
+                                    }return _context9.abrupt("return", {});
+
+                                case 75:
+                                    _n30 = (0, _slicedToArray3.default)(n, 3), _e35 = _n30[0], _t30 = _n30[1], _r19 = _n30[2];
+                                    if (this.audioNodes.has(_e35)) {
+                                        _n31 = this.audioNodes.get(_e35);
+                                        _n31.gain ? _n31.gain.setValueAtTime(_t30, _r19 || _n31.context.currentTime) : _n31.frequency && _n31.frequency.setValueAtTime(_t30, _r19 || _n31.context.currentTime);
+                                    }return _context9.abrupt("return", {});
+
+                                case 78:
+                                    _n32 = (0, _slicedToArray3.default)(n, 3), _e36 = _n32[0], _t31 = _n32[1], _r20 = _n32[2];
+                                    if (this.audioNodes.has(_e36)) {
+                                        _n33 = this.audioNodes.get(_e36);
+                                        _n33.frequency && _n33.frequency.linearRampToValueAtTime(_t31, _r20 || _n33.context.currentTime);
+                                    }return _context9.abrupt("return", {});
+
+                                case 81:
+                                    _n34 = (0, _slicedToArray3.default)(n, 1), _e37 = _n34[0];
+                                    _context9.t2 = _e37;
+                                    _context9.next = 85;
+                                    return this.getPeerConnection(_e37);
+
+                                case 85:
+                                    _context9.t3 = function (e) {
+                                        return r.makeReceiverTO(e);
+                                    };
+
+                                    _context9.t4 = _context9.sent.getReceivers().map(_context9.t3);
+                                    return _context9.abrupt("return", {
+                                        pcId: _context9.t2,
+                                        receivers: _context9.t4
+                                    });
+
+                                case 88:
+                                    _n35 = (0, _slicedToArray3.default)(n, 1), _e38 = _n35[0];
+                                    _context9.t5 = _e38;
+                                    _context9.next = 92;
+                                    return this.getPeerConnection(_e38);
+
+                                case 92:
+                                    _context9.t6 = function (e) {
+                                        return r.makeSenderTO(e);
+                                    };
+
+                                    _context9.t7 = _context9.sent.getSenders().map(_context9.t6);
+                                    return _context9.abrupt("return", {
+                                        pcId: _context9.t5,
+                                        senders: _context9.t7
+                                    });
+
+                                case 95:
+                                    _n36 = (0, _slicedToArray3.default)(n, 4), _e39 = _n36[0], _t32 = _n36[1], _r21 = _n36[2], _i16 = _n36[3], _s9 = this.dtmfSenders.get(_e39);
+                                    return _context9.abrupt("return", (_s9 && _s9.insertDTMF(_t32, _r21, _i16), {}));
+
+                                case 97:
+                                    _n37 = (0, _slicedToArray3.default)(n, 1);
+                                    _e40 = _n37[0];
+                                    _context9.next = 101;
+                                    return this.getPeerConnection(_e40);
+
+                                case 101:
+                                    _t33 = _context9.sent.getTransceivers();
+                                    return _context9.abrupt("return", (_t33 = _t33.map(function (e) {
+                                        return e.id = e.id ? e.id : crypto.randomUUID(), r.makeTransceiverTO(e);
+                                    }), { pcId: _e40, transceivers: _t33 }));
+
+                                case 103:
+                                    return _context9.abrupt("return", {});
+
+                                case 104:
+                                    _n38 = (0, _toArray3.default)(n);
+                                    _e41 = _n38[0];
+                                    _t34 = _n38[1];
+                                    _i17 = _n38[2];
+                                    _s10 = _n38.slice(3);
+                                    _context9.next = 111;
+                                    return this.getPeerConnection(_t34);
+
+                                case 111:
+                                    _a8 = _context9.sent;
+                                    _o4 = [];
+                                    _s10.forEach(function (e) {
+                                        var t = r.streams.get(e.proxy.id);t && _o4.push(t);
+                                    });_d4 = this.tracks.get(_i17.id);
+
+                                    if (!_d4) {
+                                        _context9.next = 120;
+                                        break;
+                                    }
+
+                                    _n39 = [_d4].concat(_o4), _i18 = _a8.addTrack.apply(_a8, _n39);
+                                    _i18.id = _e41;_s11 = this.makeSenderTO(_i18);
+                                    return _context9.abrupt("return", (_s11.pcId = _t34, _s11.senders = _a8.getSenders().map(function (e) {
+                                        return r.makeSenderTO(e);
+                                    }), _s11.receivers = _a8.getReceivers().map(function (e) {
+                                        return r.makeReceiverTO(e);
+                                    }), _s11.transceivers = _a8.getTransceivers().map(function (e) {
+                                        return r.makeTransceiverTO(e);
+                                    }), _s11));
+
+                                case 120:
+                                    return _context9.abrupt("return", {});
+
+                                case 121:
+                                    _n40 = (0, _slicedToArray3.default)(n, 4);
+                                    _e42 = _n40[0];
+                                    _t35 = _n40[1];
+                                    _i19 = _n40[2];
+                                    _s12 = _n40[3];
+                                    _context9.next = 128;
+                                    return this.getPeerConnection(_e42);
+
+                                case 128:
+                                    _a9 = _context9.sent;
+                                    if ("string" != typeof _i19 && (_i19 = this.tracks.get(_i19.id)), _s12 && _s12.streams) {
+                                        _e43 = [];
+                                        _s12.streams.forEach(function (t) {
+                                            if (t.proxy) {
+                                                var _n41 = r.streams.get(t.proxy.id);_e43.push(_n41);
+                                            }
+                                        }), _s12.streams = _e43;
+                                    }_o5 = _a9.addTransceiver(_i19, _s12);
+                                    _o5.id = _t35.id, this.transceivers.set(_t35.id, _o5), _o5.sender && (_o5.sender.id = _t35.sender.id, this.senders.set(_t35.sender.id, _o5.sender)), _o5.receiver && (_o5.receiver.id = _t35.receiver.id, this.receivers.set(_t35.receiver.id, _o5.receiver));_d5 = this.makeTransceiverTO(_o5);
+                                    return _context9.abrupt("return", (_d5.pcId = _e42, _d5.senders = _a9.getSenders().map(function (e) {
+                                        return r.makeSenderTO(e);
+                                    }), _d5.receivers = _a9.getReceivers().map(function (e) {
+                                        return r.makeReceiverTO(e);
+                                    }), _d5.transceivers = _a9.getTransceivers().map(function (e) {
+                                        return r.makeTransceiverTO(e);
+                                    }), _d5));
+
+                                case 134:
+                                    _n42 = (0, _slicedToArray3.default)(n, 1), _e44 = _n42[0];
+                                    return _context9.abrupt("return", (this.closePeerConnection(_e44), {}));
+
+                                case 136:
+                                    _n43 = (0, _slicedToArray3.default)(n, 2), _e45 = _n43[0], _t36 = _n43[1], _r22 = this.streams.get(_t36.id);
+                                    _context9.next = 139;
+                                    return this.getPeerConnection(_e45);
+
+                                case 139:
+                                    _context9.t8 = _r22;
+
+                                    _context9.sent.addStream(_context9.t8);
+
+                                    return _context9.abrupt("return", _t36);
+
+                                case 142:
+                                    _n44 = (0, _slicedToArray3.default)(n, 2);
+                                    _e46 = _n44[0];
+                                    _t37 = _n44[1];
+                                    _context9.next = 147;
+                                    return this.getPeerConnection(_e46);
+
+                                case 147:
+                                    _r23 = _context9.sent;
+                                    _context9.next = 150;
+                                    return _r23.getStats(_t37);
+
+                                case 150:
+                                    _i20 = _context9.sent;
+                                    _s13 = [];
+                                    return _context9.abrupt("return", (_i20.forEach(function (e) {
+                                        var t = Object.assign({}, e);_s13.push(t);
+                                    }), _s13));
+
+                                case 153:
+                                    _n45 = (0, _slicedToArray3.default)(n, 1), _e47 = _n45[0];
+
+                                    if (!this.senders.has(_e47)) {
+                                        _context9.next = 160;
+                                        break;
+                                    }
+
+                                    _context9.next = 157;
+                                    return this.senders.get(_e47).getStats();
+
+                                case 157:
+                                    _t38 = _context9.sent;
+                                    _n46 = [];
+                                    return _context9.abrupt("return", (_t38.forEach(function (e) {
+                                        var t = Object.assign({}, e);_n46.push(t);
+                                    }), _n46));
+
+                                case 160:
+                                    return _context9.abrupt("return", []);
+
+                                case 161:
+                                    _n47 = (0, _slicedToArray3.default)(n, 1), _e48 = _n47[0];
+
+                                    if (!this.receivers.has(_e48)) {
+                                        _context9.next = 168;
+                                        break;
+                                    }
+
+                                    _context9.next = 165;
+                                    return this.receivers.get(_e48).getStats();
+
+                                case 165:
+                                    _t39 = _context9.sent;
+                                    _n48 = [];
+                                    return _context9.abrupt("return", (_t39.forEach(function (e) {
+                                        var t = { id: e.id ? e.id : crypto.randomUUID(), type: e.type, concealedSamples: e.concealedSamples };_n48.push(t);
+                                    }), _n48));
+
+                                case 168:
+                                    return _context9.abrupt("return", {});
+
+                                case 169:
+                                    _n49 = (0, _slicedToArray3.default)(n, 2), _e49 = _n49[0], _t40 = _n49[1], _r24 = this.senders.get(_e49), _i21 = _t40 ? this.tracks.get(_t40.id) : null;
+                                    _context9.t9 = _i21 && _r24;
+
+                                    if (!_context9.t9) {
+                                        _context9.next = 174;
+                                        break;
+                                    }
+
+                                    _context9.next = 174;
+                                    return _r24.replaceTrack(_i21);
+
+                                case 174:
+                                    return _context9.abrupt("return", {});
+
+                                case 175:
+                                    _n50 = (0, _slicedToArray3.default)(n, 2);
+                                    _e50 = _n50[0];
+                                    _t41 = _n50[1];
+                                    _context9.next = 180;
+                                    return this.getPeerConnection(_e50);
+
+                                case 180:
+                                    _r25 = _context9.sent;
+                                    _i22 = this.senders.get(_t41.id);
+                                    return _context9.abrupt("return", (_i22 && _r25.removeTrack(_i22), {}));
+
+                                case 183:
+                                    _n51 = (0, _slicedToArray3.default)(n, 2);
+                                    _e51 = _n51[0];
+                                    _r26 = _n51[1];
+                                    _context9.next = 188;
+                                    return this.getPeerConnection(_e51);
+
+                                case 188:
+                                    _i23 = _context9.sent;
+                                    _context9.next = 191;
+                                    return _i23.createOffer(_r26);
+
+                                case 191:
+                                    _s14 = _context9.sent;
+                                    return _context9.abrupt("return", (this.offers.set(t, _s14), { id: t, type: _s14.type, sdp: _s14.sdp }));
+
+                                case 193:
+                                    _n52 = (0, _slicedToArray3.default)(n, 2);
+                                    _e52 = _n52[0];
+                                    _r27 = _n52[1];
+                                    _context9.next = 198;
+                                    return this.getPeerConnection(_e52);
+
+                                case 198:
+                                    _i24 = _context9.sent;
+                                    _context9.next = 201;
+                                    return _i24.createAnswer(_r27);
+
+                                case 201:
+                                    _s15 = _context9.sent;
+                                    return _context9.abrupt("return", (this.answers.set(t, _s15), { id: t, type: _s15.type, sdp: _s15.sdp }));
+
+                                case 203:
+                                    _n53 = (0, _slicedToArray3.default)(n, 2), _e53 = _n53[0], _t42 = _n53[1], _r28 = "offer" === _t42.type ? this.offers : this.answers, _i25 = _t42.id ? _r28.get(_t42.id) : _t42;
+
+                                    if (!_i25) {
+                                        _context9.next = 212;
+                                        break;
+                                    }
+
+                                    _i25.sdp = _t42.sdp;_context9.next = 208;
+                                    return this.getPeerConnection(_e53);
+
+                                case 208:
+                                    _n54 = _context9.sent;
+                                    _context9.next = 211;
+                                    return _n54.setLocalDescription(_i25);
+
+                                case 211:
+                                    return _context9.abrupt("return", _t42);
+
+                                case 212:
+                                    return _context9.abrupt("return", {});
+
+                                case 213:
+                                    _n55 = (0, _slicedToArray3.default)(n, 2);
+                                    _e54 = _n55[0];
+                                    _t43 = _n55[1];
+                                    _context9.next = 218;
+                                    return this.getPeerConnection(_e54);
+
+                                case 218:
+                                    _r29 = _context9.sent;
+                                    _context9.next = 221;
+                                    return _r29.setRemoteDescription(_t43);
+
+                                case 221:
+                                    return _context9.abrupt("return", _t43);
+
+                                case 222:
+                                    _n56 = (0, _slicedToArray3.default)(n, 2), _e55 = _n56[0], _t44 = _n56[1], _r30 = _t44 ? new RTCIceCandidate({ sdpMLineIndex: _t44.sdpMLineIndex, candidate: _t44.candidate }) : null;
+                                    _context9.next = 225;
+                                    return this.getPeerConnection(_e55);
+
+                                case 225:
+                                    _context9.t10 = _r30;
+
+                                    _context9.sent.addIceCandidate(_context9.t10);
+
+                                    return _context9.abrupt("return", _t44);
+
+                                case 228:
+                                    _n57 = (0, _slicedToArray3.default)(n, 2);
+                                    _e56 = _n57[0];
+                                    _i26 = _n57[1];
+                                    _context9.next = 233;
+                                    return this.getPeerConnection(_e56);
+
+                                case 233:
+                                    _s16 = _context9.sent;
+
+                                    if (!(_s16.pendingEvents || (_s16.pendingEvents = new Map()), _s16.eventPromises || (_s16.eventPromises = new Map()), _s16.pendingEvents.has(_i26))) {
+                                        _context9.next = 241;
+                                        break;
+                                    }
+
+                                    _context9.next = 237;
+                                    return this.getPendingEvent(_s16, _i26);
+
+                                case 237:
+                                    _e57 = _context9.sent;
+                                    this.sendEvent(a.ADD_PC_EVENT_LISTENER, t, _e57);_context9.next = 242;
+                                    break;
+
+                                case 241:
+                                    if (!_s16[_i26]) {
+                                        _n58 = function _n58(n) {
+                                            var i = null;if (n.type === o.ICE_CANDIDATE) {
+                                                r.logger.debug("event: ", n);var _t45 = n.candidate,
+                                                    _a10 = null;_t45 && (_a10 = { sdpMLineIndex: _t45.sdpMLineIndex, sdpMid: _t45.sdpMid, candidate: _t45.candidate, type: _t45.type, foundation: _t45.foundation, protocol: _t45.protocol, address: _t45.address, port: _t45.port, priority: _t45.priority, url: _t45.url, relayProtocol: _t45.relayProtocol, component: _t45.compoonent, relatedAddress: _t45.relatedAddress, relatedPort: _t45.relatedPort, tcpType: _t45.tcpType, usernameFragment: _t45.usernameFragment }), i = { pcId: _e56, eventName: n.type, type: "proxy", candidate: _a10 }, r.gatherPeerConnectionState(i, _s16);
+                                            } else n.type === o.SIG_STATE_CHANGE ? (i = { pcId: _e56, eventName: n.type, type: "proxy" }, r.gatherPeerConnectionState(i, _s16)) : n.type === o.TRACK ? (i = { pcId: _e56, eventName: n.type, type: "proxy", streams: [], senders: [], receivers: [], track: r.makeTrackTO(n.track) }, i.streams = n.streams.map(function (e) {
+                                                return r.makeStreamTO(e);
+                                            }), r.gatherPeerConnectionState(i, _s16)) : n.type === o.CONN_STATE_CHANGE || n.type === o.ICE_CONN_STATE_CHANGE || n.type === o.ICE_GATHER_STATE_CHANGE || n.type === o.NEGOTIATION_NEEDED ? (i = { pcId: _e56, eventName: n.type, type: "proxy" }, r.gatherPeerConnectionState(i, _s16)) : r.logger.warn("Ignored event, type: " + n.type + ", event: " + JSON.stringify(n));i && r.processPendingEvents(_s16, n, i, a.ADD_PC_EVENT_LISTENER, t);
+                                        };
+
+                                        _s16[_i26] = _n58, _s16.addEventListener(_i26, _n58);
+                                    }
+
+                                case 242:
+                                    return _context9.abrupt("return", null);
+
+                                case 243:
+                                    _n59 = (0, _slicedToArray3.default)(n, 3), _e58 = _n59[0], _i27 = _n59[1], _s17 = _n59[2], _o6 = this.tracks.get(_e58);
+
+                                    if (!_o6) {
+                                        _context9.next = 254;
+                                        break;
+                                    }
+
+                                    if (!(_o6.pendingEvents || (_o6.pendingEvents = new Map()), _o6.eventPromises || (_o6.eventPromises = new Map()), _o6.pendingEvents.has(_i27))) {
+                                        _context9.next = 252;
+                                        break;
+                                    }
+
+                                    _context9.next = 248;
+                                    return this.getPendingEvent(_o6, _i27);
+
+                                case 248:
+                                    _e59 = _context9.sent;
+                                    this.sendEvent(a.ADD_TRACK_EVENT_LISTENER, t, _e59);_context9.next = 253;
+                                    break;
+
+                                case 252:
+                                    if (!_o6[_i27]) {
+                                        _n60 = function _n60(n) {
+                                            if (Object.values(d).includes(_i27)) {
+                                                var _i28 = { trackId: _e58, eventName: n.type, type: "proxy" };_i28 && r.processPendingEvents(_o6, n, _i28, a.ADD_TRACK_EVENT_LISTENER, t);
+                                            } else r.logger.warn("Ignored event: " + JSON.stringify(n));
+                                        };
+
+                                        _o6[_i27] = _n60, _o6.addEventListener(_i27, _n60, _s17);
+                                    }
+
+                                case 253:
+                                    return _context9.abrupt("return", null);
+
+                                case 254:
+                                    return _context9.abrupt("return", {});
+
+                                case 255:
+                                    _n61 = (0, _slicedToArray3.default)(n, 2);
+                                    _e60 = _n61[0];
+                                    _i29 = _n61[1];
+                                    _context9.next = 260;
+                                    return this.getWorker(_e60);
+
+                                case 260:
+                                    _s18 = _context9.sent;
+
+                                    if (!(_s18.pendingEvents || (_s18.pendingEvents = new Map()), _s18.eventPromises || (_s18.eventPromises = new Map()), _s18.pendingEvents.has(_i29))) {
+                                        _context9.next = 268;
+                                        break;
+                                    }
+
+                                    _context9.next = 264;
+                                    return this.getPendingEvent(_s18, _i29);
+
+                                case 264:
+                                    _e61 = _context9.sent;
+                                    this.sendEvent(a.ADD_WORKER_EVENT_LISTENER, t, _e61);_context9.next = 269;
+                                    break;
+
+                                case 268:
+                                    if (!_s18[_i29]) {
+                                        _n62 = function _n62(n) {
+                                            if (r.logger.debug("Received event: ", n), Object.values(l).includes(_i29)) {
+                                                var _i30 = { wId: _e60, eventName: n.type, type: "proxy", data: n.data };_i30 && r.processPendingEvents(_s18, n, _i30, a.ADD_WORKER_EVENT_LISTENER, t);
+                                            } else r.logger.warn("Ignored event: " + JSON.stringify(n), n);
+                                        };
+
+                                        _s18[_i29] = _n62, _s18.addEventListener(_i29, _n62);
+                                    }
+
+                                case 269:
+                                    return _context9.abrupt("return", null);
+
+                                case 270:
+                                    _n63 = (0, _slicedToArray3.default)(n, 3), _e62 = _n63[0], _i31 = _n63[1], _s19 = _n63[2], _o7 = this.dtmfSenders.get(_e62);
+
+                                    if (!(_o7.pendingEvents || (_o7.pendingEvents = new Map()), _o7.eventPromises || (_o7.eventPromises = new Map()), _o7.pendingEvents.has(_i31))) {
+                                        _context9.next = 278;
+                                        break;
+                                    }
+
+                                    _context9.next = 274;
+                                    return this.getPendingEvent(_o7, _i31);
+
+                                case 274:
+                                    _e63 = _context9.sent;
+                                    this.sendEvent(a.ADD_DTMF_EVENT_LISTENER, t, _e63);_context9.next = 279;
+                                    break;
+
+                                case 278:
+                                    if (!_o7[_i31]) {
+                                        _n64 = function _n64(n) {
+                                            if (Object.values(c).includes(_i31)) {
+                                                var _i32 = { dtmfId: _e62, eventName: n.type, type: n.type, tone: n.tone };r.processPendingEvents(_o7, n, _i32, a.ADD_DTMF_EVENT_LISTENER, t);
+                                            } else r.logger.warn("Ignored event: " + JSON.stringify(n));
+                                        };
+
+                                        _o7[_i31] = _n64, _o7.addEventListener(_i31, _n64, _s19);
+                                    }
+
+                                case 279:
+                                    return _context9.abrupt("return", null);
+
+                                case 280:
+                                    _n65 = (0, _slicedToArray3.default)(n, 2), _e64 = _n65[0], _t46 = _n65[1];
+
+                                    if (!("audio" !== _t46.kind && "video" !== _t46.kind)) {
+                                        _context9.next = 283;
+                                        break;
+                                    }
+
+                                    return _context9.abrupt("return", (this.logger.warn("Invalid media type: " + JSON.stringify(_t46)), null));
+
+                                case 283:
+                                    _r31 = document.createElement(_t46.kind);
+                                    return _context9.abrupt("return", (Object.assign(_r31, _t46), document.body.appendChild(_r31), this.mediaElements.set(_e64, _r31), { id: _e64, sinkId: _r31.sinkId }));
+
+                                case 285:
+                                    _n66 = (0, _slicedToArray3.default)(n, 2), _e65 = _n66[0], _t47 = _n66[1], _r32 = this.mediaElements.get(_e65);
+
+                                    if (!_r32) {
+                                        _context9.next = 290;
+                                        break;
+                                    }
+
+                                    _context9.next = 289;
+                                    return _r32.setSinkId(_t47);
+
+                                case 289:
+                                    return _context9.abrupt("return", { id: _e65, sinkId: _r32.sinkId });
+
+                                case 290:
+                                    return _context9.abrupt("return", {});
+
+                                case 291:
+                                    _n67 = (0, _slicedToArray3.default)(n, 2), _e66 = _n67[0], _t48 = _n67[1], _r33 = _t48 ? this.getStream(_t48.id) : null;
+                                    return _context9.abrupt("return", (this.mediaElements.has(_e66) && (this.mediaElements.get(_e66).srcObject = _r33), {}));
+
+                                case 293:
+                                    _n68 = (0, _slicedToArray3.default)(n, 2), _e67 = _n68[0], _t49 = _n68[1];
+                                    return _context9.abrupt("return", (this.mediaElements.has(_e67) && (this.mediaElements.get(_e67).muted = _t49), { id: _e67, muted: _t49 }));
+
+                                case 295:
+                                    _n69 = (0, _slicedToArray3.default)(n, 2), _e68 = _n69[0], _t50 = _n69[1], _r34 = this.mediaElements.get(_e68);
+                                    return _context9.abrupt("return", (_r34 && (_r34.hidden = _t50), {}));
+
+                                case 297:
+                                    _n70 = (0, _slicedToArray3.default)(n, 2), _e69 = _n70[0], _t51 = _n70[1];
+                                    return _context9.abrupt("return", (this.mediaElements.has(_e69) && (this.mediaElements.get(_e69).volume = _t51), {}));
+
+                                case 299:
+                                    _n71 = (0, _slicedToArray3.default)(n, 1), _e70 = _n71[0];
+                                    return _context9.abrupt("return", (this.mediaElements.has(_e70) && this.mediaElements.get(_e70).play(), {}));
+
+                                case 301:
+                                    _n72 = (0, _slicedToArray3.default)(n, 1), _e71 = _n72[0];
+                                    return _context9.abrupt("return", (this.mediaElements.has(_e71) && this.mediaElements.get(_e71).pause(), {}));
+
+                                case 303:
+                                    _n73 = (0, _slicedToArray3.default)(n, 1), _e72 = _n73[0];
+                                    return _context9.abrupt("return", (this.mediaElements.has(_e72) && (this.mediaElements.get(_e72).remove(), this.mediaElements.delete(_e72)), {}));
+
+                                case 305:
+                                    _n74 = (0, _slicedToArray3.default)(n, 2), _e73 = _n74[0], _t52 = _n74[1], _r35 = this.tracks.get(_e73);
+                                    return _context9.abrupt("return", _r35 ? (_r35.enabled = _t52, this.makeTrackTO(_r35)) : {});
+
+                                case 307:
+                                    _n75 = (0, _slicedToArray3.default)(n, 1), _e74 = _n75[0], _t53 = this.tracks.get(_e74);
+                                    return _context9.abrupt("return", (_t53 && (_t53.stop(), this.tracks.delete(_e74)), {}));
+
+                                case 309:
+                                    _n76 = (0, _slicedToArray3.default)(n, 1), _e75 = _n76[0], _t54 = this.tracks.get(_e75);
+                                    return _context9.abrupt("return", _t54 ? _t54.getSettings() : {});
+
+                                case 311:
+                                    _n77 = (0, _slicedToArray3.default)(n, 2), _e76 = _n77[0], _t55 = _n77[1];
+
+                                    if (!this.senders.has(_e76)) {
+                                        _context9.next = 315;
+                                        break;
+                                    }
+
+                                    _n78 = this.senders.get(_e76).createEncodedStreams();
+                                    return _context9.abrupt("return", (this.streams.set(_t55.id, _n78), this.streams.set(_t55.readable.id, _n78.readable), this.streams.set(_t55.writable.id, _n78.writable), _t55));
+
+                                case 315:
+                                    return _context9.abrupt("return", {});
+
+                                case 316:
+                                    _n79 = (0, _slicedToArray3.default)(n, 2), _e77 = _n79[0], _t56 = _n79[1];
+
+                                    if (!this.receivers.has(_e77)) {
+                                        _context9.next = 320;
+                                        break;
+                                    }
+
+                                    _n80 = this.receivers.get(_e77).createEncodedStreams();
+                                    return _context9.abrupt("return", (this.streams.set(_t56.id, _n80), this.streams.set(_t56.readable.id, _n80.readable), this.streams.set(_t56.writable.id, _n80.writable), _t56));
+
+                                case 320:
+                                    return _context9.abrupt("return", {});
+
+                                case 321:
+                                    _n81 = (0, _slicedToArray3.default)(n, 1), _e78 = _n81[0];
+                                    return _context9.abrupt("return", (_e78.pcIds.forEach(function (e) {
+                                        r.closePeerConnection(e);
+                                    }), _e78.streamIds.forEach(function (e) {
+                                        var t = r.streams.get(e);t && ("function" == typeof t.getTracks && t.getTracks().forEach(function (e) {
+                                            e.stop();
+                                        }), r.streams.delete(e));
+                                    }), _e78.trackIds.forEach(function (e) {
+                                        r.tracks.delete(e);
+                                    }), _e78.workerIds.forEach(function (e) {
+                                        var t = r.workers.get(e);t && t.terminate(), r.workers.delete(e);
+                                    }), _e78.mediaElementIds.forEach(function (e) {
+                                        var t = r.mediaElements.get(e);t && (t.remove(), r.mediaElements.delete(e));
+                                    }), _e78.transceiverIds.forEach(function (e) {
+                                        r.transceivers.delete(e);
+                                    }), _e78.senderIds.forEach(function (e) {
+                                        r.senders.delete(e);
+                                    }), _e78.receiverIds.forEach(function (e) {
+                                        r.receivers.delete(e);
+                                    }), {}));
+
+                                case 323:
+                                    return _context9.abrupt("return", null);
+
+                                case 324:
+                                case "end":
+                                    return _context9.stop();
+                            }
+                        }
+                    }, _callee9, this);
+                }));
+
+                function callWebRTCApi(_x10, _x11, _x12) {
+                    return _ref9.apply(this, arguments);
+                }
+
+                return callWebRTCApi;
+            }()
+        }, {
+            key: "sendMessage",
+            value: function sendMessage(e) {
+                this.logger.debug("Sending message: " + JSON.stringify(e));var t = e.message,
+                    n = A.deflateRaw(JSON.stringify(t));e.message = n;var r = new TextEncoder().encode(JSON.stringify(e)),
+                    i = r.byteLength,
+                    s = new Uint8Array([i, i >> 8, i >> 16, i >> 24]);this.channel.sendMessage(s), this.channel.sendMessage(r);
+            }
+        }, {
+            key: "sendEvent",
+            value: function sendEvent(e, t, n) {
+                var r = { requestId: t, type: "event", message: { api: e, event: n } };this.sendMessage(r);
+            }
+        }, {
+            key: "sendResponse",
+            value: function sendResponse(e, t, n) {
+                var r = { requestId: t, type: "response", message: { api: e, response: n } };this.sendMessage(r);
+            }
+        }, {
+            key: "sendError",
+            value: function sendError(e, t, n) {
+                var r = { requestId: t, type: "error", message: { api: e, error: n } };this.sendMessage(r);
+            }
+        }, {
+            key: "handleWebRTCApi",
+            value: function () {
+                var _ref10 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee10(e) {
+                    var _t57;
+
+                    return _regenerator2.default.wrap(function _callee10$(_context10) {
+                        while (1) {
+                            switch (_context10.prev = _context10.next) {
+                                case 0:
+                                    _context10.prev = 0;
+                                    _context10.next = 3;
+                                    return this.callWebRTCApi(e.message.api, e.requestId, e.message.args);
+
+                                case 3:
+                                    _t57 = _context10.sent;
+                                    _t57 && this.sendResponse(e.message.api, e.requestId, _t57);_context10.next = 10;
+                                    break;
+
+                                case 7:
+                                    _context10.prev = 7;
+                                    _context10.t0 = _context10["catch"](0);
+                                    this.logger.error("Error handling WebRTC API: " + JSON.stringify(e) + ", message: " + (_context10.t0.message ? _context10.t0.message : "(no message)") + ", error: " + JSON.stringify(_context10.t0)), this.logger.trace(_context10.t0), this.sendError(e.message.api, e.requestId, { name: _context10.t0.name, message: _context10.t0.message });
+                                case 10:
+                                case "end":
+                                    return _context10.stop();
+                            }
+                        }
+                    }, _callee10, this, [[0, 7]]);
+                }));
+
+                function handleWebRTCApi(_x13) {
+                    return _ref10.apply(this, arguments);
+                }
+
+                return handleWebRTCApi;
+            }()
+        }, {
+            key: "processPendingEvents",
+            value: function processPendingEvents(e, t, n, r, i) {
+                if (e.pendingEvents.has(t.type)) {
+                    e.pendingEvents.get(t.type).push(n);var _r36 = e.eventPromises.get(t.type);_r36 && _r36.forEach(function (e) {
+                        e.resolve(n);
+                    });
+                } else this.sendEvent(r, i, n), e.pendingEvents.set(t.type, []);
+            }
+        }, {
+            key: "handleMessage",
+            value: function handleMessage(e) {
+                var t = e.message,
+                    n = A.inflateRaw(t),
+                    r = this.decoder.decode(n);e.message = JSON.parse(r), e.message.api && e.requestId && e.message.args ? this.handleWebRTCApi(e) : (this.logger.error("Invalid message format: " + JSON.stringify(e)), this.logger.trace(e));
+            }
+        }, {
+            key: "onClose",
+            value: function onClose(e) {
+                this.logger.info("WebRTC redir custom channel closed: " + JSON.stringify(e) + "\""), this.release();
+            }
+        }, {
+            key: "release",
+            value: function release() {
+                var e = this;this.streams.forEach(function (e) {
+                    e.getTracks().forEach(function (e) {
+                        e.stop();
+                    });
+                }), this.mediaElements.forEach(function (e) {
+                    e.remove();
+                }), this.pcs.forEach(function (t, n) {
+                    e.closePeerConnection(n);
+                }), this.certs.clear();
+            }
+        }]);
+        return _class;
+    }();
 });
 
-},{"babel-runtime/helpers/asyncToGenerator":14,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/slicedToArray":20,"babel-runtime/helpers/toArray":21,"babel-runtime/helpers/typeof":22,"babel-runtime/regenerator":23}],2:[function(require,module,exports){
+}).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"babel-runtime/helpers/asyncToGenerator":14,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/slicedToArray":20,"babel-runtime/helpers/toArray":21,"babel-runtime/helpers/typeof":22,"babel-runtime/regenerator":25}],2:[function(require,module,exports){
 (function (global){(function (){
 //===============================================
 // By using these Developer Materials, you accept and agree to comply with
@@ -4914,27 +3929,27 @@ a.createMessageByid=function(a,b,c,d,h,p){for(var g=[],B=6;B<arguments.length;B+
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],3:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/array/from"), __esModule: true };
-},{"core-js/library/fn/array/from":24}],4:[function(require,module,exports){
+},{"core-js/library/fn/array/from":26}],4:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/get-iterator"), __esModule: true };
-},{"core-js/library/fn/get-iterator":25}],5:[function(require,module,exports){
+},{"core-js/library/fn/get-iterator":27}],5:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/is-iterable"), __esModule: true };
-},{"core-js/library/fn/is-iterable":26}],6:[function(require,module,exports){
+},{"core-js/library/fn/is-iterable":28}],6:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/create"), __esModule: true };
-},{"core-js/library/fn/object/create":27}],7:[function(require,module,exports){
+},{"core-js/library/fn/object/create":29}],7:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/define-property"), __esModule: true };
-},{"core-js/library/fn/object/define-property":28}],8:[function(require,module,exports){
+},{"core-js/library/fn/object/define-property":30}],8:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/get-own-property-descriptor"), __esModule: true };
-},{"core-js/library/fn/object/get-own-property-descriptor":29}],9:[function(require,module,exports){
+},{"core-js/library/fn/object/get-own-property-descriptor":31}],9:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/get-prototype-of"), __esModule: true };
-},{"core-js/library/fn/object/get-prototype-of":30}],10:[function(require,module,exports){
+},{"core-js/library/fn/object/get-prototype-of":32}],10:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/set-prototype-of"), __esModule: true };
-},{"core-js/library/fn/object/set-prototype-of":31}],11:[function(require,module,exports){
+},{"core-js/library/fn/object/set-prototype-of":33}],11:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/promise"), __esModule: true };
-},{"core-js/library/fn/promise":32}],12:[function(require,module,exports){
+},{"core-js/library/fn/promise":34}],12:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/symbol"), __esModule: true };
-},{"core-js/library/fn/symbol":33}],13:[function(require,module,exports){
+},{"core-js/library/fn/symbol":35}],13:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/symbol/iterator"), __esModule: true };
-},{"core-js/library/fn/symbol/iterator":34}],14:[function(require,module,exports){
+},{"core-js/library/fn/symbol/iterator":36}],14:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -5191,1973 +4206,6 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
   return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
 };
 },{"../core-js/symbol":12,"../core-js/symbol/iterator":13}],23:[function(require,module,exports){
-module.exports = require("regenerator-runtime");
-
-},{"regenerator-runtime":128}],24:[function(require,module,exports){
-require('../../modules/es6.string.iterator');
-require('../../modules/es6.array.from');
-module.exports = require('../../modules/_core').Array.from;
-
-},{"../../modules/_core":42,"../../modules/es6.array.from":112,"../../modules/es6.string.iterator":121}],25:[function(require,module,exports){
-require('../modules/web.dom.iterable');
-require('../modules/es6.string.iterator');
-module.exports = require('../modules/core.get-iterator');
-
-},{"../modules/core.get-iterator":110,"../modules/es6.string.iterator":121,"../modules/web.dom.iterable":127}],26:[function(require,module,exports){
-require('../modules/web.dom.iterable');
-require('../modules/es6.string.iterator');
-module.exports = require('../modules/core.is-iterable');
-
-},{"../modules/core.is-iterable":111,"../modules/es6.string.iterator":121,"../modules/web.dom.iterable":127}],27:[function(require,module,exports){
-require('../../modules/es6.object.create');
-var $Object = require('../../modules/_core').Object;
-module.exports = function create(P, D) {
-  return $Object.create(P, D);
-};
-
-},{"../../modules/_core":42,"../../modules/es6.object.create":114}],28:[function(require,module,exports){
-require('../../modules/es6.object.define-property');
-var $Object = require('../../modules/_core').Object;
-module.exports = function defineProperty(it, key, desc) {
-  return $Object.defineProperty(it, key, desc);
-};
-
-},{"../../modules/_core":42,"../../modules/es6.object.define-property":115}],29:[function(require,module,exports){
-require('../../modules/es6.object.get-own-property-descriptor');
-var $Object = require('../../modules/_core').Object;
-module.exports = function getOwnPropertyDescriptor(it, key) {
-  return $Object.getOwnPropertyDescriptor(it, key);
-};
-
-},{"../../modules/_core":42,"../../modules/es6.object.get-own-property-descriptor":116}],30:[function(require,module,exports){
-require('../../modules/es6.object.get-prototype-of');
-module.exports = require('../../modules/_core').Object.getPrototypeOf;
-
-},{"../../modules/_core":42,"../../modules/es6.object.get-prototype-of":117}],31:[function(require,module,exports){
-require('../../modules/es6.object.set-prototype-of');
-module.exports = require('../../modules/_core').Object.setPrototypeOf;
-
-},{"../../modules/_core":42,"../../modules/es6.object.set-prototype-of":118}],32:[function(require,module,exports){
-require('../modules/es6.object.to-string');
-require('../modules/es6.string.iterator');
-require('../modules/web.dom.iterable');
-require('../modules/es6.promise');
-require('../modules/es7.promise.finally');
-require('../modules/es7.promise.try');
-module.exports = require('../modules/_core').Promise;
-
-},{"../modules/_core":42,"../modules/es6.object.to-string":119,"../modules/es6.promise":120,"../modules/es6.string.iterator":121,"../modules/es7.promise.finally":123,"../modules/es7.promise.try":124,"../modules/web.dom.iterable":127}],33:[function(require,module,exports){
-require('../../modules/es6.symbol');
-require('../../modules/es6.object.to-string');
-require('../../modules/es7.symbol.async-iterator');
-require('../../modules/es7.symbol.observable');
-module.exports = require('../../modules/_core').Symbol;
-
-},{"../../modules/_core":42,"../../modules/es6.object.to-string":119,"../../modules/es6.symbol":122,"../../modules/es7.symbol.async-iterator":125,"../../modules/es7.symbol.observable":126}],34:[function(require,module,exports){
-require('../../modules/es6.string.iterator');
-require('../../modules/web.dom.iterable');
-module.exports = require('../../modules/_wks-ext').f('iterator');
-
-},{"../../modules/_wks-ext":107,"../../modules/es6.string.iterator":121,"../../modules/web.dom.iterable":127}],35:[function(require,module,exports){
-module.exports = function (it) {
-  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
-  return it;
-};
-
-},{}],36:[function(require,module,exports){
-module.exports = function () { /* empty */ };
-
-},{}],37:[function(require,module,exports){
-module.exports = function (it, Constructor, name, forbiddenField) {
-  if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
-    throw TypeError(name + ': incorrect invocation!');
-  } return it;
-};
-
-},{}],38:[function(require,module,exports){
-var isObject = require('./_is-object');
-module.exports = function (it) {
-  if (!isObject(it)) throw TypeError(it + ' is not an object!');
-  return it;
-};
-
-},{"./_is-object":62}],39:[function(require,module,exports){
-// false -> Array#indexOf
-// true  -> Array#includes
-var toIObject = require('./_to-iobject');
-var toLength = require('./_to-length');
-var toAbsoluteIndex = require('./_to-absolute-index');
-module.exports = function (IS_INCLUDES) {
-  return function ($this, el, fromIndex) {
-    var O = toIObject($this);
-    var length = toLength(O.length);
-    var index = toAbsoluteIndex(fromIndex, length);
-    var value;
-    // Array#includes uses SameValueZero equality algorithm
-    // eslint-disable-next-line no-self-compare
-    if (IS_INCLUDES && el != el) while (length > index) {
-      value = O[index++];
-      // eslint-disable-next-line no-self-compare
-      if (value != value) return true;
-    // Array#indexOf ignores holes, Array#includes - not
-    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
-      if (O[index] === el) return IS_INCLUDES || index || 0;
-    } return !IS_INCLUDES && -1;
-  };
-};
-
-},{"./_to-absolute-index":98,"./_to-iobject":100,"./_to-length":101}],40:[function(require,module,exports){
-// getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = require('./_cof');
-var TAG = require('./_wks')('toStringTag');
-// ES3 wrong here
-var ARG = cof(function () { return arguments; }()) == 'Arguments';
-
-// fallback for IE11 Script Access Denied error
-var tryGet = function (it, key) {
-  try {
-    return it[key];
-  } catch (e) { /* empty */ }
-};
-
-module.exports = function (it) {
-  var O, T, B;
-  return it === undefined ? 'Undefined' : it === null ? 'Null'
-    // @@toStringTag case
-    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-    // builtinTag case
-    : ARG ? cof(O)
-    // ES3 arguments fallback
-    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-};
-
-},{"./_cof":41,"./_wks":108}],41:[function(require,module,exports){
-var toString = {}.toString;
-
-module.exports = function (it) {
-  return toString.call(it).slice(8, -1);
-};
-
-},{}],42:[function(require,module,exports){
-var core = module.exports = { version: '2.6.12' };
-if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-},{}],43:[function(require,module,exports){
-'use strict';
-var $defineProperty = require('./_object-dp');
-var createDesc = require('./_property-desc');
-
-module.exports = function (object, index, value) {
-  if (index in object) $defineProperty.f(object, index, createDesc(0, value));
-  else object[index] = value;
-};
-
-},{"./_object-dp":74,"./_property-desc":87}],44:[function(require,module,exports){
-// optional / simple context binding
-var aFunction = require('./_a-function');
-module.exports = function (fn, that, length) {
-  aFunction(fn);
-  if (that === undefined) return fn;
-  switch (length) {
-    case 1: return function (a) {
-      return fn.call(that, a);
-    };
-    case 2: return function (a, b) {
-      return fn.call(that, a, b);
-    };
-    case 3: return function (a, b, c) {
-      return fn.call(that, a, b, c);
-    };
-  }
-  return function (/* ...args */) {
-    return fn.apply(that, arguments);
-  };
-};
-
-},{"./_a-function":35}],45:[function(require,module,exports){
-// 7.2.1 RequireObjectCoercible(argument)
-module.exports = function (it) {
-  if (it == undefined) throw TypeError("Can't call method on  " + it);
-  return it;
-};
-
-},{}],46:[function(require,module,exports){
-// Thank's IE8 for his funny defineProperty
-module.exports = !require('./_fails')(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
-
-},{"./_fails":51}],47:[function(require,module,exports){
-var isObject = require('./_is-object');
-var document = require('./_global').document;
-// typeof document.createElement is 'object' in old IE
-var is = isObject(document) && isObject(document.createElement);
-module.exports = function (it) {
-  return is ? document.createElement(it) : {};
-};
-
-},{"./_global":53,"./_is-object":62}],48:[function(require,module,exports){
-// IE 8- don't enum bug keys
-module.exports = (
-  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
-).split(',');
-
-},{}],49:[function(require,module,exports){
-// all enumerable object keys, includes symbols
-var getKeys = require('./_object-keys');
-var gOPS = require('./_object-gops');
-var pIE = require('./_object-pie');
-module.exports = function (it) {
-  var result = getKeys(it);
-  var getSymbols = gOPS.f;
-  if (getSymbols) {
-    var symbols = getSymbols(it);
-    var isEnum = pIE.f;
-    var i = 0;
-    var key;
-    while (symbols.length > i) if (isEnum.call(it, key = symbols[i++])) result.push(key);
-  } return result;
-};
-
-},{"./_object-gops":79,"./_object-keys":82,"./_object-pie":83}],50:[function(require,module,exports){
-var global = require('./_global');
-var core = require('./_core');
-var ctx = require('./_ctx');
-var hide = require('./_hide');
-var has = require('./_has');
-var PROTOTYPE = 'prototype';
-
-var $export = function (type, name, source) {
-  var IS_FORCED = type & $export.F;
-  var IS_GLOBAL = type & $export.G;
-  var IS_STATIC = type & $export.S;
-  var IS_PROTO = type & $export.P;
-  var IS_BIND = type & $export.B;
-  var IS_WRAP = type & $export.W;
-  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
-  var expProto = exports[PROTOTYPE];
-  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
-  var key, own, out;
-  if (IS_GLOBAL) source = name;
-  for (key in source) {
-    // contains in native
-    own = !IS_FORCED && target && target[key] !== undefined;
-    if (own && has(exports, key)) continue;
-    // export native or passed
-    out = own ? target[key] : source[key];
-    // prevent global pollution for namespaces
-    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
-    // bind timers to global for call from export context
-    : IS_BIND && own ? ctx(out, global)
-    // wrap global constructors for prevent change them in library
-    : IS_WRAP && target[key] == out ? (function (C) {
-      var F = function (a, b, c) {
-        if (this instanceof C) {
-          switch (arguments.length) {
-            case 0: return new C();
-            case 1: return new C(a);
-            case 2: return new C(a, b);
-          } return new C(a, b, c);
-        } return C.apply(this, arguments);
-      };
-      F[PROTOTYPE] = C[PROTOTYPE];
-      return F;
-    // make static versions for prototype methods
-    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
-    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
-    if (IS_PROTO) {
-      (exports.virtual || (exports.virtual = {}))[key] = out;
-      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
-      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
-    }
-  }
-};
-// type bitmap
-$export.F = 1;   // forced
-$export.G = 2;   // global
-$export.S = 4;   // static
-$export.P = 8;   // proto
-$export.B = 16;  // bind
-$export.W = 32;  // wrap
-$export.U = 64;  // safe
-$export.R = 128; // real proto method for `library`
-module.exports = $export;
-
-},{"./_core":42,"./_ctx":44,"./_global":53,"./_has":54,"./_hide":55}],51:[function(require,module,exports){
-module.exports = function (exec) {
-  try {
-    return !!exec();
-  } catch (e) {
-    return true;
-  }
-};
-
-},{}],52:[function(require,module,exports){
-var ctx = require('./_ctx');
-var call = require('./_iter-call');
-var isArrayIter = require('./_is-array-iter');
-var anObject = require('./_an-object');
-var toLength = require('./_to-length');
-var getIterFn = require('./core.get-iterator-method');
-var BREAK = {};
-var RETURN = {};
-var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
-  var iterFn = ITERATOR ? function () { return iterable; } : getIterFn(iterable);
-  var f = ctx(fn, that, entries ? 2 : 1);
-  var index = 0;
-  var length, step, iterator, result;
-  if (typeof iterFn != 'function') throw TypeError(iterable + ' is not iterable!');
-  // fast case for arrays with default iterator
-  if (isArrayIter(iterFn)) for (length = toLength(iterable.length); length > index; index++) {
-    result = entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
-    if (result === BREAK || result === RETURN) return result;
-  } else for (iterator = iterFn.call(iterable); !(step = iterator.next()).done;) {
-    result = call(iterator, f, step.value, entries);
-    if (result === BREAK || result === RETURN) return result;
-  }
-};
-exports.BREAK = BREAK;
-exports.RETURN = RETURN;
-
-},{"./_an-object":38,"./_ctx":44,"./_is-array-iter":60,"./_iter-call":63,"./_to-length":101,"./core.get-iterator-method":109}],53:[function(require,module,exports){
-// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-var global = module.exports = typeof window != 'undefined' && window.Math == Math
-  ? window : typeof self != 'undefined' && self.Math == Math ? self
-  // eslint-disable-next-line no-new-func
-  : Function('return this')();
-if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
-
-},{}],54:[function(require,module,exports){
-var hasOwnProperty = {}.hasOwnProperty;
-module.exports = function (it, key) {
-  return hasOwnProperty.call(it, key);
-};
-
-},{}],55:[function(require,module,exports){
-var dP = require('./_object-dp');
-var createDesc = require('./_property-desc');
-module.exports = require('./_descriptors') ? function (object, key, value) {
-  return dP.f(object, key, createDesc(1, value));
-} : function (object, key, value) {
-  object[key] = value;
-  return object;
-};
-
-},{"./_descriptors":46,"./_object-dp":74,"./_property-desc":87}],56:[function(require,module,exports){
-var document = require('./_global').document;
-module.exports = document && document.documentElement;
-
-},{"./_global":53}],57:[function(require,module,exports){
-module.exports = !require('./_descriptors') && !require('./_fails')(function () {
-  return Object.defineProperty(require('./_dom-create')('div'), 'a', { get: function () { return 7; } }).a != 7;
-});
-
-},{"./_descriptors":46,"./_dom-create":47,"./_fails":51}],58:[function(require,module,exports){
-// fast apply, http://jsperf.lnkit.com/fast-apply/5
-module.exports = function (fn, args, that) {
-  var un = that === undefined;
-  switch (args.length) {
-    case 0: return un ? fn()
-                      : fn.call(that);
-    case 1: return un ? fn(args[0])
-                      : fn.call(that, args[0]);
-    case 2: return un ? fn(args[0], args[1])
-                      : fn.call(that, args[0], args[1]);
-    case 3: return un ? fn(args[0], args[1], args[2])
-                      : fn.call(that, args[0], args[1], args[2]);
-    case 4: return un ? fn(args[0], args[1], args[2], args[3])
-                      : fn.call(that, args[0], args[1], args[2], args[3]);
-  } return fn.apply(that, args);
-};
-
-},{}],59:[function(require,module,exports){
-// fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = require('./_cof');
-// eslint-disable-next-line no-prototype-builtins
-module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
-  return cof(it) == 'String' ? it.split('') : Object(it);
-};
-
-},{"./_cof":41}],60:[function(require,module,exports){
-// check on default Array iterator
-var Iterators = require('./_iterators');
-var ITERATOR = require('./_wks')('iterator');
-var ArrayProto = Array.prototype;
-
-module.exports = function (it) {
-  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
-};
-
-},{"./_iterators":68,"./_wks":108}],61:[function(require,module,exports){
-// 7.2.2 IsArray(argument)
-var cof = require('./_cof');
-module.exports = Array.isArray || function isArray(arg) {
-  return cof(arg) == 'Array';
-};
-
-},{"./_cof":41}],62:[function(require,module,exports){
-module.exports = function (it) {
-  return typeof it === 'object' ? it !== null : typeof it === 'function';
-};
-
-},{}],63:[function(require,module,exports){
-// call something on iterator step with safe closing on error
-var anObject = require('./_an-object');
-module.exports = function (iterator, fn, value, entries) {
-  try {
-    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
-  // 7.4.6 IteratorClose(iterator, completion)
-  } catch (e) {
-    var ret = iterator['return'];
-    if (ret !== undefined) anObject(ret.call(iterator));
-    throw e;
-  }
-};
-
-},{"./_an-object":38}],64:[function(require,module,exports){
-'use strict';
-var create = require('./_object-create');
-var descriptor = require('./_property-desc');
-var setToStringTag = require('./_set-to-string-tag');
-var IteratorPrototype = {};
-
-// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-require('./_hide')(IteratorPrototype, require('./_wks')('iterator'), function () { return this; });
-
-module.exports = function (Constructor, NAME, next) {
-  Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
-  setToStringTag(Constructor, NAME + ' Iterator');
-};
-
-},{"./_hide":55,"./_object-create":73,"./_property-desc":87,"./_set-to-string-tag":92,"./_wks":108}],65:[function(require,module,exports){
-'use strict';
-var LIBRARY = require('./_library');
-var $export = require('./_export');
-var redefine = require('./_redefine');
-var hide = require('./_hide');
-var Iterators = require('./_iterators');
-var $iterCreate = require('./_iter-create');
-var setToStringTag = require('./_set-to-string-tag');
-var getPrototypeOf = require('./_object-gpo');
-var ITERATOR = require('./_wks')('iterator');
-var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
-var FF_ITERATOR = '@@iterator';
-var KEYS = 'keys';
-var VALUES = 'values';
-
-var returnThis = function () { return this; };
-
-module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
-  $iterCreate(Constructor, NAME, next);
-  var getMethod = function (kind) {
-    if (!BUGGY && kind in proto) return proto[kind];
-    switch (kind) {
-      case KEYS: return function keys() { return new Constructor(this, kind); };
-      case VALUES: return function values() { return new Constructor(this, kind); };
-    } return function entries() { return new Constructor(this, kind); };
-  };
-  var TAG = NAME + ' Iterator';
-  var DEF_VALUES = DEFAULT == VALUES;
-  var VALUES_BUG = false;
-  var proto = Base.prototype;
-  var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
-  var $default = $native || getMethod(DEFAULT);
-  var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
-  var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
-  var methods, key, IteratorPrototype;
-  // Fix native
-  if ($anyNative) {
-    IteratorPrototype = getPrototypeOf($anyNative.call(new Base()));
-    if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
-      // Set @@toStringTag to native iterators
-      setToStringTag(IteratorPrototype, TAG, true);
-      // fix for some old engines
-      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
-    }
-  }
-  // fix Array#{values, @@iterator}.name in V8 / FF
-  if (DEF_VALUES && $native && $native.name !== VALUES) {
-    VALUES_BUG = true;
-    $default = function values() { return $native.call(this); };
-  }
-  // Define iterator
-  if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
-    hide(proto, ITERATOR, $default);
-  }
-  // Plug for library
-  Iterators[NAME] = $default;
-  Iterators[TAG] = returnThis;
-  if (DEFAULT) {
-    methods = {
-      values: DEF_VALUES ? $default : getMethod(VALUES),
-      keys: IS_SET ? $default : getMethod(KEYS),
-      entries: $entries
-    };
-    if (FORCED) for (key in methods) {
-      if (!(key in proto)) redefine(proto, key, methods[key]);
-    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
-  }
-  return methods;
-};
-
-},{"./_export":50,"./_hide":55,"./_iter-create":64,"./_iterators":68,"./_library":69,"./_object-gpo":80,"./_redefine":89,"./_set-to-string-tag":92,"./_wks":108}],66:[function(require,module,exports){
-var ITERATOR = require('./_wks')('iterator');
-var SAFE_CLOSING = false;
-
-try {
-  var riter = [7][ITERATOR]();
-  riter['return'] = function () { SAFE_CLOSING = true; };
-  // eslint-disable-next-line no-throw-literal
-  Array.from(riter, function () { throw 2; });
-} catch (e) { /* empty */ }
-
-module.exports = function (exec, skipClosing) {
-  if (!skipClosing && !SAFE_CLOSING) return false;
-  var safe = false;
-  try {
-    var arr = [7];
-    var iter = arr[ITERATOR]();
-    iter.next = function () { return { done: safe = true }; };
-    arr[ITERATOR] = function () { return iter; };
-    exec(arr);
-  } catch (e) { /* empty */ }
-  return safe;
-};
-
-},{"./_wks":108}],67:[function(require,module,exports){
-module.exports = function (done, value) {
-  return { value: value, done: !!done };
-};
-
-},{}],68:[function(require,module,exports){
-module.exports = {};
-
-},{}],69:[function(require,module,exports){
-module.exports = true;
-
-},{}],70:[function(require,module,exports){
-var META = require('./_uid')('meta');
-var isObject = require('./_is-object');
-var has = require('./_has');
-var setDesc = require('./_object-dp').f;
-var id = 0;
-var isExtensible = Object.isExtensible || function () {
-  return true;
-};
-var FREEZE = !require('./_fails')(function () {
-  return isExtensible(Object.preventExtensions({}));
-});
-var setMeta = function (it) {
-  setDesc(it, META, { value: {
-    i: 'O' + ++id, // object ID
-    w: {}          // weak collections IDs
-  } });
-};
-var fastKey = function (it, create) {
-  // return primitive with prefix
-  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return 'F';
-    // not necessary to add metadata
-    if (!create) return 'E';
-    // add missing metadata
-    setMeta(it);
-  // return object ID
-  } return it[META].i;
-};
-var getWeak = function (it, create) {
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return true;
-    // not necessary to add metadata
-    if (!create) return false;
-    // add missing metadata
-    setMeta(it);
-  // return hash weak collections IDs
-  } return it[META].w;
-};
-// add metadata on freeze-family methods calling
-var onFreeze = function (it) {
-  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
-  return it;
-};
-var meta = module.exports = {
-  KEY: META,
-  NEED: false,
-  fastKey: fastKey,
-  getWeak: getWeak,
-  onFreeze: onFreeze
-};
-
-},{"./_fails":51,"./_has":54,"./_is-object":62,"./_object-dp":74,"./_uid":104}],71:[function(require,module,exports){
-var global = require('./_global');
-var macrotask = require('./_task').set;
-var Observer = global.MutationObserver || global.WebKitMutationObserver;
-var process = global.process;
-var Promise = global.Promise;
-var isNode = require('./_cof')(process) == 'process';
-
-module.exports = function () {
-  var head, last, notify;
-
-  var flush = function () {
-    var parent, fn;
-    if (isNode && (parent = process.domain)) parent.exit();
-    while (head) {
-      fn = head.fn;
-      head = head.next;
-      try {
-        fn();
-      } catch (e) {
-        if (head) notify();
-        else last = undefined;
-        throw e;
-      }
-    } last = undefined;
-    if (parent) parent.enter();
-  };
-
-  // Node.js
-  if (isNode) {
-    notify = function () {
-      process.nextTick(flush);
-    };
-  // browsers with MutationObserver, except iOS Safari - https://github.com/zloirock/core-js/issues/339
-  } else if (Observer && !(global.navigator && global.navigator.standalone)) {
-    var toggle = true;
-    var node = document.createTextNode('');
-    new Observer(flush).observe(node, { characterData: true }); // eslint-disable-line no-new
-    notify = function () {
-      node.data = toggle = !toggle;
-    };
-  // environments with maybe non-completely correct, but existent Promise
-  } else if (Promise && Promise.resolve) {
-    // Promise.resolve without an argument throws an error in LG WebOS 2
-    var promise = Promise.resolve(undefined);
-    notify = function () {
-      promise.then(flush);
-    };
-  // for other environments - macrotask based on:
-  // - setImmediate
-  // - MessageChannel
-  // - window.postMessag
-  // - onreadystatechange
-  // - setTimeout
-  } else {
-    notify = function () {
-      // strange IE + webpack dev server bug - use .call(global)
-      macrotask.call(global, flush);
-    };
-  }
-
-  return function (fn) {
-    var task = { fn: fn, next: undefined };
-    if (last) last.next = task;
-    if (!head) {
-      head = task;
-      notify();
-    } last = task;
-  };
-};
-
-},{"./_cof":41,"./_global":53,"./_task":97}],72:[function(require,module,exports){
-'use strict';
-// 25.4.1.5 NewPromiseCapability(C)
-var aFunction = require('./_a-function');
-
-function PromiseCapability(C) {
-  var resolve, reject;
-  this.promise = new C(function ($$resolve, $$reject) {
-    if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');
-    resolve = $$resolve;
-    reject = $$reject;
-  });
-  this.resolve = aFunction(resolve);
-  this.reject = aFunction(reject);
-}
-
-module.exports.f = function (C) {
-  return new PromiseCapability(C);
-};
-
-},{"./_a-function":35}],73:[function(require,module,exports){
-// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = require('./_an-object');
-var dPs = require('./_object-dps');
-var enumBugKeys = require('./_enum-bug-keys');
-var IE_PROTO = require('./_shared-key')('IE_PROTO');
-var Empty = function () { /* empty */ };
-var PROTOTYPE = 'prototype';
-
-// Create object with fake `null` prototype: use iframe Object with cleared prototype
-var createDict = function () {
-  // Thrash, waste and sodomy: IE GC bug
-  var iframe = require('./_dom-create')('iframe');
-  var i = enumBugKeys.length;
-  var lt = '<';
-  var gt = '>';
-  var iframeDocument;
-  iframe.style.display = 'none';
-  require('./_html').appendChild(iframe);
-  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
-  // createDict = iframe.contentWindow.Object;
-  // html.removeChild(iframe);
-  iframeDocument = iframe.contentWindow.document;
-  iframeDocument.open();
-  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
-  iframeDocument.close();
-  createDict = iframeDocument.F;
-  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
-  return createDict();
-};
-
-module.exports = Object.create || function create(O, Properties) {
-  var result;
-  if (O !== null) {
-    Empty[PROTOTYPE] = anObject(O);
-    result = new Empty();
-    Empty[PROTOTYPE] = null;
-    // add "__proto__" for Object.getPrototypeOf polyfill
-    result[IE_PROTO] = O;
-  } else result = createDict();
-  return Properties === undefined ? result : dPs(result, Properties);
-};
-
-},{"./_an-object":38,"./_dom-create":47,"./_enum-bug-keys":48,"./_html":56,"./_object-dps":75,"./_shared-key":93}],74:[function(require,module,exports){
-var anObject = require('./_an-object');
-var IE8_DOM_DEFINE = require('./_ie8-dom-define');
-var toPrimitive = require('./_to-primitive');
-var dP = Object.defineProperty;
-
-exports.f = require('./_descriptors') ? Object.defineProperty : function defineProperty(O, P, Attributes) {
-  anObject(O);
-  P = toPrimitive(P, true);
-  anObject(Attributes);
-  if (IE8_DOM_DEFINE) try {
-    return dP(O, P, Attributes);
-  } catch (e) { /* empty */ }
-  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
-  if ('value' in Attributes) O[P] = Attributes.value;
-  return O;
-};
-
-},{"./_an-object":38,"./_descriptors":46,"./_ie8-dom-define":57,"./_to-primitive":103}],75:[function(require,module,exports){
-var dP = require('./_object-dp');
-var anObject = require('./_an-object');
-var getKeys = require('./_object-keys');
-
-module.exports = require('./_descriptors') ? Object.defineProperties : function defineProperties(O, Properties) {
-  anObject(O);
-  var keys = getKeys(Properties);
-  var length = keys.length;
-  var i = 0;
-  var P;
-  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
-  return O;
-};
-
-},{"./_an-object":38,"./_descriptors":46,"./_object-dp":74,"./_object-keys":82}],76:[function(require,module,exports){
-var pIE = require('./_object-pie');
-var createDesc = require('./_property-desc');
-var toIObject = require('./_to-iobject');
-var toPrimitive = require('./_to-primitive');
-var has = require('./_has');
-var IE8_DOM_DEFINE = require('./_ie8-dom-define');
-var gOPD = Object.getOwnPropertyDescriptor;
-
-exports.f = require('./_descriptors') ? gOPD : function getOwnPropertyDescriptor(O, P) {
-  O = toIObject(O);
-  P = toPrimitive(P, true);
-  if (IE8_DOM_DEFINE) try {
-    return gOPD(O, P);
-  } catch (e) { /* empty */ }
-  if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
-};
-
-},{"./_descriptors":46,"./_has":54,"./_ie8-dom-define":57,"./_object-pie":83,"./_property-desc":87,"./_to-iobject":100,"./_to-primitive":103}],77:[function(require,module,exports){
-// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-var toIObject = require('./_to-iobject');
-var gOPN = require('./_object-gopn').f;
-var toString = {}.toString;
-
-var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
-  ? Object.getOwnPropertyNames(window) : [];
-
-var getWindowNames = function (it) {
-  try {
-    return gOPN(it);
-  } catch (e) {
-    return windowNames.slice();
-  }
-};
-
-module.exports.f = function getOwnPropertyNames(it) {
-  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
-};
-
-},{"./_object-gopn":78,"./_to-iobject":100}],78:[function(require,module,exports){
-// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-var $keys = require('./_object-keys-internal');
-var hiddenKeys = require('./_enum-bug-keys').concat('length', 'prototype');
-
-exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
-  return $keys(O, hiddenKeys);
-};
-
-},{"./_enum-bug-keys":48,"./_object-keys-internal":81}],79:[function(require,module,exports){
-exports.f = Object.getOwnPropertySymbols;
-
-},{}],80:[function(require,module,exports){
-// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = require('./_has');
-var toObject = require('./_to-object');
-var IE_PROTO = require('./_shared-key')('IE_PROTO');
-var ObjectProto = Object.prototype;
-
-module.exports = Object.getPrototypeOf || function (O) {
-  O = toObject(O);
-  if (has(O, IE_PROTO)) return O[IE_PROTO];
-  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
-    return O.constructor.prototype;
-  } return O instanceof Object ? ObjectProto : null;
-};
-
-},{"./_has":54,"./_shared-key":93,"./_to-object":102}],81:[function(require,module,exports){
-var has = require('./_has');
-var toIObject = require('./_to-iobject');
-var arrayIndexOf = require('./_array-includes')(false);
-var IE_PROTO = require('./_shared-key')('IE_PROTO');
-
-module.exports = function (object, names) {
-  var O = toIObject(object);
-  var i = 0;
-  var result = [];
-  var key;
-  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
-  // Don't enum bug & hidden keys
-  while (names.length > i) if (has(O, key = names[i++])) {
-    ~arrayIndexOf(result, key) || result.push(key);
-  }
-  return result;
-};
-
-},{"./_array-includes":39,"./_has":54,"./_shared-key":93,"./_to-iobject":100}],82:[function(require,module,exports){
-// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = require('./_object-keys-internal');
-var enumBugKeys = require('./_enum-bug-keys');
-
-module.exports = Object.keys || function keys(O) {
-  return $keys(O, enumBugKeys);
-};
-
-},{"./_enum-bug-keys":48,"./_object-keys-internal":81}],83:[function(require,module,exports){
-exports.f = {}.propertyIsEnumerable;
-
-},{}],84:[function(require,module,exports){
-// most Object methods by ES6 should accept primitives
-var $export = require('./_export');
-var core = require('./_core');
-var fails = require('./_fails');
-module.exports = function (KEY, exec) {
-  var fn = (core.Object || {})[KEY] || Object[KEY];
-  var exp = {};
-  exp[KEY] = exec(fn);
-  $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
-};
-
-},{"./_core":42,"./_export":50,"./_fails":51}],85:[function(require,module,exports){
-module.exports = function (exec) {
-  try {
-    return { e: false, v: exec() };
-  } catch (e) {
-    return { e: true, v: e };
-  }
-};
-
-},{}],86:[function(require,module,exports){
-var anObject = require('./_an-object');
-var isObject = require('./_is-object');
-var newPromiseCapability = require('./_new-promise-capability');
-
-module.exports = function (C, x) {
-  anObject(C);
-  if (isObject(x) && x.constructor === C) return x;
-  var promiseCapability = newPromiseCapability.f(C);
-  var resolve = promiseCapability.resolve;
-  resolve(x);
-  return promiseCapability.promise;
-};
-
-},{"./_an-object":38,"./_is-object":62,"./_new-promise-capability":72}],87:[function(require,module,exports){
-module.exports = function (bitmap, value) {
-  return {
-    enumerable: !(bitmap & 1),
-    configurable: !(bitmap & 2),
-    writable: !(bitmap & 4),
-    value: value
-  };
-};
-
-},{}],88:[function(require,module,exports){
-var hide = require('./_hide');
-module.exports = function (target, src, safe) {
-  for (var key in src) {
-    if (safe && target[key]) target[key] = src[key];
-    else hide(target, key, src[key]);
-  } return target;
-};
-
-},{"./_hide":55}],89:[function(require,module,exports){
-module.exports = require('./_hide');
-
-},{"./_hide":55}],90:[function(require,module,exports){
-// Works with __proto__ only. Old v8 can't work with null proto objects.
-/* eslint-disable no-proto */
-var isObject = require('./_is-object');
-var anObject = require('./_an-object');
-var check = function (O, proto) {
-  anObject(O);
-  if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
-};
-module.exports = {
-  set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
-    function (test, buggy, set) {
-      try {
-        set = require('./_ctx')(Function.call, require('./_object-gopd').f(Object.prototype, '__proto__').set, 2);
-        set(test, []);
-        buggy = !(test instanceof Array);
-      } catch (e) { buggy = true; }
-      return function setPrototypeOf(O, proto) {
-        check(O, proto);
-        if (buggy) O.__proto__ = proto;
-        else set(O, proto);
-        return O;
-      };
-    }({}, false) : undefined),
-  check: check
-};
-
-},{"./_an-object":38,"./_ctx":44,"./_is-object":62,"./_object-gopd":76}],91:[function(require,module,exports){
-'use strict';
-var global = require('./_global');
-var core = require('./_core');
-var dP = require('./_object-dp');
-var DESCRIPTORS = require('./_descriptors');
-var SPECIES = require('./_wks')('species');
-
-module.exports = function (KEY) {
-  var C = typeof core[KEY] == 'function' ? core[KEY] : global[KEY];
-  if (DESCRIPTORS && C && !C[SPECIES]) dP.f(C, SPECIES, {
-    configurable: true,
-    get: function () { return this; }
-  });
-};
-
-},{"./_core":42,"./_descriptors":46,"./_global":53,"./_object-dp":74,"./_wks":108}],92:[function(require,module,exports){
-var def = require('./_object-dp').f;
-var has = require('./_has');
-var TAG = require('./_wks')('toStringTag');
-
-module.exports = function (it, tag, stat) {
-  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
-};
-
-},{"./_has":54,"./_object-dp":74,"./_wks":108}],93:[function(require,module,exports){
-var shared = require('./_shared')('keys');
-var uid = require('./_uid');
-module.exports = function (key) {
-  return shared[key] || (shared[key] = uid(key));
-};
-
-},{"./_shared":94,"./_uid":104}],94:[function(require,module,exports){
-var core = require('./_core');
-var global = require('./_global');
-var SHARED = '__core-js_shared__';
-var store = global[SHARED] || (global[SHARED] = {});
-
-(module.exports = function (key, value) {
-  return store[key] || (store[key] = value !== undefined ? value : {});
-})('versions', []).push({
-  version: core.version,
-  mode: require('./_library') ? 'pure' : 'global',
-  copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
-});
-
-},{"./_core":42,"./_global":53,"./_library":69}],95:[function(require,module,exports){
-// 7.3.20 SpeciesConstructor(O, defaultConstructor)
-var anObject = require('./_an-object');
-var aFunction = require('./_a-function');
-var SPECIES = require('./_wks')('species');
-module.exports = function (O, D) {
-  var C = anObject(O).constructor;
-  var S;
-  return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
-};
-
-},{"./_a-function":35,"./_an-object":38,"./_wks":108}],96:[function(require,module,exports){
-var toInteger = require('./_to-integer');
-var defined = require('./_defined');
-// true  -> String#at
-// false -> String#codePointAt
-module.exports = function (TO_STRING) {
-  return function (that, pos) {
-    var s = String(defined(that));
-    var i = toInteger(pos);
-    var l = s.length;
-    var a, b;
-    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
-    a = s.charCodeAt(i);
-    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
-      ? TO_STRING ? s.charAt(i) : a
-      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
-  };
-};
-
-},{"./_defined":45,"./_to-integer":99}],97:[function(require,module,exports){
-var ctx = require('./_ctx');
-var invoke = require('./_invoke');
-var html = require('./_html');
-var cel = require('./_dom-create');
-var global = require('./_global');
-var process = global.process;
-var setTask = global.setImmediate;
-var clearTask = global.clearImmediate;
-var MessageChannel = global.MessageChannel;
-var Dispatch = global.Dispatch;
-var counter = 0;
-var queue = {};
-var ONREADYSTATECHANGE = 'onreadystatechange';
-var defer, channel, port;
-var run = function () {
-  var id = +this;
-  // eslint-disable-next-line no-prototype-builtins
-  if (queue.hasOwnProperty(id)) {
-    var fn = queue[id];
-    delete queue[id];
-    fn();
-  }
-};
-var listener = function (event) {
-  run.call(event.data);
-};
-// Node.js 0.9+ & IE10+ has setImmediate, otherwise:
-if (!setTask || !clearTask) {
-  setTask = function setImmediate(fn) {
-    var args = [];
-    var i = 1;
-    while (arguments.length > i) args.push(arguments[i++]);
-    queue[++counter] = function () {
-      // eslint-disable-next-line no-new-func
-      invoke(typeof fn == 'function' ? fn : Function(fn), args);
-    };
-    defer(counter);
-    return counter;
-  };
-  clearTask = function clearImmediate(id) {
-    delete queue[id];
-  };
-  // Node.js 0.8-
-  if (require('./_cof')(process) == 'process') {
-    defer = function (id) {
-      process.nextTick(ctx(run, id, 1));
-    };
-  // Sphere (JS game engine) Dispatch API
-  } else if (Dispatch && Dispatch.now) {
-    defer = function (id) {
-      Dispatch.now(ctx(run, id, 1));
-    };
-  // Browsers with MessageChannel, includes WebWorkers
-  } else if (MessageChannel) {
-    channel = new MessageChannel();
-    port = channel.port2;
-    channel.port1.onmessage = listener;
-    defer = ctx(port.postMessage, port, 1);
-  // Browsers with postMessage, skip WebWorkers
-  // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
-  } else if (global.addEventListener && typeof postMessage == 'function' && !global.importScripts) {
-    defer = function (id) {
-      global.postMessage(id + '', '*');
-    };
-    global.addEventListener('message', listener, false);
-  // IE8-
-  } else if (ONREADYSTATECHANGE in cel('script')) {
-    defer = function (id) {
-      html.appendChild(cel('script'))[ONREADYSTATECHANGE] = function () {
-        html.removeChild(this);
-        run.call(id);
-      };
-    };
-  // Rest old browsers
-  } else {
-    defer = function (id) {
-      setTimeout(ctx(run, id, 1), 0);
-    };
-  }
-}
-module.exports = {
-  set: setTask,
-  clear: clearTask
-};
-
-},{"./_cof":41,"./_ctx":44,"./_dom-create":47,"./_global":53,"./_html":56,"./_invoke":58}],98:[function(require,module,exports){
-var toInteger = require('./_to-integer');
-var max = Math.max;
-var min = Math.min;
-module.exports = function (index, length) {
-  index = toInteger(index);
-  return index < 0 ? max(index + length, 0) : min(index, length);
-};
-
-},{"./_to-integer":99}],99:[function(require,module,exports){
-// 7.1.4 ToInteger
-var ceil = Math.ceil;
-var floor = Math.floor;
-module.exports = function (it) {
-  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
-};
-
-},{}],100:[function(require,module,exports){
-// to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = require('./_iobject');
-var defined = require('./_defined');
-module.exports = function (it) {
-  return IObject(defined(it));
-};
-
-},{"./_defined":45,"./_iobject":59}],101:[function(require,module,exports){
-// 7.1.15 ToLength
-var toInteger = require('./_to-integer');
-var min = Math.min;
-module.exports = function (it) {
-  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
-};
-
-},{"./_to-integer":99}],102:[function(require,module,exports){
-// 7.1.13 ToObject(argument)
-var defined = require('./_defined');
-module.exports = function (it) {
-  return Object(defined(it));
-};
-
-},{"./_defined":45}],103:[function(require,module,exports){
-// 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = require('./_is-object');
-// instead of the ES6 spec version, we didn't implement @@toPrimitive case
-// and the second argument - flag - preferred type is a string
-module.exports = function (it, S) {
-  if (!isObject(it)) return it;
-  var fn, val;
-  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
-  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
-  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
-  throw TypeError("Can't convert object to primitive value");
-};
-
-},{"./_is-object":62}],104:[function(require,module,exports){
-var id = 0;
-var px = Math.random();
-module.exports = function (key) {
-  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-};
-
-},{}],105:[function(require,module,exports){
-var global = require('./_global');
-var navigator = global.navigator;
-
-module.exports = navigator && navigator.userAgent || '';
-
-},{"./_global":53}],106:[function(require,module,exports){
-var global = require('./_global');
-var core = require('./_core');
-var LIBRARY = require('./_library');
-var wksExt = require('./_wks-ext');
-var defineProperty = require('./_object-dp').f;
-module.exports = function (name) {
-  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
-  if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
-};
-
-},{"./_core":42,"./_global":53,"./_library":69,"./_object-dp":74,"./_wks-ext":107}],107:[function(require,module,exports){
-exports.f = require('./_wks');
-
-},{"./_wks":108}],108:[function(require,module,exports){
-var store = require('./_shared')('wks');
-var uid = require('./_uid');
-var Symbol = require('./_global').Symbol;
-var USE_SYMBOL = typeof Symbol == 'function';
-
-var $exports = module.exports = function (name) {
-  return store[name] || (store[name] =
-    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
-};
-
-$exports.store = store;
-
-},{"./_global":53,"./_shared":94,"./_uid":104}],109:[function(require,module,exports){
-var classof = require('./_classof');
-var ITERATOR = require('./_wks')('iterator');
-var Iterators = require('./_iterators');
-module.exports = require('./_core').getIteratorMethod = function (it) {
-  if (it != undefined) return it[ITERATOR]
-    || it['@@iterator']
-    || Iterators[classof(it)];
-};
-
-},{"./_classof":40,"./_core":42,"./_iterators":68,"./_wks":108}],110:[function(require,module,exports){
-var anObject = require('./_an-object');
-var get = require('./core.get-iterator-method');
-module.exports = require('./_core').getIterator = function (it) {
-  var iterFn = get(it);
-  if (typeof iterFn != 'function') throw TypeError(it + ' is not iterable!');
-  return anObject(iterFn.call(it));
-};
-
-},{"./_an-object":38,"./_core":42,"./core.get-iterator-method":109}],111:[function(require,module,exports){
-var classof = require('./_classof');
-var ITERATOR = require('./_wks')('iterator');
-var Iterators = require('./_iterators');
-module.exports = require('./_core').isIterable = function (it) {
-  var O = Object(it);
-  return O[ITERATOR] !== undefined
-    || '@@iterator' in O
-    // eslint-disable-next-line no-prototype-builtins
-    || Iterators.hasOwnProperty(classof(O));
-};
-
-},{"./_classof":40,"./_core":42,"./_iterators":68,"./_wks":108}],112:[function(require,module,exports){
-'use strict';
-var ctx = require('./_ctx');
-var $export = require('./_export');
-var toObject = require('./_to-object');
-var call = require('./_iter-call');
-var isArrayIter = require('./_is-array-iter');
-var toLength = require('./_to-length');
-var createProperty = require('./_create-property');
-var getIterFn = require('./core.get-iterator-method');
-
-$export($export.S + $export.F * !require('./_iter-detect')(function (iter) { Array.from(iter); }), 'Array', {
-  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
-  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
-    var O = toObject(arrayLike);
-    var C = typeof this == 'function' ? this : Array;
-    var aLen = arguments.length;
-    var mapfn = aLen > 1 ? arguments[1] : undefined;
-    var mapping = mapfn !== undefined;
-    var index = 0;
-    var iterFn = getIterFn(O);
-    var length, result, step, iterator;
-    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
-    // if object isn't iterable or it's array with default iterator - use simple case
-    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
-      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
-        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
-      }
-    } else {
-      length = toLength(O.length);
-      for (result = new C(length); length > index; index++) {
-        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
-      }
-    }
-    result.length = index;
-    return result;
-  }
-});
-
-},{"./_create-property":43,"./_ctx":44,"./_export":50,"./_is-array-iter":60,"./_iter-call":63,"./_iter-detect":66,"./_to-length":101,"./_to-object":102,"./core.get-iterator-method":109}],113:[function(require,module,exports){
-'use strict';
-var addToUnscopables = require('./_add-to-unscopables');
-var step = require('./_iter-step');
-var Iterators = require('./_iterators');
-var toIObject = require('./_to-iobject');
-
-// 22.1.3.4 Array.prototype.entries()
-// 22.1.3.13 Array.prototype.keys()
-// 22.1.3.29 Array.prototype.values()
-// 22.1.3.30 Array.prototype[@@iterator]()
-module.exports = require('./_iter-define')(Array, 'Array', function (iterated, kind) {
-  this._t = toIObject(iterated); // target
-  this._i = 0;                   // next index
-  this._k = kind;                // kind
-// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
-}, function () {
-  var O = this._t;
-  var kind = this._k;
-  var index = this._i++;
-  if (!O || index >= O.length) {
-    this._t = undefined;
-    return step(1);
-  }
-  if (kind == 'keys') return step(0, index);
-  if (kind == 'values') return step(0, O[index]);
-  return step(0, [index, O[index]]);
-}, 'values');
-
-// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
-Iterators.Arguments = Iterators.Array;
-
-addToUnscopables('keys');
-addToUnscopables('values');
-addToUnscopables('entries');
-
-},{"./_add-to-unscopables":36,"./_iter-define":65,"./_iter-step":67,"./_iterators":68,"./_to-iobject":100}],114:[function(require,module,exports){
-var $export = require('./_export');
-// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-$export($export.S, 'Object', { create: require('./_object-create') });
-
-},{"./_export":50,"./_object-create":73}],115:[function(require,module,exports){
-var $export = require('./_export');
-// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !require('./_descriptors'), 'Object', { defineProperty: require('./_object-dp').f });
-
-},{"./_descriptors":46,"./_export":50,"./_object-dp":74}],116:[function(require,module,exports){
-// 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
-var toIObject = require('./_to-iobject');
-var $getOwnPropertyDescriptor = require('./_object-gopd').f;
-
-require('./_object-sap')('getOwnPropertyDescriptor', function () {
-  return function getOwnPropertyDescriptor(it, key) {
-    return $getOwnPropertyDescriptor(toIObject(it), key);
-  };
-});
-
-},{"./_object-gopd":76,"./_object-sap":84,"./_to-iobject":100}],117:[function(require,module,exports){
-// 19.1.2.9 Object.getPrototypeOf(O)
-var toObject = require('./_to-object');
-var $getPrototypeOf = require('./_object-gpo');
-
-require('./_object-sap')('getPrototypeOf', function () {
-  return function getPrototypeOf(it) {
-    return $getPrototypeOf(toObject(it));
-  };
-});
-
-},{"./_object-gpo":80,"./_object-sap":84,"./_to-object":102}],118:[function(require,module,exports){
-// 19.1.3.19 Object.setPrototypeOf(O, proto)
-var $export = require('./_export');
-$export($export.S, 'Object', { setPrototypeOf: require('./_set-proto').set });
-
-},{"./_export":50,"./_set-proto":90}],119:[function(require,module,exports){
-
-},{}],120:[function(require,module,exports){
-'use strict';
-var LIBRARY = require('./_library');
-var global = require('./_global');
-var ctx = require('./_ctx');
-var classof = require('./_classof');
-var $export = require('./_export');
-var isObject = require('./_is-object');
-var aFunction = require('./_a-function');
-var anInstance = require('./_an-instance');
-var forOf = require('./_for-of');
-var speciesConstructor = require('./_species-constructor');
-var task = require('./_task').set;
-var microtask = require('./_microtask')();
-var newPromiseCapabilityModule = require('./_new-promise-capability');
-var perform = require('./_perform');
-var userAgent = require('./_user-agent');
-var promiseResolve = require('./_promise-resolve');
-var PROMISE = 'Promise';
-var TypeError = global.TypeError;
-var process = global.process;
-var versions = process && process.versions;
-var v8 = versions && versions.v8 || '';
-var $Promise = global[PROMISE];
-var isNode = classof(process) == 'process';
-var empty = function () { /* empty */ };
-var Internal, newGenericPromiseCapability, OwnPromiseCapability, Wrapper;
-var newPromiseCapability = newGenericPromiseCapability = newPromiseCapabilityModule.f;
-
-var USE_NATIVE = !!function () {
-  try {
-    // correct subclassing with @@species support
-    var promise = $Promise.resolve(1);
-    var FakePromise = (promise.constructor = {})[require('./_wks')('species')] = function (exec) {
-      exec(empty, empty);
-    };
-    // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
-    return (isNode || typeof PromiseRejectionEvent == 'function')
-      && promise.then(empty) instanceof FakePromise
-      // v8 6.6 (Node 10 and Chrome 66) have a bug with resolving custom thenables
-      // https://bugs.chromium.org/p/chromium/issues/detail?id=830565
-      // we can't detect it synchronously, so just check versions
-      && v8.indexOf('6.6') !== 0
-      && userAgent.indexOf('Chrome/66') === -1;
-  } catch (e) { /* empty */ }
-}();
-
-// helpers
-var isThenable = function (it) {
-  var then;
-  return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
-};
-var notify = function (promise, isReject) {
-  if (promise._n) return;
-  promise._n = true;
-  var chain = promise._c;
-  microtask(function () {
-    var value = promise._v;
-    var ok = promise._s == 1;
-    var i = 0;
-    var run = function (reaction) {
-      var handler = ok ? reaction.ok : reaction.fail;
-      var resolve = reaction.resolve;
-      var reject = reaction.reject;
-      var domain = reaction.domain;
-      var result, then, exited;
-      try {
-        if (handler) {
-          if (!ok) {
-            if (promise._h == 2) onHandleUnhandled(promise);
-            promise._h = 1;
-          }
-          if (handler === true) result = value;
-          else {
-            if (domain) domain.enter();
-            result = handler(value); // may throw
-            if (domain) {
-              domain.exit();
-              exited = true;
-            }
-          }
-          if (result === reaction.promise) {
-            reject(TypeError('Promise-chain cycle'));
-          } else if (then = isThenable(result)) {
-            then.call(result, resolve, reject);
-          } else resolve(result);
-        } else reject(value);
-      } catch (e) {
-        if (domain && !exited) domain.exit();
-        reject(e);
-      }
-    };
-    while (chain.length > i) run(chain[i++]); // variable length - can't use forEach
-    promise._c = [];
-    promise._n = false;
-    if (isReject && !promise._h) onUnhandled(promise);
-  });
-};
-var onUnhandled = function (promise) {
-  task.call(global, function () {
-    var value = promise._v;
-    var unhandled = isUnhandled(promise);
-    var result, handler, console;
-    if (unhandled) {
-      result = perform(function () {
-        if (isNode) {
-          process.emit('unhandledRejection', value, promise);
-        } else if (handler = global.onunhandledrejection) {
-          handler({ promise: promise, reason: value });
-        } else if ((console = global.console) && console.error) {
-          console.error('Unhandled promise rejection', value);
-        }
-      });
-      // Browsers should not trigger `rejectionHandled` event if it was handled here, NodeJS - should
-      promise._h = isNode || isUnhandled(promise) ? 2 : 1;
-    } promise._a = undefined;
-    if (unhandled && result.e) throw result.v;
-  });
-};
-var isUnhandled = function (promise) {
-  return promise._h !== 1 && (promise._a || promise._c).length === 0;
-};
-var onHandleUnhandled = function (promise) {
-  task.call(global, function () {
-    var handler;
-    if (isNode) {
-      process.emit('rejectionHandled', promise);
-    } else if (handler = global.onrejectionhandled) {
-      handler({ promise: promise, reason: promise._v });
-    }
-  });
-};
-var $reject = function (value) {
-  var promise = this;
-  if (promise._d) return;
-  promise._d = true;
-  promise = promise._w || promise; // unwrap
-  promise._v = value;
-  promise._s = 2;
-  if (!promise._a) promise._a = promise._c.slice();
-  notify(promise, true);
-};
-var $resolve = function (value) {
-  var promise = this;
-  var then;
-  if (promise._d) return;
-  promise._d = true;
-  promise = promise._w || promise; // unwrap
-  try {
-    if (promise === value) throw TypeError("Promise can't be resolved itself");
-    if (then = isThenable(value)) {
-      microtask(function () {
-        var wrapper = { _w: promise, _d: false }; // wrap
-        try {
-          then.call(value, ctx($resolve, wrapper, 1), ctx($reject, wrapper, 1));
-        } catch (e) {
-          $reject.call(wrapper, e);
-        }
-      });
-    } else {
-      promise._v = value;
-      promise._s = 1;
-      notify(promise, false);
-    }
-  } catch (e) {
-    $reject.call({ _w: promise, _d: false }, e); // wrap
-  }
-};
-
-// constructor polyfill
-if (!USE_NATIVE) {
-  // 25.4.3.1 Promise(executor)
-  $Promise = function Promise(executor) {
-    anInstance(this, $Promise, PROMISE, '_h');
-    aFunction(executor);
-    Internal.call(this);
-    try {
-      executor(ctx($resolve, this, 1), ctx($reject, this, 1));
-    } catch (err) {
-      $reject.call(this, err);
-    }
-  };
-  // eslint-disable-next-line no-unused-vars
-  Internal = function Promise(executor) {
-    this._c = [];             // <- awaiting reactions
-    this._a = undefined;      // <- checked in isUnhandled reactions
-    this._s = 0;              // <- state
-    this._d = false;          // <- done
-    this._v = undefined;      // <- value
-    this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
-    this._n = false;          // <- notify
-  };
-  Internal.prototype = require('./_redefine-all')($Promise.prototype, {
-    // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
-    then: function then(onFulfilled, onRejected) {
-      var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
-      reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
-      reaction.fail = typeof onRejected == 'function' && onRejected;
-      reaction.domain = isNode ? process.domain : undefined;
-      this._c.push(reaction);
-      if (this._a) this._a.push(reaction);
-      if (this._s) notify(this, false);
-      return reaction.promise;
-    },
-    // 25.4.5.1 Promise.prototype.catch(onRejected)
-    'catch': function (onRejected) {
-      return this.then(undefined, onRejected);
-    }
-  });
-  OwnPromiseCapability = function () {
-    var promise = new Internal();
-    this.promise = promise;
-    this.resolve = ctx($resolve, promise, 1);
-    this.reject = ctx($reject, promise, 1);
-  };
-  newPromiseCapabilityModule.f = newPromiseCapability = function (C) {
-    return C === $Promise || C === Wrapper
-      ? new OwnPromiseCapability(C)
-      : newGenericPromiseCapability(C);
-  };
-}
-
-$export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
-require('./_set-to-string-tag')($Promise, PROMISE);
-require('./_set-species')(PROMISE);
-Wrapper = require('./_core')[PROMISE];
-
-// statics
-$export($export.S + $export.F * !USE_NATIVE, PROMISE, {
-  // 25.4.4.5 Promise.reject(r)
-  reject: function reject(r) {
-    var capability = newPromiseCapability(this);
-    var $$reject = capability.reject;
-    $$reject(r);
-    return capability.promise;
-  }
-});
-$export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
-  // 25.4.4.6 Promise.resolve(x)
-  resolve: function resolve(x) {
-    return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
-  }
-});
-$export($export.S + $export.F * !(USE_NATIVE && require('./_iter-detect')(function (iter) {
-  $Promise.all(iter)['catch'](empty);
-})), PROMISE, {
-  // 25.4.4.1 Promise.all(iterable)
-  all: function all(iterable) {
-    var C = this;
-    var capability = newPromiseCapability(C);
-    var resolve = capability.resolve;
-    var reject = capability.reject;
-    var result = perform(function () {
-      var values = [];
-      var index = 0;
-      var remaining = 1;
-      forOf(iterable, false, function (promise) {
-        var $index = index++;
-        var alreadyCalled = false;
-        values.push(undefined);
-        remaining++;
-        C.resolve(promise).then(function (value) {
-          if (alreadyCalled) return;
-          alreadyCalled = true;
-          values[$index] = value;
-          --remaining || resolve(values);
-        }, reject);
-      });
-      --remaining || resolve(values);
-    });
-    if (result.e) reject(result.v);
-    return capability.promise;
-  },
-  // 25.4.4.4 Promise.race(iterable)
-  race: function race(iterable) {
-    var C = this;
-    var capability = newPromiseCapability(C);
-    var reject = capability.reject;
-    var result = perform(function () {
-      forOf(iterable, false, function (promise) {
-        C.resolve(promise).then(capability.resolve, reject);
-      });
-    });
-    if (result.e) reject(result.v);
-    return capability.promise;
-  }
-});
-
-},{"./_a-function":35,"./_an-instance":37,"./_classof":40,"./_core":42,"./_ctx":44,"./_export":50,"./_for-of":52,"./_global":53,"./_is-object":62,"./_iter-detect":66,"./_library":69,"./_microtask":71,"./_new-promise-capability":72,"./_perform":85,"./_promise-resolve":86,"./_redefine-all":88,"./_set-species":91,"./_set-to-string-tag":92,"./_species-constructor":95,"./_task":97,"./_user-agent":105,"./_wks":108}],121:[function(require,module,exports){
-'use strict';
-var $at = require('./_string-at')(true);
-
-// 21.1.3.27 String.prototype[@@iterator]()
-require('./_iter-define')(String, 'String', function (iterated) {
-  this._t = String(iterated); // target
-  this._i = 0;                // next index
-// 21.1.5.2.1 %StringIteratorPrototype%.next()
-}, function () {
-  var O = this._t;
-  var index = this._i;
-  var point;
-  if (index >= O.length) return { value: undefined, done: true };
-  point = $at(O, index);
-  this._i += point.length;
-  return { value: point, done: false };
-});
-
-},{"./_iter-define":65,"./_string-at":96}],122:[function(require,module,exports){
-'use strict';
-// ECMAScript 6 symbols shim
-var global = require('./_global');
-var has = require('./_has');
-var DESCRIPTORS = require('./_descriptors');
-var $export = require('./_export');
-var redefine = require('./_redefine');
-var META = require('./_meta').KEY;
-var $fails = require('./_fails');
-var shared = require('./_shared');
-var setToStringTag = require('./_set-to-string-tag');
-var uid = require('./_uid');
-var wks = require('./_wks');
-var wksExt = require('./_wks-ext');
-var wksDefine = require('./_wks-define');
-var enumKeys = require('./_enum-keys');
-var isArray = require('./_is-array');
-var anObject = require('./_an-object');
-var isObject = require('./_is-object');
-var toObject = require('./_to-object');
-var toIObject = require('./_to-iobject');
-var toPrimitive = require('./_to-primitive');
-var createDesc = require('./_property-desc');
-var _create = require('./_object-create');
-var gOPNExt = require('./_object-gopn-ext');
-var $GOPD = require('./_object-gopd');
-var $GOPS = require('./_object-gops');
-var $DP = require('./_object-dp');
-var $keys = require('./_object-keys');
-var gOPD = $GOPD.f;
-var dP = $DP.f;
-var gOPN = gOPNExt.f;
-var $Symbol = global.Symbol;
-var $JSON = global.JSON;
-var _stringify = $JSON && $JSON.stringify;
-var PROTOTYPE = 'prototype';
-var HIDDEN = wks('_hidden');
-var TO_PRIMITIVE = wks('toPrimitive');
-var isEnum = {}.propertyIsEnumerable;
-var SymbolRegistry = shared('symbol-registry');
-var AllSymbols = shared('symbols');
-var OPSymbols = shared('op-symbols');
-var ObjectProto = Object[PROTOTYPE];
-var USE_NATIVE = typeof $Symbol == 'function' && !!$GOPS.f;
-var QObject = global.QObject;
-// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
-var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
-
-// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
-var setSymbolDesc = DESCRIPTORS && $fails(function () {
-  return _create(dP({}, 'a', {
-    get: function () { return dP(this, 'a', { value: 7 }).a; }
-  })).a != 7;
-}) ? function (it, key, D) {
-  var protoDesc = gOPD(ObjectProto, key);
-  if (protoDesc) delete ObjectProto[key];
-  dP(it, key, D);
-  if (protoDesc && it !== ObjectProto) dP(ObjectProto, key, protoDesc);
-} : dP;
-
-var wrap = function (tag) {
-  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
-  sym._k = tag;
-  return sym;
-};
-
-var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function (it) {
-  return typeof it == 'symbol';
-} : function (it) {
-  return it instanceof $Symbol;
-};
-
-var $defineProperty = function defineProperty(it, key, D) {
-  if (it === ObjectProto) $defineProperty(OPSymbols, key, D);
-  anObject(it);
-  key = toPrimitive(key, true);
-  anObject(D);
-  if (has(AllSymbols, key)) {
-    if (!D.enumerable) {
-      if (!has(it, HIDDEN)) dP(it, HIDDEN, createDesc(1, {}));
-      it[HIDDEN][key] = true;
-    } else {
-      if (has(it, HIDDEN) && it[HIDDEN][key]) it[HIDDEN][key] = false;
-      D = _create(D, { enumerable: createDesc(0, false) });
-    } return setSymbolDesc(it, key, D);
-  } return dP(it, key, D);
-};
-var $defineProperties = function defineProperties(it, P) {
-  anObject(it);
-  var keys = enumKeys(P = toIObject(P));
-  var i = 0;
-  var l = keys.length;
-  var key;
-  while (l > i) $defineProperty(it, key = keys[i++], P[key]);
-  return it;
-};
-var $create = function create(it, P) {
-  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
-};
-var $propertyIsEnumerable = function propertyIsEnumerable(key) {
-  var E = isEnum.call(this, key = toPrimitive(key, true));
-  if (this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return false;
-  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
-};
-var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
-  it = toIObject(it);
-  key = toPrimitive(key, true);
-  if (it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return;
-  var D = gOPD(it, key);
-  if (D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key])) D.enumerable = true;
-  return D;
-};
-var $getOwnPropertyNames = function getOwnPropertyNames(it) {
-  var names = gOPN(toIObject(it));
-  var result = [];
-  var i = 0;
-  var key;
-  while (names.length > i) {
-    if (!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META) result.push(key);
-  } return result;
-};
-var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
-  var IS_OP = it === ObjectProto;
-  var names = gOPN(IS_OP ? OPSymbols : toIObject(it));
-  var result = [];
-  var i = 0;
-  var key;
-  while (names.length > i) {
-    if (has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true)) result.push(AllSymbols[key]);
-  } return result;
-};
-
-// 19.4.1.1 Symbol([description])
-if (!USE_NATIVE) {
-  $Symbol = function Symbol() {
-    if (this instanceof $Symbol) throw TypeError('Symbol is not a constructor!');
-    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
-    var $set = function (value) {
-      if (this === ObjectProto) $set.call(OPSymbols, value);
-      if (has(this, HIDDEN) && has(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
-      setSymbolDesc(this, tag, createDesc(1, value));
-    };
-    if (DESCRIPTORS && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
-    return wrap(tag);
-  };
-  redefine($Symbol[PROTOTYPE], 'toString', function toString() {
-    return this._k;
-  });
-
-  $GOPD.f = $getOwnPropertyDescriptor;
-  $DP.f = $defineProperty;
-  require('./_object-gopn').f = gOPNExt.f = $getOwnPropertyNames;
-  require('./_object-pie').f = $propertyIsEnumerable;
-  $GOPS.f = $getOwnPropertySymbols;
-
-  if (DESCRIPTORS && !require('./_library')) {
-    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
-  }
-
-  wksExt.f = function (name) {
-    return wrap(wks(name));
-  };
-}
-
-$export($export.G + $export.W + $export.F * !USE_NATIVE, { Symbol: $Symbol });
-
-for (var es6Symbols = (
-  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
-  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
-).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
-
-for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
-
-$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
-  // 19.4.2.1 Symbol.for(key)
-  'for': function (key) {
-    return has(SymbolRegistry, key += '')
-      ? SymbolRegistry[key]
-      : SymbolRegistry[key] = $Symbol(key);
-  },
-  // 19.4.2.5 Symbol.keyFor(sym)
-  keyFor: function keyFor(sym) {
-    if (!isSymbol(sym)) throw TypeError(sym + ' is not a symbol!');
-    for (var key in SymbolRegistry) if (SymbolRegistry[key] === sym) return key;
-  },
-  useSetter: function () { setter = true; },
-  useSimple: function () { setter = false; }
-});
-
-$export($export.S + $export.F * !USE_NATIVE, 'Object', {
-  // 19.1.2.2 Object.create(O [, Properties])
-  create: $create,
-  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
-  defineProperty: $defineProperty,
-  // 19.1.2.3 Object.defineProperties(O, Properties)
-  defineProperties: $defineProperties,
-  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
-  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
-  // 19.1.2.7 Object.getOwnPropertyNames(O)
-  getOwnPropertyNames: $getOwnPropertyNames,
-  // 19.1.2.8 Object.getOwnPropertySymbols(O)
-  getOwnPropertySymbols: $getOwnPropertySymbols
-});
-
-// Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
-// https://bugs.chromium.org/p/v8/issues/detail?id=3443
-var FAILS_ON_PRIMITIVES = $fails(function () { $GOPS.f(1); });
-
-$export($export.S + $export.F * FAILS_ON_PRIMITIVES, 'Object', {
-  getOwnPropertySymbols: function getOwnPropertySymbols(it) {
-    return $GOPS.f(toObject(it));
-  }
-});
-
-// 24.3.2 JSON.stringify(value [, replacer [, space]])
-$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
-  var S = $Symbol();
-  // MS Edge converts symbol values to JSON as {}
-  // WebKit converts symbol values to JSON as null
-  // V8 throws on boxed symbols
-  return _stringify([S]) != '[null]' || _stringify({ a: S }) != '{}' || _stringify(Object(S)) != '{}';
-})), 'JSON', {
-  stringify: function stringify(it) {
-    var args = [it];
-    var i = 1;
-    var replacer, $replacer;
-    while (arguments.length > i) args.push(arguments[i++]);
-    $replacer = replacer = args[1];
-    if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
-    if (!isArray(replacer)) replacer = function (key, value) {
-      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
-      if (!isSymbol(value)) return value;
-    };
-    args[1] = replacer;
-    return _stringify.apply($JSON, args);
-  }
-});
-
-// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
-$Symbol[PROTOTYPE][TO_PRIMITIVE] || require('./_hide')($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
-// 19.4.3.5 Symbol.prototype[@@toStringTag]
-setToStringTag($Symbol, 'Symbol');
-// 20.2.1.9 Math[@@toStringTag]
-setToStringTag(Math, 'Math', true);
-// 24.3.3 JSON[@@toStringTag]
-setToStringTag(global.JSON, 'JSON', true);
-
-},{"./_an-object":38,"./_descriptors":46,"./_enum-keys":49,"./_export":50,"./_fails":51,"./_global":53,"./_has":54,"./_hide":55,"./_is-array":61,"./_is-object":62,"./_library":69,"./_meta":70,"./_object-create":73,"./_object-dp":74,"./_object-gopd":76,"./_object-gopn":78,"./_object-gopn-ext":77,"./_object-gops":79,"./_object-keys":82,"./_object-pie":83,"./_property-desc":87,"./_redefine":89,"./_set-to-string-tag":92,"./_shared":94,"./_to-iobject":100,"./_to-object":102,"./_to-primitive":103,"./_uid":104,"./_wks":108,"./_wks-define":106,"./_wks-ext":107}],123:[function(require,module,exports){
-// https://github.com/tc39/proposal-promise-finally
-'use strict';
-var $export = require('./_export');
-var core = require('./_core');
-var global = require('./_global');
-var speciesConstructor = require('./_species-constructor');
-var promiseResolve = require('./_promise-resolve');
-
-$export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
-  var C = speciesConstructor(this, core.Promise || global.Promise);
-  var isFunction = typeof onFinally == 'function';
-  return this.then(
-    isFunction ? function (x) {
-      return promiseResolve(C, onFinally()).then(function () { return x; });
-    } : onFinally,
-    isFunction ? function (e) {
-      return promiseResolve(C, onFinally()).then(function () { throw e; });
-    } : onFinally
-  );
-} });
-
-},{"./_core":42,"./_export":50,"./_global":53,"./_promise-resolve":86,"./_species-constructor":95}],124:[function(require,module,exports){
-'use strict';
-// https://github.com/tc39/proposal-promise-try
-var $export = require('./_export');
-var newPromiseCapability = require('./_new-promise-capability');
-var perform = require('./_perform');
-
-$export($export.S, 'Promise', { 'try': function (callbackfn) {
-  var promiseCapability = newPromiseCapability.f(this);
-  var result = perform(callbackfn);
-  (result.e ? promiseCapability.reject : promiseCapability.resolve)(result.v);
-  return promiseCapability.promise;
-} });
-
-},{"./_export":50,"./_new-promise-capability":72,"./_perform":85}],125:[function(require,module,exports){
-require('./_wks-define')('asyncIterator');
-
-},{"./_wks-define":106}],126:[function(require,module,exports){
-require('./_wks-define')('observable');
-
-},{"./_wks-define":106}],127:[function(require,module,exports){
-require('./es6.array.iterator');
-var global = require('./_global');
-var hide = require('./_hide');
-var Iterators = require('./_iterators');
-var TO_STRING_TAG = require('./_wks')('toStringTag');
-
-var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
-  'DOMTokenList,DataTransferItemList,FileList,HTMLAllCollection,HTMLCollection,HTMLFormElement,HTMLSelectElement,' +
-  'MediaList,MimeTypeArray,NamedNodeMap,NodeList,PaintRequestList,Plugin,PluginArray,SVGLengthList,SVGNumberList,' +
-  'SVGPathSegList,SVGPointList,SVGStringList,SVGTransformList,SourceBufferList,StyleSheetList,TextTrackCueList,' +
-  'TextTrackList,TouchList').split(',');
-
-for (var i = 0; i < DOMIterables.length; i++) {
-  var NAME = DOMIterables[i];
-  var Collection = global[NAME];
-  var proto = Collection && Collection.prototype;
-  if (proto && !proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
-  Iterators[NAME] = Iterators.Array;
-}
-
-},{"./_global":53,"./_hide":55,"./_iterators":68,"./_wks":108,"./es6.array.iterator":113}],128:[function(require,module,exports){
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -7194,7 +4242,7 @@ if (hadRuntime) {
   }
 }
 
-},{"./runtime":129}],129:[function(require,module,exports){
+},{"./runtime":24}],24:[function(require,module,exports){
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -7923,7 +4971,1974 @@ if (hadRuntime) {
   (function() { return this })() || Function("return this")()
 );
 
-},{}],130:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
+module.exports = require("regenerator-runtime");
+
+},{"regenerator-runtime":23}],26:[function(require,module,exports){
+require('../../modules/es6.string.iterator');
+require('../../modules/es6.array.from');
+module.exports = require('../../modules/_core').Array.from;
+
+},{"../../modules/_core":44,"../../modules/es6.array.from":114,"../../modules/es6.string.iterator":123}],27:[function(require,module,exports){
+require('../modules/web.dom.iterable');
+require('../modules/es6.string.iterator');
+module.exports = require('../modules/core.get-iterator');
+
+},{"../modules/core.get-iterator":112,"../modules/es6.string.iterator":123,"../modules/web.dom.iterable":129}],28:[function(require,module,exports){
+require('../modules/web.dom.iterable');
+require('../modules/es6.string.iterator');
+module.exports = require('../modules/core.is-iterable');
+
+},{"../modules/core.is-iterable":113,"../modules/es6.string.iterator":123,"../modules/web.dom.iterable":129}],29:[function(require,module,exports){
+require('../../modules/es6.object.create');
+var $Object = require('../../modules/_core').Object;
+module.exports = function create(P, D) {
+  return $Object.create(P, D);
+};
+
+},{"../../modules/_core":44,"../../modules/es6.object.create":116}],30:[function(require,module,exports){
+require('../../modules/es6.object.define-property');
+var $Object = require('../../modules/_core').Object;
+module.exports = function defineProperty(it, key, desc) {
+  return $Object.defineProperty(it, key, desc);
+};
+
+},{"../../modules/_core":44,"../../modules/es6.object.define-property":117}],31:[function(require,module,exports){
+require('../../modules/es6.object.get-own-property-descriptor');
+var $Object = require('../../modules/_core').Object;
+module.exports = function getOwnPropertyDescriptor(it, key) {
+  return $Object.getOwnPropertyDescriptor(it, key);
+};
+
+},{"../../modules/_core":44,"../../modules/es6.object.get-own-property-descriptor":118}],32:[function(require,module,exports){
+require('../../modules/es6.object.get-prototype-of');
+module.exports = require('../../modules/_core').Object.getPrototypeOf;
+
+},{"../../modules/_core":44,"../../modules/es6.object.get-prototype-of":119}],33:[function(require,module,exports){
+require('../../modules/es6.object.set-prototype-of');
+module.exports = require('../../modules/_core').Object.setPrototypeOf;
+
+},{"../../modules/_core":44,"../../modules/es6.object.set-prototype-of":120}],34:[function(require,module,exports){
+require('../modules/es6.object.to-string');
+require('../modules/es6.string.iterator');
+require('../modules/web.dom.iterable');
+require('../modules/es6.promise');
+require('../modules/es7.promise.finally');
+require('../modules/es7.promise.try');
+module.exports = require('../modules/_core').Promise;
+
+},{"../modules/_core":44,"../modules/es6.object.to-string":121,"../modules/es6.promise":122,"../modules/es6.string.iterator":123,"../modules/es7.promise.finally":125,"../modules/es7.promise.try":126,"../modules/web.dom.iterable":129}],35:[function(require,module,exports){
+require('../../modules/es6.symbol');
+require('../../modules/es6.object.to-string');
+require('../../modules/es7.symbol.async-iterator');
+require('../../modules/es7.symbol.observable');
+module.exports = require('../../modules/_core').Symbol;
+
+},{"../../modules/_core":44,"../../modules/es6.object.to-string":121,"../../modules/es6.symbol":124,"../../modules/es7.symbol.async-iterator":127,"../../modules/es7.symbol.observable":128}],36:[function(require,module,exports){
+require('../../modules/es6.string.iterator');
+require('../../modules/web.dom.iterable');
+module.exports = require('../../modules/_wks-ext').f('iterator');
+
+},{"../../modules/_wks-ext":109,"../../modules/es6.string.iterator":123,"../../modules/web.dom.iterable":129}],37:[function(require,module,exports){
+module.exports = function (it) {
+  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
+  return it;
+};
+
+},{}],38:[function(require,module,exports){
+module.exports = function () { /* empty */ };
+
+},{}],39:[function(require,module,exports){
+module.exports = function (it, Constructor, name, forbiddenField) {
+  if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
+    throw TypeError(name + ': incorrect invocation!');
+  } return it;
+};
+
+},{}],40:[function(require,module,exports){
+var isObject = require('./_is-object');
+module.exports = function (it) {
+  if (!isObject(it)) throw TypeError(it + ' is not an object!');
+  return it;
+};
+
+},{"./_is-object":64}],41:[function(require,module,exports){
+// false -> Array#indexOf
+// true  -> Array#includes
+var toIObject = require('./_to-iobject');
+var toLength = require('./_to-length');
+var toAbsoluteIndex = require('./_to-absolute-index');
+module.exports = function (IS_INCLUDES) {
+  return function ($this, el, fromIndex) {
+    var O = toIObject($this);
+    var length = toLength(O.length);
+    var index = toAbsoluteIndex(fromIndex, length);
+    var value;
+    // Array#includes uses SameValueZero equality algorithm
+    // eslint-disable-next-line no-self-compare
+    if (IS_INCLUDES && el != el) while (length > index) {
+      value = O[index++];
+      // eslint-disable-next-line no-self-compare
+      if (value != value) return true;
+    // Array#indexOf ignores holes, Array#includes - not
+    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
+      if (O[index] === el) return IS_INCLUDES || index || 0;
+    } return !IS_INCLUDES && -1;
+  };
+};
+
+},{"./_to-absolute-index":100,"./_to-iobject":102,"./_to-length":103}],42:[function(require,module,exports){
+// getting tag from 19.1.3.6 Object.prototype.toString()
+var cof = require('./_cof');
+var TAG = require('./_wks')('toStringTag');
+// ES3 wrong here
+var ARG = cof(function () { return arguments; }()) == 'Arguments';
+
+// fallback for IE11 Script Access Denied error
+var tryGet = function (it, key) {
+  try {
+    return it[key];
+  } catch (e) { /* empty */ }
+};
+
+module.exports = function (it) {
+  var O, T, B;
+  return it === undefined ? 'Undefined' : it === null ? 'Null'
+    // @@toStringTag case
+    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+    // builtinTag case
+    : ARG ? cof(O)
+    // ES3 arguments fallback
+    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+};
+
+},{"./_cof":43,"./_wks":110}],43:[function(require,module,exports){
+var toString = {}.toString;
+
+module.exports = function (it) {
+  return toString.call(it).slice(8, -1);
+};
+
+},{}],44:[function(require,module,exports){
+var core = module.exports = { version: '2.6.12' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+},{}],45:[function(require,module,exports){
+'use strict';
+var $defineProperty = require('./_object-dp');
+var createDesc = require('./_property-desc');
+
+module.exports = function (object, index, value) {
+  if (index in object) $defineProperty.f(object, index, createDesc(0, value));
+  else object[index] = value;
+};
+
+},{"./_object-dp":76,"./_property-desc":89}],46:[function(require,module,exports){
+// optional / simple context binding
+var aFunction = require('./_a-function');
+module.exports = function (fn, that, length) {
+  aFunction(fn);
+  if (that === undefined) return fn;
+  switch (length) {
+    case 1: return function (a) {
+      return fn.call(that, a);
+    };
+    case 2: return function (a, b) {
+      return fn.call(that, a, b);
+    };
+    case 3: return function (a, b, c) {
+      return fn.call(that, a, b, c);
+    };
+  }
+  return function (/* ...args */) {
+    return fn.apply(that, arguments);
+  };
+};
+
+},{"./_a-function":37}],47:[function(require,module,exports){
+// 7.2.1 RequireObjectCoercible(argument)
+module.exports = function (it) {
+  if (it == undefined) throw TypeError("Can't call method on  " + it);
+  return it;
+};
+
+},{}],48:[function(require,module,exports){
+// Thank's IE8 for his funny defineProperty
+module.exports = !require('./_fails')(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+},{"./_fails":53}],49:[function(require,module,exports){
+var isObject = require('./_is-object');
+var document = require('./_global').document;
+// typeof document.createElement is 'object' in old IE
+var is = isObject(document) && isObject(document.createElement);
+module.exports = function (it) {
+  return is ? document.createElement(it) : {};
+};
+
+},{"./_global":55,"./_is-object":64}],50:[function(require,module,exports){
+// IE 8- don't enum bug keys
+module.exports = (
+  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
+).split(',');
+
+},{}],51:[function(require,module,exports){
+// all enumerable object keys, includes symbols
+var getKeys = require('./_object-keys');
+var gOPS = require('./_object-gops');
+var pIE = require('./_object-pie');
+module.exports = function (it) {
+  var result = getKeys(it);
+  var getSymbols = gOPS.f;
+  if (getSymbols) {
+    var symbols = getSymbols(it);
+    var isEnum = pIE.f;
+    var i = 0;
+    var key;
+    while (symbols.length > i) if (isEnum.call(it, key = symbols[i++])) result.push(key);
+  } return result;
+};
+
+},{"./_object-gops":81,"./_object-keys":84,"./_object-pie":85}],52:[function(require,module,exports){
+var global = require('./_global');
+var core = require('./_core');
+var ctx = require('./_ctx');
+var hide = require('./_hide');
+var has = require('./_has');
+var PROTOTYPE = 'prototype';
+
+var $export = function (type, name, source) {
+  var IS_FORCED = type & $export.F;
+  var IS_GLOBAL = type & $export.G;
+  var IS_STATIC = type & $export.S;
+  var IS_PROTO = type & $export.P;
+  var IS_BIND = type & $export.B;
+  var IS_WRAP = type & $export.W;
+  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
+  var expProto = exports[PROTOTYPE];
+  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
+  var key, own, out;
+  if (IS_GLOBAL) source = name;
+  for (key in source) {
+    // contains in native
+    own = !IS_FORCED && target && target[key] !== undefined;
+    if (own && has(exports, key)) continue;
+    // export native or passed
+    out = own ? target[key] : source[key];
+    // prevent global pollution for namespaces
+    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+    // bind timers to global for call from export context
+    : IS_BIND && own ? ctx(out, global)
+    // wrap global constructors for prevent change them in library
+    : IS_WRAP && target[key] == out ? (function (C) {
+      var F = function (a, b, c) {
+        if (this instanceof C) {
+          switch (arguments.length) {
+            case 0: return new C();
+            case 1: return new C(a);
+            case 2: return new C(a, b);
+          } return new C(a, b, c);
+        } return C.apply(this, arguments);
+      };
+      F[PROTOTYPE] = C[PROTOTYPE];
+      return F;
+    // make static versions for prototype methods
+    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
+    if (IS_PROTO) {
+      (exports.virtual || (exports.virtual = {}))[key] = out;
+      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
+      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
+    }
+  }
+};
+// type bitmap
+$export.F = 1;   // forced
+$export.G = 2;   // global
+$export.S = 4;   // static
+$export.P = 8;   // proto
+$export.B = 16;  // bind
+$export.W = 32;  // wrap
+$export.U = 64;  // safe
+$export.R = 128; // real proto method for `library`
+module.exports = $export;
+
+},{"./_core":44,"./_ctx":46,"./_global":55,"./_has":56,"./_hide":57}],53:[function(require,module,exports){
+module.exports = function (exec) {
+  try {
+    return !!exec();
+  } catch (e) {
+    return true;
+  }
+};
+
+},{}],54:[function(require,module,exports){
+var ctx = require('./_ctx');
+var call = require('./_iter-call');
+var isArrayIter = require('./_is-array-iter');
+var anObject = require('./_an-object');
+var toLength = require('./_to-length');
+var getIterFn = require('./core.get-iterator-method');
+var BREAK = {};
+var RETURN = {};
+var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
+  var iterFn = ITERATOR ? function () { return iterable; } : getIterFn(iterable);
+  var f = ctx(fn, that, entries ? 2 : 1);
+  var index = 0;
+  var length, step, iterator, result;
+  if (typeof iterFn != 'function') throw TypeError(iterable + ' is not iterable!');
+  // fast case for arrays with default iterator
+  if (isArrayIter(iterFn)) for (length = toLength(iterable.length); length > index; index++) {
+    result = entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
+    if (result === BREAK || result === RETURN) return result;
+  } else for (iterator = iterFn.call(iterable); !(step = iterator.next()).done;) {
+    result = call(iterator, f, step.value, entries);
+    if (result === BREAK || result === RETURN) return result;
+  }
+};
+exports.BREAK = BREAK;
+exports.RETURN = RETURN;
+
+},{"./_an-object":40,"./_ctx":46,"./_is-array-iter":62,"./_iter-call":65,"./_to-length":103,"./core.get-iterator-method":111}],55:[function(require,module,exports){
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+var global = module.exports = typeof window != 'undefined' && window.Math == Math
+  ? window : typeof self != 'undefined' && self.Math == Math ? self
+  // eslint-disable-next-line no-new-func
+  : Function('return this')();
+if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
+
+},{}],56:[function(require,module,exports){
+var hasOwnProperty = {}.hasOwnProperty;
+module.exports = function (it, key) {
+  return hasOwnProperty.call(it, key);
+};
+
+},{}],57:[function(require,module,exports){
+var dP = require('./_object-dp');
+var createDesc = require('./_property-desc');
+module.exports = require('./_descriptors') ? function (object, key, value) {
+  return dP.f(object, key, createDesc(1, value));
+} : function (object, key, value) {
+  object[key] = value;
+  return object;
+};
+
+},{"./_descriptors":48,"./_object-dp":76,"./_property-desc":89}],58:[function(require,module,exports){
+var document = require('./_global').document;
+module.exports = document && document.documentElement;
+
+},{"./_global":55}],59:[function(require,module,exports){
+module.exports = !require('./_descriptors') && !require('./_fails')(function () {
+  return Object.defineProperty(require('./_dom-create')('div'), 'a', { get: function () { return 7; } }).a != 7;
+});
+
+},{"./_descriptors":48,"./_dom-create":49,"./_fails":53}],60:[function(require,module,exports){
+// fast apply, http://jsperf.lnkit.com/fast-apply/5
+module.exports = function (fn, args, that) {
+  var un = that === undefined;
+  switch (args.length) {
+    case 0: return un ? fn()
+                      : fn.call(that);
+    case 1: return un ? fn(args[0])
+                      : fn.call(that, args[0]);
+    case 2: return un ? fn(args[0], args[1])
+                      : fn.call(that, args[0], args[1]);
+    case 3: return un ? fn(args[0], args[1], args[2])
+                      : fn.call(that, args[0], args[1], args[2]);
+    case 4: return un ? fn(args[0], args[1], args[2], args[3])
+                      : fn.call(that, args[0], args[1], args[2], args[3]);
+  } return fn.apply(that, args);
+};
+
+},{}],61:[function(require,module,exports){
+// fallback for non-array-like ES3 and non-enumerable old V8 strings
+var cof = require('./_cof');
+// eslint-disable-next-line no-prototype-builtins
+module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
+  return cof(it) == 'String' ? it.split('') : Object(it);
+};
+
+},{"./_cof":43}],62:[function(require,module,exports){
+// check on default Array iterator
+var Iterators = require('./_iterators');
+var ITERATOR = require('./_wks')('iterator');
+var ArrayProto = Array.prototype;
+
+module.exports = function (it) {
+  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
+};
+
+},{"./_iterators":70,"./_wks":110}],63:[function(require,module,exports){
+// 7.2.2 IsArray(argument)
+var cof = require('./_cof');
+module.exports = Array.isArray || function isArray(arg) {
+  return cof(arg) == 'Array';
+};
+
+},{"./_cof":43}],64:[function(require,module,exports){
+module.exports = function (it) {
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+},{}],65:[function(require,module,exports){
+// call something on iterator step with safe closing on error
+var anObject = require('./_an-object');
+module.exports = function (iterator, fn, value, entries) {
+  try {
+    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
+  // 7.4.6 IteratorClose(iterator, completion)
+  } catch (e) {
+    var ret = iterator['return'];
+    if (ret !== undefined) anObject(ret.call(iterator));
+    throw e;
+  }
+};
+
+},{"./_an-object":40}],66:[function(require,module,exports){
+'use strict';
+var create = require('./_object-create');
+var descriptor = require('./_property-desc');
+var setToStringTag = require('./_set-to-string-tag');
+var IteratorPrototype = {};
+
+// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
+require('./_hide')(IteratorPrototype, require('./_wks')('iterator'), function () { return this; });
+
+module.exports = function (Constructor, NAME, next) {
+  Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
+  setToStringTag(Constructor, NAME + ' Iterator');
+};
+
+},{"./_hide":57,"./_object-create":75,"./_property-desc":89,"./_set-to-string-tag":94,"./_wks":110}],67:[function(require,module,exports){
+'use strict';
+var LIBRARY = require('./_library');
+var $export = require('./_export');
+var redefine = require('./_redefine');
+var hide = require('./_hide');
+var Iterators = require('./_iterators');
+var $iterCreate = require('./_iter-create');
+var setToStringTag = require('./_set-to-string-tag');
+var getPrototypeOf = require('./_object-gpo');
+var ITERATOR = require('./_wks')('iterator');
+var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
+var FF_ITERATOR = '@@iterator';
+var KEYS = 'keys';
+var VALUES = 'values';
+
+var returnThis = function () { return this; };
+
+module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
+  $iterCreate(Constructor, NAME, next);
+  var getMethod = function (kind) {
+    if (!BUGGY && kind in proto) return proto[kind];
+    switch (kind) {
+      case KEYS: return function keys() { return new Constructor(this, kind); };
+      case VALUES: return function values() { return new Constructor(this, kind); };
+    } return function entries() { return new Constructor(this, kind); };
+  };
+  var TAG = NAME + ' Iterator';
+  var DEF_VALUES = DEFAULT == VALUES;
+  var VALUES_BUG = false;
+  var proto = Base.prototype;
+  var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
+  var $default = $native || getMethod(DEFAULT);
+  var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
+  var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
+  var methods, key, IteratorPrototype;
+  // Fix native
+  if ($anyNative) {
+    IteratorPrototype = getPrototypeOf($anyNative.call(new Base()));
+    if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
+      // Set @@toStringTag to native iterators
+      setToStringTag(IteratorPrototype, TAG, true);
+      // fix for some old engines
+      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
+    }
+  }
+  // fix Array#{values, @@iterator}.name in V8 / FF
+  if (DEF_VALUES && $native && $native.name !== VALUES) {
+    VALUES_BUG = true;
+    $default = function values() { return $native.call(this); };
+  }
+  // Define iterator
+  if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
+    hide(proto, ITERATOR, $default);
+  }
+  // Plug for library
+  Iterators[NAME] = $default;
+  Iterators[TAG] = returnThis;
+  if (DEFAULT) {
+    methods = {
+      values: DEF_VALUES ? $default : getMethod(VALUES),
+      keys: IS_SET ? $default : getMethod(KEYS),
+      entries: $entries
+    };
+    if (FORCED) for (key in methods) {
+      if (!(key in proto)) redefine(proto, key, methods[key]);
+    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
+  }
+  return methods;
+};
+
+},{"./_export":52,"./_hide":57,"./_iter-create":66,"./_iterators":70,"./_library":71,"./_object-gpo":82,"./_redefine":91,"./_set-to-string-tag":94,"./_wks":110}],68:[function(require,module,exports){
+var ITERATOR = require('./_wks')('iterator');
+var SAFE_CLOSING = false;
+
+try {
+  var riter = [7][ITERATOR]();
+  riter['return'] = function () { SAFE_CLOSING = true; };
+  // eslint-disable-next-line no-throw-literal
+  Array.from(riter, function () { throw 2; });
+} catch (e) { /* empty */ }
+
+module.exports = function (exec, skipClosing) {
+  if (!skipClosing && !SAFE_CLOSING) return false;
+  var safe = false;
+  try {
+    var arr = [7];
+    var iter = arr[ITERATOR]();
+    iter.next = function () { return { done: safe = true }; };
+    arr[ITERATOR] = function () { return iter; };
+    exec(arr);
+  } catch (e) { /* empty */ }
+  return safe;
+};
+
+},{"./_wks":110}],69:[function(require,module,exports){
+module.exports = function (done, value) {
+  return { value: value, done: !!done };
+};
+
+},{}],70:[function(require,module,exports){
+module.exports = {};
+
+},{}],71:[function(require,module,exports){
+module.exports = true;
+
+},{}],72:[function(require,module,exports){
+var META = require('./_uid')('meta');
+var isObject = require('./_is-object');
+var has = require('./_has');
+var setDesc = require('./_object-dp').f;
+var id = 0;
+var isExtensible = Object.isExtensible || function () {
+  return true;
+};
+var FREEZE = !require('./_fails')(function () {
+  return isExtensible(Object.preventExtensions({}));
+});
+var setMeta = function (it) {
+  setDesc(it, META, { value: {
+    i: 'O' + ++id, // object ID
+    w: {}          // weak collections IDs
+  } });
+};
+var fastKey = function (it, create) {
+  // return primitive with prefix
+  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return 'F';
+    // not necessary to add metadata
+    if (!create) return 'E';
+    // add missing metadata
+    setMeta(it);
+  // return object ID
+  } return it[META].i;
+};
+var getWeak = function (it, create) {
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return true;
+    // not necessary to add metadata
+    if (!create) return false;
+    // add missing metadata
+    setMeta(it);
+  // return hash weak collections IDs
+  } return it[META].w;
+};
+// add metadata on freeze-family methods calling
+var onFreeze = function (it) {
+  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
+  return it;
+};
+var meta = module.exports = {
+  KEY: META,
+  NEED: false,
+  fastKey: fastKey,
+  getWeak: getWeak,
+  onFreeze: onFreeze
+};
+
+},{"./_fails":53,"./_has":56,"./_is-object":64,"./_object-dp":76,"./_uid":106}],73:[function(require,module,exports){
+var global = require('./_global');
+var macrotask = require('./_task').set;
+var Observer = global.MutationObserver || global.WebKitMutationObserver;
+var process = global.process;
+var Promise = global.Promise;
+var isNode = require('./_cof')(process) == 'process';
+
+module.exports = function () {
+  var head, last, notify;
+
+  var flush = function () {
+    var parent, fn;
+    if (isNode && (parent = process.domain)) parent.exit();
+    while (head) {
+      fn = head.fn;
+      head = head.next;
+      try {
+        fn();
+      } catch (e) {
+        if (head) notify();
+        else last = undefined;
+        throw e;
+      }
+    } last = undefined;
+    if (parent) parent.enter();
+  };
+
+  // Node.js
+  if (isNode) {
+    notify = function () {
+      process.nextTick(flush);
+    };
+  // browsers with MutationObserver, except iOS Safari - https://github.com/zloirock/core-js/issues/339
+  } else if (Observer && !(global.navigator && global.navigator.standalone)) {
+    var toggle = true;
+    var node = document.createTextNode('');
+    new Observer(flush).observe(node, { characterData: true }); // eslint-disable-line no-new
+    notify = function () {
+      node.data = toggle = !toggle;
+    };
+  // environments with maybe non-completely correct, but existent Promise
+  } else if (Promise && Promise.resolve) {
+    // Promise.resolve without an argument throws an error in LG WebOS 2
+    var promise = Promise.resolve(undefined);
+    notify = function () {
+      promise.then(flush);
+    };
+  // for other environments - macrotask based on:
+  // - setImmediate
+  // - MessageChannel
+  // - window.postMessag
+  // - onreadystatechange
+  // - setTimeout
+  } else {
+    notify = function () {
+      // strange IE + webpack dev server bug - use .call(global)
+      macrotask.call(global, flush);
+    };
+  }
+
+  return function (fn) {
+    var task = { fn: fn, next: undefined };
+    if (last) last.next = task;
+    if (!head) {
+      head = task;
+      notify();
+    } last = task;
+  };
+};
+
+},{"./_cof":43,"./_global":55,"./_task":99}],74:[function(require,module,exports){
+'use strict';
+// 25.4.1.5 NewPromiseCapability(C)
+var aFunction = require('./_a-function');
+
+function PromiseCapability(C) {
+  var resolve, reject;
+  this.promise = new C(function ($$resolve, $$reject) {
+    if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');
+    resolve = $$resolve;
+    reject = $$reject;
+  });
+  this.resolve = aFunction(resolve);
+  this.reject = aFunction(reject);
+}
+
+module.exports.f = function (C) {
+  return new PromiseCapability(C);
+};
+
+},{"./_a-function":37}],75:[function(require,module,exports){
+// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
+var anObject = require('./_an-object');
+var dPs = require('./_object-dps');
+var enumBugKeys = require('./_enum-bug-keys');
+var IE_PROTO = require('./_shared-key')('IE_PROTO');
+var Empty = function () { /* empty */ };
+var PROTOTYPE = 'prototype';
+
+// Create object with fake `null` prototype: use iframe Object with cleared prototype
+var createDict = function () {
+  // Thrash, waste and sodomy: IE GC bug
+  var iframe = require('./_dom-create')('iframe');
+  var i = enumBugKeys.length;
+  var lt = '<';
+  var gt = '>';
+  var iframeDocument;
+  iframe.style.display = 'none';
+  require('./_html').appendChild(iframe);
+  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
+  // createDict = iframe.contentWindow.Object;
+  // html.removeChild(iframe);
+  iframeDocument = iframe.contentWindow.document;
+  iframeDocument.open();
+  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
+  iframeDocument.close();
+  createDict = iframeDocument.F;
+  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
+  return createDict();
+};
+
+module.exports = Object.create || function create(O, Properties) {
+  var result;
+  if (O !== null) {
+    Empty[PROTOTYPE] = anObject(O);
+    result = new Empty();
+    Empty[PROTOTYPE] = null;
+    // add "__proto__" for Object.getPrototypeOf polyfill
+    result[IE_PROTO] = O;
+  } else result = createDict();
+  return Properties === undefined ? result : dPs(result, Properties);
+};
+
+},{"./_an-object":40,"./_dom-create":49,"./_enum-bug-keys":50,"./_html":58,"./_object-dps":77,"./_shared-key":95}],76:[function(require,module,exports){
+var anObject = require('./_an-object');
+var IE8_DOM_DEFINE = require('./_ie8-dom-define');
+var toPrimitive = require('./_to-primitive');
+var dP = Object.defineProperty;
+
+exports.f = require('./_descriptors') ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if (IE8_DOM_DEFINE) try {
+    return dP(O, P, Attributes);
+  } catch (e) { /* empty */ }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+  if ('value' in Attributes) O[P] = Attributes.value;
+  return O;
+};
+
+},{"./_an-object":40,"./_descriptors":48,"./_ie8-dom-define":59,"./_to-primitive":105}],77:[function(require,module,exports){
+var dP = require('./_object-dp');
+var anObject = require('./_an-object');
+var getKeys = require('./_object-keys');
+
+module.exports = require('./_descriptors') ? Object.defineProperties : function defineProperties(O, Properties) {
+  anObject(O);
+  var keys = getKeys(Properties);
+  var length = keys.length;
+  var i = 0;
+  var P;
+  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
+  return O;
+};
+
+},{"./_an-object":40,"./_descriptors":48,"./_object-dp":76,"./_object-keys":84}],78:[function(require,module,exports){
+var pIE = require('./_object-pie');
+var createDesc = require('./_property-desc');
+var toIObject = require('./_to-iobject');
+var toPrimitive = require('./_to-primitive');
+var has = require('./_has');
+var IE8_DOM_DEFINE = require('./_ie8-dom-define');
+var gOPD = Object.getOwnPropertyDescriptor;
+
+exports.f = require('./_descriptors') ? gOPD : function getOwnPropertyDescriptor(O, P) {
+  O = toIObject(O);
+  P = toPrimitive(P, true);
+  if (IE8_DOM_DEFINE) try {
+    return gOPD(O, P);
+  } catch (e) { /* empty */ }
+  if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
+};
+
+},{"./_descriptors":48,"./_has":56,"./_ie8-dom-define":59,"./_object-pie":85,"./_property-desc":89,"./_to-iobject":102,"./_to-primitive":105}],79:[function(require,module,exports){
+// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
+var toIObject = require('./_to-iobject');
+var gOPN = require('./_object-gopn').f;
+var toString = {}.toString;
+
+var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
+  ? Object.getOwnPropertyNames(window) : [];
+
+var getWindowNames = function (it) {
+  try {
+    return gOPN(it);
+  } catch (e) {
+    return windowNames.slice();
+  }
+};
+
+module.exports.f = function getOwnPropertyNames(it) {
+  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
+};
+
+},{"./_object-gopn":80,"./_to-iobject":102}],80:[function(require,module,exports){
+// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
+var $keys = require('./_object-keys-internal');
+var hiddenKeys = require('./_enum-bug-keys').concat('length', 'prototype');
+
+exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
+  return $keys(O, hiddenKeys);
+};
+
+},{"./_enum-bug-keys":50,"./_object-keys-internal":83}],81:[function(require,module,exports){
+exports.f = Object.getOwnPropertySymbols;
+
+},{}],82:[function(require,module,exports){
+// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
+var has = require('./_has');
+var toObject = require('./_to-object');
+var IE_PROTO = require('./_shared-key')('IE_PROTO');
+var ObjectProto = Object.prototype;
+
+module.exports = Object.getPrototypeOf || function (O) {
+  O = toObject(O);
+  if (has(O, IE_PROTO)) return O[IE_PROTO];
+  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
+    return O.constructor.prototype;
+  } return O instanceof Object ? ObjectProto : null;
+};
+
+},{"./_has":56,"./_shared-key":95,"./_to-object":104}],83:[function(require,module,exports){
+var has = require('./_has');
+var toIObject = require('./_to-iobject');
+var arrayIndexOf = require('./_array-includes')(false);
+var IE_PROTO = require('./_shared-key')('IE_PROTO');
+
+module.exports = function (object, names) {
+  var O = toIObject(object);
+  var i = 0;
+  var result = [];
+  var key;
+  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
+  // Don't enum bug & hidden keys
+  while (names.length > i) if (has(O, key = names[i++])) {
+    ~arrayIndexOf(result, key) || result.push(key);
+  }
+  return result;
+};
+
+},{"./_array-includes":41,"./_has":56,"./_shared-key":95,"./_to-iobject":102}],84:[function(require,module,exports){
+// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+var $keys = require('./_object-keys-internal');
+var enumBugKeys = require('./_enum-bug-keys');
+
+module.exports = Object.keys || function keys(O) {
+  return $keys(O, enumBugKeys);
+};
+
+},{"./_enum-bug-keys":50,"./_object-keys-internal":83}],85:[function(require,module,exports){
+exports.f = {}.propertyIsEnumerable;
+
+},{}],86:[function(require,module,exports){
+// most Object methods by ES6 should accept primitives
+var $export = require('./_export');
+var core = require('./_core');
+var fails = require('./_fails');
+module.exports = function (KEY, exec) {
+  var fn = (core.Object || {})[KEY] || Object[KEY];
+  var exp = {};
+  exp[KEY] = exec(fn);
+  $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
+};
+
+},{"./_core":44,"./_export":52,"./_fails":53}],87:[function(require,module,exports){
+module.exports = function (exec) {
+  try {
+    return { e: false, v: exec() };
+  } catch (e) {
+    return { e: true, v: e };
+  }
+};
+
+},{}],88:[function(require,module,exports){
+var anObject = require('./_an-object');
+var isObject = require('./_is-object');
+var newPromiseCapability = require('./_new-promise-capability');
+
+module.exports = function (C, x) {
+  anObject(C);
+  if (isObject(x) && x.constructor === C) return x;
+  var promiseCapability = newPromiseCapability.f(C);
+  var resolve = promiseCapability.resolve;
+  resolve(x);
+  return promiseCapability.promise;
+};
+
+},{"./_an-object":40,"./_is-object":64,"./_new-promise-capability":74}],89:[function(require,module,exports){
+module.exports = function (bitmap, value) {
+  return {
+    enumerable: !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable: !(bitmap & 4),
+    value: value
+  };
+};
+
+},{}],90:[function(require,module,exports){
+var hide = require('./_hide');
+module.exports = function (target, src, safe) {
+  for (var key in src) {
+    if (safe && target[key]) target[key] = src[key];
+    else hide(target, key, src[key]);
+  } return target;
+};
+
+},{"./_hide":57}],91:[function(require,module,exports){
+module.exports = require('./_hide');
+
+},{"./_hide":57}],92:[function(require,module,exports){
+// Works with __proto__ only. Old v8 can't work with null proto objects.
+/* eslint-disable no-proto */
+var isObject = require('./_is-object');
+var anObject = require('./_an-object');
+var check = function (O, proto) {
+  anObject(O);
+  if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
+};
+module.exports = {
+  set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
+    function (test, buggy, set) {
+      try {
+        set = require('./_ctx')(Function.call, require('./_object-gopd').f(Object.prototype, '__proto__').set, 2);
+        set(test, []);
+        buggy = !(test instanceof Array);
+      } catch (e) { buggy = true; }
+      return function setPrototypeOf(O, proto) {
+        check(O, proto);
+        if (buggy) O.__proto__ = proto;
+        else set(O, proto);
+        return O;
+      };
+    }({}, false) : undefined),
+  check: check
+};
+
+},{"./_an-object":40,"./_ctx":46,"./_is-object":64,"./_object-gopd":78}],93:[function(require,module,exports){
+'use strict';
+var global = require('./_global');
+var core = require('./_core');
+var dP = require('./_object-dp');
+var DESCRIPTORS = require('./_descriptors');
+var SPECIES = require('./_wks')('species');
+
+module.exports = function (KEY) {
+  var C = typeof core[KEY] == 'function' ? core[KEY] : global[KEY];
+  if (DESCRIPTORS && C && !C[SPECIES]) dP.f(C, SPECIES, {
+    configurable: true,
+    get: function () { return this; }
+  });
+};
+
+},{"./_core":44,"./_descriptors":48,"./_global":55,"./_object-dp":76,"./_wks":110}],94:[function(require,module,exports){
+var def = require('./_object-dp').f;
+var has = require('./_has');
+var TAG = require('./_wks')('toStringTag');
+
+module.exports = function (it, tag, stat) {
+  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
+};
+
+},{"./_has":56,"./_object-dp":76,"./_wks":110}],95:[function(require,module,exports){
+var shared = require('./_shared')('keys');
+var uid = require('./_uid');
+module.exports = function (key) {
+  return shared[key] || (shared[key] = uid(key));
+};
+
+},{"./_shared":96,"./_uid":106}],96:[function(require,module,exports){
+var core = require('./_core');
+var global = require('./_global');
+var SHARED = '__core-js_shared__';
+var store = global[SHARED] || (global[SHARED] = {});
+
+(module.exports = function (key, value) {
+  return store[key] || (store[key] = value !== undefined ? value : {});
+})('versions', []).push({
+  version: core.version,
+  mode: require('./_library') ? 'pure' : 'global',
+  copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
+});
+
+},{"./_core":44,"./_global":55,"./_library":71}],97:[function(require,module,exports){
+// 7.3.20 SpeciesConstructor(O, defaultConstructor)
+var anObject = require('./_an-object');
+var aFunction = require('./_a-function');
+var SPECIES = require('./_wks')('species');
+module.exports = function (O, D) {
+  var C = anObject(O).constructor;
+  var S;
+  return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
+};
+
+},{"./_a-function":37,"./_an-object":40,"./_wks":110}],98:[function(require,module,exports){
+var toInteger = require('./_to-integer');
+var defined = require('./_defined');
+// true  -> String#at
+// false -> String#codePointAt
+module.exports = function (TO_STRING) {
+  return function (that, pos) {
+    var s = String(defined(that));
+    var i = toInteger(pos);
+    var l = s.length;
+    var a, b;
+    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
+    a = s.charCodeAt(i);
+    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
+      ? TO_STRING ? s.charAt(i) : a
+      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
+  };
+};
+
+},{"./_defined":47,"./_to-integer":101}],99:[function(require,module,exports){
+var ctx = require('./_ctx');
+var invoke = require('./_invoke');
+var html = require('./_html');
+var cel = require('./_dom-create');
+var global = require('./_global');
+var process = global.process;
+var setTask = global.setImmediate;
+var clearTask = global.clearImmediate;
+var MessageChannel = global.MessageChannel;
+var Dispatch = global.Dispatch;
+var counter = 0;
+var queue = {};
+var ONREADYSTATECHANGE = 'onreadystatechange';
+var defer, channel, port;
+var run = function () {
+  var id = +this;
+  // eslint-disable-next-line no-prototype-builtins
+  if (queue.hasOwnProperty(id)) {
+    var fn = queue[id];
+    delete queue[id];
+    fn();
+  }
+};
+var listener = function (event) {
+  run.call(event.data);
+};
+// Node.js 0.9+ & IE10+ has setImmediate, otherwise:
+if (!setTask || !clearTask) {
+  setTask = function setImmediate(fn) {
+    var args = [];
+    var i = 1;
+    while (arguments.length > i) args.push(arguments[i++]);
+    queue[++counter] = function () {
+      // eslint-disable-next-line no-new-func
+      invoke(typeof fn == 'function' ? fn : Function(fn), args);
+    };
+    defer(counter);
+    return counter;
+  };
+  clearTask = function clearImmediate(id) {
+    delete queue[id];
+  };
+  // Node.js 0.8-
+  if (require('./_cof')(process) == 'process') {
+    defer = function (id) {
+      process.nextTick(ctx(run, id, 1));
+    };
+  // Sphere (JS game engine) Dispatch API
+  } else if (Dispatch && Dispatch.now) {
+    defer = function (id) {
+      Dispatch.now(ctx(run, id, 1));
+    };
+  // Browsers with MessageChannel, includes WebWorkers
+  } else if (MessageChannel) {
+    channel = new MessageChannel();
+    port = channel.port2;
+    channel.port1.onmessage = listener;
+    defer = ctx(port.postMessage, port, 1);
+  // Browsers with postMessage, skip WebWorkers
+  // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
+  } else if (global.addEventListener && typeof postMessage == 'function' && !global.importScripts) {
+    defer = function (id) {
+      global.postMessage(id + '', '*');
+    };
+    global.addEventListener('message', listener, false);
+  // IE8-
+  } else if (ONREADYSTATECHANGE in cel('script')) {
+    defer = function (id) {
+      html.appendChild(cel('script'))[ONREADYSTATECHANGE] = function () {
+        html.removeChild(this);
+        run.call(id);
+      };
+    };
+  // Rest old browsers
+  } else {
+    defer = function (id) {
+      setTimeout(ctx(run, id, 1), 0);
+    };
+  }
+}
+module.exports = {
+  set: setTask,
+  clear: clearTask
+};
+
+},{"./_cof":43,"./_ctx":46,"./_dom-create":49,"./_global":55,"./_html":58,"./_invoke":60}],100:[function(require,module,exports){
+var toInteger = require('./_to-integer');
+var max = Math.max;
+var min = Math.min;
+module.exports = function (index, length) {
+  index = toInteger(index);
+  return index < 0 ? max(index + length, 0) : min(index, length);
+};
+
+},{"./_to-integer":101}],101:[function(require,module,exports){
+// 7.1.4 ToInteger
+var ceil = Math.ceil;
+var floor = Math.floor;
+module.exports = function (it) {
+  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
+};
+
+},{}],102:[function(require,module,exports){
+// to indexed object, toObject with fallback for non-array-like ES3 strings
+var IObject = require('./_iobject');
+var defined = require('./_defined');
+module.exports = function (it) {
+  return IObject(defined(it));
+};
+
+},{"./_defined":47,"./_iobject":61}],103:[function(require,module,exports){
+// 7.1.15 ToLength
+var toInteger = require('./_to-integer');
+var min = Math.min;
+module.exports = function (it) {
+  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
+};
+
+},{"./_to-integer":101}],104:[function(require,module,exports){
+// 7.1.13 ToObject(argument)
+var defined = require('./_defined');
+module.exports = function (it) {
+  return Object(defined(it));
+};
+
+},{"./_defined":47}],105:[function(require,module,exports){
+// 7.1.1 ToPrimitive(input [, PreferredType])
+var isObject = require('./_is-object');
+// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+// and the second argument - flag - preferred type is a string
+module.exports = function (it, S) {
+  if (!isObject(it)) return it;
+  var fn, val;
+  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  throw TypeError("Can't convert object to primitive value");
+};
+
+},{"./_is-object":64}],106:[function(require,module,exports){
+var id = 0;
+var px = Math.random();
+module.exports = function (key) {
+  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+};
+
+},{}],107:[function(require,module,exports){
+var global = require('./_global');
+var navigator = global.navigator;
+
+module.exports = navigator && navigator.userAgent || '';
+
+},{"./_global":55}],108:[function(require,module,exports){
+var global = require('./_global');
+var core = require('./_core');
+var LIBRARY = require('./_library');
+var wksExt = require('./_wks-ext');
+var defineProperty = require('./_object-dp').f;
+module.exports = function (name) {
+  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
+  if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
+};
+
+},{"./_core":44,"./_global":55,"./_library":71,"./_object-dp":76,"./_wks-ext":109}],109:[function(require,module,exports){
+exports.f = require('./_wks');
+
+},{"./_wks":110}],110:[function(require,module,exports){
+var store = require('./_shared')('wks');
+var uid = require('./_uid');
+var Symbol = require('./_global').Symbol;
+var USE_SYMBOL = typeof Symbol == 'function';
+
+var $exports = module.exports = function (name) {
+  return store[name] || (store[name] =
+    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
+};
+
+$exports.store = store;
+
+},{"./_global":55,"./_shared":96,"./_uid":106}],111:[function(require,module,exports){
+var classof = require('./_classof');
+var ITERATOR = require('./_wks')('iterator');
+var Iterators = require('./_iterators');
+module.exports = require('./_core').getIteratorMethod = function (it) {
+  if (it != undefined) return it[ITERATOR]
+    || it['@@iterator']
+    || Iterators[classof(it)];
+};
+
+},{"./_classof":42,"./_core":44,"./_iterators":70,"./_wks":110}],112:[function(require,module,exports){
+var anObject = require('./_an-object');
+var get = require('./core.get-iterator-method');
+module.exports = require('./_core').getIterator = function (it) {
+  var iterFn = get(it);
+  if (typeof iterFn != 'function') throw TypeError(it + ' is not iterable!');
+  return anObject(iterFn.call(it));
+};
+
+},{"./_an-object":40,"./_core":44,"./core.get-iterator-method":111}],113:[function(require,module,exports){
+var classof = require('./_classof');
+var ITERATOR = require('./_wks')('iterator');
+var Iterators = require('./_iterators');
+module.exports = require('./_core').isIterable = function (it) {
+  var O = Object(it);
+  return O[ITERATOR] !== undefined
+    || '@@iterator' in O
+    // eslint-disable-next-line no-prototype-builtins
+    || Iterators.hasOwnProperty(classof(O));
+};
+
+},{"./_classof":42,"./_core":44,"./_iterators":70,"./_wks":110}],114:[function(require,module,exports){
+'use strict';
+var ctx = require('./_ctx');
+var $export = require('./_export');
+var toObject = require('./_to-object');
+var call = require('./_iter-call');
+var isArrayIter = require('./_is-array-iter');
+var toLength = require('./_to-length');
+var createProperty = require('./_create-property');
+var getIterFn = require('./core.get-iterator-method');
+
+$export($export.S + $export.F * !require('./_iter-detect')(function (iter) { Array.from(iter); }), 'Array', {
+  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
+  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
+    var O = toObject(arrayLike);
+    var C = typeof this == 'function' ? this : Array;
+    var aLen = arguments.length;
+    var mapfn = aLen > 1 ? arguments[1] : undefined;
+    var mapping = mapfn !== undefined;
+    var index = 0;
+    var iterFn = getIterFn(O);
+    var length, result, step, iterator;
+    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
+    // if object isn't iterable or it's array with default iterator - use simple case
+    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
+      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
+        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
+      }
+    } else {
+      length = toLength(O.length);
+      for (result = new C(length); length > index; index++) {
+        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
+      }
+    }
+    result.length = index;
+    return result;
+  }
+});
+
+},{"./_create-property":45,"./_ctx":46,"./_export":52,"./_is-array-iter":62,"./_iter-call":65,"./_iter-detect":68,"./_to-length":103,"./_to-object":104,"./core.get-iterator-method":111}],115:[function(require,module,exports){
+'use strict';
+var addToUnscopables = require('./_add-to-unscopables');
+var step = require('./_iter-step');
+var Iterators = require('./_iterators');
+var toIObject = require('./_to-iobject');
+
+// 22.1.3.4 Array.prototype.entries()
+// 22.1.3.13 Array.prototype.keys()
+// 22.1.3.29 Array.prototype.values()
+// 22.1.3.30 Array.prototype[@@iterator]()
+module.exports = require('./_iter-define')(Array, 'Array', function (iterated, kind) {
+  this._t = toIObject(iterated); // target
+  this._i = 0;                   // next index
+  this._k = kind;                // kind
+// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
+}, function () {
+  var O = this._t;
+  var kind = this._k;
+  var index = this._i++;
+  if (!O || index >= O.length) {
+    this._t = undefined;
+    return step(1);
+  }
+  if (kind == 'keys') return step(0, index);
+  if (kind == 'values') return step(0, O[index]);
+  return step(0, [index, O[index]]);
+}, 'values');
+
+// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
+Iterators.Arguments = Iterators.Array;
+
+addToUnscopables('keys');
+addToUnscopables('values');
+addToUnscopables('entries');
+
+},{"./_add-to-unscopables":38,"./_iter-define":67,"./_iter-step":69,"./_iterators":70,"./_to-iobject":102}],116:[function(require,module,exports){
+var $export = require('./_export');
+// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
+$export($export.S, 'Object', { create: require('./_object-create') });
+
+},{"./_export":52,"./_object-create":75}],117:[function(require,module,exports){
+var $export = require('./_export');
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+$export($export.S + $export.F * !require('./_descriptors'), 'Object', { defineProperty: require('./_object-dp').f });
+
+},{"./_descriptors":48,"./_export":52,"./_object-dp":76}],118:[function(require,module,exports){
+// 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
+var toIObject = require('./_to-iobject');
+var $getOwnPropertyDescriptor = require('./_object-gopd').f;
+
+require('./_object-sap')('getOwnPropertyDescriptor', function () {
+  return function getOwnPropertyDescriptor(it, key) {
+    return $getOwnPropertyDescriptor(toIObject(it), key);
+  };
+});
+
+},{"./_object-gopd":78,"./_object-sap":86,"./_to-iobject":102}],119:[function(require,module,exports){
+// 19.1.2.9 Object.getPrototypeOf(O)
+var toObject = require('./_to-object');
+var $getPrototypeOf = require('./_object-gpo');
+
+require('./_object-sap')('getPrototypeOf', function () {
+  return function getPrototypeOf(it) {
+    return $getPrototypeOf(toObject(it));
+  };
+});
+
+},{"./_object-gpo":82,"./_object-sap":86,"./_to-object":104}],120:[function(require,module,exports){
+// 19.1.3.19 Object.setPrototypeOf(O, proto)
+var $export = require('./_export');
+$export($export.S, 'Object', { setPrototypeOf: require('./_set-proto').set });
+
+},{"./_export":52,"./_set-proto":92}],121:[function(require,module,exports){
+
+},{}],122:[function(require,module,exports){
+'use strict';
+var LIBRARY = require('./_library');
+var global = require('./_global');
+var ctx = require('./_ctx');
+var classof = require('./_classof');
+var $export = require('./_export');
+var isObject = require('./_is-object');
+var aFunction = require('./_a-function');
+var anInstance = require('./_an-instance');
+var forOf = require('./_for-of');
+var speciesConstructor = require('./_species-constructor');
+var task = require('./_task').set;
+var microtask = require('./_microtask')();
+var newPromiseCapabilityModule = require('./_new-promise-capability');
+var perform = require('./_perform');
+var userAgent = require('./_user-agent');
+var promiseResolve = require('./_promise-resolve');
+var PROMISE = 'Promise';
+var TypeError = global.TypeError;
+var process = global.process;
+var versions = process && process.versions;
+var v8 = versions && versions.v8 || '';
+var $Promise = global[PROMISE];
+var isNode = classof(process) == 'process';
+var empty = function () { /* empty */ };
+var Internal, newGenericPromiseCapability, OwnPromiseCapability, Wrapper;
+var newPromiseCapability = newGenericPromiseCapability = newPromiseCapabilityModule.f;
+
+var USE_NATIVE = !!function () {
+  try {
+    // correct subclassing with @@species support
+    var promise = $Promise.resolve(1);
+    var FakePromise = (promise.constructor = {})[require('./_wks')('species')] = function (exec) {
+      exec(empty, empty);
+    };
+    // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
+    return (isNode || typeof PromiseRejectionEvent == 'function')
+      && promise.then(empty) instanceof FakePromise
+      // v8 6.6 (Node 10 and Chrome 66) have a bug with resolving custom thenables
+      // https://bugs.chromium.org/p/chromium/issues/detail?id=830565
+      // we can't detect it synchronously, so just check versions
+      && v8.indexOf('6.6') !== 0
+      && userAgent.indexOf('Chrome/66') === -1;
+  } catch (e) { /* empty */ }
+}();
+
+// helpers
+var isThenable = function (it) {
+  var then;
+  return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
+};
+var notify = function (promise, isReject) {
+  if (promise._n) return;
+  promise._n = true;
+  var chain = promise._c;
+  microtask(function () {
+    var value = promise._v;
+    var ok = promise._s == 1;
+    var i = 0;
+    var run = function (reaction) {
+      var handler = ok ? reaction.ok : reaction.fail;
+      var resolve = reaction.resolve;
+      var reject = reaction.reject;
+      var domain = reaction.domain;
+      var result, then, exited;
+      try {
+        if (handler) {
+          if (!ok) {
+            if (promise._h == 2) onHandleUnhandled(promise);
+            promise._h = 1;
+          }
+          if (handler === true) result = value;
+          else {
+            if (domain) domain.enter();
+            result = handler(value); // may throw
+            if (domain) {
+              domain.exit();
+              exited = true;
+            }
+          }
+          if (result === reaction.promise) {
+            reject(TypeError('Promise-chain cycle'));
+          } else if (then = isThenable(result)) {
+            then.call(result, resolve, reject);
+          } else resolve(result);
+        } else reject(value);
+      } catch (e) {
+        if (domain && !exited) domain.exit();
+        reject(e);
+      }
+    };
+    while (chain.length > i) run(chain[i++]); // variable length - can't use forEach
+    promise._c = [];
+    promise._n = false;
+    if (isReject && !promise._h) onUnhandled(promise);
+  });
+};
+var onUnhandled = function (promise) {
+  task.call(global, function () {
+    var value = promise._v;
+    var unhandled = isUnhandled(promise);
+    var result, handler, console;
+    if (unhandled) {
+      result = perform(function () {
+        if (isNode) {
+          process.emit('unhandledRejection', value, promise);
+        } else if (handler = global.onunhandledrejection) {
+          handler({ promise: promise, reason: value });
+        } else if ((console = global.console) && console.error) {
+          console.error('Unhandled promise rejection', value);
+        }
+      });
+      // Browsers should not trigger `rejectionHandled` event if it was handled here, NodeJS - should
+      promise._h = isNode || isUnhandled(promise) ? 2 : 1;
+    } promise._a = undefined;
+    if (unhandled && result.e) throw result.v;
+  });
+};
+var isUnhandled = function (promise) {
+  return promise._h !== 1 && (promise._a || promise._c).length === 0;
+};
+var onHandleUnhandled = function (promise) {
+  task.call(global, function () {
+    var handler;
+    if (isNode) {
+      process.emit('rejectionHandled', promise);
+    } else if (handler = global.onrejectionhandled) {
+      handler({ promise: promise, reason: promise._v });
+    }
+  });
+};
+var $reject = function (value) {
+  var promise = this;
+  if (promise._d) return;
+  promise._d = true;
+  promise = promise._w || promise; // unwrap
+  promise._v = value;
+  promise._s = 2;
+  if (!promise._a) promise._a = promise._c.slice();
+  notify(promise, true);
+};
+var $resolve = function (value) {
+  var promise = this;
+  var then;
+  if (promise._d) return;
+  promise._d = true;
+  promise = promise._w || promise; // unwrap
+  try {
+    if (promise === value) throw TypeError("Promise can't be resolved itself");
+    if (then = isThenable(value)) {
+      microtask(function () {
+        var wrapper = { _w: promise, _d: false }; // wrap
+        try {
+          then.call(value, ctx($resolve, wrapper, 1), ctx($reject, wrapper, 1));
+        } catch (e) {
+          $reject.call(wrapper, e);
+        }
+      });
+    } else {
+      promise._v = value;
+      promise._s = 1;
+      notify(promise, false);
+    }
+  } catch (e) {
+    $reject.call({ _w: promise, _d: false }, e); // wrap
+  }
+};
+
+// constructor polyfill
+if (!USE_NATIVE) {
+  // 25.4.3.1 Promise(executor)
+  $Promise = function Promise(executor) {
+    anInstance(this, $Promise, PROMISE, '_h');
+    aFunction(executor);
+    Internal.call(this);
+    try {
+      executor(ctx($resolve, this, 1), ctx($reject, this, 1));
+    } catch (err) {
+      $reject.call(this, err);
+    }
+  };
+  // eslint-disable-next-line no-unused-vars
+  Internal = function Promise(executor) {
+    this._c = [];             // <- awaiting reactions
+    this._a = undefined;      // <- checked in isUnhandled reactions
+    this._s = 0;              // <- state
+    this._d = false;          // <- done
+    this._v = undefined;      // <- value
+    this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
+    this._n = false;          // <- notify
+  };
+  Internal.prototype = require('./_redefine-all')($Promise.prototype, {
+    // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
+    then: function then(onFulfilled, onRejected) {
+      var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
+      reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
+      reaction.fail = typeof onRejected == 'function' && onRejected;
+      reaction.domain = isNode ? process.domain : undefined;
+      this._c.push(reaction);
+      if (this._a) this._a.push(reaction);
+      if (this._s) notify(this, false);
+      return reaction.promise;
+    },
+    // 25.4.5.1 Promise.prototype.catch(onRejected)
+    'catch': function (onRejected) {
+      return this.then(undefined, onRejected);
+    }
+  });
+  OwnPromiseCapability = function () {
+    var promise = new Internal();
+    this.promise = promise;
+    this.resolve = ctx($resolve, promise, 1);
+    this.reject = ctx($reject, promise, 1);
+  };
+  newPromiseCapabilityModule.f = newPromiseCapability = function (C) {
+    return C === $Promise || C === Wrapper
+      ? new OwnPromiseCapability(C)
+      : newGenericPromiseCapability(C);
+  };
+}
+
+$export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
+require('./_set-to-string-tag')($Promise, PROMISE);
+require('./_set-species')(PROMISE);
+Wrapper = require('./_core')[PROMISE];
+
+// statics
+$export($export.S + $export.F * !USE_NATIVE, PROMISE, {
+  // 25.4.4.5 Promise.reject(r)
+  reject: function reject(r) {
+    var capability = newPromiseCapability(this);
+    var $$reject = capability.reject;
+    $$reject(r);
+    return capability.promise;
+  }
+});
+$export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
+  // 25.4.4.6 Promise.resolve(x)
+  resolve: function resolve(x) {
+    return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
+  }
+});
+$export($export.S + $export.F * !(USE_NATIVE && require('./_iter-detect')(function (iter) {
+  $Promise.all(iter)['catch'](empty);
+})), PROMISE, {
+  // 25.4.4.1 Promise.all(iterable)
+  all: function all(iterable) {
+    var C = this;
+    var capability = newPromiseCapability(C);
+    var resolve = capability.resolve;
+    var reject = capability.reject;
+    var result = perform(function () {
+      var values = [];
+      var index = 0;
+      var remaining = 1;
+      forOf(iterable, false, function (promise) {
+        var $index = index++;
+        var alreadyCalled = false;
+        values.push(undefined);
+        remaining++;
+        C.resolve(promise).then(function (value) {
+          if (alreadyCalled) return;
+          alreadyCalled = true;
+          values[$index] = value;
+          --remaining || resolve(values);
+        }, reject);
+      });
+      --remaining || resolve(values);
+    });
+    if (result.e) reject(result.v);
+    return capability.promise;
+  },
+  // 25.4.4.4 Promise.race(iterable)
+  race: function race(iterable) {
+    var C = this;
+    var capability = newPromiseCapability(C);
+    var reject = capability.reject;
+    var result = perform(function () {
+      forOf(iterable, false, function (promise) {
+        C.resolve(promise).then(capability.resolve, reject);
+      });
+    });
+    if (result.e) reject(result.v);
+    return capability.promise;
+  }
+});
+
+},{"./_a-function":37,"./_an-instance":39,"./_classof":42,"./_core":44,"./_ctx":46,"./_export":52,"./_for-of":54,"./_global":55,"./_is-object":64,"./_iter-detect":68,"./_library":71,"./_microtask":73,"./_new-promise-capability":74,"./_perform":87,"./_promise-resolve":88,"./_redefine-all":90,"./_set-species":93,"./_set-to-string-tag":94,"./_species-constructor":97,"./_task":99,"./_user-agent":107,"./_wks":110}],123:[function(require,module,exports){
+'use strict';
+var $at = require('./_string-at')(true);
+
+// 21.1.3.27 String.prototype[@@iterator]()
+require('./_iter-define')(String, 'String', function (iterated) {
+  this._t = String(iterated); // target
+  this._i = 0;                // next index
+// 21.1.5.2.1 %StringIteratorPrototype%.next()
+}, function () {
+  var O = this._t;
+  var index = this._i;
+  var point;
+  if (index >= O.length) return { value: undefined, done: true };
+  point = $at(O, index);
+  this._i += point.length;
+  return { value: point, done: false };
+});
+
+},{"./_iter-define":67,"./_string-at":98}],124:[function(require,module,exports){
+'use strict';
+// ECMAScript 6 symbols shim
+var global = require('./_global');
+var has = require('./_has');
+var DESCRIPTORS = require('./_descriptors');
+var $export = require('./_export');
+var redefine = require('./_redefine');
+var META = require('./_meta').KEY;
+var $fails = require('./_fails');
+var shared = require('./_shared');
+var setToStringTag = require('./_set-to-string-tag');
+var uid = require('./_uid');
+var wks = require('./_wks');
+var wksExt = require('./_wks-ext');
+var wksDefine = require('./_wks-define');
+var enumKeys = require('./_enum-keys');
+var isArray = require('./_is-array');
+var anObject = require('./_an-object');
+var isObject = require('./_is-object');
+var toObject = require('./_to-object');
+var toIObject = require('./_to-iobject');
+var toPrimitive = require('./_to-primitive');
+var createDesc = require('./_property-desc');
+var _create = require('./_object-create');
+var gOPNExt = require('./_object-gopn-ext');
+var $GOPD = require('./_object-gopd');
+var $GOPS = require('./_object-gops');
+var $DP = require('./_object-dp');
+var $keys = require('./_object-keys');
+var gOPD = $GOPD.f;
+var dP = $DP.f;
+var gOPN = gOPNExt.f;
+var $Symbol = global.Symbol;
+var $JSON = global.JSON;
+var _stringify = $JSON && $JSON.stringify;
+var PROTOTYPE = 'prototype';
+var HIDDEN = wks('_hidden');
+var TO_PRIMITIVE = wks('toPrimitive');
+var isEnum = {}.propertyIsEnumerable;
+var SymbolRegistry = shared('symbol-registry');
+var AllSymbols = shared('symbols');
+var OPSymbols = shared('op-symbols');
+var ObjectProto = Object[PROTOTYPE];
+var USE_NATIVE = typeof $Symbol == 'function' && !!$GOPS.f;
+var QObject = global.QObject;
+// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
+var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
+
+// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
+var setSymbolDesc = DESCRIPTORS && $fails(function () {
+  return _create(dP({}, 'a', {
+    get: function () { return dP(this, 'a', { value: 7 }).a; }
+  })).a != 7;
+}) ? function (it, key, D) {
+  var protoDesc = gOPD(ObjectProto, key);
+  if (protoDesc) delete ObjectProto[key];
+  dP(it, key, D);
+  if (protoDesc && it !== ObjectProto) dP(ObjectProto, key, protoDesc);
+} : dP;
+
+var wrap = function (tag) {
+  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
+  sym._k = tag;
+  return sym;
+};
+
+var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function (it) {
+  return typeof it == 'symbol';
+} : function (it) {
+  return it instanceof $Symbol;
+};
+
+var $defineProperty = function defineProperty(it, key, D) {
+  if (it === ObjectProto) $defineProperty(OPSymbols, key, D);
+  anObject(it);
+  key = toPrimitive(key, true);
+  anObject(D);
+  if (has(AllSymbols, key)) {
+    if (!D.enumerable) {
+      if (!has(it, HIDDEN)) dP(it, HIDDEN, createDesc(1, {}));
+      it[HIDDEN][key] = true;
+    } else {
+      if (has(it, HIDDEN) && it[HIDDEN][key]) it[HIDDEN][key] = false;
+      D = _create(D, { enumerable: createDesc(0, false) });
+    } return setSymbolDesc(it, key, D);
+  } return dP(it, key, D);
+};
+var $defineProperties = function defineProperties(it, P) {
+  anObject(it);
+  var keys = enumKeys(P = toIObject(P));
+  var i = 0;
+  var l = keys.length;
+  var key;
+  while (l > i) $defineProperty(it, key = keys[i++], P[key]);
+  return it;
+};
+var $create = function create(it, P) {
+  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
+};
+var $propertyIsEnumerable = function propertyIsEnumerable(key) {
+  var E = isEnum.call(this, key = toPrimitive(key, true));
+  if (this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return false;
+  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
+};
+var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
+  it = toIObject(it);
+  key = toPrimitive(key, true);
+  if (it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return;
+  var D = gOPD(it, key);
+  if (D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key])) D.enumerable = true;
+  return D;
+};
+var $getOwnPropertyNames = function getOwnPropertyNames(it) {
+  var names = gOPN(toIObject(it));
+  var result = [];
+  var i = 0;
+  var key;
+  while (names.length > i) {
+    if (!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META) result.push(key);
+  } return result;
+};
+var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
+  var IS_OP = it === ObjectProto;
+  var names = gOPN(IS_OP ? OPSymbols : toIObject(it));
+  var result = [];
+  var i = 0;
+  var key;
+  while (names.length > i) {
+    if (has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true)) result.push(AllSymbols[key]);
+  } return result;
+};
+
+// 19.4.1.1 Symbol([description])
+if (!USE_NATIVE) {
+  $Symbol = function Symbol() {
+    if (this instanceof $Symbol) throw TypeError('Symbol is not a constructor!');
+    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
+    var $set = function (value) {
+      if (this === ObjectProto) $set.call(OPSymbols, value);
+      if (has(this, HIDDEN) && has(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
+      setSymbolDesc(this, tag, createDesc(1, value));
+    };
+    if (DESCRIPTORS && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
+    return wrap(tag);
+  };
+  redefine($Symbol[PROTOTYPE], 'toString', function toString() {
+    return this._k;
+  });
+
+  $GOPD.f = $getOwnPropertyDescriptor;
+  $DP.f = $defineProperty;
+  require('./_object-gopn').f = gOPNExt.f = $getOwnPropertyNames;
+  require('./_object-pie').f = $propertyIsEnumerable;
+  $GOPS.f = $getOwnPropertySymbols;
+
+  if (DESCRIPTORS && !require('./_library')) {
+    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
+  }
+
+  wksExt.f = function (name) {
+    return wrap(wks(name));
+  };
+}
+
+$export($export.G + $export.W + $export.F * !USE_NATIVE, { Symbol: $Symbol });
+
+for (var es6Symbols = (
+  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
+  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
+).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
+
+for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
+
+$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
+  // 19.4.2.1 Symbol.for(key)
+  'for': function (key) {
+    return has(SymbolRegistry, key += '')
+      ? SymbolRegistry[key]
+      : SymbolRegistry[key] = $Symbol(key);
+  },
+  // 19.4.2.5 Symbol.keyFor(sym)
+  keyFor: function keyFor(sym) {
+    if (!isSymbol(sym)) throw TypeError(sym + ' is not a symbol!');
+    for (var key in SymbolRegistry) if (SymbolRegistry[key] === sym) return key;
+  },
+  useSetter: function () { setter = true; },
+  useSimple: function () { setter = false; }
+});
+
+$export($export.S + $export.F * !USE_NATIVE, 'Object', {
+  // 19.1.2.2 Object.create(O [, Properties])
+  create: $create,
+  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
+  defineProperty: $defineProperty,
+  // 19.1.2.3 Object.defineProperties(O, Properties)
+  defineProperties: $defineProperties,
+  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
+  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
+  // 19.1.2.7 Object.getOwnPropertyNames(O)
+  getOwnPropertyNames: $getOwnPropertyNames,
+  // 19.1.2.8 Object.getOwnPropertySymbols(O)
+  getOwnPropertySymbols: $getOwnPropertySymbols
+});
+
+// Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
+// https://bugs.chromium.org/p/v8/issues/detail?id=3443
+var FAILS_ON_PRIMITIVES = $fails(function () { $GOPS.f(1); });
+
+$export($export.S + $export.F * FAILS_ON_PRIMITIVES, 'Object', {
+  getOwnPropertySymbols: function getOwnPropertySymbols(it) {
+    return $GOPS.f(toObject(it));
+  }
+});
+
+// 24.3.2 JSON.stringify(value [, replacer [, space]])
+$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
+  var S = $Symbol();
+  // MS Edge converts symbol values to JSON as {}
+  // WebKit converts symbol values to JSON as null
+  // V8 throws on boxed symbols
+  return _stringify([S]) != '[null]' || _stringify({ a: S }) != '{}' || _stringify(Object(S)) != '{}';
+})), 'JSON', {
+  stringify: function stringify(it) {
+    var args = [it];
+    var i = 1;
+    var replacer, $replacer;
+    while (arguments.length > i) args.push(arguments[i++]);
+    $replacer = replacer = args[1];
+    if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
+    if (!isArray(replacer)) replacer = function (key, value) {
+      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
+      if (!isSymbol(value)) return value;
+    };
+    args[1] = replacer;
+    return _stringify.apply($JSON, args);
+  }
+});
+
+// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
+$Symbol[PROTOTYPE][TO_PRIMITIVE] || require('./_hide')($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
+// 19.4.3.5 Symbol.prototype[@@toStringTag]
+setToStringTag($Symbol, 'Symbol');
+// 20.2.1.9 Math[@@toStringTag]
+setToStringTag(Math, 'Math', true);
+// 24.3.3 JSON[@@toStringTag]
+setToStringTag(global.JSON, 'JSON', true);
+
+},{"./_an-object":40,"./_descriptors":48,"./_enum-keys":51,"./_export":52,"./_fails":53,"./_global":55,"./_has":56,"./_hide":57,"./_is-array":63,"./_is-object":64,"./_library":71,"./_meta":72,"./_object-create":75,"./_object-dp":76,"./_object-gopd":78,"./_object-gopn":80,"./_object-gopn-ext":79,"./_object-gops":81,"./_object-keys":84,"./_object-pie":85,"./_property-desc":89,"./_redefine":91,"./_set-to-string-tag":94,"./_shared":96,"./_to-iobject":102,"./_to-object":104,"./_to-primitive":105,"./_uid":106,"./_wks":110,"./_wks-define":108,"./_wks-ext":109}],125:[function(require,module,exports){
+// https://github.com/tc39/proposal-promise-finally
+'use strict';
+var $export = require('./_export');
+var core = require('./_core');
+var global = require('./_global');
+var speciesConstructor = require('./_species-constructor');
+var promiseResolve = require('./_promise-resolve');
+
+$export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
+  var C = speciesConstructor(this, core.Promise || global.Promise);
+  var isFunction = typeof onFinally == 'function';
+  return this.then(
+    isFunction ? function (x) {
+      return promiseResolve(C, onFinally()).then(function () { return x; });
+    } : onFinally,
+    isFunction ? function (e) {
+      return promiseResolve(C, onFinally()).then(function () { throw e; });
+    } : onFinally
+  );
+} });
+
+},{"./_core":44,"./_export":52,"./_global":55,"./_promise-resolve":88,"./_species-constructor":97}],126:[function(require,module,exports){
+'use strict';
+// https://github.com/tc39/proposal-promise-try
+var $export = require('./_export');
+var newPromiseCapability = require('./_new-promise-capability');
+var perform = require('./_perform');
+
+$export($export.S, 'Promise', { 'try': function (callbackfn) {
+  var promiseCapability = newPromiseCapability.f(this);
+  var result = perform(callbackfn);
+  (result.e ? promiseCapability.reject : promiseCapability.resolve)(result.v);
+  return promiseCapability.promise;
+} });
+
+},{"./_export":52,"./_new-promise-capability":74,"./_perform":87}],127:[function(require,module,exports){
+require('./_wks-define')('asyncIterator');
+
+},{"./_wks-define":108}],128:[function(require,module,exports){
+require('./_wks-define')('observable');
+
+},{"./_wks-define":108}],129:[function(require,module,exports){
+require('./es6.array.iterator');
+var global = require('./_global');
+var hide = require('./_hide');
+var Iterators = require('./_iterators');
+var TO_STRING_TAG = require('./_wks')('toStringTag');
+
+var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
+  'DOMTokenList,DataTransferItemList,FileList,HTMLAllCollection,HTMLCollection,HTMLFormElement,HTMLSelectElement,' +
+  'MediaList,MimeTypeArray,NamedNodeMap,NodeList,PaintRequestList,Plugin,PluginArray,SVGLengthList,SVGNumberList,' +
+  'SVGPathSegList,SVGPointList,SVGStringList,SVGTransformList,SourceBufferList,StyleSheetList,TextTrackCueList,' +
+  'TextTrackList,TouchList').split(',');
+
+for (var i = 0; i < DOMIterables.length; i++) {
+  var NAME = DOMIterables[i];
+  var Collection = global[NAME];
+  var proto = Collection && Collection.prototype;
+  if (proto && !proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
+  Iterators[NAME] = Iterators.Array;
+}
+
+},{"./_global":55,"./_hide":57,"./_iterators":70,"./_wks":110,"./es6.array.iterator":115}],130:[function(require,module,exports){
 /*
  *  Copyright (c) 2017 The WebRTC project authors. All Rights Reserved.
  *
@@ -14041,8 +13056,8 @@ var RtcPeerConnectionFactory = function () {
         key: 'get',
         value: function get(iceServers) {
             var self = this;
-            var pc = self._pc;
-            self._pc = null;
+            var pc = self._idlePc;
+            self._idlePc = null;
             if (pc == null) {
                 pc = self._createRtcPeerConnection(iceServers);
             }
@@ -14066,7 +13081,7 @@ var RtcPeerConnectionFactory = function () {
             if (!self._peerConnectionRequestInFlight && self._earlyMediaConnectionSupported) {
                 self._peerConnectionRequestInFlight = true;
                 self._requestIceAccess().then(function (response) {
-                    self._pc = self._createRtcPeerConnection(response);
+                    self._idlePc = self._createRtcPeerConnection(response);
                     self._peerConnectionRequestInFlight = false;
                     self._idleRtcPeerConnectionTimerId = setTimeout((0, _utils.hitch)(self, self._refreshRtcPeerConnection), _rtc_const.RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS);
                 },
@@ -14081,10 +13096,10 @@ var RtcPeerConnectionFactory = function () {
         value: function _networkConnectivityChecker() {
             var self = this;
             setInterval(function () {
-                if (!navigator.onLine && self._pc) {
+                if (!navigator.onLine && self._idlePc) {
                     self._logger.log("Network offline. Cleaning up early connection");
-                    self._pc.close();
-                    self._pc = null;
+                    self._idlePc.close();
+                    self._idlePc = null;
                 }
             }, _rtc_const.NETWORK_CONNECTIVITY_CHECK_INTERVAL_MS);
         }
@@ -14113,10 +13128,20 @@ var RtcPeerConnectionFactory = function () {
     }, {
         key: '_closeRTCPeerConnection',
         value: function _closeRTCPeerConnection() {
-            if (this._pc) {
-                this._pc.close();
-                this._pc = null;
+            if (this._idlePc) {
+                this._idlePc.close();
+                this._idlePc = null;
             }
+        }
+
+        // Clear idle peer connection timer first and then close the idle peer connection.
+
+    }, {
+        key: 'close',
+        value: function close() {
+            this._logger.log("close method invoked. Clear timer and close idle peer connection " + this._clientId);
+            this.clearIdleRtcPeerConnectionTimerId();
+            this._closeRTCPeerConnection();
         }
     }]);
     return RtcPeerConnectionFactory;
@@ -15771,7 +14796,7 @@ var RtcSession = function () {
 
 exports.default = RtcSession;
 
-},{"./exceptions":149,"./rtc_const":150,"./rtp-stats":153,"./session_report":154,"./signaling":155,"./strategies/CCPInitiationStrategyInterface":156,"./strategies/StandardStrategy":159,"./utils":160,"babel-runtime/helpers/asyncToGenerator":14,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/get":17,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19,"babel-runtime/helpers/typeof":22,"babel-runtime/regenerator":23,"sdp":131,"uuid/v4":134}],153:[function(require,module,exports){
+},{"./exceptions":149,"./rtc_const":150,"./rtp-stats":153,"./session_report":154,"./signaling":155,"./strategies/CCPInitiationStrategyInterface":156,"./strategies/StandardStrategy":159,"./utils":160,"babel-runtime/helpers/asyncToGenerator":14,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/get":17,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19,"babel-runtime/helpers/typeof":22,"babel-runtime/regenerator":25,"sdp":131,"uuid/v4":134}],153:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -16042,7 +15067,7 @@ var SessionReport = exports.SessionReport = function () {
         this._noRemoteIceCandidateFailure = null;
         this._setRemoteDescriptionFailure = null;
         this._streamStats = [];
-        this._rtcJsVersion = "1.1.25";
+        this._rtcJsVersion = "1.1.27";
     }
     /**
      *Timestamp when RTCSession started.
@@ -17205,7 +16230,7 @@ var AmznRtcSignaling = function () {
 
 exports.default = AmznRtcSignaling;
 
-},{"./exceptions":149,"./rtc_const":150,"./utils":160,"./virtual_wss_connection_manager":161,"babel-runtime/helpers/asyncToGenerator":14,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19,"babel-runtime/regenerator":23,"uuid/v4":134}],156:[function(require,module,exports){
+},{"./exceptions":149,"./rtc_const":150,"./utils":160,"./virtual_wss_connection_manager":161,"babel-runtime/helpers/asyncToGenerator":14,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19,"babel-runtime/regenerator":25,"uuid/v4":134}],156:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
