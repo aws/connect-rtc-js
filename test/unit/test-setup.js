@@ -29,7 +29,6 @@ global.window = {
 
 };
 
-//window = global.window;
 
 global.self = global.window;
 global.MutationObserver = class {};
