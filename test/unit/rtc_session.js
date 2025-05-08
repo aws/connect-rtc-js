@@ -110,6 +110,7 @@ describe('RTC session', () => {
             state._gUM = sinon.stub();
             state._gUM.returns(new Promise(() => { }));
             state.onEnter();
+            done();
         });
 
         it('notifies gum error and go to failed state if gUM fast fails', (done) => {
@@ -334,6 +335,7 @@ describe('RTC session', () => {
                 done();
             };
             state.onEnter();
+            done();
         });
 
         it('transits to failed state when ICE collection completes without candidate', () => {
@@ -512,6 +514,17 @@ describe('RTC session', () => {
             chai.expect(session.transit.calledOnce).to.be.true;
             chai.expect(session.transit.args[0][0]).to.be.instanceof(FailedState);
             chai.expect(session.transit.args[0][0]._failureReason).to.be.eql(RTC_ERRORS.CALL_NOT_FOUND);
+        });
+
+        it('transits to FailedState when hangs up in InviteAnswerState and PCM exists', () => {
+            session.transit = sinon.spy();
+            session._pcm = {};
+
+            state.hangup();
+
+            chai.expect(session.transit.calledOnce).to.be.true;
+            chai.expect(session.transit.args[0][0]).to.be.instanceof(FailedState);
+            chai.expect(session.transit.args[0][0]._failureReason).to.be.eql("Agent clicks hangs up");
         });
     });
 
