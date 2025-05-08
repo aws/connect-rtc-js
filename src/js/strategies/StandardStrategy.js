@@ -24,6 +24,10 @@ export default class StandardStrategy extends CCPInitiationStrategyInterface {
         return navigator.mediaDevices.getUserMedia(constraints);
     }
 
+    _createMediaStream(track) {
+        return new MediaStream([track])
+    }
+
     addStream(_pc, stream) {
         _pc.addStream(stream);
     }
@@ -57,6 +61,32 @@ export default class StandardStrategy extends CCPInitiationStrategyInterface {
         });
     }
 
+    setRemoteDescriptionForIceRestart(self, rtcSession) {
+        var setRemoteDescriptionPromise = rtcSession._pc.setRemoteDescription(self._createSessionDescription({
+            type: 'answer',
+            sdp: self._sdp
+        }));
+        setRemoteDescriptionPromise.catch(e => {
+            self.logger.error('SetRemoteDescription failed', e);
+        });
+        setRemoteDescriptionPromise.then(() => {
+            var remoteCandidatePromises = Promise.all(self._candidates.map(function (candidate) {
+                var remoteCandidate = self._createRemoteCandidate(candidate);
+                self.logger.info('Adding remote candidate', remoteCandidate);
+                return rtcSession._pc.addIceCandidate(remoteCandidate);
+            }));
+            remoteCandidatePromises.catch(reason => {
+                self.logger.warn('Error adding remote candidate', reason);
+            });
+            return remoteCandidatePromises;
+        }).then(() => {
+            self._remoteDescriptionSetForIceRestart = true;
+            self._checkAndTransit();
+        }).catch(() => {
+            self.onIceRestartFailure();
+        });
+    }
+
     onIceStateChange(evt, _pc) { // eslint-disable-line no-unused-vars
         return evt.currentTarget.iceConnectionState;
     }
@@ -80,6 +110,9 @@ export default class StandardStrategy extends CCPInitiationStrategyInterface {
         } else if (evt.track.kind === 'audio' && self._remoteAudioElement) {
             self._remoteAudioElement.srcObject = evt.streams[0];
             self._remoteAudioStream = evt.streams[0];
+            if (self._pcm) {
+                self._pcm._remoteAudioStream = self._remoteAudioStream;
+            }
         }
     }
 

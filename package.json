@@ -1,6 +1,6 @@
 {
   "name": "connect-rtc-js",
-  "version": "1.1.26",
+  "version": "1.2.1",
   "description": "Amazon Connect softphone library",
   "license": "Apache-2.0",
   "main": "./src/js/connect-rtc.js",
@@ -27,7 +27,9 @@
   },
   "_ucsdk_upgrade_note": "Please follow the instruction here(https://tiny.amazon.com/18mszf5px/quipaTMFStep) to upgrade @citrix/ucsdk",
   "dependencies": {
+    "ua-parser-js": "^1.0.39",
     "@citrix/ucsdk": "3.1.0",
+    "@euc-releases/horizon-webrtc-redir-sdk": "^8.15.0",
     "uuid": "^3.0.1",
     "webrtc-adapter": "^6.4.0"
   },
@@ -52,6 +54,7 @@
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-uglify": "^2.2.1",
+    "grunt-contrib-uglify-es": "^3.3.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-eslint": "^21.0.0",
     "grunt-githooks": "^0.6.0",

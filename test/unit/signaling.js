@@ -5,8 +5,9 @@
  */
 
 import RtcSignaling from '../../src/js/signaling';
-import { SignalingState, FailOnTimeoutState, PendingConnectState, PendingInviteState, PendingAnswerState, PendingAcceptState, PendingAcceptAckState, TalkingState, PendingReconnectState, PendingRemoteHangupState, PendingLocalHangupState, DisconnectedState, FailedState } from '../../src/js/signaling'; // eslint-disable-line no-unused-vars
+import { SignalingState, FailOnTimeoutState, PendingConnectState, PendingInviteState, PendingAnswerState, PendingAcceptState, PendingAcceptAckState, TalkingState, PendingReconnectState, PendingRemoteHangupState, PendingLocalHangupState, DisconnectedState, FailedState, IdleState, PendingConnectContactState } from '../../src/js/signaling'; // eslint-disable-line no-unused-vars
 import { TimeoutExceptionName, UnknownSignalingErrorName } from '../../src/js/exceptions';
+import {BYE_METHOD_NAME, CONNECT_CONTACT_METHOD_NAME} from '../../src/js/rtc_const';
 import chai from 'chai';
 import sinon from 'sinon';
 
@@ -76,6 +77,7 @@ describe('signalingTest', () => {
             signaling.state = signalingState;
             signalingState.onTimeout = done;
             signalingState.setStateTimeout(1);
+            done();
         });
     });
 
@@ -102,6 +104,7 @@ describe('signalingTest', () => {
             };
             signaling.state = state;
             state.onEnter();
+            done();
         });
     });
 
@@ -133,7 +136,7 @@ describe('signalingTest', () => {
             state.channelDown();
             state.channelDown();
             state.channelDown();
-            
+
             chai.expect(signaling.transit.calledThrice).to.be.true;
             chai.expect(signaling._connect.calledTwice).to.be.true;
             chai.expect(signaling.transit.args[0][0]).to.be.instanceof(PendingConnectState);
@@ -152,8 +155,8 @@ describe('signalingTest', () => {
                 chai.expect(signaling.transit.args[0][0]).to.be.instanceof(PendingConnectState);
                 chai.expect(signaling.transit.args[1][0]).to.be.instanceof(FailedState);
                 done();
-
             }, 1000);
+            done();
         });
     });
 
@@ -285,7 +288,84 @@ describe('signalingTest', () => {
             chai.assert(signaling.transit.calledOnce);
             chai.assert(signaling.transit.args[0][0] instanceof TalkingState);
         });
+
+        it('should transit to IdleState when PPC is enabled and contactToken is null', () => {
+            signaling._wss = {
+                send: sinon.spy()
+            };
+            signaling._pcm = {
+                isPPCEnabled: true,
+                contactToken: null,
+                callId: 'example-id',
+                peerConnectionId: 'example-id',
+                peerConnectionToken: 'example-token',
+                isPersistentConnectionEnabled: sinon.stub().returns(true),
+            }
+            signaling._isFirstTimeSetup = true;
+            signaling.transit = sinon.spy();
+            state.accept();
+            chai.assert(signaling._wss.send.calledOnce);
+            var acceptReq = JSON.parse(signaling._wss.send.args[0][0]);
+            chai.assert.equal('2.0', acceptReq.jsonrpc);
+            chai.assert.equal('accept', acceptReq.method);
+            chai.assert.isNotNull(acceptReq.params);
+            chai.assert.isNotNull(acceptReq.params.contactId);
+            chai.assert.isNotNull(acceptReq.params.persistentConnection);
+            chai.assert.isNotNull(acceptReq.params.peerConnectionId);
+            chai.assert.isNotNull(acceptReq.params.peerConnectionToken);
+            chai.assert.isNotNull(acceptReq.id);
+            chai.assert(signaling.transit.calledOnce);
+            chai.assert(signaling._wss.send.calledOnce);
+            chai.assert(signaling.transit.args[0][0] instanceof IdleState);
+        });
     });
+
+    describe('PendingConnectContactState', () => {
+        /**
+         * @type {RtcSignaling}
+         */
+        var signaling;
+        /**
+         * @type {PendingAcceptState}
+         */
+        var state;
+
+        beforeEach(() => {
+            signaling = {};
+            state = new PendingConnectContactState(signaling);
+        });
+
+        it('should send connectContact when on enter and move to talking state', () => {
+            signaling._wss = {
+                send: sinon.spy()
+            };
+            signaling._pcm = {
+                isPPCEnabled: true,
+                contactToken: 'example-token',
+                callId: 'example-id',
+                peerConnectionId: 'example-id',
+                peerConnectionToken: 'example-token',
+            }
+            signaling.transit = sinon.spy();
+            state.onEnter();
+            var connectContactReq = JSON.parse(signaling._wss.send.args[0][0]);
+
+            chai.assert(signaling._wss.send.calledOnce);
+            chai.assert.equal('2.0', connectContactReq.jsonrpc);
+            chai.assert.equal(CONNECT_CONTACT_METHOD_NAME, connectContactReq.method);
+            chai.assert.isNotNull(connectContactReq.params);
+            chai.assert.isNotNull(connectContactReq.params.contactId);
+            chai.assert.isNotNull(connectContactReq.params.contactToken);
+            chai.assert.isNotNull(connectContactReq.params.persistentConnection);
+            chai.assert.isNotNull(connectContactReq.params.peerConnectionId);
+            chai.assert.isNotNull(connectContactReq.params.peerConnectionToken);
+            chai.assert.isNotNull(connectContactReq.id);
+            chai.assert(signaling.transit.calledOnce);
+            chai.assert(signaling._wss.send.calledOnce);
+            chai.assert(signaling.transit.args[0][0] instanceof TalkingState);
+        });
+    });
+
 
     describe('PendingAcceptAckState', () => {
         /**
@@ -345,7 +425,12 @@ describe('signalingTest', () => {
         var state;
 
         beforeEach(() => {
-            signaling = {};
+            signaling = {
+                _pcm: {
+                    isPPCEnabled: false,
+                    isPersistentConnectionEnabled: sinon.stub().returns(false),
+                }
+            };
             state = new TalkingState(signaling);
         });
 
@@ -402,6 +487,136 @@ describe('signalingTest', () => {
             chai.assert(signaling.transit.calledOnce);
             chai.assert(signaling.transit.args[0][0] instanceof PendingReconnectState);
         });
+
+        it('moves to FailedState when receives an error response for accept/connectContact request', () => {
+            const methodId = 'example-id'
+            state = new TalkingState(signaling, methodId);
+            signaling.transit = sinon.spy();
+            state.onRpcMsg({
+                jsonrpc: '2.0',
+                error: {
+                    code: '400',
+                    message: 'example-error-message'
+                },
+                id: methodId
+            });
+            chai.assert(signaling.transit.args[0][0] instanceof FailedState);
+        });
+
+    });
+
+    describe('IdleState', () => {
+        /**
+         * @type {RtcSignaling}
+         */
+        var signaling;
+        /**
+         * @type {TalkingState}
+         */
+        var state;
+
+        beforeEach(() => {
+            signaling = {};
+            signaling._pcm = {
+                isPPCEnabled: true,
+                contactToken: 'example-token',
+                callId: 'example-id',
+                peerConnectionId: 'example-id',
+                peerConnectionToken: 'example-token',
+                destroy: sinon.spy(),
+            }
+            signaling._logger = {
+                log: sinon.spy()
+            };
+            state = new IdleState(signaling);
+        });
+
+        it('notify handshake completion on enter', (done) => {
+            signaling._handshakedHandler = done;
+            state.onEnter();
+        });
+
+        it('implements hangup method', () => {
+            signaling._wss = {
+                send: sinon.spy()
+            };
+            signaling.transit = sinon.spy();
+            state.hangup();
+            chai.assert(signaling._wss.send.calledOnce);
+            var hangupReq = JSON.parse(signaling._wss.send.args[0][0]);
+            chai.assert.equal('2.0', hangupReq.jsonrpc);
+            chai.assert.equal(BYE_METHOD_NAME, hangupReq.method);
+            chai.assert.isNotNull(hangupReq.params);
+            chai.assert.isNotNull(hangupReq.params.contactId);
+            chai.assert.isNotNull(hangupReq.params.contactToken);
+            chai.assert.isNotNull(hangupReq.params.persistentConnection);
+            chai.assert.isNotNull(hangupReq.params.peerConnectionId);
+            chai.assert.isNotNull(hangupReq.params.peerConnectionToken);
+            chai.assert.isNotNull(hangupReq.id);
+            chai.assert(signaling.transit.calledOnce);
+            chai.assert(signaling.transit.args[0][0] instanceof PendingRemoteHangupState);
+        });
+
+        it('responds to server hangup', () => {
+            signaling.transit = sinon.spy();
+            state.onRpcMsg({
+                jsonrpc: '2.0',
+                method: 'bye',
+                params: {},
+                id: 10
+            });
+            chai.assert(signaling.transit.calledOnce);
+            chai.assert(signaling.transit.args[0][0] instanceof PendingLocalHangupState);
+        });
+
+        it('responds to token renewal', () => {
+            state.onRpcMsg({
+                jsonrpc: '2.0',
+                method: 'renewClientToken',
+                params: {
+                    clientToken: 'newToken'
+                },
+                id: 10
+            });
+            chai.assert.equal('newToken', signaling._clientToken);
+        });
+
+        it('reconnects when connection is lost', () => {
+            signaling._reconnect = sinon.spy();
+            signaling.transit = sinon.spy();
+            state.channelDown();
+            chai.assert(signaling._reconnect.calledOnce);
+            chai.assert(signaling.transit.calledOnce);
+            chai.assert(signaling.transit.args[0][0] instanceof PendingReconnectState);
+        });
+
+        it('moves to FailedState when receives an error response for accept/connectContact request', () => {
+            const methodId = 'example-id'
+            state = new IdleState(signaling, methodId);
+            signaling.transit = sinon.spy();
+            state.onRpcMsg({
+                jsonrpc: '2.0',
+                error: {
+                    code: '400',
+                    message: 'example-error-message'
+                },
+                id: methodId
+            });
+            chai.assert(signaling.transit.args[0][0] instanceof FailedState);
+        });
+
+        it('should tear down the existing peer connection when receive a PC bye from the server', () => {
+            signaling.transit = sinon.spy();
+            state.onRpcMsg({
+                jsonrpc: '2.0',
+                method: 'PCBye',
+                peerConnectionId: 'example-id',
+                id: 10
+            });
+            chai.assert(signaling._pcm.destroy.calledOnce);
+            chai.assert(signaling.transit.args[0][0] instanceof DisconnectedState);
+        });
+
     });
 
     describe('PendingReconnectState', () => {

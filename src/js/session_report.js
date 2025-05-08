@@ -35,7 +35,8 @@ export class SessionReport {
         this._noRemoteIceCandidateFailure = null;
         this._setRemoteDescriptionFailure = null;
         this._streamStats = [];
-        this._rtcJsVersion = "@@RTC_JS_VERSION"
+        this._rtcJsVersion = "@@RTC_JS_VERSION";
+        this._userAgentData = null;
     }
     /**
      *Timestamp when RTCSession started.
@@ -195,6 +196,13 @@ export class SessionReport {
         return this._rtcJsVersion;
     }
 
+    /**
+     * userAgent data
+     */
+    get userAgentData() {
+        return this._userAgentData;
+    }
+
     set sessionStartTime(value) {
         this._sessionStartTime = value;
     }
@@ -272,5 +280,8 @@ export class SessionReport {
     }
     set rtcJsVersion(value) {
         this._rtcJsVersion = value;
+    }
+    set userAgentData(value) {
+        this._userAgentData = value;
     }
 }

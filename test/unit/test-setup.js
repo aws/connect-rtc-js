@@ -1,4 +1,12 @@
 import sinon from 'sinon';
+let jsdom = require('mocha-jsdom');
+
+global.jsdom = jsdom;
+global.navigator = {
+    userAgent: {match: sinon.stub().returns({}),
+        indexOf: sinon.stub().returns({})},
+};
+
 
 global.document = {
     getElementById: sinon.stub().returns({}),
@@ -6,11 +14,22 @@ global.document = {
 }
 
 global.window = {
-    addEventListener: sinon.spy(),
+    addEventListener: () => {},
     document: global.document,
     atob: sinon.stub().returns({}),
-    getComputedStyle: sinon.stub().returns({})
+    getComputedStyle: sinon.stub().returns({}),
+    navigator: {
+        mediaDevices: {getUserMedia : sinon.stub().returns({})},
+        userAgent: {match: sinon.stub().returns({}),
+            indexOf: sinon.stub().returns({})},
+    },
+    parent :{
+        postMessage:sinon.stub().returns({}),
+    }
+
 };
+
+//window = global.window;
 
 global.self = global.window;
 global.MutationObserver = class {};

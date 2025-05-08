@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-import {closeStream, hitch, isLegacyStatsReportSupported, SdpOptions, transformSdp, wrapLogger} from './utils';
+import {closeStream, hitch, SdpOptions, transformSdp, wrapLogger} from './utils';
 import {SessionReport} from './session_report';
 import {
     DEFAULT_GUM_TIMEOUT_MS,
@@ -12,7 +12,8 @@ import {
     RTC_PEER_CONNECTION_CONFIG,
     RTC_PEER_CONNECTION_OPTIONAL_CONFIG,
     ICE_CONNECTION_STATE,
-    PEER_CONNECTION_STATE
+    PEER_CONNECTION_STATE,
+    DEFAULT_ICE_CANDIDATE_POOL_SIZE
 } from './rtc_const';
 import {
     BusyExceptionName,
@@ -20,7 +21,8 @@ import {
     GumTimeout,
     IllegalParameters,
     IllegalState,
-    UnsupportedOperation
+    UnsupportedOperation,
+    AccessDeniedExceptionName
 } from './exceptions';
 import RtcSignaling from './signaling';
 import uuid from 'uuid/v4';
@@ -28,6 +30,9 @@ import {extractMediaStatsFromStats} from './rtp-stats';
 import {parseCandidate} from 'sdp';
 import CCPInitiationStrategyInterface from "./strategies/CCPInitiationStrategyInterface";
 import StandardStrategy from "./strategies/StandardStrategy";
+import {
+    ConnectedSubstate
+} from './rtc_session_talking_substates';
 
 export class RTCSessionState {
     /**
@@ -96,25 +101,28 @@ export class GrabLocalMediaState extends RTCSessionState {
                     self._rtcSession._sessionReport.gumTimeMillis = Date.now() - startTime;
                     self._rtcSession._onGumSuccess(self._rtcSession);
                     self._rtcSession._localStream = stream;
+                    if (self._rtcSession._pcm) {
+                        self._rtcSession._pcm._mediaStream = stream;
+                    }
                     self._rtcSession._sessionReport.gumOtherFailure = false;
                     self._rtcSession._sessionReport.gumTimeoutFailure = false;
                     self.transit(new CreateOfferState(self._rtcSession));
                 }).catch(e => {
-                    self._rtcSession._sessionReport.gumTimeMillis = Date.now() - startTime;
-                    var errorReason;
-                    if (e instanceof GumTimeout) {
-                        errorReason = RTC_ERRORS.GUM_TIMEOUT_FAILURE;
-                        self._rtcSession._sessionReport.gumTimeoutFailure = true;
-                        self._rtcSession._sessionReport.gumOtherFailure = false;
-                    } else {
-                        errorReason = RTC_ERRORS.GUM_OTHER_FAILURE;
-                        self._rtcSession._sessionReport.gumOtherFailure = true;
-                        self._rtcSession._sessionReport.gumTimeoutFailure = false;
-                    }
-                    self.logger.error('Local media initialization failed', e);
-                    self._rtcSession._onGumError(self._rtcSession);
-                    self.transit(new FailedState(self._rtcSession, errorReason));
-                });
+                self._rtcSession._sessionReport.gumTimeMillis = Date.now() - startTime;
+                var errorReason;
+                if (e instanceof GumTimeout) {
+                    errorReason = RTC_ERRORS.GUM_TIMEOUT_FAILURE;
+                    self._rtcSession._sessionReport.gumTimeoutFailure = true;
+                    self._rtcSession._sessionReport.gumOtherFailure = false;
+                } else {
+                    errorReason = RTC_ERRORS.GUM_OTHER_FAILURE;
+                    self._rtcSession._sessionReport.gumOtherFailure = true;
+                    self._rtcSession._sessionReport.gumTimeoutFailure = false;
+                }
+                self.logger.error('Local media initialization failed', e);
+                self._rtcSession._onGumError(self._rtcSession);
+                self.transit(new FailedState(self._rtcSession, errorReason));
+            });
         }
     }
     get name() {
@@ -211,7 +219,16 @@ export class ConnectSignalingAndIceCollectionState extends RTCSessionState {
                 self._reportIceCompleted(true);
             }
         }, self._rtcSession._iceTimeoutMillis);
-        self._rtcSession._createSignalingChannel().connect();
+
+        //if peer connection manager or signalingChannel doesn't exist, create a new signaling channel
+        if (!self._rtcSession._pcm || !self._rtcSession._pcm._signalingChannel) {
+            self._rtcSession._createSignalingChannel().connect();
+        } else { // if signalingChannel exists, reset the contact id, connectionid and contact token
+            self._rtcSession._bindSignalingChannel(); // binding the existing signaling channel
+            self._rtcSession._pcm._signalingChannel._wss._connnectionId = self._rtcSession._connectionId;
+            self._rtcSession._pcm._signalingChannel._contactToken = self._rtcSession._contactToken;
+            self._rtcSession._pcm._signalingChannel._callId = self._rtcSession._callId;
+        }
     }
     onSignalingConnected() {
         this._rtcSession._signallingConnectTimestamp = Date.now();
@@ -300,12 +317,21 @@ export class InviteAnswerState extends RTCSessionState {
     onEnter() {
         var rtcSession = this._rtcSession;
         rtcSession._onSignalingStarted(rtcSession);
+
         rtcSession._signalingChannel.invite(rtcSession._localSessionDescription.sdp,
             this._iceCandidates);
     }
-    onSignalingAnswered(sdp, candidates) {
+    onSignalingAnswered(sdp, candidates, inactivityDuration, peerConnectionId, peerConnectionToken) {
         this._rtcSession._sessionReport.userBusyFailure = false;
         this._rtcSession._sessionReport.handshakingFailure = false;
+
+        // signaling answered, set the inactivityDuration, peerConnectionId and peerConnectionToken
+        if (this._rtcSession._pcm) {
+            this._rtcSession._pcm.inactivityDuration = inactivityDuration;
+            this._rtcSession._pcm.peerConnectionId = peerConnectionId;
+            this._rtcSession._pcm.peerConnectionToken = peerConnectionToken;
+        }
+
         this.transit(new AcceptState(this._rtcSession, sdp, candidates));
     }
     onSignalingFailed(e) {
@@ -326,6 +352,11 @@ export class InviteAnswerState extends RTCSessionState {
             reason = RTC_ERRORS.SIGNALLING_HANDSHAKE_FAILURE;
         }
         this.transit(new FailedState(this._rtcSession, reason));
+    }
+    hangup() {
+        if (this._rtcSession._pcm) {
+            this.transit(new FailedState(this._rtcSession, "Agent clicks hangs up"))
+        }
     }
     get name() {
         return "InviteAnswerState";
@@ -372,45 +403,246 @@ export class AcceptState extends RTCSessionState {
     }
     _checkAndTransit() {
         if (this._signalingHandshaked && this._remoteDescriptionSet) {
-            this.transit(new TalkingState(this._rtcSession));
+            // when peerConnectionManager initialized and contactToken doesn't exist, rtcSession will move to DisconnectedState
+            if (this._rtcSession._pcm && !this._rtcSession._contactToken) {
+                this._rtcSession._pcm._rtcSession = null;
+                this.transit(new DisconnectedState(this._rtcSession));
+            } else {
+                this.transit(new TalkingState(this._rtcSession));
+            }
         } else if (!this._signalingHandshaked) {
             this.logger.log('Pending handshaking');
-        } else {//implies _remoteDescriptionSet == false
+        } else { //implies _remoteDescriptionSet == false
             this.logger.log('Pending setting remote description');
         }
+    }
+    onPeerConnectionStateChange() {
+        // do nothing
     }
     get name() {
         return "AcceptState";
     }
 }
+
+/**
+ * ConnectContactState
+ * when persistent peer connection is enabled for the agent, CCP reuses the existing signaling channel to send
+ * ConnectContact request to AmazonConnect and connects the call.
+ *
+ */
+export class ConnectContactState extends RTCSessionState {
+
+    constructor(rtcSession) {
+        super(rtcSession);
+    }
+
+    onEnter(){
+        var rtcSession = this._rtcSession;
+        var logger = this.logger;
+        var self = this;
+        rtcSession._sessionReport.isExistingPersistentPeerConnection = true;
+        rtcSession._pcm._signalingChannel.connectContact();
+        try {
+            rtcSession._pcm._mediaStream = self._createMediaStream(rtcSession._pc.getSenders()[0].track) ;
+            rtcSession._onLocalStreamAdded(rtcSession, rtcSession._pcm._mediaStream);
+        } catch (error) {
+            logger.error("[connectContact] Failed to get audio track from existing peer connection").withException(error);
+        }
+        this.transit(new TalkingState(this._rtcSession));
+
+        // if the rtcSession is using UserProvidedStream, we do not override it
+        if (rtcSession._isUserProvidedStream) {
+            logger.log("Not resetting media stream as user provided stream is being used");
+        } else {
+            var sessionGumPromise = this._gUM(rtcSession._buildMediaConstraints());
+            sessionGumPromise.then(function (newMicrophoneStream) {
+                try {
+                    var newMicrophoneTrack = newMicrophoneStream.getAudioTracks()[0];
+                    // Replace the audio track in the RtcPeerConnection
+                    if (rtcSession._isUserProvidedStream) {
+                        logger.log("Not resetting media stream as user provided stream was set after rtcJs GUM");
+                    } else {
+                        rtcSession._pc.getSenders()[0].replaceTrack(newMicrophoneTrack).then(function () {
+                            rtcSession._pcm._mediaStream = self._createMediaStream(rtcSession._pc.getSenders()[0].track);
+                            rtcSession._onLocalStreamAdded(rtcSession, rtcSession._pcm._mediaStream);
+                            logger.log("[connectContact] Audio device set successfully and _onLocalStreamAdded triggered");
+                        });
+                    }
+                } catch (e) {
+                    logger.error("[connectContact] Failed to update audio track for the peer connection").withException(e);
+                    return;
+                }
+            }).catch(function (e) {
+                logger.error("[connectContact] Failed to get microphone stream from getUserMedia").withException(e);
+                return;
+            });
+        }
+    }
+
+
+    _gUM(constraints) {
+        return this._rtcSession._strategy._gUM(constraints);
+    }
+
+    _createMediaStream(track) {
+        return this._rtcSession._strategy._createMediaStream(track);
+    }
+
+    onSignalingHandshaked() {
+        // do nothing
+    }
+
+    get name() {
+        return "ConnectContactState";
+    }
+}
+
 export class TalkingState extends RTCSessionState {
 
     onEnter() {
         this._startTime = Date.now();
         this._rtcSession._sessionReport.preTalkingTimeMillis = this._startTime - this._rtcSession._connectTimeStamp;
+        this._rtcSession._sessionReport.isMediaClusterPath = this._rtcSession._signalingChannel._isMediaClusterPath;
+        this._rtcSession._sessionReport.isPersistentPeerConnection = !!(this._rtcSession._pcm && this._rtcSession._pcm.isPersistentConnectionEnabled());
+
+        if (this._rtcSession._pcm) {
+            // For persistnet connection, resume the local audio which was paused when the previous RtcSession was destroyed
+            this._rtcSession.resumeLocalAudio();
+        }
         this._rtcSession._onSessionConnected(this._rtcSession);
+
+        // Calculate time taken to receive the first RTP packet
+        let interval;
+        let timeout;
+        const getSynchronizationSourcesAndProcess = async() => {
+            if (this._rtcSession && this._rtcSession._pc && this._rtcSession._pc.getReceivers().length !== 0) {
+                const rtcRtpReceiver = this._rtcSession._pc.getReceivers()[0];
+                if(rtcRtpReceiver instanceof RTCRtpReceiver){
+                    const synchronizationSources = rtcRtpReceiver.getSynchronizationSources();
+                    synchronizationSources.forEach((source) => {
+                        const firstRTPTimeMillis = source.timestamp - this._rtcSession._connectTimeStamp;
+                        if(firstRTPTimeMillis > 0){
+                            this._rtcSession._sessionReport.firstRTPTimeMillis = firstRTPTimeMillis;
+                        }
+                        // We break out and stop checking for RTP packets as soon as we receive the first packet.
+                        clearInterval(interval);
+                        clearTimeout(timeout);
+                    });
+                }
+            }
+        }
+        // Set up timeout to stop the interval after 1 seconds
+        timeout = setTimeout(() => {
+            clearInterval(interval);
+            console.log('Timeout reached, stopping the interval');
+        }, 1000);
+
+        interval = setInterval(getSynchronizationSourcesAndProcess, 20);
+        this.setSubState(new ConnectedSubstate(this._rtcSession));
     }
     onSignalingReconnected() {
     }
+
+    /**
+     * TODO: after upgrading eslint, use optional chaining
+     *  const signalingChannel = this._rtcSession._pcm?._signalingChannel || this._rtcSession._signalingChannel;
+     *         signalingChannel.hangup();
+     */
     onRemoteHungup() {
-        this._rtcSession._signalingChannel.hangup();
+        if (this._rtcSession._pcm) {
+            //Unreachable code.
+            this._rtcSession._pcm._signalingChannel.hangup();
+        } else {
+            this._rtcSession._signalingChannel.hangup();
+        }
         this.transit(new DisconnectedState(this._rtcSession));
     }
+
+    /**
+     * TODO: after upgrading eslint, use optional chaining
+     *  const signalingChannel = this._rtcSession._pcm?._signalingChannel || this._rtcSession._signalingChannel;
+     *         signalingChannel.hangup();
+     */
     hangup() {
-        this._rtcSession._signalingChannel.hangup();
+        if (this._rtcSession._pcm) {
+            this._rtcSession._pcm._signalingChannel.hangup();
+        } else {
+            this._rtcSession._signalingChannel.hangup();
+        }
         this.transit(new DisconnectedState(this._rtcSession));
     }
     onIceStateChange(evt) {
         var iceState = this._rtcSession._strategy.onIceStateChange(evt, this._rtcSession._pc);
         this.logger.info('ICE Connection State: ', iceState);
 
+        if (this._subState && typeof this._subState.onIceStateChange === 'function') {
+            this._subState.onIceStateChange(evt);
+        }
+
         if (iceState == ICE_CONNECTION_STATE.DISCONNECTED) {
             this.logger.info('Lost ICE connection');
             this._rtcSession._sessionReport.iceConnectionsLost += 1;
         }
+
         if (iceState == ICE_CONNECTION_STATE.FAILED) {
             this._rtcSession._sessionReport.iceConnectionsFailed = true;
         }
+    }
+
+    onSignalingConnected() {
+        if (this._subState && typeof this._subState.onSignalingConnected === 'function') {
+            this._subState.onSignalingConnected();
+        }
+    }
+    onSignalingFailed(e) {
+        if (this._subState && typeof this._subState.onSignalingFailed === 'function') {
+            this._subState.onSignalingFailed(e);
+        }
+        var reason;
+        if (e.name == AccessDeniedExceptionName) {
+            this.logger.error('[TalkingState] Access Denied by server', e);
+            this._rtcSession._sessionReport.handshakingFailure = true;
+            reason = RTC_ERRORS.SIGNALLING_HANDSHAKE_FAILURE;
+            this.transit(new FailedState(this._rtcSession, reason));
+        } else {
+            this.logger.error('[TalkingState] Failed handshaking with signaling server', e);
+        }
+    }
+    onSignalingAnswered(sdp, candidates) {
+        if (this._subState && typeof this._subState.onSignalingAnswered === 'function') {
+            this._subState.onSignalingAnswered(sdp, candidates);
+        }
+    }
+    onSignalingHandshaked() {
+        if (this._subState && typeof this._subState.onSignalingHandshaked === 'function') {
+            this._subState.onSignalingHandshaked();
+        }
+    }
+    onIceCandidate(evt) {
+        if (this._subState && typeof this._subState.onIceCandidate === 'function') {
+            this._subState.onIceCandidate(evt);
+        }
+    }
+
+    onIceRestartFailure() {
+        if (this._subState && typeof this._subState.onIceRestartFailure === 'function') {
+            this._subState.onIceRestartFailure();
+        }
+    }
+
+    _checkAndTransit() {
+        if (this._subState && typeof this._subState._checkAndTransit === 'function') {
+            this._subState._checkAndTransit();
+        }
+    }
+
+    setSubState(nextState) {
+        this.logger.info('Substate: ' + (this._subState ? this._subState.name : 'null') + ' => ' + nextState.name);
+        if (this._subState) {
+            this._subState.onExit();
+        }
+        this._subState = nextState;
+        this._subState.onEnter();
     }
 
     onPeerConnectionStateChange() {
@@ -424,16 +656,33 @@ export class TalkingState extends RTCSessionState {
 
     onExit() {
         this._rtcSession._sessionReport.talkingTimeMillis = Date.now() - this._startTime;
-        this._rtcSession._detachMedia();
+        if (!this._rtcSession._pcm || !this._rtcSession._pcm.isPersistentConnectionEnabled()) {
+            this._rtcSession._detachMedia();
+        }
         this._rtcSession._sessionReport.sessionEndTime = new Date();
         this._rtcSession._onSessionCompleted(this._rtcSession);
+        if (this._subState) {
+            this._subState.onExit();
+        }
     }
+
     get name() {
         return "TalkingState";
     }
 }
+
 export class CleanUpState extends RTCSessionState {
     onEnter() {
+        if (this._rtcSession._pcm) {
+            try {
+                // rtcSession._pcm._mediaStream would be out of sync if the audio device changed during the call
+                this._rtcSession._pcm._mediaStream = this._rtcSession._strategy._createMediaStream(this._rtcSession._pc.getSenders()[0].track);
+            } catch(error) {
+                this.logger.error("Creating MediaStream error: ", error);
+            }
+            // For persistent connection, pause the local audio when we destroy the RtcSession, because we don't want to transmit any audio when agent is idle
+            this._rtcSession.pauseLocalAudio();
+        }
         this._startTime = Date.now();
         this._rtcSession._stopSession();
         this._rtcSession._sessionReport.cleanupTimeMillis = Date.now() - this._startTime;
@@ -447,6 +696,14 @@ export class CleanUpState extends RTCSessionState {
     }
 }
 export class DisconnectedState extends CleanUpState {
+    onSignalingHandshaked() {
+        // do nothing
+    }
+
+    onPeerConnectionStateChange() {
+        // do nothing
+    }
+
     get name() {
         return "DisconnectedState";
     }
@@ -459,6 +716,9 @@ export class FailedState extends CleanUpState {
     onEnter() {
         this._rtcSession._sessionReport.sessionEndTime = new Date();
         this._rtcSession._onSessionFailed(this._rtcSession, this._failureReason);
+        if (this._rtcSession._pcm) {
+            this._rtcSession._pcm.destroy();
+        }
         super.onEnter();
     }
     get name() {
@@ -469,17 +729,22 @@ export class FailedState extends CleanUpState {
 export default class RtcSession {
     /**
      * Build an AmazonConnect RTC session.
-     * @param {*} signalingUri
+     * @param {string} signalingUri (optional, applies to CCPv1)
      * @param {*} iceServers Array of ice servers
-     * @param {*} contactToken A string representing the contact token (optional)
-     * @param {*} logger An object provides logging functions, such as console
-     * @param {*} contactId Must be UUID, uniquely identifies the session.
+     * @param {string} contactToken A string representing the contact token (optional)
+     * @param {object} logger An object provides logging functions, such as console
+     * @param {string} contactId Must be UUID, uniquely identifies the session.
+     * @param {string} connectionId Refers to media leg id
+     * @param {string} wssManager - websocket manager
+     * @param {object} strategy - VDI strategy indicates which WebRTC SDK to use: standard, Citrix, WorkSpace
+     * @param {Object} peerConnectionManager - refers to the peerConnectionManager object which manages rtcSession and peer connection
      */
-    constructor(signalingUri, iceServers, contactToken, logger, contactId, connectionId, wssManager, strategy = new StandardStrategy()) {
+    constructor(signalingUri, iceServers, contactToken, logger, contactId, connectionId, wssManager, strategy = new StandardStrategy(), peerConnectionManager = null) {
         if (!(strategy instanceof CCPInitiationStrategyInterface)) {
             throw new Error('Expected a strategy of type CCPInitiationStrategyInterface');
         }
-        if (typeof signalingUri !== 'string' || signalingUri.trim().length === 0) {
+        // throw IllegalParameters error when signalingUri is missing and peer connection manager is not defined
+        if (!peerConnectionManager && typeof signalingUri !== 'string' || (signalingUri && signalingUri.trim().length === 0)) {
             throw new IllegalParameters('signalingUri required');
         }
         if (!iceServers) {
@@ -502,6 +767,7 @@ export default class RtcSession {
         this._contactToken = contactToken;
         this._originalLogger = logger;
         this._logger = wrapLogger(this._originalLogger, this._callId, 'SESSION');
+        this._pcm = peerConnectionManager;
         this._iceTimeoutMillis = DEFAULT_ICE_TIMEOUT_MS;
         this._gumTimeoutMillis = DEFAULT_GUM_TIMEOUT_MS;
 
@@ -520,18 +786,18 @@ export default class RtcSession {
         this._isUserProvidedStream = false;
 
         this._onGumError =
-        this._onGumSuccess =
-        this._onLocalStreamAdded =
-        this._onSessionFailed =
-        this._onSessionInitialized =
-        this._onSignalingConnected =
-        this._onIceCollectionComplete =
-        this._onSignalingStarted =
-        this._onSessionConnected =
-        this._onRemoteStreamAdded =
-        this._onSessionCompleted =
-        this._onSessionDestroyed = () => {
-        };
+            this._onGumSuccess =
+                this._onLocalStreamAdded =
+                    this._onSessionFailed =
+                        this._onSessionInitialized =
+                            this._onSignalingConnected =
+                                this._onIceCollectionComplete =
+                                    this._onSignalingStarted =
+                                        this._onSessionConnected =
+                                            this._onRemoteStreamAdded =
+                                                this._onSessionCompleted =
+                                                    this._onSessionDestroyed = () => {
+                                                    };
     }
     get sessionReport() {
         return this._sessionReport;
@@ -582,19 +848,55 @@ export default class RtcSession {
             }
         }
     }
+
+    /**
+     * TODO: fix eslint version to use optional chaining
+     * const audioTrack = this._pcm?._mediaStream?.getAudioTracks()[0] || this._localStream?.getAudioTracks()[0];
+     *     if (audioTrack) {
+     *         audioTrack.enabled = false;
+     *     }
+     */
     pauseLocalAudio() {
-        if (this._localStream) {
-            var audioTrack = this._localStream.getAudioTracks()[0];
-            if(audioTrack) {
-                audioTrack.enabled = false;
+        var audioTrack;
+        if (this._pcm) {
+            if(this._pcm._mediaStream) {
+                audioTrack = this._pcm._mediaStream.getAudioTracks()[0];
+                if(audioTrack) {
+                    audioTrack.enabled = false;
+                }
+            }
+        } else {
+            if (this._localStream) {
+                audioTrack = this._localStream.getAudioTracks()[0];
+                if(audioTrack) {
+                    audioTrack.enabled = false;
+                }
             }
         }
     }
+
+    /**
+     * TODO: fix eslint version to use optional chaining
+     * const audioTrack = this._pcm?._mediaStream?.getAudioTracks()[0] || this._localStream?.getAudioTracks()[0];
+     *     if (audioTrack) {
+     *         audioTrack.enabled = true;
+     *     }
+     */
     resumeLocalAudio() {
-        if (this._localStream) {
-            var audioTrack = this._localStream.getAudioTracks()[0];
-            if(audioTrack) {
-                audioTrack.enabled = true;
+        var audioTrack;
+        if(this._pcm){
+            if(this._pcm._mediaStream) {
+                audioTrack = this._pcm._mediaStream.getAudioTracks()[0];
+                if(audioTrack) {
+                    audioTrack.enabled = true;
+                }
+            }
+        } else {
+            if (this._localStream) {
+                audioTrack = this._localStream.getAudioTracks()[0];
+                if (audioTrack) {
+                    audioTrack.enabled = true;
+                }
             }
         }
     }
@@ -755,6 +1057,9 @@ export default class RtcSession {
      */
     set mediaStream(input) {
         this._localStream = input;
+        if (this._pcm) {
+            this._pcm._mediaStream = input;
+        }
         this._isUserProvidedStream = true;
     }
     /**
@@ -832,7 +1137,7 @@ export default class RtcSession {
     }
 
     _createSignalingChannel() {
-        var signalingChannel = new RtcSignaling(this._callId, this._signalingUri, this._contactToken, this._originalLogger, this._signalingConnectTimeout, this._connectionId, this._wssManager);
+        var signalingChannel = new RtcSignaling(this._callId, this._signalingUri, this._contactToken, this._originalLogger, this._signalingConnectTimeout, this._connectionId, this._wssManager, this._iceRestart, this._pcm);
         signalingChannel.onConnected = hitch(this, this._signalingConnected);
         signalingChannel.onAnswered = hitch(this, this._signalingAnswered);
         signalingChannel.onHandshaked = hitch(this, this._signalingHandshaked);
@@ -841,15 +1146,30 @@ export default class RtcSession {
         signalingChannel.onDisconnected = hitch(this, this._signalingDisconnected);
 
         this._signalingChannel = signalingChannel;
+        if (this._pcm){
+            this._pcm._signalingChannel = signalingChannel;
+        }
+        return signalingChannel;
+    }
 
+    _bindSignalingChannel() {
+        var signalingChannel = this._pcm._signalingChannel;
+        signalingChannel.onConnected = hitch(this, this._signalingConnected);
+        signalingChannel.onAnswered = hitch(this, this._signalingAnswered);
+        signalingChannel.onHandshaked = hitch(this, this._signalingHandshaked);
+        signalingChannel.onRemoteHungup = hitch(this, this._signalingRemoteHungup);
+        signalingChannel.onFailed = hitch(this, this._signalingFailed);
+        signalingChannel.onDisconnected = hitch(this, this._signalingDisconnected);
+
+        this._signalingChannel = signalingChannel;
         return signalingChannel;
     }
 
     _signalingConnected() {
         this._state.onSignalingConnected();
     }
-    _signalingAnswered(sdp, candidates) {
-        this._state.onSignalingAnswered(sdp, candidates);
+    _signalingAnswered(sdp, candidates, inactivityDuration, peerConnectionId, peerConnectionToken) {
+        this._state.onSignalingAnswered(sdp, candidates, inactivityDuration, peerConnectionId, peerConnectionToken);
     }
     _signalingHandshaked() {
         this._state.onSignalingHandshaked();
@@ -878,6 +1198,7 @@ export default class RtcSession {
                 pc = null;
             }
             RTC_PEER_CONNECTION_CONFIG.iceServers = self._iceServers;
+            RTC_PEER_CONNECTION_CONFIG.iceCandidatePoolSize = DEFAULT_ICE_CANDIDATE_POOL_SIZE;
             self._pc = self._createPeerConnection(RTC_PEER_CONNECTION_CONFIG, RTC_PEER_CONNECTION_OPTIONAL_CONFIG);
         }
         self._pc.ontrack = hitch(self, self._ontrack);
@@ -885,10 +1206,13 @@ export default class RtcSession {
         self._pc.onconnectionstatechange = hitch(self, self._onPeerConnectionStateChange);
         self._pc.oniceconnectionstatechange = hitch(self, self._onIceStateChange);
 
-        isLegacyStatsReportSupported(self._pc).then(result => {
-            self._legacyStatsReportSupport = result;
+        // PersistentConnection enabled transit to ConnectContactState
+        if (self._pcm && self._pcm.isPersistentConnectionEnabled() && self._pcm._signalingChannel) {
+            self._bindSignalingChannel(); // binding the existing signaling channel
+            self.transit(new ConnectContactState(self));
+        } else {
             self.transit(new GrabLocalMediaState(self));
-        });
+        }
     }
     accept() {
         throw new UnsupportedOperation('accept does not go through signaling channel at this moment');
@@ -903,81 +1227,31 @@ export default class RtcSession {
      * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
      */
     async getStats() {
-        var timestamp = new Date();
+        const timestamp = new Date();
 
-        var impl = async (stream, streamType) => {
-            var tracks = [];
-
-            if (!stream) {
-                return [];
-            }
-
-            switch (streamType) {
-                case 'audio_input':
-                case 'audio_output':
-                    tracks = stream.getAudioTracks();
-                    break;
-                case 'video_input':
-                case 'video_output':
-                    tracks = stream.getVideoTracks();
-                    break;
-                default:
-                    throw new Error('Unsupported stream type while trying to get stats: ' + streamType);
-            }
-
-            return await Promise.all(tracks.map(async () => {
-                // get standardized report
-                return this._pc.getStats().then(function (rawStats) {
-                    var digestedStats = extractMediaStatsFromStats(timestamp, rawStats, streamType);
-                    if (!digestedStats) {
-                        throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
-                    }
-                    return digestedStats;
-                });
-
-            }));
+        const getStatsForType = async (streamType) => {
+            const rawStats = await this._pc.getStats();
+            return extractMediaStatsFromStats(timestamp, rawStats, streamType);
         };
 
         if (this._pc && this._pc.signalingState === 'stable') {
-            var statsResult = {
-                audio: {
-                    input: await impl(this._remoteAudioStream, 'audio_input'),
-                    output: await impl(this._localStream, 'audio_output')
-                },
+            const audioInputStats = await getStatsForType('audio_input');
+            const audioOutputStats = await getStatsForType('audio_output');
 
-                video: {
-                    input: await impl(this._remoteVideoStream, 'video_input'),
-                    output: await impl(this._localStream, 'video_output')
-                }
-            };
-
-            // For consistency's sake, coalesce rttMilliseconds into the output for audio and video.
-            var rttReducer = (acc, stats) => {
-                if (stats.rttMilliseconds !== null && (acc === null || stats.rttMilliseconds > acc)) {
-                    acc = stats.rttMilliseconds;
-                }
-                stats._rttMilliseconds = null;
-                return acc;
-            };
-
-            var audioInputRttMilliseconds = statsResult.audio.input.reduce(rttReducer, null);
-            var videoInputRttMilliseconds = statsResult.video.input.reduce(rttReducer, null);
-
-            if (audioInputRttMilliseconds !== null) {
-                statsResult.audio.output.forEach((stats) => { stats._rttMilliseconds = audioInputRttMilliseconds; });
+            // For consistency's sake, coalesce rttMilliseconds into the output for audio
+            if (audioInputStats && audioInputStats.rttMilliseconds !== null) {
+                audioOutputStats._rttMilliseconds = audioInputStats.rttMilliseconds;
             }
 
-            if (videoInputRttMilliseconds !== null) {
-                statsResult.video.output.forEach((stats) => { stats._rttMilliseconds = videoInputRttMilliseconds; });
-            }
-
-            return statsResult;
-
+            return {
+                audioInputStats,
+                audioOutputStats,
+            };
         } else {
             return Promise.reject(new IllegalState());
         }
-
     }
+
 
     /**
      * Get a promise of MediaRtpStats object for remote audio (from Amazon Connect to client).
@@ -985,14 +1259,15 @@ export default class RtcSession {
      * @deprecated in favor of getStats()
      */
     getRemoteAudioStats() {
-        return this.getStats().then(function(stats) {
-            if (stats.audio.output.length > 0) {
-                return stats.audio.output[0];
+        return this.getStats().then((stats) => {
+            if (stats.audioOutputStats) {
+                return stats.audioOutputStats;
             } else {
                 return Promise.reject(new IllegalState());
             }
         });
     }
+
 
     /**
      * Get a promise of MediaRtpStats object for user audio (from client to Amazon Connect).
@@ -1000,44 +1275,15 @@ export default class RtcSession {
      * @deprecated in favor of getStats()
      */
     getUserAudioStats() {
-        return this.getStats().then(function(stats) {
-            if (stats.audio.input.length > 0) {
-                return stats.audio.input[0];
+        return this.getStats().then((stats) => {
+            if (stats.audioInputStats) {
+                return stats.audioInputStats;
             } else {
                 return Promise.reject(new IllegalState());
             }
         });
     }
 
-    /**
-     * Get a promise of MediaRtpStats object for user video (from client to Amazon Connect).
-     * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
-     * @deprecated in favor of getStats()
-     */
-    getRemoteVideoStats() {
-        return this.getStats().then(function(stats) {
-            if (stats.video.output.length > 0) {
-                return stats.video.output[0];
-            } else {
-                return Promise.reject(new IllegalState());
-            }
-        });
-    }
-
-    /**
-     * Get a promise of MediaRtpStats object for user video (from client to Amazon Connect).
-     * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
-     * @deprecated in favor of getStats()
-     */
-    getUserVideoStats() {
-        return this.getStats().then(function(stats) {
-            if (stats.video.input.length > 0) {
-                return stats.video.input[0];
-            } else {
-                return Promise.reject(new IllegalState());
-            }
-        });
-    }
 
     _onIceCandidate(evt) {
         this._state.onIceCandidate(evt);
@@ -1068,21 +1314,25 @@ export default class RtcSession {
         }
     }
     _stopSession() {
-        try {
-            if (this._localStream && !this._isUserProvidedStream) {
-                closeStream(this._localStream);
-                this._localStream = null;
-                this._isUserProvidedStream = false;
-            }
-        } finally {
+        // When peerConnectionManager does not exist or PersistentConnection flag if false, we will close local  media stream
+        if (!this._pcm || !this._pcm.isPersistentConnectionEnabled()) {
             try {
-                if (this._pc) {
-                    this._pc.close();
+                if (this._localStream && !this._isUserProvidedStream) {
+                    closeStream(this._localStream);
+                    this._localStream = null;
+                    this._isUserProvidedStream = false;
                 }
-            } catch (e) {
-                // eat exception
             } finally {
-                this._pc = null;
+                try {
+                    if (this._pc) {
+                        this._pc.close();
+                    }
+                } catch(e) {
+                    // eat exception
+                }
+                finally {
+                    this._pc = null;
+                }
             }
         }
     }

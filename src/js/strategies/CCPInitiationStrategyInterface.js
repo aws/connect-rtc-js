@@ -19,8 +19,13 @@ export default class CCPInitiationStrategyInterface {
     }
 
     // the following functions are rtc_session related functions
-    _guM() {
-        console.error("_guM needs to be overridden");
+    _gUM() {
+        console.error("_gUM needs to be overridden");
+    }
+
+    // the following functions are rtc_session related functions
+    _createMediaStream() {
+        console.error("_createMediaStream needs to be overridden");
     }
 
     addStream() {
@@ -29,6 +34,10 @@ export default class CCPInitiationStrategyInterface {
 
     setRemoteDescription() {
         console.error("setRemoteDescription needs to be overridden");
+    }
+
+    setRemoteDescriptionForIceRestart() {
+        console.error("setRemoteDescriptionForIceRestart needs to be overridden");
     }
 
     onIceStateChange() {
