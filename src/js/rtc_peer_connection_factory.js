@@ -124,7 +124,7 @@ export default class RtcPeerConnectionFactory {
     _refreshRtcPeerConnection() {
         this._idleRtcPeerConnectionTimerId = null;
         this._clearIdleRtcPeerConnection();
-        this._logger.log("refreshing peer connection for client " + this._clientId);
+        this._logger.log("RtcPeerConnectionFactory is refreshing peer connection for client " + this._clientId);
         this._requestPeerConnection();
     }
 

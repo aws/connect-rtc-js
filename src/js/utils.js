@@ -6,6 +6,9 @@
 
 import {IllegalParameters} from './exceptions';
 import {getKind, parseRtpMap, parseRtpParameters, splitLines, splitSections, writeFmtp} from 'sdp';
+import {UserAgentData} from "./user_agent_data";
+import {BROWSER_LIST, FIREFOX} from "./rtc_const";
+import UAParser from 'ua-parser-js';
 
 /**
  * All logging methods used by connect-rtc.
@@ -210,20 +213,6 @@ export function when_defined(v, alternativeIn) {
 }
 
 /**
- * Check if the getStats API for retrieving legacy stats report is supported
- */
-export function isLegacyStatsReportSupported(pc) {
-    return new Promise(function(resolve) {
-        pc.getStats(function() {
-            resolve(true);
-        }).catch(function() {
-            // Exception thrown if browser does not support legacy stats report
-            resolve(false);
-        });
-    });
-}
-
-/**
  * Determine if the given value is a callable function type.
  * Borrowed from Underscore.js.
  */
@@ -260,4 +249,67 @@ export function getRedactedSdp(sdp) {
 
     // Use the replace method to redact the value with '[redacted]'
     return sdp.replace(pattern, 'a=ice-pwd:[redacted]');
+}
+
+/**
+ * Method to get userAgent data
+ */
+
+export async function getUserAgentData() {
+    const userAgentData = new UserAgentData();
+
+    if (navigator.userAgentData) {
+        // use User-Agent Client Hints API
+        const result = await navigator.userAgentData.getHighEntropyValues([
+            'platform',
+            'platformVersion',
+            'architecture',
+            'bitness',
+            'mobile',
+            'model',
+            'fullVersionList',
+        ]);
+
+        userAgentData.platform = result.platform;
+        userAgentData.platformVersion = result.platformVersion;
+        userAgentData.architecture = result.architecture;
+        userAgentData.bitness = result.bitness;
+        userAgentData.mobile = result.mobile;
+        userAgentData.model = result.model;
+
+        const browser = result.fullVersionList.find(entry =>
+            BROWSER_LIST.includes(entry.brand)
+        );
+
+        if (browser) {
+            userAgentData.browserBrand = browser.brand;
+            userAgentData.browserVersion = browser.version;
+        } else {
+            // Fallback to the first available browser brand
+            const fallbackBrowser = result.fullVersionList.find(entry => entry.brand !== 'Not A Brand');
+            userAgentData.browserBrand = fallbackBrowser ? fallbackBrowser.brand : 'Unknown';
+            userAgentData.browserVersion = fallbackBrowser ? fallbackBrowser.version : 'Unknown';
+        }
+    } else {
+        // Fallback to user-agent string parsing
+        const userAgent = navigator.userAgent;
+        const parser = new UAParser(userAgent);
+        const parserResult = parser.getResult();
+
+        userAgentData.browserBrand = parserResult.browser.name || 'Unknown';
+        userAgentData.browserVersion = parserResult.browser.version || 'Unknown';
+        userAgentData.platform = parserResult.os.name || 'Unknown';
+        userAgentData.platformVersion = parserResult.os.version || 'Unknown';
+        userAgentData.architecture = parserResult.cpu.architecture || 'Unknown';
+    }
+
+    return userAgentData;
+}
+
+export function isFirefoxBrowser(userAgentData) {
+    if (userAgentData) {
+        return userAgentData.browserBrand.toUpperCase() === FIREFOX.toUpperCase();
+    } else {
+        return navigator.userAgent.indexOf(FIREFOX) !== -1;
+    }
 }

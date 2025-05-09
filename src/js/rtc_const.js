@@ -30,6 +30,9 @@ export const SOFTPHONE_ROUTE_KEY = "aws/softphone";
 export const INVITE_METHOD_NAME = "invite";
 export const ACCEPT_METHOD_NAME = "accept";
 export const BYE_METHOD_NAME = "bye";
+export const PC_BYE_METHOD_NAME = "PCBye";
+export const CONNECT_CONTACT_METHOD_NAME = "connectContact";
+export const DISCONNECT_CONTACT_METHOD_NAME = "disconnectContact";
 
 export const RTC_PEER_CONNECTION_CONFIG = {
     iceTransportPolicy: 'relay',
@@ -74,7 +77,8 @@ export const RTC_ERRORS = {
     NO_REMOTE_ICE_CANDIDATE : 'No Remote ICE Candidate',
     GUM_TIMEOUT_FAILURE : 'GUM Timeout Failure',
     GUM_OTHER_FAILURE : 'GUM Other Failure',
-    CALL_NOT_FOUND: 'Call Not Found'
+    CALL_NOT_FOUND: 'Call Not Found',
+    ACCESS_DENIED: 'Access Denied'
 };
 
 export const ICE_CONNECTION_STATE = {
@@ -95,3 +99,21 @@ export const PEER_CONNECTION_STATE = {
     DISCONNECTED : 'disconnected',
     CLOSED : 'closed'
 };
+
+export const RTC_SESSION_STATE = {
+    TALKING_STATE: 'TalkingState',
+    GRAB_LOCAL_MEDIA_STATE: 'GrabLocalMediaState',
+    CREATE_OFFER_STATE: 'CreateOfferState',
+    SET_LOCAL_SESSION_DESCRIPTION_STATE: 'SetLocalSessionDescriptionState',
+    CONNECT_SIGNALING_AND_ICE_COLLECTION_STATE: 'ConnectSignalingAndIceCollectionState',
+    INVITE_ANSWER_STATE: 'InviteAnswerState',
+    ACCEPT_STATE: 'AcceptState',
+    CONNECT_CONTACT_STATE: 'ConnectContactState',
+    CLEAN_UP_STATE: 'CleanUpState',
+    DISCONNECTED_STATE: 'DisconnectedState'
+}
+
+export const BROWSER_LIST = ['Google Chrome', 'Microsoft Edge', 'Firefox'];
+
+export const FIREFOX = "Firefox";
+export const ACITVE_SOFTPHONE_TAB = "Active Softphone Tab";

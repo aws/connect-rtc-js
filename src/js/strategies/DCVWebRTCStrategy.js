@@ -65,6 +65,10 @@ export default class DCVWebRTCStrategy extends CCPInitiationStrategyInterface {
         return this.proxy.getUserMedia(constraints);
     }
 
+    _createMediaStream(track) {
+        return new MediaStream([track])
+    }
+
     _createPeerConnection(configuration, optionalConfiguration) {
         return this.proxy.createPeerConnection(configuration, optionalConfiguration);
     }
@@ -104,6 +108,32 @@ export default class DCVWebRTCStrategy extends CCPInitiationStrategyInterface {
             rtcSession._stopSession();
             rtcSession._sessionReport.setRemoteDescriptionFailure = true;
             self.transit(new FailedState(rtcSession, RTC_ERRORS.SET_REMOTE_DESCRIPTION_FAILURE));
+        });
+    }
+
+    setRemoteDescriptionForIceRestart(self, rtcSession) {
+        var setRemoteDescriptionPromise = rtcSession._pc.setRemoteDescription(self._createSessionDescription({
+            type: ANSWER,
+            sdp: self._sdp
+        }));
+        setRemoteDescriptionPromise.catch(e => {
+            self.logger.error('SetRemoteDescription failed', e);
+        });
+        setRemoteDescriptionPromise.then(() => {
+            var remoteCandidatePromises = Promise.all(self._candidates.map(function (candidate) {
+                var remoteCandidate = self._createRemoteCandidate(candidate);
+                self.logger.info('Adding remote candidate', remoteCandidate);
+                return rtcSession._pc.addIceCandidate(remoteCandidate);
+            }));
+            remoteCandidatePromises.catch(reason => {
+                self.logger.warn('Error adding remote candidate', reason);
+            });
+            return remoteCandidatePromises;
+        }).then(() => {
+            self._remoteDescriptionSetForIceRestart = true;
+            self._checkAndTransit();
+        }).catch(() => {
+            self.onIceRestartFailure();
         });
     }
 

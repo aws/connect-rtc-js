@@ -59,10 +59,58 @@ export class CallNotFoundException extends Error {
     }
 }
 
+export const RequestTimeoutExceptionName = 'RequestTimeoutException';
+export class RequestTimeoutException extends Error {
+    constructor() {
+        super();
+        this.name = RequestTimeoutExceptionName;
+    }
+}
+
+export const InternalServerExceptionName = 'InternalServerException';
+export class InternalServerException extends Error {
+    constructor() {
+        super();
+        this.name = InternalServerExceptionName;
+    }
+}
+
+export const BadRequestExceptionName = 'BadRequestException';
+export class BadRequestException extends Error {
+    constructor(msg) {
+        super(msg);
+        this.name = BadRequestExceptionName;
+    }
+}
+
+export const IdempotencyExceptionName = 'IdempotencyException';
+export class IdempotencyException extends Error {
+    constructor() {
+        super();
+        this.name = IdempotencyExceptionName;
+    }
+}
+
 export const UnknownSignalingErrorName = 'UnknownSignalingError';
 export class UnknownSignalingError extends Error {
     constructor() {
         super();
         this.name = UnknownSignalingErrorName;
+    }
+}
+
+export const AccessDeniedExceptionName = 'AccessDeniedException';
+export class AccessDeniedException extends Error {
+    constructor() {
+        super();
+        this.name = AccessDeniedExceptionName;
+    }
+}
+
+export const SignalingChannelDownErrorName = 'SignalingChannelDownError';
+export class SignalingChannelDownError extends Error {
+    constructor() {
+        super();
+        this.name = SignalingChannelDownErrorName;
     }
 }

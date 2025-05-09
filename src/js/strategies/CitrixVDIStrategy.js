@@ -17,15 +17,35 @@ export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
         this.initCitrixWebRTC();
         this.initGetCitrixWebrtcRedir();
         this.initLog();
+        // version is an Citrix object in following format
+        // "version": {
+        //     "type_script": "3.1.0",
+        //         "webrpc": "1.7.0.0",
+        //         "webrtc_codecs": "0.0.0.0",
+        //         "receiver": "24.11.0.51",
+        //         "vda": "0.0.0.0",
+        //         "endpoint": "0.0.0.0",
+        //         "osinfo": {
+        //         "family": "Browser",
+        //             "version": "15.3.1",
+        //             "architecture": "",
+        //             "distro": "",
+        //             "edition": "Mac-Chrome(version:133.0.0.0, userAgent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36)"
+        //     },
+        //     "clientPlatform": "Browser"
+        // }
+        this.version = "UNKNOWN"
     }
 
     initCitrixWebRTC() {
+        var self = this;
         window.CitrixWebRTC.setVMEventCallback((event) => {
             if (event.event === 'vdiClientConnected') {
                 if (!window.CitrixWebRTC.isFeatureOn("webrtc1.0")) {
                     throw new Error('Citrix WebRTC redirection feature is NOT supported!');
                 }
                 console.log("CitrixVDIStrategy initialized");
+                self.version = event.version;
             } else if (event.event === 'vdiClientDisconnected') {
                 console.log("vdiClientDisconnected");
             }
@@ -56,6 +76,10 @@ export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
         return window.CitrixWebRTC.getUserMedia(constraints);
     }
 
+    _createMediaStream(track) {
+        return window.CitrixWebRTC.createMediaStream([track]);
+    }
+
     addStream(_pc, stream) {
         stream.getTracks().forEach(track => {
             _pc.addTransceiver(track, {});
@@ -63,6 +87,16 @@ export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
     }
 
     setRemoteDescription(self, rtcSession) {
+        if (this.version && this.version.clientPlatform === "Browser") {
+            // ChromeOS does not support addIceCandidate yet.
+            self._candidates.forEach(candidate => {
+                if (candidate && typeof candidate.candidate === 'string' && candidate.candidate.trim() !== '') {
+                    self._sdp += `a=${candidate.candidate}\n`;
+                    self.logger.info('Updated SDP for ChromeOS', `a=${candidate.candidate}\n`);
+                }
+            });
+        }
+
         const answerSessionDescription = self._createSessionDescription({type: 'answer', sdp: self._sdp});
 
         rtcSession._pc.setRemoteDescription(answerSessionDescription, () => {
@@ -81,6 +115,26 @@ export default class CitrixVDIStrategy extends CCPInitiationStrategyInterface {
             rtcSession._stopSession();
             rtcSession._sessionReport.setRemoteDescriptionFailure = true;
             self.transit(new FailedState(rtcSession, RTC_ERRORS.SET_REMOTE_DESCRIPTION_FAILURE));
+        });
+    }
+
+    // Todo: modify the sdp for ChromeOS here by adding a=candidate line, once pc.setConfiguration is supported for IceRestart
+    setRemoteDescriptionForIceRestart(self, rtcSession) {
+        const answerSessionDescription = self._createSessionDescription({type: 'answer', sdp: self._sdp});
+
+        rtcSession._pc.setRemoteDescription(answerSessionDescription, () => {
+            var remoteCandidatePromises = Promise.all(self._candidates.map(function (candidate) {
+                var remoteCandidate = self._createRemoteCandidate(candidate);
+                self.logger.info('Adding remote candidate', remoteCandidate);
+                return rtcSession._pc.addIceCandidate(remoteCandidate);
+            }));
+            remoteCandidatePromises.catch(reason => {
+                self.logger.warn('Error adding remote candidate', reason);
+            });
+            self._remoteDescriptionSetForIceRestart = true;
+            self._checkAndTransit();
+        }, () => {
+            self.onIceRestartFailure();
         });
     }
 
