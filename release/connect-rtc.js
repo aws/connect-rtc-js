@@ -3272,7 +3272,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 });
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"babel-runtime/helpers/asyncToGenerator":14,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/slicedToArray":20,"babel-runtime/helpers/toArray":21,"babel-runtime/helpers/typeof":22,"babel-runtime/regenerator":23}],2:[function(require,module,exports){
+},{"babel-runtime/helpers/asyncToGenerator":16,"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18,"babel-runtime/helpers/slicedToArray":22,"babel-runtime/helpers/toArray":23,"babel-runtime/helpers/typeof":24,"babel-runtime/regenerator":27}],2:[function(require,module,exports){
 (function (global){(function (){
 //===============================================
 // By using these Developer Materials, you accept and agree to comply with
@@ -3928,28 +3928,56 @@ a.createMessageByid=function(a,b,c,d,h,p){for(var g=[],B=6;B<arguments.length;B+
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],3:[function(require,module,exports){
+/*
+ * Copyright (c) 2018 Omnissa, LLC. All rights reserved.
+ * This product is protected by copyright and intellectual property laws in the
+ * United States and other countries as well as by international treaties.
+ * -- Omnissa Restricted
+ */
+/**
+ *
+ * HorizonSDKforWebRTCRedir.js
+ * Build: 14122140117
+ *
+ */
+!function(e){("function"!=typeof define||!define.amd)&&"object"==typeof module&&module.exports?module.exports=e():window.HorizonWebRtcRedirectionAPI=e()}(function(e,t){"use strict";var C={createInstance:30,createInstanceResult:31,newVideoElement:32,removeVideoElement:33,updateVideoElement:34,newFrame:36,removeFrame:37,version:40,enumDevices:41,enumVideoDevice:42,createPeerConnection:43,createOffer:44,createAnswer:45,setLocalDescription:46,setRemoteDescription:47,addIceCandidate:48,addStream:49,getLocalStreams:50,getStats:51,removeStream:52,close:53,getUserMediaShim:54,mediaTrkStop:55,trackEnabled:56,newAudioElement:57,setSinkId:58,updateSrcObject:59,notifyAudio:60,mediaStreamClone:61,mediaTrackClone:62,getDisplayMediaShim:63,setDefaultSinkId:64,shimLogToWebSocket:65,insertDTMF:66,getReceivers:67,customClipRect:69,applyConstraints:70,getScreens:71,setScreenId:72,addTrack:74,removeTrack:75,senderCmd:76,createMediaStream:77,connectedStateChanged:78,updateObjectFit:79,transceiverCmd:300,dataChannelCmd:301,dataChannelEvent:302,getHWND:309,pcCmd:310},S={ERROR:0,WARN:1,INFO:2,DEBUG:3},G=2,y=0,T=1,_=2,d={DURATION:100,INTERTONEGAP:70},o=0,a=1,f=1,g=2,q="unified-plan",m={TRANSCEIVER_ADD_TRANSCEIVER:1,TRANSCEIVER_SET_CODECPREFERENCE:2,TRANSCEIVER_STOP:3,TRANSCEIVER_SET_DIRECTION:4},l=0,v=1,s=1,c=2,X=4,K=16,u={RPF_ACTIVE:1,RPF_CODEPAYLOADTYPE:2,RPF_DTX:4,RPF_MAXBITRATE:8,RPF_MAXFRAMERATE:16,RPF_PTIME:32,RPF_RID:64,RPF_SCALE_RESOLUTION_DOWNBY:128},Y=0,Z=1,b=0,w=1,Q=4,$=32,ee=2,n="52406081",E="1.0.",k=(E+="@"===n[0]?"00000":n,{UNSUPPORTED:"unsupported",CHROME:"chrome",CHROMIUM_EDGE:"chromium_edge",ELECTRON:"electron"}),te=2,ne=4,ie=1,re=2;const I="0";function oe(e){setTimeout(e,0)}function ae(e){if(!e||!e.ownerDocument)return 1;if((t=e.ownerDocument.defaultView)&&"function"==typeof t.getZoomFactor)return t.getZoomFactor(e);var{innerWidth:e,outerWidth:t}=t;if(0===e)return t;var n=document.body&&document.body.clientWidth?document.body.clientWidth:e;let i,r;return x==k.ELECTRON?i=Math.round((t-(e-n))/e*1e3)/1e3:x==k.CHROME||x==k.CHROMIUM_EDGE?(i=(t-8)/e*100,r=Ee(i),Math.round(r||i)/100):1}function se(e){var t;F.multiwindow&&j?(t=_e(e))?we[t]?L.debug("ensureFrame skipped due to frame already registered."):(j.send({cmd:"newFrame",frame:t,browser:x,customClipRect:1},-1),we[t]=e):L.debug("ensureFrame skipped due to no frameWnd"):L.debug("ensureFrame skipped due to feature not enabled or no connection.")}var de,p=-1,R=-1,ce=-1,ue=0,le=0,he=0,fe=0,ge=0,ve=0,i={},O={},P={},pe={},me={},be=window.navigator.mediaDevices.enumerateDevices,Ce=null,D={},Se={},M={},ye={},j=null,r=null,A=[],V=[],F={},we={},N={},Re={},Te=[],x=0<navigator.userAgent.indexOf("Electron")?k.ELECTRON:0<navigator.userAgent.indexOf("Chrome")?0<navigator.userAgent.indexOf("Edg")?k.CHROMIUM_EDGE:k.CHROME:k.UNSUPPORTED,L={logLevel:S.DEBUG,websocketlogLevel:S.INFO,logToConsole:!0,updateLogLevel:function(e,t){L.logLevel=e,L.websocketlogLevel=t},error:function(e){L.log("ERROR",e),r&&"function"==typeof r.error&&r.error(e)},warn:function(e){L.log("WARN",e),r&&"function"==typeof r.warn&&r.warn(e)},info:function(e){L.log("INFO",e),r&&"function"==typeof r.info&&r.info(e)},debug:function(e){L.log("DEBUG",e)},log:function(e,t){try{S[e]<=L.logLevel&&(L.logToConsole&&console&&("object"==typeof t?console.log(t):console.log(e+": "+t)),"string"==typeof t)&&S[e]<=L.websocketlogLevel&&j&&j.sendLogToWebSocket(t,e)}catch(e){}}},_e=function(e){return e},Ee=function(e){for(var t=[25,33,50,67,75,80,90,100,110,125,150,175,200,250,300,400,500],n=0;n<t.length;n++){var i=t[n],r=.05*i;if(Math.abs(i-e)<r)return i}};function ke(e,t,n){var i,r,o="_id#",a=e.indexOf(t);return-1==a?e+t+"1"+o+n:(i=e.substring(0,a),r=e.indexOf(o,a+t.length),e=Number(e.substring(a+t.length,r)),i+t+((e=isNaN(e)?0:e)+1)+o+n)}function Ie(e,t){function n(){return 1<=arguments.length&&"function"==typeof arguments[0]}function i(){return 2<=arguments.length&&"function"==typeof arguments[1]}function r(a,s,d,c){return new Promise(function(e,t){var n=new DOMException("createOffer cancelled","OperationError"),i=new DOMException("The RTCPeerConnection is closed","InvalidStateError"),r=a?e:d,o=a?t:c;j.send({cmd:"createOffer",options:s},u.id,function(e){O[u.id]?void 0===e.error?(L.debug("createOffer done"),L.debug(e.desc),e.transceivers&&v(e.transceivers),r(e.desc)):o(n):o(i)})})}function o(a,s,d,c){return new Promise(function(e,t){var n=new DOMException("createAnswer cancelled","OperationError"),i=new DOMException("The RTCPeerConnection is closed","InvalidStateError"),r=a?e:d,o=a?t:c;j.send({cmd:"createAnswer",options:s},u.id,function(e){O[u.id]?void 0===e.error?(L.debug("createAnswer done"),L.debug(e.desc),e.transceivers&&v(e.transceivers),r(e.desc)):o(n):o(i)})})}function a(a,s,d,c){return u._remoteDescription=s,new Promise(function(e,t){var n=new DOMException("setRemoteDescription cancelled","OperationError"),i=new DOMException("The RTCPeerConnection is closed","InvalidStateError"),r=a?e:d,o=a?t:c;j.send({cmd:"setRemoteDescription",desc:s},u.id,function(e){O[u.id]?void 0===e.error?(e.transceivers&&v(e.transceivers,e.transceiversRemoved),r()):o(n):o(i)})})}function s(a,s,d,c){return u._localDescription=s,new Promise(function(e,t){var n=new DOMException("setLocalDescription cancelled","OperationError"),i=new DOMException("The RTCPeerConnection is closed","InvalidStateError"),r=a?e:d,o=a?t:c;j.send({cmd:"setLocalDescription",desc:s},u.id,function(e){O[u.id]?void 0===e.error?(e.transceivers&&v(e.transceivers,e.transceiversRemoved),r()):o(n):o(i)})})}function d(a,s,d,c){return new Promise(function(e,t){var n=new DOMException("addIceCandidate cancelled","OperationError"),i=new DOMException("The RTCPeerConnection is closed","InvalidStateError"),r=a?e:d,o=a?t:c;j.send({cmd:"addIceCandidate",candidate:s},u.id,function(e){O[u.id]?void 0===e.error?r():o(n):o(i)})})}function c(i,r){return new Promise(function(e,t){new DOMException("getStats cancelled","InvalidAccessError");var n=i?e:r,e={cmd:"getStats"};i==w&&(e.capability=Q),j.send(e,u.id,function(e){var t;"function"==typeof n&&(void 0===e.error&&void 0!==e.stats&&void 0!==O[u.id]?i==w?n(e.stats):((t=new Oe)._create(e.stats),n(t)):n({}))})})}var u=this,l={},h={},f={},g=!1,v=(this.id=++ce,this._localStreams=[],this._remoteStreams=[],this._dataChannelMap={},this._dataChannelIdToShimIdMap={},this._iceConnectionState="new",e&&e.sdpSemantics===q&&(g=!0),this.isUnifiedPlan=function(){return g},Object.defineProperty(this,"iceConnectionState",{get:function(){return L.debug("get iceConnectionState:"+this._iceConnectionState),this._iceConnectionState},configurable:!0}),this._iceGatheringState="new",Object.defineProperty(this,"iceGatheringState",{get:function(){return L.debug("get iceGatheringState:"+this._iceGatheringState),this._iceGatheringState},configurable:!0}),this._signalingState="stable",Object.defineProperty(this,"signalingState",{get:function(){return L.debug("get signalingState:"+this._signalingState),this._signalingState},configurable:!0}),this._connectionState="new",F.connectionState&&Object.defineProperty(this,"connectionState",{get:function(){return L.debug("get connectionState:"+this._connectionState),this._connectionState},configurable:!0}),this._localDescription=null,Object.defineProperty(this,"localDescription",{get:function(){return L.debug("get localDescription:"+this._localDescription),this._localDescription},configurable:!0}),this._remoteDescription=null,Object.defineProperty(this,"remoteDescription",{get:function(){return L.debug("get remoteDescription:"+this._remoteDescription),this._remoteDescription},configurable:!0}),this.cleanUp=function(){var e,t;"complete"!==this._iceGatheringState&&(t={type:"icecandidate",candidate:null,target:this},this.onicecandidate&&this.onicecandidate(t),this._iceGatheringState="complete",e={type:"icegatheringstatechange",target:this},this.onicegatheringstatechange)&&this.onicegatheringstatechange(e),"disconnected"!=this._iceConnectionState&&(this._iceConnectionState="disconnected",t={type:"iceconnectionstatechange",target:this},this.oniceconnectionstatechange)&&this.oniceconnectionstatechange(t),this._localStreams=[],this._remoteStreams=[]},this.createOfferV0=function(e,t,n){r(b,n,e,t)},this.createOfferV1=function(){return n.apply(null,arguments)?this.createOfferV0.apply(this,arguments):r(w,arguments[0])},this.createAnswerV0=function(e,t,n){o(b,n,e,t)},this.createAnswerV1=function(){return n.apply(null,arguments)?this.createAnswerV0.apply(this,arguments):o(w,arguments[0])},this.setRemoteDescriptionV0=function(e,t,n){a(b,e,t,n)},this.setRemoteDescriptionV1=function(){return i.apply(null,arguments)?this.setRemoteDescriptionV0.apply(this,arguments):a(w,arguments[0])},this.setLocalDescriptionV0=function(e,t,n){s(b,e,t,n)},this.setLocalDescriptionV1=function(){return i.apply(null,arguments)?this.setLocalDescriptionV0.apply(this,arguments):s(w,arguments[0])},this.addIceCandidateV0=function(e,t,n){d(b,e,t,n)},this.addIceCandidateV1=function(){return i.apply(null,arguments)?this.addIceCandidateV0.apply(this,arugments):d(w,arguments[0])},this.createDTMFSender=function(e){var t;return"audio"!==e.kind?(L.error("DTMF only could be associated with audio track."),null):((t=new Pe).initPlanB(u.id,e),me[e.id]=t)},this.getStatsV0=function(e){return c(b,e)},this.getStatsV1=function(){return n.apply(null,arguments)?this.getStatsV0.apply(this,arguments):c(w)},this.getLocalStreams=function(){return g?(L.warn("getLocalStreams is not supported in the unified plan, use getSenders()"),[]):(L.debug("getLocalStreams():"+this._localStreams.length),this._localStreams)},this.getRemoteStreams=function(){return g?(L.warn("getRemoteStreams is not supported in the unified plan, use getReceivers()"),[]):(L.debug("getRemoteStreams():"+this._remoteStreams.length),this._remoteStreams)},this.addStream=function(e){this._localStreams.push(e),j.send({cmd:"addStream",sid:e.id},u.id)},this.removeStream=function(e){L.debug("RTCPeerConnection.removeStream(): "+e.id);var t=this._localStreams.indexOf(e);-1!=t?this._localStreams.splice(t,1):L.error("RTCPeerConnection.removeStream(): Failed to find stream: "+e.id),j.send({cmd:"removeStream",sid:e.id},u.id)},this.addTrackImplV1=function(e,t){var n,i;if(e&&t)return g?((n=new W(u)).initTrackOrKind(e),(i=(f[n.id]=n).sender).setTrack(e,t),j.send({cmd:"addTrack",transceiverId:n.id,tid:e.id,sid:t.id},u.id,function(e){void 0===e.error?v(e.transceivers):delete f[n.id]})):(i=h[e.id])?L.warn("RTCPeerConnection.addTrack: sender already exists."):((i=new J(u)).initPlanB(e,t),h[i.id]=i,j.send({cmd:"addTrack",transceiverId:"",tid:e.id,sid:t.id},u.id,function(e){void 0!==e.error&&delete h[i.id]})),i;throw new Error("both media track and stream need to be provided")},this.removeTrackImplV1=function(e){e?void 0===e._cap?L.error("sender object doesn't have the capability bits"):e.id?(e.removeTrack(),g||delete h[e.id]):L.error("RTCPeerConnection.removeTrack: not a valid sender object"):L.error("RTCPeerConnection.removeTrack: invalid sender.")},this.getSendersImplV1=function(){L.debug("RTCPeerConnection.getSendersImplV1");var e=[];if(g)for(var t in f){var n=f[t].sender;n&&e.push(n)}else for(var t in h)h[t]&&e.push(h[t]);return e},this.getTranceiversImplV1=function(){L.debug("RTCPeerConnection.getTranceiversImplV1");var e,t=[];for(e in f)L.debug("RTCPeerConnection.getTranceiversImplV1 id="+e),t.push(f[e]);return t},this.addTransceiverImplV1=function(e,t){var n=new W(u),i=(n.initTrackOrKind(e,t),f[n.id]=n,{cmd:"transceiverCmd",transceiverCmd:m.TRANSCEIVER_ADD_TRANSCEIVER,hint:"RTCRtpTransceiver.addTransceiver",transceiverId:n.id});if("audio"===e||"video"===e)i.trackOrKind=e;else{if(!(e instanceof B))return L.error("addTranceiver: Unknown type"),null;L.debug("addTranceiver with track is not Implemented"),i.trackOrKind=e.id}e={};if(t.direction&&(e.direction=t.direction),t.sendEncodings&&(e.sendEncodings=t.sendEncodings),t.streams){for(var r in streamIds=[],t.streams)streamIds.push(r.id);e.streams=streamIds}return i.init=e,j.send(i,u.id,function(e){void 0===e.error&&v(e.transceivers)}),n},this.createDataChannelImplV1=function(e,t){var n,i;return L.debug("RTCPeerConnection.createDataChannel: "+e+" option: "+JSON.stringify(this.options)),e?(n=++ve,(i=new Ve(u.id,n))._createChannel(e,t),u._dataChannelMap[n]=i):(L.error("RTCPeerConnection.createDataChannel: missing label"),null)},this._untrackDataChannel=function(e,t){void 0!==t&&u._dataChannelMap[t]&&(L.debug("Untrack datachannel: "+e+" shimId: "+t),delete u._dataChannelMap[t]),e!=R&&u._dataChannelIdToShimIdMap[e]&&(L.debug("Remove mapped datachannel: "+e+" shimId:"+t),delete u._dataChannelIdToShimIdMap[e])},function(e,t){for(var n in e){var i,r=e[n],o=f[r.id];(o||(o=r.id,L.debug("_updateTransceivers: addTransceiver id="+o),(i=new W(u)).initId(o),f[o]=i)).update(r)}if(t)for(var n in t){var a=t[n];L.debug("_updateTransceivers: removeTransceiver id="+a),delete f[a]}}),p=(this.close=function(){p=null,j.send({cmd:"close"},u.id,function(e){delete O[u.id]},!0)},null);this.getReceivers=function(){if(g){var e=[];if(f)for(var t in f){var n=f[t].receiver;n&&e.push(n)}}else{p||(p={},j.send({cmd:"getReceivers"},u.id,function(e){},!0));e=[];for(t in p)p[t]&&e.push(p[t])}return e},this.addEventListener=function(e,t){L.debug("RTCPeerConnection.addEventListener(): "+e),"function"!=typeof t?L.error("RTCPeerConnection.addEventListener(): The listener handler is invalid."):"string"!=typeof e?L.error("RTCPeerConnection.addEventListener(): The event name is invalid."):(void 0===l[e]&&(l[event]={listeners:[]}),l[e].listeners.push(t))},this.removeEventListener=function(e,t){L.debug("RTCPeerConnection.removeEventListener(): "+e),void 0===l[e]?L.error("RTCPeerConnection.removeEventListener(): Event does not exist = "+e):l[e].listeners=l[e].listeners.filter(function(e){return e.toString()!==t.toString()})},this._onReceiveDataChannelEvent=function(e){var t;void 0===e.shimId?L.error("RTCPeerConnection._onReceiveDataChannelEvent: missing shimId"):((t=e.shimId)==R&&e.channel&&void 0!==e.channel.id&&(L.debug("Try to find mapped "+e.channel.id+" in:"+JSON.stringify(u._dataChannelIdToShimIdMap)),void 0!==u._dataChannelIdToShimIdMap[e.channel.id])&&(t=u._dataChannelIdToShimIdMap[e.channel.id],L.debug("RTCPeerConnection._onReceiveDataChannelEvent: use mapped shimId: "+t)),t!=R&&u._dataChannelMap[t]?u._dataChannelMap[t]._onReceiveEvent(e):L.error("RTCPeerConnection._onReceiveDataChannelEvent: dataChannle "+t+" not existed"))},this._onReceiveEvent=function(e){if(void 0===e||void 0===e.evt)L.error("_onReceiveEvent(): evt property is invalid.");else{var t={type:e.evt,target:this};switch(e.details&&this._updateVars(e.details),e.evt){case"connectionstatechange":this.onconnectionstatechange&&this.onconnectionstatechange(t);break;case"negotiationneeded":this.onnegotiationneeded&&this.onnegotiationneeded(t);break;case"icecandidate":t.candidate=e.candidate,this.onicecandidate&&this.onicecandidate(t);break;case"icegatheringstatechange":this.onicegatheringstatechange&&this.onicegatheringstatechange(t);break;case"iceconnectionstatechange":this.oniceconnectionstatechange&&this.oniceconnectionstatechange(t);break;case"signalingstatechange":this.onsignalingstatechange&&this.onsignalingstatechange(t);break;case"ondatachannel":e.channel?this.ondatachannel&&(r=++ve,o=new Ve(u.id,r),void 0!==e.channel.id&&(L.debug("ondatachannel shimId: "+e.channel.id+" mapped to "+r),u._dataChannelIdToShimIdMap[e.channel.id]=r),(u._dataChannelMap[r]=o)._updateChannel(e.channel),t.channel=o,L.debug("ondatachannel shimId: "+r+" channel:"+JSON.stringify(e.channel)),this.ondatachannel(t)):L.warn("ondatachannel from legacy client");break;case"addStream":void 0===e.stream?L.debug("_onReceiveEvent(): stream property is invalid."):(t.stream=new U,t.stream._create(e.stream,e.peer),this._remoteStreams.push(t.stream),this.onaddstream&&this.onaddstream(t));break;case"removeStream":void 0===e.stream?L.debug("_onReceiveEvent(): stream property is invalid."):(t.stream=pe[e.stream],void 0===t.stream?L.debug("_onReceiveEvent(): no stream found."):(-1!=(o=this._remoteStreams.indexOf(t.stream))&&(e.trackId&&t.stream.removeTrackById(e.trackId),this._remoteStreams.splice(o,1)),this.onremovestream&&this.onremovestream(t)));break;case"ontrack":void 0===e.transceiver||void 0===e.stream?L.error("_onReceiveEvent ontrack property is invalid"):(n=e.transceiver.id,(i=f[n])||(L.debug("ontrack: add transceiver id="+n),(i=new W(u)).initId(n),f[n]=i),i.update(e.transceiver),(r=new U)._create(e.stream,e.peer),this._remoteStreams.push(r),t.transceiver=i,t.receiver=i.receiver,t.streams=[r],t.track=r.track[0],this.ontrack&&this.ontrack(t));break;case"tonechange":var n,i,r,o=null;(o=g?(n=e.transceiverId,(r=(i=f?f[n]:null)?i.sender:null)?r.dtmf:null):me[e.tid])?o.ontonechange&&o.ontonechange(e):L.debug("_onReceiveEvent(): tonechange, dtmfId is invalid  or not found.");break;case"onreceivers":(n=e.receivers)&&n.forEach(function(e){var t,n;e.id&&(t=e.id,"-"===e.op?delete p[t]:("+"===e.op&&delete p[t],(n=p[t])||(n=new z,p[t]=n),n.update(e)))});break;case"onsenders":(i=e.senders)&&i.forEach(function(e){var t=h[e.id];t&&t.update(e)});break;case"ontransceivers":v(e.transceivers)}}},this._updateVars=function(e){e.iceConnectionState&&(this._iceConnectionState=e.iceConnectionState),e.iceGatheringState&&(this._iceGatheringState=e.iceGatheringState),e.signalingState&&(this._signalingState=e.signalingState),e.connectionState&&(this._connectionState=e.connectionState),e.localDescription&&(this._localDescription=e.localDescription),e.remoteDescription&&(this._remoteDescription=e.remoteDescription)},this.setConfigurationImpl=function(e){j.send({cmd:"pcCmd",pcCmdId:ie,hint:"peerConnection.setConfiguration",config:e},u.id,function(e){null==e.error&&e.configuration})},this.restartIceImpl=function(){j.send({cmd:"pcCmd",pcCmdId:re,hint:"peerConnection.restartIce"},u.id)}}function Oe(){this.reports=[],this.result=function(){return this.reports},this._create=function(e){var n=this;e.forEach(function(e){var t=new Fe;t._create(e),n.reports.push(t)})}}function Pe(){this.canInsertDTMF=!0;var r=void 0,o=null,t="",a=null,s=null;this.initPlanB=function(e,t){r=e,o=t},this.initUnifiedPlan=function(e,t,n,i){t&&n?(r=e,o=i,a=t,s=n):L.error("RTCDTMFSender.initUnifiedPlan: invalid transceiver or sender")},Object.defineProperty(this,"toneBuffer",{get:function(){return L.debug("get DTMF tone buffer"+t),t},set:function(e){void 0===e&&L.warn("Set RTCDTMFSender.toneBuffer to undefined."),L.debug("set DTMF tone buffer"+e),t=e},configurable:!0}),this.insertDTMF=function(e,t,n){L.debug("insertDTMF audio tones: "+e),void 0===t&&(L.debug("Duration is not set, use default"),t=d.DURATION),void 0===n&&(L.debug("Gap is not set, use default"),n=d.INTERTONEGAP),j.send({cmd:"insertDTMF",transceiverId:a?a.id:"",senderId:s?s.id:"",tid:o.id,tones:e,duration:t,gap:n},r)}}function W(e){function t(e){L.info(e+"("+i+")")}var i,r=this,o=e,n="inactive",a="inactive",s=null,d=!1,c=null,u=null;this.initId=function(e){i=e,(c=new J(o)).initUnifiedPlan(r,null),u=new z},this.initTrackOrKind=function(e,t){var e=e instanceof B?e.kind:e,n="";"audio"===e?n="A":"video"===e&&(n="V"),i="Transceiver#"+n+ge.toString(),ge++,(c=new J(o)).initUnifiedPlan(r,t),u=new z,t&&t.direction&&(a=t.direction),t&&t.stream&&L.debug("RTCRtpTransceiver.init with stream is not implemented.")},this.update=function(e){e.currentDirection&&(n=e.currentDirection),e.direction&&(a=e.direction),e.mid&&(s=e.mid),void 0!==e.stopped&&(d=e.stopped),e.sender&&c&&c.update(e.sender),e.receiver&&u&&u.update(e.receiver)},Object.defineProperty(this,"id",{get:function(){return i},configurable:!0}),Object.defineProperty(this,"mid",{get:function(){return t("RTCRtpTransceiver.mid="+s),s}}),Object.defineProperty(this,"currentDirection",{get:function(){return t("RTCRtpTransceiver.currentDirection"),n},configurable:!0}),Object.defineProperty(this,"direction",{get:function(){return t("RTCRtpTransceiver.direction="+a),a},set:function(e){t("RTCRtpTransceiver.direction setter"),a=e;e={cmd:"transceiverCmd",transceiverCmd:m.TRANSCEIVER_SET_DIRECTION,hint:"RTCRtpTransceiver.direction",transceiverId:i,value:e};j.send(e,o.id)},configurable:!0}),Object.defineProperty(this,"receiver",{get:function(){return t("RTCRtpTransceiver.receiver"),u},configurable:!0}),Object.defineProperty(this,"sender",{get:function(){return t("RTCRtpTransceiver.sender"),c},configurable:!0}),Object.defineProperty(this,"stopped",{get:function(){return t("RTCRtpTransceiver stopped"),d},set:function(e){t("RTCRtpTransceiver stopped setter"),d=e},configurable:!0}),this.setCodecPreferences=function(e){t("RTCRtpTransceiver setCodecPreferences"),j.send({cmd:"transceiverCmd",transceiverCmd:m.TRANSCEIVER_SET_CODECPREFERENCE,hint:"RTCRtpTransceiver.setCodecPreference",transceiverId:i,codecs:e},o.id,function(e){void 0!==e.error&&t("RTCRtpTransceiver.setCodecPreferences failed.")})},this.stop=function(){t("RTCRtpTransceiver stop"),j.send({cmd:"transceiverCmd",transceiverCmd:m.TRANSCEIVER_STOP,hint:"RTCRtpTransceiver.stop",transceiverId:i},o.id,function(e){void 0!==e.error&&t("RTCRtpTransceiver.stop failed.")})}}function De(t,e){var r=this,n=e;this._srcObject=t.srcObject,this._id=le++,this._rawAudio=t,this.sendAudioElement=function(){var e={cmd:"newAudioElement",audioId:this._id};t.setAttribute("data-vdi_audioid",this._id),j.send(e,-1)},Object.defineProperty(t,"srcObject",{get:function(){return r._srcObject},set:function(e){void 0===e&&L.warn("Set audio.srcObject to undefined."),L.debug("Setting srcObject for audio element: "+r._id),L.debug(e),r._srcObject=void 0===e?null:e,r.sendSrcObject()},configurable:!0}),this.sendSrcObject=function(){var e=this._srcObject?this._srcObject.id:"null",t=this._srcObject?this._srcObject.peer:p;j.send({cmd:"updateSrcObject",mediaStreamId:e,audioId:this._id,type:"audio",streamPeer:t},-1)},Object.defineProperty(t,"sinkId",{get:function(){return r._sinkId},set:function(e){},configurable:!0}),t.setSinkId=function(i){return r._sinkId=i,L.debug("Audio.setSinkId for ID = "+r._id+" Value = "+i),0===(void 0!==F.setSinkId?F.setSinkId:0)?new Promise(function(e,t){j.send({cmd:"setSinkId",deviceId:i,audioId:r._id,context:"audioElement"},-1),e()}):new Promise(function(t,n){j.send({cmd:"setSinkId",deviceId:i,audioId:r._id,context:"audioElement"},-1,function(e){void 0===e.error?t():n(e.error)})})},t.play=function(){return Promise.resolve()},this.init=function(){se(n),this.sendAudioElement(),this._srcObject&&(L.debug("srcObject already set for audio: "+this._id),this.sendSrcObject()),L.debug(t)},this.init()}function Me(r,e){var t=this,n=e,o=_e(e),i=!1,s=(this._srcObject=r.srcObject,this._videoWidth=r.videoWidth,this._videoHeight=r.videoHeight,this._cloaked=!1,this._id=ue++,this._clientRect=null,this._bodyClientRect=null,this._colorKey=null,this._rawVideo=r,this._removeTimer=null,this._removed=!1,this._objectFit=r.style.objectFit,this._transform,this._dpiServerTranslate=!!F.multiwindow&&0!=(F.multiwindow&ee),this._styleObserver=new MutationObserver(function(e){e.forEach(function(e){t.handleStyleChanges(e,r)})}),function(e){e=Number(e).toString(16);return e=e.length<2?"0"+e:e});this.sendVideoElement=function(){this._colorKey=function(){for(var e="";""==e;){var t,n=Math.floor(16*Math.random())+1,i=Math.floor(16*Math.random())+1,r=Math.floor(16*Math.random())+1,e="#"+s(n)+s(i)+s(r),o=Object.keys(D);for(t in o){var a=D[o[t]];if(a&&a._colorKey==e){e="";break}}}return e}();var e,t={cmd:"newVideoElement",videoId:this._id,colorKey:this._colorKey,requestDpiTranslate:this._dpiServerTranslate?1:0,body:{},zoomFactor:ae(this._rawVideo)};for(e in o&&(t.frame=o),this._clientRect)t[e]=this._clientRect[e];for(e in this._bodyClientRect)t.body[e]=this._bodyClientRect[e];""!==this._objectFit&&(t.objectFit=this._objectFit),r.setAttribute("data-vdi_videoid",this._id),r.setAttribute("data-vmw_videoid",this._id),j.send(t,-1)},this.updateVideoElement=function(){var e=this.getBoundingClientRect(r),t=(this._cloaked||(e.right=e.left,e.bottom=e.top),this.getBoundingClientRect(document.body));if(e.left==this._clientRect.left&&e.right==this._clientRect.right&&e.top==this._clientRect.top&&e.bottom==this._clientRect.bottom&&t.left==this._bodyClientRect.left&&t.right==this._bodyClientRect.right&&t.top==this._bodyClientRect.top&&t.bottom==this._bodyClientRect.bottom)return!1;this._clientRect=e,this._bodyClientRect=t;var n,i={cmd:"updateVideoElement",videoId:this._id,requestDpiTranslate:this._dpiServerTranslate?1:0,transform:r.style.transform,body:{}};for(n in o&&(i.frame=o),e)i[n]=e[n];for(n in t)i.body[n]=t[n];""!==this._objectFit&&(i.objectFit=this._objectFit),i.zoomFactor=ae(this._rawVideo),L.debug(i),j.send(i,-1)},this.removeVideoElement=function(){var e={cmd:"removeVideoElement",videoId:t._id};o&&(e.frame=o),L.debug("RemoveVideoElement: "+t._id),j.send(e,-1),delete D[t._id],t._removeTimer=null,t._removed=!0},this.disposeVideo=function(){i=!0},this.cloak=function(){!0!==this._cloaked&&(this._colorKey?(r.style.backgroundColor=this._colorKey,this._styleObserver.observe(r,{attributes:!0,attributeFilter:["style"]}),this._cloaked=!0,this._poll=setInterval(function(){t.updateVideoElement()},500)):L.error("cloak(): Invalid color key."))},this.uncloak=function(){if(!1===this._cloaked)return!1;r.style.backgroundColor="",this._styleObserver.disconnect(),clearInterval(this._poll),this._cloaked=!1,this.updateVideoElement()},this.getBoundingClientRect=function(e){var e=e.getBoundingClientRect(),t=1;return this._dpiServerTranslate||"number"!=typeof window.devicePixelRatio||(t=window.devicePixelRatio),{left:e.left*t,top:e.top*t,bottom:e.bottom*t,right:e.right*t,width:e.width*t,height:e.height*t}},this.onReceiveEvent=function(e){var t;void 0===e||void 0===e.evt?L.error("onReceiveEvent(): evt property is invalid."):this._rawVideo?"loadedmetadata"===e.evt&&(""==this._objectFit&&""!==(t=window.getComputedStyle(this._rawVideo).objectFit)&&(L.debug("onReceiveEvent(): updating objectfit to "+t),this._objectFit=t,this.sendObjectFit()),void 0!==e.videoWidth&&(this._videoWidth=e.videoWidth),void 0!==e.videoHeight&&(this._videoHeight=e.videoHeight),t=new Event(e.evt),this._rawVideo.dispatchEvent(t)):L.error("onReceiveEvent(): Invalid rawVideo object.")},this.sendSrcObject=function(){var e=this._srcObject?this._srcObject.id:"null",t=this._srcObject?this._srcObject.peer:p;j.send({cmd:"updateSrcObject",mediaStreamId:e,videoId:this._id,type:"video",streamPeer:t},-1),this._srcObject?this.cloak():this.uncloak()},this.sendObjectFit=function(){j.send({cmd:"updateObjectFit",videoId:this._id,objectFit:this._objectFit},-1)},Object.defineProperty(r,"srcObject",{get:function(){return t._srcObject},set:function(e){t._removed?L.warn("Setting srcObject of zombie video element: "+t._id):(t._removeTimer&&(clearTimeout(t._removeTimer),t._removeTimer=null),void 0===e&&L.warn("Set video.srcObject to undefined."),L.debug("Setting srcObject for video element: "+t._id),L.debug(e),t._srcObject=e,t.sendSrcObject(),t._srcObject||(i?t.removeVideoElement():(L.debug("srcObject is null, setup removeTimer for "+t._id),t._removeTimer=setTimeout(t.removeVideoElement,5e3))))},configurable:!0}),Object.defineProperty(r,"videoWidth",{get:function(){return t._videoWidth},configurable:!0}),Object.defineProperty(r,"videoHeight",{get:function(){return t._videoHeight},configurable:!0}),Object.defineProperty(r.style,"objectFit",{get:function(){return console.log("keyword defineProperty get objectFit "+t._objectFit),t._objectFit},set:function(e){console.log("keyword defineProperty set objectFit "+e),t._objectFit=e,t.sendObjectFit()},configurable:!0}),Me.prototype.handleStyleChanges=function(e,t){"attributes"===e.type&&"style"===e.attributeName&&(L.debug("video style change in id = "+this._id+", object-fit = "+t.style.objectFit),L.debug(t),this._objectFit!==t.style.objectFit&&(L.debug("change in object-fit. Old = "+this._objectFit+", new = "+t.style.objectFit),this._objectFit=t.style.objectFit,this.sendObjectFit()),this._transform!=t.style.transform)&&(this._transform=t.style.transform,this.updateVideoElement())},this.init=function(){this._clientRect=this.getBoundingClientRect(r),this._bodyClientRect=this.getBoundingClientRect(document.body),se(n),this.sendVideoElement(),this._srcObject&&(L.debug("srcObject already set for video: "+this._id),this.sendSrcObject()),L.debug(r)},this.init()}function H(e){"function"==typeof Ce?(L.info("onVMEvent(): Fire event = "+JSON.stringify(e)),Ce(e)):L.warn("onVMEvent(): setVMEventCallback is not called yet.")}function je(){var a=this,o=null,s=y,w={},d=0,r=null,c=!1,u=void 0,t=!0,n=(Object.defineProperty(this,"state",{get:function(){return s},configurable:!0}),Object.defineProperty(this,"shortPollingIntervalMs",{get:function(){return 500}}),Object.defineProperty(this,"shortPollingTimeout",{get:function(){return 1e4}}),Object.defineProperty(this,"longPollingIntervalMs",{get:function(){return 5e3}}),Object.defineProperty(this,"isHorizonRegistryPresent",{get:function(){return c},set:function(e){c=e},configurable:!0}),Object.defineProperty(this,"sendVdiClientEventsOnError",{get:function(){return t},set:function(e){t=e},configurable:!0}),this.sendLogToWebSocket=function(e,t){return"string"==typeof e&&0!==e.length&&s===_&&(p({cmd:"shimLogToWebSocket",message:e,level:t},-1),!0)},this.isSocketConnected=function(){return s===_},this.isSocketOpen=function(){return!!o&&o.readyState===WebSocket.OPEN},this.init=function(){L.info("RequestManager.init(): Initializing Request Manager."),this.startPolling(500,1e4,this.sendEvents)},this.startPolling=function(e,t,n){var i;L.info("RequestManager.startPolling(): stop the old polling timer(if there is any) and start a new one"),a.stopPolling(),s!==y?L.info("RequestManager.startPolling(): Socket state not disconnected, exiting"):(i=t,L.info("intervalMs "+e+" timeout "+t),r=setInterval(function(){L.info("RequestManager: connectToHorizon"),a.connectToHorizon(),void 0!==i&&(i-=e,c||a.queryHorizonRegistry()),void 0!==i&&i<=0&&(a.stopPolling(),n)&&!0===c&&n()},e))},this.stopPolling=function(){L.info("RequestManager.stopPolling()"),null!==r&&(clearInterval(r),r=null,L.info("Stopped polling websocket"))},this.sendEvents=function(){var e={},e=(e.shimVersion=E,{event:"vdiClientConnected",version:e});try{H(e)}catch(e){L.warn("Catch exception in onVMEvent()"+JSON.stringify(e))}try{H({event:"vdiClientDisconnected",reason:"endpointUnsupported"})}catch(e){L.warn("Catch exception in onVMEvent()"+JSON.stringify(e))}j.startPolling(5e3)},this.queryHorizonRegistry=function(){window.getHorizonClientID().then(function(e){L.info("queryHorizonRegistry(): Horizon Client ID "+e),e&&j&&(j.isHorizonRegistryPresent=!0,L.info("queryHorizonRegistry(): isHorizonRegistryPresent true"))},function(){return L.error("queryHorizonRegistry(): Failed to query Horizon Client ID"),!1})},this.connectToHorizon=function(){s===y&&window.getHorizonWSSPort().then(function(e){"string"!=typeof e||0===e.length?(L.error("connectToHorizon(): Port is not valid"),b("Horizon HTML5 Server port not valid")):(L.info("connectToHorizon(): port is "+e),s=T,(o=new WebSocket("wss://view-localhost:"+e+"/")).binaryType="arraybuffer",o.onopen=h,o.onclose=f,o.onerror=g,o.onmessage=v)},function(){L.error("connectToHorizon(): Failed to receive port number"),b("Failed to receive port number")})},function(){return new Promise(function(e,t){x===k.ELECTRON?(L.error("getWindowHandleByTitle: function called on unsupported browser"),t("function called on unsupported browser")):u=setInterval(function(){i(e,t,u)},500)})}),i=function(t,e,n){var i="function"==typeof window.getHorizonWindowTitle?window.getHorizonWindowTitle():document.title;void 0===i?L.error("getWindowHandleByTitle:: cannot find the window with undefined title"):a.send({cmd:"getHWND",title:i},-1,function(e){void 0===e.error&&void 0!==e.hwnd&&e.hwnd!=I?(L.debug("getWindowHandleByTitle: received window handle"+e.hwnd),clearInterval(n),u=void 0,t(e.hwnd)):L.error("getWindowHandleByTitle:: cannot find the window that matches the title"+e.error)})},l=async function(e,t){e===I&&(L.info("Start polling window from server"),e=await n()),L.info("window handle ="+e),M.hwnd=e,window.getWindowReference=function(){return Promise.resolve(M.hwnd)},H(t)},h=function(){L.info("onWebSocketOpen(): Websocket opened"),j.stopPolling();var e="function"==typeof window.getHorizonWindowTitle?window.getHorizonWindowTitle():document.title;p({cmd:"createInstance",hwnd:M.hwnd,shimVersion:E,shimMinAgentVersion:1,customClipRect:1,allowFeatureChange:1,supportObjectFit:1,supportE911:0,streamBundleWithPeer:1,sdkConfig:Re,appName:de,appType:G,title:e,browser:x},-1,function(t){if(s!=y){t.uid&&L.info("onWebSocketOpen(): ["+t.uid+"] createInstanceDone"),"true"===t.traceEnabled&&L.updateLogLevel(S.DEBUG,S.DEBUG);var e=["agentOsVersion","clientOsVersion","haVersion","hcVersion","shimVersion","webrtcClientVer","webRTCRedirAgentVersion","webRTCRedirClientVersion"],n={};L.logToConsole=!!t.logToConsole,L.debug("VDI Shim: Log to console = "+L.logToConsole),L.debug("VDI createInstance = "+JSON.stringify(t));for(var i=0;i<e.length;i++)t[e[i]]?(n[e[i]]=t[e[i]],L.debug("onWebSocketOpen(): "+e[i]+" = "+t[e[i]])):L.warn("onWebSocketOpen(): Could not find property "+e[i]);t.clientOsVersion?t.clientOsVersion.startsWith("Win")?n.clientPlatform="Windows":t.clientOsVersion.startsWith("mac")?n.clientPlatform="Mac":t.clientOsVersion.startsWith("Lin")?n.clientPlatform="Linux":(L.error("Unknown client os: "+t.clientOsVersion),n.clientPlatform="Unknown"):(L.error("Missing client os information."),n.clientPlatform="Unknown"),L.debug("onWebSocketOpen(): clientPlatform = "+n.clientPlatform);var r={event:"vdiClientConnected",version:n};if(t.hcId&&(r.endpointId=t.hcId,L.debug("onWebSocketOpen(): ClientId = "+t.hcId)),"true"===t.allow&&"Mac"!==n.clientPlatform&&"Unknown"!==n.clientPlatform){s=_,F=t["api-capabilities"]||{},N=t.rtpCapabilities||{},Te=t.callConfigs||[],Array.isArray(t.featuresSupported)?(A=t.featuresSupported,L.info("onWebSocketOpen(): Supported features = "+JSON.stringify(A))):L.warn("onWebSocketOpen(): featureSupported property not valid");try{M.hwnd!==I?H(r):oe(function(){var e=t.hwnd||I;l(e,r)})}catch(e){L.warn("Catch exception in onVMEvent()"+JSON.stringify(e))}a.invokeDeviceChange()}else{try{H(r)}catch(e){L.warn("Catch exception in onVMEvent()"+JSON.stringify(e))}for(var o="",e=["errorCode","errorMsg"],i=0;i<e.length;i++)void 0!==t[e[i]]?(L.debug("onWebSocketOpen(): "+e[i]+": "+t[e[i]]),o+=e[i]+" = "+t[e[i]],i!=e.length-1&&(o+="; ")):L.warn("onWebSocketOpen(): Could not find property "+e[i]);try{H({event:"vdiClientDisconnected",reason:"endpointUnsupported",msg:o})}catch(e){L.warn("Catch exception in onVMEvent()"+JSON.stringify(e))}b("Horizon HTML5 Server connection not allowed")}}})},f=function(){L.info("onWebSocketClose(): Websocket closed"),b("Horizon HTML5 Server connection closed")},g=function(e){L.debug("onWebSocketError(): Websocket error");var t=y;j&&(t=j.state),b("Horizon HTML5 Server connection error: "+e.message),t==T&&(L.debug("Error in connecting socket"),j)&&j.sendVdiClientEventsOnError&&(L.error("Error in connecting to websocket"),j.stopPolling(),j.sendEvents(),j.sendVdiClientEventsOnError=!1)},v=function(e){if("object"==typeof e.data){var t=new Uint8Array(e.data),n=new DataView(e.data),i=n.getInt32(0),r=n.getInt32(36);if(1396920910!=i)L.warn("Unsupport binary data: "+i.toString(16));else{F.getScreens&&F.getScreens&$&&L.warn("New client should return string for getScreen.");for(var o=40,a=[];o+12<t.length;){var s=n.getInt32(o),d=(v=n.getInt32(o+4))*(p=n.getInt32(o+8))*4;if(v<0||p<0||o+12+d>t.length){L.warn("Invalid screen "+v+"X"+p+" offs:"+o+" size:"+d+" len:"+t.length);break}o+=12;var c=new Uint8ClampedArray(t.buffer,o,d),u=new ImageData(c,v,p),l=new Ae(s,"Screen "+s,u);o+=d,a.push(l),L.debug("Screen:"+s+": "+v+"X"+p+" offs:"+o+" size:"+d+" len:"+t.length)}var h=w[r];delete w[r],void 0!==h&&"function"==typeof h.responseCb&&h.responseCb(a)}}else if("string"!=typeof e.data)L.error("onWebSocketMessage(): invalid data type: "+typeof e.data);else{var i=e.data,f=JSON.parse(i);if(L.logToConsole&&console.log("onWebSocketMessage(): "+i),"number"==typeof f.id&&0<f.id){h=w[f.id];if(delete w[f.id],h&&"function"==typeof h.responseCb)if("getScreens"!==f.evt||f.screens)h.responseCb(f);else if(f.error)h.responseCb(f);else{var a=[],g="number"==typeof f.screens?f.screens:1;for(s=1;s<=g;s++){for(var v,p,m=4*(v=100)*(p=100),c=new Uint8ClampedArray(m),b=0;b<m;b+=4)c[b]=81,c[b+1]=144,c[b+2]=201,c[b+3]=255;u=new ImageData(c,v,p),l=new Ae(s,"Screen "+s,u);a.push(l)}h.responseCb(a)}}else if(void 0===f.evt)L.error("onWebSocketMessage(): evt property is invalid");else switch(f.evt){case"version":void 0===f.ver?L.error("onWebSocketMessage(): ver property is invalid."):L.info("onWebSocketMessage(): version = "+f.ver);break;case"negotiationneeded":case"icecandidate":case"icegatheringstatechange":case"iceconnectionstatechange":case"signalingstatechange":case"connectionstatechange":case"addStream":case"ontrack":case"tonechange":case"onreceivers":case"onsenders":case"ontransceivers":case"ondatachannel":case"removeStream":void 0!==f.peer&&void 0!==O[f.peer]?O[f.peer]._onReceiveEvent(f):L.error("onWebSocketMessage(): peerConnection is invalid.");break;case"loadedmetadata":void 0!==f.videoId&&void 0!==D[f.videoId]?D[f.videoId].onReceiveEvent(f):L.error("onReceiveCommand(): Invalid context.");break;case"devicechange":var C=new Event("devicechange");navigator.mediaDevices.dispatchEvent(C);break;case"vdiScreenTopologyChanged":try{H({event:"vdiScreenTopologyChanged"})}catch(e){L.warn("Catch exception in onVMEvent()"+JSON.stringify(e))}break;case"featuresSupportedChanged":for(var b in f.features){var S=f.features[b],y=A.indexOf(S.feature);"+"==S.op&&y<0?A.push(S.feature):"-"==S.op&&0<=y&&A.splice(y,1)}H({event:"vdiFeatureSupportedChanged",reason:f.reason||"endpoint changes supported features"});break;case"vdiE911InfoChanged":f.event="vdiE911InfoChanged",H(f);break;case"powerevent":C=f.eventData;R(C);break;case"dconopen":case"dconbufferedamountlow":case"dconclosing":case"dconerror":case"dconmessage":case"dconclose":void 0!==f.peer&&void 0!==O[f.peer]?O[f.peer]._onReceiveDataChannelEvent(f):L.error("Datachannel event: peerConnection is invalid.")}}},p=function(e,t,n,i){var r;t=null==t?-1:t,void 0===e?(r=new DOMException("Invalid command, operation cancelled","OperationError"),n?n({error:r}):L.error(r)):-1===t||O[t]?(e.feature=3,e.commandId=C[e.cmd],e.id=++d,e.peer=t,e.browser=x,e.player=1,"createInstance"===e.cmd&&(e.uid=2147483647&Date.now(),L.info("sendHelper(): ["+e.uid+"] createInstance")),"createInstance"!==e.cmd&&s!==_||(n&&(i?n():w[e.id]={id:e.id,webCommandId:e.commandId,responseCb:n}),o.send(JSON.stringify(e)))):(r=new DOMException("peer Id is not found, operation cancelled","OperationError"),n?n({error:r}):L.error(r))},m=(this.send=function(e,t,n,i){"getStats"!=e.cmd&&L.debug(JSON.stringify(e)),p(e,t,n,i)},this.invokeDeviceChange=function(){oe(function(){L.info("invokeDeviceChange(): Fire devicechange event");var e=new Event("devicechange");navigator.mediaDevices.dispatchEvent(e)})},this.sendBinary=function(e){s===_?o.send(e):L.warn("sendBinary(): WSS is not connected.")},function(){var e=Math.random()*Number.MAX_SAFE_INTEGER,e=Math.floor(e),e="v=0\no=- "+String(e)+" 2 IP4 127.0.0.1\n";return(e+="s=-\n")+"t= 0 0\n"+"a=msid-semantic: WMS"}),R=function(e){if(e==Y)try{L.info("onPowerEvent(): received suspend"),H({event:"vdiRequestEndCalls",reason:"vdiClientPowerEventSuspend"})}catch(e){L.warn("Catch exception in onVMEvent()"+JSON.stringify(e))}else if(e==Z){L.info("onPowerEvent(): received resume");try{H({event:"vdiRequestEndCalls",reason:"vdiClientPowerEventResume"})}catch(e){L.warn("Catch exception in onVMEvent()"+JSON.stringify(e))}}else L.error("powerevent: Invalid param.")},b=function(i,e){L.info("cleanup: Clean up all script resources");var t=s;if(s=e?T:y,Object.keys(w).forEach(function(e){var t,n=new DOMException(i,"OperationError");w[e].responseCb?w[e].webCommandId===C.createOffer||w[e].webCommandId===C.createAnswer?(t={desc:{sdp:m()}},L.debug("Resolving createoffer/createAnswer with desc "+t.desc),w[e].responseCb(t)):w[e].responseCb({error:n}):L.error(n)}),w={},o&&o.readyState===WebSocket.OPEN&&s==y&&o.close(),o=null,Object.keys(O).forEach(function(e){O[e].cleanUp()}),O={},Object.keys(P).forEach(function(e){e=P[e];e.onended&&e.onended()}),P={},pe={},A=[],V=[],we={},N={},Te=[],t===_){try{H({event:"vdiClientDisconnected",reason:"endpointDisconnected"})}catch(e){L.warn("Catch exception in onVMEvent()"+JSON.stringify(e))}a.invokeDeviceChange()}F={}}}function Ae(e,t,n,i){var r=this;this.id=e,this.name=t,this.image=n,this.icon=void 0,this.bounds=i||{x:0,y:0,width:0,height:0},this.getId=function(){return L.debug("getId "+r.id),r.id},this.getDeviceId=function(){return L.debug("getDeviceId "+r.id),We+"-"+r.id},this.getType=function(){return Le.Monitor},this.getPreview=function(e,t,n){return L.debug("ScreensAsync getPreview "),new Promise(function(e,t){t()})},this.getPreviewAsync=function(e,t,n){return L.debug("ScreensAsync getPreviewAsync"),n?new Promise(function(e,t){var n=document.createElement("canvas");n.getContext("2d").putImageData(r.image,0,0),e({data:n.toDataURL().replace("data:image/png;base64,","")})}):new Promise(function(e,t){e(r.image)})},this.getDescription=function(){return L.debug("ScreensAsync getDescription "),r.name},this.getIcon=function(e,t){return L.debug("ScreensAsync getIcon"),new Promise(function(e,t){e(r.image)})},this.getAppName=function(){return L.warn("getAppName: not support."),null},this.getBounds=function(){return(r.bounds.width<=0||r.bounds.height<=0)&&L.warn("getBounds: invalid bounds."),r.bounds}}function Ve(e,t){var s=this,d=(this.id=R,this.binaryType="arraybuffer",this.bufferedAmount=0,this.maxPacketLifeTime=0,this.maxRetransmits=0,this.negotiated=!1,this.ordered=!0,this.protocol="",this.readyState=!1,this.reliable=!0,this.label="",t),c=e,n=0;Object.defineProperty(this,"bufferedAmountLowThreshold",{get:function(){return n},set:function(e){void 0===e&&L.warn("RTCDataChannel bufferedAmountLowThreshold value undefined."),s.id!=R&&j.send({cmd:"dataChannelCmd",hint:"setBufferAmountLowThreshold",dataChannelCmd:h.SET_BUFFER_AMOUNT_LOW_THRESHOLD,dataChannelId:s.id,shimId:d,label:s.label,threshold:e},c),n=e},configurable:!0}),this._createChannel=function(e,t){s.id==R?(s.label=e,j.send({cmd:"dataChannelCmd",hint:"create",label:e,shimId:d,options:t,dataChannelCmd:h.CREATE},c)):L.warn("RTCDataChannel.create channel "+s.id+" already existed")},this._updateChannel=function(e){s.id=e.id,s.binaryType=e.binaryType,s.bufferedAmount=e.bufferedAmount,s.maxPacketLifeTime=e.maxPacketLifeTime,s.maxRetransmits=e.maxRetransmits,s.negotiated=e.negotiated,s.ordered=e.ordered,s.protocol=e.protocol,s.readyState=e.readyState,s.reliable=e.reliable,s.label=e.label},this.send=function(e){if(s.id!=R)if(e instanceof Blob){e.arrayBuffer();e.arrayBuffer().then(function(e){for(var t=new Uint8Array(e),n=t.byteLength,i="",r=0;r<n;r++)i+=String.fromCharCode(t[r]);j.send({cmd:"dataChannelCmd",label:s.label,dataChannelId:s.id,shimId:d,dataChannelCmd:h.SEND,hint:"send",data:window.btoa(i),dataType:"binary",dataLen:n},c)})}else{var t=null,n=0,i="binary";if("string"==typeof e||e instanceof String)t=window.btoa(e),i="string",n=e.length;else{for(var r=new Uint8Array(e),n=r.byteLength,o="",a=0;a<n;a++)o+=String.fromCharCode(r[a]);o&&(t=window.btoa(o))}t?j.send({cmd:"dataChannelCmd",label:s.label,dataChannelId:s.id,shimId:d,hint:"send",dataChannelCmd:h.SEND,data:t,dataType:i,dataLen:n},c):L.warn("RTCDataChannel.send: Unsupported data format")}else L.error("RTCDataChannel.send: invalid datachannel id.")},this.close=function(){O[c]?(j.send({cmd:"dataChannelCmd",hint:"close",label:s.label,dataChannelId:s.id,shimId:d,dataChannelCmd:h.CLOSE},c),O[c]._untrackDataChannel(s.id,d)):L.warn("RTCDataChannel.close: peerconnection is untracked.")},this._onReceiveEvent=function(e){if(void 0===e||void 0===e.evt)L.error("_onReceiveEvent(): evt property is invalid.");else{var t={target:this};switch(e.evt){case"dconopen":this.onopen&&(this._updateChannel(e.channel),this.onopen(t));break;case"dconbufferedamountlow":this.onbufferedamountlow&&this.onbufferedamountlow(t);break;case"dconerror":this.onerror&&this.onerror(t);break;case"dconmessage":if(this.onmessage){if("string"===e.dataType)t.data=window.atob(e.data);else{var n=window.atob(e.data),i=n.length;t.data=new Uint8Array(i);for(var r=0;r<i;r++)t.data[r]=n.charCodeAt(r)}this.onmessage(t)}break;case"dconclose":this.onclose&&this.onclose(t)}}}}var U=function(e){var n=this,i={};this._objectId=++he,this.id="",this.peer=p,this.active=!1,this.ended=!1,this.cloned=null,this.track=[],this.createMediaStream=function(e){void 0===e||Array.isArray(e)?(this.id="Stream#"+n._objectId,L.debug("MediaStream.createMediaStream() with "+n.id+"MediaStreamTracks num ="+!(e=e)?0:e.length),this.active=!1,this.track=[],void 0!==e&&e.forEach(function(e){e&&e instanceof B&&n.track.push(e)}),j.send({cmd:"createMediaStream",sid:n.id,tracks:n.track},-1)):L.debug("MediaStream.createMediaStream failed with invalid parameter")},this._create=function(e,t){this.id=e.id,this.peer=t,this.active=e.active,this.track=[],e.track.forEach(function(e){var t=new B;t._create(e),n.track.push(t)}),pe[this.id]=this},this.dispatchEvent=function(t){L.debug("MediaStream.dispatchEvent(): "+t.type),void 0!==i[event.type]&&i[event.type].listeners.forEach(function(e){e(t)}),"active"===t.type?this.onactive&&this.onactive(t):"addtrack"===t.type?this.onaddtrack&&this.onaddtrack(t):"inactive"===t.type?this.oninactive&&this.oninactive(t):"removetrack"===t.type?this.onremovetrack&&this.onremovetrack(t):L.debug("MediaStream.dispatchEvent(): Undefined event: ",t.type)},this.addEventListener=function(e,t){L.debug("MediaStream.addEventListener(): "+e),"function"!=typeof t?L.error("MediaStream.addEventListener(): The listener handler is invalid."):"string"!=typeof e?L.error("MediaStream.addEventListener(): The event name is invalid."):(void 0===i[e]&&(i[event]={listeners:[]}),i[e].listeners.push(t))},this.removeEventListener=function(e,t){L.debug("MediaStream.removeEventListener(): "+e),void 0===i[e]?L.error("MediaStream.removeEventListener(): Event does not exist = "+e):i[e].listeners=i[e].listeners.filter(function(e){return e.toString()!==t.toString()})},this.addTrack=function(t){L.debug("MediaStream.addTrack(): "+t.id);var n=!1;this.track.forEach(function(e){e.id==t.id&&(n=!0)}),n||this.track.push(t)},this.removeTrack=function(e){L.debug("MediaStream.removeTrack(): "+e.id);for(var t=0;t<this.track.length;t++)if(this.track[t].id==e.id)return void this.track.splice(t,1)},this.removeTrackById=function(e){L.debug("MediaStream.removeTrackById(): "+e);for(var t,n=0;n<this.track.length;n++)if(this.track[n].id==e)return t={type:"removetrack",track:this.track[n]},this.dispatchEvent(t),void this.track.splice(n,1)},this.getTracks=function(){return L.debug("["+this.id+"]MediaStream.getTracks(): "+this.track.length),L.debug(this.track),this.track},this.getAudioTracks=function(){var t=[];return this.track.forEach(function(e){"audio"==e.kind&&t.push(e)}),L.debug("MediaStream.getAudioTracks(): Audio tracks = "+t.length),t},this.getVideoTracks=function(){var t=[];return this.track.forEach(function(e){"video"==e.kind&&t.push(e)}),L.debug("MediaStream.getVideoTracks(): Video tracks = "+t.length),t},this.getTrackById=function(t){var n=null;return L.debug("MediaStream.getTrackById(): "+t),this.track.forEach(function(e){e.id==t&&(n=e)}),n},this.clone=function(){if(L.debug("MediaStream.clone(): Clone mediaStream = "+this.id),this.cloned)return L.debug("MediaStream.clone(): Use cached clone: "+this.cloned.id),this.cloned;var e=new U,t=ke(this.id,"StreamCln#",e._objectId),n=[];e._create({id:t,active:this.active,track:[]},this.peer);for(var i=0;i<this.track.length;i++){var r=this.track[i]._internalClone();e.track.push(r),n.push({tid:this.track[i].id,cid:r.id})}return j.send({cmd:"mediaStreamClone",sid:this.id,cid:e.id,streamPeer:this.peer,trackClones:n},-1),L.debug("MediaStream.clone(): MediaStream cloned = "+e.id+" from = "+this.id),e}},B=function(){var n={};this._objectId=++fe,this.remote=!1,this.readonly=!1,this.contentHint="",this.id="",this.kind="",this.label="",this.muted=!1,this.readyState="",this._enabled=!1,Object.defineProperty(this,"enabled",{get:function(){return this._enabled},set:function(e){void 0===(this._enabled=e)&&L.warn("Set MediaStreamTrack.enabled to undefined."),j.send({cmd:"trackEnabled",trackId:this.id,enabled:e},-1)},configurable:!0}),this._create=function(e){this._update(e),P[this.id]=this},this._update=function(e){e&&(this.contentHint=e.contentHint,this.id=e.id,this.kind=e.kind,this.label=e.label,this._enabled=e.enabled,this.muted=e.muted,this.readyState=e.readyState,this.remote=e.remote,this.readonly=e.readonly,this.settings=e.settings)},this.dispatchEvent=function(e){"started"==e.type?this.onstarted&&this.onstarted(e):"ended"==e.type?this.onended&&this.onended(e):"isolationchange"==e.type?this.onisolationchange&&this.onisolationchange(e):"mute"==e.type?this.onmute&&this.onmute(e):"unmute"==e.type?this.onunmute&&this.onunmute(e):"overconstrained"==e.type?this.onoverconstrained&&this.onoverconstrained(e):L.debug("Undefined media track evt: ",e.type)},this.addEventListener=function(e,t){L.debug("MediaStreamTrack.addEventListener(): "+e),"function"!=typeof t?L.error("MediaStreamTrack.addEventListener(): The listener handler is invalid."):"string"!=typeof e?L.error("MediaStreamTrack.addEventListener(): The event name is invalid."):(void 0===n[e]&&(n[event]={listeners:[]}),n[e].listeners.push(t))},this.removeEventListener=function(e,t){L.debug("MediaStreamTrack.removeEventListener(): "+e),void 0===n[e]?L.error("MediaStreamTrack.removeEventListener(): Event does not exist = "+e):n[e].listeners=n[e].listeners.filter(function(e){return e.toString()!==t.toString()})},this.applyConstraints=function(e){var r=this.id,o=this.settings;return L.debug("MediaStreamTrack.applyConstraints()"),new Promise(function(t,n){var i=new DOMException("applyConstraints failed","OperationError");j.send({cmd:"applyConstraints",constraints:e,trkid:r},-1,function(e){void 0===e.error?(void 0!==e.settings.width&&void 0!==e.settings.height&&(o.width=e.settings.width,o.height=e.settings.height),t()):n(i)})})},this.getConstraints=function(){L.debug("MediaStreamTrack.getConstraints(): Not implemented")},this.getCapabilities=function(){L.debug("MediaStreamTrack.getCapabilities(): Not implemented")},this.getSettings=function(){return L.debug("MediaStreamTrack.getSettings(): "+JSON.stringify(this.settings)),this.settings},this.stop=function(){j.send({cmd:"mediaTrkStop",trkid:this.id})},this._internalClone=function(){var e=new B,t=ke(this.id,"TrackCln#",e._objectId);return e._create({id:t,kind:this.kind,label:this.label,enabled:this.enabled,muted:this.muted,readyState:this.readyState,remote:this.remote,readonly:this.readonly,settings:this.settings}),e},this.clone=function(){var e=this._internalClone();return j.send({cmd:"mediaTrackClone",tid:this.id,cid:e.id},-1),e}},Fe=function(){this.stats={},this._create=function(e){this.stats=e,this.type=e.type,this.id=e.id,this.timestamp=e.timestamp,delete this.stats.type,delete this.stats.id,delete this.stats.timestamp},this.names=function(){return Object.keys(this.stats)},this.stat=function(e){return this.stats[e]}},z=function(){function e(e){var t,n=[];for(t in r){var i=r[t];i.type&&i.type===e&&n.push(i)}return n}var n={},r={};this.update=function(e){var t;(t=e)&&("+"===t.op&&(n=null,r={}),t.track&&(n?Object.keys(t.track).forEach(function(e){"enabled"!=e?n[e]=t.track[e]:n._enabled=t.track[e]}):(n=new B)._update(t.track)),t.sources)&&t.sources.forEach(function(t){var n,e=t.source;"-"===t.op?delete r[e]:("+"===t.op&&(delete r[e],r[e]={}),n=r[e],Object.keys(t).forEach(function(e){n[e]=t[e]}))})},Object.defineProperty(this,"track",{get:function(){return n},configurable:!0}),this.getContributingSources=function(){return e(a)},this.getSynchronizationSources=function(){return e(o)}},J=(z.getCapabilities=function(e){if(L.info("RTCRtpReceiver.getCapabilities for kind = "+e),N.receiver&&N.receiver[e])return N.receiver[e]},function(e){var i=this,n=!1,r=(this._cap=F.sender||0,e),o=null,a=null,t=l,s="",d=null,c=null,u=null;this.initPlanB=function(e,t){L.debug("RtcRtpSender.initPlanB"),n=!1,o=t,s=e?e.id:"",a=e,d=new Ne(i)},this.initUnifiedPlan=function(e,t){e?(n=!0,c=e,d=new Ne(i),t&&t.sendEncodings):L.error("RTCRtpSender.initUnifiedPlan: Invalid transceiver")},Object.defineProperty(this,"dtmf",{get:function(){return n?(u||(u=new Pe).initUnifiedPlan(r.id,c,this,a),u):r?r.createDTMFSender(a):null},configurable:!0}),Object.defineProperty(this,"rtcpTransport",{get:function(){L.debug("RTCRtpSender.rtcpTransport getter: Not implemented")},configurable:!0}),Object.defineProperty(this,"track",{get:function(){return L.debug("RTCRtpSender.track Transceiver="+(c?c.id:"")+")"),a},configurable:!0}),Object.defineProperty(this,"transport",{get:function(){L.debug("RTCRtpSender.transport getter: Not implemented")},configurable:!0}),Object.defineProperty(this,"id",{get:function(){return L.debug("RTCRtpSender.id:"+s),s},configurable:!0}),Object.defineProperty(this,"proxyState",{get:function(){return t},configurable:!0}),this.setTrack=function(e,t){a=e,o=t},this.removeTrack=function(){a?r?(j.send({cmd:"removeTrack",transceiverId:c?c.id:"",senderId:s},r.id),a=d=null):L.error("RTCRtpSender.removeTrack: invalid peer object."):L.error("RTCRtpSender.removeTrack: track is already removed.")},this.update=function(e){if(r)if(e){if(c)e.id?s=e.id:L.error("RTCRtpSender.update invalid id");else if(s!=e.id||!d)return void L.error("RTCRtpSender.update Invalid state detected, self = "+JSON.stringify(i));e.track&&a&&a._update(e.track),e.parameters&&d&&d.update(e.parameters),t=v}else L.error("RTCRtpSender.update: invalid sender object.");else L.error("RTCRtpSender.update: invalid peer object.")},this.getParameters=function(){return L.debug("RTCRtpSender.getParameters"),r?(t===l&&L.warn("RTCRtpSender.getParameters without peer, use cached value and the behavior will be undefined."),d):(L.error("RTCRtpSender.getParameters: invalid peer object."),null)},this.setParameters=function(e){return L.debug("RTCRtpSender.setParameters"),new Promise(function(n,i){r?j.send({cmd:"senderCmd",senderCmd:f,hint:"setParameter",transceiverId:c?c.id:"",senderId:s,parameters:e.modifiedValues()},r.id,function(e){var t;void 0===e.error?(t=Array.isArray(e.senders)&&0<e.senders.length?e.senders[0]:null)&&t.id==s?(d.update(t.parameters),n()):(L.debug("RTCRtpSender.setParameters invaild response."),t=new DOMException("setParameters failed","OperationError"),i(t)):i(e.error)}):i(new DOMException("RTCRtpSender.setParameters: invalid peer object","OperationError"))})},this.getStats=function(){L.debug("RTCRtpSender.getStats: Not implemented")},this.replaceTrack=function(e){return L.debug("RTCRtpSender.replaceTrack"),new Promise(function(t,n){r?(j.send({cmd:"senderCmd",senderCmd:g,hint:"replaceTrack",transceiverId:c?c.id:"",senderId:s,sid:o?o.id:"",trackId:a?a.id:"",newTrackId:e?e.id:""},r.id,function(e){void 0===e.error?t():n(e.error)}),a=e,d=new Ne(i)):n(new DOMException("RTCRtpSender.replaceTrack no peer","OperationError"))})}}),Ne=(J.getCapabilities=function(e){if(L.info("RTCRtpSender.getCapabilities for kind = "+e),N.sender&&N.sender[e])return N.sender[e]},function(t){function e(e){t&&t.proxyState!=l?L.debug("RTCRtpSendParameters."+e):L.warn("RTCRtpSendParameters."+e+": sender is pending.")}var n,i,r,o=[],a=0;o[0]=new xe;Object.defineProperty(this,"degradationPreference",{get:function(){return e("degradationPreference getter"),n},set:function(e){n=e,a|=s},configurable:!0}),Object.defineProperty(this,"encodings",{get:function(){return e("encodings getter"),o},set:function(e){o=e,a|=c},configurable:!0}),Object.defineProperty(this,"priority",{get:function(){return e("priority getter"),i},set:function(e){i=e,a|=X},configurable:!0}),Object.defineProperty(this,"transactionId",{get:function(){return e("transactionId getter"),r},set:function(e){r=e,a|=K},configurable:!0}),this.update=function(e){0==(a&s)&&(n=e.degradationPreference),0==(a&c)&&e.encodings&&(o=[],e.encodings.forEach(function(e){var t=new xe;t.update(e),o.push(t)})),0==(a&X)&&(i=e.priority),0==(a&K)&&(r=e.transactionId)},this.modifiedValues=function(){var e={},t=((a&s||void 0!==n)&&(e.degradationPreference=n),[]);return o.forEach(function(e){e=e.modifiedValues();Object.keys(e).length&&t.push(e)}),t.length&&(e.encodings=t),(a&X||void 0!==i)&&(e.priority=i),a=0,e}}),xe=function(){var t,n,i,r,o,a,s,d=!0,c=0;Object.defineProperty(this,"active",{get:function(){return d},set:function(e){d=e,c|=u.RPF_ACTIVE},configurable:!0}),Object.defineProperty(this,"codecPayloadType",{get:function(){return t},configurable:!0}),Object.defineProperty(this,"dtx",{get:function(){return n},set:function(e){dtx=e,c|=u.RPF_DTX},configurable:!0}),Object.defineProperty(this,"maxBitrate",{get:function(){return i},set:function(e){i=e,c|=u.RPF_MAXBITRATE},configurable:!0}),Object.defineProperty(this,"maxFramerate",{get:function(){return r},set:function(e){r=e,c|=u.RPF_MAXFRAMERATE},configurable:!0}),Object.defineProperty(this,"ptime",{get:function(){return o},set:function(e){o=e,c|=u.RPF_PTIME},configurable:!0}),Object.defineProperty(this,"rid",{get:function(){return a},set:function(e){a=e,c|=u.RPF_RID},configurable:!0}),Object.defineProperty(this,"scaleResolutionDownBy",{get:function(){return s},set:function(e){s=e,c|=u.RPF_SCALE_RESOLUTION_DOWNBY},configurable:!0}),this.update=function(e){0==(c&u.RPF_ACTIVE)&&(d=e.active),0==(c&u.RPF_CODEPAYLOADTYPE)&&(t=e.codecPayloadType),0==(c&u.RPF_DTX)&&(n=e.dtx),0==(c&u.RPF_MAXBITRATE)&&(i=e.maxBitrate),0==(c&u.RPF_MAXFRAMERATE)&&(r=e.maxFramerate),0==(c&u.RPF_PTIME_)&&(o=e.ptime),0==(c&u.RPF_RID)&&(a=e.rid),0==(c&u.RPF_SCALE_RESOLUTION_DOWNBY)&&(s=e.scaleResolutionDownBy)},this.modifiedValues=function(){var e={};return(c&u.RPF_ACTIVE||void 0!==d)&&(e.active=d),(c&u.RPF_CODEPAYLOADTYPE||void 0!==t)&&(e.codecPayloadType=t),(c&u.RPF_DTX||void 0!==n)&&(e.dtx=n),(c&u.RPF_MAXBITRATE||void 0!==i)&&(e.maxBitrate=i),(c&u.RPF_MAXFRAMERATE||void 0!==r)&&(e.maxFramerate=r),(c&u.RPF_PTIME||void 0!==o)&&(e.ptime=o),(c&u.RPF_RID||void 0!==a)&&(e.rid=a),(c&u.RPF_SCALE_RESOLUTION_DOWNBY||void 0!==s)&&(e.scaleResolutionDownBy=s),c=0,e}},Le={Monitor:1,Window:2,Camera:3},We="VDI_Mon",h={CREATE:1,SEND:2,SET_BUFFER_AMOUNT_LOW_THRESHOLD:3,CLOSE:4};return{initSDK:function(e,t,n,i){if("function"!=typeof n)return L.error("initSDK(): The event callback function is not valid."),!1;L.info("setVMEventCallback(): Set event callback"),Ce=n,de=t||"",r=e,L.info("init(): VMware VDI shim version = "+E),i&&(Re=i);n=1;return i&&!isNaN(i.numOfCallConfigs)&&(n=t=(t=0<(t=parseInt(Number(i.numOfCallConfigs)))?t:1)<=3?t:3),Re.numOfCallConfigs=n,"function"==typeof window.getWindowReference?window.getWindowReference().then(function(e){L.info("init(): HWND: "+e),M.hwnd=e,(j=new je).init()},function(e){L.error("init(): Failed to retrieve window handle: "+e.message)}):(L.info("init() webapp with HWND: 0"),M.hwnd=I,(j=new je).init()),!0},getCallConfig:function(e){return Te[e]},newPeerConnection:function(e,t){return this.newPeerConnectionEx(e,t)},newPeerConnectionEx:function(e,t,n){if(j){if(j.isSocketConnected()){var i=new Ie(e);if(F.sender)i.createOffer=i.createOfferV1,i.createAnswer=i.createAnswerV1,i.setRemoteDescription=i.setRemoteDescriptionV1,i.setLocalDescription=i.setLocalDescriptionV1,i.addIceCandidate=i.addIceCandidateV1,i.getStats=i.getStatsV1,i.addTrack=i.addTrackImplV1,i.removeTrack=i.removeTrackImplV1,i.getSenders=i.getSendersImplV1,i.getTransceivers=i.getTranceiversImplV1,i.addTransceiver=i.addTransceiverImplV1,F.pcCapability&ne&&(i.setConfiguration=i.setConfigurationImpl),F.pcCapability&te&&(i.restartIce=i.restartIceImpl);else{if(i.isUnifiedPlan())throw L.error("createPeerConnection failed due to endpoint does not support unified plan"),"endpoint does not support unified plan";i.createOffer=i.createOfferV0,i.createAnswer=i.createAnswerV0,i.setRemoteDescription=i.setRemoteDescriptionV0,i.setLocalDescription=i.setLocalDescriptionV0,i.addIceCandidate=i.addIceCandidateV0,i.getStats=i.getStatsV0}return i.createDataChannel=i.createDataChannelImplV1,O[i.id]=i,j.send({cmd:"createPeerConnection",arg1:e,arg2:t,callConfig:n},i.id),L.debug("createPeerConnection(): Create peer: "+i.id),i}L.error("createPeerConnection: WebSocket is not in connected state")}else L.error("createPeerConnection: gRequestManager is not created yet.")},newMediaStream:function(e){var t=new U;return t.createMediaStream(e),t},getDisplayMedia:function(e){return this.getDisplayMediaEx(e)},getDisplayMediaEx:function(e,t){if(j.isSocketConnected())return new Promise(function(n,i){L.debug("getDisplayMediaShim(): Constraints = "+JSON.stringify(e)),j.send({cmd:"getDisplayMediaShim",constraints:e,callConfig:t},-1,function(e){var t;void 0===e.error?((t=new U)._create(e.stream,p),L.debug("getDisplayMediaShim(): Media ="+t.id),n(t)):i(e.error)})});L.error("getDisplayMediaShim: WebSocket is not in connected state")},getUserMedia:function(e){return this.getUserMediaEx(e)},getUserMediaEx:function(e,t){if(!j.isSocketConnected())return Promise.reject({name:"NotFoundError",message:"WebSocket is not in connected state"});if(void 0!==e.video&&void 0!==e.video.mandatory&&void 0!==e.video.mandatory.sourceId&&void 0!==ye[e.video.mandatory.sourceId]){var n=0,i=0,r=0,o=!1,a=e.video.mandatory.sourceId,s=e.video.mandatory.minWidth,d=e.video.mandatory.maxWidth,c=e.video.mandatory.minHeight,u=e.video.mandatory.maxHeight,l=e.video.mandatory.maxFrameRate,h=s,f=c,g={width:0,height:0},v={width:0,height:0},a=(ye[a].forEach(function(e){(void 0===s||e.width>=s)&&(void 0===d||e.width<=d)&&(void 0===c||e.height>=c)&&(void 0===u||e.height<=u)&&(void 0===l||e.fps>=l)?(e.width*e.height>g.width*g.height&&(g=e),h&&f&&h*e.height==f*e.width&&e.width*e.height>v.width*v.height&&(v=e)):(void 0!==s&&e.width>=s||void 0!==d&&e.width>=d)&&(o=!0)}),0<v.width?v:g);if(a&&(n=a.width,i=a.height,r=a.fps),0<n&&0<i&&0<r)L.debug("Constraints: "+JSON.stringify(e)+" ==> "+n+"x"+i+" @"+r+":"+(l||"undefined")),l&&(e.video.mandatory.origFps=l),e.video.mandatory.maxFrameRate=r,e.video.mandatory.maxWidth=e.video.mandatory.minWidth=n,e.video.mandatory.maxHeight=e.video.mandatory.minHeight=i;else{if(!o)return L.debug("getUserMediaShim(): constraints does not match."),void reject({name:"OverconstrainedError",message:null});L.debug("getUserMediaShim(): low resolution video forward to client.")}}return new Promise(function(i,r){j.send({cmd:"getUserMediaShim",constraints:e,callConfig:t},-1,function(e){var t,n;void 0===e.error?(t=null,void 0!==e.clone&&((t=new U)._create(e.clone,p),L.debug("Media cloned:"+t.id)),(n=new U)._create(e.stream,p),n.cloned=t,L.debug("Media:"+n.id),i(n)):(new DOMException("Abort","AbortError"),r(e.error))})})},enumerateDevices:function(){return j.isSocketConnected()?new Promise(function(e,n){j.send({cmd:"enumDevices"},-1,function(t){void 0===t.error?(e(t.devices),void 0!==t.caps&&Object.keys(t.caps).forEach(function(e){ye[e]=t.caps[e]})):n("enumDevices cancelled.")})}):(L.info("enumerateDevicesShim(): Use fallback mode."),new Promise(function(t,n){be.call(navigator.mediaDevices).then(function(e){t(e),j.isSocketConnected()&&(L.info("enumerateDevicesShim(): [Resolve] Fallback cancelled. Invoke device change."),j.invokeDeviceChange())},function(e){j.isSocketConnected()?(L.info("enumerateDevicesShim(): [Reject] Fallback cancelled. Invoke device change."),t([]),j.invokeDeviceChange()):n(e)})}))},onVideoCreated:function(e,t){if(j.isSocketConnected()){L.debug("newVideoElement: New video element from app.");for(var n=Object.keys(D),i=0;i<n.length;i++){var r=n[i];if(D[r]._rawVideo===e)return void L.debug("newVideoElement(): Video already found")}t=new Me(e,t);D[t._id]=t,e._context=t}else L.error("newVideoElement: WebSocket is not in connected state")},onAudioCreated:function(e,t){if(j.isSocketConnected()){L.debug("newAudioElement(): A new audio element created.");for(var n=Object.keys(Se),i=0;i<n.length;i++){var r=n[i];if(Se[r]._rawAudio===e)return void L.debug("newAudioElement(): Audio already found")}t=new De(e,t);Se[t._id]=t,e._context=t}else L.error("newAudioElement: WebSocket is not in connected state")},onVideoDisposed:function(e,t){e&&e._context&&e._context.disposeVideo();e=e&&e._context?e._context._id:void 0;L.info("disposeElement video id="+e)},onAudioDisposed:function(e,t){e&&e._context&&e._context._id;L.info("disposeElement audio id="+_id)},playRingtone:function(e,r,t){var o,a;j.isSocketConnected()?r?(e,L.debug("playNotifyAudio(): id = "+e+" src = "+r+" loop = "+t),void 0===(o=i[e])&&(o=le++,i[e]=o),j.send({cmd:"notifyAudio",action:"play",src:r,audid:o,loop:t},-1),(a=new XMLHttpRequest).open("GET",r,!0),a.responseType="arraybuffer",a.onreadystatechange=function(){var e,t,n,i;a.readyState==XMLHttpRequest.DONE&&200==a.status?(e=16+a.response.byteLength,(t=new Uint8Array(16))[0]=65,t[1]=78,t[2]=84,t[3]=70,t[4]=e>>24&255,t[5]=e>>16&255,t[6]=e>>8&255,t[7]=255&e,t[8]=o>>24&255,t[9]=o>>16&255,t[10]=o>>8&255,t[11]=255&o,n=new Uint8Array(e),i=new Uint8Array(a.response),n.set(t,0),n.set(i,16),j.sendBinary(n),L.debug("onreadystatechange(): Send "+e+"bytes")):L.debug("onreadystatechange(): Download "+r+" status = "+a.status)},a.send()):L.error("playNotifyAudio(): src cannot be null or undefined"):L.error("playNotifyAudio(): WebSocket is not in connected state")},pauseRingtone:function(e){var t;j.isSocketConnected()?(L.debug("pauseNotifyAudio(): id = "+e),void 0===(t=i[e])?L.warn("pauseNotifyAudio(): id = "+e+" did not play yet."):j.send({cmd:"notifyAudio",action:"pause",audid:t},-1)):L.error("playNotifyAudio: WebSocket is not in connected state")},setVideoClipRegion:function(e,t,n){L.debug("setVideoClipRegion: "+e+", "+JSON.stringify(t)),j.isSocketConnected()?(e={cmd:"customClipRect",op:e?0:1,clip:JSON.parse(JSON.stringify(t))},(t=_e(n))&&(se(n),e.frame=t),j.send(e,-1)):L.error("setVideoClipRegion: WebSocket is not in connected state.")},getReceiverCapabilities:function(e){return L.debug("getCapabilitiesShim"),z.getCapabilities(e)},setSinkId:function(e,t){var n;j.isSocketConnected()?(void 0===(n=i[e])&&(n=le++,i[e]=n),L.debug("setSinkId id = "+n+" srcId = "+e+" Value = "+t),j.send({cmd:"setSinkId",deviceId:t,audioId:n,srcId:e,context:"global"},-1,function(e){})):L.error("setSinkId: WebSocket is not in connected state")},setPrimarySinkId:function(e){L.debug("setDefaultSinkId = "+e),j.isSocketConnected()?j.send({cmd:"setDefaultSinkId",deviceId:e},-1):L.error("setDefaultSinkId: WebSocket is not in connected state")},isFeatureSupported:function(e){var t;return"string"!=typeof e?(L.debug("isFeatureSupported(): Invalid feature parameter"),!1):!(!j||j.state!==_)&&("datachannel"===e?F.datachannel?1==F.datachannel||(L.debug("isFeatureSupported(): disable datachannel by settings."),!1):(L.debug("isFeatureSupported(): disable datachannel for old client."),!1):(t=!1,(t=Array.isArray(A)&&-1!=A.indexOf(e)?!0:t)||L.debug("isFeatureSupported(): Input feature string not supported = "+e),t))},getScreensInfo:function(){if(L.debug("getScreensAsync get called."),j.isSocketConnected())return new Promise(function(f,g){var e=0;F.getScreens&&F.getScreens&$&&(e=1),j.send({cmd:"getScreens",bounds:e},-1,function(e){if(Array.isArray(e))f(V=t=e);else if(e.screens&&Array.isArray(e.screens)){for(var t=[],n=0;n<e.screens.length;n++){var i=e.screens[n].w,r=e.screens[n].h,o=e.screens[n].id,a=e.screens[n].bounds,s=e.screens[n].imageData;if(0<i&&0<r&&o&&a&&s){for(var d=window.atob(s),c=d.length,u=new Uint8ClampedArray(c),l=0;l<c;l++)u[l]=d.charCodeAt(l);s=new ImageData(u,i,r),i=new Ae(o,"Screen "+o,s,a);t.push(i),L.debug("Screen:"+o+":  image size:"+c)}else L.error("Invalid screen data:"+JSON.stringify(e.screens[n]))}f(V=t)}else{var h=e.error&&e.error.message?e.error.message:"Invalid getScreen response";g(new DOMException(h,"OperationError"))}})});L.error("getScreensAsync: WebSocket is not in connected state")},onScreenSelected:function(e){L.debug("setScreenSharePanelId = "+e+" for getDisplayMedia"),j.isSocketConnected()?j.send({cmd:"setScreenId",scrnId:e,numScreens:V.length},-1):L.error("setScreenSharePanelId: WebSocket is not in connected state")},onWindowSessionConnected:function(e){L.info("connectedStateChanged called "+e),j&&(j.state===_&&j.send({cmd:"connectedStateChanged",connectionState:!0===e?1:0},-1),!0===e?(j.sendVdiClientEventsOnError=!0,j.startPolling(j.shortPollingIntervalMs,j.shortPollingTimeout,j.sendEvents)):(j.sendVdiClientEventsOnError=!1,j.isHorizonRegistryPresent=!1,L.info("connectedStateChanged(): isHorizonRegistryPresent false"),j.stopPolling()))}}});
+},{}],4:[function(require,module,exports){
+/*
+ * Copyright (c) 2018 Omnissa, LLC. All rights reserved.
+ * This product is protected by copyright and intellectual property laws in the
+ * United States and other countries as well as by international treaties.
+ * -- Omnissa Restricted
+ */
+/**
+ *
+ * HorizonWebRTCExtension.js
+ * Build: 14122140117
+ *
+ */
+!function(n){("function"!=typeof define||!define.amd)&&"object"==typeof module&&module.exports?module.exports=n():window.HorizonWebRTCExtension=n()}(function(n,o){"use strict";const T={GET_CLIENT_ID:"getClientId",GET_WSS_PORT:"getWssPort",GET_INFO:"getInfo",NOTIFY_CONTENT_READY:"notifyContentReady",NOTIFY_WINDOW_SESSION_CONNECTED:"notifyWindowSessionConnected",PAGE_UNLOADED:"pageUnloaded",POLL_CONTENT_READY:"pollContentReady",STOP_REDIRECTION:"stopRedir"},E={FOREGROUND_TO_CONTENT:"horizon.webrtcsdk.foregroundToContent",CONTENT_TO_FOREGROUND:"horizon.webrtcsdk.contentToForeground"};return new function(){var t,o=this,i=0,r={},d=!0,s=(this.onWindowSessionConnected,this.getHorizonClientID=function(){return new Promise(function(o,e){s({cmd:T.GET_CLIENT_ID},function(n){void 0!==n.clientId?o(n.clientId):e(n.error||"getHorizonClientID failed")})})},this.getHorizonWSSPort=function(){return new Promise(function(o,e){s({cmd:T.GET_WSS_PORT},function(n){void 0!==n.wssPort?o(n.wssPort):e(n.error||"getHorizonWSSPort failed")})})},function(n,o){var e;n.cmd==T.POLL_CONTENT_READY||t?(e=++i,n.seqId=e,r[e]=o,e={detail:void 0!==n?n:{}},window.dispatchEvent(new CustomEvent(E.FOREGROUND_TO_CONTENT,e))):(n.error="content is not ready",o(n),void 0===t&&(console.log("HorizonWebRTCExtension.toContentScript: content ready state is undefined, Start content state poll"),new Promise(function(o,e){s({cmd:T.POLL_CONTENT_READY},function(n){void 0!==n.ready?(t=n.ready,o(t)):e(n.error||"fail to pollContentReady")})})))}),c=function(n){"function"==typeof o.onWindowSessionConnected&&o.onWindowSessionConnected(n)};console.log("HorizonWebRTCExtension foreground register content callback"),window.addEventListener(E.CONTENT_TO_FOREGROUND,function(n){if(null===n.detail)console.log("HorizonWebRTCExtension.onContentScript: data is null in injected script");else{var o,e=n.detail;if(console.log("HorizonWebRTCExtension.onContentScript(): Received message from content script "+JSON.stringify(e)),"number"==typeof e.seqId&&0<e.seqId)n=e.seqId,o=r[n],delete r[n],void 0!==o&&"function"==typeof o&&o(e);else switch(e.cmd){case T.NOTIFY_CONTENT_READY:t=e.state;break;case T.NOTIFY_WINDOW_SESSION_CONNECTED:d=e.connected,c(d)}}})}});
+},{}],5:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/array/from"), __esModule: true };
-},{"core-js/library/fn/array/from":24}],4:[function(require,module,exports){
+},{"core-js/library/fn/array/from":28}],6:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/get-iterator"), __esModule: true };
-},{"core-js/library/fn/get-iterator":25}],5:[function(require,module,exports){
+},{"core-js/library/fn/get-iterator":29}],7:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/is-iterable"), __esModule: true };
-},{"core-js/library/fn/is-iterable":26}],6:[function(require,module,exports){
+},{"core-js/library/fn/is-iterable":30}],8:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/create"), __esModule: true };
-},{"core-js/library/fn/object/create":27}],7:[function(require,module,exports){
+},{"core-js/library/fn/object/create":31}],9:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/define-property"), __esModule: true };
-},{"core-js/library/fn/object/define-property":28}],8:[function(require,module,exports){
+},{"core-js/library/fn/object/define-property":32}],10:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/get-own-property-descriptor"), __esModule: true };
-},{"core-js/library/fn/object/get-own-property-descriptor":29}],9:[function(require,module,exports){
+},{"core-js/library/fn/object/get-own-property-descriptor":33}],11:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/get-prototype-of"), __esModule: true };
-},{"core-js/library/fn/object/get-prototype-of":30}],10:[function(require,module,exports){
+},{"core-js/library/fn/object/get-prototype-of":34}],12:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/set-prototype-of"), __esModule: true };
-},{"core-js/library/fn/object/set-prototype-of":31}],11:[function(require,module,exports){
+},{"core-js/library/fn/object/set-prototype-of":35}],13:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/promise"), __esModule: true };
-},{"core-js/library/fn/promise":32}],12:[function(require,module,exports){
+},{"core-js/library/fn/promise":36}],14:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/symbol"), __esModule: true };
-},{"core-js/library/fn/symbol":33}],13:[function(require,module,exports){
+},{"core-js/library/fn/symbol":37}],15:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/symbol/iterator"), __esModule: true };
-},{"core-js/library/fn/symbol/iterator":34}],14:[function(require,module,exports){
+},{"core-js/library/fn/symbol/iterator":38}],16:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -3988,7 +4016,7 @@ exports.default = function (fn) {
     });
   };
 };
-},{"../core-js/promise":11}],15:[function(require,module,exports){
+},{"../core-js/promise":13}],17:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -3998,7 +4026,7 @@ exports.default = function (instance, Constructor) {
     throw new TypeError("Cannot call a class as a function");
   }
 };
-},{}],16:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -4026,7 +4054,7 @@ exports.default = function () {
     return Constructor;
   };
 }();
-},{"../core-js/object/define-property":7}],17:[function(require,module,exports){
+},{"../core-js/object/define-property":9}],19:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -4065,7 +4093,7 @@ exports.default = function get(object, property, receiver) {
     return getter.call(receiver);
   }
 };
-},{"../core-js/object/get-own-property-descriptor":8,"../core-js/object/get-prototype-of":9}],18:[function(require,module,exports){
+},{"../core-js/object/get-own-property-descriptor":10,"../core-js/object/get-prototype-of":11}],20:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -4099,7 +4127,7 @@ exports.default = function (subClass, superClass) {
   });
   if (superClass) _setPrototypeOf2.default ? (0, _setPrototypeOf2.default)(subClass, superClass) : subClass.__proto__ = superClass;
 };
-},{"../core-js/object/create":6,"../core-js/object/set-prototype-of":10,"../helpers/typeof":22}],19:[function(require,module,exports){
+},{"../core-js/object/create":8,"../core-js/object/set-prototype-of":12,"../helpers/typeof":24}],21:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -4117,7 +4145,7 @@ exports.default = function (self, call) {
 
   return call && ((typeof call === "undefined" ? "undefined" : (0, _typeof3.default)(call)) === "object" || typeof call === "function") ? call : self;
 };
-},{"../helpers/typeof":22}],20:[function(require,module,exports){
+},{"../helpers/typeof":24}],22:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -4169,7 +4197,7 @@ exports.default = function () {
     }
   };
 }();
-},{"../core-js/get-iterator":4,"../core-js/is-iterable":5}],21:[function(require,module,exports){
+},{"../core-js/get-iterator":6,"../core-js/is-iterable":7}],23:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -4183,7 +4211,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function (arr) {
   return Array.isArray(arr) ? arr : (0, _from2.default)(arr);
 };
-},{"../core-js/array/from":3}],22:[function(require,module,exports){
+},{"../core-js/array/from":5}],24:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -4205,1974 +4233,7 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 } : function (obj) {
   return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
 };
-},{"../core-js/symbol":12,"../core-js/symbol/iterator":13}],23:[function(require,module,exports){
-module.exports = require("regenerator-runtime");
-
-},{"regenerator-runtime":128}],24:[function(require,module,exports){
-require('../../modules/es6.string.iterator');
-require('../../modules/es6.array.from');
-module.exports = require('../../modules/_core').Array.from;
-
-},{"../../modules/_core":42,"../../modules/es6.array.from":112,"../../modules/es6.string.iterator":121}],25:[function(require,module,exports){
-require('../modules/web.dom.iterable');
-require('../modules/es6.string.iterator');
-module.exports = require('../modules/core.get-iterator');
-
-},{"../modules/core.get-iterator":110,"../modules/es6.string.iterator":121,"../modules/web.dom.iterable":127}],26:[function(require,module,exports){
-require('../modules/web.dom.iterable');
-require('../modules/es6.string.iterator');
-module.exports = require('../modules/core.is-iterable');
-
-},{"../modules/core.is-iterable":111,"../modules/es6.string.iterator":121,"../modules/web.dom.iterable":127}],27:[function(require,module,exports){
-require('../../modules/es6.object.create');
-var $Object = require('../../modules/_core').Object;
-module.exports = function create(P, D) {
-  return $Object.create(P, D);
-};
-
-},{"../../modules/_core":42,"../../modules/es6.object.create":114}],28:[function(require,module,exports){
-require('../../modules/es6.object.define-property');
-var $Object = require('../../modules/_core').Object;
-module.exports = function defineProperty(it, key, desc) {
-  return $Object.defineProperty(it, key, desc);
-};
-
-},{"../../modules/_core":42,"../../modules/es6.object.define-property":115}],29:[function(require,module,exports){
-require('../../modules/es6.object.get-own-property-descriptor');
-var $Object = require('../../modules/_core').Object;
-module.exports = function getOwnPropertyDescriptor(it, key) {
-  return $Object.getOwnPropertyDescriptor(it, key);
-};
-
-},{"../../modules/_core":42,"../../modules/es6.object.get-own-property-descriptor":116}],30:[function(require,module,exports){
-require('../../modules/es6.object.get-prototype-of');
-module.exports = require('../../modules/_core').Object.getPrototypeOf;
-
-},{"../../modules/_core":42,"../../modules/es6.object.get-prototype-of":117}],31:[function(require,module,exports){
-require('../../modules/es6.object.set-prototype-of');
-module.exports = require('../../modules/_core').Object.setPrototypeOf;
-
-},{"../../modules/_core":42,"../../modules/es6.object.set-prototype-of":118}],32:[function(require,module,exports){
-require('../modules/es6.object.to-string');
-require('../modules/es6.string.iterator');
-require('../modules/web.dom.iterable');
-require('../modules/es6.promise');
-require('../modules/es7.promise.finally');
-require('../modules/es7.promise.try');
-module.exports = require('../modules/_core').Promise;
-
-},{"../modules/_core":42,"../modules/es6.object.to-string":119,"../modules/es6.promise":120,"../modules/es6.string.iterator":121,"../modules/es7.promise.finally":123,"../modules/es7.promise.try":124,"../modules/web.dom.iterable":127}],33:[function(require,module,exports){
-require('../../modules/es6.symbol');
-require('../../modules/es6.object.to-string');
-require('../../modules/es7.symbol.async-iterator');
-require('../../modules/es7.symbol.observable');
-module.exports = require('../../modules/_core').Symbol;
-
-},{"../../modules/_core":42,"../../modules/es6.object.to-string":119,"../../modules/es6.symbol":122,"../../modules/es7.symbol.async-iterator":125,"../../modules/es7.symbol.observable":126}],34:[function(require,module,exports){
-require('../../modules/es6.string.iterator');
-require('../../modules/web.dom.iterable');
-module.exports = require('../../modules/_wks-ext').f('iterator');
-
-},{"../../modules/_wks-ext":107,"../../modules/es6.string.iterator":121,"../../modules/web.dom.iterable":127}],35:[function(require,module,exports){
-module.exports = function (it) {
-  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
-  return it;
-};
-
-},{}],36:[function(require,module,exports){
-module.exports = function () { /* empty */ };
-
-},{}],37:[function(require,module,exports){
-module.exports = function (it, Constructor, name, forbiddenField) {
-  if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
-    throw TypeError(name + ': incorrect invocation!');
-  } return it;
-};
-
-},{}],38:[function(require,module,exports){
-var isObject = require('./_is-object');
-module.exports = function (it) {
-  if (!isObject(it)) throw TypeError(it + ' is not an object!');
-  return it;
-};
-
-},{"./_is-object":62}],39:[function(require,module,exports){
-// false -> Array#indexOf
-// true  -> Array#includes
-var toIObject = require('./_to-iobject');
-var toLength = require('./_to-length');
-var toAbsoluteIndex = require('./_to-absolute-index');
-module.exports = function (IS_INCLUDES) {
-  return function ($this, el, fromIndex) {
-    var O = toIObject($this);
-    var length = toLength(O.length);
-    var index = toAbsoluteIndex(fromIndex, length);
-    var value;
-    // Array#includes uses SameValueZero equality algorithm
-    // eslint-disable-next-line no-self-compare
-    if (IS_INCLUDES && el != el) while (length > index) {
-      value = O[index++];
-      // eslint-disable-next-line no-self-compare
-      if (value != value) return true;
-    // Array#indexOf ignores holes, Array#includes - not
-    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
-      if (O[index] === el) return IS_INCLUDES || index || 0;
-    } return !IS_INCLUDES && -1;
-  };
-};
-
-},{"./_to-absolute-index":98,"./_to-iobject":100,"./_to-length":101}],40:[function(require,module,exports){
-// getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = require('./_cof');
-var TAG = require('./_wks')('toStringTag');
-// ES3 wrong here
-var ARG = cof(function () { return arguments; }()) == 'Arguments';
-
-// fallback for IE11 Script Access Denied error
-var tryGet = function (it, key) {
-  try {
-    return it[key];
-  } catch (e) { /* empty */ }
-};
-
-module.exports = function (it) {
-  var O, T, B;
-  return it === undefined ? 'Undefined' : it === null ? 'Null'
-    // @@toStringTag case
-    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-    // builtinTag case
-    : ARG ? cof(O)
-    // ES3 arguments fallback
-    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-};
-
-},{"./_cof":41,"./_wks":108}],41:[function(require,module,exports){
-var toString = {}.toString;
-
-module.exports = function (it) {
-  return toString.call(it).slice(8, -1);
-};
-
-},{}],42:[function(require,module,exports){
-var core = module.exports = { version: '2.6.12' };
-if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-},{}],43:[function(require,module,exports){
-'use strict';
-var $defineProperty = require('./_object-dp');
-var createDesc = require('./_property-desc');
-
-module.exports = function (object, index, value) {
-  if (index in object) $defineProperty.f(object, index, createDesc(0, value));
-  else object[index] = value;
-};
-
-},{"./_object-dp":74,"./_property-desc":87}],44:[function(require,module,exports){
-// optional / simple context binding
-var aFunction = require('./_a-function');
-module.exports = function (fn, that, length) {
-  aFunction(fn);
-  if (that === undefined) return fn;
-  switch (length) {
-    case 1: return function (a) {
-      return fn.call(that, a);
-    };
-    case 2: return function (a, b) {
-      return fn.call(that, a, b);
-    };
-    case 3: return function (a, b, c) {
-      return fn.call(that, a, b, c);
-    };
-  }
-  return function (/* ...args */) {
-    return fn.apply(that, arguments);
-  };
-};
-
-},{"./_a-function":35}],45:[function(require,module,exports){
-// 7.2.1 RequireObjectCoercible(argument)
-module.exports = function (it) {
-  if (it == undefined) throw TypeError("Can't call method on  " + it);
-  return it;
-};
-
-},{}],46:[function(require,module,exports){
-// Thank's IE8 for his funny defineProperty
-module.exports = !require('./_fails')(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
-
-},{"./_fails":51}],47:[function(require,module,exports){
-var isObject = require('./_is-object');
-var document = require('./_global').document;
-// typeof document.createElement is 'object' in old IE
-var is = isObject(document) && isObject(document.createElement);
-module.exports = function (it) {
-  return is ? document.createElement(it) : {};
-};
-
-},{"./_global":53,"./_is-object":62}],48:[function(require,module,exports){
-// IE 8- don't enum bug keys
-module.exports = (
-  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
-).split(',');
-
-},{}],49:[function(require,module,exports){
-// all enumerable object keys, includes symbols
-var getKeys = require('./_object-keys');
-var gOPS = require('./_object-gops');
-var pIE = require('./_object-pie');
-module.exports = function (it) {
-  var result = getKeys(it);
-  var getSymbols = gOPS.f;
-  if (getSymbols) {
-    var symbols = getSymbols(it);
-    var isEnum = pIE.f;
-    var i = 0;
-    var key;
-    while (symbols.length > i) if (isEnum.call(it, key = symbols[i++])) result.push(key);
-  } return result;
-};
-
-},{"./_object-gops":79,"./_object-keys":82,"./_object-pie":83}],50:[function(require,module,exports){
-var global = require('./_global');
-var core = require('./_core');
-var ctx = require('./_ctx');
-var hide = require('./_hide');
-var has = require('./_has');
-var PROTOTYPE = 'prototype';
-
-var $export = function (type, name, source) {
-  var IS_FORCED = type & $export.F;
-  var IS_GLOBAL = type & $export.G;
-  var IS_STATIC = type & $export.S;
-  var IS_PROTO = type & $export.P;
-  var IS_BIND = type & $export.B;
-  var IS_WRAP = type & $export.W;
-  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
-  var expProto = exports[PROTOTYPE];
-  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
-  var key, own, out;
-  if (IS_GLOBAL) source = name;
-  for (key in source) {
-    // contains in native
-    own = !IS_FORCED && target && target[key] !== undefined;
-    if (own && has(exports, key)) continue;
-    // export native or passed
-    out = own ? target[key] : source[key];
-    // prevent global pollution for namespaces
-    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
-    // bind timers to global for call from export context
-    : IS_BIND && own ? ctx(out, global)
-    // wrap global constructors for prevent change them in library
-    : IS_WRAP && target[key] == out ? (function (C) {
-      var F = function (a, b, c) {
-        if (this instanceof C) {
-          switch (arguments.length) {
-            case 0: return new C();
-            case 1: return new C(a);
-            case 2: return new C(a, b);
-          } return new C(a, b, c);
-        } return C.apply(this, arguments);
-      };
-      F[PROTOTYPE] = C[PROTOTYPE];
-      return F;
-    // make static versions for prototype methods
-    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
-    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
-    if (IS_PROTO) {
-      (exports.virtual || (exports.virtual = {}))[key] = out;
-      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
-      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
-    }
-  }
-};
-// type bitmap
-$export.F = 1;   // forced
-$export.G = 2;   // global
-$export.S = 4;   // static
-$export.P = 8;   // proto
-$export.B = 16;  // bind
-$export.W = 32;  // wrap
-$export.U = 64;  // safe
-$export.R = 128; // real proto method for `library`
-module.exports = $export;
-
-},{"./_core":42,"./_ctx":44,"./_global":53,"./_has":54,"./_hide":55}],51:[function(require,module,exports){
-module.exports = function (exec) {
-  try {
-    return !!exec();
-  } catch (e) {
-    return true;
-  }
-};
-
-},{}],52:[function(require,module,exports){
-var ctx = require('./_ctx');
-var call = require('./_iter-call');
-var isArrayIter = require('./_is-array-iter');
-var anObject = require('./_an-object');
-var toLength = require('./_to-length');
-var getIterFn = require('./core.get-iterator-method');
-var BREAK = {};
-var RETURN = {};
-var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
-  var iterFn = ITERATOR ? function () { return iterable; } : getIterFn(iterable);
-  var f = ctx(fn, that, entries ? 2 : 1);
-  var index = 0;
-  var length, step, iterator, result;
-  if (typeof iterFn != 'function') throw TypeError(iterable + ' is not iterable!');
-  // fast case for arrays with default iterator
-  if (isArrayIter(iterFn)) for (length = toLength(iterable.length); length > index; index++) {
-    result = entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
-    if (result === BREAK || result === RETURN) return result;
-  } else for (iterator = iterFn.call(iterable); !(step = iterator.next()).done;) {
-    result = call(iterator, f, step.value, entries);
-    if (result === BREAK || result === RETURN) return result;
-  }
-};
-exports.BREAK = BREAK;
-exports.RETURN = RETURN;
-
-},{"./_an-object":38,"./_ctx":44,"./_is-array-iter":60,"./_iter-call":63,"./_to-length":101,"./core.get-iterator-method":109}],53:[function(require,module,exports){
-// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-var global = module.exports = typeof window != 'undefined' && window.Math == Math
-  ? window : typeof self != 'undefined' && self.Math == Math ? self
-  // eslint-disable-next-line no-new-func
-  : Function('return this')();
-if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
-
-},{}],54:[function(require,module,exports){
-var hasOwnProperty = {}.hasOwnProperty;
-module.exports = function (it, key) {
-  return hasOwnProperty.call(it, key);
-};
-
-},{}],55:[function(require,module,exports){
-var dP = require('./_object-dp');
-var createDesc = require('./_property-desc');
-module.exports = require('./_descriptors') ? function (object, key, value) {
-  return dP.f(object, key, createDesc(1, value));
-} : function (object, key, value) {
-  object[key] = value;
-  return object;
-};
-
-},{"./_descriptors":46,"./_object-dp":74,"./_property-desc":87}],56:[function(require,module,exports){
-var document = require('./_global').document;
-module.exports = document && document.documentElement;
-
-},{"./_global":53}],57:[function(require,module,exports){
-module.exports = !require('./_descriptors') && !require('./_fails')(function () {
-  return Object.defineProperty(require('./_dom-create')('div'), 'a', { get: function () { return 7; } }).a != 7;
-});
-
-},{"./_descriptors":46,"./_dom-create":47,"./_fails":51}],58:[function(require,module,exports){
-// fast apply, http://jsperf.lnkit.com/fast-apply/5
-module.exports = function (fn, args, that) {
-  var un = that === undefined;
-  switch (args.length) {
-    case 0: return un ? fn()
-                      : fn.call(that);
-    case 1: return un ? fn(args[0])
-                      : fn.call(that, args[0]);
-    case 2: return un ? fn(args[0], args[1])
-                      : fn.call(that, args[0], args[1]);
-    case 3: return un ? fn(args[0], args[1], args[2])
-                      : fn.call(that, args[0], args[1], args[2]);
-    case 4: return un ? fn(args[0], args[1], args[2], args[3])
-                      : fn.call(that, args[0], args[1], args[2], args[3]);
-  } return fn.apply(that, args);
-};
-
-},{}],59:[function(require,module,exports){
-// fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = require('./_cof');
-// eslint-disable-next-line no-prototype-builtins
-module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
-  return cof(it) == 'String' ? it.split('') : Object(it);
-};
-
-},{"./_cof":41}],60:[function(require,module,exports){
-// check on default Array iterator
-var Iterators = require('./_iterators');
-var ITERATOR = require('./_wks')('iterator');
-var ArrayProto = Array.prototype;
-
-module.exports = function (it) {
-  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
-};
-
-},{"./_iterators":68,"./_wks":108}],61:[function(require,module,exports){
-// 7.2.2 IsArray(argument)
-var cof = require('./_cof');
-module.exports = Array.isArray || function isArray(arg) {
-  return cof(arg) == 'Array';
-};
-
-},{"./_cof":41}],62:[function(require,module,exports){
-module.exports = function (it) {
-  return typeof it === 'object' ? it !== null : typeof it === 'function';
-};
-
-},{}],63:[function(require,module,exports){
-// call something on iterator step with safe closing on error
-var anObject = require('./_an-object');
-module.exports = function (iterator, fn, value, entries) {
-  try {
-    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
-  // 7.4.6 IteratorClose(iterator, completion)
-  } catch (e) {
-    var ret = iterator['return'];
-    if (ret !== undefined) anObject(ret.call(iterator));
-    throw e;
-  }
-};
-
-},{"./_an-object":38}],64:[function(require,module,exports){
-'use strict';
-var create = require('./_object-create');
-var descriptor = require('./_property-desc');
-var setToStringTag = require('./_set-to-string-tag');
-var IteratorPrototype = {};
-
-// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-require('./_hide')(IteratorPrototype, require('./_wks')('iterator'), function () { return this; });
-
-module.exports = function (Constructor, NAME, next) {
-  Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
-  setToStringTag(Constructor, NAME + ' Iterator');
-};
-
-},{"./_hide":55,"./_object-create":73,"./_property-desc":87,"./_set-to-string-tag":92,"./_wks":108}],65:[function(require,module,exports){
-'use strict';
-var LIBRARY = require('./_library');
-var $export = require('./_export');
-var redefine = require('./_redefine');
-var hide = require('./_hide');
-var Iterators = require('./_iterators');
-var $iterCreate = require('./_iter-create');
-var setToStringTag = require('./_set-to-string-tag');
-var getPrototypeOf = require('./_object-gpo');
-var ITERATOR = require('./_wks')('iterator');
-var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
-var FF_ITERATOR = '@@iterator';
-var KEYS = 'keys';
-var VALUES = 'values';
-
-var returnThis = function () { return this; };
-
-module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
-  $iterCreate(Constructor, NAME, next);
-  var getMethod = function (kind) {
-    if (!BUGGY && kind in proto) return proto[kind];
-    switch (kind) {
-      case KEYS: return function keys() { return new Constructor(this, kind); };
-      case VALUES: return function values() { return new Constructor(this, kind); };
-    } return function entries() { return new Constructor(this, kind); };
-  };
-  var TAG = NAME + ' Iterator';
-  var DEF_VALUES = DEFAULT == VALUES;
-  var VALUES_BUG = false;
-  var proto = Base.prototype;
-  var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
-  var $default = $native || getMethod(DEFAULT);
-  var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
-  var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
-  var methods, key, IteratorPrototype;
-  // Fix native
-  if ($anyNative) {
-    IteratorPrototype = getPrototypeOf($anyNative.call(new Base()));
-    if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
-      // Set @@toStringTag to native iterators
-      setToStringTag(IteratorPrototype, TAG, true);
-      // fix for some old engines
-      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
-    }
-  }
-  // fix Array#{values, @@iterator}.name in V8 / FF
-  if (DEF_VALUES && $native && $native.name !== VALUES) {
-    VALUES_BUG = true;
-    $default = function values() { return $native.call(this); };
-  }
-  // Define iterator
-  if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
-    hide(proto, ITERATOR, $default);
-  }
-  // Plug for library
-  Iterators[NAME] = $default;
-  Iterators[TAG] = returnThis;
-  if (DEFAULT) {
-    methods = {
-      values: DEF_VALUES ? $default : getMethod(VALUES),
-      keys: IS_SET ? $default : getMethod(KEYS),
-      entries: $entries
-    };
-    if (FORCED) for (key in methods) {
-      if (!(key in proto)) redefine(proto, key, methods[key]);
-    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
-  }
-  return methods;
-};
-
-},{"./_export":50,"./_hide":55,"./_iter-create":64,"./_iterators":68,"./_library":69,"./_object-gpo":80,"./_redefine":89,"./_set-to-string-tag":92,"./_wks":108}],66:[function(require,module,exports){
-var ITERATOR = require('./_wks')('iterator');
-var SAFE_CLOSING = false;
-
-try {
-  var riter = [7][ITERATOR]();
-  riter['return'] = function () { SAFE_CLOSING = true; };
-  // eslint-disable-next-line no-throw-literal
-  Array.from(riter, function () { throw 2; });
-} catch (e) { /* empty */ }
-
-module.exports = function (exec, skipClosing) {
-  if (!skipClosing && !SAFE_CLOSING) return false;
-  var safe = false;
-  try {
-    var arr = [7];
-    var iter = arr[ITERATOR]();
-    iter.next = function () { return { done: safe = true }; };
-    arr[ITERATOR] = function () { return iter; };
-    exec(arr);
-  } catch (e) { /* empty */ }
-  return safe;
-};
-
-},{"./_wks":108}],67:[function(require,module,exports){
-module.exports = function (done, value) {
-  return { value: value, done: !!done };
-};
-
-},{}],68:[function(require,module,exports){
-module.exports = {};
-
-},{}],69:[function(require,module,exports){
-module.exports = true;
-
-},{}],70:[function(require,module,exports){
-var META = require('./_uid')('meta');
-var isObject = require('./_is-object');
-var has = require('./_has');
-var setDesc = require('./_object-dp').f;
-var id = 0;
-var isExtensible = Object.isExtensible || function () {
-  return true;
-};
-var FREEZE = !require('./_fails')(function () {
-  return isExtensible(Object.preventExtensions({}));
-});
-var setMeta = function (it) {
-  setDesc(it, META, { value: {
-    i: 'O' + ++id, // object ID
-    w: {}          // weak collections IDs
-  } });
-};
-var fastKey = function (it, create) {
-  // return primitive with prefix
-  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return 'F';
-    // not necessary to add metadata
-    if (!create) return 'E';
-    // add missing metadata
-    setMeta(it);
-  // return object ID
-  } return it[META].i;
-};
-var getWeak = function (it, create) {
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return true;
-    // not necessary to add metadata
-    if (!create) return false;
-    // add missing metadata
-    setMeta(it);
-  // return hash weak collections IDs
-  } return it[META].w;
-};
-// add metadata on freeze-family methods calling
-var onFreeze = function (it) {
-  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
-  return it;
-};
-var meta = module.exports = {
-  KEY: META,
-  NEED: false,
-  fastKey: fastKey,
-  getWeak: getWeak,
-  onFreeze: onFreeze
-};
-
-},{"./_fails":51,"./_has":54,"./_is-object":62,"./_object-dp":74,"./_uid":104}],71:[function(require,module,exports){
-var global = require('./_global');
-var macrotask = require('./_task').set;
-var Observer = global.MutationObserver || global.WebKitMutationObserver;
-var process = global.process;
-var Promise = global.Promise;
-var isNode = require('./_cof')(process) == 'process';
-
-module.exports = function () {
-  var head, last, notify;
-
-  var flush = function () {
-    var parent, fn;
-    if (isNode && (parent = process.domain)) parent.exit();
-    while (head) {
-      fn = head.fn;
-      head = head.next;
-      try {
-        fn();
-      } catch (e) {
-        if (head) notify();
-        else last = undefined;
-        throw e;
-      }
-    } last = undefined;
-    if (parent) parent.enter();
-  };
-
-  // Node.js
-  if (isNode) {
-    notify = function () {
-      process.nextTick(flush);
-    };
-  // browsers with MutationObserver, except iOS Safari - https://github.com/zloirock/core-js/issues/339
-  } else if (Observer && !(global.navigator && global.navigator.standalone)) {
-    var toggle = true;
-    var node = document.createTextNode('');
-    new Observer(flush).observe(node, { characterData: true }); // eslint-disable-line no-new
-    notify = function () {
-      node.data = toggle = !toggle;
-    };
-  // environments with maybe non-completely correct, but existent Promise
-  } else if (Promise && Promise.resolve) {
-    // Promise.resolve without an argument throws an error in LG WebOS 2
-    var promise = Promise.resolve(undefined);
-    notify = function () {
-      promise.then(flush);
-    };
-  // for other environments - macrotask based on:
-  // - setImmediate
-  // - MessageChannel
-  // - window.postMessag
-  // - onreadystatechange
-  // - setTimeout
-  } else {
-    notify = function () {
-      // strange IE + webpack dev server bug - use .call(global)
-      macrotask.call(global, flush);
-    };
-  }
-
-  return function (fn) {
-    var task = { fn: fn, next: undefined };
-    if (last) last.next = task;
-    if (!head) {
-      head = task;
-      notify();
-    } last = task;
-  };
-};
-
-},{"./_cof":41,"./_global":53,"./_task":97}],72:[function(require,module,exports){
-'use strict';
-// 25.4.1.5 NewPromiseCapability(C)
-var aFunction = require('./_a-function');
-
-function PromiseCapability(C) {
-  var resolve, reject;
-  this.promise = new C(function ($$resolve, $$reject) {
-    if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');
-    resolve = $$resolve;
-    reject = $$reject;
-  });
-  this.resolve = aFunction(resolve);
-  this.reject = aFunction(reject);
-}
-
-module.exports.f = function (C) {
-  return new PromiseCapability(C);
-};
-
-},{"./_a-function":35}],73:[function(require,module,exports){
-// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = require('./_an-object');
-var dPs = require('./_object-dps');
-var enumBugKeys = require('./_enum-bug-keys');
-var IE_PROTO = require('./_shared-key')('IE_PROTO');
-var Empty = function () { /* empty */ };
-var PROTOTYPE = 'prototype';
-
-// Create object with fake `null` prototype: use iframe Object with cleared prototype
-var createDict = function () {
-  // Thrash, waste and sodomy: IE GC bug
-  var iframe = require('./_dom-create')('iframe');
-  var i = enumBugKeys.length;
-  var lt = '<';
-  var gt = '>';
-  var iframeDocument;
-  iframe.style.display = 'none';
-  require('./_html').appendChild(iframe);
-  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
-  // createDict = iframe.contentWindow.Object;
-  // html.removeChild(iframe);
-  iframeDocument = iframe.contentWindow.document;
-  iframeDocument.open();
-  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
-  iframeDocument.close();
-  createDict = iframeDocument.F;
-  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
-  return createDict();
-};
-
-module.exports = Object.create || function create(O, Properties) {
-  var result;
-  if (O !== null) {
-    Empty[PROTOTYPE] = anObject(O);
-    result = new Empty();
-    Empty[PROTOTYPE] = null;
-    // add "__proto__" for Object.getPrototypeOf polyfill
-    result[IE_PROTO] = O;
-  } else result = createDict();
-  return Properties === undefined ? result : dPs(result, Properties);
-};
-
-},{"./_an-object":38,"./_dom-create":47,"./_enum-bug-keys":48,"./_html":56,"./_object-dps":75,"./_shared-key":93}],74:[function(require,module,exports){
-var anObject = require('./_an-object');
-var IE8_DOM_DEFINE = require('./_ie8-dom-define');
-var toPrimitive = require('./_to-primitive');
-var dP = Object.defineProperty;
-
-exports.f = require('./_descriptors') ? Object.defineProperty : function defineProperty(O, P, Attributes) {
-  anObject(O);
-  P = toPrimitive(P, true);
-  anObject(Attributes);
-  if (IE8_DOM_DEFINE) try {
-    return dP(O, P, Attributes);
-  } catch (e) { /* empty */ }
-  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
-  if ('value' in Attributes) O[P] = Attributes.value;
-  return O;
-};
-
-},{"./_an-object":38,"./_descriptors":46,"./_ie8-dom-define":57,"./_to-primitive":103}],75:[function(require,module,exports){
-var dP = require('./_object-dp');
-var anObject = require('./_an-object');
-var getKeys = require('./_object-keys');
-
-module.exports = require('./_descriptors') ? Object.defineProperties : function defineProperties(O, Properties) {
-  anObject(O);
-  var keys = getKeys(Properties);
-  var length = keys.length;
-  var i = 0;
-  var P;
-  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
-  return O;
-};
-
-},{"./_an-object":38,"./_descriptors":46,"./_object-dp":74,"./_object-keys":82}],76:[function(require,module,exports){
-var pIE = require('./_object-pie');
-var createDesc = require('./_property-desc');
-var toIObject = require('./_to-iobject');
-var toPrimitive = require('./_to-primitive');
-var has = require('./_has');
-var IE8_DOM_DEFINE = require('./_ie8-dom-define');
-var gOPD = Object.getOwnPropertyDescriptor;
-
-exports.f = require('./_descriptors') ? gOPD : function getOwnPropertyDescriptor(O, P) {
-  O = toIObject(O);
-  P = toPrimitive(P, true);
-  if (IE8_DOM_DEFINE) try {
-    return gOPD(O, P);
-  } catch (e) { /* empty */ }
-  if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
-};
-
-},{"./_descriptors":46,"./_has":54,"./_ie8-dom-define":57,"./_object-pie":83,"./_property-desc":87,"./_to-iobject":100,"./_to-primitive":103}],77:[function(require,module,exports){
-// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-var toIObject = require('./_to-iobject');
-var gOPN = require('./_object-gopn').f;
-var toString = {}.toString;
-
-var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
-  ? Object.getOwnPropertyNames(window) : [];
-
-var getWindowNames = function (it) {
-  try {
-    return gOPN(it);
-  } catch (e) {
-    return windowNames.slice();
-  }
-};
-
-module.exports.f = function getOwnPropertyNames(it) {
-  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
-};
-
-},{"./_object-gopn":78,"./_to-iobject":100}],78:[function(require,module,exports){
-// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-var $keys = require('./_object-keys-internal');
-var hiddenKeys = require('./_enum-bug-keys').concat('length', 'prototype');
-
-exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
-  return $keys(O, hiddenKeys);
-};
-
-},{"./_enum-bug-keys":48,"./_object-keys-internal":81}],79:[function(require,module,exports){
-exports.f = Object.getOwnPropertySymbols;
-
-},{}],80:[function(require,module,exports){
-// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = require('./_has');
-var toObject = require('./_to-object');
-var IE_PROTO = require('./_shared-key')('IE_PROTO');
-var ObjectProto = Object.prototype;
-
-module.exports = Object.getPrototypeOf || function (O) {
-  O = toObject(O);
-  if (has(O, IE_PROTO)) return O[IE_PROTO];
-  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
-    return O.constructor.prototype;
-  } return O instanceof Object ? ObjectProto : null;
-};
-
-},{"./_has":54,"./_shared-key":93,"./_to-object":102}],81:[function(require,module,exports){
-var has = require('./_has');
-var toIObject = require('./_to-iobject');
-var arrayIndexOf = require('./_array-includes')(false);
-var IE_PROTO = require('./_shared-key')('IE_PROTO');
-
-module.exports = function (object, names) {
-  var O = toIObject(object);
-  var i = 0;
-  var result = [];
-  var key;
-  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
-  // Don't enum bug & hidden keys
-  while (names.length > i) if (has(O, key = names[i++])) {
-    ~arrayIndexOf(result, key) || result.push(key);
-  }
-  return result;
-};
-
-},{"./_array-includes":39,"./_has":54,"./_shared-key":93,"./_to-iobject":100}],82:[function(require,module,exports){
-// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = require('./_object-keys-internal');
-var enumBugKeys = require('./_enum-bug-keys');
-
-module.exports = Object.keys || function keys(O) {
-  return $keys(O, enumBugKeys);
-};
-
-},{"./_enum-bug-keys":48,"./_object-keys-internal":81}],83:[function(require,module,exports){
-exports.f = {}.propertyIsEnumerable;
-
-},{}],84:[function(require,module,exports){
-// most Object methods by ES6 should accept primitives
-var $export = require('./_export');
-var core = require('./_core');
-var fails = require('./_fails');
-module.exports = function (KEY, exec) {
-  var fn = (core.Object || {})[KEY] || Object[KEY];
-  var exp = {};
-  exp[KEY] = exec(fn);
-  $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
-};
-
-},{"./_core":42,"./_export":50,"./_fails":51}],85:[function(require,module,exports){
-module.exports = function (exec) {
-  try {
-    return { e: false, v: exec() };
-  } catch (e) {
-    return { e: true, v: e };
-  }
-};
-
-},{}],86:[function(require,module,exports){
-var anObject = require('./_an-object');
-var isObject = require('./_is-object');
-var newPromiseCapability = require('./_new-promise-capability');
-
-module.exports = function (C, x) {
-  anObject(C);
-  if (isObject(x) && x.constructor === C) return x;
-  var promiseCapability = newPromiseCapability.f(C);
-  var resolve = promiseCapability.resolve;
-  resolve(x);
-  return promiseCapability.promise;
-};
-
-},{"./_an-object":38,"./_is-object":62,"./_new-promise-capability":72}],87:[function(require,module,exports){
-module.exports = function (bitmap, value) {
-  return {
-    enumerable: !(bitmap & 1),
-    configurable: !(bitmap & 2),
-    writable: !(bitmap & 4),
-    value: value
-  };
-};
-
-},{}],88:[function(require,module,exports){
-var hide = require('./_hide');
-module.exports = function (target, src, safe) {
-  for (var key in src) {
-    if (safe && target[key]) target[key] = src[key];
-    else hide(target, key, src[key]);
-  } return target;
-};
-
-},{"./_hide":55}],89:[function(require,module,exports){
-module.exports = require('./_hide');
-
-},{"./_hide":55}],90:[function(require,module,exports){
-// Works with __proto__ only. Old v8 can't work with null proto objects.
-/* eslint-disable no-proto */
-var isObject = require('./_is-object');
-var anObject = require('./_an-object');
-var check = function (O, proto) {
-  anObject(O);
-  if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
-};
-module.exports = {
-  set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
-    function (test, buggy, set) {
-      try {
-        set = require('./_ctx')(Function.call, require('./_object-gopd').f(Object.prototype, '__proto__').set, 2);
-        set(test, []);
-        buggy = !(test instanceof Array);
-      } catch (e) { buggy = true; }
-      return function setPrototypeOf(O, proto) {
-        check(O, proto);
-        if (buggy) O.__proto__ = proto;
-        else set(O, proto);
-        return O;
-      };
-    }({}, false) : undefined),
-  check: check
-};
-
-},{"./_an-object":38,"./_ctx":44,"./_is-object":62,"./_object-gopd":76}],91:[function(require,module,exports){
-'use strict';
-var global = require('./_global');
-var core = require('./_core');
-var dP = require('./_object-dp');
-var DESCRIPTORS = require('./_descriptors');
-var SPECIES = require('./_wks')('species');
-
-module.exports = function (KEY) {
-  var C = typeof core[KEY] == 'function' ? core[KEY] : global[KEY];
-  if (DESCRIPTORS && C && !C[SPECIES]) dP.f(C, SPECIES, {
-    configurable: true,
-    get: function () { return this; }
-  });
-};
-
-},{"./_core":42,"./_descriptors":46,"./_global":53,"./_object-dp":74,"./_wks":108}],92:[function(require,module,exports){
-var def = require('./_object-dp').f;
-var has = require('./_has');
-var TAG = require('./_wks')('toStringTag');
-
-module.exports = function (it, tag, stat) {
-  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
-};
-
-},{"./_has":54,"./_object-dp":74,"./_wks":108}],93:[function(require,module,exports){
-var shared = require('./_shared')('keys');
-var uid = require('./_uid');
-module.exports = function (key) {
-  return shared[key] || (shared[key] = uid(key));
-};
-
-},{"./_shared":94,"./_uid":104}],94:[function(require,module,exports){
-var core = require('./_core');
-var global = require('./_global');
-var SHARED = '__core-js_shared__';
-var store = global[SHARED] || (global[SHARED] = {});
-
-(module.exports = function (key, value) {
-  return store[key] || (store[key] = value !== undefined ? value : {});
-})('versions', []).push({
-  version: core.version,
-  mode: require('./_library') ? 'pure' : 'global',
-  copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
-});
-
-},{"./_core":42,"./_global":53,"./_library":69}],95:[function(require,module,exports){
-// 7.3.20 SpeciesConstructor(O, defaultConstructor)
-var anObject = require('./_an-object');
-var aFunction = require('./_a-function');
-var SPECIES = require('./_wks')('species');
-module.exports = function (O, D) {
-  var C = anObject(O).constructor;
-  var S;
-  return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
-};
-
-},{"./_a-function":35,"./_an-object":38,"./_wks":108}],96:[function(require,module,exports){
-var toInteger = require('./_to-integer');
-var defined = require('./_defined');
-// true  -> String#at
-// false -> String#codePointAt
-module.exports = function (TO_STRING) {
-  return function (that, pos) {
-    var s = String(defined(that));
-    var i = toInteger(pos);
-    var l = s.length;
-    var a, b;
-    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
-    a = s.charCodeAt(i);
-    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
-      ? TO_STRING ? s.charAt(i) : a
-      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
-  };
-};
-
-},{"./_defined":45,"./_to-integer":99}],97:[function(require,module,exports){
-var ctx = require('./_ctx');
-var invoke = require('./_invoke');
-var html = require('./_html');
-var cel = require('./_dom-create');
-var global = require('./_global');
-var process = global.process;
-var setTask = global.setImmediate;
-var clearTask = global.clearImmediate;
-var MessageChannel = global.MessageChannel;
-var Dispatch = global.Dispatch;
-var counter = 0;
-var queue = {};
-var ONREADYSTATECHANGE = 'onreadystatechange';
-var defer, channel, port;
-var run = function () {
-  var id = +this;
-  // eslint-disable-next-line no-prototype-builtins
-  if (queue.hasOwnProperty(id)) {
-    var fn = queue[id];
-    delete queue[id];
-    fn();
-  }
-};
-var listener = function (event) {
-  run.call(event.data);
-};
-// Node.js 0.9+ & IE10+ has setImmediate, otherwise:
-if (!setTask || !clearTask) {
-  setTask = function setImmediate(fn) {
-    var args = [];
-    var i = 1;
-    while (arguments.length > i) args.push(arguments[i++]);
-    queue[++counter] = function () {
-      // eslint-disable-next-line no-new-func
-      invoke(typeof fn == 'function' ? fn : Function(fn), args);
-    };
-    defer(counter);
-    return counter;
-  };
-  clearTask = function clearImmediate(id) {
-    delete queue[id];
-  };
-  // Node.js 0.8-
-  if (require('./_cof')(process) == 'process') {
-    defer = function (id) {
-      process.nextTick(ctx(run, id, 1));
-    };
-  // Sphere (JS game engine) Dispatch API
-  } else if (Dispatch && Dispatch.now) {
-    defer = function (id) {
-      Dispatch.now(ctx(run, id, 1));
-    };
-  // Browsers with MessageChannel, includes WebWorkers
-  } else if (MessageChannel) {
-    channel = new MessageChannel();
-    port = channel.port2;
-    channel.port1.onmessage = listener;
-    defer = ctx(port.postMessage, port, 1);
-  // Browsers with postMessage, skip WebWorkers
-  // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
-  } else if (global.addEventListener && typeof postMessage == 'function' && !global.importScripts) {
-    defer = function (id) {
-      global.postMessage(id + '', '*');
-    };
-    global.addEventListener('message', listener, false);
-  // IE8-
-  } else if (ONREADYSTATECHANGE in cel('script')) {
-    defer = function (id) {
-      html.appendChild(cel('script'))[ONREADYSTATECHANGE] = function () {
-        html.removeChild(this);
-        run.call(id);
-      };
-    };
-  // Rest old browsers
-  } else {
-    defer = function (id) {
-      setTimeout(ctx(run, id, 1), 0);
-    };
-  }
-}
-module.exports = {
-  set: setTask,
-  clear: clearTask
-};
-
-},{"./_cof":41,"./_ctx":44,"./_dom-create":47,"./_global":53,"./_html":56,"./_invoke":58}],98:[function(require,module,exports){
-var toInteger = require('./_to-integer');
-var max = Math.max;
-var min = Math.min;
-module.exports = function (index, length) {
-  index = toInteger(index);
-  return index < 0 ? max(index + length, 0) : min(index, length);
-};
-
-},{"./_to-integer":99}],99:[function(require,module,exports){
-// 7.1.4 ToInteger
-var ceil = Math.ceil;
-var floor = Math.floor;
-module.exports = function (it) {
-  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
-};
-
-},{}],100:[function(require,module,exports){
-// to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = require('./_iobject');
-var defined = require('./_defined');
-module.exports = function (it) {
-  return IObject(defined(it));
-};
-
-},{"./_defined":45,"./_iobject":59}],101:[function(require,module,exports){
-// 7.1.15 ToLength
-var toInteger = require('./_to-integer');
-var min = Math.min;
-module.exports = function (it) {
-  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
-};
-
-},{"./_to-integer":99}],102:[function(require,module,exports){
-// 7.1.13 ToObject(argument)
-var defined = require('./_defined');
-module.exports = function (it) {
-  return Object(defined(it));
-};
-
-},{"./_defined":45}],103:[function(require,module,exports){
-// 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = require('./_is-object');
-// instead of the ES6 spec version, we didn't implement @@toPrimitive case
-// and the second argument - flag - preferred type is a string
-module.exports = function (it, S) {
-  if (!isObject(it)) return it;
-  var fn, val;
-  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
-  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
-  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
-  throw TypeError("Can't convert object to primitive value");
-};
-
-},{"./_is-object":62}],104:[function(require,module,exports){
-var id = 0;
-var px = Math.random();
-module.exports = function (key) {
-  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-};
-
-},{}],105:[function(require,module,exports){
-var global = require('./_global');
-var navigator = global.navigator;
-
-module.exports = navigator && navigator.userAgent || '';
-
-},{"./_global":53}],106:[function(require,module,exports){
-var global = require('./_global');
-var core = require('./_core');
-var LIBRARY = require('./_library');
-var wksExt = require('./_wks-ext');
-var defineProperty = require('./_object-dp').f;
-module.exports = function (name) {
-  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
-  if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
-};
-
-},{"./_core":42,"./_global":53,"./_library":69,"./_object-dp":74,"./_wks-ext":107}],107:[function(require,module,exports){
-exports.f = require('./_wks');
-
-},{"./_wks":108}],108:[function(require,module,exports){
-var store = require('./_shared')('wks');
-var uid = require('./_uid');
-var Symbol = require('./_global').Symbol;
-var USE_SYMBOL = typeof Symbol == 'function';
-
-var $exports = module.exports = function (name) {
-  return store[name] || (store[name] =
-    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
-};
-
-$exports.store = store;
-
-},{"./_global":53,"./_shared":94,"./_uid":104}],109:[function(require,module,exports){
-var classof = require('./_classof');
-var ITERATOR = require('./_wks')('iterator');
-var Iterators = require('./_iterators');
-module.exports = require('./_core').getIteratorMethod = function (it) {
-  if (it != undefined) return it[ITERATOR]
-    || it['@@iterator']
-    || Iterators[classof(it)];
-};
-
-},{"./_classof":40,"./_core":42,"./_iterators":68,"./_wks":108}],110:[function(require,module,exports){
-var anObject = require('./_an-object');
-var get = require('./core.get-iterator-method');
-module.exports = require('./_core').getIterator = function (it) {
-  var iterFn = get(it);
-  if (typeof iterFn != 'function') throw TypeError(it + ' is not iterable!');
-  return anObject(iterFn.call(it));
-};
-
-},{"./_an-object":38,"./_core":42,"./core.get-iterator-method":109}],111:[function(require,module,exports){
-var classof = require('./_classof');
-var ITERATOR = require('./_wks')('iterator');
-var Iterators = require('./_iterators');
-module.exports = require('./_core').isIterable = function (it) {
-  var O = Object(it);
-  return O[ITERATOR] !== undefined
-    || '@@iterator' in O
-    // eslint-disable-next-line no-prototype-builtins
-    || Iterators.hasOwnProperty(classof(O));
-};
-
-},{"./_classof":40,"./_core":42,"./_iterators":68,"./_wks":108}],112:[function(require,module,exports){
-'use strict';
-var ctx = require('./_ctx');
-var $export = require('./_export');
-var toObject = require('./_to-object');
-var call = require('./_iter-call');
-var isArrayIter = require('./_is-array-iter');
-var toLength = require('./_to-length');
-var createProperty = require('./_create-property');
-var getIterFn = require('./core.get-iterator-method');
-
-$export($export.S + $export.F * !require('./_iter-detect')(function (iter) { Array.from(iter); }), 'Array', {
-  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
-  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
-    var O = toObject(arrayLike);
-    var C = typeof this == 'function' ? this : Array;
-    var aLen = arguments.length;
-    var mapfn = aLen > 1 ? arguments[1] : undefined;
-    var mapping = mapfn !== undefined;
-    var index = 0;
-    var iterFn = getIterFn(O);
-    var length, result, step, iterator;
-    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
-    // if object isn't iterable or it's array with default iterator - use simple case
-    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
-      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
-        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
-      }
-    } else {
-      length = toLength(O.length);
-      for (result = new C(length); length > index; index++) {
-        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
-      }
-    }
-    result.length = index;
-    return result;
-  }
-});
-
-},{"./_create-property":43,"./_ctx":44,"./_export":50,"./_is-array-iter":60,"./_iter-call":63,"./_iter-detect":66,"./_to-length":101,"./_to-object":102,"./core.get-iterator-method":109}],113:[function(require,module,exports){
-'use strict';
-var addToUnscopables = require('./_add-to-unscopables');
-var step = require('./_iter-step');
-var Iterators = require('./_iterators');
-var toIObject = require('./_to-iobject');
-
-// 22.1.3.4 Array.prototype.entries()
-// 22.1.3.13 Array.prototype.keys()
-// 22.1.3.29 Array.prototype.values()
-// 22.1.3.30 Array.prototype[@@iterator]()
-module.exports = require('./_iter-define')(Array, 'Array', function (iterated, kind) {
-  this._t = toIObject(iterated); // target
-  this._i = 0;                   // next index
-  this._k = kind;                // kind
-// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
-}, function () {
-  var O = this._t;
-  var kind = this._k;
-  var index = this._i++;
-  if (!O || index >= O.length) {
-    this._t = undefined;
-    return step(1);
-  }
-  if (kind == 'keys') return step(0, index);
-  if (kind == 'values') return step(0, O[index]);
-  return step(0, [index, O[index]]);
-}, 'values');
-
-// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
-Iterators.Arguments = Iterators.Array;
-
-addToUnscopables('keys');
-addToUnscopables('values');
-addToUnscopables('entries');
-
-},{"./_add-to-unscopables":36,"./_iter-define":65,"./_iter-step":67,"./_iterators":68,"./_to-iobject":100}],114:[function(require,module,exports){
-var $export = require('./_export');
-// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-$export($export.S, 'Object', { create: require('./_object-create') });
-
-},{"./_export":50,"./_object-create":73}],115:[function(require,module,exports){
-var $export = require('./_export');
-// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !require('./_descriptors'), 'Object', { defineProperty: require('./_object-dp').f });
-
-},{"./_descriptors":46,"./_export":50,"./_object-dp":74}],116:[function(require,module,exports){
-// 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
-var toIObject = require('./_to-iobject');
-var $getOwnPropertyDescriptor = require('./_object-gopd').f;
-
-require('./_object-sap')('getOwnPropertyDescriptor', function () {
-  return function getOwnPropertyDescriptor(it, key) {
-    return $getOwnPropertyDescriptor(toIObject(it), key);
-  };
-});
-
-},{"./_object-gopd":76,"./_object-sap":84,"./_to-iobject":100}],117:[function(require,module,exports){
-// 19.1.2.9 Object.getPrototypeOf(O)
-var toObject = require('./_to-object');
-var $getPrototypeOf = require('./_object-gpo');
-
-require('./_object-sap')('getPrototypeOf', function () {
-  return function getPrototypeOf(it) {
-    return $getPrototypeOf(toObject(it));
-  };
-});
-
-},{"./_object-gpo":80,"./_object-sap":84,"./_to-object":102}],118:[function(require,module,exports){
-// 19.1.3.19 Object.setPrototypeOf(O, proto)
-var $export = require('./_export');
-$export($export.S, 'Object', { setPrototypeOf: require('./_set-proto').set });
-
-},{"./_export":50,"./_set-proto":90}],119:[function(require,module,exports){
-
-},{}],120:[function(require,module,exports){
-'use strict';
-var LIBRARY = require('./_library');
-var global = require('./_global');
-var ctx = require('./_ctx');
-var classof = require('./_classof');
-var $export = require('./_export');
-var isObject = require('./_is-object');
-var aFunction = require('./_a-function');
-var anInstance = require('./_an-instance');
-var forOf = require('./_for-of');
-var speciesConstructor = require('./_species-constructor');
-var task = require('./_task').set;
-var microtask = require('./_microtask')();
-var newPromiseCapabilityModule = require('./_new-promise-capability');
-var perform = require('./_perform');
-var userAgent = require('./_user-agent');
-var promiseResolve = require('./_promise-resolve');
-var PROMISE = 'Promise';
-var TypeError = global.TypeError;
-var process = global.process;
-var versions = process && process.versions;
-var v8 = versions && versions.v8 || '';
-var $Promise = global[PROMISE];
-var isNode = classof(process) == 'process';
-var empty = function () { /* empty */ };
-var Internal, newGenericPromiseCapability, OwnPromiseCapability, Wrapper;
-var newPromiseCapability = newGenericPromiseCapability = newPromiseCapabilityModule.f;
-
-var USE_NATIVE = !!function () {
-  try {
-    // correct subclassing with @@species support
-    var promise = $Promise.resolve(1);
-    var FakePromise = (promise.constructor = {})[require('./_wks')('species')] = function (exec) {
-      exec(empty, empty);
-    };
-    // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
-    return (isNode || typeof PromiseRejectionEvent == 'function')
-      && promise.then(empty) instanceof FakePromise
-      // v8 6.6 (Node 10 and Chrome 66) have a bug with resolving custom thenables
-      // https://bugs.chromium.org/p/chromium/issues/detail?id=830565
-      // we can't detect it synchronously, so just check versions
-      && v8.indexOf('6.6') !== 0
-      && userAgent.indexOf('Chrome/66') === -1;
-  } catch (e) { /* empty */ }
-}();
-
-// helpers
-var isThenable = function (it) {
-  var then;
-  return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
-};
-var notify = function (promise, isReject) {
-  if (promise._n) return;
-  promise._n = true;
-  var chain = promise._c;
-  microtask(function () {
-    var value = promise._v;
-    var ok = promise._s == 1;
-    var i = 0;
-    var run = function (reaction) {
-      var handler = ok ? reaction.ok : reaction.fail;
-      var resolve = reaction.resolve;
-      var reject = reaction.reject;
-      var domain = reaction.domain;
-      var result, then, exited;
-      try {
-        if (handler) {
-          if (!ok) {
-            if (promise._h == 2) onHandleUnhandled(promise);
-            promise._h = 1;
-          }
-          if (handler === true) result = value;
-          else {
-            if (domain) domain.enter();
-            result = handler(value); // may throw
-            if (domain) {
-              domain.exit();
-              exited = true;
-            }
-          }
-          if (result === reaction.promise) {
-            reject(TypeError('Promise-chain cycle'));
-          } else if (then = isThenable(result)) {
-            then.call(result, resolve, reject);
-          } else resolve(result);
-        } else reject(value);
-      } catch (e) {
-        if (domain && !exited) domain.exit();
-        reject(e);
-      }
-    };
-    while (chain.length > i) run(chain[i++]); // variable length - can't use forEach
-    promise._c = [];
-    promise._n = false;
-    if (isReject && !promise._h) onUnhandled(promise);
-  });
-};
-var onUnhandled = function (promise) {
-  task.call(global, function () {
-    var value = promise._v;
-    var unhandled = isUnhandled(promise);
-    var result, handler, console;
-    if (unhandled) {
-      result = perform(function () {
-        if (isNode) {
-          process.emit('unhandledRejection', value, promise);
-        } else if (handler = global.onunhandledrejection) {
-          handler({ promise: promise, reason: value });
-        } else if ((console = global.console) && console.error) {
-          console.error('Unhandled promise rejection', value);
-        }
-      });
-      // Browsers should not trigger `rejectionHandled` event if it was handled here, NodeJS - should
-      promise._h = isNode || isUnhandled(promise) ? 2 : 1;
-    } promise._a = undefined;
-    if (unhandled && result.e) throw result.v;
-  });
-};
-var isUnhandled = function (promise) {
-  return promise._h !== 1 && (promise._a || promise._c).length === 0;
-};
-var onHandleUnhandled = function (promise) {
-  task.call(global, function () {
-    var handler;
-    if (isNode) {
-      process.emit('rejectionHandled', promise);
-    } else if (handler = global.onrejectionhandled) {
-      handler({ promise: promise, reason: promise._v });
-    }
-  });
-};
-var $reject = function (value) {
-  var promise = this;
-  if (promise._d) return;
-  promise._d = true;
-  promise = promise._w || promise; // unwrap
-  promise._v = value;
-  promise._s = 2;
-  if (!promise._a) promise._a = promise._c.slice();
-  notify(promise, true);
-};
-var $resolve = function (value) {
-  var promise = this;
-  var then;
-  if (promise._d) return;
-  promise._d = true;
-  promise = promise._w || promise; // unwrap
-  try {
-    if (promise === value) throw TypeError("Promise can't be resolved itself");
-    if (then = isThenable(value)) {
-      microtask(function () {
-        var wrapper = { _w: promise, _d: false }; // wrap
-        try {
-          then.call(value, ctx($resolve, wrapper, 1), ctx($reject, wrapper, 1));
-        } catch (e) {
-          $reject.call(wrapper, e);
-        }
-      });
-    } else {
-      promise._v = value;
-      promise._s = 1;
-      notify(promise, false);
-    }
-  } catch (e) {
-    $reject.call({ _w: promise, _d: false }, e); // wrap
-  }
-};
-
-// constructor polyfill
-if (!USE_NATIVE) {
-  // 25.4.3.1 Promise(executor)
-  $Promise = function Promise(executor) {
-    anInstance(this, $Promise, PROMISE, '_h');
-    aFunction(executor);
-    Internal.call(this);
-    try {
-      executor(ctx($resolve, this, 1), ctx($reject, this, 1));
-    } catch (err) {
-      $reject.call(this, err);
-    }
-  };
-  // eslint-disable-next-line no-unused-vars
-  Internal = function Promise(executor) {
-    this._c = [];             // <- awaiting reactions
-    this._a = undefined;      // <- checked in isUnhandled reactions
-    this._s = 0;              // <- state
-    this._d = false;          // <- done
-    this._v = undefined;      // <- value
-    this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
-    this._n = false;          // <- notify
-  };
-  Internal.prototype = require('./_redefine-all')($Promise.prototype, {
-    // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
-    then: function then(onFulfilled, onRejected) {
-      var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
-      reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
-      reaction.fail = typeof onRejected == 'function' && onRejected;
-      reaction.domain = isNode ? process.domain : undefined;
-      this._c.push(reaction);
-      if (this._a) this._a.push(reaction);
-      if (this._s) notify(this, false);
-      return reaction.promise;
-    },
-    // 25.4.5.1 Promise.prototype.catch(onRejected)
-    'catch': function (onRejected) {
-      return this.then(undefined, onRejected);
-    }
-  });
-  OwnPromiseCapability = function () {
-    var promise = new Internal();
-    this.promise = promise;
-    this.resolve = ctx($resolve, promise, 1);
-    this.reject = ctx($reject, promise, 1);
-  };
-  newPromiseCapabilityModule.f = newPromiseCapability = function (C) {
-    return C === $Promise || C === Wrapper
-      ? new OwnPromiseCapability(C)
-      : newGenericPromiseCapability(C);
-  };
-}
-
-$export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
-require('./_set-to-string-tag')($Promise, PROMISE);
-require('./_set-species')(PROMISE);
-Wrapper = require('./_core')[PROMISE];
-
-// statics
-$export($export.S + $export.F * !USE_NATIVE, PROMISE, {
-  // 25.4.4.5 Promise.reject(r)
-  reject: function reject(r) {
-    var capability = newPromiseCapability(this);
-    var $$reject = capability.reject;
-    $$reject(r);
-    return capability.promise;
-  }
-});
-$export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
-  // 25.4.4.6 Promise.resolve(x)
-  resolve: function resolve(x) {
-    return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
-  }
-});
-$export($export.S + $export.F * !(USE_NATIVE && require('./_iter-detect')(function (iter) {
-  $Promise.all(iter)['catch'](empty);
-})), PROMISE, {
-  // 25.4.4.1 Promise.all(iterable)
-  all: function all(iterable) {
-    var C = this;
-    var capability = newPromiseCapability(C);
-    var resolve = capability.resolve;
-    var reject = capability.reject;
-    var result = perform(function () {
-      var values = [];
-      var index = 0;
-      var remaining = 1;
-      forOf(iterable, false, function (promise) {
-        var $index = index++;
-        var alreadyCalled = false;
-        values.push(undefined);
-        remaining++;
-        C.resolve(promise).then(function (value) {
-          if (alreadyCalled) return;
-          alreadyCalled = true;
-          values[$index] = value;
-          --remaining || resolve(values);
-        }, reject);
-      });
-      --remaining || resolve(values);
-    });
-    if (result.e) reject(result.v);
-    return capability.promise;
-  },
-  // 25.4.4.4 Promise.race(iterable)
-  race: function race(iterable) {
-    var C = this;
-    var capability = newPromiseCapability(C);
-    var reject = capability.reject;
-    var result = perform(function () {
-      forOf(iterable, false, function (promise) {
-        C.resolve(promise).then(capability.resolve, reject);
-      });
-    });
-    if (result.e) reject(result.v);
-    return capability.promise;
-  }
-});
-
-},{"./_a-function":35,"./_an-instance":37,"./_classof":40,"./_core":42,"./_ctx":44,"./_export":50,"./_for-of":52,"./_global":53,"./_is-object":62,"./_iter-detect":66,"./_library":69,"./_microtask":71,"./_new-promise-capability":72,"./_perform":85,"./_promise-resolve":86,"./_redefine-all":88,"./_set-species":91,"./_set-to-string-tag":92,"./_species-constructor":95,"./_task":97,"./_user-agent":105,"./_wks":108}],121:[function(require,module,exports){
-'use strict';
-var $at = require('./_string-at')(true);
-
-// 21.1.3.27 String.prototype[@@iterator]()
-require('./_iter-define')(String, 'String', function (iterated) {
-  this._t = String(iterated); // target
-  this._i = 0;                // next index
-// 21.1.5.2.1 %StringIteratorPrototype%.next()
-}, function () {
-  var O = this._t;
-  var index = this._i;
-  var point;
-  if (index >= O.length) return { value: undefined, done: true };
-  point = $at(O, index);
-  this._i += point.length;
-  return { value: point, done: false };
-});
-
-},{"./_iter-define":65,"./_string-at":96}],122:[function(require,module,exports){
-'use strict';
-// ECMAScript 6 symbols shim
-var global = require('./_global');
-var has = require('./_has');
-var DESCRIPTORS = require('./_descriptors');
-var $export = require('./_export');
-var redefine = require('./_redefine');
-var META = require('./_meta').KEY;
-var $fails = require('./_fails');
-var shared = require('./_shared');
-var setToStringTag = require('./_set-to-string-tag');
-var uid = require('./_uid');
-var wks = require('./_wks');
-var wksExt = require('./_wks-ext');
-var wksDefine = require('./_wks-define');
-var enumKeys = require('./_enum-keys');
-var isArray = require('./_is-array');
-var anObject = require('./_an-object');
-var isObject = require('./_is-object');
-var toObject = require('./_to-object');
-var toIObject = require('./_to-iobject');
-var toPrimitive = require('./_to-primitive');
-var createDesc = require('./_property-desc');
-var _create = require('./_object-create');
-var gOPNExt = require('./_object-gopn-ext');
-var $GOPD = require('./_object-gopd');
-var $GOPS = require('./_object-gops');
-var $DP = require('./_object-dp');
-var $keys = require('./_object-keys');
-var gOPD = $GOPD.f;
-var dP = $DP.f;
-var gOPN = gOPNExt.f;
-var $Symbol = global.Symbol;
-var $JSON = global.JSON;
-var _stringify = $JSON && $JSON.stringify;
-var PROTOTYPE = 'prototype';
-var HIDDEN = wks('_hidden');
-var TO_PRIMITIVE = wks('toPrimitive');
-var isEnum = {}.propertyIsEnumerable;
-var SymbolRegistry = shared('symbol-registry');
-var AllSymbols = shared('symbols');
-var OPSymbols = shared('op-symbols');
-var ObjectProto = Object[PROTOTYPE];
-var USE_NATIVE = typeof $Symbol == 'function' && !!$GOPS.f;
-var QObject = global.QObject;
-// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
-var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
-
-// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
-var setSymbolDesc = DESCRIPTORS && $fails(function () {
-  return _create(dP({}, 'a', {
-    get: function () { return dP(this, 'a', { value: 7 }).a; }
-  })).a != 7;
-}) ? function (it, key, D) {
-  var protoDesc = gOPD(ObjectProto, key);
-  if (protoDesc) delete ObjectProto[key];
-  dP(it, key, D);
-  if (protoDesc && it !== ObjectProto) dP(ObjectProto, key, protoDesc);
-} : dP;
-
-var wrap = function (tag) {
-  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
-  sym._k = tag;
-  return sym;
-};
-
-var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function (it) {
-  return typeof it == 'symbol';
-} : function (it) {
-  return it instanceof $Symbol;
-};
-
-var $defineProperty = function defineProperty(it, key, D) {
-  if (it === ObjectProto) $defineProperty(OPSymbols, key, D);
-  anObject(it);
-  key = toPrimitive(key, true);
-  anObject(D);
-  if (has(AllSymbols, key)) {
-    if (!D.enumerable) {
-      if (!has(it, HIDDEN)) dP(it, HIDDEN, createDesc(1, {}));
-      it[HIDDEN][key] = true;
-    } else {
-      if (has(it, HIDDEN) && it[HIDDEN][key]) it[HIDDEN][key] = false;
-      D = _create(D, { enumerable: createDesc(0, false) });
-    } return setSymbolDesc(it, key, D);
-  } return dP(it, key, D);
-};
-var $defineProperties = function defineProperties(it, P) {
-  anObject(it);
-  var keys = enumKeys(P = toIObject(P));
-  var i = 0;
-  var l = keys.length;
-  var key;
-  while (l > i) $defineProperty(it, key = keys[i++], P[key]);
-  return it;
-};
-var $create = function create(it, P) {
-  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
-};
-var $propertyIsEnumerable = function propertyIsEnumerable(key) {
-  var E = isEnum.call(this, key = toPrimitive(key, true));
-  if (this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return false;
-  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
-};
-var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
-  it = toIObject(it);
-  key = toPrimitive(key, true);
-  if (it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return;
-  var D = gOPD(it, key);
-  if (D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key])) D.enumerable = true;
-  return D;
-};
-var $getOwnPropertyNames = function getOwnPropertyNames(it) {
-  var names = gOPN(toIObject(it));
-  var result = [];
-  var i = 0;
-  var key;
-  while (names.length > i) {
-    if (!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META) result.push(key);
-  } return result;
-};
-var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
-  var IS_OP = it === ObjectProto;
-  var names = gOPN(IS_OP ? OPSymbols : toIObject(it));
-  var result = [];
-  var i = 0;
-  var key;
-  while (names.length > i) {
-    if (has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true)) result.push(AllSymbols[key]);
-  } return result;
-};
-
-// 19.4.1.1 Symbol([description])
-if (!USE_NATIVE) {
-  $Symbol = function Symbol() {
-    if (this instanceof $Symbol) throw TypeError('Symbol is not a constructor!');
-    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
-    var $set = function (value) {
-      if (this === ObjectProto) $set.call(OPSymbols, value);
-      if (has(this, HIDDEN) && has(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
-      setSymbolDesc(this, tag, createDesc(1, value));
-    };
-    if (DESCRIPTORS && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
-    return wrap(tag);
-  };
-  redefine($Symbol[PROTOTYPE], 'toString', function toString() {
-    return this._k;
-  });
-
-  $GOPD.f = $getOwnPropertyDescriptor;
-  $DP.f = $defineProperty;
-  require('./_object-gopn').f = gOPNExt.f = $getOwnPropertyNames;
-  require('./_object-pie').f = $propertyIsEnumerable;
-  $GOPS.f = $getOwnPropertySymbols;
-
-  if (DESCRIPTORS && !require('./_library')) {
-    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
-  }
-
-  wksExt.f = function (name) {
-    return wrap(wks(name));
-  };
-}
-
-$export($export.G + $export.W + $export.F * !USE_NATIVE, { Symbol: $Symbol });
-
-for (var es6Symbols = (
-  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
-  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
-).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
-
-for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
-
-$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
-  // 19.4.2.1 Symbol.for(key)
-  'for': function (key) {
-    return has(SymbolRegistry, key += '')
-      ? SymbolRegistry[key]
-      : SymbolRegistry[key] = $Symbol(key);
-  },
-  // 19.4.2.5 Symbol.keyFor(sym)
-  keyFor: function keyFor(sym) {
-    if (!isSymbol(sym)) throw TypeError(sym + ' is not a symbol!');
-    for (var key in SymbolRegistry) if (SymbolRegistry[key] === sym) return key;
-  },
-  useSetter: function () { setter = true; },
-  useSimple: function () { setter = false; }
-});
-
-$export($export.S + $export.F * !USE_NATIVE, 'Object', {
-  // 19.1.2.2 Object.create(O [, Properties])
-  create: $create,
-  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
-  defineProperty: $defineProperty,
-  // 19.1.2.3 Object.defineProperties(O, Properties)
-  defineProperties: $defineProperties,
-  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
-  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
-  // 19.1.2.7 Object.getOwnPropertyNames(O)
-  getOwnPropertyNames: $getOwnPropertyNames,
-  // 19.1.2.8 Object.getOwnPropertySymbols(O)
-  getOwnPropertySymbols: $getOwnPropertySymbols
-});
-
-// Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
-// https://bugs.chromium.org/p/v8/issues/detail?id=3443
-var FAILS_ON_PRIMITIVES = $fails(function () { $GOPS.f(1); });
-
-$export($export.S + $export.F * FAILS_ON_PRIMITIVES, 'Object', {
-  getOwnPropertySymbols: function getOwnPropertySymbols(it) {
-    return $GOPS.f(toObject(it));
-  }
-});
-
-// 24.3.2 JSON.stringify(value [, replacer [, space]])
-$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
-  var S = $Symbol();
-  // MS Edge converts symbol values to JSON as {}
-  // WebKit converts symbol values to JSON as null
-  // V8 throws on boxed symbols
-  return _stringify([S]) != '[null]' || _stringify({ a: S }) != '{}' || _stringify(Object(S)) != '{}';
-})), 'JSON', {
-  stringify: function stringify(it) {
-    var args = [it];
-    var i = 1;
-    var replacer, $replacer;
-    while (arguments.length > i) args.push(arguments[i++]);
-    $replacer = replacer = args[1];
-    if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
-    if (!isArray(replacer)) replacer = function (key, value) {
-      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
-      if (!isSymbol(value)) return value;
-    };
-    args[1] = replacer;
-    return _stringify.apply($JSON, args);
-  }
-});
-
-// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
-$Symbol[PROTOTYPE][TO_PRIMITIVE] || require('./_hide')($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
-// 19.4.3.5 Symbol.prototype[@@toStringTag]
-setToStringTag($Symbol, 'Symbol');
-// 20.2.1.9 Math[@@toStringTag]
-setToStringTag(Math, 'Math', true);
-// 24.3.3 JSON[@@toStringTag]
-setToStringTag(global.JSON, 'JSON', true);
-
-},{"./_an-object":38,"./_descriptors":46,"./_enum-keys":49,"./_export":50,"./_fails":51,"./_global":53,"./_has":54,"./_hide":55,"./_is-array":61,"./_is-object":62,"./_library":69,"./_meta":70,"./_object-create":73,"./_object-dp":74,"./_object-gopd":76,"./_object-gopn":78,"./_object-gopn-ext":77,"./_object-gops":79,"./_object-keys":82,"./_object-pie":83,"./_property-desc":87,"./_redefine":89,"./_set-to-string-tag":92,"./_shared":94,"./_to-iobject":100,"./_to-object":102,"./_to-primitive":103,"./_uid":104,"./_wks":108,"./_wks-define":106,"./_wks-ext":107}],123:[function(require,module,exports){
-// https://github.com/tc39/proposal-promise-finally
-'use strict';
-var $export = require('./_export');
-var core = require('./_core');
-var global = require('./_global');
-var speciesConstructor = require('./_species-constructor');
-var promiseResolve = require('./_promise-resolve');
-
-$export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
-  var C = speciesConstructor(this, core.Promise || global.Promise);
-  var isFunction = typeof onFinally == 'function';
-  return this.then(
-    isFunction ? function (x) {
-      return promiseResolve(C, onFinally()).then(function () { return x; });
-    } : onFinally,
-    isFunction ? function (e) {
-      return promiseResolve(C, onFinally()).then(function () { throw e; });
-    } : onFinally
-  );
-} });
-
-},{"./_core":42,"./_export":50,"./_global":53,"./_promise-resolve":86,"./_species-constructor":95}],124:[function(require,module,exports){
-'use strict';
-// https://github.com/tc39/proposal-promise-try
-var $export = require('./_export');
-var newPromiseCapability = require('./_new-promise-capability');
-var perform = require('./_perform');
-
-$export($export.S, 'Promise', { 'try': function (callbackfn) {
-  var promiseCapability = newPromiseCapability.f(this);
-  var result = perform(callbackfn);
-  (result.e ? promiseCapability.reject : promiseCapability.resolve)(result.v);
-  return promiseCapability.promise;
-} });
-
-},{"./_export":50,"./_new-promise-capability":72,"./_perform":85}],125:[function(require,module,exports){
-require('./_wks-define')('asyncIterator');
-
-},{"./_wks-define":106}],126:[function(require,module,exports){
-require('./_wks-define')('observable');
-
-},{"./_wks-define":106}],127:[function(require,module,exports){
-require('./es6.array.iterator');
-var global = require('./_global');
-var hide = require('./_hide');
-var Iterators = require('./_iterators');
-var TO_STRING_TAG = require('./_wks')('toStringTag');
-
-var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
-  'DOMTokenList,DataTransferItemList,FileList,HTMLAllCollection,HTMLCollection,HTMLFormElement,HTMLSelectElement,' +
-  'MediaList,MimeTypeArray,NamedNodeMap,NodeList,PaintRequestList,Plugin,PluginArray,SVGLengthList,SVGNumberList,' +
-  'SVGPathSegList,SVGPointList,SVGStringList,SVGTransformList,SourceBufferList,StyleSheetList,TextTrackCueList,' +
-  'TextTrackList,TouchList').split(',');
-
-for (var i = 0; i < DOMIterables.length; i++) {
-  var NAME = DOMIterables[i];
-  var Collection = global[NAME];
-  var proto = Collection && Collection.prototype;
-  if (proto && !proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
-  Iterators[NAME] = Iterators.Array;
-}
-
-},{"./_global":53,"./_hide":55,"./_iterators":68,"./_wks":108,"./es6.array.iterator":113}],128:[function(require,module,exports){
+},{"../core-js/symbol":14,"../core-js/symbol/iterator":15}],25:[function(require,module,exports){
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -6209,7 +4270,7 @@ if (hadRuntime) {
   }
 }
 
-},{"./runtime":129}],129:[function(require,module,exports){
+},{"./runtime":26}],26:[function(require,module,exports){
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -6938,7 +4999,1974 @@ if (hadRuntime) {
   (function() { return this })() || Function("return this")()
 );
 
-},{}],130:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
+module.exports = require("regenerator-runtime");
+
+},{"regenerator-runtime":25}],28:[function(require,module,exports){
+require('../../modules/es6.string.iterator');
+require('../../modules/es6.array.from');
+module.exports = require('../../modules/_core').Array.from;
+
+},{"../../modules/_core":46,"../../modules/es6.array.from":116,"../../modules/es6.string.iterator":125}],29:[function(require,module,exports){
+require('../modules/web.dom.iterable');
+require('../modules/es6.string.iterator');
+module.exports = require('../modules/core.get-iterator');
+
+},{"../modules/core.get-iterator":114,"../modules/es6.string.iterator":125,"../modules/web.dom.iterable":131}],30:[function(require,module,exports){
+require('../modules/web.dom.iterable');
+require('../modules/es6.string.iterator');
+module.exports = require('../modules/core.is-iterable');
+
+},{"../modules/core.is-iterable":115,"../modules/es6.string.iterator":125,"../modules/web.dom.iterable":131}],31:[function(require,module,exports){
+require('../../modules/es6.object.create');
+var $Object = require('../../modules/_core').Object;
+module.exports = function create(P, D) {
+  return $Object.create(P, D);
+};
+
+},{"../../modules/_core":46,"../../modules/es6.object.create":118}],32:[function(require,module,exports){
+require('../../modules/es6.object.define-property');
+var $Object = require('../../modules/_core').Object;
+module.exports = function defineProperty(it, key, desc) {
+  return $Object.defineProperty(it, key, desc);
+};
+
+},{"../../modules/_core":46,"../../modules/es6.object.define-property":119}],33:[function(require,module,exports){
+require('../../modules/es6.object.get-own-property-descriptor');
+var $Object = require('../../modules/_core').Object;
+module.exports = function getOwnPropertyDescriptor(it, key) {
+  return $Object.getOwnPropertyDescriptor(it, key);
+};
+
+},{"../../modules/_core":46,"../../modules/es6.object.get-own-property-descriptor":120}],34:[function(require,module,exports){
+require('../../modules/es6.object.get-prototype-of');
+module.exports = require('../../modules/_core').Object.getPrototypeOf;
+
+},{"../../modules/_core":46,"../../modules/es6.object.get-prototype-of":121}],35:[function(require,module,exports){
+require('../../modules/es6.object.set-prototype-of');
+module.exports = require('../../modules/_core').Object.setPrototypeOf;
+
+},{"../../modules/_core":46,"../../modules/es6.object.set-prototype-of":122}],36:[function(require,module,exports){
+require('../modules/es6.object.to-string');
+require('../modules/es6.string.iterator');
+require('../modules/web.dom.iterable');
+require('../modules/es6.promise');
+require('../modules/es7.promise.finally');
+require('../modules/es7.promise.try');
+module.exports = require('../modules/_core').Promise;
+
+},{"../modules/_core":46,"../modules/es6.object.to-string":123,"../modules/es6.promise":124,"../modules/es6.string.iterator":125,"../modules/es7.promise.finally":127,"../modules/es7.promise.try":128,"../modules/web.dom.iterable":131}],37:[function(require,module,exports){
+require('../../modules/es6.symbol');
+require('../../modules/es6.object.to-string');
+require('../../modules/es7.symbol.async-iterator');
+require('../../modules/es7.symbol.observable');
+module.exports = require('../../modules/_core').Symbol;
+
+},{"../../modules/_core":46,"../../modules/es6.object.to-string":123,"../../modules/es6.symbol":126,"../../modules/es7.symbol.async-iterator":129,"../../modules/es7.symbol.observable":130}],38:[function(require,module,exports){
+require('../../modules/es6.string.iterator');
+require('../../modules/web.dom.iterable');
+module.exports = require('../../modules/_wks-ext').f('iterator');
+
+},{"../../modules/_wks-ext":111,"../../modules/es6.string.iterator":125,"../../modules/web.dom.iterable":131}],39:[function(require,module,exports){
+module.exports = function (it) {
+  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
+  return it;
+};
+
+},{}],40:[function(require,module,exports){
+module.exports = function () { /* empty */ };
+
+},{}],41:[function(require,module,exports){
+module.exports = function (it, Constructor, name, forbiddenField) {
+  if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
+    throw TypeError(name + ': incorrect invocation!');
+  } return it;
+};
+
+},{}],42:[function(require,module,exports){
+var isObject = require('./_is-object');
+module.exports = function (it) {
+  if (!isObject(it)) throw TypeError(it + ' is not an object!');
+  return it;
+};
+
+},{"./_is-object":66}],43:[function(require,module,exports){
+// false -> Array#indexOf
+// true  -> Array#includes
+var toIObject = require('./_to-iobject');
+var toLength = require('./_to-length');
+var toAbsoluteIndex = require('./_to-absolute-index');
+module.exports = function (IS_INCLUDES) {
+  return function ($this, el, fromIndex) {
+    var O = toIObject($this);
+    var length = toLength(O.length);
+    var index = toAbsoluteIndex(fromIndex, length);
+    var value;
+    // Array#includes uses SameValueZero equality algorithm
+    // eslint-disable-next-line no-self-compare
+    if (IS_INCLUDES && el != el) while (length > index) {
+      value = O[index++];
+      // eslint-disable-next-line no-self-compare
+      if (value != value) return true;
+    // Array#indexOf ignores holes, Array#includes - not
+    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
+      if (O[index] === el) return IS_INCLUDES || index || 0;
+    } return !IS_INCLUDES && -1;
+  };
+};
+
+},{"./_to-absolute-index":102,"./_to-iobject":104,"./_to-length":105}],44:[function(require,module,exports){
+// getting tag from 19.1.3.6 Object.prototype.toString()
+var cof = require('./_cof');
+var TAG = require('./_wks')('toStringTag');
+// ES3 wrong here
+var ARG = cof(function () { return arguments; }()) == 'Arguments';
+
+// fallback for IE11 Script Access Denied error
+var tryGet = function (it, key) {
+  try {
+    return it[key];
+  } catch (e) { /* empty */ }
+};
+
+module.exports = function (it) {
+  var O, T, B;
+  return it === undefined ? 'Undefined' : it === null ? 'Null'
+    // @@toStringTag case
+    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+    // builtinTag case
+    : ARG ? cof(O)
+    // ES3 arguments fallback
+    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+};
+
+},{"./_cof":45,"./_wks":112}],45:[function(require,module,exports){
+var toString = {}.toString;
+
+module.exports = function (it) {
+  return toString.call(it).slice(8, -1);
+};
+
+},{}],46:[function(require,module,exports){
+var core = module.exports = { version: '2.6.12' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+},{}],47:[function(require,module,exports){
+'use strict';
+var $defineProperty = require('./_object-dp');
+var createDesc = require('./_property-desc');
+
+module.exports = function (object, index, value) {
+  if (index in object) $defineProperty.f(object, index, createDesc(0, value));
+  else object[index] = value;
+};
+
+},{"./_object-dp":78,"./_property-desc":91}],48:[function(require,module,exports){
+// optional / simple context binding
+var aFunction = require('./_a-function');
+module.exports = function (fn, that, length) {
+  aFunction(fn);
+  if (that === undefined) return fn;
+  switch (length) {
+    case 1: return function (a) {
+      return fn.call(that, a);
+    };
+    case 2: return function (a, b) {
+      return fn.call(that, a, b);
+    };
+    case 3: return function (a, b, c) {
+      return fn.call(that, a, b, c);
+    };
+  }
+  return function (/* ...args */) {
+    return fn.apply(that, arguments);
+  };
+};
+
+},{"./_a-function":39}],49:[function(require,module,exports){
+// 7.2.1 RequireObjectCoercible(argument)
+module.exports = function (it) {
+  if (it == undefined) throw TypeError("Can't call method on  " + it);
+  return it;
+};
+
+},{}],50:[function(require,module,exports){
+// Thank's IE8 for his funny defineProperty
+module.exports = !require('./_fails')(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+},{"./_fails":55}],51:[function(require,module,exports){
+var isObject = require('./_is-object');
+var document = require('./_global').document;
+// typeof document.createElement is 'object' in old IE
+var is = isObject(document) && isObject(document.createElement);
+module.exports = function (it) {
+  return is ? document.createElement(it) : {};
+};
+
+},{"./_global":57,"./_is-object":66}],52:[function(require,module,exports){
+// IE 8- don't enum bug keys
+module.exports = (
+  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
+).split(',');
+
+},{}],53:[function(require,module,exports){
+// all enumerable object keys, includes symbols
+var getKeys = require('./_object-keys');
+var gOPS = require('./_object-gops');
+var pIE = require('./_object-pie');
+module.exports = function (it) {
+  var result = getKeys(it);
+  var getSymbols = gOPS.f;
+  if (getSymbols) {
+    var symbols = getSymbols(it);
+    var isEnum = pIE.f;
+    var i = 0;
+    var key;
+    while (symbols.length > i) if (isEnum.call(it, key = symbols[i++])) result.push(key);
+  } return result;
+};
+
+},{"./_object-gops":83,"./_object-keys":86,"./_object-pie":87}],54:[function(require,module,exports){
+var global = require('./_global');
+var core = require('./_core');
+var ctx = require('./_ctx');
+var hide = require('./_hide');
+var has = require('./_has');
+var PROTOTYPE = 'prototype';
+
+var $export = function (type, name, source) {
+  var IS_FORCED = type & $export.F;
+  var IS_GLOBAL = type & $export.G;
+  var IS_STATIC = type & $export.S;
+  var IS_PROTO = type & $export.P;
+  var IS_BIND = type & $export.B;
+  var IS_WRAP = type & $export.W;
+  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
+  var expProto = exports[PROTOTYPE];
+  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
+  var key, own, out;
+  if (IS_GLOBAL) source = name;
+  for (key in source) {
+    // contains in native
+    own = !IS_FORCED && target && target[key] !== undefined;
+    if (own && has(exports, key)) continue;
+    // export native or passed
+    out = own ? target[key] : source[key];
+    // prevent global pollution for namespaces
+    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+    // bind timers to global for call from export context
+    : IS_BIND && own ? ctx(out, global)
+    // wrap global constructors for prevent change them in library
+    : IS_WRAP && target[key] == out ? (function (C) {
+      var F = function (a, b, c) {
+        if (this instanceof C) {
+          switch (arguments.length) {
+            case 0: return new C();
+            case 1: return new C(a);
+            case 2: return new C(a, b);
+          } return new C(a, b, c);
+        } return C.apply(this, arguments);
+      };
+      F[PROTOTYPE] = C[PROTOTYPE];
+      return F;
+    // make static versions for prototype methods
+    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
+    if (IS_PROTO) {
+      (exports.virtual || (exports.virtual = {}))[key] = out;
+      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
+      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
+    }
+  }
+};
+// type bitmap
+$export.F = 1;   // forced
+$export.G = 2;   // global
+$export.S = 4;   // static
+$export.P = 8;   // proto
+$export.B = 16;  // bind
+$export.W = 32;  // wrap
+$export.U = 64;  // safe
+$export.R = 128; // real proto method for `library`
+module.exports = $export;
+
+},{"./_core":46,"./_ctx":48,"./_global":57,"./_has":58,"./_hide":59}],55:[function(require,module,exports){
+module.exports = function (exec) {
+  try {
+    return !!exec();
+  } catch (e) {
+    return true;
+  }
+};
+
+},{}],56:[function(require,module,exports){
+var ctx = require('./_ctx');
+var call = require('./_iter-call');
+var isArrayIter = require('./_is-array-iter');
+var anObject = require('./_an-object');
+var toLength = require('./_to-length');
+var getIterFn = require('./core.get-iterator-method');
+var BREAK = {};
+var RETURN = {};
+var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
+  var iterFn = ITERATOR ? function () { return iterable; } : getIterFn(iterable);
+  var f = ctx(fn, that, entries ? 2 : 1);
+  var index = 0;
+  var length, step, iterator, result;
+  if (typeof iterFn != 'function') throw TypeError(iterable + ' is not iterable!');
+  // fast case for arrays with default iterator
+  if (isArrayIter(iterFn)) for (length = toLength(iterable.length); length > index; index++) {
+    result = entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
+    if (result === BREAK || result === RETURN) return result;
+  } else for (iterator = iterFn.call(iterable); !(step = iterator.next()).done;) {
+    result = call(iterator, f, step.value, entries);
+    if (result === BREAK || result === RETURN) return result;
+  }
+};
+exports.BREAK = BREAK;
+exports.RETURN = RETURN;
+
+},{"./_an-object":42,"./_ctx":48,"./_is-array-iter":64,"./_iter-call":67,"./_to-length":105,"./core.get-iterator-method":113}],57:[function(require,module,exports){
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+var global = module.exports = typeof window != 'undefined' && window.Math == Math
+  ? window : typeof self != 'undefined' && self.Math == Math ? self
+  // eslint-disable-next-line no-new-func
+  : Function('return this')();
+if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
+
+},{}],58:[function(require,module,exports){
+var hasOwnProperty = {}.hasOwnProperty;
+module.exports = function (it, key) {
+  return hasOwnProperty.call(it, key);
+};
+
+},{}],59:[function(require,module,exports){
+var dP = require('./_object-dp');
+var createDesc = require('./_property-desc');
+module.exports = require('./_descriptors') ? function (object, key, value) {
+  return dP.f(object, key, createDesc(1, value));
+} : function (object, key, value) {
+  object[key] = value;
+  return object;
+};
+
+},{"./_descriptors":50,"./_object-dp":78,"./_property-desc":91}],60:[function(require,module,exports){
+var document = require('./_global').document;
+module.exports = document && document.documentElement;
+
+},{"./_global":57}],61:[function(require,module,exports){
+module.exports = !require('./_descriptors') && !require('./_fails')(function () {
+  return Object.defineProperty(require('./_dom-create')('div'), 'a', { get: function () { return 7; } }).a != 7;
+});
+
+},{"./_descriptors":50,"./_dom-create":51,"./_fails":55}],62:[function(require,module,exports){
+// fast apply, http://jsperf.lnkit.com/fast-apply/5
+module.exports = function (fn, args, that) {
+  var un = that === undefined;
+  switch (args.length) {
+    case 0: return un ? fn()
+                      : fn.call(that);
+    case 1: return un ? fn(args[0])
+                      : fn.call(that, args[0]);
+    case 2: return un ? fn(args[0], args[1])
+                      : fn.call(that, args[0], args[1]);
+    case 3: return un ? fn(args[0], args[1], args[2])
+                      : fn.call(that, args[0], args[1], args[2]);
+    case 4: return un ? fn(args[0], args[1], args[2], args[3])
+                      : fn.call(that, args[0], args[1], args[2], args[3]);
+  } return fn.apply(that, args);
+};
+
+},{}],63:[function(require,module,exports){
+// fallback for non-array-like ES3 and non-enumerable old V8 strings
+var cof = require('./_cof');
+// eslint-disable-next-line no-prototype-builtins
+module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
+  return cof(it) == 'String' ? it.split('') : Object(it);
+};
+
+},{"./_cof":45}],64:[function(require,module,exports){
+// check on default Array iterator
+var Iterators = require('./_iterators');
+var ITERATOR = require('./_wks')('iterator');
+var ArrayProto = Array.prototype;
+
+module.exports = function (it) {
+  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
+};
+
+},{"./_iterators":72,"./_wks":112}],65:[function(require,module,exports){
+// 7.2.2 IsArray(argument)
+var cof = require('./_cof');
+module.exports = Array.isArray || function isArray(arg) {
+  return cof(arg) == 'Array';
+};
+
+},{"./_cof":45}],66:[function(require,module,exports){
+module.exports = function (it) {
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+},{}],67:[function(require,module,exports){
+// call something on iterator step with safe closing on error
+var anObject = require('./_an-object');
+module.exports = function (iterator, fn, value, entries) {
+  try {
+    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
+  // 7.4.6 IteratorClose(iterator, completion)
+  } catch (e) {
+    var ret = iterator['return'];
+    if (ret !== undefined) anObject(ret.call(iterator));
+    throw e;
+  }
+};
+
+},{"./_an-object":42}],68:[function(require,module,exports){
+'use strict';
+var create = require('./_object-create');
+var descriptor = require('./_property-desc');
+var setToStringTag = require('./_set-to-string-tag');
+var IteratorPrototype = {};
+
+// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
+require('./_hide')(IteratorPrototype, require('./_wks')('iterator'), function () { return this; });
+
+module.exports = function (Constructor, NAME, next) {
+  Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
+  setToStringTag(Constructor, NAME + ' Iterator');
+};
+
+},{"./_hide":59,"./_object-create":77,"./_property-desc":91,"./_set-to-string-tag":96,"./_wks":112}],69:[function(require,module,exports){
+'use strict';
+var LIBRARY = require('./_library');
+var $export = require('./_export');
+var redefine = require('./_redefine');
+var hide = require('./_hide');
+var Iterators = require('./_iterators');
+var $iterCreate = require('./_iter-create');
+var setToStringTag = require('./_set-to-string-tag');
+var getPrototypeOf = require('./_object-gpo');
+var ITERATOR = require('./_wks')('iterator');
+var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
+var FF_ITERATOR = '@@iterator';
+var KEYS = 'keys';
+var VALUES = 'values';
+
+var returnThis = function () { return this; };
+
+module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
+  $iterCreate(Constructor, NAME, next);
+  var getMethod = function (kind) {
+    if (!BUGGY && kind in proto) return proto[kind];
+    switch (kind) {
+      case KEYS: return function keys() { return new Constructor(this, kind); };
+      case VALUES: return function values() { return new Constructor(this, kind); };
+    } return function entries() { return new Constructor(this, kind); };
+  };
+  var TAG = NAME + ' Iterator';
+  var DEF_VALUES = DEFAULT == VALUES;
+  var VALUES_BUG = false;
+  var proto = Base.prototype;
+  var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
+  var $default = $native || getMethod(DEFAULT);
+  var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
+  var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
+  var methods, key, IteratorPrototype;
+  // Fix native
+  if ($anyNative) {
+    IteratorPrototype = getPrototypeOf($anyNative.call(new Base()));
+    if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
+      // Set @@toStringTag to native iterators
+      setToStringTag(IteratorPrototype, TAG, true);
+      // fix for some old engines
+      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
+    }
+  }
+  // fix Array#{values, @@iterator}.name in V8 / FF
+  if (DEF_VALUES && $native && $native.name !== VALUES) {
+    VALUES_BUG = true;
+    $default = function values() { return $native.call(this); };
+  }
+  // Define iterator
+  if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
+    hide(proto, ITERATOR, $default);
+  }
+  // Plug for library
+  Iterators[NAME] = $default;
+  Iterators[TAG] = returnThis;
+  if (DEFAULT) {
+    methods = {
+      values: DEF_VALUES ? $default : getMethod(VALUES),
+      keys: IS_SET ? $default : getMethod(KEYS),
+      entries: $entries
+    };
+    if (FORCED) for (key in methods) {
+      if (!(key in proto)) redefine(proto, key, methods[key]);
+    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
+  }
+  return methods;
+};
+
+},{"./_export":54,"./_hide":59,"./_iter-create":68,"./_iterators":72,"./_library":73,"./_object-gpo":84,"./_redefine":93,"./_set-to-string-tag":96,"./_wks":112}],70:[function(require,module,exports){
+var ITERATOR = require('./_wks')('iterator');
+var SAFE_CLOSING = false;
+
+try {
+  var riter = [7][ITERATOR]();
+  riter['return'] = function () { SAFE_CLOSING = true; };
+  // eslint-disable-next-line no-throw-literal
+  Array.from(riter, function () { throw 2; });
+} catch (e) { /* empty */ }
+
+module.exports = function (exec, skipClosing) {
+  if (!skipClosing && !SAFE_CLOSING) return false;
+  var safe = false;
+  try {
+    var arr = [7];
+    var iter = arr[ITERATOR]();
+    iter.next = function () { return { done: safe = true }; };
+    arr[ITERATOR] = function () { return iter; };
+    exec(arr);
+  } catch (e) { /* empty */ }
+  return safe;
+};
+
+},{"./_wks":112}],71:[function(require,module,exports){
+module.exports = function (done, value) {
+  return { value: value, done: !!done };
+};
+
+},{}],72:[function(require,module,exports){
+module.exports = {};
+
+},{}],73:[function(require,module,exports){
+module.exports = true;
+
+},{}],74:[function(require,module,exports){
+var META = require('./_uid')('meta');
+var isObject = require('./_is-object');
+var has = require('./_has');
+var setDesc = require('./_object-dp').f;
+var id = 0;
+var isExtensible = Object.isExtensible || function () {
+  return true;
+};
+var FREEZE = !require('./_fails')(function () {
+  return isExtensible(Object.preventExtensions({}));
+});
+var setMeta = function (it) {
+  setDesc(it, META, { value: {
+    i: 'O' + ++id, // object ID
+    w: {}          // weak collections IDs
+  } });
+};
+var fastKey = function (it, create) {
+  // return primitive with prefix
+  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return 'F';
+    // not necessary to add metadata
+    if (!create) return 'E';
+    // add missing metadata
+    setMeta(it);
+  // return object ID
+  } return it[META].i;
+};
+var getWeak = function (it, create) {
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return true;
+    // not necessary to add metadata
+    if (!create) return false;
+    // add missing metadata
+    setMeta(it);
+  // return hash weak collections IDs
+  } return it[META].w;
+};
+// add metadata on freeze-family methods calling
+var onFreeze = function (it) {
+  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
+  return it;
+};
+var meta = module.exports = {
+  KEY: META,
+  NEED: false,
+  fastKey: fastKey,
+  getWeak: getWeak,
+  onFreeze: onFreeze
+};
+
+},{"./_fails":55,"./_has":58,"./_is-object":66,"./_object-dp":78,"./_uid":108}],75:[function(require,module,exports){
+var global = require('./_global');
+var macrotask = require('./_task').set;
+var Observer = global.MutationObserver || global.WebKitMutationObserver;
+var process = global.process;
+var Promise = global.Promise;
+var isNode = require('./_cof')(process) == 'process';
+
+module.exports = function () {
+  var head, last, notify;
+
+  var flush = function () {
+    var parent, fn;
+    if (isNode && (parent = process.domain)) parent.exit();
+    while (head) {
+      fn = head.fn;
+      head = head.next;
+      try {
+        fn();
+      } catch (e) {
+        if (head) notify();
+        else last = undefined;
+        throw e;
+      }
+    } last = undefined;
+    if (parent) parent.enter();
+  };
+
+  // Node.js
+  if (isNode) {
+    notify = function () {
+      process.nextTick(flush);
+    };
+  // browsers with MutationObserver, except iOS Safari - https://github.com/zloirock/core-js/issues/339
+  } else if (Observer && !(global.navigator && global.navigator.standalone)) {
+    var toggle = true;
+    var node = document.createTextNode('');
+    new Observer(flush).observe(node, { characterData: true }); // eslint-disable-line no-new
+    notify = function () {
+      node.data = toggle = !toggle;
+    };
+  // environments with maybe non-completely correct, but existent Promise
+  } else if (Promise && Promise.resolve) {
+    // Promise.resolve without an argument throws an error in LG WebOS 2
+    var promise = Promise.resolve(undefined);
+    notify = function () {
+      promise.then(flush);
+    };
+  // for other environments - macrotask based on:
+  // - setImmediate
+  // - MessageChannel
+  // - window.postMessag
+  // - onreadystatechange
+  // - setTimeout
+  } else {
+    notify = function () {
+      // strange IE + webpack dev server bug - use .call(global)
+      macrotask.call(global, flush);
+    };
+  }
+
+  return function (fn) {
+    var task = { fn: fn, next: undefined };
+    if (last) last.next = task;
+    if (!head) {
+      head = task;
+      notify();
+    } last = task;
+  };
+};
+
+},{"./_cof":45,"./_global":57,"./_task":101}],76:[function(require,module,exports){
+'use strict';
+// 25.4.1.5 NewPromiseCapability(C)
+var aFunction = require('./_a-function');
+
+function PromiseCapability(C) {
+  var resolve, reject;
+  this.promise = new C(function ($$resolve, $$reject) {
+    if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');
+    resolve = $$resolve;
+    reject = $$reject;
+  });
+  this.resolve = aFunction(resolve);
+  this.reject = aFunction(reject);
+}
+
+module.exports.f = function (C) {
+  return new PromiseCapability(C);
+};
+
+},{"./_a-function":39}],77:[function(require,module,exports){
+// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
+var anObject = require('./_an-object');
+var dPs = require('./_object-dps');
+var enumBugKeys = require('./_enum-bug-keys');
+var IE_PROTO = require('./_shared-key')('IE_PROTO');
+var Empty = function () { /* empty */ };
+var PROTOTYPE = 'prototype';
+
+// Create object with fake `null` prototype: use iframe Object with cleared prototype
+var createDict = function () {
+  // Thrash, waste and sodomy: IE GC bug
+  var iframe = require('./_dom-create')('iframe');
+  var i = enumBugKeys.length;
+  var lt = '<';
+  var gt = '>';
+  var iframeDocument;
+  iframe.style.display = 'none';
+  require('./_html').appendChild(iframe);
+  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
+  // createDict = iframe.contentWindow.Object;
+  // html.removeChild(iframe);
+  iframeDocument = iframe.contentWindow.document;
+  iframeDocument.open();
+  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
+  iframeDocument.close();
+  createDict = iframeDocument.F;
+  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
+  return createDict();
+};
+
+module.exports = Object.create || function create(O, Properties) {
+  var result;
+  if (O !== null) {
+    Empty[PROTOTYPE] = anObject(O);
+    result = new Empty();
+    Empty[PROTOTYPE] = null;
+    // add "__proto__" for Object.getPrototypeOf polyfill
+    result[IE_PROTO] = O;
+  } else result = createDict();
+  return Properties === undefined ? result : dPs(result, Properties);
+};
+
+},{"./_an-object":42,"./_dom-create":51,"./_enum-bug-keys":52,"./_html":60,"./_object-dps":79,"./_shared-key":97}],78:[function(require,module,exports){
+var anObject = require('./_an-object');
+var IE8_DOM_DEFINE = require('./_ie8-dom-define');
+var toPrimitive = require('./_to-primitive');
+var dP = Object.defineProperty;
+
+exports.f = require('./_descriptors') ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if (IE8_DOM_DEFINE) try {
+    return dP(O, P, Attributes);
+  } catch (e) { /* empty */ }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+  if ('value' in Attributes) O[P] = Attributes.value;
+  return O;
+};
+
+},{"./_an-object":42,"./_descriptors":50,"./_ie8-dom-define":61,"./_to-primitive":107}],79:[function(require,module,exports){
+var dP = require('./_object-dp');
+var anObject = require('./_an-object');
+var getKeys = require('./_object-keys');
+
+module.exports = require('./_descriptors') ? Object.defineProperties : function defineProperties(O, Properties) {
+  anObject(O);
+  var keys = getKeys(Properties);
+  var length = keys.length;
+  var i = 0;
+  var P;
+  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
+  return O;
+};
+
+},{"./_an-object":42,"./_descriptors":50,"./_object-dp":78,"./_object-keys":86}],80:[function(require,module,exports){
+var pIE = require('./_object-pie');
+var createDesc = require('./_property-desc');
+var toIObject = require('./_to-iobject');
+var toPrimitive = require('./_to-primitive');
+var has = require('./_has');
+var IE8_DOM_DEFINE = require('./_ie8-dom-define');
+var gOPD = Object.getOwnPropertyDescriptor;
+
+exports.f = require('./_descriptors') ? gOPD : function getOwnPropertyDescriptor(O, P) {
+  O = toIObject(O);
+  P = toPrimitive(P, true);
+  if (IE8_DOM_DEFINE) try {
+    return gOPD(O, P);
+  } catch (e) { /* empty */ }
+  if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
+};
+
+},{"./_descriptors":50,"./_has":58,"./_ie8-dom-define":61,"./_object-pie":87,"./_property-desc":91,"./_to-iobject":104,"./_to-primitive":107}],81:[function(require,module,exports){
+// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
+var toIObject = require('./_to-iobject');
+var gOPN = require('./_object-gopn').f;
+var toString = {}.toString;
+
+var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
+  ? Object.getOwnPropertyNames(window) : [];
+
+var getWindowNames = function (it) {
+  try {
+    return gOPN(it);
+  } catch (e) {
+    return windowNames.slice();
+  }
+};
+
+module.exports.f = function getOwnPropertyNames(it) {
+  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
+};
+
+},{"./_object-gopn":82,"./_to-iobject":104}],82:[function(require,module,exports){
+// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
+var $keys = require('./_object-keys-internal');
+var hiddenKeys = require('./_enum-bug-keys').concat('length', 'prototype');
+
+exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
+  return $keys(O, hiddenKeys);
+};
+
+},{"./_enum-bug-keys":52,"./_object-keys-internal":85}],83:[function(require,module,exports){
+exports.f = Object.getOwnPropertySymbols;
+
+},{}],84:[function(require,module,exports){
+// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
+var has = require('./_has');
+var toObject = require('./_to-object');
+var IE_PROTO = require('./_shared-key')('IE_PROTO');
+var ObjectProto = Object.prototype;
+
+module.exports = Object.getPrototypeOf || function (O) {
+  O = toObject(O);
+  if (has(O, IE_PROTO)) return O[IE_PROTO];
+  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
+    return O.constructor.prototype;
+  } return O instanceof Object ? ObjectProto : null;
+};
+
+},{"./_has":58,"./_shared-key":97,"./_to-object":106}],85:[function(require,module,exports){
+var has = require('./_has');
+var toIObject = require('./_to-iobject');
+var arrayIndexOf = require('./_array-includes')(false);
+var IE_PROTO = require('./_shared-key')('IE_PROTO');
+
+module.exports = function (object, names) {
+  var O = toIObject(object);
+  var i = 0;
+  var result = [];
+  var key;
+  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
+  // Don't enum bug & hidden keys
+  while (names.length > i) if (has(O, key = names[i++])) {
+    ~arrayIndexOf(result, key) || result.push(key);
+  }
+  return result;
+};
+
+},{"./_array-includes":43,"./_has":58,"./_shared-key":97,"./_to-iobject":104}],86:[function(require,module,exports){
+// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+var $keys = require('./_object-keys-internal');
+var enumBugKeys = require('./_enum-bug-keys');
+
+module.exports = Object.keys || function keys(O) {
+  return $keys(O, enumBugKeys);
+};
+
+},{"./_enum-bug-keys":52,"./_object-keys-internal":85}],87:[function(require,module,exports){
+exports.f = {}.propertyIsEnumerable;
+
+},{}],88:[function(require,module,exports){
+// most Object methods by ES6 should accept primitives
+var $export = require('./_export');
+var core = require('./_core');
+var fails = require('./_fails');
+module.exports = function (KEY, exec) {
+  var fn = (core.Object || {})[KEY] || Object[KEY];
+  var exp = {};
+  exp[KEY] = exec(fn);
+  $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
+};
+
+},{"./_core":46,"./_export":54,"./_fails":55}],89:[function(require,module,exports){
+module.exports = function (exec) {
+  try {
+    return { e: false, v: exec() };
+  } catch (e) {
+    return { e: true, v: e };
+  }
+};
+
+},{}],90:[function(require,module,exports){
+var anObject = require('./_an-object');
+var isObject = require('./_is-object');
+var newPromiseCapability = require('./_new-promise-capability');
+
+module.exports = function (C, x) {
+  anObject(C);
+  if (isObject(x) && x.constructor === C) return x;
+  var promiseCapability = newPromiseCapability.f(C);
+  var resolve = promiseCapability.resolve;
+  resolve(x);
+  return promiseCapability.promise;
+};
+
+},{"./_an-object":42,"./_is-object":66,"./_new-promise-capability":76}],91:[function(require,module,exports){
+module.exports = function (bitmap, value) {
+  return {
+    enumerable: !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable: !(bitmap & 4),
+    value: value
+  };
+};
+
+},{}],92:[function(require,module,exports){
+var hide = require('./_hide');
+module.exports = function (target, src, safe) {
+  for (var key in src) {
+    if (safe && target[key]) target[key] = src[key];
+    else hide(target, key, src[key]);
+  } return target;
+};
+
+},{"./_hide":59}],93:[function(require,module,exports){
+module.exports = require('./_hide');
+
+},{"./_hide":59}],94:[function(require,module,exports){
+// Works with __proto__ only. Old v8 can't work with null proto objects.
+/* eslint-disable no-proto */
+var isObject = require('./_is-object');
+var anObject = require('./_an-object');
+var check = function (O, proto) {
+  anObject(O);
+  if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
+};
+module.exports = {
+  set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
+    function (test, buggy, set) {
+      try {
+        set = require('./_ctx')(Function.call, require('./_object-gopd').f(Object.prototype, '__proto__').set, 2);
+        set(test, []);
+        buggy = !(test instanceof Array);
+      } catch (e) { buggy = true; }
+      return function setPrototypeOf(O, proto) {
+        check(O, proto);
+        if (buggy) O.__proto__ = proto;
+        else set(O, proto);
+        return O;
+      };
+    }({}, false) : undefined),
+  check: check
+};
+
+},{"./_an-object":42,"./_ctx":48,"./_is-object":66,"./_object-gopd":80}],95:[function(require,module,exports){
+'use strict';
+var global = require('./_global');
+var core = require('./_core');
+var dP = require('./_object-dp');
+var DESCRIPTORS = require('./_descriptors');
+var SPECIES = require('./_wks')('species');
+
+module.exports = function (KEY) {
+  var C = typeof core[KEY] == 'function' ? core[KEY] : global[KEY];
+  if (DESCRIPTORS && C && !C[SPECIES]) dP.f(C, SPECIES, {
+    configurable: true,
+    get: function () { return this; }
+  });
+};
+
+},{"./_core":46,"./_descriptors":50,"./_global":57,"./_object-dp":78,"./_wks":112}],96:[function(require,module,exports){
+var def = require('./_object-dp').f;
+var has = require('./_has');
+var TAG = require('./_wks')('toStringTag');
+
+module.exports = function (it, tag, stat) {
+  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
+};
+
+},{"./_has":58,"./_object-dp":78,"./_wks":112}],97:[function(require,module,exports){
+var shared = require('./_shared')('keys');
+var uid = require('./_uid');
+module.exports = function (key) {
+  return shared[key] || (shared[key] = uid(key));
+};
+
+},{"./_shared":98,"./_uid":108}],98:[function(require,module,exports){
+var core = require('./_core');
+var global = require('./_global');
+var SHARED = '__core-js_shared__';
+var store = global[SHARED] || (global[SHARED] = {});
+
+(module.exports = function (key, value) {
+  return store[key] || (store[key] = value !== undefined ? value : {});
+})('versions', []).push({
+  version: core.version,
+  mode: require('./_library') ? 'pure' : 'global',
+  copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
+});
+
+},{"./_core":46,"./_global":57,"./_library":73}],99:[function(require,module,exports){
+// 7.3.20 SpeciesConstructor(O, defaultConstructor)
+var anObject = require('./_an-object');
+var aFunction = require('./_a-function');
+var SPECIES = require('./_wks')('species');
+module.exports = function (O, D) {
+  var C = anObject(O).constructor;
+  var S;
+  return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
+};
+
+},{"./_a-function":39,"./_an-object":42,"./_wks":112}],100:[function(require,module,exports){
+var toInteger = require('./_to-integer');
+var defined = require('./_defined');
+// true  -> String#at
+// false -> String#codePointAt
+module.exports = function (TO_STRING) {
+  return function (that, pos) {
+    var s = String(defined(that));
+    var i = toInteger(pos);
+    var l = s.length;
+    var a, b;
+    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
+    a = s.charCodeAt(i);
+    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
+      ? TO_STRING ? s.charAt(i) : a
+      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
+  };
+};
+
+},{"./_defined":49,"./_to-integer":103}],101:[function(require,module,exports){
+var ctx = require('./_ctx');
+var invoke = require('./_invoke');
+var html = require('./_html');
+var cel = require('./_dom-create');
+var global = require('./_global');
+var process = global.process;
+var setTask = global.setImmediate;
+var clearTask = global.clearImmediate;
+var MessageChannel = global.MessageChannel;
+var Dispatch = global.Dispatch;
+var counter = 0;
+var queue = {};
+var ONREADYSTATECHANGE = 'onreadystatechange';
+var defer, channel, port;
+var run = function () {
+  var id = +this;
+  // eslint-disable-next-line no-prototype-builtins
+  if (queue.hasOwnProperty(id)) {
+    var fn = queue[id];
+    delete queue[id];
+    fn();
+  }
+};
+var listener = function (event) {
+  run.call(event.data);
+};
+// Node.js 0.9+ & IE10+ has setImmediate, otherwise:
+if (!setTask || !clearTask) {
+  setTask = function setImmediate(fn) {
+    var args = [];
+    var i = 1;
+    while (arguments.length > i) args.push(arguments[i++]);
+    queue[++counter] = function () {
+      // eslint-disable-next-line no-new-func
+      invoke(typeof fn == 'function' ? fn : Function(fn), args);
+    };
+    defer(counter);
+    return counter;
+  };
+  clearTask = function clearImmediate(id) {
+    delete queue[id];
+  };
+  // Node.js 0.8-
+  if (require('./_cof')(process) == 'process') {
+    defer = function (id) {
+      process.nextTick(ctx(run, id, 1));
+    };
+  // Sphere (JS game engine) Dispatch API
+  } else if (Dispatch && Dispatch.now) {
+    defer = function (id) {
+      Dispatch.now(ctx(run, id, 1));
+    };
+  // Browsers with MessageChannel, includes WebWorkers
+  } else if (MessageChannel) {
+    channel = new MessageChannel();
+    port = channel.port2;
+    channel.port1.onmessage = listener;
+    defer = ctx(port.postMessage, port, 1);
+  // Browsers with postMessage, skip WebWorkers
+  // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
+  } else if (global.addEventListener && typeof postMessage == 'function' && !global.importScripts) {
+    defer = function (id) {
+      global.postMessage(id + '', '*');
+    };
+    global.addEventListener('message', listener, false);
+  // IE8-
+  } else if (ONREADYSTATECHANGE in cel('script')) {
+    defer = function (id) {
+      html.appendChild(cel('script'))[ONREADYSTATECHANGE] = function () {
+        html.removeChild(this);
+        run.call(id);
+      };
+    };
+  // Rest old browsers
+  } else {
+    defer = function (id) {
+      setTimeout(ctx(run, id, 1), 0);
+    };
+  }
+}
+module.exports = {
+  set: setTask,
+  clear: clearTask
+};
+
+},{"./_cof":45,"./_ctx":48,"./_dom-create":51,"./_global":57,"./_html":60,"./_invoke":62}],102:[function(require,module,exports){
+var toInteger = require('./_to-integer');
+var max = Math.max;
+var min = Math.min;
+module.exports = function (index, length) {
+  index = toInteger(index);
+  return index < 0 ? max(index + length, 0) : min(index, length);
+};
+
+},{"./_to-integer":103}],103:[function(require,module,exports){
+// 7.1.4 ToInteger
+var ceil = Math.ceil;
+var floor = Math.floor;
+module.exports = function (it) {
+  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
+};
+
+},{}],104:[function(require,module,exports){
+// to indexed object, toObject with fallback for non-array-like ES3 strings
+var IObject = require('./_iobject');
+var defined = require('./_defined');
+module.exports = function (it) {
+  return IObject(defined(it));
+};
+
+},{"./_defined":49,"./_iobject":63}],105:[function(require,module,exports){
+// 7.1.15 ToLength
+var toInteger = require('./_to-integer');
+var min = Math.min;
+module.exports = function (it) {
+  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
+};
+
+},{"./_to-integer":103}],106:[function(require,module,exports){
+// 7.1.13 ToObject(argument)
+var defined = require('./_defined');
+module.exports = function (it) {
+  return Object(defined(it));
+};
+
+},{"./_defined":49}],107:[function(require,module,exports){
+// 7.1.1 ToPrimitive(input [, PreferredType])
+var isObject = require('./_is-object');
+// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+// and the second argument - flag - preferred type is a string
+module.exports = function (it, S) {
+  if (!isObject(it)) return it;
+  var fn, val;
+  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  throw TypeError("Can't convert object to primitive value");
+};
+
+},{"./_is-object":66}],108:[function(require,module,exports){
+var id = 0;
+var px = Math.random();
+module.exports = function (key) {
+  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+};
+
+},{}],109:[function(require,module,exports){
+var global = require('./_global');
+var navigator = global.navigator;
+
+module.exports = navigator && navigator.userAgent || '';
+
+},{"./_global":57}],110:[function(require,module,exports){
+var global = require('./_global');
+var core = require('./_core');
+var LIBRARY = require('./_library');
+var wksExt = require('./_wks-ext');
+var defineProperty = require('./_object-dp').f;
+module.exports = function (name) {
+  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
+  if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
+};
+
+},{"./_core":46,"./_global":57,"./_library":73,"./_object-dp":78,"./_wks-ext":111}],111:[function(require,module,exports){
+exports.f = require('./_wks');
+
+},{"./_wks":112}],112:[function(require,module,exports){
+var store = require('./_shared')('wks');
+var uid = require('./_uid');
+var Symbol = require('./_global').Symbol;
+var USE_SYMBOL = typeof Symbol == 'function';
+
+var $exports = module.exports = function (name) {
+  return store[name] || (store[name] =
+    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
+};
+
+$exports.store = store;
+
+},{"./_global":57,"./_shared":98,"./_uid":108}],113:[function(require,module,exports){
+var classof = require('./_classof');
+var ITERATOR = require('./_wks')('iterator');
+var Iterators = require('./_iterators');
+module.exports = require('./_core').getIteratorMethod = function (it) {
+  if (it != undefined) return it[ITERATOR]
+    || it['@@iterator']
+    || Iterators[classof(it)];
+};
+
+},{"./_classof":44,"./_core":46,"./_iterators":72,"./_wks":112}],114:[function(require,module,exports){
+var anObject = require('./_an-object');
+var get = require('./core.get-iterator-method');
+module.exports = require('./_core').getIterator = function (it) {
+  var iterFn = get(it);
+  if (typeof iterFn != 'function') throw TypeError(it + ' is not iterable!');
+  return anObject(iterFn.call(it));
+};
+
+},{"./_an-object":42,"./_core":46,"./core.get-iterator-method":113}],115:[function(require,module,exports){
+var classof = require('./_classof');
+var ITERATOR = require('./_wks')('iterator');
+var Iterators = require('./_iterators');
+module.exports = require('./_core').isIterable = function (it) {
+  var O = Object(it);
+  return O[ITERATOR] !== undefined
+    || '@@iterator' in O
+    // eslint-disable-next-line no-prototype-builtins
+    || Iterators.hasOwnProperty(classof(O));
+};
+
+},{"./_classof":44,"./_core":46,"./_iterators":72,"./_wks":112}],116:[function(require,module,exports){
+'use strict';
+var ctx = require('./_ctx');
+var $export = require('./_export');
+var toObject = require('./_to-object');
+var call = require('./_iter-call');
+var isArrayIter = require('./_is-array-iter');
+var toLength = require('./_to-length');
+var createProperty = require('./_create-property');
+var getIterFn = require('./core.get-iterator-method');
+
+$export($export.S + $export.F * !require('./_iter-detect')(function (iter) { Array.from(iter); }), 'Array', {
+  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
+  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
+    var O = toObject(arrayLike);
+    var C = typeof this == 'function' ? this : Array;
+    var aLen = arguments.length;
+    var mapfn = aLen > 1 ? arguments[1] : undefined;
+    var mapping = mapfn !== undefined;
+    var index = 0;
+    var iterFn = getIterFn(O);
+    var length, result, step, iterator;
+    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
+    // if object isn't iterable or it's array with default iterator - use simple case
+    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
+      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
+        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
+      }
+    } else {
+      length = toLength(O.length);
+      for (result = new C(length); length > index; index++) {
+        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
+      }
+    }
+    result.length = index;
+    return result;
+  }
+});
+
+},{"./_create-property":47,"./_ctx":48,"./_export":54,"./_is-array-iter":64,"./_iter-call":67,"./_iter-detect":70,"./_to-length":105,"./_to-object":106,"./core.get-iterator-method":113}],117:[function(require,module,exports){
+'use strict';
+var addToUnscopables = require('./_add-to-unscopables');
+var step = require('./_iter-step');
+var Iterators = require('./_iterators');
+var toIObject = require('./_to-iobject');
+
+// 22.1.3.4 Array.prototype.entries()
+// 22.1.3.13 Array.prototype.keys()
+// 22.1.3.29 Array.prototype.values()
+// 22.1.3.30 Array.prototype[@@iterator]()
+module.exports = require('./_iter-define')(Array, 'Array', function (iterated, kind) {
+  this._t = toIObject(iterated); // target
+  this._i = 0;                   // next index
+  this._k = kind;                // kind
+// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
+}, function () {
+  var O = this._t;
+  var kind = this._k;
+  var index = this._i++;
+  if (!O || index >= O.length) {
+    this._t = undefined;
+    return step(1);
+  }
+  if (kind == 'keys') return step(0, index);
+  if (kind == 'values') return step(0, O[index]);
+  return step(0, [index, O[index]]);
+}, 'values');
+
+// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
+Iterators.Arguments = Iterators.Array;
+
+addToUnscopables('keys');
+addToUnscopables('values');
+addToUnscopables('entries');
+
+},{"./_add-to-unscopables":40,"./_iter-define":69,"./_iter-step":71,"./_iterators":72,"./_to-iobject":104}],118:[function(require,module,exports){
+var $export = require('./_export');
+// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
+$export($export.S, 'Object', { create: require('./_object-create') });
+
+},{"./_export":54,"./_object-create":77}],119:[function(require,module,exports){
+var $export = require('./_export');
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+$export($export.S + $export.F * !require('./_descriptors'), 'Object', { defineProperty: require('./_object-dp').f });
+
+},{"./_descriptors":50,"./_export":54,"./_object-dp":78}],120:[function(require,module,exports){
+// 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
+var toIObject = require('./_to-iobject');
+var $getOwnPropertyDescriptor = require('./_object-gopd').f;
+
+require('./_object-sap')('getOwnPropertyDescriptor', function () {
+  return function getOwnPropertyDescriptor(it, key) {
+    return $getOwnPropertyDescriptor(toIObject(it), key);
+  };
+});
+
+},{"./_object-gopd":80,"./_object-sap":88,"./_to-iobject":104}],121:[function(require,module,exports){
+// 19.1.2.9 Object.getPrototypeOf(O)
+var toObject = require('./_to-object');
+var $getPrototypeOf = require('./_object-gpo');
+
+require('./_object-sap')('getPrototypeOf', function () {
+  return function getPrototypeOf(it) {
+    return $getPrototypeOf(toObject(it));
+  };
+});
+
+},{"./_object-gpo":84,"./_object-sap":88,"./_to-object":106}],122:[function(require,module,exports){
+// 19.1.3.19 Object.setPrototypeOf(O, proto)
+var $export = require('./_export');
+$export($export.S, 'Object', { setPrototypeOf: require('./_set-proto').set });
+
+},{"./_export":54,"./_set-proto":94}],123:[function(require,module,exports){
+
+},{}],124:[function(require,module,exports){
+'use strict';
+var LIBRARY = require('./_library');
+var global = require('./_global');
+var ctx = require('./_ctx');
+var classof = require('./_classof');
+var $export = require('./_export');
+var isObject = require('./_is-object');
+var aFunction = require('./_a-function');
+var anInstance = require('./_an-instance');
+var forOf = require('./_for-of');
+var speciesConstructor = require('./_species-constructor');
+var task = require('./_task').set;
+var microtask = require('./_microtask')();
+var newPromiseCapabilityModule = require('./_new-promise-capability');
+var perform = require('./_perform');
+var userAgent = require('./_user-agent');
+var promiseResolve = require('./_promise-resolve');
+var PROMISE = 'Promise';
+var TypeError = global.TypeError;
+var process = global.process;
+var versions = process && process.versions;
+var v8 = versions && versions.v8 || '';
+var $Promise = global[PROMISE];
+var isNode = classof(process) == 'process';
+var empty = function () { /* empty */ };
+var Internal, newGenericPromiseCapability, OwnPromiseCapability, Wrapper;
+var newPromiseCapability = newGenericPromiseCapability = newPromiseCapabilityModule.f;
+
+var USE_NATIVE = !!function () {
+  try {
+    // correct subclassing with @@species support
+    var promise = $Promise.resolve(1);
+    var FakePromise = (promise.constructor = {})[require('./_wks')('species')] = function (exec) {
+      exec(empty, empty);
+    };
+    // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
+    return (isNode || typeof PromiseRejectionEvent == 'function')
+      && promise.then(empty) instanceof FakePromise
+      // v8 6.6 (Node 10 and Chrome 66) have a bug with resolving custom thenables
+      // https://bugs.chromium.org/p/chromium/issues/detail?id=830565
+      // we can't detect it synchronously, so just check versions
+      && v8.indexOf('6.6') !== 0
+      && userAgent.indexOf('Chrome/66') === -1;
+  } catch (e) { /* empty */ }
+}();
+
+// helpers
+var isThenable = function (it) {
+  var then;
+  return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
+};
+var notify = function (promise, isReject) {
+  if (promise._n) return;
+  promise._n = true;
+  var chain = promise._c;
+  microtask(function () {
+    var value = promise._v;
+    var ok = promise._s == 1;
+    var i = 0;
+    var run = function (reaction) {
+      var handler = ok ? reaction.ok : reaction.fail;
+      var resolve = reaction.resolve;
+      var reject = reaction.reject;
+      var domain = reaction.domain;
+      var result, then, exited;
+      try {
+        if (handler) {
+          if (!ok) {
+            if (promise._h == 2) onHandleUnhandled(promise);
+            promise._h = 1;
+          }
+          if (handler === true) result = value;
+          else {
+            if (domain) domain.enter();
+            result = handler(value); // may throw
+            if (domain) {
+              domain.exit();
+              exited = true;
+            }
+          }
+          if (result === reaction.promise) {
+            reject(TypeError('Promise-chain cycle'));
+          } else if (then = isThenable(result)) {
+            then.call(result, resolve, reject);
+          } else resolve(result);
+        } else reject(value);
+      } catch (e) {
+        if (domain && !exited) domain.exit();
+        reject(e);
+      }
+    };
+    while (chain.length > i) run(chain[i++]); // variable length - can't use forEach
+    promise._c = [];
+    promise._n = false;
+    if (isReject && !promise._h) onUnhandled(promise);
+  });
+};
+var onUnhandled = function (promise) {
+  task.call(global, function () {
+    var value = promise._v;
+    var unhandled = isUnhandled(promise);
+    var result, handler, console;
+    if (unhandled) {
+      result = perform(function () {
+        if (isNode) {
+          process.emit('unhandledRejection', value, promise);
+        } else if (handler = global.onunhandledrejection) {
+          handler({ promise: promise, reason: value });
+        } else if ((console = global.console) && console.error) {
+          console.error('Unhandled promise rejection', value);
+        }
+      });
+      // Browsers should not trigger `rejectionHandled` event if it was handled here, NodeJS - should
+      promise._h = isNode || isUnhandled(promise) ? 2 : 1;
+    } promise._a = undefined;
+    if (unhandled && result.e) throw result.v;
+  });
+};
+var isUnhandled = function (promise) {
+  return promise._h !== 1 && (promise._a || promise._c).length === 0;
+};
+var onHandleUnhandled = function (promise) {
+  task.call(global, function () {
+    var handler;
+    if (isNode) {
+      process.emit('rejectionHandled', promise);
+    } else if (handler = global.onrejectionhandled) {
+      handler({ promise: promise, reason: promise._v });
+    }
+  });
+};
+var $reject = function (value) {
+  var promise = this;
+  if (promise._d) return;
+  promise._d = true;
+  promise = promise._w || promise; // unwrap
+  promise._v = value;
+  promise._s = 2;
+  if (!promise._a) promise._a = promise._c.slice();
+  notify(promise, true);
+};
+var $resolve = function (value) {
+  var promise = this;
+  var then;
+  if (promise._d) return;
+  promise._d = true;
+  promise = promise._w || promise; // unwrap
+  try {
+    if (promise === value) throw TypeError("Promise can't be resolved itself");
+    if (then = isThenable(value)) {
+      microtask(function () {
+        var wrapper = { _w: promise, _d: false }; // wrap
+        try {
+          then.call(value, ctx($resolve, wrapper, 1), ctx($reject, wrapper, 1));
+        } catch (e) {
+          $reject.call(wrapper, e);
+        }
+      });
+    } else {
+      promise._v = value;
+      promise._s = 1;
+      notify(promise, false);
+    }
+  } catch (e) {
+    $reject.call({ _w: promise, _d: false }, e); // wrap
+  }
+};
+
+// constructor polyfill
+if (!USE_NATIVE) {
+  // 25.4.3.1 Promise(executor)
+  $Promise = function Promise(executor) {
+    anInstance(this, $Promise, PROMISE, '_h');
+    aFunction(executor);
+    Internal.call(this);
+    try {
+      executor(ctx($resolve, this, 1), ctx($reject, this, 1));
+    } catch (err) {
+      $reject.call(this, err);
+    }
+  };
+  // eslint-disable-next-line no-unused-vars
+  Internal = function Promise(executor) {
+    this._c = [];             // <- awaiting reactions
+    this._a = undefined;      // <- checked in isUnhandled reactions
+    this._s = 0;              // <- state
+    this._d = false;          // <- done
+    this._v = undefined;      // <- value
+    this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
+    this._n = false;          // <- notify
+  };
+  Internal.prototype = require('./_redefine-all')($Promise.prototype, {
+    // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
+    then: function then(onFulfilled, onRejected) {
+      var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
+      reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
+      reaction.fail = typeof onRejected == 'function' && onRejected;
+      reaction.domain = isNode ? process.domain : undefined;
+      this._c.push(reaction);
+      if (this._a) this._a.push(reaction);
+      if (this._s) notify(this, false);
+      return reaction.promise;
+    },
+    // 25.4.5.1 Promise.prototype.catch(onRejected)
+    'catch': function (onRejected) {
+      return this.then(undefined, onRejected);
+    }
+  });
+  OwnPromiseCapability = function () {
+    var promise = new Internal();
+    this.promise = promise;
+    this.resolve = ctx($resolve, promise, 1);
+    this.reject = ctx($reject, promise, 1);
+  };
+  newPromiseCapabilityModule.f = newPromiseCapability = function (C) {
+    return C === $Promise || C === Wrapper
+      ? new OwnPromiseCapability(C)
+      : newGenericPromiseCapability(C);
+  };
+}
+
+$export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
+require('./_set-to-string-tag')($Promise, PROMISE);
+require('./_set-species')(PROMISE);
+Wrapper = require('./_core')[PROMISE];
+
+// statics
+$export($export.S + $export.F * !USE_NATIVE, PROMISE, {
+  // 25.4.4.5 Promise.reject(r)
+  reject: function reject(r) {
+    var capability = newPromiseCapability(this);
+    var $$reject = capability.reject;
+    $$reject(r);
+    return capability.promise;
+  }
+});
+$export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
+  // 25.4.4.6 Promise.resolve(x)
+  resolve: function resolve(x) {
+    return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
+  }
+});
+$export($export.S + $export.F * !(USE_NATIVE && require('./_iter-detect')(function (iter) {
+  $Promise.all(iter)['catch'](empty);
+})), PROMISE, {
+  // 25.4.4.1 Promise.all(iterable)
+  all: function all(iterable) {
+    var C = this;
+    var capability = newPromiseCapability(C);
+    var resolve = capability.resolve;
+    var reject = capability.reject;
+    var result = perform(function () {
+      var values = [];
+      var index = 0;
+      var remaining = 1;
+      forOf(iterable, false, function (promise) {
+        var $index = index++;
+        var alreadyCalled = false;
+        values.push(undefined);
+        remaining++;
+        C.resolve(promise).then(function (value) {
+          if (alreadyCalled) return;
+          alreadyCalled = true;
+          values[$index] = value;
+          --remaining || resolve(values);
+        }, reject);
+      });
+      --remaining || resolve(values);
+    });
+    if (result.e) reject(result.v);
+    return capability.promise;
+  },
+  // 25.4.4.4 Promise.race(iterable)
+  race: function race(iterable) {
+    var C = this;
+    var capability = newPromiseCapability(C);
+    var reject = capability.reject;
+    var result = perform(function () {
+      forOf(iterable, false, function (promise) {
+        C.resolve(promise).then(capability.resolve, reject);
+      });
+    });
+    if (result.e) reject(result.v);
+    return capability.promise;
+  }
+});
+
+},{"./_a-function":39,"./_an-instance":41,"./_classof":44,"./_core":46,"./_ctx":48,"./_export":54,"./_for-of":56,"./_global":57,"./_is-object":66,"./_iter-detect":70,"./_library":73,"./_microtask":75,"./_new-promise-capability":76,"./_perform":89,"./_promise-resolve":90,"./_redefine-all":92,"./_set-species":95,"./_set-to-string-tag":96,"./_species-constructor":99,"./_task":101,"./_user-agent":109,"./_wks":112}],125:[function(require,module,exports){
+'use strict';
+var $at = require('./_string-at')(true);
+
+// 21.1.3.27 String.prototype[@@iterator]()
+require('./_iter-define')(String, 'String', function (iterated) {
+  this._t = String(iterated); // target
+  this._i = 0;                // next index
+// 21.1.5.2.1 %StringIteratorPrototype%.next()
+}, function () {
+  var O = this._t;
+  var index = this._i;
+  var point;
+  if (index >= O.length) return { value: undefined, done: true };
+  point = $at(O, index);
+  this._i += point.length;
+  return { value: point, done: false };
+});
+
+},{"./_iter-define":69,"./_string-at":100}],126:[function(require,module,exports){
+'use strict';
+// ECMAScript 6 symbols shim
+var global = require('./_global');
+var has = require('./_has');
+var DESCRIPTORS = require('./_descriptors');
+var $export = require('./_export');
+var redefine = require('./_redefine');
+var META = require('./_meta').KEY;
+var $fails = require('./_fails');
+var shared = require('./_shared');
+var setToStringTag = require('./_set-to-string-tag');
+var uid = require('./_uid');
+var wks = require('./_wks');
+var wksExt = require('./_wks-ext');
+var wksDefine = require('./_wks-define');
+var enumKeys = require('./_enum-keys');
+var isArray = require('./_is-array');
+var anObject = require('./_an-object');
+var isObject = require('./_is-object');
+var toObject = require('./_to-object');
+var toIObject = require('./_to-iobject');
+var toPrimitive = require('./_to-primitive');
+var createDesc = require('./_property-desc');
+var _create = require('./_object-create');
+var gOPNExt = require('./_object-gopn-ext');
+var $GOPD = require('./_object-gopd');
+var $GOPS = require('./_object-gops');
+var $DP = require('./_object-dp');
+var $keys = require('./_object-keys');
+var gOPD = $GOPD.f;
+var dP = $DP.f;
+var gOPN = gOPNExt.f;
+var $Symbol = global.Symbol;
+var $JSON = global.JSON;
+var _stringify = $JSON && $JSON.stringify;
+var PROTOTYPE = 'prototype';
+var HIDDEN = wks('_hidden');
+var TO_PRIMITIVE = wks('toPrimitive');
+var isEnum = {}.propertyIsEnumerable;
+var SymbolRegistry = shared('symbol-registry');
+var AllSymbols = shared('symbols');
+var OPSymbols = shared('op-symbols');
+var ObjectProto = Object[PROTOTYPE];
+var USE_NATIVE = typeof $Symbol == 'function' && !!$GOPS.f;
+var QObject = global.QObject;
+// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
+var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
+
+// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
+var setSymbolDesc = DESCRIPTORS && $fails(function () {
+  return _create(dP({}, 'a', {
+    get: function () { return dP(this, 'a', { value: 7 }).a; }
+  })).a != 7;
+}) ? function (it, key, D) {
+  var protoDesc = gOPD(ObjectProto, key);
+  if (protoDesc) delete ObjectProto[key];
+  dP(it, key, D);
+  if (protoDesc && it !== ObjectProto) dP(ObjectProto, key, protoDesc);
+} : dP;
+
+var wrap = function (tag) {
+  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
+  sym._k = tag;
+  return sym;
+};
+
+var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function (it) {
+  return typeof it == 'symbol';
+} : function (it) {
+  return it instanceof $Symbol;
+};
+
+var $defineProperty = function defineProperty(it, key, D) {
+  if (it === ObjectProto) $defineProperty(OPSymbols, key, D);
+  anObject(it);
+  key = toPrimitive(key, true);
+  anObject(D);
+  if (has(AllSymbols, key)) {
+    if (!D.enumerable) {
+      if (!has(it, HIDDEN)) dP(it, HIDDEN, createDesc(1, {}));
+      it[HIDDEN][key] = true;
+    } else {
+      if (has(it, HIDDEN) && it[HIDDEN][key]) it[HIDDEN][key] = false;
+      D = _create(D, { enumerable: createDesc(0, false) });
+    } return setSymbolDesc(it, key, D);
+  } return dP(it, key, D);
+};
+var $defineProperties = function defineProperties(it, P) {
+  anObject(it);
+  var keys = enumKeys(P = toIObject(P));
+  var i = 0;
+  var l = keys.length;
+  var key;
+  while (l > i) $defineProperty(it, key = keys[i++], P[key]);
+  return it;
+};
+var $create = function create(it, P) {
+  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
+};
+var $propertyIsEnumerable = function propertyIsEnumerable(key) {
+  var E = isEnum.call(this, key = toPrimitive(key, true));
+  if (this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return false;
+  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
+};
+var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
+  it = toIObject(it);
+  key = toPrimitive(key, true);
+  if (it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return;
+  var D = gOPD(it, key);
+  if (D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key])) D.enumerable = true;
+  return D;
+};
+var $getOwnPropertyNames = function getOwnPropertyNames(it) {
+  var names = gOPN(toIObject(it));
+  var result = [];
+  var i = 0;
+  var key;
+  while (names.length > i) {
+    if (!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META) result.push(key);
+  } return result;
+};
+var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
+  var IS_OP = it === ObjectProto;
+  var names = gOPN(IS_OP ? OPSymbols : toIObject(it));
+  var result = [];
+  var i = 0;
+  var key;
+  while (names.length > i) {
+    if (has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true)) result.push(AllSymbols[key]);
+  } return result;
+};
+
+// 19.4.1.1 Symbol([description])
+if (!USE_NATIVE) {
+  $Symbol = function Symbol() {
+    if (this instanceof $Symbol) throw TypeError('Symbol is not a constructor!');
+    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
+    var $set = function (value) {
+      if (this === ObjectProto) $set.call(OPSymbols, value);
+      if (has(this, HIDDEN) && has(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
+      setSymbolDesc(this, tag, createDesc(1, value));
+    };
+    if (DESCRIPTORS && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
+    return wrap(tag);
+  };
+  redefine($Symbol[PROTOTYPE], 'toString', function toString() {
+    return this._k;
+  });
+
+  $GOPD.f = $getOwnPropertyDescriptor;
+  $DP.f = $defineProperty;
+  require('./_object-gopn').f = gOPNExt.f = $getOwnPropertyNames;
+  require('./_object-pie').f = $propertyIsEnumerable;
+  $GOPS.f = $getOwnPropertySymbols;
+
+  if (DESCRIPTORS && !require('./_library')) {
+    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
+  }
+
+  wksExt.f = function (name) {
+    return wrap(wks(name));
+  };
+}
+
+$export($export.G + $export.W + $export.F * !USE_NATIVE, { Symbol: $Symbol });
+
+for (var es6Symbols = (
+  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
+  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
+).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
+
+for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
+
+$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
+  // 19.4.2.1 Symbol.for(key)
+  'for': function (key) {
+    return has(SymbolRegistry, key += '')
+      ? SymbolRegistry[key]
+      : SymbolRegistry[key] = $Symbol(key);
+  },
+  // 19.4.2.5 Symbol.keyFor(sym)
+  keyFor: function keyFor(sym) {
+    if (!isSymbol(sym)) throw TypeError(sym + ' is not a symbol!');
+    for (var key in SymbolRegistry) if (SymbolRegistry[key] === sym) return key;
+  },
+  useSetter: function () { setter = true; },
+  useSimple: function () { setter = false; }
+});
+
+$export($export.S + $export.F * !USE_NATIVE, 'Object', {
+  // 19.1.2.2 Object.create(O [, Properties])
+  create: $create,
+  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
+  defineProperty: $defineProperty,
+  // 19.1.2.3 Object.defineProperties(O, Properties)
+  defineProperties: $defineProperties,
+  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
+  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
+  // 19.1.2.7 Object.getOwnPropertyNames(O)
+  getOwnPropertyNames: $getOwnPropertyNames,
+  // 19.1.2.8 Object.getOwnPropertySymbols(O)
+  getOwnPropertySymbols: $getOwnPropertySymbols
+});
+
+// Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
+// https://bugs.chromium.org/p/v8/issues/detail?id=3443
+var FAILS_ON_PRIMITIVES = $fails(function () { $GOPS.f(1); });
+
+$export($export.S + $export.F * FAILS_ON_PRIMITIVES, 'Object', {
+  getOwnPropertySymbols: function getOwnPropertySymbols(it) {
+    return $GOPS.f(toObject(it));
+  }
+});
+
+// 24.3.2 JSON.stringify(value [, replacer [, space]])
+$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
+  var S = $Symbol();
+  // MS Edge converts symbol values to JSON as {}
+  // WebKit converts symbol values to JSON as null
+  // V8 throws on boxed symbols
+  return _stringify([S]) != '[null]' || _stringify({ a: S }) != '{}' || _stringify(Object(S)) != '{}';
+})), 'JSON', {
+  stringify: function stringify(it) {
+    var args = [it];
+    var i = 1;
+    var replacer, $replacer;
+    while (arguments.length > i) args.push(arguments[i++]);
+    $replacer = replacer = args[1];
+    if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
+    if (!isArray(replacer)) replacer = function (key, value) {
+      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
+      if (!isSymbol(value)) return value;
+    };
+    args[1] = replacer;
+    return _stringify.apply($JSON, args);
+  }
+});
+
+// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
+$Symbol[PROTOTYPE][TO_PRIMITIVE] || require('./_hide')($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
+// 19.4.3.5 Symbol.prototype[@@toStringTag]
+setToStringTag($Symbol, 'Symbol');
+// 20.2.1.9 Math[@@toStringTag]
+setToStringTag(Math, 'Math', true);
+// 24.3.3 JSON[@@toStringTag]
+setToStringTag(global.JSON, 'JSON', true);
+
+},{"./_an-object":42,"./_descriptors":50,"./_enum-keys":53,"./_export":54,"./_fails":55,"./_global":57,"./_has":58,"./_hide":59,"./_is-array":65,"./_is-object":66,"./_library":73,"./_meta":74,"./_object-create":77,"./_object-dp":78,"./_object-gopd":80,"./_object-gopn":82,"./_object-gopn-ext":81,"./_object-gops":83,"./_object-keys":86,"./_object-pie":87,"./_property-desc":91,"./_redefine":93,"./_set-to-string-tag":96,"./_shared":98,"./_to-iobject":104,"./_to-object":106,"./_to-primitive":107,"./_uid":108,"./_wks":112,"./_wks-define":110,"./_wks-ext":111}],127:[function(require,module,exports){
+// https://github.com/tc39/proposal-promise-finally
+'use strict';
+var $export = require('./_export');
+var core = require('./_core');
+var global = require('./_global');
+var speciesConstructor = require('./_species-constructor');
+var promiseResolve = require('./_promise-resolve');
+
+$export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
+  var C = speciesConstructor(this, core.Promise || global.Promise);
+  var isFunction = typeof onFinally == 'function';
+  return this.then(
+    isFunction ? function (x) {
+      return promiseResolve(C, onFinally()).then(function () { return x; });
+    } : onFinally,
+    isFunction ? function (e) {
+      return promiseResolve(C, onFinally()).then(function () { throw e; });
+    } : onFinally
+  );
+} });
+
+},{"./_core":46,"./_export":54,"./_global":57,"./_promise-resolve":90,"./_species-constructor":99}],128:[function(require,module,exports){
+'use strict';
+// https://github.com/tc39/proposal-promise-try
+var $export = require('./_export');
+var newPromiseCapability = require('./_new-promise-capability');
+var perform = require('./_perform');
+
+$export($export.S, 'Promise', { 'try': function (callbackfn) {
+  var promiseCapability = newPromiseCapability.f(this);
+  var result = perform(callbackfn);
+  (result.e ? promiseCapability.reject : promiseCapability.resolve)(result.v);
+  return promiseCapability.promise;
+} });
+
+},{"./_export":54,"./_new-promise-capability":76,"./_perform":89}],129:[function(require,module,exports){
+require('./_wks-define')('asyncIterator');
+
+},{"./_wks-define":110}],130:[function(require,module,exports){
+require('./_wks-define')('observable');
+
+},{"./_wks-define":110}],131:[function(require,module,exports){
+require('./es6.array.iterator');
+var global = require('./_global');
+var hide = require('./_hide');
+var Iterators = require('./_iterators');
+var TO_STRING_TAG = require('./_wks')('toStringTag');
+
+var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
+  'DOMTokenList,DataTransferItemList,FileList,HTMLAllCollection,HTMLCollection,HTMLFormElement,HTMLSelectElement,' +
+  'MediaList,MimeTypeArray,NamedNodeMap,NodeList,PaintRequestList,Plugin,PluginArray,SVGLengthList,SVGNumberList,' +
+  'SVGPathSegList,SVGPointList,SVGStringList,SVGTransformList,SourceBufferList,StyleSheetList,TextTrackCueList,' +
+  'TextTrackList,TouchList').split(',');
+
+for (var i = 0; i < DOMIterables.length; i++) {
+  var NAME = DOMIterables[i];
+  var Collection = global[NAME];
+  var proto = Collection && Collection.prototype;
+  if (proto && !proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
+  Iterators[NAME] = Iterators.Array;
+}
+
+},{"./_global":57,"./_hide":59,"./_iterators":72,"./_wks":112,"./es6.array.iterator":117}],132:[function(require,module,exports){
 /*
  *  Copyright (c) 2017 The WebRTC project authors. All Rights Reserved.
  *
@@ -8797,7 +8825,7 @@ module.exports = function(window, edgeVersion) {
   return RTCPeerConnection;
 };
 
-},{"sdp":131}],131:[function(require,module,exports){
+},{"sdp":133}],133:[function(require,module,exports){
 /* eslint-env node */
 'use strict';
 
@@ -9624,7 +9652,1018 @@ if (typeof module === 'object') {
   module.exports = SDPUtils;
 }
 
-},{}],132:[function(require,module,exports){
+},{}],134:[function(require,module,exports){
+/////////////////////////////////////////////////////////////////////////////////
+/* UAParser.js v1.0.40
+   Copyright © 2012-2024 Faisal Salman <f@faisalman.com>
+   MIT License *//*
+   Detect Browser, Engine, OS, CPU, and Device type/model from User-Agent data.
+   Supports browser & node.js environment. 
+   Demo   : https://faisalman.github.io/ua-parser-js
+   Source : https://github.com/faisalman/ua-parser-js */
+/////////////////////////////////////////////////////////////////////////////////
+
+(function (window, undefined) {
+
+    'use strict';
+
+    //////////////
+    // Constants
+    /////////////
+
+
+    var LIBVERSION  = '1.0.40',
+        EMPTY       = '',
+        UNKNOWN     = '?',
+        FUNC_TYPE   = 'function',
+        UNDEF_TYPE  = 'undefined',
+        OBJ_TYPE    = 'object',
+        STR_TYPE    = 'string',
+        MAJOR       = 'major',
+        MODEL       = 'model',
+        NAME        = 'name',
+        TYPE        = 'type',
+        VENDOR      = 'vendor',
+        VERSION     = 'version',
+        ARCHITECTURE= 'architecture',
+        CONSOLE     = 'console',
+        MOBILE      = 'mobile',
+        TABLET      = 'tablet',
+        SMARTTV     = 'smarttv',
+        WEARABLE    = 'wearable',
+        EMBEDDED    = 'embedded',
+        UA_MAX_LENGTH = 500;
+
+    var AMAZON  = 'Amazon',
+        APPLE   = 'Apple',
+        ASUS    = 'ASUS',
+        BLACKBERRY = 'BlackBerry',
+        BROWSER = 'Browser',
+        CHROME  = 'Chrome',
+        EDGE    = 'Edge',
+        FIREFOX = 'Firefox',
+        GOOGLE  = 'Google',
+        HUAWEI  = 'Huawei',
+        LG      = 'LG',
+        MICROSOFT = 'Microsoft',
+        MOTOROLA  = 'Motorola',
+        OPERA   = 'Opera',
+        SAMSUNG = 'Samsung',
+        SHARP   = 'Sharp',
+        SONY    = 'Sony',
+        XIAOMI  = 'Xiaomi',
+        ZEBRA   = 'Zebra',
+        FACEBOOK    = 'Facebook',
+        CHROMIUM_OS = 'Chromium OS',
+        MAC_OS  = 'Mac OS',
+        SUFFIX_BROWSER = ' Browser';
+
+    ///////////
+    // Helper
+    //////////
+
+    var extend = function (regexes, extensions) {
+            var mergedRegexes = {};
+            for (var i in regexes) {
+                if (extensions[i] && extensions[i].length % 2 === 0) {
+                    mergedRegexes[i] = extensions[i].concat(regexes[i]);
+                } else {
+                    mergedRegexes[i] = regexes[i];
+                }
+            }
+            return mergedRegexes;
+        },
+        enumerize = function (arr) {
+            var enums = {};
+            for (var i=0; i<arr.length; i++) {
+                enums[arr[i].toUpperCase()] = arr[i];
+            }
+            return enums;
+        },
+        has = function (str1, str2) {
+            return typeof str1 === STR_TYPE ? lowerize(str2).indexOf(lowerize(str1)) !== -1 : false;
+        },
+        lowerize = function (str) {
+            return str.toLowerCase();
+        },
+        majorize = function (version) {
+            return typeof(version) === STR_TYPE ? version.replace(/[^\d\.]/g, EMPTY).split('.')[0] : undefined;
+        },
+        trim = function (str, len) {
+            if (typeof(str) === STR_TYPE) {
+                str = str.replace(/^\s\s*/, EMPTY);
+                return typeof(len) === UNDEF_TYPE ? str : str.substring(0, UA_MAX_LENGTH);
+            }
+    };
+
+    ///////////////
+    // Map helper
+    //////////////
+
+    var rgxMapper = function (ua, arrays) {
+
+            var i = 0, j, k, p, q, matches, match;
+
+            // loop through all regexes maps
+            while (i < arrays.length && !matches) {
+
+                var regex = arrays[i],       // even sequence (0,2,4,..)
+                    props = arrays[i + 1];   // odd sequence (1,3,5,..)
+                j = k = 0;
+
+                // try matching uastring with regexes
+                while (j < regex.length && !matches) {
+
+                    if (!regex[j]) { break; }
+                    matches = regex[j++].exec(ua);
+
+                    if (!!matches) {
+                        for (p = 0; p < props.length; p++) {
+                            match = matches[++k];
+                            q = props[p];
+                            // check if given property is actually array
+                            if (typeof q === OBJ_TYPE && q.length > 0) {
+                                if (q.length === 2) {
+                                    if (typeof q[1] == FUNC_TYPE) {
+                                        // assign modified match
+                                        this[q[0]] = q[1].call(this, match);
+                                    } else {
+                                        // assign given value, ignore regex match
+                                        this[q[0]] = q[1];
+                                    }
+                                } else if (q.length === 3) {
+                                    // check whether function or regex
+                                    if (typeof q[1] === FUNC_TYPE && !(q[1].exec && q[1].test)) {
+                                        // call function (usually string mapper)
+                                        this[q[0]] = match ? q[1].call(this, match, q[2]) : undefined;
+                                    } else {
+                                        // sanitize match using given regex
+                                        this[q[0]] = match ? match.replace(q[1], q[2]) : undefined;
+                                    }
+                                } else if (q.length === 4) {
+                                        this[q[0]] = match ? q[3].call(this, match.replace(q[1], q[2])) : undefined;
+                                }
+                            } else {
+                                this[q] = match ? match : undefined;
+                            }
+                        }
+                    }
+                }
+                i += 2;
+            }
+        },
+
+        strMapper = function (str, map) {
+
+            for (var i in map) {
+                // check if current value is array
+                if (typeof map[i] === OBJ_TYPE && map[i].length > 0) {
+                    for (var j = 0; j < map[i].length; j++) {
+                        if (has(map[i][j], str)) {
+                            return (i === UNKNOWN) ? undefined : i;
+                        }
+                    }
+                } else if (has(map[i], str)) {
+                    return (i === UNKNOWN) ? undefined : i;
+                }
+            }
+            return map.hasOwnProperty('*') ? map['*'] : str;
+    };
+
+    ///////////////
+    // String map
+    //////////////
+
+    // Safari < 3.0
+    var oldSafariMap = {
+            '1.0'   : '/8',
+            '1.2'   : '/1',
+            '1.3'   : '/3',
+            '2.0'   : '/412',
+            '2.0.2' : '/416',
+            '2.0.3' : '/417',
+            '2.0.4' : '/419',
+            '?'     : '/'
+        },
+        windowsVersionMap = {
+            'ME'        : '4.90',
+            'NT 3.11'   : 'NT3.51',
+            'NT 4.0'    : 'NT4.0',
+            '2000'      : 'NT 5.0',
+            'XP'        : ['NT 5.1', 'NT 5.2'],
+            'Vista'     : 'NT 6.0',
+            '7'         : 'NT 6.1',
+            '8'         : 'NT 6.2',
+            '8.1'       : 'NT 6.3',
+            '10'        : ['NT 6.4', 'NT 10.0'],
+            'RT'        : 'ARM'
+    };
+
+    //////////////
+    // Regex map
+    /////////////
+
+    var regexes = {
+
+        browser : [[
+
+            /\b(?:crmo|crios)\/([\w\.]+)/i                                      // Chrome for Android/iOS
+            ], [VERSION, [NAME, 'Chrome']], [
+            /edg(?:e|ios|a)?\/([\w\.]+)/i                                       // Microsoft Edge
+            ], [VERSION, [NAME, 'Edge']], [
+
+            // Presto based
+            /(opera mini)\/([-\w\.]+)/i,                                        // Opera Mini
+            /(opera [mobiletab]{3,6})\b.+version\/([-\w\.]+)/i,                 // Opera Mobi/Tablet
+            /(opera)(?:.+version\/|[\/ ]+)([\w\.]+)/i                           // Opera
+            ], [NAME, VERSION], [
+            /opios[\/ ]+([\w\.]+)/i                                             // Opera mini on iphone >= 8.0
+            ], [VERSION, [NAME, OPERA+' Mini']], [
+            /\bop(?:rg)?x\/([\w\.]+)/i                                          // Opera GX
+            ], [VERSION, [NAME, OPERA+' GX']], [
+            /\bopr\/([\w\.]+)/i                                                 // Opera Webkit
+            ], [VERSION, [NAME, OPERA]], [
+
+            // Mixed
+            /\bb[ai]*d(?:uhd|[ub]*[aekoprswx]{5,6})[\/ ]?([\w\.]+)/i            // Baidu
+            ], [VERSION, [NAME, 'Baidu']], [
+            /\b(?:mxbrowser|mxios|myie2)\/?([-\w\.]*)\b/i                       // Maxthon
+            ], [VERSION, [NAME, 'Maxthon']], [
+            /(kindle)\/([\w\.]+)/i,                                             // Kindle
+            /(lunascape|maxthon|netfront|jasmine|blazer|sleipnir)[\/ ]?([\w\.]*)/i,      
+                                                                                // Lunascape/Maxthon/Netfront/Jasmine/Blazer/Sleipnir
+            // Trident based
+            /(avant|iemobile|slim(?:browser|boat|jet))[\/ ]?([\d\.]*)/i,        // Avant/IEMobile/SlimBrowser/SlimBoat/Slimjet
+            /(?:ms|\()(ie) ([\w\.]+)/i,                                         // Internet Explorer
+
+            // Blink/Webkit/KHTML based                                         // Flock/RockMelt/Midori/Epiphany/Silk/Skyfire/Bolt/Iron/Iridium/PhantomJS/Bowser/QupZilla/Falkon
+            /(flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi|iridium|phantomjs|bowser|qupzilla|falkon|rekonq|puffin|brave|whale(?!.+naver)|qqbrowserlite|duckduckgo|klar|helio|(?=comodo_)?dragon)\/([-\w\.]+)/i,
+                                                                                // Rekonq/Puffin/Brave/Whale/QQBrowserLite/QQ//Vivaldi/DuckDuckGo/Klar/Helio/Dragon
+            /(heytap|ovi|115)browser\/([\d\.]+)/i,                              // HeyTap/Ovi/115
+            /(weibo)__([\d\.]+)/i                                               // Weibo
+            ], [NAME, VERSION], [
+            /quark(?:pc)?\/([-\w\.]+)/i                                         // Quark
+            ], [VERSION, [NAME, 'Quark']], [
+            /\bddg\/([\w\.]+)/i                                                 // DuckDuckGo
+            ], [VERSION, [NAME, 'DuckDuckGo']], [
+            /(?:\buc? ?browser|(?:juc.+)ucweb)[\/ ]?([\w\.]+)/i                 // UCBrowser
+            ], [VERSION, [NAME, 'UC'+BROWSER]], [
+            /microm.+\bqbcore\/([\w\.]+)/i,                                     // WeChat Desktop for Windows Built-in Browser
+            /\bqbcore\/([\w\.]+).+microm/i,
+            /micromessenger\/([\w\.]+)/i                                        // WeChat
+            ], [VERSION, [NAME, 'WeChat']], [
+            /konqueror\/([\w\.]+)/i                                             // Konqueror
+            ], [VERSION, [NAME, 'Konqueror']], [
+            /trident.+rv[: ]([\w\.]{1,9})\b.+like gecko/i                       // IE11
+            ], [VERSION, [NAME, 'IE']], [
+            /ya(?:search)?browser\/([\w\.]+)/i                                  // Yandex
+            ], [VERSION, [NAME, 'Yandex']], [
+            /slbrowser\/([\w\.]+)/i                                             // Smart Lenovo Browser
+            ], [VERSION, [NAME, 'Smart Lenovo '+BROWSER]], [
+            /(avast|avg)\/([\w\.]+)/i                                           // Avast/AVG Secure Browser
+            ], [[NAME, /(.+)/, '$1 Secure '+BROWSER], VERSION], [
+            /\bfocus\/([\w\.]+)/i                                               // Firefox Focus
+            ], [VERSION, [NAME, FIREFOX+' Focus']], [
+            /\bopt\/([\w\.]+)/i                                                 // Opera Touch
+            ], [VERSION, [NAME, OPERA+' Touch']], [
+            /coc_coc\w+\/([\w\.]+)/i                                            // Coc Coc Browser
+            ], [VERSION, [NAME, 'Coc Coc']], [
+            /dolfin\/([\w\.]+)/i                                                // Dolphin
+            ], [VERSION, [NAME, 'Dolphin']], [
+            /coast\/([\w\.]+)/i                                                 // Opera Coast
+            ], [VERSION, [NAME, OPERA+' Coast']], [
+            /miuibrowser\/([\w\.]+)/i                                           // MIUI Browser
+            ], [VERSION, [NAME, 'MIUI' + SUFFIX_BROWSER]], [
+            /fxios\/([\w\.-]+)/i                                                // Firefox for iOS
+            ], [VERSION, [NAME, FIREFOX]], [
+            /\bqihoobrowser\/?([\w\.]*)/i                                       // 360
+            ], [VERSION, [NAME, '360']], [
+            /\b(qq)\/([\w\.]+)/i                                                // QQ
+            ], [[NAME, /(.+)/, '$1Browser'], VERSION], [
+            /(oculus|sailfish|huawei|vivo|pico)browser\/([\w\.]+)/i
+            ], [[NAME, /(.+)/, '$1' + SUFFIX_BROWSER], VERSION], [              // Oculus/Sailfish/HuaweiBrowser/VivoBrowser/PicoBrowser
+            /samsungbrowser\/([\w\.]+)/i                                        // Samsung Internet
+            ], [VERSION, [NAME, SAMSUNG + ' Internet']], [
+            /metasr[\/ ]?([\d\.]+)/i                                            // Sogou Explorer
+            ], [VERSION, [NAME, 'Sogou Explorer']], [
+            /(sogou)mo\w+\/([\d\.]+)/i                                          // Sogou Mobile
+            ], [[NAME, 'Sogou Mobile'], VERSION], [
+            /(electron)\/([\w\.]+) safari/i,                                    // Electron-based App
+            /(tesla)(?: qtcarbrowser|\/(20\d\d\.[-\w\.]+))/i,                   // Tesla
+            /m?(qqbrowser|2345(?=browser|chrome|explorer))\w*[\/ ]?v?([\w\.]+)/i   // QQ/2345
+            ], [NAME, VERSION], [
+            /(lbbrowser|rekonq)/i,                                              // LieBao Browser/Rekonq
+            /\[(linkedin)app\]/i                                                // LinkedIn App for iOS & Android
+            ], [NAME], [
+            /ome\/([\w\.]+) \w* ?(iron) saf/i,                                  // Iron
+            /ome\/([\w\.]+).+qihu (360)[es]e/i                                  // 360
+            ], [VERSION, NAME], [
+
+            // WebView
+            /((?:fban\/fbios|fb_iab\/fb4a)(?!.+fbav)|;fbav\/([\w\.]+);)/i       // Facebook App for iOS & Android
+            ], [[NAME, FACEBOOK], VERSION], [
+            /(Klarna)\/([\w\.]+)/i,                                             // Klarna Shopping Browser for iOS & Android
+            /(kakao(?:talk|story))[\/ ]([\w\.]+)/i,                             // Kakao App
+            /(naver)\(.*?(\d+\.[\w\.]+).*\)/i,                                  // Naver InApp
+            /safari (line)\/([\w\.]+)/i,                                        // Line App for iOS
+            /\b(line)\/([\w\.]+)\/iab/i,                                        // Line App for Android
+            /(alipay)client\/([\w\.]+)/i,                                       // Alipay
+            /(twitter)(?:and| f.+e\/([\w\.]+))/i,                               // Twitter
+            /(chromium|instagram|snapchat)[\/ ]([-\w\.]+)/i                     // Chromium/Instagram/Snapchat
+            ], [NAME, VERSION], [
+            /\bgsa\/([\w\.]+) .*safari\//i                                      // Google Search Appliance on iOS
+            ], [VERSION, [NAME, 'GSA']], [
+            /musical_ly(?:.+app_?version\/|_)([\w\.]+)/i                        // TikTok
+            ], [VERSION, [NAME, 'TikTok']], [
+
+            /headlesschrome(?:\/([\w\.]+)| )/i                                  // Chrome Headless
+            ], [VERSION, [NAME, CHROME+' Headless']], [
+
+            / wv\).+(chrome)\/([\w\.]+)/i                                       // Chrome WebView
+            ], [[NAME, CHROME+' WebView'], VERSION], [
+
+            /droid.+ version\/([\w\.]+)\b.+(?:mobile safari|safari)/i           // Android Browser
+            ], [VERSION, [NAME, 'Android '+BROWSER]], [
+
+            /(chrome|omniweb|arora|[tizenoka]{5} ?browser)\/v?([\w\.]+)/i       // Chrome/OmniWeb/Arora/Tizen/Nokia
+            ], [NAME, VERSION], [
+
+            /version\/([\w\.\,]+) .*mobile\/\w+ (safari)/i                      // Mobile Safari
+            ], [VERSION, [NAME, 'Mobile Safari']], [
+            /version\/([\w(\.|\,)]+) .*(mobile ?safari|safari)/i                // Safari & Safari Mobile
+            ], [VERSION, NAME], [
+            /webkit.+?(mobile ?safari|safari)(\/[\w\.]+)/i                      // Safari < 3.0
+            ], [NAME, [VERSION, strMapper, oldSafariMap]], [
+
+            /(webkit|khtml)\/([\w\.]+)/i
+            ], [NAME, VERSION], [
+
+            // Gecko based
+            /(navigator|netscape\d?)\/([-\w\.]+)/i                              // Netscape
+            ], [[NAME, 'Netscape'], VERSION], [
+            /(wolvic|librewolf)\/([\w\.]+)/i                                    // Wolvic/LibreWolf
+            ], [NAME, VERSION], [
+            /mobile vr; rv:([\w\.]+)\).+firefox/i                               // Firefox Reality
+            ], [VERSION, [NAME, FIREFOX+' Reality']], [
+            /ekiohf.+(flow)\/([\w\.]+)/i,                                       // Flow
+            /(swiftfox)/i,                                                      // Swiftfox
+            /(icedragon|iceweasel|camino|chimera|fennec|maemo browser|minimo|conkeror)[\/ ]?([\w\.\+]+)/i,
+                                                                                // IceDragon/Iceweasel/Camino/Chimera/Fennec/Maemo/Minimo/Conkeror
+            /(seamonkey|k-meleon|icecat|iceape|firebird|phoenix|palemoon|basilisk|waterfox)\/([-\w\.]+)$/i,
+                                                                                // Firefox/SeaMonkey/K-Meleon/IceCat/IceApe/Firebird/Phoenix
+            /(firefox)\/([\w\.]+)/i,                                            // Other Firefox-based
+            /(mozilla)\/([\w\.]+) .+rv\:.+gecko\/\d+/i,                         // Mozilla
+
+            // Other
+            /(polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf|obigo|mosaic|(?:go|ice|up)[\. ]?browser)[-\/ ]?v?([\w\.]+)/i,
+                                                                                // Polaris/Lynx/Dillo/iCab/Doris/Amaya/w3m/NetSurf/Obigo/Mosaic/Go/ICE/UP.Browser
+            /(links) \(([\w\.]+)/i                                              // Links
+            ], [NAME, [VERSION, /_/g, '.']], [
+            
+            /(cobalt)\/([\w\.]+)/i                                              // Cobalt
+            ], [NAME, [VERSION, /master.|lts./, ""]]
+        ],
+
+        cpu : [[
+
+            /(?:(amd|x(?:(?:86|64)[-_])?|wow|win)64)[;\)]/i                     // AMD64 (x64)
+            ], [[ARCHITECTURE, 'amd64']], [
+
+            /(ia32(?=;))/i                                                      // IA32 (quicktime)
+            ], [[ARCHITECTURE, lowerize]], [
+
+            /((?:i[346]|x)86)[;\)]/i                                            // IA32 (x86)
+            ], [[ARCHITECTURE, 'ia32']], [
+
+            /\b(aarch64|arm(v?8e?l?|_?64))\b/i                                 // ARM64
+            ], [[ARCHITECTURE, 'arm64']], [
+
+            /\b(arm(?:v[67])?ht?n?[fl]p?)\b/i                                   // ARMHF
+            ], [[ARCHITECTURE, 'armhf']], [
+
+            // PocketPC mistakenly identified as PowerPC
+            /windows (ce|mobile); ppc;/i
+            ], [[ARCHITECTURE, 'arm']], [
+
+            /((?:ppc|powerpc)(?:64)?)(?: mac|;|\))/i                            // PowerPC
+            ], [[ARCHITECTURE, /ower/, EMPTY, lowerize]], [
+
+            /(sun4\w)[;\)]/i                                                    // SPARC
+            ], [[ARCHITECTURE, 'sparc']], [
+
+            /((?:avr32|ia64(?=;))|68k(?=\))|\barm(?=v(?:[1-7]|[5-7]1)l?|;|eabi)|(?=atmel )avr|(?:irix|mips|sparc)(?:64)?\b|pa-risc)/i
+                                                                                // IA64, 68K, ARM/64, AVR/32, IRIX/64, MIPS/64, SPARC/64, PA-RISC
+            ], [[ARCHITECTURE, lowerize]]
+        ],
+
+        device : [[
+
+            //////////////////////////
+            // MOBILES & TABLETS
+            /////////////////////////
+
+            // Samsung
+            /\b(sch-i[89]0\d|shw-m380s|sm-[ptx]\w{2,4}|gt-[pn]\d{2,4}|sgh-t8[56]9|nexus 10)/i
+            ], [MODEL, [VENDOR, SAMSUNG], [TYPE, TABLET]], [
+            /\b((?:s[cgp]h|gt|sm)-(?![lr])\w+|sc[g-]?[\d]+a?|galaxy nexus)/i,
+            /samsung[- ]((?!sm-[lr])[-\w]+)/i,
+            /sec-(sgh\w+)/i
+            ], [MODEL, [VENDOR, SAMSUNG], [TYPE, MOBILE]], [
+
+            // Apple
+            /(?:\/|\()(ip(?:hone|od)[\w, ]*)(?:\/|;)/i                          // iPod/iPhone
+            ], [MODEL, [VENDOR, APPLE], [TYPE, MOBILE]], [
+            /\((ipad);[-\w\),; ]+apple/i,                                       // iPad
+            /applecoremedia\/[\w\.]+ \((ipad)/i,
+            /\b(ipad)\d\d?,\d\d?[;\]].+ios/i
+            ], [MODEL, [VENDOR, APPLE], [TYPE, TABLET]], [
+            /(macintosh);/i
+            ], [MODEL, [VENDOR, APPLE]], [
+
+            // Sharp
+            /\b(sh-?[altvz]?\d\d[a-ekm]?)/i
+            ], [MODEL, [VENDOR, SHARP], [TYPE, MOBILE]], [
+
+            // Honor
+            /(?:honor)([-\w ]+)[;\)]/i
+            ], [MODEL, [VENDOR, 'Honor'], [TYPE, MOBILE]], [
+
+            // Huawei
+            /\b((?:ag[rs][23]?|bah2?|sht?|btv)-a?[lw]\d{2})\b(?!.+d\/s)/i
+            ], [MODEL, [VENDOR, HUAWEI], [TYPE, TABLET]], [
+            /(?:huawei)([-\w ]+)[;\)]/i,
+            /\b(nexus 6p|\w{2,4}e?-[atu]?[ln][\dx][012359c][adn]?)\b(?!.+d\/s)/i
+            ], [MODEL, [VENDOR, HUAWEI], [TYPE, MOBILE]], [
+
+            // Xiaomi
+            /\b(poco[\w ]+|m2\d{3}j\d\d[a-z]{2})(?: bui|\))/i,                  // Xiaomi POCO
+            /\b; (\w+) build\/hm\1/i,                                           // Xiaomi Hongmi 'numeric' models
+            /\b(hm[-_ ]?note?[_ ]?(?:\d\w)?) bui/i,                             // Xiaomi Hongmi
+            /\b(redmi[\-_ ]?(?:note|k)?[\w_ ]+)(?: bui|\))/i,                   // Xiaomi Redmi
+            /oid[^\)]+; (m?[12][0-389][01]\w{3,6}[c-y])( bui|; wv|\))/i,        // Xiaomi Redmi 'numeric' models
+            /\b(mi[-_ ]?(?:a\d|one|one[_ ]plus|note lte|max|cc)?[_ ]?(?:\d?\w?)[_ ]?(?:plus|se|lite|pro)?)(?: bui|\))/i // Xiaomi Mi
+            ], [[MODEL, /_/g, ' '], [VENDOR, XIAOMI], [TYPE, MOBILE]], [
+            /oid[^\)]+; (2\d{4}(283|rpbf)[cgl])( bui|\))/i,                     // Redmi Pad
+            /\b(mi[-_ ]?(?:pad)(?:[\w_ ]+))(?: bui|\))/i                        // Mi Pad tablets
+            ],[[MODEL, /_/g, ' '], [VENDOR, XIAOMI], [TYPE, TABLET]], [
+
+            // OPPO
+            /; (\w+) bui.+ oppo/i,
+            /\b(cph[12]\d{3}|p(?:af|c[al]|d\w|e[ar])[mt]\d0|x9007|a101op)\b/i
+            ], [MODEL, [VENDOR, 'OPPO'], [TYPE, MOBILE]], [
+            /\b(opd2\d{3}a?) bui/i
+            ], [MODEL, [VENDOR, 'OPPO'], [TYPE, TABLET]], [
+
+            // Vivo
+            /vivo (\w+)(?: bui|\))/i,
+            /\b(v[12]\d{3}\w?[at])(?: bui|;)/i
+            ], [MODEL, [VENDOR, 'Vivo'], [TYPE, MOBILE]], [
+
+            // Realme
+            /\b(rmx[1-3]\d{3})(?: bui|;|\))/i
+            ], [MODEL, [VENDOR, 'Realme'], [TYPE, MOBILE]], [
+
+            // Motorola
+            /\b(milestone|droid(?:[2-4x]| (?:bionic|x2|pro|razr))?:?( 4g)?)\b[\w ]+build\//i,
+            /\bmot(?:orola)?[- ](\w*)/i,
+            /((?:moto[\w\(\) ]+|xt\d{3,4}|nexus 6)(?= bui|\)))/i
+            ], [MODEL, [VENDOR, MOTOROLA], [TYPE, MOBILE]], [
+            /\b(mz60\d|xoom[2 ]{0,2}) build\//i
+            ], [MODEL, [VENDOR, MOTOROLA], [TYPE, TABLET]], [
+
+            // LG
+            /((?=lg)?[vl]k\-?\d{3}) bui| 3\.[-\w; ]{10}lg?-([06cv9]{3,4})/i
+            ], [MODEL, [VENDOR, LG], [TYPE, TABLET]], [
+            /(lm(?:-?f100[nv]?|-[\w\.]+)(?= bui|\))|nexus [45])/i,
+            /\blg[-e;\/ ]+((?!browser|netcast|android tv)\w+)/i,
+            /\blg-?([\d\w]+) bui/i
+            ], [MODEL, [VENDOR, LG], [TYPE, MOBILE]], [
+
+            // Lenovo
+            /(ideatab[-\w ]+)/i,
+            /lenovo ?(s[56]000[-\w]+|tab(?:[\w ]+)|yt[-\d\w]{6}|tb[-\d\w]{6})/i
+            ], [MODEL, [VENDOR, 'Lenovo'], [TYPE, TABLET]], [
+
+            // Nokia
+            /(?:maemo|nokia).*(n900|lumia \d+)/i,
+            /nokia[-_ ]?([-\w\.]*)/i
+            ], [[MODEL, /_/g, ' '], [VENDOR, 'Nokia'], [TYPE, MOBILE]], [
+
+            // Google
+            /(pixel c)\b/i                                                      // Google Pixel C
+            ], [MODEL, [VENDOR, GOOGLE], [TYPE, TABLET]], [
+            /droid.+; (pixel[\daxl ]{0,6})(?: bui|\))/i                         // Google Pixel
+            ], [MODEL, [VENDOR, GOOGLE], [TYPE, MOBILE]], [
+
+            // Sony
+            /droid.+; (a?\d[0-2]{2}so|[c-g]\d{4}|so[-gl]\w+|xq-a\w[4-7][12])(?= bui|\).+chrome\/(?![1-6]{0,1}\d\.))/i
+            ], [MODEL, [VENDOR, SONY], [TYPE, MOBILE]], [
+            /sony tablet [ps]/i,
+            /\b(?:sony)?sgp\w+(?: bui|\))/i
+            ], [[MODEL, 'Xperia Tablet'], [VENDOR, SONY], [TYPE, TABLET]], [
+
+            // OnePlus
+            / (kb2005|in20[12]5|be20[12][59])\b/i,
+            /(?:one)?(?:plus)? (a\d0\d\d)(?: b|\))/i
+            ], [MODEL, [VENDOR, 'OnePlus'], [TYPE, MOBILE]], [
+
+            // Amazon
+            /(alexa)webm/i,
+            /(kf[a-z]{2}wi|aeo(?!bc)\w\w)( bui|\))/i,                           // Kindle Fire without Silk / Echo Show
+            /(kf[a-z]+)( bui|\)).+silk\//i                                      // Kindle Fire HD
+            ], [MODEL, [VENDOR, AMAZON], [TYPE, TABLET]], [
+            /((?:sd|kf)[0349hijorstuw]+)( bui|\)).+silk\//i                     // Fire Phone
+            ], [[MODEL, /(.+)/g, 'Fire Phone $1'], [VENDOR, AMAZON], [TYPE, MOBILE]], [
+
+            // BlackBerry
+            /(playbook);[-\w\),; ]+(rim)/i                                      // BlackBerry PlayBook
+            ], [MODEL, VENDOR, [TYPE, TABLET]], [
+            /\b((?:bb[a-f]|st[hv])100-\d)/i,
+            /\(bb10; (\w+)/i                                                    // BlackBerry 10
+            ], [MODEL, [VENDOR, BLACKBERRY], [TYPE, MOBILE]], [
+
+            // Asus
+            /(?:\b|asus_)(transfo[prime ]{4,10} \w+|eeepc|slider \w+|nexus 7|padfone|p00[cj])/i
+            ], [MODEL, [VENDOR, ASUS], [TYPE, TABLET]], [
+            / (z[bes]6[027][012][km][ls]|zenfone \d\w?)\b/i
+            ], [MODEL, [VENDOR, ASUS], [TYPE, MOBILE]], [
+
+            // HTC
+            /(nexus 9)/i                                                        // HTC Nexus 9
+            ], [MODEL, [VENDOR, 'HTC'], [TYPE, TABLET]], [
+            /(htc)[-;_ ]{1,2}([\w ]+(?=\)| bui)|\w+)/i,                         // HTC
+
+            // ZTE
+            /(zte)[- ]([\w ]+?)(?: bui|\/|\))/i,
+            /(alcatel|geeksphone|nexian|panasonic(?!(?:;|\.))|sony(?!-bra))[-_ ]?([-\w]*)/i         // Alcatel/GeeksPhone/Nexian/Panasonic/Sony
+            ], [VENDOR, [MODEL, /_/g, ' '], [TYPE, MOBILE]], [
+
+            // TCL
+            /droid [\w\.]+; ((?:8[14]9[16]|9(?:0(?:48|60|8[01])|1(?:3[27]|66)|2(?:6[69]|9[56])|466))[gqswx])\w*(\)| bui)/i
+            ], [MODEL, [VENDOR, 'TCL'], [TYPE, TABLET]], [
+
+            // itel
+            /(itel) ((\w+))/i
+            ], [[VENDOR, lowerize], MODEL, [TYPE, strMapper, { 'tablet' : ['p10001l', 'w7001'], '*' : 'mobile' }]], [
+
+            // Acer
+            /droid.+; ([ab][1-7]-?[0178a]\d\d?)/i
+            ], [MODEL, [VENDOR, 'Acer'], [TYPE, TABLET]], [
+
+            // Meizu
+            /droid.+; (m[1-5] note) bui/i,
+            /\bmz-([-\w]{2,})/i
+            ], [MODEL, [VENDOR, 'Meizu'], [TYPE, MOBILE]], [
+                
+            // Ulefone
+            /; ((?:power )?armor(?:[\w ]{0,8}))(?: bui|\))/i
+            ], [MODEL, [VENDOR, 'Ulefone'], [TYPE, MOBILE]], [
+
+            // Energizer
+            /; (energy ?\w+)(?: bui|\))/i,
+            /; energizer ([\w ]+)(?: bui|\))/i
+            ], [MODEL, [VENDOR, 'Energizer'], [TYPE, MOBILE]], [
+
+            // Cat
+            /; cat (b35);/i,
+            /; (b15q?|s22 flip|s48c|s62 pro)(?: bui|\))/i
+            ], [MODEL, [VENDOR, 'Cat'], [TYPE, MOBILE]], [
+
+            // Smartfren
+            /((?:new )?andromax[\w- ]+)(?: bui|\))/i
+            ], [MODEL, [VENDOR, 'Smartfren'], [TYPE, MOBILE]], [
+
+            // Nothing
+            /droid.+; (a(?:015|06[35]|142p?))/i
+            ], [MODEL, [VENDOR, 'Nothing'], [TYPE, MOBILE]], [
+
+            // MIXED
+            /(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|meizu|motorola|polytron|infinix|tecno|micromax|advan)[-_ ]?([-\w]*)/i,
+                                                                                // BlackBerry/BenQ/Palm/Sony-Ericsson/Acer/Asus/Dell/Meizu/Motorola/Polytron/Infinix/Tecno/Micromax/Advan
+            /; (imo) ((?!tab)[\w ]+?)(?: bui|\))/i,                             // IMO
+            /(hp) ([\w ]+\w)/i,                                                 // HP iPAQ
+            /(asus)-?(\w+)/i,                                                   // Asus
+            /(microsoft); (lumia[\w ]+)/i,                                      // Microsoft Lumia
+            /(lenovo)[-_ ]?([-\w]+)/i,                                          // Lenovo
+            /(jolla)/i,                                                         // Jolla
+            /(oppo) ?([\w ]+) bui/i                                             // OPPO
+            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+
+            /(imo) (tab \w+)/i,                                                 // IMO
+            /(kobo)\s(ereader|touch)/i,                                         // Kobo
+            /(archos) (gamepad2?)/i,                                            // Archos
+            /(hp).+(touchpad(?!.+tablet)|tablet)/i,                             // HP TouchPad
+            /(kindle)\/([\w\.]+)/i,                                             // Kindle
+            /(nook)[\w ]+build\/(\w+)/i,                                        // Nook
+            /(dell) (strea[kpr\d ]*[\dko])/i,                                   // Dell Streak
+            /(le[- ]+pan)[- ]+(\w{1,9}) bui/i,                                  // Le Pan Tablets
+            /(trinity)[- ]*(t\d{3}) bui/i,                                      // Trinity Tablets
+            /(gigaset)[- ]+(q\w{1,9}) bui/i,                                    // Gigaset Tablets
+            /(vodafone) ([\w ]+)(?:\)| bui)/i                                   // Vodafone
+            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+
+            /(surface duo)/i                                                    // Surface Duo
+            ], [MODEL, [VENDOR, MICROSOFT], [TYPE, TABLET]], [
+            /droid [\d\.]+; (fp\du?)(?: b|\))/i                                 // Fairphone
+            ], [MODEL, [VENDOR, 'Fairphone'], [TYPE, MOBILE]], [
+            /(u304aa)/i                                                         // AT&T
+            ], [MODEL, [VENDOR, 'AT&T'], [TYPE, MOBILE]], [
+            /\bsie-(\w*)/i                                                      // Siemens
+            ], [MODEL, [VENDOR, 'Siemens'], [TYPE, MOBILE]], [
+            /\b(rct\w+) b/i                                                     // RCA Tablets
+            ], [MODEL, [VENDOR, 'RCA'], [TYPE, TABLET]], [
+            /\b(venue[\d ]{2,7}) b/i                                            // Dell Venue Tablets
+            ], [MODEL, [VENDOR, 'Dell'], [TYPE, TABLET]], [
+            /\b(q(?:mv|ta)\w+) b/i                                              // Verizon Tablet
+            ], [MODEL, [VENDOR, 'Verizon'], [TYPE, TABLET]], [
+            /\b(?:barnes[& ]+noble |bn[rt])([\w\+ ]*) b/i                       // Barnes & Noble Tablet
+            ], [MODEL, [VENDOR, 'Barnes & Noble'], [TYPE, TABLET]], [
+            /\b(tm\d{3}\w+) b/i
+            ], [MODEL, [VENDOR, 'NuVision'], [TYPE, TABLET]], [
+            /\b(k88) b/i                                                        // ZTE K Series Tablet
+            ], [MODEL, [VENDOR, 'ZTE'], [TYPE, TABLET]], [
+            /\b(nx\d{3}j) b/i                                                   // ZTE Nubia
+            ], [MODEL, [VENDOR, 'ZTE'], [TYPE, MOBILE]], [
+            /\b(gen\d{3}) b.+49h/i                                              // Swiss GEN Mobile
+            ], [MODEL, [VENDOR, 'Swiss'], [TYPE, MOBILE]], [
+            /\b(zur\d{3}) b/i                                                   // Swiss ZUR Tablet
+            ], [MODEL, [VENDOR, 'Swiss'], [TYPE, TABLET]], [
+            /\b((zeki)?tb.*\b) b/i                                              // Zeki Tablets
+            ], [MODEL, [VENDOR, 'Zeki'], [TYPE, TABLET]], [
+            /\b([yr]\d{2}) b/i,
+            /\b(dragon[- ]+touch |dt)(\w{5}) b/i                                // Dragon Touch Tablet
+            ], [[VENDOR, 'Dragon Touch'], MODEL, [TYPE, TABLET]], [
+            /\b(ns-?\w{0,9}) b/i                                                // Insignia Tablets
+            ], [MODEL, [VENDOR, 'Insignia'], [TYPE, TABLET]], [
+            /\b((nxa|next)-?\w{0,9}) b/i                                        // NextBook Tablets
+            ], [MODEL, [VENDOR, 'NextBook'], [TYPE, TABLET]], [
+            /\b(xtreme\_)?(v(1[045]|2[015]|[3469]0|7[05])) b/i                  // Voice Xtreme Phones
+            ], [[VENDOR, 'Voice'], MODEL, [TYPE, MOBILE]], [
+            /\b(lvtel\-)?(v1[12]) b/i                                           // LvTel Phones
+            ], [[VENDOR, 'LvTel'], MODEL, [TYPE, MOBILE]], [
+            /\b(ph-1) /i                                                        // Essential PH-1
+            ], [MODEL, [VENDOR, 'Essential'], [TYPE, MOBILE]], [
+            /\b(v(100md|700na|7011|917g).*\b) b/i                               // Envizen Tablets
+            ], [MODEL, [VENDOR, 'Envizen'], [TYPE, TABLET]], [
+            /\b(trio[-\w\. ]+) b/i                                              // MachSpeed Tablets
+            ], [MODEL, [VENDOR, 'MachSpeed'], [TYPE, TABLET]], [
+            /\btu_(1491) b/i                                                    // Rotor Tablets
+            ], [MODEL, [VENDOR, 'Rotor'], [TYPE, TABLET]], [
+            /(shield[\w ]+) b/i                                                 // Nvidia Shield Tablets
+            ], [MODEL, [VENDOR, 'Nvidia'], [TYPE, TABLET]], [
+            /(sprint) (\w+)/i                                                   // Sprint Phones
+            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+            /(kin\.[onetw]{3})/i                                                // Microsoft Kin
+            ], [[MODEL, /\./g, ' '], [VENDOR, MICROSOFT], [TYPE, MOBILE]], [
+            /droid.+; (cc6666?|et5[16]|mc[239][23]x?|vc8[03]x?)\)/i             // Zebra
+            ], [MODEL, [VENDOR, ZEBRA], [TYPE, TABLET]], [
+            /droid.+; (ec30|ps20|tc[2-8]\d[kx])\)/i
+            ], [MODEL, [VENDOR, ZEBRA], [TYPE, MOBILE]], [
+
+            ///////////////////
+            // SMARTTVS
+            ///////////////////
+
+            /smart-tv.+(samsung)/i                                              // Samsung
+            ], [VENDOR, [TYPE, SMARTTV]], [
+            /hbbtv.+maple;(\d+)/i
+            ], [[MODEL, /^/, 'SmartTV'], [VENDOR, SAMSUNG], [TYPE, SMARTTV]], [
+            /(nux; netcast.+smarttv|lg (netcast\.tv-201\d|android tv))/i        // LG SmartTV
+            ], [[VENDOR, LG], [TYPE, SMARTTV]], [
+            /(apple) ?tv/i                                                      // Apple TV
+            ], [VENDOR, [MODEL, APPLE+' TV'], [TYPE, SMARTTV]], [
+            /crkey/i                                                            // Google Chromecast
+            ], [[MODEL, CHROME+'cast'], [VENDOR, GOOGLE], [TYPE, SMARTTV]], [
+            /droid.+aft(\w+)( bui|\))/i                                         // Fire TV
+            ], [MODEL, [VENDOR, AMAZON], [TYPE, SMARTTV]], [
+            /\(dtv[\);].+(aquos)/i,
+            /(aquos-tv[\w ]+)\)/i                                               // Sharp
+            ], [MODEL, [VENDOR, SHARP], [TYPE, SMARTTV]],[
+            /(bravia[\w ]+)( bui|\))/i                                              // Sony
+            ], [MODEL, [VENDOR, SONY], [TYPE, SMARTTV]], [
+            /(mitv-\w{5}) bui/i                                                 // Xiaomi
+            ], [MODEL, [VENDOR, XIAOMI], [TYPE, SMARTTV]], [
+            /Hbbtv.*(technisat) (.*);/i                                         // TechniSAT
+            ], [VENDOR, MODEL, [TYPE, SMARTTV]], [
+            /\b(roku)[\dx]*[\)\/]((?:dvp-)?[\d\.]*)/i,                          // Roku
+            /hbbtv\/\d+\.\d+\.\d+ +\([\w\+ ]*; *([\w\d][^;]*);([^;]*)/i         // HbbTV devices
+            ], [[VENDOR, trim], [MODEL, trim], [TYPE, SMARTTV]], [
+            /\b(android tv|smart[- ]?tv|opera tv|tv; rv:)\b/i                   // SmartTV from Unidentified Vendors
+            ], [[TYPE, SMARTTV]], [
+
+            ///////////////////
+            // CONSOLES
+            ///////////////////
+
+            /(ouya)/i,                                                          // Ouya
+            /(nintendo) ([wids3utch]+)/i                                        // Nintendo
+            ], [VENDOR, MODEL, [TYPE, CONSOLE]], [
+            /droid.+; (shield) bui/i                                            // Nvidia
+            ], [MODEL, [VENDOR, 'Nvidia'], [TYPE, CONSOLE]], [
+            /(playstation [345portablevi]+)/i                                   // Playstation
+            ], [MODEL, [VENDOR, SONY], [TYPE, CONSOLE]], [
+            /\b(xbox(?: one)?(?!; xbox))[\); ]/i                                // Microsoft Xbox
+            ], [MODEL, [VENDOR, MICROSOFT], [TYPE, CONSOLE]], [
+
+            ///////////////////
+            // WEARABLES
+            ///////////////////
+
+            /\b(sm-[lr]\d\d[05][fnuw]?s?)\b/i                                   // Samsung Galaxy Watch
+            ], [MODEL, [VENDOR, SAMSUNG], [TYPE, WEARABLE]], [
+            /((pebble))app/i                                                    // Pebble
+            ], [VENDOR, MODEL, [TYPE, WEARABLE]], [
+            /(watch)(?: ?os[,\/]|\d,\d\/)[\d\.]+/i                              // Apple Watch
+            ], [MODEL, [VENDOR, APPLE], [TYPE, WEARABLE]], [
+            /droid.+; (glass) \d/i                                              // Google Glass
+            ], [MODEL, [VENDOR, GOOGLE], [TYPE, WEARABLE]], [
+            /droid.+; (wt63?0{2,3})\)/i
+            ], [MODEL, [VENDOR, ZEBRA], [TYPE, WEARABLE]], [
+
+            ///////////////////
+            // XR
+            ///////////////////
+
+            /droid.+; (glass) \d/i                                              // Google Glass
+            ], [MODEL, [VENDOR, GOOGLE], [TYPE, WEARABLE]], [
+            /(pico) (4|neo3(?: link|pro)?)/i                                    // Pico
+            ], [VENDOR, MODEL, [TYPE, WEARABLE]], [
+            /; (quest( \d| pro)?)/i                                             // Oculus Quest
+            ], [MODEL, [VENDOR, FACEBOOK], [TYPE, WEARABLE]], [
+
+            ///////////////////
+            // EMBEDDED
+            ///////////////////
+
+            /(tesla)(?: qtcarbrowser|\/[-\w\.]+)/i                              // Tesla
+            ], [VENDOR, [TYPE, EMBEDDED]], [
+            /(aeobc)\b/i                                                        // Echo Dot
+            ], [MODEL, [VENDOR, AMAZON], [TYPE, EMBEDDED]], [
+
+            ////////////////////
+            // MIXED (GENERIC)
+            ///////////////////
+
+            /droid .+?; ([^;]+?)(?: bui|; wv\)|\) applew).+? mobile safari/i    // Android Phones from Unidentified Vendors
+            ], [MODEL, [TYPE, MOBILE]], [
+            /droid .+?; ([^;]+?)(?: bui|\) applew).+?(?! mobile) safari/i       // Android Tablets from Unidentified Vendors
+            ], [MODEL, [TYPE, TABLET]], [
+            /\b((tablet|tab)[;\/]|focus\/\d(?!.+mobile))/i                      // Unidentifiable Tablet
+            ], [[TYPE, TABLET]], [
+            /(phone|mobile(?:[;\/]| [ \w\/\.]*safari)|pda(?=.+windows ce))/i    // Unidentifiable Mobile
+            ], [[TYPE, MOBILE]], [
+            /(android[-\w\. ]{0,9});.+buil/i                                    // Generic Android Device
+            ], [MODEL, [VENDOR, 'Generic']]
+        ],
+
+        engine : [[
+
+            /windows.+ edge\/([\w\.]+)/i                                       // EdgeHTML
+            ], [VERSION, [NAME, EDGE+'HTML']], [
+
+            /(arkweb)\/([\w\.]+)/i                                              // ArkWeb
+            ], [NAME, VERSION], [
+
+            /webkit\/537\.36.+chrome\/(?!27)([\w\.]+)/i                         // Blink
+            ], [VERSION, [NAME, 'Blink']], [
+
+            /(presto)\/([\w\.]+)/i,                                             // Presto
+            /(webkit|trident|netfront|netsurf|amaya|lynx|w3m|goanna|servo)\/([\w\.]+)/i, // WebKit/Trident/NetFront/NetSurf/Amaya/Lynx/w3m/Goanna/Servo
+            /ekioh(flow)\/([\w\.]+)/i,                                          // Flow
+            /(khtml|tasman|links)[\/ ]\(?([\w\.]+)/i,                           // KHTML/Tasman/Links
+            /(icab)[\/ ]([23]\.[\d\.]+)/i,                                      // iCab
+            /\b(libweb)/i
+            ], [NAME, VERSION], [
+
+            /rv\:([\w\.]{1,9})\b.+(gecko)/i                                     // Gecko
+            ], [VERSION, NAME]
+        ],
+
+        os : [[
+
+            // Windows
+            /microsoft (windows) (vista|xp)/i                                   // Windows (iTunes)
+            ], [NAME, VERSION], [
+            /(windows (?:phone(?: os)?|mobile))[\/ ]?([\d\.\w ]*)/i             // Windows Phone
+            ], [NAME, [VERSION, strMapper, windowsVersionMap]], [
+            /windows nt 6\.2; (arm)/i,                                        // Windows RT
+            /windows[\/ ]?([ntce\d\. ]+\w)(?!.+xbox)/i,
+            /(?:win(?=3|9|n)|win 9x )([nt\d\.]+)/i
+            ], [[VERSION, strMapper, windowsVersionMap], [NAME, 'Windows']], [
+
+            // iOS/macOS
+            /ip[honead]{2,4}\b(?:.*os ([\w]+) like mac|; opera)/i,              // iOS
+            /(?:ios;fbsv\/|iphone.+ios[\/ ])([\d\.]+)/i,
+            /cfnetwork\/.+darwin/i
+            ], [[VERSION, /_/g, '.'], [NAME, 'iOS']], [
+            /(mac os x) ?([\w\. ]*)/i,
+            /(macintosh|mac_powerpc\b)(?!.+haiku)/i                             // Mac OS
+            ], [[NAME, MAC_OS], [VERSION, /_/g, '.']], [
+
+            // Mobile OSes
+            /droid ([\w\.]+)\b.+(android[- ]x86|harmonyos)/i                    // Android-x86/HarmonyOS
+            ], [VERSION, NAME], [                                               // Android/WebOS/QNX/Bada/RIM/Maemo/MeeGo/Sailfish OS/OpenHarmony
+            /(android|webos|qnx|bada|rim tablet os|maemo|meego|sailfish|openharmony)[-\/ ]?([\w\.]*)/i,
+            /(blackberry)\w*\/([\w\.]*)/i,                                      // Blackberry
+            /(tizen|kaios)[\/ ]([\w\.]+)/i,                                     // Tizen/KaiOS
+            /\((series40);/i                                                    // Series 40
+            ], [NAME, VERSION], [
+            /\(bb(10);/i                                                        // BlackBerry 10
+            ], [VERSION, [NAME, BLACKBERRY]], [
+            /(?:symbian ?os|symbos|s60(?=;)|series60)[-\/ ]?([\w\.]*)/i         // Symbian
+            ], [VERSION, [NAME, 'Symbian']], [
+            /mozilla\/[\d\.]+ \((?:mobile|tablet|tv|mobile; [\w ]+); rv:.+ gecko\/([\w\.]+)/i // Firefox OS
+            ], [VERSION, [NAME, FIREFOX+' OS']], [
+            /web0s;.+rt(tv)/i,
+            /\b(?:hp)?wos(?:browser)?\/([\w\.]+)/i                              // WebOS
+            ], [VERSION, [NAME, 'webOS']], [
+            /watch(?: ?os[,\/]|\d,\d\/)([\d\.]+)/i                              // watchOS
+            ], [VERSION, [NAME, 'watchOS']], [
+
+            // Google Chromecast
+            /crkey\/([\d\.]+)/i                                                 // Google Chromecast
+            ], [VERSION, [NAME, CHROME+'cast']], [
+            /(cros) [\w]+(?:\)| ([\w\.]+)\b)/i                                  // Chromium OS
+            ], [[NAME, CHROMIUM_OS], VERSION],[
+
+            // Smart TVs
+            /panasonic;(viera)/i,                                               // Panasonic Viera
+            /(netrange)mmh/i,                                                   // Netrange
+            /(nettv)\/(\d+\.[\w\.]+)/i,                                         // NetTV
+
+            // Console
+            /(nintendo|playstation) ([wids345portablevuch]+)/i,                 // Nintendo/Playstation
+            /(xbox); +xbox ([^\);]+)/i,                                         // Microsoft Xbox (360, One, X, S, Series X, Series S)
+
+            // Other
+            /\b(joli|palm)\b ?(?:os)?\/?([\w\.]*)/i,                            // Joli/Palm
+            /(mint)[\/\(\) ]?(\w*)/i,                                           // Mint
+            /(mageia|vectorlinux)[; ]/i,                                        // Mageia/VectorLinux
+            /([kxln]?ubuntu|debian|suse|opensuse|gentoo|arch(?= linux)|slackware|fedora|mandriva|centos|pclinuxos|red ?hat|zenwalk|linpus|raspbian|plan 9|minix|risc os|contiki|deepin|manjaro|elementary os|sabayon|linspire)(?: gnu\/linux)?(?: enterprise)?(?:[- ]linux)?(?:-gnu)?[-\/ ]?(?!chrom|package)([-\w\.]*)/i,
+                                                                                // Ubuntu/Debian/SUSE/Gentoo/Arch/Slackware/Fedora/Mandriva/CentOS/PCLinuxOS/RedHat/Zenwalk/Linpus/Raspbian/Plan9/Minix/RISCOS/Contiki/Deepin/Manjaro/elementary/Sabayon/Linspire
+            /(hurd|linux) ?([\w\.]*)/i,                                         // Hurd/Linux
+            /(gnu) ?([\w\.]*)/i,                                                // GNU
+            /\b([-frentopcghs]{0,5}bsd|dragonfly)[\/ ]?(?!amd|[ix346]{1,2}86)([\w\.]*)/i, // FreeBSD/NetBSD/OpenBSD/PC-BSD/GhostBSD/DragonFly
+            /(haiku) (\w+)/i                                                    // Haiku
+            ], [NAME, VERSION], [
+            /(sunos) ?([\w\.\d]*)/i                                             // Solaris
+            ], [[NAME, 'Solaris'], VERSION], [
+            /((?:open)?solaris)[-\/ ]?([\w\.]*)/i,                              // Solaris
+            /(aix) ((\d)(?=\.|\)| )[\w\.])*/i,                                  // AIX
+            /\b(beos|os\/2|amigaos|morphos|openvms|fuchsia|hp-ux|serenityos)/i, // BeOS/OS2/AmigaOS/MorphOS/OpenVMS/Fuchsia/HP-UX/SerenityOS
+            /(unix) ?([\w\.]*)/i                                                // UNIX
+            ], [NAME, VERSION]
+        ]
+    };
+
+    /////////////////
+    // Constructor
+    ////////////////
+
+    var UAParser = function (ua, extensions) {
+
+        if (typeof ua === OBJ_TYPE) {
+            extensions = ua;
+            ua = undefined;
+        }
+
+        if (!(this instanceof UAParser)) {
+            return new UAParser(ua, extensions).getResult();
+        }
+
+        var _navigator = (typeof window !== UNDEF_TYPE && window.navigator) ? window.navigator : undefined;
+        var _ua = ua || ((_navigator && _navigator.userAgent) ? _navigator.userAgent : EMPTY);
+        var _uach = (_navigator && _navigator.userAgentData) ? _navigator.userAgentData : undefined;
+        var _rgxmap = extensions ? extend(regexes, extensions) : regexes;
+        var _isSelfNav = _navigator && _navigator.userAgent == _ua;
+
+        this.getBrowser = function () {
+            var _browser = {};
+            _browser[NAME] = undefined;
+            _browser[VERSION] = undefined;
+            rgxMapper.call(_browser, _ua, _rgxmap.browser);
+            _browser[MAJOR] = majorize(_browser[VERSION]);
+            // Brave-specific detection
+            if (_isSelfNav && _navigator && _navigator.brave && typeof _navigator.brave.isBrave == FUNC_TYPE) {
+                _browser[NAME] = 'Brave';
+            }
+            return _browser;
+        };
+        this.getCPU = function () {
+            var _cpu = {};
+            _cpu[ARCHITECTURE] = undefined;
+            rgxMapper.call(_cpu, _ua, _rgxmap.cpu);
+            return _cpu;
+        };
+        this.getDevice = function () {
+            var _device = {};
+            _device[VENDOR] = undefined;
+            _device[MODEL] = undefined;
+            _device[TYPE] = undefined;
+            rgxMapper.call(_device, _ua, _rgxmap.device);
+            if (_isSelfNav && !_device[TYPE] && _uach && _uach.mobile) {
+                _device[TYPE] = MOBILE;
+            }
+            // iPadOS-specific detection: identified as Mac, but has some iOS-only properties
+            if (_isSelfNav && _device[MODEL] == 'Macintosh' && _navigator && typeof _navigator.standalone !== UNDEF_TYPE && _navigator.maxTouchPoints && _navigator.maxTouchPoints > 2) {
+                _device[MODEL] = 'iPad';
+                _device[TYPE] = TABLET;
+            }
+            return _device;
+        };
+        this.getEngine = function () {
+            var _engine = {};
+            _engine[NAME] = undefined;
+            _engine[VERSION] = undefined;
+            rgxMapper.call(_engine, _ua, _rgxmap.engine);
+            return _engine;
+        };
+        this.getOS = function () {
+            var _os = {};
+            _os[NAME] = undefined;
+            _os[VERSION] = undefined;
+            rgxMapper.call(_os, _ua, _rgxmap.os);
+            if (_isSelfNav && !_os[NAME] && _uach && _uach.platform && _uach.platform != 'Unknown') {
+                _os[NAME] = _uach.platform  
+                                    .replace(/chrome os/i, CHROMIUM_OS)
+                                    .replace(/macos/i, MAC_OS);           // backward compatibility
+            }
+            return _os;
+        };
+        this.getResult = function () {
+            return {
+                ua      : this.getUA(),
+                browser : this.getBrowser(),
+                engine  : this.getEngine(),
+                os      : this.getOS(),
+                device  : this.getDevice(),
+                cpu     : this.getCPU()
+            };
+        };
+        this.getUA = function () {
+            return _ua;
+        };
+        this.setUA = function (ua) {
+            _ua = (typeof ua === STR_TYPE && ua.length > UA_MAX_LENGTH) ? trim(ua, UA_MAX_LENGTH) : ua;
+            return this;
+        };
+        this.setUA(_ua);
+        return this;
+    };
+
+    UAParser.VERSION = LIBVERSION;
+    UAParser.BROWSER =  enumerize([NAME, VERSION, MAJOR]);
+    UAParser.CPU = enumerize([ARCHITECTURE]);
+    UAParser.DEVICE = enumerize([MODEL, VENDOR, TYPE, CONSOLE, MOBILE, SMARTTV, TABLET, WEARABLE, EMBEDDED]);
+    UAParser.ENGINE = UAParser.OS = enumerize([NAME, VERSION]);
+
+    ///////////
+    // Export
+    //////////
+
+    // check js environment
+    if (typeof(exports) !== UNDEF_TYPE) {
+        // nodejs env
+        if (typeof module !== UNDEF_TYPE && module.exports) {
+            exports = module.exports = UAParser;
+        }
+        exports.UAParser = UAParser;
+    } else {
+        // requirejs env (optional)
+        if (typeof(define) === FUNC_TYPE && define.amd) {
+            define(function () {
+                return UAParser;
+            });
+        } else if (typeof window !== UNDEF_TYPE) {
+            // browser env
+            window.UAParser = UAParser;
+        }
+    }
+
+    // jQuery/Zepto specific (optional)
+    // Note:
+    //   In AMD env the global scope should be kept clean, but jQuery is an exception.
+    //   jQuery always exports to global scope, unless jQuery.noConflict(true) is used,
+    //   and we should catch that.
+    var $ = typeof window !== UNDEF_TYPE && (window.jQuery || window.Zepto);
+    if ($ && !$.ua) {
+        var parser = new UAParser();
+        $.ua = parser.getResult();
+        $.ua.get = function () {
+            return parser.getUA();
+        };
+        $.ua.set = function (ua) {
+            parser.setUA(ua);
+            var result = parser.getResult();
+            for (var prop in result) {
+                $.ua[prop] = result[prop];
+            }
+        };
+    }
+
+})(typeof window === 'object' ? window : this);
+
+},{}],135:[function(require,module,exports){
 /**
  * Convert array of 16 byte values to UUID string format of the form:
  * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
@@ -9652,7 +10691,7 @@ function bytesToUuid(buf, offset) {
 
 module.exports = bytesToUuid;
 
-},{}],133:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 // Unique ID creation requires a high quality random # generator.  In the
 // browser this is a little complicated due to unknown quality of Math.random()
 // and inconsistent support for the `crypto` API.  We do the best we can via
@@ -9688,7 +10727,7 @@ if (getRandomValues) {
   };
 }
 
-},{}],134:[function(require,module,exports){
+},{}],137:[function(require,module,exports){
 var rng = require('./lib/rng');
 var bytesToUuid = require('./lib/bytesToUuid');
 
@@ -9719,7 +10758,7 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
-},{"./lib/bytesToUuid":132,"./lib/rng":133}],135:[function(require,module,exports){
+},{"./lib/bytesToUuid":135,"./lib/rng":136}],138:[function(require,module,exports){
 (function (global){(function (){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
@@ -9736,7 +10775,7 @@ var adapterFactory = require('./adapter_factory.js');
 module.exports = adapterFactory({window: global.window});
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./adapter_factory.js":136}],136:[function(require,module,exports){
+},{"./adapter_factory.js":139}],139:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -9893,7 +10932,7 @@ module.exports = function(dependencies, opts) {
   return adapter;
 };
 
-},{"./chrome/chrome_shim":137,"./common_shim":139,"./edge/edge_shim":140,"./firefox/firefox_shim":143,"./safari/safari_shim":145,"./utils":146}],137:[function(require,module,exports){
+},{"./chrome/chrome_shim":140,"./common_shim":142,"./edge/edge_shim":143,"./firefox/firefox_shim":146,"./safari/safari_shim":148,"./utils":149}],140:[function(require,module,exports){
 
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
@@ -10832,7 +11871,7 @@ module.exports = {
   }
 };
 
-},{"../utils.js":146,"./getusermedia":138}],138:[function(require,module,exports){
+},{"../utils.js":149,"./getusermedia":141}],141:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11081,7 +12120,7 @@ module.exports = function(window) {
   }
 };
 
-},{"../utils.js":146}],139:[function(require,module,exports){
+},{"../utils.js":149}],142:[function(require,module,exports){
 /*
  *  Copyright (c) 2017 The WebRTC project authors. All Rights Reserved.
  *
@@ -11373,7 +12412,7 @@ module.exports = {
   }
 };
 
-},{"./utils":146,"sdp":131}],140:[function(require,module,exports){
+},{"./utils":149,"sdp":133}],143:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11479,7 +12518,7 @@ module.exports = {
   }
 };
 
-},{"../utils":146,"./filtericeservers":141,"./getusermedia":142,"rtcpeerconnection-shim":130}],141:[function(require,module,exports){
+},{"../utils":149,"./filtericeservers":144,"./getusermedia":145,"rtcpeerconnection-shim":132}],144:[function(require,module,exports){
 /*
  *  Copyright (c) 2018 The WebRTC project authors. All Rights Reserved.
  *
@@ -11530,7 +12569,7 @@ module.exports = function(iceServers, edgeVersion) {
   });
 };
 
-},{"../utils":146}],142:[function(require,module,exports){
+},{"../utils":149}],145:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11566,7 +12605,7 @@ module.exports = function(window) {
   };
 };
 
-},{}],143:[function(require,module,exports){
+},{}],146:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -11885,7 +12924,7 @@ module.exports = {
   }
 };
 
-},{"../utils":146,"./getusermedia":144}],144:[function(require,module,exports){
+},{"../utils":149,"./getusermedia":147}],147:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -12096,7 +13135,7 @@ module.exports = function(window) {
   };
 };
 
-},{"../utils":146}],145:[function(require,module,exports){
+},{"../utils":149}],148:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -12412,7 +13451,7 @@ module.exports = {
   }
 };
 
-},{"../utils":146}],146:[function(require,module,exports){
+},{"../utils":149}],149:[function(require,module,exports){
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -12594,7 +13633,7 @@ module.exports = {
   }
 };
 
-},{}],147:[function(require,module,exports){
+},{}],150:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -12606,7 +13645,7 @@ var AUDIO = exports.AUDIO = 'audio';
 var ANSWER = exports.ANSWER = 'answer';
 var CHROME = exports.CHROME = 'chrome';
 
-},{}],148:[function(require,module,exports){
+},{}],151:[function(require,module,exports){
 (function (global){(function (){
 'use strict';
 
@@ -12637,6 +13676,14 @@ var _CitrixVDIStrategy2 = _interopRequireDefault(_CitrixVDIStrategy);
 var _DCVWebRTCStrategy = require('./strategies/DCVWebRTCStrategy');
 
 var _DCVWebRTCStrategy2 = _interopRequireDefault(_DCVWebRTCStrategy);
+
+var _OmnissaVDIStrategy = require('./strategies/OmnissaVDIStrategy');
+
+var _OmnissaVDIStrategy2 = _interopRequireDefault(_OmnissaVDIStrategy);
+
+var _rtc_peer_connection_manager = require('./rtc_peer_connection_manager');
+
+var _rtc_peer_connection_manager2 = _interopRequireDefault(_rtc_peer_connection_manager);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12687,23 +13734,25 @@ global.connect = global.connect || {};
 global.connect.RTCSession = _rtc_session2.default;
 global.connect.RTCErrors = _rtc_const.RTC_ERRORS;
 global.connect.RtcPeerConnectionFactory = _rtc_peer_connection_factory2.default;
+global.connect.RtcPeerConnectionManager = _rtc_peer_connection_manager2.default;
 global.connect.uuid = _v2.default;
 global.connect.StandardStrategy = _StandardStrategy2.default;
 global.connect.CitrixVDIStrategy = _CitrixVDIStrategy2.default;
 global.connect.DCVWebRTCStrategy = _DCVWebRTCStrategy2.default;
+global.connect.OmnissaVDIStrategy = _OmnissaVDIStrategy2.default;
 
 global.lily = global.lily || {};
 global.lily.RTCSession = _rtc_session2.default;
 global.lily.RTCErrors = _rtc_const.RTC_ERRORS;
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./rtc_const":150,"./rtc_peer_connection_factory":151,"./rtc_session":152,"./strategies/CitrixVDIStrategy":157,"./strategies/DCVWebRTCStrategy":158,"./strategies/StandardStrategy":159,"uuid/v4":134,"webrtc-adapter":135}],149:[function(require,module,exports){
+},{"./rtc_const":153,"./rtc_peer_connection_factory":154,"./rtc_peer_connection_manager":155,"./rtc_session":156,"./strategies/CitrixVDIStrategy":162,"./strategies/DCVWebRTCStrategy":163,"./strategies/OmnissaVDIStrategy":164,"./strategies/StandardStrategy":165,"uuid/v4":137,"webrtc-adapter":138}],152:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.UnknownSignalingError = exports.UnknownSignalingErrorName = exports.CallNotFoundException = exports.CallNotFoundExceptionName = exports.BusyException = exports.BusyExceptionName = exports.UnsupportedOperation = exports.UnsupportedOperationExceptionName = exports.IllegalState = exports.IllegalStateExceptionName = exports.IllegalParameters = exports.IllegalParametersExceptionName = exports.GumTimeout = exports.GumTimeoutExceptionName = exports.Timeout = exports.TimeoutExceptionName = undefined;
+exports.SignalingChannelDownError = exports.SignalingChannelDownErrorName = exports.AccessDeniedException = exports.AccessDeniedExceptionName = exports.UnknownSignalingError = exports.UnknownSignalingErrorName = exports.IdempotencyException = exports.IdempotencyExceptionName = exports.BadRequestException = exports.BadRequestExceptionName = exports.InternalServerException = exports.InternalServerExceptionName = exports.RequestTimeoutException = exports.RequestTimeoutExceptionName = exports.CallNotFoundException = exports.CallNotFoundExceptionName = exports.BusyException = exports.BusyExceptionName = exports.UnsupportedOperation = exports.UnsupportedOperationExceptionName = exports.IllegalState = exports.IllegalStateExceptionName = exports.IllegalParameters = exports.IllegalParametersExceptionName = exports.GumTimeout = exports.GumTimeoutExceptionName = exports.Timeout = exports.TimeoutExceptionName = undefined;
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -12843,24 +13892,126 @@ var CallNotFoundException = exports.CallNotFoundException = function (_Error6) {
     return CallNotFoundException;
 }(Error);
 
+var RequestTimeoutExceptionName = exports.RequestTimeoutExceptionName = 'RequestTimeoutException';
+
+var RequestTimeoutException = exports.RequestTimeoutException = function (_Error7) {
+    (0, _inherits3.default)(RequestTimeoutException, _Error7);
+
+    function RequestTimeoutException() {
+        (0, _classCallCheck3.default)(this, RequestTimeoutException);
+
+        var _this8 = (0, _possibleConstructorReturn3.default)(this, (RequestTimeoutException.__proto__ || Object.getPrototypeOf(RequestTimeoutException)).call(this));
+
+        _this8.name = RequestTimeoutExceptionName;
+        return _this8;
+    }
+
+    return RequestTimeoutException;
+}(Error);
+
+var InternalServerExceptionName = exports.InternalServerExceptionName = 'InternalServerException';
+
+var InternalServerException = exports.InternalServerException = function (_Error8) {
+    (0, _inherits3.default)(InternalServerException, _Error8);
+
+    function InternalServerException() {
+        (0, _classCallCheck3.default)(this, InternalServerException);
+
+        var _this9 = (0, _possibleConstructorReturn3.default)(this, (InternalServerException.__proto__ || Object.getPrototypeOf(InternalServerException)).call(this));
+
+        _this9.name = InternalServerExceptionName;
+        return _this9;
+    }
+
+    return InternalServerException;
+}(Error);
+
+var BadRequestExceptionName = exports.BadRequestExceptionName = 'BadRequestException';
+
+var BadRequestException = exports.BadRequestException = function (_Error9) {
+    (0, _inherits3.default)(BadRequestException, _Error9);
+
+    function BadRequestException(msg) {
+        (0, _classCallCheck3.default)(this, BadRequestException);
+
+        var _this10 = (0, _possibleConstructorReturn3.default)(this, (BadRequestException.__proto__ || Object.getPrototypeOf(BadRequestException)).call(this, msg));
+
+        _this10.name = BadRequestExceptionName;
+        return _this10;
+    }
+
+    return BadRequestException;
+}(Error);
+
+var IdempotencyExceptionName = exports.IdempotencyExceptionName = 'IdempotencyException';
+
+var IdempotencyException = exports.IdempotencyException = function (_Error10) {
+    (0, _inherits3.default)(IdempotencyException, _Error10);
+
+    function IdempotencyException() {
+        (0, _classCallCheck3.default)(this, IdempotencyException);
+
+        var _this11 = (0, _possibleConstructorReturn3.default)(this, (IdempotencyException.__proto__ || Object.getPrototypeOf(IdempotencyException)).call(this));
+
+        _this11.name = IdempotencyExceptionName;
+        return _this11;
+    }
+
+    return IdempotencyException;
+}(Error);
+
 var UnknownSignalingErrorName = exports.UnknownSignalingErrorName = 'UnknownSignalingError';
 
-var UnknownSignalingError = exports.UnknownSignalingError = function (_Error7) {
-    (0, _inherits3.default)(UnknownSignalingError, _Error7);
+var UnknownSignalingError = exports.UnknownSignalingError = function (_Error11) {
+    (0, _inherits3.default)(UnknownSignalingError, _Error11);
 
     function UnknownSignalingError() {
         (0, _classCallCheck3.default)(this, UnknownSignalingError);
 
-        var _this8 = (0, _possibleConstructorReturn3.default)(this, (UnknownSignalingError.__proto__ || Object.getPrototypeOf(UnknownSignalingError)).call(this));
+        var _this12 = (0, _possibleConstructorReturn3.default)(this, (UnknownSignalingError.__proto__ || Object.getPrototypeOf(UnknownSignalingError)).call(this));
 
-        _this8.name = UnknownSignalingErrorName;
-        return _this8;
+        _this12.name = UnknownSignalingErrorName;
+        return _this12;
     }
 
     return UnknownSignalingError;
 }(Error);
 
-},{"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19}],150:[function(require,module,exports){
+var AccessDeniedExceptionName = exports.AccessDeniedExceptionName = 'AccessDeniedException';
+
+var AccessDeniedException = exports.AccessDeniedException = function (_Error12) {
+    (0, _inherits3.default)(AccessDeniedException, _Error12);
+
+    function AccessDeniedException() {
+        (0, _classCallCheck3.default)(this, AccessDeniedException);
+
+        var _this13 = (0, _possibleConstructorReturn3.default)(this, (AccessDeniedException.__proto__ || Object.getPrototypeOf(AccessDeniedException)).call(this));
+
+        _this13.name = AccessDeniedExceptionName;
+        return _this13;
+    }
+
+    return AccessDeniedException;
+}(Error);
+
+var SignalingChannelDownErrorName = exports.SignalingChannelDownErrorName = 'SignalingChannelDownError';
+
+var SignalingChannelDownError = exports.SignalingChannelDownError = function (_Error13) {
+    (0, _inherits3.default)(SignalingChannelDownError, _Error13);
+
+    function SignalingChannelDownError() {
+        (0, _classCallCheck3.default)(this, SignalingChannelDownError);
+
+        var _this14 = (0, _possibleConstructorReturn3.default)(this, (SignalingChannelDownError.__proto__ || Object.getPrototypeOf(SignalingChannelDownError)).call(this));
+
+        _this14.name = SignalingChannelDownErrorName;
+        return _this14;
+    }
+
+    return SignalingChannelDownError;
+}(Error);
+
+},{"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/inherits":20,"babel-runtime/helpers/possibleConstructorReturn":21}],153:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12898,6 +14049,9 @@ var SOFTPHONE_ROUTE_KEY = exports.SOFTPHONE_ROUTE_KEY = "aws/softphone";
 var INVITE_METHOD_NAME = exports.INVITE_METHOD_NAME = "invite";
 var ACCEPT_METHOD_NAME = exports.ACCEPT_METHOD_NAME = "accept";
 var BYE_METHOD_NAME = exports.BYE_METHOD_NAME = "bye";
+var PC_BYE_METHOD_NAME = exports.PC_BYE_METHOD_NAME = "PCBye";
+var CONNECT_CONTACT_METHOD_NAME = exports.CONNECT_CONTACT_METHOD_NAME = "connectContact";
+var DISCONNECT_CONTACT_METHOD_NAME = exports.DISCONNECT_CONTACT_METHOD_NAME = "disconnectContact";
 
 var RTC_PEER_CONNECTION_CONFIG = exports.RTC_PEER_CONNECTION_CONFIG = {
     iceTransportPolicy: 'relay',
@@ -12939,7 +14093,8 @@ var RTC_ERRORS = exports.RTC_ERRORS = {
     NO_REMOTE_ICE_CANDIDATE: 'No Remote ICE Candidate',
     GUM_TIMEOUT_FAILURE: 'GUM Timeout Failure',
     GUM_OTHER_FAILURE: 'GUM Other Failure',
-    CALL_NOT_FOUND: 'Call Not Found'
+    CALL_NOT_FOUND: 'Call Not Found',
+    ACCESS_DENIED: 'Access Denied'
 };
 
 var ICE_CONNECTION_STATE = exports.ICE_CONNECTION_STATE = {
@@ -12961,7 +14116,25 @@ var PEER_CONNECTION_STATE = exports.PEER_CONNECTION_STATE = {
     CLOSED: 'closed'
 };
 
-},{}],151:[function(require,module,exports){
+var RTC_SESSION_STATE = exports.RTC_SESSION_STATE = {
+    TALKING_STATE: 'TalkingState',
+    GRAB_LOCAL_MEDIA_STATE: 'GrabLocalMediaState',
+    CREATE_OFFER_STATE: 'CreateOfferState',
+    SET_LOCAL_SESSION_DESCRIPTION_STATE: 'SetLocalSessionDescriptionState',
+    CONNECT_SIGNALING_AND_ICE_COLLECTION_STATE: 'ConnectSignalingAndIceCollectionState',
+    INVITE_ANSWER_STATE: 'InviteAnswerState',
+    ACCEPT_STATE: 'AcceptState',
+    CONNECT_CONTACT_STATE: 'ConnectContactState',
+    CLEAN_UP_STATE: 'CleanUpState',
+    DISCONNECTED_STATE: 'DisconnectedState'
+};
+
+var BROWSER_LIST = exports.BROWSER_LIST = ['Google Chrome', 'Microsoft Edge', 'Firefox'];
+
+var FIREFOX = exports.FIREFOX = "Firefox";
+var ACITVE_SOFTPHONE_TAB = exports.ACITVE_SOFTPHONE_TAB = "Active Softphone Tab";
+
+},{}],154:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -13056,8 +14229,8 @@ var RtcPeerConnectionFactory = function () {
         key: 'get',
         value: function get(iceServers) {
             var self = this;
-            var pc = self._pc;
-            self._pc = null;
+            var pc = self._idlePc;
+            self._idlePc = null;
             if (pc == null) {
                 pc = self._createRtcPeerConnection(iceServers);
             }
@@ -13081,7 +14254,7 @@ var RtcPeerConnectionFactory = function () {
             if (!self._peerConnectionRequestInFlight && self._earlyMediaConnectionSupported) {
                 self._peerConnectionRequestInFlight = true;
                 self._requestIceAccess().then(function (response) {
-                    self._pc = self._createRtcPeerConnection(response);
+                    self._idlePc = self._createRtcPeerConnection(response);
                     self._peerConnectionRequestInFlight = false;
                     self._idleRtcPeerConnectionTimerId = setTimeout((0, _utils.hitch)(self, self._refreshRtcPeerConnection), _rtc_const.RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS);
                 },
@@ -13096,10 +14269,10 @@ var RtcPeerConnectionFactory = function () {
         value: function _networkConnectivityChecker() {
             var self = this;
             setInterval(function () {
-                if (!navigator.onLine && self._pc) {
+                if (!navigator.onLine && self._idlePc) {
                     self._logger.log("Network offline. Cleaning up early connection");
-                    self._pc.close();
-                    self._pc = null;
+                    self._idlePc.close();
+                    self._idlePc = null;
                 }
             }, _rtc_const.NETWORK_CONNECTIVITY_CHECK_INTERVAL_MS);
         }
@@ -13122,16 +14295,26 @@ var RtcPeerConnectionFactory = function () {
         value: function _refreshRtcPeerConnection() {
             this._idleRtcPeerConnectionTimerId = null;
             this._clearIdleRtcPeerConnection();
-            this._logger.log("refreshing peer connection for client " + this._clientId);
+            this._logger.log("RtcPeerConnectionFactory is refreshing peer connection for client " + this._clientId);
             this._requestPeerConnection();
         }
     }, {
         key: '_closeRTCPeerConnection',
         value: function _closeRTCPeerConnection() {
-            if (this._pc) {
-                this._pc.close();
-                this._pc = null;
+            if (this._idlePc) {
+                this._idlePc.close();
+                this._idlePc = null;
             }
+        }
+
+        // Clear idle peer connection timer first and then close the idle peer connection.
+
+    }, {
+        key: 'close',
+        value: function close() {
+            this._logger.log("close method invoked. Clear timer and close idle peer connection " + this._clientId);
+            this.clearIdleRtcPeerConnectionTimerId();
+            this._closeRTCPeerConnection();
         }
     }]);
     return RtcPeerConnectionFactory;
@@ -13139,21 +14322,948 @@ var RtcPeerConnectionFactory = function () {
 
 exports.default = RtcPeerConnectionFactory;
 
-},{"./rtc_const":150,"./strategies/CCPInitiationStrategyInterface":156,"./strategies/StandardStrategy":159,"./utils":160,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16}],152:[function(require,module,exports){
+},{"./rtc_const":153,"./strategies/CCPInitiationStrategyInterface":161,"./strategies/StandardStrategy":165,"./utils":167,"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18}],155:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _regenerator = require("babel-runtime/regenerator");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require("babel-runtime/helpers/asyncToGenerator");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _typeof2 = require("babel-runtime/helpers/typeof");
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require("babel-runtime/helpers/createClass");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _v = require("uuid/v4");
+
+var _v2 = _interopRequireDefault(_v);
+
+var _StandardStrategy = require("./strategies/StandardStrategy");
+
+var _StandardStrategy2 = _interopRequireDefault(_StandardStrategy);
+
+var _CCPInitiationStrategyInterface = require("./strategies/CCPInitiationStrategyInterface");
+
+var _CCPInitiationStrategyInterface2 = _interopRequireDefault(_CCPInitiationStrategyInterface);
+
+var _rtc_session = require("./rtc_session");
+
+var _rtc_session2 = _interopRequireDefault(_rtc_session);
+
+var _exceptions = require("./exceptions");
+
+var _utils = require("./utils");
+
+var _rtc_const = require("./rtc_const");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var RtcPeerConnectionManager = function () {
+
+    /**
+     * Create a PeerConnectionManager which manages the life cycle of RTCSession and peer connection
+     * It will be initialized when agent logs into the CCP and be responsible for creating and closing peer connection and RTCSession
+     *
+     * @constructor
+     * @param {string} signalingUri - signalingUri get from call config. (optional, param for CCPv1)
+     * @param {*} iceServers - ice server credentials
+     * @param {*} transportHandle - a callback function which returns a promise which is going to return the iceServers.
+     * @param {*} publishError - a function which publishs errors on CCP.
+     * @param {string} clientId - uuid for softphone client
+     * @param {string} contactToken - contactoken sent from service side  (optional)
+     * @param {object} logger - An object provides logging functions, such as console
+     * @param {string} contactId - ContactId which uniquely identifies the session. (optional)
+     * @param {string} connectionId - Represents media connection id (optional)
+     * @param {string} wssManager - websocket manager
+     * @param {object} strategy - VDI strategy indicates which WebRTC SDK to use: standard, Citrix, WorkSpace (optional, default to be standardStrategy)
+     * @param {boolean} isPPCEnabled - flag indicates if persistent connection is enabled in agent configuration
+     * @param {string} browserId - browser identifier read from local storage and is used for browser refresh and ICE restart
+     */
+    function RtcPeerConnectionManager(signalingUri, iceServers, transportHandle, publishError, clientId, contactToken, logger, contactId, connectionId, wssManager) {
+        var strategy = arguments.length > 10 && arguments[10] !== undefined ? arguments[10] : new _StandardStrategy2.default();
+
+        var _this = this;
+
+        var isPPCEnabled = arguments[11];
+        var browserId = arguments[12];
+        (0, _classCallCheck3.default)(this, RtcPeerConnectionManager);
+
+        // Check if a peer connection manager has already existed
+        if (!RtcPeerConnectionManager.instance) {
+            // check if transportHandle is function
+            (0, _utils.assertTrue)((0, _utils.isFunction)(transportHandle), 'transportHandle must be a function');
+            // check if publishError is function
+            (0, _utils.assertTrue)((0, _utils.isFunction)(publishError), 'publishError must be a function');
+            // check if logger is provided
+            if (!logger || (typeof logger === "undefined" ? "undefined" : (0, _typeof3.default)(logger)) !== 'object') {
+                throw new _exceptions.IllegalParameters('logger required');
+            }
+            // check if contactId is provided
+            if (!contactId) {
+                // if not provided will create an uuid
+                this._callId = (0, _v2.default)();
+            } else {
+                this._callId = contactId;
+            }
+
+            if (!connectionId) {
+                // if not provided will create an uuid
+                this._connectionId = (0, _v2.default)();
+            } else {
+                this._connectionId = connectionId;
+            }
+
+            if (!(strategy instanceof _CCPInitiationStrategyInterface2.default)) {
+                throw new Error('Expected a strategy of type CCPInitiationStrategyInterface');
+            }
+
+            this._strategy = strategy;
+            this._wssManager = wssManager;
+            this._signalingUri = signalingUri;
+            this._iceServers = iceServers;
+            this._contactToken = contactToken;
+            this._originalLogger = logger;
+            this._logger = (0, _utils.wrapLogger)(this._originalLogger, '', 'RtcPeerConnectionManager');
+            this._isPPCEnabled = isPPCEnabled;
+            this._isRTPSAllowlisted = false; // RTPSAllowlisted flag is false by default
+            this._peerConnectionId = null;
+            this._browserId = browserId;
+            this._clientId = clientId;
+
+            this._requestIceAccess = transportHandle;
+            this._publishError = publishError;
+            this._initializeWebSocketEventListeners();
+            this.requestPeerConnection().then(function () {
+                // request peer connection when initializing RtcPeerConnectionManager
+                if (_this.isPersistentConnectionEnabled() && !_this._contactToken) {
+                    _this.createSession();
+                    _this._rtcSessionConnectPromise = _this.connect();
+                }
+            });
+            this._networkConnectivityChecker();
+            RtcPeerConnectionManager.instance = this;
+            this._logger.info("Initializing Peer Connection Manager...");
+            this._logger.log("RTC.js is using " + strategy.getStrategyName());
+        } else {
+            logger.info("Peer Connection Manager has already been initialized");
+        }
+        this.browserTabCloseEventListener();
+        return RtcPeerConnectionManager.instance;
+    }
+
+    /** Check if current browser supports standby/early peer connection or not.
+     * If persistent peer connection is enabled, standby peer will be disabled.
+     * @returns {*|boolean}
+     * @private
+     */
+
+
+    (0, _createClass3.default)(RtcPeerConnectionManager, [{
+        key: "_isEarlyMediaConnectionSupported",
+        value: function _isEarlyMediaConnectionSupported() {
+            if (!this.isPersistentConnectionEnabled()) {
+                return this._strategy._isEarlyMediaConnectionSupported();
+            }
+            return false;
+        }
+
+        /** This function handles the idleConnection and quota limits notification from the server
+         *
+         * @param event
+         * @private
+         */
+
+    }, {
+        key: "_webSocketManagerOnMessage",
+        value: function _webSocketManagerOnMessage(event) {
+            var content = void 0;
+            if (event.content) {
+                content = JSON.parse(event.content);
+            }
+            if (content && this._clientId === content.clientId) {
+                if (content.jsonRpcMsg.method === "idleConnection") {
+                    this._clearIdleRtcPeerConnection();
+                } else if (content.jsonRpcMsg.method === "quotaBreached") {
+                    this._logger.log("Number of active sessions are more then allowed limit for the client " + this._clientId);
+                    this._closeIdleRTCPeerConnection();
+                    this._publishError("multiple_softphone_active_sessions", "Number of active sessions are more then allowed limit.");
+                }
+            }
+        }
+
+        /**
+         * This monitors the Softphone webSocket events
+         * @private
+         */
+
+    }, {
+        key: "_initializeWebSocketEventListeners",
+        value: function _initializeWebSocketEventListeners() {
+            this._wssManager.subscribeTopics([_rtc_const.SOFTPHONE_ROUTE_KEY]);
+            this._unSubscribe = this._wssManager.onMessage(_rtc_const.SOFTPHONE_ROUTE_KEY, (0, _utils.hitch)(this, this._webSocketManagerOnMessage));
+        }
+
+        /**
+         * Function to get RTCPeerConnection.
+         * When persistent connection is enabled. If no RTCPeerConnection exists, it will create a new RTCPeerConnection
+         *
+         * @returns {RTCPeerConnection}
+         */
+
+    }, {
+        key: "getPeerConnection",
+        value: function getPeerConnection() {
+            var self = this;
+            var pc;
+            if (self.isPersistentConnectionEnabled()) {
+                pc = self._pc;
+                if (pc === null || pc === undefined) {
+                    pc = self._createRtcPeerConnection(this._iceServers);
+                }
+            } else {
+                pc = self._idlePc;
+                self._idlePc = null;
+                if (pc === null || pc === undefined) {
+                    pc = self._createRtcPeerConnection(this._iceServers);
+                }
+                self.clearIdleRtcPeerConnectionTimerId();
+                self.requestPeerConnection();
+            }
+            self._pc = pc;
+            return pc;
+        }
+
+        /**
+         * Clear standby/idle peer connection refresh timer
+         */
+
+    }, {
+        key: "clearIdleRtcPeerConnectionTimerId",
+        value: function clearIdleRtcPeerConnectionTimerId() {
+            var self = this;
+            if (self._idleRtcPeerConnectionTimerId) {
+                clearTimeout(self._idleRtcPeerConnectionTimerId);
+                self._idleRtcPeerConnectionTimerId = null;
+            }
+        }
+
+        /**
+         * When persistent connection is enabled, it creates the persistent peer connection
+         * When persistent connection is disabled and early media connection is supported,
+         * it creates a standby/ideal peer connection which can be used when a call arrives
+         */
+
+    }, {
+        key: "requestPeerConnection",
+        value: function () {
+            var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+                var self, response;
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                self = this;
+
+                                self._earlyMediaConnectionSupported = self._isEarlyMediaConnectionSupported();
+
+                                if (!(self.isPersistentConnectionEnabled() && !self._contactToken)) {
+                                    _context.next = 11;
+                                    break;
+                                }
+
+                                // When requesting a peer connection with persistent connection enabled, it only creates new pc if no contact exist.
+                                self._logger.info("RtcPeerConnectionManager initiates persistent peer connection");
+                                _context.next = 6;
+                                return self._requestIceAccess().catch(function (error) {
+                                    self._logger.info("RtcPeerConnectionManager request ICE access failed for persistent peer connection creation. ", error);
+                                });
+
+                            case 6:
+                                response = _context.sent;
+
+                                self._iceServers = response;
+                                self._pc = self._createRtcPeerConnection(response);
+                                _context.next = 12;
+                                break;
+
+                            case 11:
+                                if (!self.isPersistentConnectionEnabled() && !self._peerConnectionRequestInFlight && self._earlyMediaConnectionSupported) {
+                                    self._logger.info("RtcPeerConnectionManager initiates idle peer connection for non-persistent connection");
+                                    self._peerConnectionRequestInFlight = true;
+                                    self._requestIceAccess().then(function (response) {
+                                        self._idlePc = self._createRtcPeerConnection(response);
+                                        self._peerConnectionRequestInFlight = false;
+                                        self._idleRtcPeerConnectionTimerId = setTimeout((0, _utils.hitch)(self, self._refreshRtcPeerConnection), _rtc_const.RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS);
+                                    },
+                                    // eslint-disable-next-line no-unused-vars
+                                    function (reason) {
+                                        self._peerConnectionRequestInFlight = false;
+                                    }).catch(function (error) {
+                                        self._logger.info("RtcPeerConnectionManager request ICE access failed for idle peer connection creation. ", error);
+                                    });
+                                }
+
+                            case 12:
+                            case "end":
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+
+            function requestPeerConnection() {
+                return _ref.apply(this, arguments);
+            }
+
+            return requestPeerConnection;
+        }()
+
+        /**
+         * Check network connectivity in every 250 ms
+         * @private
+         */
+
+    }, {
+        key: "_networkConnectivityChecker",
+        value: function _networkConnectivityChecker() {
+            var self = this;
+            setInterval(function () {
+                if (!navigator.onLine && self._idlePc) {
+                    self._logger.log("Network offline. Cleaning up early connection");
+                    self._idlePc.close();
+                    self._idlePc = null;
+                }
+            }, _rtc_const.NETWORK_CONNECTIVITY_CHECK_INTERVAL_MS);
+        }
+
+        /**
+         * Create RTCPeerConnection via WebRTC API or VDI WebRTC redirection SDK
+         * @param iceServers
+         * @returns {RTCPeerConnection}
+         * @private
+         */
+
+    }, {
+        key: "_createRtcPeerConnection",
+        value: function _createRtcPeerConnection(iceServers) {
+            var rtcPeerConnectionConfig = JSON.parse(JSON.stringify(_rtc_const.RTC_PEER_CONNECTION_CONFIG));
+            rtcPeerConnectionConfig.iceServers = iceServers;
+            rtcPeerConnectionConfig.iceCandidatePoolSize = _rtc_const.DEFAULT_ICE_CANDIDATE_POOL_SIZE;
+            return this._strategy._createRtcPeerConnection(rtcPeerConnectionConfig, _rtc_const.RTC_PEER_CONNECTION_OPTIONAL_CONFIG);
+        }
+
+        /**
+         * Clear the standby/Idle peer connection
+         * @private
+         */
+
+    }, {
+        key: "_clearIdleRtcPeerConnection",
+        value: function _clearIdleRtcPeerConnection() {
+            this._logger.log("session is idle from long time. closing the peer connection for client " + this._clientId);
+            this._closeIdleRTCPeerConnection();
+        }
+
+        /**
+         * Refresh standby/ideal peer connection
+         * @private
+         */
+
+    }, {
+        key: "_refreshRtcPeerConnection",
+        value: function _refreshRtcPeerConnection() {
+            this._idleRtcPeerConnectionTimerId = null;
+            this._clearIdleRtcPeerConnection();
+            this._logger.log("RtcPeerConnectionManager is refreshing peer connection for client " + this._clientId);
+            this.requestPeerConnection();
+        }
+    }, {
+        key: "_closeIdleRTCPeerConnection",
+        value: function _closeIdleRTCPeerConnection() {
+            if (this._idlePc) {
+                this._idlePc.close();
+                this._idlePc = null;
+            }
+        }
+
+        // Clear idle peer connection timer first and then close the idle peer connection.
+
+    }, {
+        key: "closeEarlyMediaConnection",
+        value: function closeEarlyMediaConnection() {
+            this._logger.log("close method invoked. Clear timer and close idle peer connection " + this._clientId);
+            this.clearIdleRtcPeerConnectionTimerId();
+            this._closeIdleRTCPeerConnection();
+        }
+    }, {
+        key: "createSession",
+
+
+        /**
+         * create a rtcSession object if none exists
+         *
+         * @return {RtcSession} rtcSession
+         */
+        value: function createSession(callId, iceServers, contactToken, connectionId, wssManager) {
+            var rtcJsStrategy = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : new _StandardStrategy2.default();
+
+            this._callId = callId ? callId : this._callId;
+            this._iceServers = iceServers ? iceServers : this._iceServers;
+            this._contactToken = contactToken ? contactToken : this._contactToken;
+            this._connectionId = connectionId ? connectionId : this._connectionId;
+            this._wssManager = wssManager ? wssManager : this._wssManager;
+            this._strategy = rtcJsStrategy ? rtcJsStrategy : this._strategy;
+
+            this._logger.info("PeerConnectionManager creates RtcSession");
+            this._logger = (0, _utils.wrapLogger)(this._originalLogger, this._callId, 'RtcPeerConnectionManager');
+            this._rtcSession = new _rtc_session2.default(this._signalingUri, this._iceServers, this._contactToken, this._logger, this._callId, this._connectionId, this._wssManager, this._strategy, this);
+
+            // ontrack event will only be triggered once during the process of establishing the persistent connection.
+            // This event won't be trigger when a call arrives at CCP with persistent connection enabled
+            // So we need to attach remoteAudioElement when we initiate the persistent connection. TODO: We can move this to StreamsJS as a followup CR
+            if (this.isPersistentConnectionEnabled()) {
+                this._rtcSession.remoteAudioElement = document.getElementById('remote-audio') || window.parent.parent.document.getElementById('remote-audio');
+                this._remoteAudioElement = this._rtcSession.remoteAudioElement;
+            }
+            return this._rtcSession;
+        }
+
+        /**
+         * get rtcSession object
+         *
+         * @return {RtcSession} rtcSession manages by the peer connection manager
+         */
+
+    }, {
+        key: "getSession",
+        value: function getSession() {
+            return this._rtcSession;
+        }
+
+        /**
+         * This method aims to create a new peer connection or connect to the existing peer connection
+         * which will start the signaling process
+         *
+         * @param {RTCPeerConnection} pc - An existing peer connection, it could be persistent peer connection
+         * or a standby peer connection (optional)
+         */
+
+    }, {
+        key: "connect",
+        value: function () {
+            var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
+                var _this2 = this;
+
+                var self, onSessionFailedHandler, onSessionCompletedHandler, pc;
+                return _regenerator2.default.wrap(function _callee4$(_context4) {
+                    while (1) {
+                        switch (_context4.prev = _context4.next) {
+                            case 0:
+                                self = this;
+                                // check if the previous rtcSession.connect promise is fulfilled or not
+
+                                if (!self._rtcSessionConnectPromise) {
+                                    _context4.next = 19;
+                                    break;
+                                }
+
+                                _context4.prev = 2;
+                                _context4.next = 5;
+                                return self._rtcSessionConnectPromise;
+
+                            case 5:
+                                _context4.next = 16;
+                                break;
+
+                            case 7:
+                                _context4.prev = 7;
+                                _context4.t0 = _context4["catch"](2);
+
+                                // notify softphoneManger the current rtcSession is failed to trigger the retry strategy on SoftphoneManager side
+                                this._rtcSession._onSessionFailed(this._rtcSession, _context4.t0.name);
+                                self._rtcSession = null;
+                                self.destroy();
+                                self._contactToken = null;
+                                self._iceServers = null;
+                                self._callId = null;
+                                return _context4.abrupt("return");
+
+                            case 16:
+                                _context4.prev = 16;
+
+                                self._rtcSessionConnectPromise = null;
+                                return _context4.finish(16);
+
+                            case 19:
+
+                                // reset inactivity timer before RTCSession state transition
+                                if (self._inactivityTimer) {
+                                    self.clearInactivityTimer();
+                                }
+
+                                // add session failed event handler
+                                onSessionFailedHandler = self._rtcSession._onSessionFailed;
+
+                                self._rtcSession.onSessionFailed = function (rtcSession, reason) {
+                                    self.logger.error("Peer connection manager detects RtcSession failure: " + reason);
+                                    // wrap the existing handler which is created in softphone manager
+                                    if (onSessionFailedHandler) {
+                                        onSessionFailedHandler(rtcSession, reason);
+                                    }
+                                    // clear local RtcSession
+                                    self._rtcSession = null;
+                                    self._iceServers = null;
+                                    // close signaling channel and peer connection
+                                    self.destroy(); // call destroy method before clean contactToken and callId
+                                    self._contactToken = null;
+                                    self._callId = null;
+                                };
+
+                                // add session completed event handler
+                                onSessionCompletedHandler = self._rtcSession._onSessionCompleted;
+
+                                self._rtcSession.onSessionCompleted = function (rtcSession) {
+                                    self.logger.info("Peer connection manager detects RtcSession completed. Performing health check to decide if we want to keep the peer connection");
+                                    // wrap the existing handler which is created in softphone manager
+                                    if (onSessionCompletedHandler) {
+                                        onSessionCompletedHandler(rtcSession);
+                                    }
+                                    if (self._signalingChannel._state.name === "FailedState" || self._pc.iceConnectionState === _rtc_const.ICE_CONNECTION_STATE.FAILED || self._pc.iceConnectionState === _rtc_const.ICE_CONNECTION_STATE.DISCONNECTED || self._pc.iceConnectionState === _rtc_const.ICE_CONNECTION_STATE.CLOSED) {
+                                        self.logger.error("Peer connection manager detected unhealthy connection at call ends, tearing down the connection");
+                                        // clear local RtcSession
+                                        self._rtcSession = null;
+                                        self._iceServers = null;
+                                        // close signaling channel and peer connection
+                                        self.destroy();
+                                        self._contactToken = null;
+                                        self._callId = null;
+                                    }
+                                };
+
+                                // add signaling remote hangup listener
+                                self._rtcSession._signalingRemoteHungup = function () {
+                                    self.hangup();
+                                };
+
+                                if (this._userAgentData) {
+                                    _context4.next = 29;
+                                    break;
+                                }
+
+                                _context4.next = 28;
+                                return (0, _utils.getUserAgentData)().catch(function (error) {
+                                    self.logger.error("Peer connection manager failed to get user agent data", error);
+                                });
+
+                            case 28:
+                                this._userAgentData = _context4.sent;
+
+                            case 29:
+                                // Add useragent to rtcSession report
+                                this._rtcSession._sessionReport.userAgentData = JSON.stringify(this._userAgentData);
+
+                                pc = this.getPeerConnection();
+
+                                this._rtcSession.connect(pc);
+
+                                return _context4.abrupt("return", new Promise(function (resolve, reject) {
+                                    // resolve the Promise when signaling handshake is completed
+                                    var signalingHandshaked = (0, _utils.hitch)(self._rtcSession, self._rtcSession._signalingHandshaked);
+                                    self._rtcSession._signalingHandshaked = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+                                        return _regenerator2.default.wrap(function _callee2$(_context2) {
+                                            while (1) {
+                                                switch (_context2.prev = _context2.next) {
+                                                    case 0:
+                                                        signalingHandshaked();
+                                                        resolve();
+
+                                                    case 2:
+                                                    case "end":
+                                                        return _context2.stop();
+                                                }
+                                            }
+                                        }, _callee2, _this2);
+                                    }));
+
+                                    // reject the Promise when signaling handshake is failed
+                                    var signalingFailed = (0, _utils.hitch)(self._rtcSession, self._rtcSession._signalingFailed);
+                                    self._rtcSession._signalingFailed = function () {
+                                        var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(exception) {
+                                            return _regenerator2.default.wrap(function _callee3$(_context3) {
+                                                while (1) {
+                                                    switch (_context3.prev = _context3.next) {
+                                                        case 0:
+                                                            signalingFailed(exception);
+                                                            reject();
+
+                                                        case 2:
+                                                        case "end":
+                                                            return _context3.stop();
+                                                    }
+                                                }
+                                            }, _callee3, _this2);
+                                        }));
+
+                                        return function (_x3) {
+                                            return _ref4.apply(this, arguments);
+                                        };
+                                    }();
+                                }));
+
+                            case 33:
+                            case "end":
+                                return _context4.stop();
+                        }
+                    }
+                }, _callee4, this, [[2, 7, 16, 19]]);
+            }));
+
+            function connect() {
+                return _ref2.apply(this, arguments);
+            }
+
+            return connect;
+        }()
+
+        /**
+         * Start an inactivity timer for persistent connection
+         *
+         */
+
+    }, {
+        key: "startInactivityTimer",
+        value: function startInactivityTimer() {
+            var _this3 = this;
+
+            this._logger.info("PeerConnectionManager start inactivity timer");
+            this._inactivityTimer = setTimeout(function () {
+                _this3._logger.info('Inactivity timer breached, teardown peer connection ');
+                _this3.destroy();
+            }, this._inactivityDuration);
+        }
+
+        /**
+         * Reset inactivity timer for persistent connection
+         */
+
+    }, {
+        key: "clearInactivityTimer",
+        value: function clearInactivityTimer() {
+            this._logger.info("PeerConnectionManager clear inactivity timer");
+            clearTimeout(this._inactivityTimer);
+            this._inactivityTimer = null;
+        }
+
+        /**
+         * Hang up the RtcSession
+         */
+
+    }, {
+        key: "hangup",
+        value: function hangup() {
+            this._logger.info("PeerConnectionManager hangs up RtcSession");
+            if (this._rtcSession) {
+                try {
+                    this._rtcSession.hangup();
+                } catch (error) {
+                    this._logger.error("Error occurred while hanging up RtcSession:", error);
+                }
+            }
+            this._contactToken = null;
+            this._callId = null;
+            this._rtcSession = null;
+            if (!this.isPersistentConnectionEnabled()) {
+                this._signalingChannel = null;
+                this._iceServers = null;
+                this._pc = null;
+                this._peerConnectionId = null;
+                this._peerConnectionToken = null;
+                this._iceRestart = false;
+            }
+        }
+
+        /**
+         * Destroys the existing persistent peer connection.
+         *
+         * @param {string|undefined} peerConnectionId - The ID of the peer connection to destroy. 
+         *        If provided, indicates that the method is triggered by a server-side PCBye.
+         * 
+         * This method is crucial for both RTPS allowlisted and not allowlisted paths.
+         * It ensures proper cleanup of the signaling channel, which is essential because pcm.hangup is not guaranteed to be invoked.
+         * TODO: refactor destroy(peerConnectionId) to destroy(shouldSendByeToServerBool=true),
+         * 
+         * Usage:
+         * - Call with no arguments for client-initiated destruction (will send BYE to server).
+         * - Call with a peerConnectionId for server-initiated destruction (will not send BYE).
+         * 
+         * Note: The presence of peerConnectionId is used to infer if the destroy method 
+         * is triggered by a server-side event, in which case we do not send a BYE signal.
+         * 
+         * TODO: Refactor peerConnectionId parameter to be a boolean 'shouldSendByeToServer' with a default value of true.
+         *       This should be set to false for AZ evacuation and server-side draining scenarios.
+         *       In these cases, we receive a PCBYE from the server, so we don't want to send another BYE.
+         */
+
+    }, {
+        key: "destroy",
+        value: function destroy(peerConnectionId) {
+            try {
+                if (this._rtcSession && (this._rtcSession._state.name === _rtc_const.RTC_SESSION_STATE.TALKING_STATE || this._rtcSession._state.name === _rtc_const.RTC_SESSION_STATE.CONNECT_CONTACT_STATE)) {
+                    this._logger.info("Peer connection is in use, PeerConnectionManager can NOT destroy persistent peer connection");
+                } else if (this._pc) {
+                    // if peer connection exists, destroy the persistent peer connection
+                    this._logger.info("PeerConnectionManager destroy persistent peer connection");
+                    if (!peerConnectionId && this._signalingChannel) {
+                        // If peerConnectionId doesn't exist, we need to send a bye to the server. Otherwise, it doesn't need to send a bye since it receives the PCBye from server
+                        try {
+                            this._signalingChannel.bye();
+                        } catch (byeError) {
+                            this._logger.error("Error occurred while sending bye:", byeError);
+                        }
+                    }
+                    this._signalingChannel = null;
+                    this._pc.close();
+                    this._pc = null;
+                    this._peerConnectionId = null;
+                    this._peerConnectionToken = null;
+                    this._iceRestart = false;
+                    // release media stream when existing persistent peer connection is destroyed
+                    if (this._mediaStream) {
+                        this._mediaStream.getTracks().forEach(function (track) {
+                            return track.stop();
+                        });
+                        this._mediaStream = null;
+                    }
+                    // detach remote audio stream
+                    if (this._remoteAudioElement) {
+                        this._remoteAudioElement.srcObject = null;
+                        this._remoteAudioStream = null;
+                    }
+                    this.clearInactivityTimer();
+                }
+            } catch (error) {
+                this._logger.error("Error occurred in PeerConnectionManager destroy method:", error);
+            }
+        }
+    }, {
+        key: "handlePersistentPeerConnectionToggle",
+        value: function handlePersistentPeerConnectionToggle(isPPCEnabled) {
+            // change PPCEnabled only when agent is not in a call
+            if (this._rtcSession === null && this.isPPCEnabled !== isPPCEnabled && this.isRTPSAllowlisted) {
+                this.isPPCEnabled = isPPCEnabled;
+                // if softphonePersistentConnection changed to true, use rtcPeerConnectionManager to initiate a new persistent peer connection
+                if (this.isPPCEnabled) {
+                    this._logger.info("softphonePersistentConnection changed to ture, initiate a persistent peer connection").sendInternalLogToServer();
+                    this.activatePersistentPeerConnectionMode();
+                } else {
+                    // if softphonePersistentConnection changed to false, use rtcPeerConnectionManager to tear down the currentpersistent peer connection
+                    this._logger.info("softphonePersistentConnection changed to false, destroy the existing persistent peer connection").sendInternalLogToServer();
+                    this.deactivatePersistentPeerConnectionMode();
+                }
+            }
+        }
+
+        // activate persistent connection mode by creating the persistent connection and close standby peer connection
+
+    }, {
+        key: "activatePersistentPeerConnectionMode",
+        value: function activatePersistentPeerConnectionMode() {
+            var _this4 = this;
+
+            // this.rtcJsStrategy = this.rtcJsStrategy;
+            this.closeEarlyMediaConnection(); // close standby peer connection
+            this.requestPeerConnection().then(function () {
+                // request a new persistent peer connection
+                _this4.createSession();
+                _this4._rtcSessionConnectPromise = _this4.connect();
+            });
+        }
+
+        // deactivate persistent connection mode by destroying the existing persistent peer connection and request for standby peer connection
+
+    }, {
+        key: "deactivatePersistentPeerConnectionMode",
+        value: function deactivatePersistentPeerConnectionMode() {
+            this.destroy();
+            this.requestPeerConnection();
+        }
+
+        // function which checks if persistent connection feature is enabled and allowlisted, and browser is NOT Firefox
+
+    }, {
+        key: "isPersistentConnectionEnabled",
+        value: function isPersistentConnectionEnabled() {
+            return this._isPPCEnabled && this._isRTPSAllowlisted && !(0, _utils.isFirefoxBrowser)(this._userAgentData);
+        }
+
+        // This function closes the Early media connection and persistent peer connection
+
+    }, {
+        key: "close",
+        value: function close() {
+            if (this.isPersistentConnectionEnabled()) {
+                this.destroy();
+            } else {
+                this.closeEarlyMediaConnection();
+            }
+        }
+
+        /** This function is to listen beforeunload event. When we receive beforeunload
+         * we will send a bye from CCP to Amazon Connect, but this is very unstable, we cannot
+         * guarantee send bye every time when agent close the browser tab
+         *
+         */
+
+    }, {
+        key: "browserTabCloseEventListener",
+        value: function browserTabCloseEventListener() {
+            var _this5 = this;
+
+            window.addEventListener('beforeunload', function () {
+                _this5._logger.info('User leaves the page, destroy peer connection manager');
+                _this5.destroy();
+            });
+        }
+    }, {
+        key: "signalingUri",
+        get: function get() {
+            return this._signalingUri;
+        },
+        set: function set(signalingUri) {
+            this._signalingUri = signalingUri;
+        }
+    }, {
+        key: "iceServers",
+        get: function get() {
+            return this._iceServers;
+        },
+        set: function set(iceServers) {
+            this._iceServers = iceServers;
+        }
+    }, {
+        key: "contactToken",
+        get: function get() {
+            return this._contactToken;
+        },
+        set: function set(contactToken) {
+            this._contactToken = contactToken;
+        }
+    }, {
+        key: "logger",
+        get: function get() {
+            return this._logger;
+        },
+        set: function set(logger) {
+            this._logger = logger;
+        }
+    }, {
+        key: "callId",
+        get: function get() {
+            return this._callId;
+        },
+        set: function set(callId) {
+            this._callId = callId;
+        }
+    }, {
+        key: "connectionId",
+        get: function get() {
+            return this._connectionId;
+        },
+        set: function set(connectionId) {
+            this._connectionId = connectionId;
+        }
+    }, {
+        key: "wssManager",
+        get: function get() {
+            return this._wssManager;
+        },
+        set: function set(wssManager) {
+            this._wssManager = wssManager;
+        }
+    }, {
+        key: "strategy",
+        get: function get() {
+            return this._strategy;
+        },
+        set: function set(strategy) {
+            this._strategy = strategy;
+        }
+    }, {
+        key: "isPPCEnabled",
+        get: function get() {
+            return this._isPPCEnabled;
+        },
+        set: function set(isPPCEnabled) {
+            this._isPPCEnabled = isPPCEnabled;
+        }
+    }, {
+        key: "isRTPSAllowlisted",
+        get: function get() {
+            return this._isRTPSAllowlisted;
+        },
+        set: function set(isRTPSAllowlisted) {
+            this._isRTPSAllowlisted = isRTPSAllowlisted;
+        }
+    }, {
+        key: "browserId",
+        get: function get() {
+            return this._browserId;
+        },
+        set: function set(browserId) {
+            this._browserId = browserId;
+        }
+    }, {
+        key: "peerConnectionId",
+        get: function get() {
+            return this._peerConnectionId;
+        },
+        set: function set(peerConnectionId) {
+            this._peerConnectionId = peerConnectionId;
+        }
+    }, {
+        key: "peerConnectionToken",
+        get: function get() {
+            return this._peerConnectionToken;
+        },
+        set: function set(peerConnectionToken) {
+            this._peerConnectionToken = peerConnectionToken;
+        }
+    }, {
+        key: "inactivityDuration",
+        get: function get() {
+            return this._inactivityDuration;
+        },
+        set: function set(inactivityDuration) {
+            this._inactivityDuration = inactivityDuration;
+        }
+    }]);
+    return RtcPeerConnectionManager;
+}();
+
+exports.default = RtcPeerConnectionManager;
+
+},{"./exceptions":152,"./rtc_const":153,"./rtc_session":156,"./strategies/CCPInitiationStrategyInterface":161,"./strategies/StandardStrategy":165,"./utils":167,"babel-runtime/helpers/asyncToGenerator":16,"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18,"babel-runtime/helpers/typeof":24,"babel-runtime/regenerator":27,"uuid/v4":137}],156:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.FailedState = exports.DisconnectedState = exports.CleanUpState = exports.TalkingState = exports.AcceptState = exports.InviteAnswerState = exports.ConnectSignalingAndIceCollectionState = exports.SetLocalSessionDescriptionState = exports.CreateOfferState = exports.GrabLocalMediaState = exports.RTCSessionState = undefined;
-
-var _regenerator = require('babel-runtime/regenerator');
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+exports.FailedState = exports.DisconnectedState = exports.CleanUpState = exports.TalkingState = exports.ConnectContactState = exports.AcceptState = exports.InviteAnswerState = exports.ConnectSignalingAndIceCollectionState = exports.SetLocalSessionDescriptionState = exports.CreateOfferState = exports.GrabLocalMediaState = exports.RTCSessionState = undefined;
 
 var _typeof2 = require('babel-runtime/helpers/typeof');
 
@@ -13162,6 +15272,14 @@ var _typeof3 = _interopRequireDefault(_typeof2);
 var _get2 = require('babel-runtime/helpers/get');
 
 var _get3 = _interopRequireDefault(_get2);
+
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
 
@@ -13207,13 +15325,10 @@ var _StandardStrategy = require('./strategies/StandardStrategy');
 
 var _StandardStrategy2 = _interopRequireDefault(_StandardStrategy);
 
+var _rtc_session_talking_substates = require('./rtc_session_talking_substates');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
- * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
- */
 var RTCSessionState = exports.RTCSessionState = function () {
     /**
      *
@@ -13291,7 +15406,12 @@ var RTCSessionState = exports.RTCSessionState = function () {
         }
     }]);
     return RTCSessionState;
-}();
+}(); /**
+      * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+      *
+      * SPDX-License-Identifier: Apache-2.0
+      */
+
 
 var GrabLocalMediaState = exports.GrabLocalMediaState = function (_RTCSessionState) {
     (0, _inherits3.default)(GrabLocalMediaState, _RTCSessionState);
@@ -13320,6 +15440,9 @@ var GrabLocalMediaState = exports.GrabLocalMediaState = function (_RTCSessionSta
                     self._rtcSession._sessionReport.gumTimeMillis = Date.now() - startTime;
                     self._rtcSession._onGumSuccess(self._rtcSession);
                     self._rtcSession._localStream = stream;
+                    if (self._rtcSession._pcm) {
+                        self._rtcSession._pcm._mediaStream = stream;
+                    }
                     self._rtcSession._sessionReport.gumOtherFailure = false;
                     self._rtcSession._sessionReport.gumTimeoutFailure = false;
                     self.transit(new CreateOfferState(self._rtcSession));
@@ -13480,7 +15603,17 @@ var ConnectSignalingAndIceCollectionState = exports.ConnectSignalingAndIceCollec
                     self._reportIceCompleted(true);
                 }
             }, self._rtcSession._iceTimeoutMillis);
-            self._rtcSession._createSignalingChannel().connect();
+
+            //if peer connection manager or signalingChannel doesn't exist, create a new signaling channel
+            if (!self._rtcSession._pcm || !self._rtcSession._pcm._signalingChannel) {
+                self._rtcSession._createSignalingChannel().connect();
+            } else {
+                // if signalingChannel exists, reset the contact id, connectionid and contact token
+                self._rtcSession._bindSignalingChannel(); // binding the existing signaling channel
+                self._rtcSession._pcm._signalingChannel._wss._connnectionId = self._rtcSession._connectionId;
+                self._rtcSession._pcm._signalingChannel._contactToken = self._rtcSession._contactToken;
+                self._rtcSession._pcm._signalingChannel._callId = self._rtcSession._callId;
+            }
         }
     }, {
         key: 'onSignalingConnected',
@@ -13596,13 +15729,22 @@ var InviteAnswerState = exports.InviteAnswerState = function (_RTCSessionState5)
         value: function onEnter() {
             var rtcSession = this._rtcSession;
             rtcSession._onSignalingStarted(rtcSession);
+
             rtcSession._signalingChannel.invite(rtcSession._localSessionDescription.sdp, this._iceCandidates);
         }
     }, {
         key: 'onSignalingAnswered',
-        value: function onSignalingAnswered(sdp, candidates) {
+        value: function onSignalingAnswered(sdp, candidates, inactivityDuration, peerConnectionId, peerConnectionToken) {
             this._rtcSession._sessionReport.userBusyFailure = false;
             this._rtcSession._sessionReport.handshakingFailure = false;
+
+            // signaling answered, set the inactivityDuration, peerConnectionId and peerConnectionToken
+            if (this._rtcSession._pcm) {
+                this._rtcSession._pcm.inactivityDuration = inactivityDuration;
+                this._rtcSession._pcm.peerConnectionId = peerConnectionId;
+                this._rtcSession._pcm.peerConnectionToken = peerConnectionToken;
+            }
+
             this.transit(new AcceptState(this._rtcSession, sdp, candidates));
         }
     }, {
@@ -13625,6 +15767,13 @@ var InviteAnswerState = exports.InviteAnswerState = function (_RTCSessionState5)
                 reason = _rtc_const.RTC_ERRORS.SIGNALLING_HANDSHAKE_FAILURE;
             }
             this.transit(new FailedState(this._rtcSession, reason));
+        }
+    }, {
+        key: 'hangup',
+        value: function hangup() {
+            if (this._rtcSession._pcm) {
+                this.transit(new FailedState(this._rtcSession, "Agent clicks hangs up"));
+            }
         }
     }, {
         key: 'name',
@@ -13693,13 +15842,24 @@ var AcceptState = exports.AcceptState = function (_RTCSessionState6) {
         key: '_checkAndTransit',
         value: function _checkAndTransit() {
             if (this._signalingHandshaked && this._remoteDescriptionSet) {
-                this.transit(new TalkingState(this._rtcSession));
+                // when peerConnectionManager initialized and contactToken doesn't exist, rtcSession will move to DisconnectedState
+                if (this._rtcSession._pcm && !this._rtcSession._contactToken) {
+                    this._rtcSession._pcm._rtcSession = null;
+                    this.transit(new DisconnectedState(this._rtcSession));
+                } else {
+                    this.transit(new TalkingState(this._rtcSession));
+                }
             } else if (!this._signalingHandshaked) {
                 this.logger.log('Pending handshaking');
             } else {
                 //implies _remoteDescriptionSet == false
                 this.logger.log('Pending setting remote description');
             }
+        }
+    }, {
+        key: 'onPeerConnectionStateChange',
+        value: function onPeerConnectionStateChange() {
+            // do nothing
         }
     }, {
         key: 'name',
@@ -13710,8 +15870,92 @@ var AcceptState = exports.AcceptState = function (_RTCSessionState6) {
     return AcceptState;
 }(RTCSessionState);
 
-var TalkingState = exports.TalkingState = function (_RTCSessionState7) {
-    (0, _inherits3.default)(TalkingState, _RTCSessionState7);
+/**
+ * ConnectContactState
+ * when persistent peer connection is enabled for the agent, CCP reuses the existing signaling channel to send
+ * ConnectContact request to AmazonConnect and connects the call.
+ *
+ */
+
+
+var ConnectContactState = exports.ConnectContactState = function (_RTCSessionState7) {
+    (0, _inherits3.default)(ConnectContactState, _RTCSessionState7);
+
+    function ConnectContactState(rtcSession) {
+        (0, _classCallCheck3.default)(this, ConnectContactState);
+        return (0, _possibleConstructorReturn3.default)(this, (ConnectContactState.__proto__ || Object.getPrototypeOf(ConnectContactState)).call(this, rtcSession));
+    }
+
+    (0, _createClass3.default)(ConnectContactState, [{
+        key: 'onEnter',
+        value: function onEnter() {
+            var rtcSession = this._rtcSession;
+            var logger = this.logger;
+            var self = this;
+            rtcSession._sessionReport.isExistingPersistentPeerConnection = true;
+            rtcSession._pcm._signalingChannel.connectContact();
+            try {
+                rtcSession._pcm._mediaStream = self._createMediaStream(rtcSession._pc.getSenders()[0].track);
+                rtcSession._onLocalStreamAdded(rtcSession, rtcSession._pcm._mediaStream);
+            } catch (error) {
+                logger.error("[connectContact] Failed to get audio track from existing peer connection").withException(error);
+            }
+            this.transit(new TalkingState(this._rtcSession));
+
+            // if the rtcSession is using UserProvidedStream, we do not override it
+            if (rtcSession._isUserProvidedStream) {
+                logger.log("Not resetting media stream as user provided stream is being used");
+            } else {
+                var sessionGumPromise = this._gUM(rtcSession._buildMediaConstraints());
+                sessionGumPromise.then(function (newMicrophoneStream) {
+                    try {
+                        var newMicrophoneTrack = newMicrophoneStream.getAudioTracks()[0];
+                        // Replace the audio track in the RtcPeerConnection
+                        if (rtcSession._isUserProvidedStream) {
+                            logger.log("Not resetting media stream as user provided stream was set after rtcJs GUM");
+                        } else {
+                            rtcSession._pc.getSenders()[0].replaceTrack(newMicrophoneTrack).then(function () {
+                                rtcSession._pcm._mediaStream = self._createMediaStream(rtcSession._pc.getSenders()[0].track);
+                                rtcSession._onLocalStreamAdded(rtcSession, rtcSession._pcm._mediaStream);
+                                logger.log("[connectContact] Audio device set successfully and _onLocalStreamAdded triggered");
+                            });
+                        }
+                    } catch (e) {
+                        logger.error("[connectContact] Failed to update audio track for the peer connection").withException(e);
+                        return;
+                    }
+                }).catch(function (e) {
+                    logger.error("[connectContact] Failed to get microphone stream from getUserMedia").withException(e);
+                    return;
+                });
+            }
+        }
+    }, {
+        key: '_gUM',
+        value: function _gUM(constraints) {
+            return this._rtcSession._strategy._gUM(constraints);
+        }
+    }, {
+        key: '_createMediaStream',
+        value: function _createMediaStream(track) {
+            return this._rtcSession._strategy._createMediaStream(track);
+        }
+    }, {
+        key: 'onSignalingHandshaked',
+        value: function onSignalingHandshaked() {
+            // do nothing
+        }
+    }, {
+        key: 'name',
+        get: function get() {
+            return "ConnectContactState";
+        }
+    }]);
+    return ConnectContactState;
+}(RTCSessionState);
+
+var TalkingState = exports.TalkingState = function (_RTCSessionState8) {
+    (0, _inherits3.default)(TalkingState, _RTCSessionState8);
 
     function TalkingState() {
         (0, _classCallCheck3.default)(this, TalkingState);
@@ -13721,23 +15965,104 @@ var TalkingState = exports.TalkingState = function (_RTCSessionState7) {
     (0, _createClass3.default)(TalkingState, [{
         key: 'onEnter',
         value: function onEnter() {
+            var _this9 = this;
+
             this._startTime = Date.now();
             this._rtcSession._sessionReport.preTalkingTimeMillis = this._startTime - this._rtcSession._connectTimeStamp;
+            this._rtcSession._sessionReport.isMediaClusterPath = this._rtcSession._signalingChannel._isMediaClusterPath;
+            this._rtcSession._sessionReport.isPersistentPeerConnection = !!(this._rtcSession._pcm && this._rtcSession._pcm.isPersistentConnectionEnabled());
+
+            if (this._rtcSession._pcm) {
+                // For persistnet connection, resume the local audio which was paused when the previous RtcSession was destroyed
+                this._rtcSession.resumeLocalAudio();
+            }
             this._rtcSession._onSessionConnected(this._rtcSession);
+
+            // Calculate time taken to receive the first RTP packet
+            var interval = void 0;
+            var timeout = void 0;
+            var getSynchronizationSourcesAndProcess = function () {
+                var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+                    var rtcRtpReceiver, synchronizationSources;
+                    return _regenerator2.default.wrap(function _callee$(_context) {
+                        while (1) {
+                            switch (_context.prev = _context.next) {
+                                case 0:
+                                    if (_this9._rtcSession && _this9._rtcSession._pc && _this9._rtcSession._pc.getReceivers().length !== 0) {
+                                        rtcRtpReceiver = _this9._rtcSession._pc.getReceivers()[0];
+
+                                        if (rtcRtpReceiver instanceof RTCRtpReceiver) {
+                                            synchronizationSources = rtcRtpReceiver.getSynchronizationSources();
+
+                                            synchronizationSources.forEach(function (source) {
+                                                var firstRTPTimeMillis = source.timestamp - _this9._rtcSession._connectTimeStamp;
+                                                if (firstRTPTimeMillis > 0) {
+                                                    _this9._rtcSession._sessionReport.firstRTPTimeMillis = firstRTPTimeMillis;
+                                                }
+                                                // We break out and stop checking for RTP packets as soon as we receive the first packet.
+                                                clearInterval(interval);
+                                                clearTimeout(timeout);
+                                            });
+                                        }
+                                    }
+
+                                case 1:
+                                case 'end':
+                                    return _context.stop();
+                            }
+                        }
+                    }, _callee, _this9);
+                }));
+
+                return function getSynchronizationSourcesAndProcess() {
+                    return _ref.apply(this, arguments);
+                };
+            }();
+            // Set up timeout to stop the interval after 1 seconds
+            timeout = setTimeout(function () {
+                clearInterval(interval);
+                console.log('Timeout reached, stopping the interval');
+            }, 1000);
+
+            interval = setInterval(getSynchronizationSourcesAndProcess, 20);
+            this.setSubState(new _rtc_session_talking_substates.ConnectedSubstate(this._rtcSession));
         }
     }, {
         key: 'onSignalingReconnected',
         value: function onSignalingReconnected() {}
+
+        /**
+         * TODO: after upgrading eslint, use optional chaining
+         *  const signalingChannel = this._rtcSession._pcm?._signalingChannel || this._rtcSession._signalingChannel;
+         *         signalingChannel.hangup();
+         */
+
     }, {
         key: 'onRemoteHungup',
         value: function onRemoteHungup() {
-            this._rtcSession._signalingChannel.hangup();
+            if (this._rtcSession._pcm) {
+                //Unreachable code.
+                this._rtcSession._pcm._signalingChannel.hangup();
+            } else {
+                this._rtcSession._signalingChannel.hangup();
+            }
             this.transit(new DisconnectedState(this._rtcSession));
         }
+
+        /**
+         * TODO: after upgrading eslint, use optional chaining
+         *  const signalingChannel = this._rtcSession._pcm?._signalingChannel || this._rtcSession._signalingChannel;
+         *         signalingChannel.hangup();
+         */
+
     }, {
         key: 'hangup',
         value: function hangup() {
-            this._rtcSession._signalingChannel.hangup();
+            if (this._rtcSession._pcm) {
+                this._rtcSession._pcm._signalingChannel.hangup();
+            } else {
+                this._rtcSession._signalingChannel.hangup();
+            }
             this.transit(new DisconnectedState(this._rtcSession));
         }
     }, {
@@ -13746,13 +16071,86 @@ var TalkingState = exports.TalkingState = function (_RTCSessionState7) {
             var iceState = this._rtcSession._strategy.onIceStateChange(evt, this._rtcSession._pc);
             this.logger.info('ICE Connection State: ', iceState);
 
+            if (this._subState && typeof this._subState.onIceStateChange === 'function') {
+                this._subState.onIceStateChange(evt);
+            }
+
             if (iceState == _rtc_const.ICE_CONNECTION_STATE.DISCONNECTED) {
                 this.logger.info('Lost ICE connection');
                 this._rtcSession._sessionReport.iceConnectionsLost += 1;
             }
+
             if (iceState == _rtc_const.ICE_CONNECTION_STATE.FAILED) {
                 this._rtcSession._sessionReport.iceConnectionsFailed = true;
             }
+        }
+    }, {
+        key: 'onSignalingConnected',
+        value: function onSignalingConnected() {
+            if (this._subState && typeof this._subState.onSignalingConnected === 'function') {
+                this._subState.onSignalingConnected();
+            }
+        }
+    }, {
+        key: 'onSignalingFailed',
+        value: function onSignalingFailed(e) {
+            if (this._subState && typeof this._subState.onSignalingFailed === 'function') {
+                this._subState.onSignalingFailed(e);
+            }
+            var reason;
+            if (e.name == _exceptions.AccessDeniedExceptionName) {
+                this.logger.error('[TalkingState] Access Denied by server', e);
+                this._rtcSession._sessionReport.handshakingFailure = true;
+                reason = _rtc_const.RTC_ERRORS.SIGNALLING_HANDSHAKE_FAILURE;
+                this.transit(new FailedState(this._rtcSession, reason));
+            } else {
+                this.logger.error('[TalkingState] Failed handshaking with signaling server', e);
+            }
+        }
+    }, {
+        key: 'onSignalingAnswered',
+        value: function onSignalingAnswered(sdp, candidates) {
+            if (this._subState && typeof this._subState.onSignalingAnswered === 'function') {
+                this._subState.onSignalingAnswered(sdp, candidates);
+            }
+        }
+    }, {
+        key: 'onSignalingHandshaked',
+        value: function onSignalingHandshaked() {
+            if (this._subState && typeof this._subState.onSignalingHandshaked === 'function') {
+                this._subState.onSignalingHandshaked();
+            }
+        }
+    }, {
+        key: 'onIceCandidate',
+        value: function onIceCandidate(evt) {
+            if (this._subState && typeof this._subState.onIceCandidate === 'function') {
+                this._subState.onIceCandidate(evt);
+            }
+        }
+    }, {
+        key: 'onIceRestartFailure',
+        value: function onIceRestartFailure() {
+            if (this._subState && typeof this._subState.onIceRestartFailure === 'function') {
+                this._subState.onIceRestartFailure();
+            }
+        }
+    }, {
+        key: '_checkAndTransit',
+        value: function _checkAndTransit() {
+            if (this._subState && typeof this._subState._checkAndTransit === 'function') {
+                this._subState._checkAndTransit();
+            }
+        }
+    }, {
+        key: 'setSubState',
+        value: function setSubState(nextState) {
+            this.logger.info('Substate: ' + (this._subState ? this._subState.name : 'null') + ' => ' + nextState.name);
+            if (this._subState) {
+                this._subState.onExit();
+            }
+            this._subState = nextState;
+            this._subState.onEnter();
         }
     }, {
         key: 'onPeerConnectionStateChange',
@@ -13768,9 +16166,14 @@ var TalkingState = exports.TalkingState = function (_RTCSessionState7) {
         key: 'onExit',
         value: function onExit() {
             this._rtcSession._sessionReport.talkingTimeMillis = Date.now() - this._startTime;
-            this._rtcSession._detachMedia();
+            if (!this._rtcSession._pcm || !this._rtcSession._pcm.isPersistentConnectionEnabled()) {
+                this._rtcSession._detachMedia();
+            }
             this._rtcSession._sessionReport.sessionEndTime = new Date();
             this._rtcSession._onSessionCompleted(this._rtcSession);
+            if (this._subState) {
+                this._subState.onExit();
+            }
         }
     }, {
         key: 'name',
@@ -13781,8 +16184,8 @@ var TalkingState = exports.TalkingState = function (_RTCSessionState7) {
     return TalkingState;
 }(RTCSessionState);
 
-var CleanUpState = exports.CleanUpState = function (_RTCSessionState8) {
-    (0, _inherits3.default)(CleanUpState, _RTCSessionState8);
+var CleanUpState = exports.CleanUpState = function (_RTCSessionState9) {
+    (0, _inherits3.default)(CleanUpState, _RTCSessionState9);
 
     function CleanUpState() {
         (0, _classCallCheck3.default)(this, CleanUpState);
@@ -13792,6 +16195,16 @@ var CleanUpState = exports.CleanUpState = function (_RTCSessionState8) {
     (0, _createClass3.default)(CleanUpState, [{
         key: 'onEnter',
         value: function onEnter() {
+            if (this._rtcSession._pcm) {
+                try {
+                    // rtcSession._pcm._mediaStream would be out of sync if the audio device changed during the call
+                    this._rtcSession._pcm._mediaStream = this._rtcSession._strategy._createMediaStream(this._rtcSession._pc.getSenders()[0].track);
+                } catch (error) {
+                    this.logger.error("Creating MediaStream error: ", error);
+                }
+                // For persistent connection, pause the local audio when we destroy the RtcSession, because we don't want to transmit any audio when agent is idle
+                this._rtcSession.pauseLocalAudio();
+            }
             this._startTime = Date.now();
             this._rtcSession._stopSession();
             this._rtcSession._sessionReport.cleanupTimeMillis = Date.now() - this._startTime;
@@ -13820,6 +16233,16 @@ var DisconnectedState = exports.DisconnectedState = function (_CleanUpState) {
     }
 
     (0, _createClass3.default)(DisconnectedState, [{
+        key: 'onSignalingHandshaked',
+        value: function onSignalingHandshaked() {
+            // do nothing
+        }
+    }, {
+        key: 'onPeerConnectionStateChange',
+        value: function onPeerConnectionStateChange() {
+            // do nothing
+        }
+    }, {
         key: 'name',
         get: function get() {
             return "DisconnectedState";
@@ -13834,10 +16257,10 @@ var FailedState = exports.FailedState = function (_CleanUpState2) {
     function FailedState(rtcSession, failureReason) {
         (0, _classCallCheck3.default)(this, FailedState);
 
-        var _this10 = (0, _possibleConstructorReturn3.default)(this, (FailedState.__proto__ || Object.getPrototypeOf(FailedState)).call(this, rtcSession));
+        var _this12 = (0, _possibleConstructorReturn3.default)(this, (FailedState.__proto__ || Object.getPrototypeOf(FailedState)).call(this, rtcSession));
 
-        _this10._failureReason = failureReason;
-        return _this10;
+        _this12._failureReason = failureReason;
+        return _this12;
     }
 
     (0, _createClass3.default)(FailedState, [{
@@ -13845,6 +16268,9 @@ var FailedState = exports.FailedState = function (_CleanUpState2) {
         value: function onEnter() {
             this._rtcSession._sessionReport.sessionEndTime = new Date();
             this._rtcSession._onSessionFailed(this._rtcSession, this._failureReason);
+            if (this._rtcSession._pcm) {
+                this._rtcSession._pcm.destroy();
+            }
             (0, _get3.default)(FailedState.prototype.__proto__ || Object.getPrototypeOf(FailedState.prototype), 'onEnter', this).call(this);
         }
     }, {
@@ -13859,20 +16285,26 @@ var FailedState = exports.FailedState = function (_CleanUpState2) {
 var RtcSession = function () {
     /**
      * Build an AmazonConnect RTC session.
-     * @param {*} signalingUri
+     * @param {string} signalingUri (optional, applies to CCPv1)
      * @param {*} iceServers Array of ice servers
-     * @param {*} contactToken A string representing the contact token (optional)
-     * @param {*} logger An object provides logging functions, such as console
-     * @param {*} contactId Must be UUID, uniquely identifies the session.
+     * @param {string} contactToken A string representing the contact token (optional)
+     * @param {object} logger An object provides logging functions, such as console
+     * @param {string} contactId Must be UUID, uniquely identifies the session.
+     * @param {string} connectionId Refers to media leg id
+     * @param {string} wssManager - websocket manager
+     * @param {object} strategy - VDI strategy indicates which WebRTC SDK to use: standard, Citrix, WorkSpace
+     * @param {Object} peerConnectionManager - refers to the peerConnectionManager object which manages rtcSession and peer connection
      */
     function RtcSession(signalingUri, iceServers, contactToken, logger, contactId, connectionId, wssManager) {
         var strategy = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : new _StandardStrategy2.default();
+        var peerConnectionManager = arguments.length > 8 && arguments[8] !== undefined ? arguments[8] : null;
         (0, _classCallCheck3.default)(this, RtcSession);
 
         if (!(strategy instanceof _CCPInitiationStrategyInterface2.default)) {
             throw new Error('Expected a strategy of type CCPInitiationStrategyInterface');
         }
-        if (typeof signalingUri !== 'string' || signalingUri.trim().length === 0) {
+        // throw IllegalParameters error when signalingUri is missing and peer connection manager is not defined
+        if (!peerConnectionManager && typeof signalingUri !== 'string' || signalingUri && signalingUri.trim().length === 0) {
             throw new _exceptions.IllegalParameters('signalingUri required');
         }
         if (!iceServers) {
@@ -13895,6 +16327,7 @@ var RtcSession = function () {
         this._contactToken = contactToken;
         this._originalLogger = logger;
         this._logger = (0, _utils.wrapLogger)(this._originalLogger, this._callId, 'SESSION');
+        this._pcm = peerConnectionManager;
         this._iceTimeoutMillis = _rtc_const.DEFAULT_ICE_TIMEOUT_MS;
         this._gumTimeoutMillis = _rtc_const.DEFAULT_GUM_TIMEOUT_MS;
 
@@ -13955,23 +16388,61 @@ var RtcSession = function () {
                 }
             }
         }
+
+        /**
+         * TODO: fix eslint version to use optional chaining
+         * const audioTrack = this._pcm?._mediaStream?.getAudioTracks()[0] || this._localStream?.getAudioTracks()[0];
+         *     if (audioTrack) {
+         *         audioTrack.enabled = false;
+         *     }
+         */
+
     }, {
         key: 'pauseLocalAudio',
         value: function pauseLocalAudio() {
-            if (this._localStream) {
-                var audioTrack = this._localStream.getAudioTracks()[0];
-                if (audioTrack) {
-                    audioTrack.enabled = false;
+            var audioTrack;
+            if (this._pcm) {
+                if (this._pcm._mediaStream) {
+                    audioTrack = this._pcm._mediaStream.getAudioTracks()[0];
+                    if (audioTrack) {
+                        audioTrack.enabled = false;
+                    }
+                }
+            } else {
+                if (this._localStream) {
+                    audioTrack = this._localStream.getAudioTracks()[0];
+                    if (audioTrack) {
+                        audioTrack.enabled = false;
+                    }
                 }
             }
         }
+
+        /**
+         * TODO: fix eslint version to use optional chaining
+         * const audioTrack = this._pcm?._mediaStream?.getAudioTracks()[0] || this._localStream?.getAudioTracks()[0];
+         *     if (audioTrack) {
+         *         audioTrack.enabled = true;
+         *     }
+         */
+
     }, {
         key: 'resumeLocalAudio',
         value: function resumeLocalAudio() {
-            if (this._localStream) {
-                var audioTrack = this._localStream.getAudioTracks()[0];
-                if (audioTrack) {
-                    audioTrack.enabled = true;
+            var audioTrack;
+            if (this._pcm) {
+                if (this._pcm._mediaStream) {
+                    audioTrack = this._pcm._mediaStream.getAudioTracks()[0];
+                    if (audioTrack) {
+                        audioTrack.enabled = true;
+                    }
+                }
+            } else {
+                if (this._localStream) {
+                    audioTrack = this._localStream.getAudioTracks()[0];
+                    if (audioTrack) {
+                        audioTrack.enabled = true;
+                    }
                 }
             }
         }
@@ -14023,7 +16494,7 @@ var RtcSession = function () {
     }, {
         key: '_createSignalingChannel',
         value: function _createSignalingChannel() {
-            var signalingChannel = new _signaling2.default(this._callId, this._signalingUri, this._contactToken, this._originalLogger, this._signalingConnectTimeout, this._connectionId, this._wssManager);
+            var signalingChannel = new _signaling2.default(this._callId, this._signalingUri, this._contactToken, this._originalLogger, this._signalingConnectTimeout, this._connectionId, this._wssManager, this._iceRestart, this._pcm);
             signalingChannel.onConnected = (0, _utils.hitch)(this, this._signalingConnected);
             signalingChannel.onAnswered = (0, _utils.hitch)(this, this._signalingAnswered);
             signalingChannel.onHandshaked = (0, _utils.hitch)(this, this._signalingHandshaked);
@@ -14032,7 +16503,23 @@ var RtcSession = function () {
             signalingChannel.onDisconnected = (0, _utils.hitch)(this, this._signalingDisconnected);
 
             this._signalingChannel = signalingChannel;
+            if (this._pcm) {
+                this._pcm._signalingChannel = signalingChannel;
+            }
+            return signalingChannel;
+        }
+    }, {
+        key: '_bindSignalingChannel',
+        value: function _bindSignalingChannel() {
+            var signalingChannel = this._pcm._signalingChannel;
+            signalingChannel.onConnected = (0, _utils.hitch)(this, this._signalingConnected);
+            signalingChannel.onAnswered = (0, _utils.hitch)(this, this._signalingAnswered);
+            signalingChannel.onHandshaked = (0, _utils.hitch)(this, this._signalingHandshaked);
+            signalingChannel.onRemoteHungup = (0, _utils.hitch)(this, this._signalingRemoteHungup);
+            signalingChannel.onFailed = (0, _utils.hitch)(this, this._signalingFailed);
+            signalingChannel.onDisconnected = (0, _utils.hitch)(this, this._signalingDisconnected);
 
+            this._signalingChannel = signalingChannel;
             return signalingChannel;
         }
     }, {
@@ -14042,8 +16529,8 @@ var RtcSession = function () {
         }
     }, {
         key: '_signalingAnswered',
-        value: function _signalingAnswered(sdp, candidates) {
-            this._state.onSignalingAnswered(sdp, candidates);
+        value: function _signalingAnswered(sdp, candidates, inactivityDuration, peerConnectionId, peerConnectionToken) {
+            this._state.onSignalingAnswered(sdp, candidates, inactivityDuration, peerConnectionId, peerConnectionToken);
         }
     }, {
         key: '_signalingHandshaked',
@@ -14083,6 +16570,7 @@ var RtcSession = function () {
                     pc = null;
                 }
                 _rtc_const.RTC_PEER_CONNECTION_CONFIG.iceServers = self._iceServers;
+                _rtc_const.RTC_PEER_CONNECTION_CONFIG.iceCandidatePoolSize = _rtc_const.DEFAULT_ICE_CANDIDATE_POOL_SIZE;
                 self._pc = self._createPeerConnection(_rtc_const.RTC_PEER_CONNECTION_CONFIG, _rtc_const.RTC_PEER_CONNECTION_OPTIONAL_CONFIG);
             }
             self._pc.ontrack = (0, _utils.hitch)(self, self._ontrack);
@@ -14090,10 +16578,13 @@ var RtcSession = function () {
             self._pc.onconnectionstatechange = (0, _utils.hitch)(self, self._onPeerConnectionStateChange);
             self._pc.oniceconnectionstatechange = (0, _utils.hitch)(self, self._onIceStateChange);
 
-            (0, _utils.isLegacyStatsReportSupported)(self._pc).then(function (result) {
-                self._legacyStatsReportSupport = result;
+            // PersistentConnection enabled transit to ConnectContactState
+            if (self._pcm && self._pcm.isPersistentConnectionEnabled() && self._pcm._signalingChannel) {
+                self._bindSignalingChannel(); // binding the existing signaling channel
+                self.transit(new ConnectContactState(self));
+            } else {
                 self.transit(new GrabLocalMediaState(self));
-            });
+            }
         }
     }, {
         key: 'accept',
@@ -14115,156 +16606,74 @@ var RtcSession = function () {
     }, {
         key: 'getStats',
         value: function () {
-            var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
-                var _this11 = this;
+            var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
+                var _this13 = this;
 
-                var timestamp, impl, statsResult, rttReducer, audioInputRttMilliseconds, videoInputRttMilliseconds;
+                var timestamp, getStatsForType, audioInputStats, audioOutputStats;
                 return _regenerator2.default.wrap(function _callee3$(_context3) {
                     while (1) {
                         switch (_context3.prev = _context3.next) {
                             case 0:
                                 timestamp = new Date();
 
-                                impl = function () {
-                                    var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(stream, streamType) {
-                                        var tracks;
+                                getStatsForType = function () {
+                                    var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(streamType) {
+                                        var rawStats;
                                         return _regenerator2.default.wrap(function _callee2$(_context2) {
                                             while (1) {
                                                 switch (_context2.prev = _context2.next) {
                                                     case 0:
-                                                        tracks = [];
+                                                        _context2.next = 2;
+                                                        return _this13._pc.getStats();
 
-                                                        if (stream) {
-                                                            _context2.next = 3;
-                                                            break;
-                                                        }
+                                                    case 2:
+                                                        rawStats = _context2.sent;
+                                                        return _context2.abrupt('return', (0, _rtpStats.extractMediaStatsFromStats)(timestamp, rawStats, streamType));
 
-                                                        return _context2.abrupt('return', []);
-
-                                                    case 3:
-                                                        _context2.t0 = streamType;
-                                                        _context2.next = _context2.t0 === 'audio_input' ? 6 : _context2.t0 === 'audio_output' ? 6 : _context2.t0 === 'video_input' ? 8 : _context2.t0 === 'video_output' ? 8 : 10;
-                                                        break;
-
-                                                    case 6:
-                                                        tracks = stream.getAudioTracks();
-                                                        return _context2.abrupt('break', 11);
-
-                                                    case 8:
-                                                        tracks = stream.getVideoTracks();
-                                                        return _context2.abrupt('break', 11);
-
-                                                    case 10:
-                                                        throw new Error('Unsupported stream type while trying to get stats: ' + streamType);
-
-                                                    case 11:
-                                                        _context2.next = 13;
-                                                        return Promise.all(tracks.map((0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
-                                                            return _regenerator2.default.wrap(function _callee$(_context) {
-                                                                while (1) {
-                                                                    switch (_context.prev = _context.next) {
-                                                                        case 0:
-                                                                            return _context.abrupt('return', _this11._pc.getStats().then(function (rawStats) {
-                                                                                var digestedStats = (0, _rtpStats.extractMediaStatsFromStats)(timestamp, rawStats, streamType);
-                                                                                if (!digestedStats) {
-                                                                                    throw new Error('Failed to extract MediaRtpStats from RTCStatsReport for stream type ' + streamType);
-                                                                                }
-                                                                                return digestedStats;
-                                                                            }));
-
-                                                                        case 1:
-                                                                        case 'end':
-                                                                            return _context.stop();
-                                                                    }
-                                                                }
-                                                            }, _callee, _this11);
-                                                        }))));
-
-                                                    case 13:
-                                                        return _context2.abrupt('return', _context2.sent);
-
-                                                    case 14:
+                                                    case 4:
                                                     case 'end':
                                                         return _context2.stop();
                                                 }
                                             }
-                                        }, _callee2, _this11);
+                                        }, _callee2, _this13);
                                     }));
 
-                                    return function impl(_x2, _x3) {
-                                        return _ref2.apply(this, arguments);
+                                    return function getStatsForType(_x3) {
+                                        return _ref3.apply(this, arguments);
                                     };
                                 }();
 
                                 if (!(this._pc && this._pc.signalingState === 'stable')) {
-                                    _context3.next = 26;
+                                    _context3.next = 13;
                                     break;
                                 }
 
                                 _context3.next = 5;
-                                return impl(this._remoteAudioStream, 'audio_input');
+                                return getStatsForType('audio_input');
 
                             case 5:
-                                _context3.t0 = _context3.sent;
+                                audioInputStats = _context3.sent;
                                 _context3.next = 8;
-                                return impl(this._localStream, 'audio_output');
+                                return getStatsForType('audio_output');
 
                             case 8:
-                                _context3.t1 = _context3.sent;
-                                _context3.t2 = {
-                                    input: _context3.t0,
-                                    output: _context3.t1
-                                };
-                                _context3.next = 12;
-                                return impl(this._remoteVideoStream, 'video_input');
-
-                            case 12:
-                                _context3.t3 = _context3.sent;
-                                _context3.next = 15;
-                                return impl(this._localStream, 'video_output');
-
-                            case 15:
-                                _context3.t4 = _context3.sent;
-                                _context3.t5 = {
-                                    input: _context3.t3,
-                                    output: _context3.t4
-                                };
-                                statsResult = {
-                                    audio: _context3.t2,
-                                    video: _context3.t5
-                                };
-
-                                // For consistency's sake, coalesce rttMilliseconds into the output for audio and video.
-                                rttReducer = function rttReducer(acc, stats) {
-                                    if (stats.rttMilliseconds !== null && (acc === null || stats.rttMilliseconds > acc)) {
-                                        acc = stats.rttMilliseconds;
-                                    }
-                                    stats._rttMilliseconds = null;
-                                    return acc;
-                                };
-
-                                audioInputRttMilliseconds = statsResult.audio.input.reduce(rttReducer, null);
-                                videoInputRttMilliseconds = statsResult.video.input.reduce(rttReducer, null);
+                                audioOutputStats = _context3.sent;
 
 
-                                if (audioInputRttMilliseconds !== null) {
-                                    statsResult.audio.output.forEach(function (stats) {
-                                        stats._rttMilliseconds = audioInputRttMilliseconds;
-                                    });
+                                // For consistency's sake, coalesce rttMilliseconds into the output for audio
+                                if (audioInputStats && audioInputStats.rttMilliseconds !== null) {
+                                    audioOutputStats._rttMilliseconds = audioInputStats.rttMilliseconds;
                                 }
 
-                                if (videoInputRttMilliseconds !== null) {
-                                    statsResult.video.output.forEach(function (stats) {
-                                        stats._rttMilliseconds = videoInputRttMilliseconds;
-                                    });
-                                }
+                                return _context3.abrupt('return', {
+                                    audioInputStats: audioInputStats,
+                                    audioOutputStats: audioOutputStats
+                                });
 
-                                return _context3.abrupt('return', statsResult);
-
-                            case 26:
+                            case 13:
                                 return _context3.abrupt('return', Promise.reject(new _exceptions.IllegalState()));
 
-                            case 27:
+                            case 14:
                             case 'end':
                                 return _context3.stop();
                         }
@@ -14273,7 +16682,7 @@ var RtcSession = function () {
             }));
 
             function getStats() {
-                return _ref.apply(this, arguments);
+                return _ref2.apply(this, arguments);
             }
 
             return getStats;
@@ -14289,8 +16698,8 @@ var RtcSession = function () {
         key: 'getRemoteAudioStats',
         value: function getRemoteAudioStats() {
             return this.getStats().then(function (stats) {
-                if (stats.audio.output.length > 0) {
-                    return stats.audio.output[0];
+                if (stats.audioOutputStats) {
+                    return stats.audioOutputStats;
                 } else {
                     return Promise.reject(new _exceptions.IllegalState());
                 }
@@ -14307,44 +16716,8 @@ var RtcSession = function () {
         key: 'getUserAudioStats',
         value: function getUserAudioStats() {
             return this.getStats().then(function (stats) {
-                if (stats.audio.input.length > 0) {
-                    return stats.audio.input[0];
-                } else {
-                    return Promise.reject(new _exceptions.IllegalState());
-                }
-            });
-        }
-
-        /**
-         * Get a promise of MediaRtpStats object for user video (from client to Amazon Connect).
-         * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
-         * @deprecated in favor of getStats()
-         */
-
-    }, {
-        key: 'getRemoteVideoStats',
-        value: function getRemoteVideoStats() {
-            return this.getStats().then(function (stats) {
-                if (stats.video.output.length > 0) {
-                    return stats.video.output[0];
-                } else {
-                    return Promise.reject(new _exceptions.IllegalState());
-                }
-            });
-        }
-
-        /**
-         * Get a promise of MediaRtpStats object for user video (from client to Amazon Connect).
-         * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
-         * @deprecated in favor of getStats()
-         */
-
-    }, {
-        key: 'getUserVideoStats',
-        value: function getUserVideoStats() {
-            return this.getStats().then(function (stats) {
-                if (stats.video.input.length > 0) {
-                    return stats.video.input[0];
+                if (stats.audioInputStats) {
+                    return stats.audioInputStats;
                 } else {
                     return Promise.reject(new _exceptions.IllegalState());
                 }
@@ -14390,21 +16763,24 @@ var RtcSession = function () {
     }, {
         key: '_stopSession',
         value: function _stopSession() {
-            try {
-                if (this._localStream && !this._isUserProvidedStream) {
-                    (0, _utils.closeStream)(this._localStream);
-                    this._localStream = null;
-                    this._isUserProvidedStream = false;
-                }
-            } finally {
+            // When peerConnectionManager does not exist or PersistentConnection flag if false, we will close local  media stream
+            if (!this._pcm || !this._pcm.isPersistentConnectionEnabled()) {
                 try {
-                    if (this._pc) {
-                        this._pc.close();
+                    if (this._localStream && !this._isUserProvidedStream) {
+                        (0, _utils.closeStream)(this._localStream);
+                        this._localStream = null;
+                        this._isUserProvidedStream = false;
                     }
-                } catch (e) {
-                    // eat exception
                 } finally {
-                    this._pc = null;
+                    try {
+                        if (this._pc) {
+                            this._pc.close();
+                        }
+                    } catch (e) {
+                        // eat exception
+                    } finally {
+                        this._pc = null;
+                    }
                 }
             }
         }
@@ -14504,6 +16880,9 @@ var RtcSession = function () {
          */
         set: function set(input) {
             this._localStream = input;
+            if (this._pcm) {
+                this._pcm._mediaStream = input;
+            }
             this._isUserProvidedStream = true;
         }
         /**
@@ -14786,7 +17165,544 @@ var RtcSession = function () {
 
 exports.default = RtcSession;
 
-},{"./exceptions":149,"./rtc_const":150,"./rtp-stats":153,"./session_report":154,"./signaling":155,"./strategies/CCPInitiationStrategyInterface":156,"./strategies/StandardStrategy":159,"./utils":160,"babel-runtime/helpers/asyncToGenerator":14,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/get":17,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19,"babel-runtime/helpers/typeof":22,"babel-runtime/regenerator":23,"sdp":131,"uuid/v4":134}],153:[function(require,module,exports){
+},{"./exceptions":152,"./rtc_const":153,"./rtc_session_talking_substates":157,"./rtp-stats":158,"./session_report":159,"./signaling":160,"./strategies/CCPInitiationStrategyInterface":161,"./strategies/StandardStrategy":165,"./utils":167,"babel-runtime/helpers/asyncToGenerator":16,"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18,"babel-runtime/helpers/get":19,"babel-runtime/helpers/inherits":20,"babel-runtime/helpers/possibleConstructorReturn":21,"babel-runtime/helpers/typeof":24,"babel-runtime/regenerator":27,"sdp":133,"uuid/v4":137}],157:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.AcceptSubstate = exports.InviteAnswerSubstate = exports.ConnectSignalingAndIceCollectionSubstate = exports.SetLocalSessionDescriptionSubstate = exports.IceRestartSubstate = exports.ConnectedSubstate = undefined;
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _rtc_const = require('./rtc_const');
+
+var _utils = require('./utils');
+
+var _exceptions = require('./exceptions');
+
+var _sdp = require('sdp');
+
+var _signaling = require('./signaling');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * ConnectedSubstate is the default substate of the rtcSession talking state
+ * It monitors the peer connection ICE connection state and attempts to reconnect if disconnected.
+ * If the ICE connection state changes to 'DISCONNECTED' more than 3 seconds, it triggers an ICE restart.
+ */
+
+var ConnectedSubstate = exports.ConnectedSubstate = function () {
+    (0, _createClass3.default)(ConnectedSubstate, [{
+        key: 'logger',
+        get: function get() {
+            return this._rtcSession._logger;
+        }
+    }]);
+
+    function ConnectedSubstate(rtcSession) {
+        (0, _classCallCheck3.default)(this, ConnectedSubstate);
+
+        this._rtcSession = rtcSession;
+        this.retryInterval = 3000; // Retry interval set to 3 seconds
+    }
+
+    (0, _createClass3.default)(ConnectedSubstate, [{
+        key: 'onEnter',
+        value: function onEnter() {}
+        // onIceStateChange will be invoked when peer connection Ice Connection state change
+
+    }, {
+        key: 'onIceStateChange',
+        value: function onIceStateChange(evt) {
+            var _this = this;
+
+            var iceState = this._rtcSession._strategy.onIceStateChange(evt, this._rtcSession._pc);
+            this.logger.info('ICE Connection State: ', iceState);
+
+            if (iceState == _rtc_const.ICE_CONNECTION_STATE.DISCONNECTED) {
+                // Check if the rtcSession supports ICE restart
+                if (this._rtcSession._pcm && this._rtcSession._pcm._peerConnectionToken) {
+                    this.logger.info('Detected Lost ICE connection, pending IceRestart');
+                    this.IceRestartTimeoutId = setTimeout(function () {
+                        if (_this._rtcSession._pc.iceConnectionState === _rtc_const.ICE_CONNECTION_STATE.DISCONNECTED) {
+                            _this.logger.info('Trying to restart ICE connection');
+                            _this._rtcSession._sessionReport.iceRestartAttempts += 1;
+                            _this._rtcSession._state.setSubState(new IceRestartSubstate(_this._rtcSession));
+                        } else {
+                            _this.logger.info('The network recovered, IceRestart cancelled');
+                        }
+                    }, this.retryInterval);
+                } else {
+                    this.logger.info('Detected Lost ICE connection, IceRestart not supported');
+                }
+            }
+        }
+    }, {
+        key: 'onSignalingFailed',
+        value: function onSignalingFailed(e) {
+            if (this._rtcSession._pcm && this._rtcSession._pcm._peerConnectionToken) {
+                if (e.name === _exceptions.BadRequestExceptionName && e.message.includes("Stale Peer Connection")) {
+                    this.logger.error('Server detect peer connection being unhealthy, performing IceRestart', e);
+                    this._rtcSession._sessionReport.iceRestartAttempts += 1;
+                    this._rtcSession._state.setSubState(new IceRestartSubstate(this._rtcSession));
+                }
+            } else {
+                this.logger.info('Server detect peer connection being unhealthy, IceRestart not supported');
+            }
+        }
+    }, {
+        key: 'onExit',
+        value: function onExit() {
+            if (this.IceRestartTimeoutId) {
+                this.logger.info('Exiting, cleaning up IceRestart timeout');
+                clearTimeout(this.IceRestartTimeoutId);
+            }
+        }
+    }, {
+        key: 'name',
+        get: function get() {
+            return "ConnectedSubstate";
+        }
+    }]);
+    return ConnectedSubstate;
+}();
+
+/**
+ * IceRestartSubstate manages the process of requesting ICE access and initiating an ICE restart.
+ * It attempts to restart the ICE connection without retrying on failure.
+ *
+ * Possible failures include:
+ *
+ * 1. The `_requestIceAccess` API call fails due to the network not recovering within approximately 13 seconds.
+ *    This is calculated based on the time from network loss to ICE connection failure (around 10 seconds),
+ *    plus the 3-second `retryInterval` in the `ConnectedSubState`.
+ *
+ * 2. The `_requestIceAccess` API call is throttled.
+ *
+ * In case of failure, the ICE restart process is not retried, and the state transitions back to connected sub state
+ */
+
+
+var IceRestartSubstate = exports.IceRestartSubstate = function () {
+    (0, _createClass3.default)(IceRestartSubstate, [{
+        key: 'logger',
+        get: function get() {
+            return this._rtcSession._logger;
+        }
+    }]);
+
+    function IceRestartSubstate(rtcSession) {
+        (0, _classCallCheck3.default)(this, IceRestartSubstate);
+
+        this._rtcSession = rtcSession;
+    }
+
+    (0, _createClass3.default)(IceRestartSubstate, [{
+        key: 'onEnter',
+        value: function onEnter() {
+            this.performIceRestart();
+        }
+    }, {
+        key: 'performIceRestart',
+        value: function performIceRestart() {
+            var _this2 = this;
+
+            this._rtcSession._pcm._iceRestart = true;
+            this._rtcSession._pcm._requestIceAccess().then(function (response) {
+                var rtcPeerConnectionConfig = JSON.parse(JSON.stringify(_rtc_const.RTC_PEER_CONNECTION_CONFIG));
+                rtcPeerConnectionConfig.iceServers = response;
+                rtcPeerConnectionConfig.iceCandidatePoolSize = _rtc_const.DEFAULT_ICE_CANDIDATE_POOL_SIZE;
+                _this2._rtcSession._pc.setConfiguration(rtcPeerConnectionConfig);
+                return _this2._rtcSession._pc.createOffer({ iceRestart: true });
+            }).then(function (rtcSessionDescription) {
+                _this2._rtcSession._localSessionDescription = rtcSessionDescription;
+                _this2.logger.info("ICE restart offer created and set as local description");
+                _this2._rtcSession._state.setSubState(new SetLocalSessionDescriptionSubstate(_this2._rtcSession));
+            }).catch(function (error) {
+                _this2.logger.error("ICE restart failed", error);
+                _this2._rtcSession._state.setSubState(new ConnectedSubstate(_this2._rtcSession));
+            });
+        }
+    }, {
+        key: 'onExit',
+        value: function onExit() {}
+    }, {
+        key: 'name',
+        get: function get() {
+            return "IceRestartSubstate";
+        }
+    }]);
+    return IceRestartSubstate;
+}();
+
+var SetLocalSessionDescriptionSubstate = exports.SetLocalSessionDescriptionSubstate = function () {
+    (0, _createClass3.default)(SetLocalSessionDescriptionSubstate, [{
+        key: 'logger',
+        get: function get() {
+            return this._rtcSession._logger;
+        }
+    }]);
+
+    function SetLocalSessionDescriptionSubstate(rtcSession) {
+        (0, _classCallCheck3.default)(this, SetLocalSessionDescriptionSubstate);
+
+        this._rtcSession = rtcSession;
+    }
+
+    (0, _createClass3.default)(SetLocalSessionDescriptionSubstate, [{
+        key: 'onEnter',
+        value: function onEnter() {
+            var _this3 = this;
+
+            var localDescription = this._rtcSession._localSessionDescription;
+            var sdpOptions = new _utils.SdpOptions();
+            sdpOptions.enableOpusDtx = this._rtcSession._enableOpusDtx;
+
+            var transformedSdp = (0, _utils.transformSdp)(localDescription.sdp, sdpOptions);
+            localDescription.sdp = transformedSdp.sdp;
+            localDescription.sdp += 'a=ptime:20\r\n';
+            localDescription.sdp += 'a=maxptime:20\r\n';
+            localDescription.sdp = localDescription.sdp.replace("minptime=10", "minptime=20");
+
+            this.logger.info('LocalSD', this._rtcSession._localSessionDescription);
+
+            this._rtcSession._pc.setLocalDescription(this._rtcSession._localSessionDescription).then(function () {
+                _this3.logger.info("Local description set successfully");
+                _this3._rtcSession._state.setSubState(new ConnectSignalingAndIceCollectionSubstate(_this3._rtcSession, transformedSdp.mLines));
+            }).catch(function (error) {
+                _this3.logger.error("Failed to set local description", error);
+                _this3._rtcSession._state.setSubState(new ConnectedSubstate(_this3._rtcSession));
+            });
+        }
+    }, {
+        key: 'onExit',
+        value: function onExit() {}
+    }, {
+        key: 'name',
+        get: function get() {
+            return "SetLocalSessionDescriptionSubstate";
+        }
+    }]);
+    return SetLocalSessionDescriptionSubstate;
+}();
+
+/**
+ * ConnectSignalingAndIceCollectionSubstate manages the signaling connection and ICE candidate collection.
+ * It performs the following tasks:
+ *
+ * 1. Binds the RTCSession's signaling channel to the peer connection manager's signaling channel,
+ *
+ * 2. Collects ICE candidates and monitors for sufficient candidates to proceed with the ICE restart.
+ *
+ * 3. Transitions to the next state (InviteAnswerSubstate) upon successful ICE candidate collection.
+ *    If no ICE candidates are collected, it transitions to the ConnectedSubstate and reports an ICE
+ *    collection failure.
+ *
+ * 4. Sets a timeout for ICE collection to handle cases where the ICE gathering process gets stuck.
+ */
+
+
+var ConnectSignalingAndIceCollectionSubstate = exports.ConnectSignalingAndIceCollectionSubstate = function () {
+    (0, _createClass3.default)(ConnectSignalingAndIceCollectionSubstate, [{
+        key: 'logger',
+        get: function get() {
+            return this._rtcSession._logger;
+        }
+    }]);
+
+    function ConnectSignalingAndIceCollectionSubstate(rtcSession, mLines) {
+        (0, _classCallCheck3.default)(this, ConnectSignalingAndIceCollectionSubstate);
+
+        this._rtcSession = rtcSession;
+        this._iceCandidates = [];
+        this._iceCandidateFoundationsMap = {};
+        this._mLines = mLines;
+        this._iceCompletedForIceRestart = false;
+
+        // As the peer connection manager is enabled, the RTCSession is created without a signaling channel.
+        // To utilize the existing signaling state machine for SDP exchange, the RTCSession's signaling channel
+        // is bound to the peer connection manager's signaling channel.
+        this._rtcSession._bindSignalingChannel();
+    }
+
+    (0, _createClass3.default)(ConnectSignalingAndIceCollectionSubstate, [{
+        key: 'onEnter',
+        value: function onEnter() {
+            var _this4 = this;
+
+            setTimeout(function () {
+                if (_this4._isCurrentState() && !_this4._iceCompletedForIceRestart) {
+                    _this4.logger.warn('ICE collection timed out');
+                    _this4._reportIceCompleted(true);
+                }
+            }, this._rtcSession._iceTimeoutMillis);
+        }
+    }, {
+        key: '_isCurrentState',
+        value: function _isCurrentState() {
+            return this._rtcSession._state._subState === this;
+        }
+    }, {
+        key: '_createLocalCandidate',
+        value: function _createLocalCandidate(initDict) {
+            return new RTCIceCandidate(initDict);
+        }
+    }, {
+        key: 'onIceCandidate',
+        value: function onIceCandidate(evt) {
+            var candidate = evt.candidate;
+            this.logger.log('onicecandidate ' + JSON.stringify(candidate));
+            if (candidate) {
+                if (candidate.candidate) {
+                    this._iceCandidates.push(this._createLocalCandidate(candidate));
+                    if (!this._iceCompletedForIceRestart) {
+                        this._checkCandidatesSufficient(candidate);
+                    }
+                }
+            } else {
+                this._reportIceCompleted(false);
+            }
+        }
+    }, {
+        key: '_checkCandidatesSufficient',
+        value: function _checkCandidatesSufficient(candidate) {
+            //check if we collected sufficient candidates from single media server to restart the call
+            var candidateObj = (0, _sdp.parseCandidate)(candidate.candidate);
+            if (candidateObj.component != 1) {
+                return;
+            }
+            var candidateFoundation = candidateObj.foundation;
+            var candidateMLineIndex = candidate.sdpMLineIndex;
+            if (candidateFoundation && candidateMLineIndex >= 0 && candidateMLineIndex < this._mLines) {
+                var mIndexList = this._iceCandidateFoundationsMap[candidateFoundation] || [];
+                if (!mIndexList.includes(candidateMLineIndex)) {
+                    mIndexList.push(candidateMLineIndex);
+                }
+                this._iceCandidateFoundationsMap[candidateFoundation] = mIndexList;
+
+                if (this._mLines == mIndexList.length) {
+                    this._reportIceCompleted(false);
+                }
+            }
+        }
+    }, {
+        key: '_reportIceCompleted',
+        value: function _reportIceCompleted(isTimeout) {
+            this._iceCompletedForIceRestart = true;
+            this._rtcSession._onIceCollectionComplete(this._rtcSession, isTimeout, this._iceCandidates.length);
+            if (this._iceCandidates.length > 0) {
+                this._checkAndTransit();
+            } else {
+                this.logger.error('No ICE candidate');
+                this._rtcSession._sessionReport.iceCollectionFailure = true;
+                this._rtcSession._state.setSubState(new ConnectedSubstate(this._rtcSession));
+            }
+        }
+    }, {
+        key: '_checkAndTransit',
+        value: function _checkAndTransit() {
+            if (this._iceCompletedForIceRestart) {
+                this._rtcSession._state.setSubState(new InviteAnswerSubstate(this._rtcSession, this._iceCandidates));
+            } else if (!this._iceCompletedForIceRestart) {
+                this.logger.log('Pending ICE collection');
+            }
+        }
+    }, {
+        key: 'onExit',
+        value: function onExit() {}
+    }, {
+        key: 'name',
+        get: function get() {
+            return "ConnectSignalingAndIceCollectionSubstate";
+        }
+    }]);
+    return ConnectSignalingAndIceCollectionSubstate;
+}();
+
+/**
+ * InviteAnswerSubstate handles the invitation and response during signaling.
+ * It retries the invite process if it fails due to certain errors.
+ */
+
+var InviteAnswerSubstate = exports.InviteAnswerSubstate = function () {
+    (0, _createClass3.default)(InviteAnswerSubstate, [{
+        key: 'logger',
+        get: function get() {
+            return this._rtcSession._logger;
+        }
+    }]);
+
+    function InviteAnswerSubstate(rtcSession, iceCandidates) {
+        (0, _classCallCheck3.default)(this, InviteAnswerSubstate);
+
+        this._rtcSession = rtcSession;
+        this._iceCandidates = iceCandidates;
+        this.retryCount = 0;
+        this.maxRetries = 3; // Maximum number of retries for the invite process
+        // The retry interval is set to 1 second. The actual interval between each invite attempt
+        // will be the sum of the MAX_INVITE_DELAY_MS (5 seconds) and the retry interval (1 second).
+        // For example, the timing for the three invite attempts would be:
+        // 1. First invite: 0 seconds
+        // 2. Second invite (after the first invite timeout): 6 seconds
+        // 3. Third invite (after the second invite timeout): 12 seconds
+        this.retryInterval = 1000;
+    }
+
+    (0, _createClass3.default)(InviteAnswerSubstate, [{
+        key: 'onEnter',
+        value: function onEnter() {
+            this.attemptInvite();
+        }
+    }, {
+        key: 'attemptInvite',
+        value: function attemptInvite() {
+            // Attempt to send an invite, as we do not know if the signaling (websocket connection) is down or not
+            this._rtcSession._createSignalingChannel().connect();
+            this._rtcSession._pcm._signalingChannel.transit(new _signaling.PendingInviteState(this._rtcSession._pcm._signalingChannel));
+            this._rtcSession._pcm._signalingChannel.invite(this._rtcSession._localSessionDescription.sdp, this._iceCandidates);
+        }
+    }, {
+        key: 'retryInvite',
+        value: function retryInvite() {
+            var _this5 = this;
+
+            // Retry logic for invite attempts
+            if (this.retryCount < this.maxRetries) {
+                this.retryCount++;
+                this.logger.info('Retrying invite in ' + this.retryInterval / 1000 + ' seconds. Attempt ' + this.retryCount);
+                this.signalingRetryTimeoutId = setTimeout(function () {
+                    return _this5.attemptInvite();
+                }, this.retryInterval);
+            } else {
+                this.logger.error("Max invite attempts reached. Returning to ConnectedSubstate.");
+                this._rtcSession._state.setSubState(new ConnectedSubstate(this._rtcSession));
+            }
+        }
+    }, {
+        key: 'onSignalingFailed',
+        value: function onSignalingFailed(e) {
+            // Handle signaling failures
+            if (e.name === _exceptions.BusyExceptionName) {
+                this.logger.error('User Busy, possibly multiple CCP windows open', e);
+                this._rtcSession._state.setSubState(new ConnectedSubstate(this._rtcSession));
+            } else if (e.name === _exceptions.CallNotFoundExceptionName) {
+                this.logger.error('Call not found. One of the participant probably hung up.', e);
+                this._rtcSession._state.setSubState(new ConnectedSubstate(this._rtcSession));
+            } else {
+                this.logger.error('Failed handshaking with signaling server', e);
+                this.retryInvite();
+            }
+        }
+    }, {
+        key: 'onSignalingAnswered',
+        value: function onSignalingAnswered(sdp, candidates) {
+            this._rtcSession._state.setSubState(new AcceptSubstate(this._rtcSession, sdp, candidates));
+        }
+    }, {
+        key: 'onExit',
+        value: function onExit() {
+            if (this.signalingRetryTimeoutId) {
+                this.logger.info('Exiting, cleaning up invite retry timeout');
+                clearTimeout(this.signalingRetryTimeoutId);
+            }
+        }
+    }, {
+        key: 'name',
+        get: function get() {
+            return "InviteAnswerSubstate";
+        }
+    }]);
+    return InviteAnswerSubstate;
+}();
+
+/**
+ * AcceptSubstate handles the remote SDP and remote ICE candidates.
+ * It verifies the remote SDP and ICE candidates before proceeding.
+ */
+
+
+var AcceptSubstate = exports.AcceptSubstate = function () {
+    (0, _createClass3.default)(AcceptSubstate, [{
+        key: 'logger',
+        get: function get() {
+            return this._rtcSession._logger;
+        }
+    }]);
+
+    function AcceptSubstate(rtcSession, sdp, candidates) {
+        (0, _classCallCheck3.default)(this, AcceptSubstate);
+
+        this._rtcSession = rtcSession;
+        this._sdp = sdp;
+        this._candidates = candidates;
+    }
+
+    (0, _createClass3.default)(AcceptSubstate, [{
+        key: '_createSessionDescription',
+        value: function _createSessionDescription(initDict) {
+            return new RTCSessionDescription(initDict);
+        }
+    }, {
+        key: '_createRemoteCandidate',
+        value: function _createRemoteCandidate(initDict) {
+            return new RTCIceCandidate(initDict);
+        }
+    }, {
+        key: 'onEnter',
+        value: function onEnter() {
+            if (!this._sdp) {
+                this.logger.error('Invalid remote SDP');
+                this._rtcSession._state.setSubState(new ConnectedSubstate(this._rtcSession));
+            } else if (!this._candidates || this._candidates.length < 1) {
+                this.logger.error('No remote ICE candidate');
+                this._rtcSession._state.setSubState(new ConnectedSubstate(this._rtcSession));
+            }
+            this._rtcSession._strategy.setRemoteDescriptionForIceRestart(this, this._rtcSession);
+        }
+    }, {
+        key: 'onSignalingHandshaked',
+        value: function onSignalingHandshaked() {
+            this._signalingHandshakedForIceRestart = true;
+            this._checkAndTransit();
+        }
+    }, {
+        key: 'onIceRestartFailure',
+        value: function onIceRestartFailure() {
+            this._rtcSession._state.setSubState(new ConnectedSubstate(this._rtcSession));
+        }
+    }, {
+        key: '_checkAndTransit',
+        value: function _checkAndTransit() {
+            if (this._signalingHandshakedForIceRestart && this._remoteDescriptionSetForIceRestart) {
+                this._rtcSession._state.setSubState(new ConnectedSubstate(this._rtcSession));
+            } else if (!this._signalingHandshakedForIceRestart) {
+                this.logger.log('Pending handshaking');
+            } else {
+                //implies _remoteDescriptionSet == false
+                this.logger.log('Pending setting remote description');
+            }
+        }
+    }, {
+        key: 'onExit',
+        value: function onExit() {}
+    }, {
+        key: 'name',
+        get: function get() {
+            return "AcceptSubstate";
+        }
+    }]);
+    return AcceptSubstate;
+}();
+
+},{"./exceptions":152,"./rtc_const":153,"./signaling":160,"./utils":167,"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18,"sdp":133}],158:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15000,7 +17916,7 @@ var MediaRtpStats = function () {
     return MediaRtpStats;
 }();
 
-},{"./utils":160,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16}],154:[function(require,module,exports){
+},{"./utils":167,"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18}],159:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15057,7 +17973,8 @@ var SessionReport = exports.SessionReport = function () {
         this._noRemoteIceCandidateFailure = null;
         this._setRemoteDescriptionFailure = null;
         this._streamStats = [];
-        this._rtcJsVersion = "1.1.26";
+        this._rtcJsVersion = "1.2.1";
+        this._userAgentData = null;
     }
     /**
      *Timestamp when RTCSession started.
@@ -15369,21 +18286,38 @@ var SessionReport = exports.SessionReport = function () {
         key: "rtcJsVersion",
         get: function get() {
             return this._rtcJsVersion;
-        },
+        }
+
+        /**
+         * userAgent data
+         */
+        ,
         set: function set(value) {
             this._rtcJsVersion = value;
+        }
+    }, {
+        key: "userAgentData",
+        get: function get() {
+            return this._userAgentData;
+        },
+        set: function set(value) {
+            this._userAgentData = value;
         }
     }]);
     return SessionReport;
 }();
 
-},{"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16}],155:[function(require,module,exports){
+},{"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18}],160:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.FailedState = exports.DisconnectedState = exports.PendingLocalHangupState = exports.PendingRemoteHangupState = exports.PendingReconnectState = exports.TalkingState = exports.PendingAcceptAckState = exports.PendingAcceptState = exports.PendingAnswerState = exports.PendingInviteState = exports.PendingConnectState = exports.FailOnTimeoutState = exports.SignalingState = undefined;
+exports.FailedState = exports.DisconnectedState = exports.PendingLocalHangupState = exports.PendingRemoteHangupState = exports.PendingReconnectState = exports.TalkingState = exports.IdleState = exports.PendingAcceptAckState = exports.PendingConnectContactState = exports.PendingAcceptState = exports.PendingAnswerState = exports.PendingInviteState = exports.PendingConnectState = exports.FailOnTimeoutState = exports.SignalingState = undefined;
+
+var _get2 = require('babel-runtime/helpers/get');
+
+var _get3 = _interopRequireDefault(_get2);
 
 var _regenerator = require('babel-runtime/regenerator');
 
@@ -15426,14 +18360,19 @@ var _virtual_wss_connection_manager2 = _interopRequireDefault(_virtual_wss_conne
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var CONNECT_MAX_RETRIES = 3;
-
-/**
- * Abstract signaling state class.
- */
+// TODO: Need to discuss with team the retry strategy for invite/accept/connectContact errors
 /**
  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
+ */
+
+var INVITE_MAX_RETRIES = 0;
+var ACCEPT_MAX_RETRIES = 0;
+var CONNECT_CONTACT_MAX_RETRIES = 0;
+
+/**
+ * Abstract signaling state class.
  */
 
 var SignalingState = exports.SignalingState = function () {
@@ -15513,9 +18452,19 @@ var SignalingState = exports.SignalingState = function () {
             throw new _exceptions.UnsupportedOperation('accept not supported by ' + this.name);
         }
     }, {
+        key: 'connectContact',
+        value: function connectContact() {
+            throw new _exceptions.UnsupportedOperation('connectContact not supported by ' + this.name);
+        }
+    }, {
         key: 'hangup',
         value: function hangup() {
-            throw new _exceptions.UnsupportedOperation('hangup not supported by ' + this.name);
+            // do nothing
+        }
+    }, {
+        key: 'bye',
+        value: function bye() {
+            // do nothing
         }
     }, {
         key: 'isCurrentState',
@@ -15583,7 +18532,11 @@ var PendingConnectState = exports.PendingConnectState = function (_FailOnTimeout
     (0, _createClass3.default)(PendingConnectState, [{
         key: 'onOpen',
         value: function onOpen() {
-            this.transit(new PendingInviteState(this._signaling));
+            if (this._signaling._pcm && this._signaling._pcm.contactToken && this._signaling._pcm.isPersistentConnectionEnabled() && !this._signaling._isFirstTimeSetup) {
+                this.transit(new PendingConnectContactState(this._signaling));
+            } else {
+                this.transit(new PendingInviteState(this._signaling));
+            }
         }
     }, {
         key: 'channelDown',
@@ -15594,7 +18547,7 @@ var PendingConnectState = exports.PendingConnectState = function (_FailOnTimeout
                 this._signaling._connect();
                 this.transit(new PendingConnectState(this._signaling, untilTimeoutMs, this._initialStartTime, this._retries));
             } else {
-                this.transit(new FailedState(this._signaling, new Error('channelDown')));
+                this.transit(new FailedState(this._signaling, new _exceptions.SignalingChannelDownError()));
             }
         }
     }, {
@@ -15609,9 +18562,13 @@ var PendingConnectState = exports.PendingConnectState = function (_FailOnTimeout
 var PendingInviteState = exports.PendingInviteState = function (_SignalingState2) {
     (0, _inherits3.default)(PendingInviteState, _SignalingState2);
 
-    function PendingInviteState() {
+    function PendingInviteState(signaling, retiresIn) {
         (0, _classCallCheck3.default)(this, PendingInviteState);
-        return (0, _possibleConstructorReturn3.default)(this, (PendingInviteState.__proto__ || Object.getPrototypeOf(PendingInviteState)).apply(this, arguments));
+
+        var _this3 = (0, _possibleConstructorReturn3.default)(this, (PendingInviteState.__proto__ || Object.getPrototypeOf(PendingInviteState)).call(this, signaling));
+
+        _this3._retries = retiresIn;
+        return _this3;
     }
 
     (0, _createClass3.default)(PendingInviteState, [{
@@ -15623,30 +18580,56 @@ var PendingInviteState = exports.PendingInviteState = function (_SignalingState2
                 resolve();
             });
         }
+
+        /**
+         * Send RTC invite to backend service
+         *
+         * @param sdp
+         * @param iceCandidates
+         */
+
     }, {
         key: 'invite',
         value: function invite(sdp, iceCandidates) {
             var self = this;
             var inviteId = (0, _v2.default)();
 
-            var inviteParams = {
-                sdp: sdp,
-                candidates: iceCandidates,
-                callContextToken: self._signaling._contactToken
-            };
+            var inviteParams;
+
+            if (self._signaling._pcm) {
+                inviteParams = {
+                    sdp: sdp,
+                    candidates: iceCandidates,
+                    callContextToken: self._signaling._contactToken, // could be null
+                    contactId: typeof self._signaling.callId === "undefined" ? "" : self._signaling.callId, // could be null
+                    browserId: self._signaling._pcm.browserId, // identical id for browser
+                    persistentConnection: self._signaling._pcm.isPPCEnabled, // flag which indicates if persistent connection is enabled in agent configuration
+                    peerConnectionId: self._signaling._pcm.peerConnectionId, // generate by peerconnection factory
+                    iceRestart: self._signaling._pcm._iceRestart, // will be true, if ice connection failed
+                    peerConnectionToken: self._signaling._pcm.peerConnectionToken
+                };
+            } else {
+                inviteParams = {
+                    sdp: sdp,
+                    candidates: iceCandidates,
+                    callContextToken: self._signaling._contactToken
+                };
+            }
+
             self.logger.log('Sending SDP', (0, _utils.getRedactedSdp)(sdp));
+
             self._signaling._wss.send(JSON.stringify({
                 jsonrpc: '2.0',
                 method: _rtc_const.INVITE_METHOD_NAME,
                 params: inviteParams,
                 id: inviteId
             }));
-            self.transit(new PendingAnswerState(self._signaling, inviteId));
+            self.transit(new PendingAnswerState(self._signaling, inviteId, this._retries));
         }
     }, {
         key: 'channelDown',
         value: function channelDown() {
-            this.transit(new FailedState(this._signaling));
+            this.transit(new FailedState(this._signaling, new _exceptions.SignalingChannelDownError()));
         }
     }, {
         key: 'name',
@@ -15660,26 +18643,66 @@ var PendingInviteState = exports.PendingInviteState = function (_SignalingState2
 var PendingAnswerState = exports.PendingAnswerState = function (_FailOnTimeoutState2) {
     (0, _inherits3.default)(PendingAnswerState, _FailOnTimeoutState2);
 
-    function PendingAnswerState(signaling, inviteId) {
+    /**
+     * Creates PendingAnswerState which resolves the answer of invite request
+     *
+     * @param signaling
+     * @param inviteId
+     */
+    function PendingAnswerState(signaling, inviteId, retriesIn) {
         (0, _classCallCheck3.default)(this, PendingAnswerState);
 
         var _this4 = (0, _possibleConstructorReturn3.default)(this, (PendingAnswerState.__proto__ || Object.getPrototypeOf(PendingAnswerState)).call(this, signaling, _rtc_const.MAX_INVITE_DELAY_MS));
 
         _this4._inviteId = inviteId;
+        _this4._retries = retriesIn || 0;
         return _this4;
     }
+
+    /**
+     * RPC message event handler
+     *
+     * @param msg response of invite request sent by backend service
+     * "result": {
+     *                 "candidates": ["List of ICE candidates"]
+     *                 "sdp": "SDP Object",
+     *                 "inactivityDuration": 600000 or 0,
+     *                 "peerConnectionId": "Peer Connection ID",
+     *                 "peerConnectionToken": "Peer Connection Token from RTPS"
+     *             }
+     */
+
 
     (0, _createClass3.default)(PendingAnswerState, [{
         key: 'onRpcMsg',
         value: function onRpcMsg(msg) {
             var self = this;
             if (msg.id === this._inviteId) {
+                // TODO: check peer connection id here
                 if (msg.error || !msg.result) {
-                    this.transit(new FailedState(this._signaling, self.translateInviteError(msg)));
+                    // Retry logic for invite error, currently is disabled
+                    if (++this._retries < INVITE_MAX_RETRIES) {
+                        this.transit(new PendingInviteState(this._signaling, this._retries));
+                    } else {
+                        this.transit(new FailedState(this._signaling, this.translateInviteError(msg)));
+                    }
                 } else {
                     new Promise(function notifyAnswered(resolve) {
                         self.logger.log('Received SDP', (0, _utils.getRedactedSdp)(msg.result.sdp));
-                        self._signaling._answeredHandler(msg.result.sdp, msg.result.candidates);
+                        if (self._signaling._pcm) {
+                            self._signaling._pcm.peerConnectionToken = msg.result.peerConnectionToken;
+                            self._signaling._pcm.peerConnectionId = msg.result.peerConnectionId;
+                            var isRTPSAllowlisted = !!msg.result.peerConnectionId; // if peerConnectionId is defined, isRTPSAllowlisted will be set to true, otherwise, it will remain false
+                            // when isRTPSAllowlisted flip from false to true, we need to close standby/early media connection
+                            if (isRTPSAllowlisted !== self._signaling._pcm.isRTPSAllowlisted && isRTPSAllowlisted) {
+                                self._signaling._pcm.closeEarlyMediaConnection();
+                            }
+                            self._signaling._pcm.isRTPSAllowlisted = isRTPSAllowlisted;
+                            self._signaling._answeredHandler(msg.result.sdp, msg.result.candidates, msg.result.inactivityDuration, msg.result.peerConnectionId, msg.result.peerConnectionToken);
+                        } else {
+                            self._signaling._answeredHandler(msg.result.sdp, msg.result.candidates);
+                        }
+                        self._signaling._isMediaClusterPath = !(msg.result.sdp.includes('AmazonConnect') && msg.result.sdp.includes('silenceSupp'));
                         resolve();
                     });
                     this.transit(new PendingAcceptState(this._signaling, this._signaling._autoAnswer));
@@ -15689,13 +18712,28 @@ var PendingAnswerState = exports.PendingAnswerState = function (_FailOnTimeoutSt
     }, {
         key: 'translateInviteError',
         value: function translateInviteError(msg) {
-            if (msg.error && msg.error.code == 486) {
+            if (msg.error && msg.error.code == 403) {
+                return new _exceptions.AccessDeniedException(msg.error.message);
+            } else if (msg.error && msg.error.code == 486) {
                 return new _exceptions.BusyException(msg.error.message);
             } else if (msg.error && msg.error.code == 404) {
-                return new _exceptions.CallNotFoundException(msg.error.message);
+                return new _exceptions.CallNotFoundException(msg.error.message); // ResourceNotFoundException
+            } else if (msg.error && msg.error.code == 400) {
+                return new _exceptions.BadRequestException(msg.error.message); // BadRequestException
+            } else if (msg.error && msg.error.code == 408) {
+                return new _exceptions.RequestTimeoutException(msg.error.message); // RequestTimeoutException
+            } else if (msg.error && msg.error.code == 409) {
+                return new _exceptions.IdempotencyException(msg.error.message); // IdempotencyException
+            } else if (msg.error && msg.error.code == 500) {
+                return new _exceptions.InternalServerException(msg.error.message); // InternalServerException
             } else {
                 return new _exceptions.UnknownSignalingError();
             }
+        }
+    }, {
+        key: 'hangup',
+        value: function hangup() {
+            this.transit(new FailedState(this._signaling, "Hangs up in PendingAnswerState"));
         }
     }, {
         key: 'name',
@@ -15709,12 +18747,20 @@ var PendingAnswerState = exports.PendingAnswerState = function (_FailOnTimeoutSt
 var PendingAcceptState = exports.PendingAcceptState = function (_SignalingState3) {
     (0, _inherits3.default)(PendingAcceptState, _SignalingState3);
 
-    function PendingAcceptState(signaling, autoAnswer) {
+    /**
+     * Creates PendingAcceptState which sends accpet request to backend server
+     *
+     * @param signaling - signaling Object
+     * @param autoAnswer - boolean object
+     * @param retriesIn - the number of retry times
+     */
+    function PendingAcceptState(signaling, autoAnswer, retriesIn) {
         (0, _classCallCheck3.default)(this, PendingAcceptState);
 
         var _this5 = (0, _possibleConstructorReturn3.default)(this, (PendingAcceptState.__proto__ || Object.getPrototypeOf(PendingAcceptState)).call(this, signaling));
 
         _this5._autoAnswer = autoAnswer;
+        _this5._retries = retriesIn;
         return _this5;
     }
 
@@ -15729,32 +18775,47 @@ var PendingAcceptState = exports.PendingAcceptState = function (_SignalingState3
         key: 'accept',
         value: function accept() {
             this.sendAcceptRequest();
-            this.transit(new TalkingState(this._signaling));
+            // if contactToken exists, signaling move to talking state. Otherwise, move to Idle state
+            if (this._signaling._pcm && this._signaling._pcm.isPersistentConnectionEnabled() && this._signaling._pcm.contactToken === null && this._signaling._isFirstTimeSetup) {
+                this.transit(new IdleState(this._signaling, this._acceptId, this._retries, _rtc_const.ACCEPT_METHOD_NAME));
+            } else {
+                this.transit(new TalkingState(this._signaling, this._acceptId, this._retries, _rtc_const.ACCEPT_METHOD_NAME));
+            }
         }
     }, {
         key: 'channelDown',
         value: function channelDown() {
-            this.transit(new FailedState(this._signaling));
+            this.transit(new FailedState(this._signaling, new _exceptions.SignalingChannelDownError()));
         }
     }, {
         key: 'sendAcceptRequest',
         value: function () {
             var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
-                var acceptId;
+                var acceptParams;
                 return _regenerator2.default.wrap(function _callee$(_context) {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
-                                acceptId = (0, _v2.default)();
+                                this._acceptId = (0, _v2.default)();
+                                acceptParams = {};
+
+                                if (this._signaling._pcm) {
+                                    acceptParams = {
+                                        contactId: typeof this._signaling._pcm.callId === "undefined" ? null : this._signaling._pcm.callId,
+                                        persistentConnection: this._signaling._pcm.isPPCEnabled,
+                                        peerConnectionId: this._signaling._pcm.peerConnectionId,
+                                        peerConnectionToken: this._signaling._pcm.peerConnectionToken
+                                    };
+                                }
 
                                 this._signaling._wss.send(JSON.stringify({
                                     jsonrpc: '2.0',
                                     method: _rtc_const.ACCEPT_METHOD_NAME,
-                                    params: {},
-                                    id: acceptId
+                                    params: acceptParams,
+                                    id: this._acceptId
                                 }));
 
-                            case 2:
+                            case 4:
                             case 'end':
                                 return _context.stop();
                         }
@@ -15777,16 +18838,75 @@ var PendingAcceptState = exports.PendingAcceptState = function (_SignalingState3
     return PendingAcceptState;
 }(SignalingState);
 
+/**
+ * PendingConnectContactState sends connectContact request to backend service
+ * when the peer connection has already established instead of sending a new invite request.
+ *
+ */
+
+
+var PendingConnectContactState = exports.PendingConnectContactState = function (_SignalingState4) {
+    (0, _inherits3.default)(PendingConnectContactState, _SignalingState4);
+
+    function PendingConnectContactState(signaling, retriesIn) {
+        (0, _classCallCheck3.default)(this, PendingConnectContactState);
+
+        var _this6 = (0, _possibleConstructorReturn3.default)(this, (PendingConnectContactState.__proto__ || Object.getPrototypeOf(PendingConnectContactState)).call(this, signaling));
+
+        _this6._retries = retriesIn;
+        return _this6;
+    }
+
+    (0, _createClass3.default)(PendingConnectContactState, [{
+        key: 'onEnter',
+        value: function onEnter() {
+            (0, _get3.default)(PendingConnectContactState.prototype.__proto__ || Object.getPrototypeOf(PendingConnectContactState.prototype), 'onEnter', this).call(this);
+            var self = this;
+            self.connectContact();
+        }
+    }, {
+        key: 'connectContact',
+        value: function connectContact() {
+            this._connectContactId = (0, _v2.default)();
+            var connectContactParams = {
+                contactId: this._signaling._pcm.callId,
+                persistentConnection: this._signaling._pcm.isPPCEnabled,
+                peerConnectionId: this._signaling._pcm.peerConnectionId,
+                peerConnectionToken: this._signaling._pcm.peerConnectionToken,
+                callContextToken: this._signaling._pcm.contactToken
+            };
+            this._signaling._wss._connectionId = this._signaling._pcm.connectionId;
+            this._signaling._connectionId = this._signaling._pcm.connectionId;
+            this._signaling._wss.send(JSON.stringify({
+                jsonrpc: '2.0',
+                method: _rtc_const.CONNECT_CONTACT_METHOD_NAME,
+                params: connectContactParams,
+                id: this._connectContactId
+            }));
+            this.transit(new TalkingState(this._signaling, this._connectContactId, this._retries, _rtc_const.CONNECT_CONTACT_METHOD_NAME));
+        }
+    }, {
+        key: 'name',
+        get: function get() {
+            return "PendingConnectContactState";
+        }
+    }]);
+    return PendingConnectContactState;
+}(SignalingState);
+
+// This State has never been initialized. (Can be deleted)
+
+
 var PendingAcceptAckState = exports.PendingAcceptAckState = function (_FailOnTimeoutState3) {
     (0, _inherits3.default)(PendingAcceptAckState, _FailOnTimeoutState3);
 
     function PendingAcceptAckState(signaling, acceptId) {
         (0, _classCallCheck3.default)(this, PendingAcceptAckState);
 
-        var _this6 = (0, _possibleConstructorReturn3.default)(this, (PendingAcceptAckState.__proto__ || Object.getPrototypeOf(PendingAcceptAckState)).call(this, signaling, _rtc_const.MAX_ACCEPT_BYE_DELAY_MS));
+        var _this7 = (0, _possibleConstructorReturn3.default)(this, (PendingAcceptAckState.__proto__ || Object.getPrototypeOf(PendingAcceptAckState)).call(this, signaling, _rtc_const.MAX_ACCEPT_BYE_DELAY_MS));
 
-        _this6._acceptId = acceptId;
-        return _this6;
+        _this7._acceptId = acceptId;
+        return _this7;
     }
 
     (0, _createClass3.default)(PendingAcceptAckState, [{
@@ -15794,7 +18914,7 @@ var PendingAcceptAckState = exports.PendingAcceptAckState = function (_FailOnTim
         value: function onRpcMsg(msg) {
             if (msg.id === this._acceptId) {
                 if (msg.error) {
-                    this.transit(new FailedState(this._signaling));
+                    this.transit(new FailedState(this._signaling, new _exceptions.SignalingChannelDownError()));
                 } else {
                     this._signaling._clientToken = msg.result.clientToken;
                     this.transit(new TalkingState(this._signaling));
@@ -15810,15 +18930,34 @@ var PendingAcceptAckState = exports.PendingAcceptAckState = function (_FailOnTim
     return PendingAcceptAckState;
 }(FailOnTimeoutState);
 
-var TalkingState = exports.TalkingState = function (_SignalingState4) {
-    (0, _inherits3.default)(TalkingState, _SignalingState4);
+/**
+ * After signaling handshake completes, if persistent connection is enabled, signaling channel moves to Idle state
+ *
+ */
 
-    function TalkingState() {
-        (0, _classCallCheck3.default)(this, TalkingState);
-        return (0, _possibleConstructorReturn3.default)(this, (TalkingState.__proto__ || Object.getPrototypeOf(TalkingState)).apply(this, arguments));
+
+var IdleState = exports.IdleState = function (_SignalingState5) {
+    (0, _inherits3.default)(IdleState, _SignalingState5);
+
+    /**
+     *
+     * @param signaling - signaling channel
+     * @param methodId - the id for the accept request
+     * @param retriesIn - the number of retry times
+     * @param retryMethod - the method we want to retry
+     */
+    function IdleState(signaling, methodId, retriesIn, retryMethod) {
+        (0, _classCallCheck3.default)(this, IdleState);
+
+        var _this8 = (0, _possibleConstructorReturn3.default)(this, (IdleState.__proto__ || Object.getPrototypeOf(IdleState)).call(this, signaling));
+
+        _this8._methodId = methodId;
+        _this8._retries = retriesIn || 0;
+        _this8._retryMethod = retryMethod;
+        return _this8;
     }
 
-    (0, _createClass3.default)(TalkingState, [{
+    (0, _createClass3.default)(IdleState, [{
         key: 'onEnter',
         value: function onEnter() {
             var self = this;
@@ -15826,18 +18965,184 @@ var TalkingState = exports.TalkingState = function (_SignalingState4) {
                 self._signaling._handshakedHandler();
                 resolve();
             });
+            self._signaling._pcm.startInactivityTimer();
+        }
+    }, {
+        key: 'connectContact',
+        value: function connectContact() {
+            this.transit(new PendingConnectContactState(this._signaling));
         }
     }, {
         key: 'hangup',
         value: function hangup() {
-            var byeId = (0, _v2.default)();
+            this.bye();
+        }
+    }, {
+        key: 'bye',
+        value: function bye() {
+            this._byeId = (0, _v2.default)();
             this._signaling._wss.send(JSON.stringify({
                 jsonrpc: '2.0',
                 method: _rtc_const.BYE_METHOD_NAME,
-                params: { callContextToken: this._signaling._contactToken },
-                id: byeId
+                params: {
+                    contactId: typeof this._signaling._pcm.callId === "undefined" ? null : this._signaling._pcm.callId,
+                    persistentConnection: this._signaling._pcm.isPPCEnabled,
+                    peerConnectionId: this._signaling._pcm.peerConnectionId,
+                    peerConnectionToken: this._signaling._pcm.peerConnectionToken,
+                    callContextToken: this._signaling._pcm.contactToken
+                },
+                id: this._byeId
             }));
-            this.transit(new PendingRemoteHangupState(this._signaling, byeId));
+
+            this.transit(new PendingRemoteHangupState(this._signaling, this._byeId));
+        }
+    }, {
+        key: 'onRpcMsg',
+        value: function onRpcMsg(msg) {
+            if (msg.method === _rtc_const.PC_BYE_METHOD_NAME) {
+                this.logger.log("Received PC bye from server, tear down the peer connection");
+                this.tearDownPeerConnection(msg.peerConnectionId);
+            } else if (msg.method === _rtc_const.BYE_METHOD_NAME) {
+                this.transit(new PendingLocalHangupState(this._signaling, msg.id));
+            } else if (msg.method === 'renewClientToken') {
+                this._signaling._clientToken = msg.params.clientToken;
+            } else if (this._signaling._pcm && msg.error && msg.id === this._methodId) {
+                if (this._retryMethod === _rtc_const.ACCEPT_METHOD_NAME && ++this._retries < ACCEPT_MAX_RETRIES) {
+                    this.transit(new PendingAcceptState(this._signaling, this._retries));
+                } else if (this._signaling._pcm._rtcSession) {
+                    // destroy signaling channel and peer connection when receives DisconnectContact error
+                    this._signaling._pcm.destroy();
+                } else {
+                    this.transit(new FailedState(this._signaling, this.translateResponseError(msg)));
+                }
+            }
+        }
+    }, {
+        key: 'tearDownPeerConnection',
+        value: function tearDownPeerConnection(peerConnectionId) {
+            if (peerConnectionId === this._signaling._pcm.peerConnectionId) {
+                this._signaling._pcm.destroy(peerConnectionId);
+                this.transit(new DisconnectedState(this._signaling));
+            } else {
+                this.logger.log("peerConnectionId in the PCBye request does NOT match the peerConnectionId of the existing peer connection, failed to tear down peer connection");
+            }
+        }
+    }, {
+        key: 'translateResponseError',
+        value: function translateResponseError(msg) {
+            if (msg.error && msg.error.code == 403) {
+                return new _exceptions.AccessDeniedException(msg.error.message);
+            } else if (msg.error && msg.error.code == 404) {
+                return new _exceptions.CallNotFoundException(msg.error.message); // ResourceNotFoundException
+            } else if (msg.error && msg.error.code == 400) {
+                return new _exceptions.BadRequestException(msg.error.message); // BadRequestException
+            } else if (msg.error && msg.error.code == 408) {
+                return new _exceptions.RequestTimeoutException(msg.error.message); // RequestTimeoutException
+            } else if (msg.error && msg.error.code == 500) {
+                return new _exceptions.InternalServerException(msg.error.message); // InternalServerException
+            } else {
+                return new _exceptions.UnknownSignalingError();
+            }
+        }
+    }, {
+        key: 'channelDown',
+        value: function channelDown() {
+            this._signaling._reconnect();
+            this._signaling.transit(new PendingReconnectState(this._signaling));
+        }
+    }, {
+        key: 'name',
+        get: function get() {
+            return "IdleState";
+        }
+    }]);
+    return IdleState;
+}(SignalingState);
+
+var TalkingState = exports.TalkingState = function (_SignalingState6) {
+    (0, _inherits3.default)(TalkingState, _SignalingState6);
+
+    /**
+     *
+     * @param signaling - signaling channel
+     * @param methodId - the id for the accept request
+     * @param retriesIn - the number of retry times
+     * @param retryMethod - the method we want to retry
+     */
+    function TalkingState(signaling, methodId, retriesIn, retryMethod) {
+        (0, _classCallCheck3.default)(this, TalkingState);
+
+        var _this9 = (0, _possibleConstructorReturn3.default)(this, (TalkingState.__proto__ || Object.getPrototypeOf(TalkingState)).call(this, signaling));
+
+        _this9._methodId = methodId;
+        _this9._retries = retriesIn || 0;
+        _this9._retryMethod = retryMethod;
+        return _this9;
+    }
+
+    (0, _createClass3.default)(TalkingState, [{
+        key: 'onEnter',
+        value: function onEnter() {
+            var self = this;
+            if (!self._signaling._pcm || !self._signaling._pcm.isPersistentConnectionEnabled() || self._signaling._isFirstTimeSetup) {
+                new Promise(function notifyHandshaked(resolve) {
+                    self._signaling._handshakedHandler();
+                    resolve();
+                });
+            }
+            self._signaling._isFirstTimeSetup = false;
+        }
+    }, {
+        key: 'hangup',
+        value: function hangup() {
+            if (this._signaling._pcm && this._signaling._pcm.isPersistentConnectionEnabled()) {
+                this.disconnectContact();
+            } else {
+                this.bye();
+            }
+        }
+    }, {
+        key: 'bye',
+        value: function bye() {
+            this._byeId = (0, _v2.default)();
+            var byeParams = {};
+            if (this._signaling._pcm) {
+                byeParams = {
+                    contactId: typeof this._signaling._pcm.callId === "undefined" ? null : this._signaling._pcm.callId,
+                    persistentConnection: this._signaling._pcm.isPPCEnabled,
+                    peerConnectionId: this._signaling._pcm.peerConnectionId,
+                    peerConnectionToken: this._signaling._pcm.peerConnectionToken,
+                    callContextToken: this._signaling._pcm.contactToken
+                };
+            } else {
+                byeParams = { callContextToken: this._signaling._contactToken };
+            }
+
+            this._signaling._wss.send(JSON.stringify({
+                jsonrpc: '2.0',
+                method: _rtc_const.BYE_METHOD_NAME,
+                params: byeParams,
+                id: this._byeId
+            }));
+
+            this.transit(new PendingRemoteHangupState(this._signaling, this._byeId));
+        }
+    }, {
+        key: 'disconnectContact',
+        value: function disconnectContact() {
+            this._disconnectContactId = (0, _v2.default)();
+            var self = this;
+            this._signaling._wss.send(JSON.stringify({
+                jsonrpc: '2.0',
+                method: _rtc_const.DISCONNECT_CONTACT_METHOD_NAME,
+                params: {
+                    contactId: self._signaling._pcm.callId,
+                    peerConnectionId: self._signaling._pcm.peerConnectionId,
+                    peerConnectionToken: self._signaling._pcm.peerConnectionToken
+                },
+                id: this._disconnectContactId
+            }));
+            this.transit(new IdleState(this._signaling, this._disconnectContactId));
         }
     }, {
         key: 'onRpcMsg',
@@ -15846,6 +19151,32 @@ var TalkingState = exports.TalkingState = function (_SignalingState4) {
                 this.transit(new PendingLocalHangupState(this._signaling, msg.id));
             } else if (msg.method === 'renewClientToken') {
                 this._signaling._clientToken = msg.params.clientToken;
+            } else if (this._signaling._pcm && msg.error && msg.id === this._methodId) {
+                if (this._retryMethod === _rtc_const.CONNECT_CONTACT_METHOD_NAME && ++this._retries < CONNECT_CONTACT_MAX_RETRIES) {
+                    this.transit(new PendingConnectContactState(this._signaling, this._retries));
+                } else if (this._retryMethod === _rtc_const.ACCEPT_METHOD_NAME && ++this._retries < ACCEPT_MAX_RETRIES) {
+                    this.transit(new PendingAcceptState(this._signaling, this._retries));
+                } else {
+                    this.transit(new FailedState(this._signaling, this.translateResponseError(msg)));
+                }
+            }
+        }
+    }, {
+        key: 'translateResponseError',
+        value: function translateResponseError(msg) {
+            if (msg.error && msg.error.code == 403) {
+                // AccessDeniedException
+                return new _exceptions.AccessDeniedException(msg.error.message);
+            } else if (msg.error.code == 404) {
+                return new _exceptions.CallNotFoundException(msg.error.message); // ResourceNotFoundException
+            } else if (msg.error.code == 400) {
+                return new _exceptions.BadRequestException(msg.error.message); // BadRequestException
+            } else if (msg.error.code == 408) {
+                return new _exceptions.RequestTimeoutException(msg.error.message); // RequestTimeoutException
+            } else if (msg.error.code == 500) {
+                return new _exceptions.InternalServerException(msg.error.message); // InternalServerException
+            } else {
+                return new _exceptions.UnknownSignalingError();
             }
         }
     }, {
@@ -15879,7 +19210,7 @@ var PendingReconnectState = exports.PendingReconnectState = function (_FailOnTim
     }, {
         key: 'channelDown',
         value: function channelDown() {
-            this.transit(new FailedState(this._signaling));
+            this.transit(new FailedState(this._signaling, new _exceptions.SignalingChannelDownError()));
         }
     }, {
         key: 'name',
@@ -15896,11 +19227,13 @@ var PendingRemoteHangupState = exports.PendingRemoteHangupState = function (_Fai
     function PendingRemoteHangupState(signaling, byeId) {
         (0, _classCallCheck3.default)(this, PendingRemoteHangupState);
 
-        var _this9 = (0, _possibleConstructorReturn3.default)(this, (PendingRemoteHangupState.__proto__ || Object.getPrototypeOf(PendingRemoteHangupState)).call(this, signaling, _rtc_const.MAX_ACCEPT_BYE_DELAY_MS));
+        var _this11 = (0, _possibleConstructorReturn3.default)(this, (PendingRemoteHangupState.__proto__ || Object.getPrototypeOf(PendingRemoteHangupState)).call(this, signaling, _rtc_const.MAX_ACCEPT_BYE_DELAY_MS));
 
-        _this9._byeId = byeId;
-        return _this9;
+        _this11._byeId = byeId;
+        return _this11;
     }
+    // response
+
 
     (0, _createClass3.default)(PendingRemoteHangupState, [{
         key: 'onRpcMsg',
@@ -15918,16 +19251,16 @@ var PendingRemoteHangupState = exports.PendingRemoteHangupState = function (_Fai
     return PendingRemoteHangupState;
 }(FailOnTimeoutState);
 
-var PendingLocalHangupState = exports.PendingLocalHangupState = function (_SignalingState5) {
-    (0, _inherits3.default)(PendingLocalHangupState, _SignalingState5);
+var PendingLocalHangupState = exports.PendingLocalHangupState = function (_SignalingState7) {
+    (0, _inherits3.default)(PendingLocalHangupState, _SignalingState7);
 
     function PendingLocalHangupState(signaling, byeId) {
         (0, _classCallCheck3.default)(this, PendingLocalHangupState);
 
-        var _this10 = (0, _possibleConstructorReturn3.default)(this, (PendingLocalHangupState.__proto__ || Object.getPrototypeOf(PendingLocalHangupState)).call(this, signaling));
+        var _this12 = (0, _possibleConstructorReturn3.default)(this, (PendingLocalHangupState.__proto__ || Object.getPrototypeOf(PendingLocalHangupState)).call(this, signaling));
 
-        _this10._byeId = byeId;
-        return _this10;
+        _this12._byeId = byeId;
+        return _this12;
     }
 
     (0, _createClass3.default)(PendingLocalHangupState, [{
@@ -15969,8 +19302,8 @@ var PendingLocalHangupState = exports.PendingLocalHangupState = function (_Signa
     return PendingLocalHangupState;
 }(SignalingState);
 
-var DisconnectedState = exports.DisconnectedState = function (_SignalingState6) {
-    (0, _inherits3.default)(DisconnectedState, _SignalingState6);
+var DisconnectedState = exports.DisconnectedState = function (_SignalingState8) {
+    (0, _inherits3.default)(DisconnectedState, _SignalingState8);
 
     function DisconnectedState() {
         (0, _classCallCheck3.default)(this, DisconnectedState);
@@ -16006,16 +19339,16 @@ var DisconnectedState = exports.DisconnectedState = function (_SignalingState6) 
     return DisconnectedState;
 }(SignalingState);
 
-var FailedState = exports.FailedState = function (_SignalingState7) {
-    (0, _inherits3.default)(FailedState, _SignalingState7);
+var FailedState = exports.FailedState = function (_SignalingState9) {
+    (0, _inherits3.default)(FailedState, _SignalingState9);
 
     function FailedState(signaling, exception) {
         (0, _classCallCheck3.default)(this, FailedState);
 
-        var _this12 = (0, _possibleConstructorReturn3.default)(this, (FailedState.__proto__ || Object.getPrototypeOf(FailedState)).call(this, signaling));
+        var _this14 = (0, _possibleConstructorReturn3.default)(this, (FailedState.__proto__ || Object.getPrototypeOf(FailedState)).call(this, signaling));
 
-        _this12._exception = exception;
-        return _this12;
+        _this14._exception = exception;
+        return _this14;
     }
 
     (0, _createClass3.default)(FailedState, [{
@@ -16023,10 +19356,43 @@ var FailedState = exports.FailedState = function (_SignalingState7) {
         value: function onEnter() {
             var self = this;
             new Promise(function notifyFailed(resolve) {
+                if (self._signaling._pcm && self._exception.name === _exceptions.AccessDeniedExceptionName) {
+                    self._signaling._pcm.isRTPSAllowlisted = false;
+                    self._signaling._pcm.closeEarlyMediaConnection();
+                }
                 self._signaling._failedHandler(self._exception);
                 resolve();
             });
-            this._signaling._wss.close();
+            if (!self._signaling._pcm) {
+                self._signaling._wss.close();
+            }
+        }
+    }, {
+        key: 'bye',
+        value: function bye() {
+            this._byeId = (0, _v2.default)();
+            this._signaling._wss.send(JSON.stringify({
+                jsonrpc: '2.0',
+                method: _rtc_const.BYE_METHOD_NAME,
+                params: {
+                    contactId: typeof this._signaling._pcm.callId === "undefined" ? null : this._signaling._pcm.callId,
+                    persistentConnection: this._signaling._pcm.isPPCEnabled,
+                    peerConnectionId: this._signaling._pcm.peerConnectionId,
+                    peerConnectionToken: this._signaling._pcm.peerConnectionToken,
+                    callContextToken: this._signaling._pcm.contactToken
+                },
+                id: this._byeId
+            }));
+        }
+    }, {
+        key: 'hangup',
+        value: function hangup() {
+            this.bye();
+        }
+    }, {
+        key: 'onRpcMsg',
+        value: function onRpcMsg() {
+            // Do nothing
         }
     }, {
         key: 'channelDown',
@@ -16048,7 +19414,10 @@ var FailedState = exports.FailedState = function (_SignalingState7) {
 }(SignalingState);
 
 var AmznRtcSignaling = function () {
+    // TODO: add javaScript doc here
     function AmznRtcSignaling(callId, signalingUri, contactToken, logger, connectTimeoutMs, connectionId, wssManager) {
+        var iceRestart = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
+        var persistentConnectionManager = arguments.length > 8 && arguments[8] !== undefined ? arguments[8] : null;
         (0, _classCallCheck3.default)(this, AmznRtcSignaling);
 
         this._callId = callId;
@@ -16059,6 +19428,9 @@ var AmznRtcSignaling = function () {
         this._logger = (0, _utils.wrapLogger)(logger, callId, 'SIGNALING');
         this._connectionId = connectionId;
         this._wssManager = wssManager;
+        this._iceRestart = iceRestart;
+        this._pcm = persistentConnectionManager;
+        this._isFirstTimeSetup = true;
 
         //empty event handlers
         this._connectedHandler = this._answeredHandler = this._handshakedHandler = this._reconnectedHandler = this._remoteHungupHandler = this._disconnectedHandler = this._failedHandler = function noOp() {};
@@ -16123,7 +19495,7 @@ var AmznRtcSignaling = function () {
         key: '_buildUriBase',
         value: function _buildUriBase() {
             var separator = '?';
-            if (this._signalingUri.indexOf(separator) > -1) {
+            if (!this._pcm && this._signalingUri.indexOf(separator) > -1) {
                 separator = '&';
             }
             return this._signalingUri + separator + 'callId=' + encodeURIComponent(this._callId);
@@ -16160,6 +19532,11 @@ var AmznRtcSignaling = function () {
             this.state.invite(sdp, iceCandidates);
         }
     }, {
+        key: 'connectContact',
+        value: function connectContact() {
+            this.state.connectContact();
+        }
+    }, {
         key: 'accept',
         value: function accept() {
             this.state.accept();
@@ -16170,9 +19547,19 @@ var AmznRtcSignaling = function () {
             this.state.hangup();
         }
     }, {
+        key: 'bye',
+        value: function bye() {
+            this.state.bye();
+        }
+    }, {
         key: 'callId',
         get: function get() {
             return this._callId;
+        }
+    }, {
+        key: 'iceRestart',
+        get: function get() {
+            return this._iceRestart;
         }
     }, {
         key: 'onConnected',
@@ -16220,7 +19607,7 @@ var AmznRtcSignaling = function () {
 
 exports.default = AmznRtcSignaling;
 
-},{"./exceptions":149,"./rtc_const":150,"./utils":160,"./virtual_wss_connection_manager":161,"babel-runtime/helpers/asyncToGenerator":14,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19,"babel-runtime/regenerator":23,"uuid/v4":134}],156:[function(require,module,exports){
+},{"./exceptions":152,"./rtc_const":153,"./utils":167,"./virtual_wss_connection_manager":168,"babel-runtime/helpers/asyncToGenerator":16,"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18,"babel-runtime/helpers/get":19,"babel-runtime/helpers/inherits":20,"babel-runtime/helpers/possibleConstructorReturn":21,"babel-runtime/regenerator":27,"uuid/v4":137}],161:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -16267,9 +19654,17 @@ var CCPInitiationStrategyInterface = function () {
         // the following functions are rtc_session related functions
 
     }, {
-        key: "_guM",
-        value: function _guM() {
-            console.error("_guM needs to be overridden");
+        key: "_gUM",
+        value: function _gUM() {
+            console.error("_gUM needs to be overridden");
+        }
+
+        // the following functions are rtc_session related functions
+
+    }, {
+        key: "_createMediaStream",
+        value: function _createMediaStream() {
+            console.error("_createMediaStream needs to be overridden");
         }
     }, {
         key: "addStream",
@@ -16280,6 +19675,11 @@ var CCPInitiationStrategyInterface = function () {
         key: "setRemoteDescription",
         value: function setRemoteDescription() {
             console.error("setRemoteDescription needs to be overridden");
+        }
+    }, {
+        key: "setRemoteDescriptionForIceRestart",
+        value: function setRemoteDescriptionForIceRestart() {
+            console.error("setRemoteDescriptionForIceRestart needs to be overridden");
         }
     }, {
         key: "onIceStateChange",
@@ -16317,7 +19717,7 @@ var CCPInitiationStrategyInterface = function () {
 
 exports.default = CCPInitiationStrategyInterface;
 
-},{"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16}],157:[function(require,module,exports){
+},{"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18}],162:[function(require,module,exports){
 (function (global){(function (){
 "use strict";
 
@@ -16367,18 +19767,38 @@ var CitrixVDIStrategy = function (_CCPInitiationStrateg) {
         _this.initCitrixWebRTC();
         _this.initGetCitrixWebrtcRedir();
         _this.initLog();
+        // version is an Citrix object in following format
+        // "version": {
+        //     "type_script": "3.1.0",
+        //         "webrpc": "1.7.0.0",
+        //         "webrtc_codecs": "0.0.0.0",
+        //         "receiver": "24.11.0.51",
+        //         "vda": "0.0.0.0",
+        //         "endpoint": "0.0.0.0",
+        //         "osinfo": {
+        //         "family": "Browser",
+        //             "version": "15.3.1",
+        //             "architecture": "",
+        //             "distro": "",
+        //             "edition": "Mac-Chrome(version:133.0.0.0, userAgent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36)"
+        //     },
+        //     "clientPlatform": "Browser"
+        // }
+        _this.version = "UNKNOWN";
         return _this;
     }
 
     (0, _createClass3.default)(CitrixVDIStrategy, [{
         key: "initCitrixWebRTC",
         value: function initCitrixWebRTC() {
+            var self = this;
             window.CitrixWebRTC.setVMEventCallback(function (event) {
                 if (event.event === 'vdiClientConnected') {
                     if (!window.CitrixWebRTC.isFeatureOn("webrtc1.0")) {
                         throw new Error('Citrix WebRTC redirection feature is NOT supported!');
                     }
                     console.log("CitrixVDIStrategy initialized");
+                    self.version = event.version;
                 } else if (event.event === 'vdiClientDisconnected') {
                     console.log("vdiClientDisconnected");
                 }
@@ -16421,6 +19841,11 @@ var CitrixVDIStrategy = function (_CCPInitiationStrateg) {
             return window.CitrixWebRTC.getUserMedia(constraints);
         }
     }, {
+        key: "_createMediaStream",
+        value: function _createMediaStream(track) {
+            return window.CitrixWebRTC.createMediaStream([track]);
+        }
+    }, {
         key: "addStream",
         value: function addStream(_pc, stream) {
             stream.getTracks().forEach(function (track) {
@@ -16430,6 +19855,16 @@ var CitrixVDIStrategy = function (_CCPInitiationStrateg) {
     }, {
         key: "setRemoteDescription",
         value: function setRemoteDescription(self, rtcSession) {
+            if (this.version && this.version.clientPlatform === "Browser") {
+                // ChromeOS does not support addIceCandidate yet.
+                self._candidates.forEach(function (candidate) {
+                    if (candidate && typeof candidate.candidate === 'string' && candidate.candidate.trim() !== '') {
+                        self._sdp += "a=" + candidate.candidate + "\n";
+                        self.logger.info('Updated SDP for ChromeOS', "a=" + candidate.candidate + "\n");
+                    }
+                });
+            }
+
             var answerSessionDescription = self._createSessionDescription({ type: 'answer', sdp: self._sdp });
 
             rtcSession._pc.setRemoteDescription(answerSessionDescription, function () {
@@ -16448,6 +19883,29 @@ var CitrixVDIStrategy = function (_CCPInitiationStrateg) {
                 rtcSession._stopSession();
                 rtcSession._sessionReport.setRemoteDescriptionFailure = true;
                 self.transit(new _rtc_session.FailedState(rtcSession, _rtc_const.RTC_ERRORS.SET_REMOTE_DESCRIPTION_FAILURE));
+            });
+        }
+
+        // Todo: modify the sdp for ChromeOS here by adding a=candidate line, once pc.setConfiguration is supported for IceRestart
+
+    }, {
+        key: "setRemoteDescriptionForIceRestart",
+        value: function setRemoteDescriptionForIceRestart(self, rtcSession) {
+            var answerSessionDescription = self._createSessionDescription({ type: 'answer', sdp: self._sdp });
+
+            rtcSession._pc.setRemoteDescription(answerSessionDescription, function () {
+                var remoteCandidatePromises = Promise.all(self._candidates.map(function (candidate) {
+                    var remoteCandidate = self._createRemoteCandidate(candidate);
+                    self.logger.info('Adding remote candidate', remoteCandidate);
+                    return rtcSession._pc.addIceCandidate(remoteCandidate);
+                }));
+                remoteCandidatePromises.catch(function (reason) {
+                    self.logger.warn('Error adding remote candidate', reason);
+                });
+                self._remoteDescriptionSetForIceRestart = true;
+                self._checkAndTransit();
+            }, function () {
+                self.onIceRestartFailure();
             });
         }
     }, {
@@ -16517,7 +19975,7 @@ var CitrixVDIStrategy = function (_CCPInitiationStrateg) {
 exports.default = CitrixVDIStrategy;
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../rtc_const":150,"../rtc_session":152,"./CCPInitiationStrategyInterface":156,"@citrix/ucsdk/CitrixWebRTC":2,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19}],158:[function(require,module,exports){
+},{"../rtc_const":153,"../rtc_session":156,"./CCPInitiationStrategyInterface":161,"@citrix/ucsdk/CitrixWebRTC":2,"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18,"babel-runtime/helpers/inherits":20,"babel-runtime/helpers/possibleConstructorReturn":21}],163:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -16629,6 +20087,11 @@ var DCVWebRTCStrategy = function (_CCPInitiationStrateg) {
             return this.proxy.getUserMedia(constraints);
         }
     }, {
+        key: "_createMediaStream",
+        value: function _createMediaStream(track) {
+            return new MediaStream([track]);
+        }
+    }, {
         key: "_createPeerConnection",
         value: function _createPeerConnection(configuration, optionalConfiguration) {
             return this.proxy.createPeerConnection(configuration, optionalConfiguration);
@@ -16671,6 +20134,33 @@ var DCVWebRTCStrategy = function (_CCPInitiationStrateg) {
                 rtcSession._stopSession();
                 rtcSession._sessionReport.setRemoteDescriptionFailure = true;
                 self.transit(new _rtc_session.FailedState(rtcSession, _rtc_const.RTC_ERRORS.SET_REMOTE_DESCRIPTION_FAILURE));
+            });
+        }
+    }, {
+        key: "setRemoteDescriptionForIceRestart",
+        value: function setRemoteDescriptionForIceRestart(self, rtcSession) {
+            var setRemoteDescriptionPromise = rtcSession._pc.setRemoteDescription(self._createSessionDescription({
+                type: _constants.ANSWER,
+                sdp: self._sdp
+            }));
+            setRemoteDescriptionPromise.catch(function (e) {
+                self.logger.error('SetRemoteDescription failed', e);
+            });
+            setRemoteDescriptionPromise.then(function () {
+                var remoteCandidatePromises = Promise.all(self._candidates.map(function (candidate) {
+                    var remoteCandidate = self._createRemoteCandidate(candidate);
+                    self.logger.info('Adding remote candidate', remoteCandidate);
+                    return rtcSession._pc.addIceCandidate(remoteCandidate);
+                }));
+                remoteCandidatePromises.catch(function (reason) {
+                    self.logger.warn('Error adding remote candidate', reason);
+                });
+                return remoteCandidatePromises;
+            }).then(function () {
+                self._remoteDescriptionSetForIceRestart = true;
+                self._checkAndTransit();
+            }).catch(function () {
+                self.onIceRestartFailure();
             });
         }
     }, {
@@ -16718,7 +20208,415 @@ var DCVWebRTCStrategy = function (_CCPInitiationStrateg) {
 
 exports.default = DCVWebRTCStrategy;
 
-},{"../config/constants":147,"../rtc_const":150,"../rtc_session":152,"./CCPInitiationStrategyInterface":156,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19,"babel-runtime/helpers/typeof":22}],159:[function(require,module,exports){
+},{"../config/constants":150,"../rtc_const":153,"../rtc_session":156,"./CCPInitiationStrategyInterface":161,"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18,"babel-runtime/helpers/inherits":20,"babel-runtime/helpers/possibleConstructorReturn":21,"babel-runtime/helpers/typeof":24}],164:[function(require,module,exports){
+(function (global){(function (){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _regenerator = require("babel-runtime/regenerator");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require("babel-runtime/helpers/asyncToGenerator");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require("babel-runtime/helpers/createClass");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require("babel-runtime/helpers/possibleConstructorReturn");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require("babel-runtime/helpers/inherits");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _CCPInitiationStrategyInterface = require("./CCPInitiationStrategyInterface");
+
+var _CCPInitiationStrategyInterface2 = _interopRequireDefault(_CCPInitiationStrategyInterface);
+
+var _rtc_session = require("../rtc_session");
+
+var _rtc_const = require("../rtc_const");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var OmnissaVDIStrategy = function (_CCPInitiationStrateg) {
+    (0, _inherits3.default)(OmnissaVDIStrategy, _CCPInitiationStrateg);
+
+    function OmnissaVDIStrategy() {
+        (0, _classCallCheck3.default)(this, OmnissaVDIStrategy);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (OmnissaVDIStrategy.__proto__ || Object.getPrototypeOf(OmnissaVDIStrategy)).call(this));
+
+        var self = _this;
+        self.topWindowName = "UNKNOWN";
+        self.hasRequestedTitle = false;
+
+        // Initialize Omnissa SDK dependencies
+        var HorizonWebRTCExtension = require('@euc-releases/horizon-webrtc-redir-sdk/HorizonWebRTCExtension');
+        var HorizonWebRtcRedirectionAPI = require('@euc-releases/horizon-webrtc-redir-sdk/HorizonSDKforWebRTCRedir');
+
+        // Attach SDK instances to window for global access
+        window.HorizonWebRTCExtension = HorizonWebRTCExtension;
+        window.HorizonWebRtcRedirectionAPI = HorizonWebRtcRedirectionAPI;
+
+        _this.globalWindowReference = null;
+
+        window.getHorizonClientID = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+            return _regenerator2.default.wrap(function _callee$(_context) {
+                while (1) {
+                    switch (_context.prev = _context.next) {
+                        case 0:
+                            return _context.abrupt("return", new Promise(function (resolve, reject) {
+                                window.HorizonWebRTCExtension.getHorizonClientID().then(function (clientID) {
+                                    console.log("getHorizonClientID resolved with:", clientID);
+                                    resolve(clientID);
+                                }).catch(function (error) {
+                                    console.error("Failed to get client ID: " + error);
+                                    reject("Failed to get client ID: " + error);
+                                });
+                            }));
+
+                        case 1:
+                        case "end":
+                            return _context.stop();
+                    }
+                }
+            }, _callee, this);
+        }));
+
+        window.getHorizonWSSPort = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+            return _regenerator2.default.wrap(function _callee2$(_context2) {
+                while (1) {
+                    switch (_context2.prev = _context2.next) {
+                        case 0:
+                            return _context2.abrupt("return", new Promise(function (resolve, reject) {
+                                window.HorizonWebRTCExtension.getHorizonWSSPort().then(function (wssPort) {
+                                    console.log("getHorizonWSSPort resolved with:", wssPort);
+                                    resolve(wssPort);
+                                }).catch(function (error) {
+                                    console.error("Failed to get WSS port: " + error);
+                                    reject("Failed to get WSS port: " + error);
+                                });
+                            }));
+
+                        case 1:
+                        case "end":
+                            return _context2.stop();
+                    }
+                }
+            }, _callee2, this);
+        }));
+
+        window.getHorizonWindowTitle = function () {
+            if (self.topWindowName.endsWith(_rtc_const.ACITVE_SOFTPHONE_TAB)) {
+                return self.topWindowName;
+            }
+
+            var currentTime = self.getCurrentTimeString();
+            try {
+                return self.setTopWindowName(top.document.title + currentTime + _rtc_const.ACITVE_SOFTPHONE_TAB);
+            } catch (error) {
+                self.setupMessageListener();
+                return self.topWindowName;
+            }
+        };
+
+        // Initialize SDK with logging and event handling
+        var prefix = "OmnissaVDI";
+        var appLogger = {
+            error: function error(msg) {
+                return global.connect.getLog().error(prefix + ": " + msg);
+            },
+            info: function info(msg) {
+                return global.connect.getLog().info(prefix + ": " + msg);
+            },
+            warn: function warn(msg) {
+                return global.connect.getLog().warn(prefix + ": " + msg);
+            }
+        };
+        var appName = "AmazonConnect";
+        var initResult = window.HorizonWebRtcRedirectionAPI.initSDK(appLogger, appName, _this.vmEventHandler);
+        if (!initResult) {
+            throw new Error('Omnissa WebRTC Redirection API failed to initialize');
+        }
+        return _this;
+    }
+
+    (0, _createClass3.default)(OmnissaVDIStrategy, [{
+        key: "vmEventHandler",
+        value: function vmEventHandler(event) {
+            var eventType = event.event;
+            console.log("Horizon WebRTCRedirSDK Event:", JSON.stringify(event));
+            switch (eventType) {
+                case "vdiClientConnected":
+                    console.log("Got event from WebRTCRedirSDK: vdiClientConnected");
+                    break;
+                case "vdiClientDisconnected":
+                    console.log("Got event from WebRTCRedirSDK: vdiClientDisconnected");
+                    break;
+                default:
+                    console.log("Got an unknown event from WebRTCRedirSDK: " + JSON.stringify(event));
+            }
+        }
+
+        /**
+         * Checks if early/standby media connection is supported
+         * @returns {boolean} Always returns false as early media connection is not supported in Omnissa VDI
+         *
+         * Note: Set to false based on testing - when set to true, calls go to missed state.
+         * This indicates Omnissa SDK does not support early media connections.
+         * Any changes to this value should be coordinated with Omnissa team and thoroughly tested.
+         */
+
+    }, {
+        key: "_isEarlyMediaConnectionSupported",
+        value: function _isEarlyMediaConnectionSupported() {
+            return false;
+        }
+    }, {
+        key: "_createRtcPeerConnection",
+        value: function _createRtcPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig) {
+            return window.HorizonWebRtcRedirectionAPI.newPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig);
+        }
+    }, {
+        key: "_gUM",
+        value: function _gUM(constraints) {
+            return window.HorizonWebRtcRedirectionAPI.getUserMedia(constraints);
+        }
+    }, {
+        key: "_createMediaStream",
+        value: function _createMediaStream(track) {
+            return window.HorizonWebRtcRedirectionAPI.newMediaStream([track]);
+        }
+    }, {
+        key: "_createPeerConnection",
+        value: function _createPeerConnection(configuration, optionalConfiguration) {
+            return window.HorizonWebRtcRedirectionAPI.newPeerConnection(configuration, optionalConfiguration);
+        }
+    }, {
+        key: "onIceStateChange",
+        value: function onIceStateChange(evt, _pc) {
+            return _pc.iceConnectionState;
+        }
+    }, {
+        key: "onPeerConnectionStateChange",
+        value: function onPeerConnectionStateChange(_pc) {
+            return _pc.connectionState;
+        }
+    }, {
+        key: "_buildMediaConstraints",
+        value: function _buildMediaConstraints(self, mediaConstraints) {
+            if (self._enableAudio) {
+                var audioConstraints = {};
+
+                // Verified with Omnissa: Using WebRTC default echo cancellation settings
+                // WebRTC echo cancellation is enabled by default
+
+                if (window.audio_input) {
+                    console.log('Setting deviceId to:', window.audio_input);
+                    audioConstraints.deviceId = window.audio_input;
+                } else {
+                    console.log('No audio input device specified');
+                }
+                // If we have any audio constraints, use them; otherwise just set to true
+                if (Object.keys(audioConstraints).length > 0) {
+                    console.log('Using specific audio constraints:', audioConstraints);
+                    mediaConstraints.audio = audioConstraints;
+                } else {
+                    console.log('No specific constraints, setting audio to true');
+                    mediaConstraints.audio = true;
+                }
+            } else {
+                console.log('Audio is disabled, setting audio to false');
+                mediaConstraints.audio = false;
+            }
+        }
+    }, {
+        key: "addStream",
+        value: function addStream(_pc, stream) {
+            stream.getTracks().forEach(function (track) {
+                _pc.addTrack(track, stream);
+            });
+        }
+    }, {
+        key: "setRemoteDescription",
+        value: function setRemoteDescription(self, rtcSession) {
+            var setRemoteDescriptionPromise = rtcSession._pc.setRemoteDescription(self._createSessionDescription({
+                type: 'answer',
+                sdp: self._sdp
+            }));
+            setRemoteDescriptionPromise.then(function () {
+                var remoteCandidatePromises = Promise.all(self._candidates.map(function (candidate) {
+                    var remoteCandidate = self._createRemoteCandidate(candidate);
+                    self.logger.info('Adding remote candidate', remoteCandidate);
+                    return rtcSession._pc.addIceCandidate(remoteCandidate);
+                }));
+                remoteCandidatePromises.catch(function (reason) {
+                    self.logger.warn('Error adding remote candidate', reason);
+                });
+                return remoteCandidatePromises;
+            }).then(function () {
+                rtcSession._sessionReport.setRemoteDescriptionFailure = false;
+                self._remoteDescriptionSet = true;
+                self._checkAndTransit();
+            }).catch(function () {
+                self.logger.error('Stopping session due to setRemoteDescription failure');
+                rtcSession._stopSession();
+                rtcSession._sessionReport.setRemoteDescriptionFailure = true;
+                self.transit(new _rtc_session.FailedState(rtcSession, _rtc_const.RTC_ERRORS.SET_REMOTE_DESCRIPTION_FAILURE));
+            });
+        }
+    }, {
+        key: "setRemoteDescriptionForIceRestart",
+        value: function setRemoteDescriptionForIceRestart(self, rtcSession) {
+            /**
+             * Check for Horizon client version compatibility
+             *
+             * Background:
+             * - Omnissa creates setConfiguration() method only in newer Horizon clients
+             * - Older clients won't have this method on the peerConnection object
+             *
+             * Why this check:
+             * 1. Different Horizon client versions have different capabilities
+             * 2. ICE restart feature is only available in newer versions (2503 and above)
+             * 3. Attempting ICE restart on older clients could cause errors
+             *
+             * Behavior:
+             * - If setConfiguration exists: Client supports ICE restart (proceed)
+             * - If not: Older client version (skip ICE restart)
+             */
+            if (rtcSession._pc.setConfiguration) {
+                self.logger.info('Modern Horizon client detected, proceeding with ICE restart');
+
+                var setRemoteDescriptionPromise = rtcSession._pc.setRemoteDescription(self._createSessionDescription({
+                    type: 'answer',
+                    sdp: self._sdp
+                }));
+                setRemoteDescriptionPromise.then(function () {
+                    var remoteCandidatePromises = Promise.all(self._candidates.map(function (candidate) {
+                        var remoteCandidate = self._createRemoteCandidate(candidate);
+                        self.logger.info('Adding remote candidate', remoteCandidate);
+                        return rtcSession._pc.addIceCandidate(remoteCandidate);
+                    }));
+                    remoteCandidatePromises.catch(function (reason) {
+                        self.logger.warn('Error adding remote candidate', reason);
+                    });
+                    return remoteCandidatePromises;
+                }).then(function () {
+                    self._remoteDescriptionSetForIceRestart = true;
+                    self._checkAndTransit();
+                }).catch(function (error) {
+                    self.logger.error('ICE restart failed', {
+                        error: error,
+                        peerConnectionState: rtcSession._pc.connectionState,
+                        iceConnectionState: rtcSession._pc.iceConnectionState,
+                        signalingState: rtcSession._pc.signalingState
+                    });
+                    self.onIceRestartFailure();
+                });
+            } else {
+                self.logger.error('Legacy Horizon client detected, skipping ICE restart');
+                self.onIceRestartFailure();
+            }
+        }
+    }, {
+        key: "_ontrack",
+        value: function _ontrack(self, evt) {
+            // Check for empty streams
+            if (evt.streams.length === 0) {
+                self._logger.warn('No streams found in the event');
+                return;
+            }
+            // Check for multiple streams
+            if (evt.streams.length > 1) {
+                self._logger.warn('Found more than 1 streams for ' + evt.track.kind + ' track ' + evt.track.id + ' : ' + evt.streams.map(function (stream) {
+                    return stream.id;
+                }).join(','));
+            }
+            var stream = evt.streams[0];
+            var audioTrack = stream.getAudioTracks()[0];
+
+            console.log("Audio Track:", audioTrack);
+            console.log("Checking value of stream: ", JSON.stringify(stream, null, 2));
+
+            // Set up remote audio element
+            if (stream.track[0].kind === 'audio' && self._remoteAudioElement) {
+                try {
+                    // TODO: Optimize audio element creation. Either use the same audio element or implement a cleanup mechanism
+                    // Currently creating a new element for each call.
+
+                    var remoteAudio = document.createElement('audio');
+                    remoteAudio.id = "remoteAudioElement" + 0;
+                    window.HorizonWebRtcRedirectionAPI.onAudioCreated(remoteAudio, this.globalWindowReference);
+                    remoteAudio.srcObject = stream;
+                    self._remoteAudioElement = remoteAudio;
+                    self._remoteAudioStream = stream;
+                } catch (e) {
+                    console.error("Failed to set srcObject on _remoteAudioElement:", e);
+                    return; // Return after error since we can't proceed
+                }
+            }
+
+            self._remoteAudioElement.autoplay = true;
+            self._remoteAudioElement.playsInline = true;
+        }
+    }, {
+        key: "getStrategyName",
+        value: function getStrategyName() {
+            return 'OmnissaVDIStrategy';
+        }
+    }, {
+        key: "getCurrentTimeString",
+        value: function getCurrentTimeString() {
+            var currentTime = new Date();
+            return " " + currentTime.getHours() + currentTime.getMinutes() + currentTime.getSeconds() + " ";
+        }
+    }, {
+        key: "setTopWindowName",
+        value: function setTopWindowName(title) {
+            var self = this;
+            top.document.title = title;
+            self.topWindowName = title;
+            return self.topWindowName;
+        }
+    }, {
+        key: "setupMessageListener",
+        value: function setupMessageListener() {
+            var self = this;
+            window.addEventListener('message', this.handleMessage.bind(this));
+
+            if (!self.hasRequestedTitle) {
+                self.hasRequestedTitle = true;
+                window.parent.postMessage({ type: 'get_horizon_window_title' }, '*');
+            }
+        }
+    }, {
+        key: "handleMessage",
+        value: function handleMessage(event) {
+            var self = this;
+            if (event.data.type === 'horizon_window_title_response') {
+                self.topWindowName = event.data.title;
+            }
+        }
+    }]);
+    return OmnissaVDIStrategy;
+}(_CCPInitiationStrategyInterface2.default);
+
+exports.default = OmnissaVDIStrategy;
+
+}).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"../rtc_const":153,"../rtc_session":156,"./CCPInitiationStrategyInterface":161,"@euc-releases/horizon-webrtc-redir-sdk/HorizonSDKforWebRTCRedir":3,"@euc-releases/horizon-webrtc-redir-sdk/HorizonWebRTCExtension":4,"babel-runtime/helpers/asyncToGenerator":16,"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18,"babel-runtime/helpers/inherits":20,"babel-runtime/helpers/possibleConstructorReturn":21,"babel-runtime/regenerator":27}],165:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -16788,6 +20686,11 @@ var StandardStrategy = function (_CCPInitiationStrateg) {
             return navigator.mediaDevices.getUserMedia(constraints);
         }
     }, {
+        key: "_createMediaStream",
+        value: function _createMediaStream(track) {
+            return new MediaStream([track]);
+        }
+    }, {
         key: "addStream",
         value: function addStream(_pc, stream) {
             _pc.addStream(stream);
@@ -16823,6 +20726,33 @@ var StandardStrategy = function (_CCPInitiationStrateg) {
             });
         }
     }, {
+        key: "setRemoteDescriptionForIceRestart",
+        value: function setRemoteDescriptionForIceRestart(self, rtcSession) {
+            var setRemoteDescriptionPromise = rtcSession._pc.setRemoteDescription(self._createSessionDescription({
+                type: 'answer',
+                sdp: self._sdp
+            }));
+            setRemoteDescriptionPromise.catch(function (e) {
+                self.logger.error('SetRemoteDescription failed', e);
+            });
+            setRemoteDescriptionPromise.then(function () {
+                var remoteCandidatePromises = Promise.all(self._candidates.map(function (candidate) {
+                    var remoteCandidate = self._createRemoteCandidate(candidate);
+                    self.logger.info('Adding remote candidate', remoteCandidate);
+                    return rtcSession._pc.addIceCandidate(remoteCandidate);
+                }));
+                remoteCandidatePromises.catch(function (reason) {
+                    self.logger.warn('Error adding remote candidate', reason);
+                });
+                return remoteCandidatePromises;
+            }).then(function () {
+                self._remoteDescriptionSetForIceRestart = true;
+                self._checkAndTransit();
+            }).catch(function () {
+                self.onIceRestartFailure();
+            });
+        }
+    }, {
         key: "onIceStateChange",
         value: function onIceStateChange(evt, _pc) {
             // eslint-disable-line no-unused-vars
@@ -16852,6 +20782,9 @@ var StandardStrategy = function (_CCPInitiationStrateg) {
             } else if (evt.track.kind === 'audio' && self._remoteAudioElement) {
                 self._remoteAudioElement.srcObject = evt.streams[0];
                 self._remoteAudioStream = evt.streams[0];
+                if (self._pcm) {
+                    self._pcm._remoteAudioStream = self._remoteAudioStream;
+                }
             }
         }
     }, {
@@ -16882,13 +20815,169 @@ var StandardStrategy = function (_CCPInitiationStrateg) {
 
 exports.default = StandardStrategy;
 
-},{"../rtc_const":150,"../rtc_session":152,"../utils":160,"./CCPInitiationStrategyInterface":156,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/inherits":18,"babel-runtime/helpers/possibleConstructorReturn":19}],160:[function(require,module,exports){
+},{"../rtc_const":153,"../rtc_session":156,"../utils":167,"./CCPInitiationStrategyInterface":161,"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18,"babel-runtime/helpers/inherits":20,"babel-runtime/helpers/possibleConstructorReturn":21}],166:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.UserAgentData = undefined;
+
+var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require("babel-runtime/helpers/createClass");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UserAgentData = exports.UserAgentData = function () {
+    function UserAgentData() {
+        (0, _classCallCheck3.default)(this, UserAgentData);
+
+        this._platform = null;
+        this._platformVersion = null;
+        this._architecture = null;
+        this._bitness = null;
+        this._browserBrand = null;
+        this._browserVersion = null;
+        this._mobile = false;
+        this._model = null;
+    }
+
+    /**
+     * Returns a string describing the platform the user agent is running on, like "Windows"
+     * @returns {string}
+     */
+
+
+    (0, _createClass3.default)(UserAgentData, [{
+        key: "platform",
+        get: function get() {
+            return this._platform;
+        }
+
+        /**
+         * A string containing the platform version. For example, "10.0".
+         * @returns {string}
+         */
+        ,
+        set: function set(value) {
+            this._platform = value;
+        }
+    }, {
+        key: "platformVersion",
+        get: function get() {
+            return this._platformVersion;
+        }
+
+        /**
+         * A string containing the platform architecture. For example, "x86"
+         * @returns {string}
+         */
+        ,
+        set: function set(value) {
+            this._platformVersion = value;
+        }
+    }, {
+        key: "architecture",
+        get: function get() {
+            return this._architecture;
+        }
+
+        /**
+         * A string containing the architecture bitness. For example, "32" or "64".
+         * @returns {string}
+         */
+        ,
+        set: function set(value) {
+            this._architecture = value;
+        }
+    }, {
+        key: "bitness",
+        get: function get() {
+            return this._bitness;
+        }
+
+        /**
+         * Returns browser brand
+         * @returns {string}
+         */
+        ,
+        set: function set(value) {
+            this._bitness = value;
+        }
+    }, {
+        key: "browserBrand",
+        get: function get() {
+            return this._browserBrand;
+        }
+
+        /**
+         * Returns browser version
+         * @returns {string}
+         */
+        ,
+        set: function set(value) {
+            this._browserBrand = value;
+        }
+    }, {
+        key: "browserVersion",
+        get: function get() {
+            return this._browserVersion;
+        }
+
+        /**
+         * Returns true if the user agent is running on a mobile device
+         * @returns {string}
+         */
+        ,
+        set: function set(value) {
+            this._browserVersion = value;
+        }
+    }, {
+        key: "mobile",
+        get: function get() {
+            return this._mobile;
+        }
+
+        /**
+         * A string containing the model of mobile device.
+         * @returns {string}
+         */
+        ,
+        set: function set(value) {
+            this._mobile = value;
+        }
+    }, {
+        key: "model",
+        get: function get() {
+            return this._model;
+        },
+        set: function set(value) {
+            this._model = value;
+        }
+    }]);
+    return UserAgentData;
+}();
+
+},{"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18}],167:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.SdpOptions = undefined;
+exports.getUserAgentData = exports.SdpOptions = undefined;
+
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -16898,34 +20987,117 @@ var _createClass2 = require('babel-runtime/helpers/createClass');
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
+/**
+ * Method to get userAgent data
+ */
+
+var getUserAgentData = exports.getUserAgentData = function () {
+    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        var userAgentData, result, browser, fallbackBrowser, userAgent, parser, parserResult;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+            while (1) {
+                switch (_context.prev = _context.next) {
+                    case 0:
+                        userAgentData = new _user_agent_data.UserAgentData();
+
+                        if (!navigator.userAgentData) {
+                            _context.next = 15;
+                            break;
+                        }
+
+                        _context.next = 4;
+                        return navigator.userAgentData.getHighEntropyValues(['platform', 'platformVersion', 'architecture', 'bitness', 'mobile', 'model', 'fullVersionList']);
+
+                    case 4:
+                        result = _context.sent;
+
+
+                        userAgentData.platform = result.platform;
+                        userAgentData.platformVersion = result.platformVersion;
+                        userAgentData.architecture = result.architecture;
+                        userAgentData.bitness = result.bitness;
+                        userAgentData.mobile = result.mobile;
+                        userAgentData.model = result.model;
+
+                        browser = result.fullVersionList.find(function (entry) {
+                            return _rtc_const.BROWSER_LIST.includes(entry.brand);
+                        });
+
+
+                        if (browser) {
+                            userAgentData.browserBrand = browser.brand;
+                            userAgentData.browserVersion = browser.version;
+                        } else {
+                            // Fallback to the first available browser brand
+                            fallbackBrowser = result.fullVersionList.find(function (entry) {
+                                return entry.brand !== 'Not A Brand';
+                            });
+
+                            userAgentData.browserBrand = fallbackBrowser ? fallbackBrowser.brand : 'Unknown';
+                            userAgentData.browserVersion = fallbackBrowser ? fallbackBrowser.version : 'Unknown';
+                        }
+                        _context.next = 23;
+                        break;
+
+                    case 15:
+                        // Fallback to user-agent string parsing
+                        userAgent = navigator.userAgent;
+                        parser = new _uaParserJs2.default(userAgent);
+                        parserResult = parser.getResult();
+
+
+                        userAgentData.browserBrand = parserResult.browser.name || 'Unknown';
+                        userAgentData.browserVersion = parserResult.browser.version || 'Unknown';
+                        userAgentData.platform = parserResult.os.name || 'Unknown';
+                        userAgentData.platformVersion = parserResult.os.version || 'Unknown';
+                        userAgentData.architecture = parserResult.cpu.architecture || 'Unknown';
+
+                    case 23:
+                        return _context.abrupt('return', userAgentData);
+
+                    case 24:
+                    case 'end':
+                        return _context.stop();
+                }
+            }
+        }, _callee, this);
+    }));
+
+    return function getUserAgentData() {
+        return _ref.apply(this, arguments);
+    };
+}();
+
 exports.hitch = hitch;
 exports.wrapLogger = wrapLogger;
 exports.closeStream = closeStream;
 exports.transformSdp = transformSdp;
 exports.is_defined = is_defined;
 exports.when_defined = when_defined;
-exports.isLegacyStatsReportSupported = isLegacyStatsReportSupported;
 exports.isFunction = isFunction;
 exports.assertTrue = assertTrue;
 exports.isChromeBrowser = isChromeBrowser;
 exports.getChromeBrowserVersion = getChromeBrowserVersion;
 exports.getRedactedSdp = getRedactedSdp;
+exports.isFirefoxBrowser = isFirefoxBrowser;
 
 var _exceptions = require('./exceptions');
 
 var _sdp = require('sdp');
+
+var _user_agent_data = require('./user_agent_data');
+
+var _rtc_const = require('./rtc_const');
+
+var _uaParserJs = require('ua-parser-js');
+
+var _uaParserJs2 = _interopRequireDefault(_uaParserJs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * All logging methods used by connect-rtc.
  */
-/**
- * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
 var logMethods = ['log', 'info', 'warn', 'error'];
 
 /**
@@ -16942,6 +21114,12 @@ var logMethods = ['log', 'info', 'warn', 'error'];
  * @return A closure encapsulating the invocation of the
  *    method provided in context of the given instance.
  */
+/**
+ * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 function hitch() {
     var args = Array.prototype.slice.call(arguments);
     var scope = args.shift();
@@ -17149,20 +21327,6 @@ function when_defined(v, alternativeIn) {
 }
 
 /**
- * Check if the getStats API for retrieving legacy stats report is supported
- */
-function isLegacyStatsReportSupported(pc) {
-    return new Promise(function (resolve) {
-        pc.getStats(function () {
-            resolve(true);
-        }).catch(function () {
-            // Exception thrown if browser does not support legacy stats report
-            resolve(false);
-        });
-    });
-}
-
-/**
  * Determine if the given value is a callable function type.
  * Borrowed from Underscore.js.
  */
@@ -17199,9 +21363,15 @@ function getRedactedSdp(sdp) {
 
     // Use the replace method to redact the value with '[redacted]'
     return sdp.replace(pattern, 'a=ice-pwd:[redacted]');
+}function isFirefoxBrowser(userAgentData) {
+    if (userAgentData) {
+        return userAgentData.browserBrand.toUpperCase() === _rtc_const.FIREFOX.toUpperCase();
+    } else {
+        return navigator.userAgent.indexOf(_rtc_const.FIREFOX) !== -1;
+    }
 }
 
-},{"./exceptions":149,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"sdp":131}],161:[function(require,module,exports){
+},{"./exceptions":152,"./rtc_const":153,"./user_agent_data":166,"babel-runtime/helpers/asyncToGenerator":16,"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18,"babel-runtime/regenerator":27,"sdp":133,"ua-parser-js":134}],168:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17289,4 +21459,4 @@ var VirtualWssConnectionManager = function () {
 
 exports.default = VirtualWssConnectionManager;
 
-},{"./rtc_const":150,"./utils":160,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16}]},{},[1,148]);
+},{"./rtc_const":153,"./utils":167,"babel-runtime/helpers/classCallCheck":17,"babel-runtime/helpers/createClass":18}]},{},[1,151]);
