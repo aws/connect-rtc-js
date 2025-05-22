@@ -7,6 +7,21 @@ It implements Amazon Connect WebRTC signaling protocol and integrates with brows
 ## Usage ##
 ### Prebuilt releases
 In the [gh-pages branch](https://github.com/aws/connect-rtc-js/tree/gh-pages) prebuilt ready to use files can be downloaded/linked directly.
+
+## Working with GitHub registry for Omnissa
+
+**Ensure this step is followed before running** ```npm install```
+
+Please refer to this [GitHub article](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry) to authenticate your project and use our public registry.
+
+You will need to create a github token and either authenticate directly or use/create an .npmrc file within your project. An example .npmrc
+file is as follows:
+
+```
+@euc-releases:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=<GITHUB_TOKEN>
+```
+
 ### Build your own
 1. Install latest LTS version of [NodeJS](https://nodejs.org)
 2. Install [Grunt](https://gruntjs.com/)
