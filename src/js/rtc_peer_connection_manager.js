@@ -80,12 +80,7 @@ export default class RtcPeerConnectionManager {
             this._requestIceAccess = transportHandle;
             this._publishError = publishError;
             this._initializeWebSocketEventListeners();
-            this.requestPeerConnection().then(() => { // request peer connection when initializing RtcPeerConnectionManager
-                if (this.isPersistentConnectionEnabled() && !this._contactToken) {
-                    this.createSession();
-                    this._rtcSessionConnectPromise = this.connect();
-                }
-            });
+            this.requestPeerConnection(); // request peer connection when initializing RtcPeerConnectionManager
             this._networkConnectivityChecker();
             RtcPeerConnectionManager.instance = this;
             this._logger.info("Initializing Peer Connection Manager...");
@@ -650,14 +645,9 @@ export default class RtcPeerConnectionManager {
         }
     }
 
-    // activate persistent connection mode by creating the persistent connection and close standby peer connection
+    // activate persistent connection mode by closing standby peer connection
     activatePersistentPeerConnectionMode() {
-        // this.rtcJsStrategy = this.rtcJsStrategy;
         this.closeEarlyMediaConnection(); // close standby peer connection
-        this.requestPeerConnection().then(() => { // request a new persistent peer connection
-            this.createSession();
-            this._rtcSessionConnectPromise = this.connect();
-        });
     }
 
     // deactivate persistent connection mode by destroying the existing persistent peer connection and request for standby peer connection

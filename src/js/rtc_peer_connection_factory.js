@@ -30,7 +30,7 @@ export default class RtcPeerConnectionFactory {
         this._initializeWebSocketEventListeners();
         this._requestPeerConnection();
         this._networkConnectivityChecker();
-
+        this._closed = false;
         this._logger.log("RTC.js is using " + strategy.getStrategyName());
     }
 
@@ -87,9 +87,13 @@ export default class RtcPeerConnectionFactory {
         if (!self._peerConnectionRequestInFlight && self._earlyMediaConnectionSupported) {
             self._peerConnectionRequestInFlight = true;
             self._requestIceAccess().then(function (response) {
+                if (self._closed){
+                         self._logger.log("RtcPeerConnectionFactory is already closed, skips creating idle peer connection for " + self._clientId);
+                     } else{
                     self._idlePc = self._createRtcPeerConnection(response);
                     self._peerConnectionRequestInFlight = false;
                     self._idleRtcPeerConnectionTimerId = setTimeout(hitch(self, self._refreshRtcPeerConnection), RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS);
+                }
                 },
                 // eslint-disable-next-line no-unused-vars
                 function (reason) {
@@ -117,15 +121,17 @@ export default class RtcPeerConnectionFactory {
     }
 
     _clearIdleRtcPeerConnection() {
-        this._logger.log("session is idle from long time. closing the peer connection for client " + this._clientId);
+        this._logger.log("RtcPeerConnectionFactory: session is idle from long time. closing the peer connection for client " + this._clientId);
         this._closeRTCPeerConnection();
     }
 
     _refreshRtcPeerConnection() {
         this._idleRtcPeerConnectionTimerId = null;
         this._clearIdleRtcPeerConnection();
-        this._logger.log("RtcPeerConnectionFactory is refreshing peer connection for client " + this._clientId);
-        this._requestPeerConnection();
+        if (!this._closed){
+            this._logger.log("RtcPeerConnectionFactory is refreshing peer connection for client " + this._clientId);
+            this._requestPeerConnection();
+        }
     }
 
     _closeRTCPeerConnection() {
@@ -137,6 +143,8 @@ export default class RtcPeerConnectionFactory {
 
     // Clear idle peer connection timer first and then close the idle peer connection.
     close() {
+        this._logger.log("RtcPeerConnectionFactory close method invoked. Clear timer and close idle peer connection " + this._clientId);
+        this._closed = true;
         this._logger.log("close method invoked. Clear timer and close idle peer connection " + this._clientId);
         this.clearIdleRtcPeerConnectionTimerId();
         this._closeRTCPeerConnection();
