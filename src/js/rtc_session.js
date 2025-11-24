@@ -1251,6 +1251,16 @@ export default class RtcSession {
             return Promise.reject(new IllegalState());
         }
     }
+    /**
+     * Get a promise containing raw object all RTCPeerConnection stats.
+     * @return Rejected promise if failed to get MediaRtpStats. The promise is never resolved with null value.
+     */
+    async getStatsRaw() {
+        if (this._pc && this._pc.signalingState === 'stable') {
+            return await this._pc.getStats(null);
+        }
+        return Promise.reject(new IllegalState());
+    }
 
 
     /**
