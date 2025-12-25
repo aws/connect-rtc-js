@@ -3,7 +3,7 @@ $(document).ready(function () {
     var videoElement = $('#remoteVideo')[0];
 
     if (window.location.hash) {
-        $('#softphoneMediaInfo').val(decodeURIComponent(window.location.hash.substr(1)));
+        $('#softphoneMediaInfo').val(decodeURIComponent(window.location.hash.slice(1)));
     }
 
     $('#makeCall').click(function () {
