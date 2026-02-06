@@ -2,10 +2,12 @@ import sinon from 'sinon';
 let jsdom = require('mocha-jsdom');
 
 global.jsdom = jsdom;
-global.navigator = {
+Object.defineProperty(global, 'navigator', {
+  value: {
     userAgent: {match: sinon.stub().returns({}),
         indexOf: sinon.stub().returns({})},
-};
+  }
+})
 
 
 global.document = {
