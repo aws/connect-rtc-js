@@ -8,7 +8,7 @@ import './test-setup';
 import RtcPeerConnectionFactory from '../../src/js/rtc_peer_connection_factory';
 import chai from 'chai';
 import sinon from 'sinon';
-import {RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS} from "../../src/js/rtc_const";
+import { RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS } from "../../src/js/rtc_const";
 import StandardStrategy from "../../src/js/strategies/StandardStrategy";
 
 describe('RTC Peer Connection Factory', () => {
@@ -28,21 +28,23 @@ describe('RTC Peer Connection Factory', () => {
             chai.assert(console.log.calledWith('StandardStrategy initialized'));
         });
 
-        it('check _peerConnectionRequestInFlight eventually resolves to false', async() => {
+        it('check _peerConnectionRequestInFlight eventually resolves to false', async () => {
             await chai.assert(requestAccessStub.calledOnce);
             chai.assert(createPeerConnectionStub.calledOnce);
             chai.assert(createPeerConnectionStub.calledWith('iceServer'));
             chai.assert.isFalse(pcFactory._peerConnectionRequestInFlight);
         });
 
-        it('check _idleRtcPeerConnectionTimerId is set and _refreshRtcPeerConnection is set to invoke in 1 minute', async() => {
+        it('check _idleRtcPeerConnectionTimerId is set and _refreshRtcPeerConnection is set to invoke in 1 minute', async () => {
             chai.assert.isNotNull(pcFactory._idleRtcPeerConnectionTimerId);
             chai.expect(pcFactory._idleRtcPeerConnectionTimerId).to.have.property('_idleTimeout');
-            chai.assert(setTimeoutSpy.calledOnce);
-            setTimeoutSpy.calledWithExactly(pcFactory._refreshRtcPeerConnection, 60000);
+            const setTimeoutCalls = setTimeoutSpy.getCalls();
+            const refreshCall = setTimeoutCalls.find(call => call.args[1] === 60000);
+            chai.assert.isNotNull(refreshCall, 'setTimeout should be called with 60000ms timeout');
+            chai.assert.isFunction(refreshCall.args[0], 'First argument should be a function');
         });
 
-        it('check _refreshPeerConnection will close idle peer connection and request a new one', async() => {
+        it('check _refreshPeerConnection will close idle peer connection and request a new one', async () => {
             requestAccessStub.resetHistory();
             createPeerConnectionStub.resetHistory();
             pcFactory._refreshRtcPeerConnection();
@@ -53,7 +55,7 @@ describe('RTC Peer Connection Factory', () => {
             chai.assert.isFalse(pcFactory._peerConnectionRequestInFlight);
         });
 
-        it('check create peer connection is called when _peerConnectionRequestInFlight is false', async() => {
+        it('check create peer connection is called when _peerConnectionRequestInFlight is false', async () => {
             requestAccessStub.resetHistory();
             createPeerConnectionStub.resetHistory();
             pcFactory._peerConnectionRequestInFlight = false;
@@ -65,7 +67,7 @@ describe('RTC Peer Connection Factory', () => {
             chai.assert.isFalse(pcFactory._peerConnectionRequestInFlight);
         });
 
-        it('check create peer connection is not called when _peerConnectionRequestInFlight is false and request ICE access promise is not fulfilled', async() => {
+        it('check create peer connection is not called when _peerConnectionRequestInFlight is false and request ICE access promise is not fulfilled', async () => {
             requestAccessStub.resetHistory();
             createPeerConnectionStub.resetHistory();
             pcFactory._peerConnectionRequestInFlight = false;
@@ -87,7 +89,7 @@ describe('RTC Peer Connection Factory', () => {
         });
 
         it('check clearIdleRtcPeerConnectionTimerId clears timer id', () => {
-            pcFactory._idleRtcPeerConnectionTimerId = setTimeout(() => {console.log('clearIdleRtcPeerConnectionTimerIdTest');}, RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS);
+            pcFactory._idleRtcPeerConnectionTimerId = setTimeout(() => { console.log('clearIdleRtcPeerConnectionTimerIdTest'); }, RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS);
             chai.assert.isNotNull(pcFactory._idleRtcPeerConnectionTimerId);
             pcFactory.clearIdleRtcPeerConnectionTimerId();
             chai.assert.isNull(pcFactory._idleRtcPeerConnectionTimerId);
@@ -95,7 +97,7 @@ describe('RTC Peer Connection Factory', () => {
 
         it('check close clears _idleRtcPeerConnectionTimerId and closes idle peer connection', () => {
             closePeerConnectionStub.resetHistory();
-            pcFactory._idleRtcPeerConnectionTimerId = setTimeout(() => {console.log('clearIdleRtcPeerConnectionTimerIdTest');}, 0);
+            pcFactory._idleRtcPeerConnectionTimerId = setTimeout(() => { console.log('clearIdleRtcPeerConnectionTimerIdTest'); }, 0);
             chai.assert.isNotNull(pcFactory._idleRtcPeerConnectionTimerId);
             pcFactory.close();
             chai.assert.isNull(pcFactory._idleRtcPeerConnectionTimerId);

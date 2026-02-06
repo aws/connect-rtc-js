@@ -2,8 +2,8 @@ import uuid from "uuid/v4";
 import StandardStrategy from "./strategies/StandardStrategy";
 import CCPInitiationStrategyInterface from "./strategies/CCPInitiationStrategyInterface";
 import RtcSession from "./rtc_session";
-import {IllegalParameters} from "./exceptions";
-import {assertTrue, getUserAgentData, hitch, isFunction, isFirefoxBrowser, wrapLogger} from "./utils";
+import { IllegalParameters } from "./exceptions";
+import { assertTrue, getUserAgentData, hitch, isFunction, isFirefoxBrowser, wrapLogger } from "./utils";
 import {
     DEFAULT_ICE_CANDIDATE_POOL_SIZE,
     NETWORK_CONNECTIVITY_CHECK_INTERVAL_MS, RTC_PEER_CONNECTION_CONFIG,
@@ -12,6 +12,7 @@ import {
     SOFTPHONE_ROUTE_KEY,
     ICE_CONNECTION_STATE
 } from "./rtc_const";
+import { CITRIX_VDI_STRATEGY } from "./config/constants";
 
 export default class RtcPeerConnectionManager {
 
@@ -76,11 +77,20 @@ export default class RtcPeerConnectionManager {
             this._peerConnectionId = null;
             this._browserId = browserId;
             this._clientId = clientId;
+            this._isUnhealthyPersistentPeerConnection = false;
+            if (this._strategy.onConnectionNeedingCleanup && typeof this._strategy.onConnectionNeedingCleanup === 'function') {
+                this._strategy.onConnectionNeedingCleanup(() => this._handleConnectionCleanup());
+            }
 
             this._requestIceAccess = transportHandle;
             this._publishError = publishError;
             this._initializeWebSocketEventListeners();
-            this.requestPeerConnection(); // request peer connection when initializing RtcPeerConnectionManager
+            this.requestPeerConnection().then(() => { // request peer connection when initializing RtcPeerConnectionManager
+                if (this.isPersistentConnectionEnabled() && !this._contactToken) {
+                    this.createSession();
+                    this._rtcSessionConnectPromise = this.connect();
+                }
+            });
             this._networkConnectivityChecker();
             RtcPeerConnectionManager.instance = this;
             this._logger.info("Initializing Peer Connection Manager...");
@@ -196,12 +206,12 @@ export default class RtcPeerConnectionManager {
                 self._peerConnectionRequestInFlight = false;
                 self._idleRtcPeerConnectionTimerId = setTimeout(hitch(self, self._refreshRtcPeerConnection), RTC_PEER_CONNECTION_IDLE_TIMEOUT_MS);
             },
-            // eslint-disable-next-line no-unused-vars
-            function (reason) {
-                self._peerConnectionRequestInFlight = false;
-            }).catch((error) => {
-                self._logger.info("RtcPeerConnectionManager request ICE access failed for idle peer connection creation. ", error);
-            });
+                // eslint-disable-next-line no-unused-vars
+                function (reason) {
+                    self._peerConnectionRequestInFlight = false;
+                }).catch((error) => {
+                    self._logger.info("RtcPeerConnectionManager request ICE access failed for idle peer connection creation. ", error);
+                });
         }
     }
 
@@ -214,7 +224,7 @@ export default class RtcPeerConnectionManager {
         setInterval(function () {
             if (!navigator.onLine && self._idlePc) {
                 self._logger.log("Network offline. Cleaning up early connection");
-                self._idlePc.close();
+                self._strategy.close(self._idlePc);
                 self._idlePc = null;
             }
         }, NETWORK_CONNECTIVITY_CHECK_INTERVAL_MS);
@@ -256,7 +266,7 @@ export default class RtcPeerConnectionManager {
 
     _closeIdleRTCPeerConnection() {
         if (this._idlePc) {
-            this._idlePc.close();
+            this._strategy.close(this._idlePc);
             this._idlePc = null;
         }
     }
@@ -377,6 +387,16 @@ export default class RtcPeerConnectionManager {
      * @return {RtcSession} rtcSession
      */
     createSession(callId, iceServers, contactToken, connectionId, wssManager, rtcJsStrategy = new StandardStrategy()) {
+
+        if(this._isUnhealthyPersistentPeerConnection) {
+            this._rtcSession = null;
+            this._iceServers = null;
+            this.destroy();
+            this._contactToken = null;
+            this._callId = null;
+            this._logger.info("connection health check failed during pre-call verification, tearing down the connection to create a fresh one");
+            this._isUnhealthyPersistentPeerConnection = false;
+        }
         this._callId = callId ? callId : this._callId;
         this._iceServers = iceServers ? iceServers : this._iceServers;
         this._contactToken = contactToken ? contactToken : this._contactToken;
@@ -405,6 +425,13 @@ export default class RtcPeerConnectionManager {
             this._rtcSession.remoteAudioElement = document.getElementById('remote-audio') || window.parent.parent.document.getElementById('remote-audio');
             this._remoteAudioElement = this._rtcSession.remoteAudioElement;
         }
+
+        if (this._rtcSession._strategy && typeof this._rtcSession._strategy.getStrategyName === 'function') {
+            const strategyName = this._rtcSession._strategy.getStrategyName();
+            if (strategyName === CITRIX_VDI_STRATEGY) {
+                this._rtcSession._sessionReport.citrixVersion = this._rtcSession._strategy.version
+            }
+        }
         return this._rtcSession;
     }
 
@@ -430,7 +457,7 @@ export default class RtcPeerConnectionManager {
         if (self._rtcSessionConnectPromise) {
             try {
                 await self._rtcSessionConnectPromise;
-            } catch(e) {
+            } catch (e) {
                 // notify softphoneManger the current rtcSession is failed to trigger the retry strategy on SoftphoneManager side
                 this._rtcSession._onSessionFailed(this._rtcSession, e.name);
                 self._rtcSession = null;
@@ -498,7 +525,7 @@ export default class RtcPeerConnectionManager {
         if (!this._userAgentData) {
             this._userAgentData = await getUserAgentData().catch(error => {
                 self.logger.error("Peer connection manager failed to get user agent data", error);
-              });
+            });
         }
         // Add useragent to rtcSession report
         this._rtcSession._sessionReport.userAgentData = JSON.stringify(this._userAgentData);
@@ -606,7 +633,7 @@ export default class RtcPeerConnectionManager {
                     }
                 }
                 this._signalingChannel = null;
-                this._pc.close();
+                this._strategy.close(this._pc);
                 this._pc = null;
                 this._peerConnectionId = null;
                 this._peerConnectionToken = null;
@@ -645,9 +672,14 @@ export default class RtcPeerConnectionManager {
         }
     }
 
-    // activate persistent connection mode by closing standby peer connection
+    // activate persistent connection mode by creating the persistent connection and close standby peer connection
     activatePersistentPeerConnectionMode() {
+        // this.rtcJsStrategy = this.rtcJsStrategy;
         this.closeEarlyMediaConnection(); // close standby peer connection
+        this.requestPeerConnection().then(() => { // request a new persistent peer connection
+            this.createSession();
+            this._rtcSessionConnectPromise = this.connect();
+        });
     }
 
     // deactivate persistent connection mode by destroying the existing persistent peer connection and request for standby peer connection
@@ -681,5 +713,14 @@ export default class RtcPeerConnectionManager {
             this._logger.info('User leaves the page, destroy peer connection manager');
             this.destroy();
         });
+    }
+
+    /** This function is to listen vdi disconnection event. When we receive clean up event
+     * we will clean up the connection at next call initiation
+     *
+     */
+    _handleConnectionCleanup() {
+        this._logger.info("PCM: connection clean up event detected");
+        this._isUnhealthyPersistentPeerConnection = true;
     }
 }

@@ -3,7 +3,7 @@ import RtcPeerConnectionManager from '../../src/js/rtc_peer_connection_manager';
 import StandardStrategy from '../../src/js/strategies/StandardStrategy';
 import RtcSession from "../../src/js/rtc_session";
 import chai from 'chai';
-import sinon, {sandbox} from 'sinon';
+import sinon, { sandbox } from 'sinon';
 import * as utils from '../../src/js/utils';
 const mochaJsdom = require("mocha-jsdom");
 
@@ -228,7 +228,7 @@ describe('RtcPeerConnectionManager', () => {
             const connectSpy = sinon.spy();
             pcm._rtcSession = {
                 connect: connectSpy,
-                _sessionReport: {userAgentData: null},
+                _sessionReport: { userAgentData: null },
             }
             pcm._userAgentData = "example-ua";
             sinon.stub(pcm, '_rtcSessionConnectPromise').resolves();
@@ -321,6 +321,84 @@ describe('RtcPeerConnectionManager', () => {
             pcm._pc = peerConnection;
             pcm.destroy();
             expect(peerConnection.close).to.have.been.called;
+        });
+    });
+
+    describe('Connection cleanup handling', () => {
+        it('should mark connection as unhealthy when VDI disconnects', () => {
+            const pcm = new RtcPeerConnectionManager(
+                signalingUri,
+                iceServers,
+                transportHandle,
+                publishError,
+                null,
+                contactToken,
+                logger,
+                contactId,
+                connectionId,
+                wssManager,
+                new StandardStrategy(),
+                false,
+                browserId
+            );
+
+            pcm._handleConnectionCleanup();
+            expect(pcm._isUnhealthyPersistentPeerConnection).to.be.true;
+        });
+
+        it('should clean up and create new session when previous connection was unhealthy', () => {
+            const pcm = new RtcPeerConnectionManager(
+                signalingUri,
+                iceServers,
+                transportHandle,
+                publishError,
+                null,
+                contactToken,
+                logger,
+                contactId,
+                connectionId,
+                wssManager,
+                new StandardStrategy(),
+                false,
+                browserId
+            );
+
+            // Set up the unhealthy state
+            pcm._isUnhealthyPersistentPeerConnection = true;
+            pcm._rtcSession = {};
+            pcm._iceServers = [{ urls: 'stun:stun.example.com' }];
+            pcm._contactToken = 'test';
+            pcm._callId = 'test';
+
+            const newSession = pcm.createSession(null, [{ urls: 'stun:stun.example.com' }]);
+
+            // Verify cleanup occurred
+            expect(pcm._isUnhealthyPersistentPeerConnection).to.be.false;
+            expect(newSession).to.be.an.instanceOf(RtcSession);
+        });
+
+        it('should handle VDI disconnection with strategy callback', () => {
+            const strategy = new StandardStrategy();
+            strategy.onConnectionNeedingCleanup = sinon.spy();
+
+            const pcm = new RtcPeerConnectionManager(
+                signalingUri,
+                iceServers,
+                transportHandle,
+                publishError,
+                null,
+                contactToken,
+                logger,
+                contactId,
+                connectionId,
+                wssManager,
+                strategy,
+                false,
+                browserId
+            );
+
+            pcm._handleConnectionCleanup();
+            expect(strategy.onConnectionNeedingCleanup).to.have.been.called;
         });
     });
 });

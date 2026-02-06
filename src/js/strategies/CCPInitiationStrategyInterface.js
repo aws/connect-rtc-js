@@ -4,18 +4,18 @@ export default class CCPInitiationStrategyInterface {
         console.log("CCPInitiationStrategyInterface initialized");
     }
 
-    getStrategyName(){
+    getStrategyName() {
         console.error("getStrategyName needs to be overridden");
     }
 
     // the following functions are rtc_peer_connection_factory related functions
     // check if the browser supports early media connection
-    _isEarlyMediaConnectionSupported(){
+    _isEarlyMediaConnectionSupported() {
         console.error("_isEarlyMediaConnectionSupported needs to be overridden");
     }
 
     _createRtcPeerConnection() {
-        console.error("_createRtcPeerConnection needs to be overridden");
+        global.connect.activePeerConnectionCount++;
     }
 
     // the following functions are rtc_session related functions
@@ -48,8 +48,16 @@ export default class CCPInitiationStrategyInterface {
         console.error("onPeerConnectionStateChange needs to be overridden");
     }
 
+    /**
+     * Register a handler for connection cleanup events
+     */
+    // eslint-disable-next-line no-unused-vars
+    onConnectionNeedingCleanup(handler) {
+        console.error('onConnectionNeedingCleanup needs to be overridden');
+    }
+
     _createPeerConnection() {
-        console.error("_createPeerConnection needs to be overridden");
+        global.connect.activePeerConnectionCount++;
     }
 
     connect() {
@@ -60,7 +68,20 @@ export default class CCPInitiationStrategyInterface {
         console.error("_ontrack needs to be overridden");
     }
 
-    _buildMediaConstraints() {
-        console.error("_buildMediaConstraints needs to be overridden");
+    close(pc) {
+        global.connect.activePeerConnectionCount--;
+        pc.close();
+    }
+
+    _enumerateDevices() {
+        console.error("_enumerateDevices needs to be overridden");
+    }
+
+    _addDeviceChangeListener() {
+        console.error("_addDeviceChangeListener needs to be overridden");
+    }
+
+    _removeDeviceChangeListener() {
+        console.error("_removeDeviceChangeListener needs to be overridden");
     }
 }

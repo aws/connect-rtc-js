@@ -1,7 +1,7 @@
 import CCPInitiationStrategyInterface from "./CCPInitiationStrategyInterface";
-import {CHROME_SUPPORTED_VERSION, RTC_ERRORS} from "../rtc_const";
-import {getChromeBrowserVersion, isChromeBrowser} from "../utils";
-import {FailedState} from "../rtc_session";
+import { CHROME_SUPPORTED_VERSION, RTC_ERRORS } from "../rtc_const";
+import { getChromeBrowserVersion, isChromeBrowser } from "../utils";
+import { FailedState } from "../rtc_session";
 
 export default class StandardStrategy extends CCPInitiationStrategyInterface {
     constructor() {
@@ -11,11 +11,12 @@ export default class StandardStrategy extends CCPInitiationStrategyInterface {
 
     // the following functions are rtc_peer_connection_factory related functions
     // check if the browser supports early media connection
-    _isEarlyMediaConnectionSupported(){
+    _isEarlyMediaConnectionSupported() {
         return isChromeBrowser() && getChromeBrowserVersion() >= CHROME_SUPPORTED_VERSION;
     }
 
     _createRtcPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig) {
+        super._createRtcPeerConnection();
         return new RTCPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig);
     }
 
@@ -29,7 +30,9 @@ export default class StandardStrategy extends CCPInitiationStrategyInterface {
     }
 
     addStream(_pc, stream) {
-        _pc.addStream(stream);
+        stream.getTracks().forEach(track => {
+            _pc.addTrack(track, stream);
+        });
     }
 
     setRemoteDescription(self, rtcSession) {
@@ -96,6 +99,7 @@ export default class StandardStrategy extends CCPInitiationStrategyInterface {
     }
 
     _createPeerConnection(configuration, optionalConfiguration) {
+        super._createPeerConnection();
         return new RTCPeerConnection(configuration, optionalConfiguration);
     }
 
@@ -116,19 +120,29 @@ export default class StandardStrategy extends CCPInitiationStrategyInterface {
         }
     }
 
-    _buildMediaConstraints(self, mediaConstraints) {
-        if (self._enableAudio) {
-            var audioConstraints = {};
-            if (typeof self._echoCancellation !== 'undefined') {
-                audioConstraints.echoCancellation = !!self._echoCancellation;
-            }
-            if (Object.keys(audioConstraints).length > 0) {
-                mediaConstraints.audio = audioConstraints;
-            } else {
-                mediaConstraints.audio = true;
-            }
+    _enumerateDevices() {
+        if (navigator && navigator.mediaDevices) {
+            return navigator.mediaDevices.enumerateDevices();
         } else {
-            mediaConstraints.audio = false;
+            return Promise.reject('mediaDevices not accessible');
+        }
+    }
+
+    _addDeviceChangeListener(listener) {
+        navigator.mediaDevices.addEventListener("devicechange", listener);
+    }
+
+    _removeDeviceChangeListener(listener) {
+        navigator.mediaDevices.removeEventListener("devicechange", listener);
+    }
+
+    /**
+     * Register a handler for connection cleanup events
+     * @param {Function} handler - The handler function to be called when connection needs cleanup
+     */
+    onConnectionNeedingCleanup(handler) {
+        if (typeof handler === 'function') {
+            this._onConnectionNeedingCleanupHandler = handler;
         }
     }
 
