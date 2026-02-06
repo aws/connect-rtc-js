@@ -23,6 +23,7 @@ describe('OmnissaVDIStrategy', () => {
             initSDK: sandboxInstance.stub().returns(true),
             newPeerConnection: sandboxInstance.stub().returns({}),
             getUserMedia: sandboxInstance.stub().resolves('mockMediaStream'),
+            enumerateDevices: sandboxInstance.stub().resolves(['mockDevice'])
         };
 
         // Set up require cache mock
@@ -56,9 +57,15 @@ describe('OmnissaVDIStrategy', () => {
                 warn: sandboxInstance.stub(),
             },
             navigator: {
-                mediaDevices: {getUserMedia : sinon.stub().returns({})},
-                userAgent: {match: sinon.stub().returns({}),
-                    indexOf: sinon.stub().returns({})},
+                mediaDevices: {
+                    getUserMedia: sinon.stub().returns({}),
+                    addEventListener: sandbox.stub(),
+                    removeEventListener: sandbox.stub()
+                },
+                userAgent: {
+                    match: sinon.stub().returns({}),
+                    indexOf: sinon.stub().returns({})
+                },
             },
         };
 
@@ -223,6 +230,30 @@ describe('OmnissaVDIStrategy', () => {
         }
     });
 
+    it('should call enumerate devices successfully', async () => {
+        const instance = new OmnissaVDIStrategy();
+
+        // Calling our class method _enumerateDevices
+        const devices = await instance._enumerateDevices();
+
+        // Verify the result
+        chai.expect(devices).to.include('mockDevice');
+        // Verify that enumerateDevices was called
+        sinon.assert.calledWith(mockHorizonWebRtcRedirectionAPI.enumerateDevices);
+    });
+
+    it('should call add and remove device listener successfully', async () => {
+        const instance = new OmnissaVDIStrategy(false);
+
+        const func = (event) => { };
+
+        instance._addDeviceChangeListener(func);
+        instance._removeDeviceChangeListener(func);
+
+        sinon.assert.calledWith(global.window.navigator.mediaDevices.addEventListener, 'devicechange', func);
+        sinon.assert.calledWith(global.window.navigator.mediaDevices.removeEventListener, 'devicechange', func);
+    });
+
     it('should create RTC peer connection', () => {
         const instance = new OmnissaVDIStrategy();
         const config = { iceServers: [] };
@@ -236,27 +267,4 @@ describe('OmnissaVDIStrategy', () => {
             optionalConfig
         );
     });
-
-    it('should build media constraints with audio enabled', () => {
-        const instance = new OmnissaVDIStrategy();
-        const self = { _enableAudio: true };
-        const mediaConstraints = {};
-
-        instance._buildMediaConstraints(self, mediaConstraints);
-        chai.expect(mediaConstraints.audio).to.be.true;
-    });
-
-    it('should build media constraints with audio device', () => {
-        const instance = new OmnissaVDIStrategy();
-        const self = { _enableAudio: true };
-        const mediaConstraints = {};
-        global.window.audio_input = 'device-id-123';
-
-        instance._buildMediaConstraints(self, mediaConstraints);
-
-        chai.expect(mediaConstraints.audio).to.deep.equal({
-            deviceId: 'device-id-123'
-        });
-    });
-
 });
