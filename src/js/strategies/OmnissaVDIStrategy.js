@@ -1,6 +1,6 @@
 import CCPInitiationStrategyInterface from "./CCPInitiationStrategyInterface";
-import {FailedState} from "../rtc_session";
-import {RTC_ERRORS, ACITVE_SOFTPHONE_TAB} from "../rtc_const";
+import { FailedState } from "../rtc_session";
+import { RTC_ERRORS, ACITVE_SOFTPHONE_TAB } from "../rtc_const";
 
 export default class OmnissaVDIStrategy extends CCPInitiationStrategyInterface {
     constructor() {
@@ -51,7 +51,7 @@ export default class OmnissaVDIStrategy extends CCPInitiationStrategyInterface {
 
 
         window.getHorizonWindowTitle = function () {
-            if(self.topWindowName.endsWith(ACITVE_SOFTPHONE_TAB)){
+            if (self.topWindowName.endsWith(ACITVE_SOFTPHONE_TAB)) {
                 return self.topWindowName;
             }
 
@@ -108,6 +108,7 @@ export default class OmnissaVDIStrategy extends CCPInitiationStrategyInterface {
     }
 
     _createRtcPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig) {
+        super._createRtcPeerConnection();
         return window.HorizonWebRtcRedirectionAPI.newPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig)
     }
 
@@ -115,11 +116,26 @@ export default class OmnissaVDIStrategy extends CCPInitiationStrategyInterface {
         return window.HorizonWebRtcRedirectionAPI.getUserMedia(constraints);
     }
 
+    _enumerateDevices() {
+        return window.HorizonWebRtcRedirectionAPI.enumerateDevices();
+    }
+
+    _addDeviceChangeListener(listener) {
+        // Omnissa fires the event on the navigator.mediaDevices event listener.
+        window.navigator.mediaDevices.addEventListener("devicechange", listener);
+    }
+
+    _removeDeviceChangeListener(listener) {
+        // Omnissa fires the event on the navigator.mediaDevices event listener.
+        window.navigator.mediaDevices.removeEventListener("devicechange", listener);
+    }
+
     _createMediaStream(track) {
         return window.HorizonWebRtcRedirectionAPI.newMediaStream([track]);
     }
 
     _createPeerConnection(configuration, optionalConfiguration) {
+        super._createRtcPeerConnection();
         return window.HorizonWebRtcRedirectionAPI.newPeerConnection(configuration, optionalConfiguration);
     }
 
@@ -129,34 +145,6 @@ export default class OmnissaVDIStrategy extends CCPInitiationStrategyInterface {
 
     onPeerConnectionStateChange(_pc) {
         return _pc.connectionState;
-    }
-
-    _buildMediaConstraints(self, mediaConstraints) {
-        if (self._enableAudio) {
-            const audioConstraints = {};
-
-            // Verified with Omnissa: Using WebRTC default echo cancellation settings
-            // WebRTC echo cancellation is enabled by default
-
-            if (window.audio_input) {
-                console.log('Setting deviceId to:', window.audio_input);
-                audioConstraints.deviceId = window.audio_input;
-            } else {
-                console.log('No audio input device specified');
-            }
-            // If we have any audio constraints, use them; otherwise just set to true
-            if (Object.keys(audioConstraints).length > 0) {
-                console.log('Using specific audio constraints:', audioConstraints);
-                mediaConstraints.audio = audioConstraints;
-            } else {
-                console.log('No specific constraints, setting audio to true');
-                mediaConstraints.audio = true;
-            }
-        } else {
-            console.log('Audio is disabled, setting audio to false');
-            mediaConstraints.audio = false;
-        }
-
     }
 
     addStream(_pc, stream) {
@@ -171,7 +159,7 @@ export default class OmnissaVDIStrategy extends CCPInitiationStrategyInterface {
             sdp: self._sdp
         }));
         setRemoteDescriptionPromise.then(() => {
-                var remoteCandidatePromises = Promise.all(self._candidates.map(function (candidate) {
+            var remoteCandidatePromises = Promise.all(self._candidates.map(function (candidate) {
                 var remoteCandidate = self._createRemoteCandidate(candidate);
                 self.logger.info('Adding remote candidate', remoteCandidate);
                 return rtcSession._pc.addIceCandidate(remoteCandidate);
@@ -306,6 +294,16 @@ export default class OmnissaVDIStrategy extends CCPInitiationStrategyInterface {
         if (!self.hasRequestedTitle) {
             self.hasRequestedTitle = true;
             window.parent.postMessage({ type: 'get_horizon_window_title' }, '*');
+        }
+    }
+
+    /**
+     * Register a handler for connection cleanup events
+     * @param {Function} handler - The handler function to be called when connection needs cleanup
+     */
+    onConnectionNeedingCleanup(handler) {
+        if (typeof handler === 'function') {
+            this._onConnectionNeedingCleanupHandler = handler;
         }
     }
 

@@ -3,8 +3,8 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-import {closeStream, hitch, SdpOptions, transformSdp, wrapLogger} from './utils';
-import {SessionReport} from './session_report';
+import { closeStream, hitch, SdpOptions, transformSdp, wrapLogger } from './utils';
+import { SessionReport } from './session_report';
 import {
     DEFAULT_GUM_TIMEOUT_MS,
     DEFAULT_ICE_TIMEOUT_MS,
@@ -26,8 +26,8 @@ import {
 } from './exceptions';
 import RtcSignaling from './signaling';
 import uuid from 'uuid/v4';
-import {extractMediaStatsFromStats} from './rtp-stats';
-import {parseCandidate} from 'sdp';
+import { extractMediaStatsFromStats } from './rtp-stats';
+import { parseCandidate } from 'sdp';
 import CCPInitiationStrategyInterface from "./strategies/CCPInitiationStrategyInterface";
 import StandardStrategy from "./strategies/StandardStrategy";
 import {
@@ -94,7 +94,8 @@ export class GrabLocalMediaState extends RTCSessionState {
                     reject(new GumTimeout('Local media has not been initialized yet.'));
                 }, self._rtcSession._gumTimeoutMillis);
             });
-            var sessionGumPromise = self._gUM(self._rtcSession._buildMediaConstraints());
+            const constraints = self._rtcSession._buildMediaConstraints();
+            var sessionGumPromise = self._gUM(constraints);
 
             Promise.race([sessionGumPromise, gumTimeoutPromise])
                 .then(stream => {
@@ -108,21 +109,24 @@ export class GrabLocalMediaState extends RTCSessionState {
                     self._rtcSession._sessionReport.gumTimeoutFailure = false;
                     self.transit(new CreateOfferState(self._rtcSession));
                 }).catch(e => {
-                self._rtcSession._sessionReport.gumTimeMillis = Date.now() - startTime;
-                var errorReason;
-                if (e instanceof GumTimeout) {
-                    errorReason = RTC_ERRORS.GUM_TIMEOUT_FAILURE;
-                    self._rtcSession._sessionReport.gumTimeoutFailure = true;
-                    self._rtcSession._sessionReport.gumOtherFailure = false;
-                } else {
-                    errorReason = RTC_ERRORS.GUM_OTHER_FAILURE;
-                    self._rtcSession._sessionReport.gumOtherFailure = true;
-                    self._rtcSession._sessionReport.gumTimeoutFailure = false;
-                }
-                self.logger.error('Local media initialization failed', e);
-                self._rtcSession._onGumError(self._rtcSession);
-                self.transit(new FailedState(self._rtcSession, errorReason));
-            });
+                    self._rtcSession._sessionReport.gumTimeMillis = Date.now() - startTime;
+                    var errorReason;
+                    if (e instanceof GumTimeout) {
+                        errorReason = RTC_ERRORS.GUM_TIMEOUT_FAILURE;
+                        self._rtcSession._sessionReport.gumTimeoutFailure = true;
+                        self._rtcSession._sessionReport.gumOtherFailure = false;
+                    } else {
+                        errorReason = RTC_ERRORS.GUM_OTHER_FAILURE;
+                        self._rtcSession._sessionReport.gumOtherFailure = true;
+                        self._rtcSession._sessionReport.gumTimeoutFailure = false;
+                    }
+                    const errorLog = self.logger.error('Local media initialization failed', e);
+                    if (errorLog && errorLog.sendInternalLogToServer) {
+                        errorLog.withObject({ constraints }).sendInternalLogToServer();
+                    }
+                    self._rtcSession._onGumError(self._rtcSession);
+                    self.transit(new FailedState(self._rtcSession, errorReason));
+                });
         }
     }
     get name() {
@@ -436,14 +440,14 @@ export class ConnectContactState extends RTCSessionState {
         super(rtcSession);
     }
 
-    onEnter(){
+    onEnter() {
         var rtcSession = this._rtcSession;
         var logger = this.logger;
         var self = this;
         rtcSession._sessionReport.isExistingPersistentPeerConnection = true;
         rtcSession._pcm._signalingChannel.connectContact();
         try {
-            rtcSession._pcm._mediaStream = self._createMediaStream(rtcSession._pc.getSenders()[0].track) ;
+            rtcSession._pcm._mediaStream = self._createMediaStream(rtcSession._pc.getSenders()[0].track);
             rtcSession._onLocalStreamAdded(rtcSession, rtcSession._pcm._mediaStream);
         } catch (error) {
             logger.error("[connectContact] Failed to get audio track from existing peer connection").withException(error);
@@ -466,6 +470,7 @@ export class ConnectContactState extends RTCSessionState {
                             rtcSession._pcm._mediaStream = self._createMediaStream(rtcSession._pc.getSenders()[0].track);
                             rtcSession._onLocalStreamAdded(rtcSession, rtcSession._pcm._mediaStream);
                             logger.log("[connectContact] Audio device set successfully and _onLocalStreamAdded triggered");
+                            logger.info(`[connectContact] Audio track settings: ${JSON.stringify(newMicrophoneTrack.getSettings())}`).sendInternalLogToServer();
                         });
                     }
                 } catch (e) {
@@ -514,14 +519,14 @@ export class TalkingState extends RTCSessionState {
         // Calculate time taken to receive the first RTP packet
         let interval;
         let timeout;
-        const getSynchronizationSourcesAndProcess = async() => {
+        const getSynchronizationSourcesAndProcess = async () => {
             if (this._rtcSession && this._rtcSession._pc && this._rtcSession._pc.getReceivers().length !== 0) {
                 const rtcRtpReceiver = this._rtcSession._pc.getReceivers()[0];
-                if(rtcRtpReceiver instanceof RTCRtpReceiver){
+                if (rtcRtpReceiver instanceof RTCRtpReceiver) {
                     const synchronizationSources = rtcRtpReceiver.getSynchronizationSources();
                     synchronizationSources.forEach((source) => {
                         const firstRTPTimeMillis = source.timestamp - this._rtcSession._connectTimeStamp;
-                        if(firstRTPTimeMillis > 0){
+                        if (firstRTPTimeMillis > 0) {
                             this._rtcSession._sessionReport.firstRTPTimeMillis = firstRTPTimeMillis;
                         }
                         // We break out and stop checking for RTP packets as soon as we receive the first packet.
@@ -677,7 +682,7 @@ export class CleanUpState extends RTCSessionState {
             try {
                 // rtcSession._pcm._mediaStream would be out of sync if the audio device changed during the call
                 this._rtcSession._pcm._mediaStream = this._rtcSession._strategy._createMediaStream(this._rtcSession._pc.getSenders()[0].track);
-            } catch(error) {
+            } catch (error) {
                 this.logger.error("Creating MediaStream error: ", error);
             }
             // For persistent connection, pause the local audio when we destroy the RtcSession, because we don't want to transmit any audio when agent is idle
@@ -787,17 +792,17 @@ export default class RtcSession {
 
         this._onGumError =
             this._onGumSuccess =
-                this._onLocalStreamAdded =
-                    this._onSessionFailed =
-                        this._onSessionInitialized =
-                            this._onSignalingConnected =
-                                this._onIceCollectionComplete =
-                                    this._onSignalingStarted =
-                                        this._onSessionConnected =
-                                            this._onRemoteStreamAdded =
-                                                this._onSessionCompleted =
-                                                    this._onSessionDestroyed = () => {
-                                                    };
+            this._onLocalStreamAdded =
+            this._onSessionFailed =
+            this._onSessionInitialized =
+            this._onSignalingConnected =
+            this._onIceCollectionComplete =
+            this._onSignalingStarted =
+            this._onSessionConnected =
+            this._onRemoteStreamAdded =
+            this._onSessionCompleted =
+            this._onSessionDestroyed = () => {
+            };
     }
     get sessionReport() {
         return this._sessionReport;
@@ -817,17 +822,17 @@ export default class RtcSession {
         return this._remoteVideoStream;
     }
     pauseLocalVideo() {
-        if(this._localStream) {
+        if (this._localStream) {
             var videoTrack = this._localStream.getVideoTracks()[0];
-            if(videoTrack) {
+            if (videoTrack) {
                 videoTrack.enabled = false;
             }
         }
     }
     resumeLocalVideo() {
-        if(this._localStream) {
+        if (this._localStream) {
             var videoTrack = this._localStream.getVideoTracks()[0];
-            if(videoTrack) {
+            if (videoTrack) {
                 videoTrack.enabled = true;
             }
         }
@@ -835,7 +840,7 @@ export default class RtcSession {
     pauseRemoteVideo() {
         if (this._remoteVideoStream) {
             var videoTrack = this._remoteVideoStream.getTracks()[1];
-            if(videoTrack) {
+            if (videoTrack) {
                 videoTrack.enabled = false;
             }
         }
@@ -843,7 +848,7 @@ export default class RtcSession {
     resumeRemoteVideo() {
         if (this._remoteVideoStream) {
             var videoTrack = this._remoteVideoStream.getTracks()[1];
-            if(videoTrack) {
+            if (videoTrack) {
                 videoTrack.enabled = true;
             }
         }
@@ -859,16 +864,16 @@ export default class RtcSession {
     pauseLocalAudio() {
         var audioTrack;
         if (this._pcm) {
-            if(this._pcm._mediaStream) {
+            if (this._pcm._mediaStream) {
                 audioTrack = this._pcm._mediaStream.getAudioTracks()[0];
-                if(audioTrack) {
+                if (audioTrack) {
                     audioTrack.enabled = false;
                 }
             }
         } else {
             if (this._localStream) {
                 audioTrack = this._localStream.getAudioTracks()[0];
-                if(audioTrack) {
+                if (audioTrack) {
                     audioTrack.enabled = false;
                 }
             }
@@ -884,10 +889,10 @@ export default class RtcSession {
      */
     resumeLocalAudio() {
         var audioTrack;
-        if(this._pcm){
-            if(this._pcm._mediaStream) {
+        if (this._pcm) {
+            if (this._pcm._mediaStream) {
                 audioTrack = this._pcm._mediaStream.getAudioTracks()[0];
-                if(audioTrack) {
+                if (audioTrack) {
                     audioTrack.enabled = true;
                 }
             }
@@ -903,7 +908,7 @@ export default class RtcSession {
     pauseRemoteAudio() {
         if (this._remoteAudioStream) {
             var audioTrack = this._remoteAudioStream.getTracks()[0];
-            if(audioTrack) {
+            if (audioTrack) {
                 audioTrack.enabled = false;
             }
         }
@@ -911,7 +916,7 @@ export default class RtcSession {
     resumeRemoteAudio() {
         if (this._remoteAudioStream) {
             var audioTrack = this._remoteAudioStream.getTracks()[0];
-            if(audioTrack) {
+            if (audioTrack) {
                 audioTrack.enabled = true;
             }
         }
@@ -1146,7 +1151,7 @@ export default class RtcSession {
         signalingChannel.onDisconnected = hitch(this, this._signalingDisconnected);
 
         this._signalingChannel = signalingChannel;
-        if (this._pcm){
+        if (this._pcm) {
             this._pcm._signalingChannel = signalingChannel;
         }
         return signalingChannel;
@@ -1194,7 +1199,7 @@ export default class RtcSession {
             self._pc = pc;
         } else {
             if (pc) {
-                pc.close();
+                self._strategy.close(pc);
                 pc = null;
             }
             RTC_PEER_CONNECTION_CONFIG.iceServers = self._iceServers;
@@ -1325,9 +1330,9 @@ export default class RtcSession {
             } finally {
                 try {
                     if (this._pc) {
-                        this._pc.close();
+                        this._strategy.close(this._pc);
                     }
-                } catch(e) {
+                } catch (e) {
                     // eat exception
                 }
                 finally {
@@ -1337,11 +1342,36 @@ export default class RtcSession {
         }
     }
 
-    _buildMediaConstraints() {
+    _buildMediaConstraints(newDeviceId) {
         var self = this;
         var mediaConstraints = {};
 
-        self._strategy._buildMediaConstraints(self, mediaConstraints);
+        if (self._enableAudio) {
+            var audioConstraints = {};
+            if (typeof self._echoCancellation !== 'undefined') {
+                audioConstraints.echoCancellation = !!self._echoCancellation;
+            }
+            if (newDeviceId != undefined && newDeviceId != 'default') {
+                audioConstraints.deviceId = newDeviceId;
+            }
+
+            // This is required to handle behaviour in published sample code.
+            if (window && window.audio_input) {
+                audioConstraints.deviceId = window.audio_input;
+
+                if (newDeviceId != window.audio_input) {
+                    this._logger.warn('window.audio_input does not match requested device id');
+                }
+            }
+
+            if (Object.keys(audioConstraints).length > 0) {
+                mediaConstraints.audio = audioConstraints;
+            } else {
+                mediaConstraints.audio = true;
+            }
+        } else {
+            mediaConstraints.audio = false;
+        }
 
         if (self._enableVideo) {
             var videoConstraints = {};
@@ -1369,7 +1399,7 @@ export default class RtcSession {
             if (typeof self._minVideoHeight !== 'undefined') {
                 heightConstraints.min = self._minVideoHeight;
             }
-            if(Object.keys(widthConstraints).length > 0 && Object.keys(heightConstraints).length > 0) {
+            if (Object.keys(widthConstraints).length > 0 && Object.keys(heightConstraints).length > 0) {
                 videoConstraints.width = widthConstraints;
                 videoConstraints.height = heightConstraints;
             }
@@ -1383,12 +1413,12 @@ export default class RtcSession {
             if (typeof self._maxVideoFrameRate !== 'undefined') {
                 frameRateConstraints.max = self._maxVideoFrameRate;
             }
-            if(Object.keys(frameRateConstraints).length > 0) {
+            if (Object.keys(frameRateConstraints).length > 0) {
                 videoConstraints.frameRate = frameRateConstraints;
             }
 
             // build facing mode constraints
-            if(self._facingMode !== 'user' && self._facingMode !== "environment") {
+            if (self._facingMode !== 'user' && self._facingMode !== "environment") {
                 self._facingMode = 'user';
             }
             videoConstraints.facingMode = self._facingMode;

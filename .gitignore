@@ -12,3 +12,5 @@ npm-debug.log
 package-lock.json
 coverage/
 .nyc_output/
+.npmrc
+.travis.yml

@@ -1,7 +1,7 @@
 import CCPInitiationStrategyInterface from "./CCPInitiationStrategyInterface";
-import {FailedState} from "../rtc_session";
-import {RTC_ERRORS} from "../rtc_const";
-import {ANSWER, AUDIO, CHROME, DCV_STRATEGY, UNDEFINED} from "../config/constants";
+import { FailedState } from "../rtc_session";
+import { RTC_ERRORS } from "../rtc_const";
+import { ANSWER, AUDIO, CHROME, DCV_STRATEGY } from "../config/constants";
 const CHROME_SUPPORTED_VERSION = 59;
 
 export default class DCVWebRTCStrategy extends CCPInitiationStrategyInterface {
@@ -10,7 +10,7 @@ export default class DCVWebRTCStrategy extends CCPInitiationStrategyInterface {
 
         if (window.DCVWebRTCPeerConnectionProxy) {
             window.DCVWebRTCPeerConnectionProxy.setInitCallback((result) => {
-                if(result.success) {
+                if (result.success) {
                     // This is only created when:
                     // 1) the dcv webrtc chrome extension is installed and enabled and
                     // 2) this browser is running within a DCV server environment and
@@ -42,27 +42,24 @@ export default class DCVWebRTCStrategy extends CCPInitiationStrategyInterface {
     }
 
     _createRtcPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig) {
+        super._createRtcPeerConnection();
         return this.proxy.createPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig);
-    }
-
-    _buildMediaConstraints(self, mediaConstraints) {
-        if (self._enableAudio) {
-            var audioConstraints = {};
-            if (typeof self._echoCancellation !== UNDEFINED) {
-                audioConstraints.echoCancellation = !!self._echoCancellation;
-            }
-            if (Object.keys(audioConstraints).length > 0) {
-                mediaConstraints.audio = audioConstraints;
-            } else {
-                mediaConstraints.audio = true;
-            }
-        } else {
-            mediaConstraints.audio = false;
-        }
     }
 
     _gUM(constraints) {
         return this.proxy.getUserMedia(constraints);
+    }
+
+    _enumerateDevices() {
+        return this.proxy.enumerateDevices();
+    }
+
+    _addDeviceChangeListener(listener) {
+        this.proxy.addEventListener("devicechange", listener);
+    }
+
+    _removeDeviceChangeListener(listener) {
+        this.proxy.removeEventListener("devicechange", listener);
     }
 
     _createMediaStream(track) {
@@ -70,6 +67,7 @@ export default class DCVWebRTCStrategy extends CCPInitiationStrategyInterface {
     }
 
     _createPeerConnection(configuration, optionalConfiguration) {
+        super._createRtcPeerConnection();
         return this.proxy.createPeerConnection(configuration, optionalConfiguration);
     }
 
@@ -164,6 +162,16 @@ export default class DCVWebRTCStrategy extends CCPInitiationStrategyInterface {
         let element = stream.createMediaElement(props);
         console.log("Creating proxied media element.");
         return element;
+    }
+
+    /**
+     * Register a handler for connection cleanup events
+     * @param {Function} handler - The handler function to be called when connection needs cleanup
+     */
+    onConnectionNeedingCleanup(handler) {
+        if (typeof handler === 'function') {
+            this._onConnectionNeedingCleanupHandler = handler;
+        }
     }
 
     getStrategyName() {
