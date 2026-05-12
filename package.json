@@ -1,5 +1,5 @@
 {
-  "name": "connect-rtc-js",
+  "name": "@aws/connect-rtc-js",
   "version": "1.2.3",
   "description": "Amazon Connect softphone library",
   "license": "Apache-2.0",
