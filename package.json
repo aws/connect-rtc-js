@@ -3,7 +3,18 @@
   "version": "1.2.4",
   "description": "Amazon Connect softphone library",
   "license": "Apache-2.0",
-  "main": "./src/js/connect-rtc.js",
+  "main": "./release/connect-rtc.js",
+  "files": [
+    "/release",
+    "NOTICE.txt",
+    "THIRD-PARTY.txt"
+  ],
+  "keywords": [
+    "amazon-connect",
+    "softphone",
+    "webrtc",
+    "rtc"
+  ],
   "authors": {
     "name": "Amazon Web Services",
     "email": "",
@@ -13,7 +24,7 @@
     "type": "git",
     "url": "https://github.com/aws/connect-rtc-js.git"
   },
-  "homepage": "https://github.com/aws/connect-rtc-js",
+  "homepage": "https://github.com/aws/connect-rtc-js#readme",
   "contributors": [
     "Yuliang Zhou <yuliangz@amazon.com>",
     "Anil Kumar Vuta <anilvuta@amazon.com>"
