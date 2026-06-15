@@ -16,7 +16,8 @@
         "module": true,
         "require": true,
         "process": true,
-        "window": true
+        "window": true,
+        "globalThis": true
     },
     "parserOptions": {
         "ecmaVersion": 2017,

@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "allowJs": true,
+        "target": "es2015",
+        "downlevelIteration": true,
+        "skipLibCheck": true,
+        "types": [
+            "node",
+            "webrtc",
+            "mocha",
+            "chai",
+            "sinon"
+        ],
+        "declaration": true,
+        "forceConsistentCasingInFileNames": false
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "build",
+        "node_modules",
+        "dist"
+    ]
+}
