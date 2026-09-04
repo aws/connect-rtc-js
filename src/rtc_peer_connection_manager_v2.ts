@@ -348,6 +348,10 @@ export default class RtcPeerConnectionManagerV2 {
         } 
         else if (this._sharedMediaSession && this._callSessions.size === 0) {
             this._logger.info("SharedMediaSession is idle, refreshing media stream for new call").sendInternalLogToServer();
+            // Track was paused while the session idled; re-enable synchronously at call connect (v1 parity,
+            // rtc_session.js TalkingState) — must happen before Streams' per-call track replacement,
+            // which inherits the old track's enabled state.
+            this._sharedMediaSession.resumeLocalAudio();
             // Non-blocking call - getUserMedia runs in background while call setup proceeds
             this._sharedMediaSession.refreshMediaStreamBetweenCalls();
         }

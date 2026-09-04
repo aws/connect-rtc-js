@@ -1299,7 +1299,8 @@ describe('RtcPeerConnectionManagerV2', () => {
                 
                 const mockSharedMediaSession = {
                     isSharedMediaSessionHealthy: sinon.stub().returns(true),
-                    refreshMediaStreamBetweenCalls: sinon.spy()
+                    refreshMediaStreamBetweenCalls: sinon.spy(),
+                    resumeLocalAudio: sinon.spy()
                 };
                 pcm._sharedMediaSession = mockSharedMediaSession as any;
                 pcm._callSessions = new Map(); // 0 active sessions = idle
@@ -1397,7 +1398,8 @@ describe('RtcPeerConnectionManagerV2', () => {
                 
                 const mockSharedMediaSession = {
                     isSharedMediaSessionHealthy: sinon.stub().returns(true),
-                    refreshMediaStreamBetweenCalls: sinon.spy()
+                    refreshMediaStreamBetweenCalls: sinon.spy(),
+                    resumeLocalAudio: sinon.spy()
                 };
                 pcm._sharedMediaSession = mockSharedMediaSession as any;
                 pcm._callSessions = new Map();
@@ -1417,6 +1419,78 @@ describe('RtcPeerConnectionManagerV2', () => {
                     sinon.match.any,
                     sinon.match(/SharedMediaSession is idle, refreshing media stream for new call/)
                 );
+            });
+
+            it('should call resumeLocalAudio before refreshMediaStreamBetweenCalls when SharedMediaSession is idle', () => {
+                const pcm = new RtcPeerConnectionManagerV2(config);
+
+                const mockSharedMediaSession = {
+                    isSharedMediaSessionHealthy: sinon.stub().returns(true),
+                    refreshMediaStreamBetweenCalls: sinon.spy(),
+                    resumeLocalAudio: sinon.spy()
+                };
+                pcm._sharedMediaSession = mockSharedMediaSession as any;
+                pcm._callSessions = new Map(); // 0 active sessions = idle
+
+                pcm.createSession(
+                    'test-call-id',
+                    [{urls: ['stun:test.com']}],
+                    'test-token',
+                    'test-connection-id',
+                    mockWssManager,
+                    mockStrategy,
+                    undefined
+                );
+
+                // Idle pause must be undone synchronously at call connect, before the background refresh
+                expect(mockSharedMediaSession.resumeLocalAudio).to.have.been.called;
+                expect(mockSharedMediaSession.resumeLocalAudio).to.have.been.calledBefore(mockSharedMediaSession.refreshMediaStreamBetweenCalls);
+            });
+
+            it('should NOT call resumeLocalAudio when there are active call sessions', () => {
+                const pcm = new RtcPeerConnectionManagerV2(config);
+
+                const mockSharedMediaSession = {
+                    isSharedMediaSessionHealthy: sinon.stub().returns(true),
+                    refreshMediaStreamBetweenCalls: sinon.spy(),
+                    resumeLocalAudio: sinon.spy()
+                };
+                pcm._sharedMediaSession = mockSharedMediaSession as any;
+
+                // Active call in progress — resuming here would clobber a real mute
+                pcm._callSessions!.set('existing-session', {} as any);
+
+                pcm.createSession(
+                    'test-call-id',
+                    [{urls: ['stun:test.com']}],
+                    'test-token',
+                    'test-connection-id',
+                    mockWssManager,
+                    mockStrategy,
+                    undefined
+                );
+
+                expect(mockSharedMediaSession.resumeLocalAudio).to.not.have.been.called;
+            });
+
+            it('should NOT call resumeLocalAudio when SharedMediaSession does not exist', () => {
+                const pcm = new RtcPeerConnectionManagerV2(config);
+
+                pcm._sharedMediaSession = null;
+                pcm._callSessions = new Map();
+
+                pcm.createSession(
+                    'test-call-id',
+                    [{urls: ['stun:test.com']}],
+                    'test-token',
+                    'test-connection-id',
+                    mockWssManager,
+                    mockStrategy,
+                    undefined
+                );
+
+                // Idle-resume branch must not run (createSession would throw on null); no idle refresh logged
+                expect(mockLogger.info).to.not.have.been.calledWith(sinon.match.any, sinon.match.any, sinon.match(/SharedMediaSession is idle, refreshing media stream/));
             });
 
         });

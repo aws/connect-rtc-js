@@ -594,6 +594,19 @@ describe('CallSession', () => {
             expect(mockState.onSharedMediaSessionError).to.have.been.calledWith(error);
         });
 
+        // The flag is written on the SharedMediaSession's own report, which is a different
+        // object from this per-contact report. Without this copy it stays null and the
+        // failure is invisible in telemetry.
+        it('copies vdiDisconnectedFailure from the shared session report', () => {
+            expect(callSession.sessionReport.vdiDisconnectedFailure).to.be.null;
+
+            callSession.onSharedMediaSessionEvent('sessionSetupLatencyMetricReady', {
+                vdiDisconnectedFailure: true
+            });
+
+            expect(callSession.sessionReport.vdiDisconnectedFailure).to.be.true;
+        });
+
         it('should handle signalingConnected event', () => {
             expect(() => callSession.onSharedMediaSessionEvent('signalingConnected', null)).to.not.throw();
         });

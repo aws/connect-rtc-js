@@ -53,6 +53,46 @@ describe('RTC session', () => {
                 });
             });
         });
+
+        describe('getStats', () => {
+            it('returns stats during ICE restart (signalingState have-local-offer)', async () => {
+                session._pc = {
+                    signalingState: 'have-local-offer',
+                    getStats: async () => [
+                        { type: 'inbound-rtp', packetsLost: 0, packetsReceived: 100 },
+                        { type: 'outbound-rtp', packetsSent: 100 },
+                        { type: 'remote-inbound-rtp', packetsLost: 0 }
+                    ]
+                };
+
+                const stats = await session.getStats();
+                chai.expect(stats.audioInputStats).to.not.be.null;
+                chai.expect(stats.audioOutputStats).to.not.be.null;
+                chai.expect(stats.audioInputStats.packetsCount).to.equal(100);
+            });
+
+            it('rejects when peer connection is closed', async () => {
+                session._pc = { signalingState: 'closed' };
+
+                try {
+                    await session.getStats();
+                    chai.expect.fail('Should have rejected');
+                } catch (error: any) {
+                    chai.expect(error.name).to.equal('IllegalState');
+                }
+            });
+
+            it('rejects when peer connection is null', async () => {
+                session._pc = null;
+
+                try {
+                    await session.getStats();
+                    chai.expect.fail('Should have rejected');
+                } catch (error: any) {
+                    chai.expect(error.name).to.equal('IllegalState');
+                }
+            });
+        });
     });
 
     describe('RTCSessionState', () => {

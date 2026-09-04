@@ -794,6 +794,7 @@ export default class CallSession {
                     this._sessionReport.isMediaClusterPath = eventData.isMediaClusterPath;
                     this._sessionReport.vdiPlatform = eventData.vdiPlatform;
                     this._sessionReport.vdiInitializationFailed = eventData.vdiInitializationFailed;
+                    this._sessionReport.vdiDisconnectedFailure = eventData.vdiDisconnectedFailure;
                     this._sessionReport.vdiClientPlatform = eventData.vdiClientPlatform;
                     this._sessionReport.iceCredentialSource = eventData.iceCredentialSource;
                     this._sessionReport.isContactCredentialsDifferentRegion = eventData.isContactCredentialsDifferentRegion;

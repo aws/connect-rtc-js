@@ -1333,7 +1333,10 @@ export default class SharedMediaSession {
             return extractMediaStatsFromStats(timestamp, rawStats, streamType);
         };
 
-        if (this._pc && this._pc.signalingState === 'stable') {
+        // Allow stats collection in any non-closed signaling state. An ICE restart moves the
+        // PC to 'have-local-offer'; if the restart fails it stays there, and gating on 'stable'
+        // would silently drop all samples for the dead connection instead of reporting zeros.
+        if (this._pc && this._pc.signalingState !== 'closed') {
             const audioInputStats = await getStatsForType('audio_input');
             const audioOutputStats = await getStatsForType('audio_output');
             // For consistency's sake, coalesce One-Way Metrics into both Audio Streams

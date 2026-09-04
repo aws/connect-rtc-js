@@ -1005,10 +1005,27 @@ describe('SharedMediaSession', () => {
             }
         });
 
-        it('should reject when peer connection is not stable', async () => {
+        it('should return stats during ICE restart (signalingState have-local-offer)', async () => {
             const session = new SharedMediaSession(config);
             (session as any)._pc = {
-                signalingState: 'have-local-offer'
+                signalingState: 'have-local-offer',
+                getStats: async () => [
+                    { type: 'inbound-rtp', packetsLost: 0, packetsReceived: 100 },
+                    { type: 'outbound-rtp', packetsSent: 100 },
+                    { type: 'remote-inbound-rtp', packetsLost: 0 }
+                ]
+            };
+
+            const stats = await session.getStats();
+            expect(stats.audioInputStats).to.not.be.null;
+            expect(stats.audioOutputStats).to.not.be.null;
+            expect((stats.audioInputStats as any).packetsCount).to.equal(100);
+        });
+
+        it('should reject when peer connection is closed', async () => {
+            const session = new SharedMediaSession(config);
+            (session as any)._pc = {
+                signalingState: 'closed'
             };
             
             try {

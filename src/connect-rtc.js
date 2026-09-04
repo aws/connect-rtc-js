@@ -56,21 +56,35 @@ import AzureVDIStrategy from "./strategies/AzureVDIStrategy";
 import FailedVDIStrategy from "./strategies/FailedVDIStrategy";
 
 global.connect = global.connect || {};
-global.connect.RTCSession = RtcSession;
-global.connect.RTCErrors = RTC_ERRORS;
-global.connect.MediaDevices = MediaDevices;
-global.connect.RtcPeerConnectionFactory = RtcPeerConnectionFactory;
-global.connect.RtcPeerConnectionManager = RtcPeerConnectionManager;
-global.connect.RtcPeerConnectionManagerV2 = RtcPeerConnectionManagerV2;
-global.connect.uuid = uuid;
-global.connect.StandardStrategy = StandardStrategy;
-global.connect.CitrixVDIStrategy = CitrixVDIStrategy;
-global.connect.DCVWebRTCStrategy = DCVWebRTCStrategy;
-global.connect.OmnissaVDIStrategy = OmnissaVDIStrategy;
-global.connect.AzureVDIStrategy = AzureVDIStrategy;
-global.connect.FailedVDIStrategy = FailedVDIStrategy;
-global.connect.activePeerConnectionCount = 0;
 
-global.lily = global.lily || {};
-global.lily.RTCSession = RtcSession;
-global.lily.RTCErrors = RTC_ERRORS;
+// When RtcJS is loaded at runtime via Module Federation, this module body can
+// execute AFTER Streams already committed a live softphone session (PCM or a
+// legacy RTCSession) to the currently-attached RtcJS instance. Streams sets
+// connect._rtcJsCommitted at every such commit point. Overwriting the connect.*
+// class references here would split that live session's RtcJS instance from the
+// strategy/PCM it was built with — the VDI redirection SDK cannot drive a
+// session created by a different instance. If already committed, attach nothing
+// and defer promotion to the next page load; the check-and-attach is synchronous
+// so no session setup can interleave.
+if (global.connect._rtcJsCommitted) {
+  global.connect._rtcRuntimeArrivedLate = true;
+} else {
+  global.connect.RTCSession = RtcSession;
+  global.connect.RTCErrors = RTC_ERRORS;
+  global.connect.MediaDevices = MediaDevices;
+  global.connect.RtcPeerConnectionFactory = RtcPeerConnectionFactory;
+  global.connect.RtcPeerConnectionManager = RtcPeerConnectionManager;
+  global.connect.RtcPeerConnectionManagerV2 = RtcPeerConnectionManagerV2;
+  global.connect.uuid = uuid;
+  global.connect.StandardStrategy = StandardStrategy;
+  global.connect.CitrixVDIStrategy = CitrixVDIStrategy;
+  global.connect.DCVWebRTCStrategy = DCVWebRTCStrategy;
+  global.connect.OmnissaVDIStrategy = OmnissaVDIStrategy;
+  global.connect.AzureVDIStrategy = AzureVDIStrategy;
+  global.connect.FailedVDIStrategy = FailedVDIStrategy;
+  global.connect.activePeerConnectionCount = 0;
+
+  global.lily = global.lily || {};
+  global.lily.RTCSession = RtcSession;
+  global.lily.RTCErrors = RTC_ERRORS;
+}
